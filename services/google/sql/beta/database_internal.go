@@ -22,7 +22,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -494,6 +493,7 @@ type databaseDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         databaseApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -512,91 +512,52 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 
 	var diffs []databaseDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Charset, actual.Charset, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Charset, actual.Charset, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "charset"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, databaseDiff{
-			UpdateOp: &updateDatabaseUpdateOperation{}, FieldName: "Charset",
+			UpdateOp: &updateDatabaseUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Collation, actual.Collation, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Collation, actual.Collation, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "collation"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, databaseDiff{
-			UpdateOp: &updateDatabaseUpdateOperation{}, FieldName: "Collation",
+			UpdateOp: &updateDatabaseUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Instance, actual.Instance, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "instance"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{RequiresRecreate: true, FieldName: "Instance"})
+		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Project, actual.Project, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{RequiresRecreate: true, FieldName: "Project"})
+		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Charset) && !dcl.StringCanonicalize(desired.Charset, actual.Charset) {
-		c.Config.Logger.Infof("Detected diff in Charset.\nDESIRED: %v\nACTUAL: %v", desired.Charset, actual.Charset)
-
-		diffs = append(diffs, databaseDiff{
-			UpdateOp:  &updateDatabaseUpdateOperation{},
-			FieldName: "Charset",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Collation) && !dcl.StringCanonicalize(desired.Collation, actual.Collation) {
-		c.Config.Logger.Infof("Detected diff in Collation.\nDESIRED: %v\nACTUAL: %v", desired.Collation, actual.Collation)
-
-		diffs = append(diffs, databaseDiff{
-			UpdateOp:  &updateDatabaseUpdateOperation{},
-			FieldName: "Collation",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Instance) && !dcl.StringCanonicalize(desired.Instance, actual.Instance) {
-		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %v\nACTUAL: %v", desired.Instance, actual.Instance)
-		diffs = append(diffs, databaseDiff{
-			RequiresRecreate: true,
-			FieldName:        "Instance",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, databaseDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.StringCanonicalize(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %v\nACTUAL: %v", desired.Project, actual.Project)
-		diffs = append(diffs, databaseDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -626,7 +587,7 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Database) urlNormalized() *Database {
-	normalized := deepcopy.Copy(*r).(Database)
+	normalized := dcl.Copy(*r).(Database)
 	normalized.Charset = dcl.SelfLinkToName(r.Charset)
 	normalized.Collation = dcl.SelfLinkToName(r.Collation)
 	normalized.Instance = dcl.SelfLinkToName(r.Instance)

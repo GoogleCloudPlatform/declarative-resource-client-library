@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -583,6 +582,7 @@ type userDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         userApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -601,43 +601,59 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]user
 
 	var diffs []userDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Password, actual.Password, &dcl.Info{Ignore: true, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Password, actual.Password, dcl.Info{Ignore: true, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "password"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, userDiff{
-			UpdateOp: &updateUserUpdateOperation{}, FieldName: "Password",
+			UpdateOp: &updateUserUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Etag, actual.Etag, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{RequiresRecreate: true, FieldName: "Etag"})
+		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Host, actual.Host, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "instance"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{RequiresRecreate: true, FieldName: "Host"})
+		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "type"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, userDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
+			UpdateOp: &updateUserUpdateOperation{}, Diffs: ds,
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "etag"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "host"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareUserSqlserverUserDetails(c, desired.SqlserverUserDetails, actual.SqlserverUserDetails) {
 		c.Config.Logger.Infof("Detected diff in SqlserverUserDetails.\nDESIRED: %v\nACTUAL: %v", desired.SqlserverUserDetails, actual.SqlserverUserDetails)
 
@@ -646,29 +662,6 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]user
 			FieldName: "SqlserverUserDetails",
 		})
 
-	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) {
-		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
-
-		diffs = append(diffs, userDiff{
-			UpdateOp:  &updateUserUpdateOperation{},
-			FieldName: "Type",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Etag) && !dcl.StringCanonicalize(desired.Etag, actual.Etag) {
-		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %v\nACTUAL: %v", desired.Etag, actual.Etag)
-		diffs = append(diffs, userDiff{
-			RequiresRecreate: true,
-			FieldName:        "Etag",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Host) && !dcl.StringCanonicalize(desired.Host, actual.Host) {
-		c.Config.Logger.Infof("Detected diff in Host.\nDESIRED: %v\nACTUAL: %v", desired.Host, actual.Host)
-		diffs = append(diffs, userDiff{
-			RequiresRecreate: true,
-			FieldName:        "Host",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -701,20 +694,12 @@ func compareUserSqlserverUserDetails(c *Client, desired, actual *UserSqlserverUs
 	if actual == nil {
 		return true
 	}
-	if actual.Disabled == nil && desired.Disabled != nil && !dcl.IsEmptyValueIndirect(desired.Disabled) {
-		c.Config.Logger.Infof("desired Disabled %s - but actually nil", dcl.SprintResource(desired.Disabled))
-		return true
-	}
 	if !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
-		c.Config.Logger.Infof("Diff in Disabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
-		return true
-	}
-	if actual.ServerRoles == nil && desired.ServerRoles != nil && !dcl.IsEmptyValueIndirect(desired.ServerRoles) {
-		c.Config.Logger.Infof("desired ServerRoles %s - but actually nil", dcl.SprintResource(desired.ServerRoles))
+		c.Config.Logger.Infof("Diff in Disabled.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.ServerRoles, actual.ServerRoles) && !dcl.IsZeroValue(desired.ServerRoles) {
-		c.Config.Logger.Infof("Diff in ServerRoles. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServerRoles), dcl.SprintResource(actual.ServerRoles))
+		c.Config.Logger.Infof("Diff in ServerRoles.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServerRoles), dcl.SprintResource(actual.ServerRoles))
 		return true
 	}
 	return false
@@ -727,7 +712,7 @@ func compareUserSqlserverUserDetailsSlice(c *Client, desired, actual []UserSqlse
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUserSqlserverUserDetails(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UserSqlserverUserDetails, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UserSqlserverUserDetails, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -746,7 +731,7 @@ func compareUserSqlserverUserDetailsMap(c *Client, desired, actual map[string]Us
 			return true
 		}
 		if compareUserSqlserverUserDetails(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UserSqlserverUserDetails, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UserSqlserverUserDetails, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -760,7 +745,7 @@ func compareUserTypeEnumSlice(c *Client, desired, actual []UserTypeEnum) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUserTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UserTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UserTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -775,7 +760,7 @@ func compareUserTypeEnum(c *Client, desired, actual *UserTypeEnum) bool {
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *User) urlNormalized() *User {
-	normalized := deepcopy.Copy(*r).(User)
+	normalized := dcl.Copy(*r).(User)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Password = dcl.SelfLinkToName(r.Password)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
@@ -852,17 +837,17 @@ func expandUser(c *Client, f *User) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Instance into instance: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["instance"] = v
 	}
 	if v, err := expandUserSqlserverUserDetails(c, f.SqlserverUserDetails); err != nil {
 		return nil, fmt.Errorf("error expanding SqlserverUserDetails into sqlserverUserDetails: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sqlserverUserDetails"] = v
 	}
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
@@ -986,11 +971,10 @@ func flattenUserSqlserverUserDetailsSlice(c *Client, i interface{}) []UserSqlser
 // expandUserSqlserverUserDetails expands an instance of UserSqlserverUserDetails into a JSON
 // request object.
 func expandUserSqlserverUserDetails(c *Client, f *UserSqlserverUserDetails) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
 		m["disabled"] = v
 	}

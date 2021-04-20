@@ -106,7 +106,7 @@ components:
               type: string
               x-dcl-go-name: Description
             updateTime:
-              description: Output only. The time when the policy was updated.
+              description: Output only. The time when the policy was last updated.
               format: date-time
               readOnly: true
               type: string
@@ -118,9 +118,9 @@ components:
               items:
                 properties:
                   day:
-                    description: 'Required. Allows to define schedule that runs specified
-                      day of the week. Possible values: DAY_OF_WEEK_UNSPECIFIED, MONDAY,
-                      TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY'
+                    description: 'Required. The day of week that maintenance updates
+                      occur. Possible values: DAY_OF_WEEK_UNSPECIFIED, MONDAY, TUESDAY,
+                      WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY'
                     enum:
                     - DAY_OF_WEEK_UNSPECIFIED
                     - MONDAY
@@ -134,13 +134,13 @@ components:
                     x-dcl-go-name: Day
                     x-dcl-go-type: InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum
                   duration:
-                    description: Output only. Duration of the time window. Fixed to
-                      be 3 hours for now.
+                    description: Output only. Duration of the maintenance window.
+                      The current window is fixed at 3 hours.
                     readOnly: true
                     type: string
                     x-dcl-go-name: Duration
                   startTime:
-                    description: Required. Start time of the window in UTC.
+                    description: Required. Start time of the window in UTC time.
                     properties:
                       hours:
                         description: Hours of day in 24 hour format. Should be from
@@ -197,6 +197,14 @@ components:
               readOnly: true
               type: string
               x-dcl-go-name: EndTime
+              x-kubernetes-immutable: true
+            scheduleDeadlineTime:
+              description: Output only. The deadline that the maintenance schedule
+                start time can not go beyond, including reschedule.
+              format: date-time
+              readOnly: true
+              type: string
+              x-dcl-go-name: ScheduleDeadlineTime
               x-kubernetes-immutable: true
             startTime:
               description: Output only. The start time of any upcoming scheduled maintenance
@@ -270,12 +278,6 @@ components:
             Redis 5.0 compatibility'
           type: string
           x-dcl-go-name: RedisVersion
-        region:
-          description: DO NOT USE - deprecated in favor of 'location'.  Included only
-            to support tpgtools serialization for now, until it is removed.
-          type: string
-          x-dcl-go-name: Region
-          x-kubernetes-immutable: true
         reservedIPRange:
           description: Optional. For DIRECT\\\_PEERING mode, the CIDR range of internal
             addresses that are reserved for this instance. Range must be unique and
@@ -384,8 +386,7 @@ components:
       type: object
       x-dcl-id: projects/{{project}}/locations/{{location}}/instances/{{name}}
       x-dcl-labels: labels
-      x-dcl-locations:
-      - region
+      x-dcl-locations: []
       x-dcl-parent-container: project
       x-dcl-uses-state-hint: false
 info:

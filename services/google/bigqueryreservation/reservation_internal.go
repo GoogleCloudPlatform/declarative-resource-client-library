@@ -19,11 +19,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -463,6 +461,7 @@ type reservationDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         reservationApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -481,56 +480,59 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 
 	var diffs []reservationDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.SlotCapacity, actual.SlotCapacity, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.SlotCapacity, actual.SlotCapacity, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "slot_capacity"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, reservationDiff{
-			UpdateOp: &updateReservationUpdateReservationOperation{}, FieldName: "SlotCapacity",
+			UpdateOp: &updateReservationUpdateReservationOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.IgnoreIdleSlots, actual.IgnoreIdleSlots, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreIdleSlots, actual.IgnoreIdleSlots, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ignore_idle_slots"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, reservationDiff{
-			UpdateOp: &updateReservationUpdateReservationOperation{}, FieldName: "IgnoreIdleSlots",
+			UpdateOp: &updateReservationUpdateReservationOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.CreationTime, actual.CreationTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTime, actual.CreationTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "creation_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, FieldName: "CreationTime"})
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !reflect.DeepEqual(desired.SlotCapacity, actual.SlotCapacity) {
-		c.Config.Logger.Infof("Detected diff in SlotCapacity.\nDESIRED: %v\nACTUAL: %v", desired.SlotCapacity, actual.SlotCapacity)
-
-		diffs = append(diffs, reservationDiff{
-			UpdateOp:  &updateReservationUpdateReservationOperation{},
-			FieldName: "SlotCapacity",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.IgnoreIdleSlots) && !dcl.BoolCanonicalize(desired.IgnoreIdleSlots, actual.IgnoreIdleSlots) {
-		c.Config.Logger.Infof("Detected diff in IgnoreIdleSlots.\nDESIRED: %v\nACTUAL: %v", desired.IgnoreIdleSlots, actual.IgnoreIdleSlots)
 
-		diffs = append(diffs, reservationDiff{
-			UpdateOp:  &updateReservationUpdateReservationOperation{},
-			FieldName: "IgnoreIdleSlots",
-		})
-
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -560,7 +562,7 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Reservation) urlNormalized() *Reservation {
-	normalized := deepcopy.Copy(*r).(Reservation)
+	normalized := dcl.Copy(*r).(Reservation)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
@@ -627,7 +629,7 @@ func expandReservation(c *Client, f *Reservation) (map[string]interface{}, error
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.SlotCapacity; !dcl.IsEmptyValueIndirect(v) {
@@ -644,12 +646,12 @@ func expandReservation(c *Client, f *Reservation) (map[string]interface{}, error
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 

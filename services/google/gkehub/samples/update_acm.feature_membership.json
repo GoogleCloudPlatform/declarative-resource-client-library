@@ -1,0 +1,38 @@
+{
+  "membership": "{{ref:basic.membership.json:name}}",
+  "project": "{{project}}",
+  "projectNumber": "{{project_number}}",
+  "location": "global",
+  "feature": "{{ref:acm.feature.json:name}}",
+  "configmanagement": {
+    "version": "1.6.3",
+    "configSync": {
+      "sourceFormat": "unstructured",
+      "git": {
+        "syncRepo": "https://github.com/GoogleCloudPlatform/cloud-foundation-toolkit",
+        "syncBranch": "master",
+        "policyDir": "config-connector",
+        "syncWaitSecs": "20",
+        "syncRev": "HEAD",
+        "secretType": "gcpServiceAcccount",
+        "gcpServiceAccountEmail": "{{test_service_account}}"
+      }
+    },
+    "policyController": {
+      "enabled": true,
+      "exemptableNamespaces": ["test-namespace"],
+      "referentialRulesEnabled": true,
+      "logDeniesEnabled": true,
+      "templateLibraryInstalled": true,
+      "auditIntervalSeconds": "20"
+    },
+    "binauthz": {
+      "enabled": true
+    },
+    "hierarchyController": {
+      "enabled": true,
+      "enablePodTreeLabels": true,
+      "enableHierarchicalResourceQuota": true
+    }
+  }
+}

@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -425,6 +424,7 @@ type assignmentDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         assignmentApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -443,34 +443,48 @@ func diffAssignment(c *Client, desired, actual *Assignment, opts ...dcl.ApplyOpt
 
 	var diffs []assignmentDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Assignee, actual.Assignee, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Assignee, actual.Assignee, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "assignee"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, FieldName: "Assignee"})
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Assignee) && !dcl.StringCanonicalize(desired.Assignee, actual.Assignee) {
-		c.Config.Logger.Infof("Detected diff in Assignee.\nDESIRED: %v\nACTUAL: %v", desired.Assignee, actual.Assignee)
-		diffs = append(diffs, assignmentDiff{
-			RequiresRecreate: true,
-			FieldName:        "Assignee",
-		})
+	if ds, err := dcl.Diff(desired.JobType, actual.JobType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "job_type"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.JobType, actual.JobType) {
-		c.Config.Logger.Infof("Detected diff in JobType.\nDESIRED: %v\nACTUAL: %v", desired.JobType, actual.JobType)
-		diffs = append(diffs, assignmentDiff{
-			RequiresRecreate: true,
-			FieldName:        "JobType",
-		})
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.State, actual.State) {
-		c.Config.Logger.Infof("Detected diff in State.\nDESIRED: %v\nACTUAL: %v", desired.State, actual.State)
-		diffs = append(diffs, assignmentDiff{
-			RequiresRecreate: true,
-			FieldName:        "State",
-		})
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Reservation, actual.Reservation, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "reservation"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -502,7 +516,7 @@ func compareAssignmentJobTypeEnumSlice(c *Client, desired, actual []AssignmentJo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareAssignmentJobTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AssignmentJobTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in AssignmentJobTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -520,7 +534,7 @@ func compareAssignmentStateEnumSlice(c *Client, desired, actual []AssignmentStat
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareAssignmentStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AssignmentStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in AssignmentStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -535,7 +549,7 @@ func compareAssignmentStateEnum(c *Client, desired, actual *AssignmentStateEnum)
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Assignment) urlNormalized() *Assignment {
-	normalized := deepcopy.Copy(*r).(Assignment)
+	normalized := dcl.Copy(*r).(Assignment)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Assignee = dcl.SelfLinkToName(r.Assignee)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
@@ -606,17 +620,17 @@ func expandAssignment(c *Client, f *Assignment) (map[string]interface{}, error) 
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Reservation into reservation: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["reservation"] = v
 	}
 

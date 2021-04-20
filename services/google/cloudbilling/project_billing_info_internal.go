@@ -21,7 +21,6 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -365,6 +364,7 @@ type projectBillingInfoDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         projectBillingInfoApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -383,31 +383,29 @@ func diffProjectBillingInfo(c *Client, desired, actual *ProjectBillingInfo, opts
 
 	var diffs []projectBillingInfoDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.BillingAccountName, actual.BillingAccountName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, projectBillingInfoDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.BillingAccountName, actual.BillingAccountName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "billing_account_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, projectBillingInfoDiff{
-			UpdateOp: &updateProjectBillingInfoUpdateProjectBillingInfoOperation{}, FieldName: "BillingAccountName",
+			UpdateOp: &updateProjectBillingInfoUpdateProjectBillingInfoOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.BillingEnabled, actual.BillingEnabled, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.BillingEnabled, actual.BillingEnabled, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "billing_enabled"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, projectBillingInfoDiff{RequiresRecreate: true, FieldName: "BillingEnabled"})
+		diffs = append(diffs, projectBillingInfoDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.BillingAccountName) && !dcl.PartialSelfLinkToSelfLink(desired.BillingAccountName, actual.BillingAccountName) {
-		c.Config.Logger.Infof("Detected diff in BillingAccountName.\nDESIRED: %v\nACTUAL: %v", desired.BillingAccountName, actual.BillingAccountName)
-
-		diffs = append(diffs, projectBillingInfoDiff{
-			UpdateOp:  &updateProjectBillingInfoUpdateProjectBillingInfoOperation{},
-			FieldName: "BillingAccountName",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -437,7 +435,7 @@ func diffProjectBillingInfo(c *Client, desired, actual *ProjectBillingInfo, opts
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *ProjectBillingInfo) urlNormalized() *ProjectBillingInfo {
-	normalized := deepcopy.Copy(*r).(ProjectBillingInfo)
+	normalized := dcl.Copy(*r).(ProjectBillingInfo)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.BillingAccountName = dcl.SelfLinkToName(r.BillingAccountName)
 	normalized.BillingEnabled = dcl.SelfLinkToName(r.BillingEnabled)
@@ -502,12 +500,12 @@ func expandProjectBillingInfo(c *Client, f *ProjectBillingInfo) (map[string]inte
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into projectId: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["projectId"] = v
 	}
 	if v, err := dcl.DeriveField("billingAccounts/%s", f.BillingAccountName, f.BillingAccountName); err != nil {
 		return nil, fmt.Errorf("error expanding BillingAccountName into billingAccountName: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else {
 		m["billingAccountName"] = v
 	}
 	if v := f.BillingEnabled; !dcl.IsEmptyValueIndirect(v) {

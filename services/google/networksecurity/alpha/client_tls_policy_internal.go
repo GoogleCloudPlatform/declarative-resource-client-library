@@ -22,7 +22,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -1153,6 +1152,7 @@ type clientTlsPolicyDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         clientTlsPolicyApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -1171,88 +1171,68 @@ func diffClientTlsPolicy(c *Client, desired, actual *ClientTlsPolicy, opts ...dc
 
 	var diffs []clientTlsPolicyDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clientTlsPolicyDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, clientTlsPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, clientTlsPolicyDiff{
-			UpdateOp: &updateClientTlsPolicyUpdateClientTlsPolicyOperation{}, FieldName: "Description",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, clientTlsPolicyDiff{RequiresRecreate: true, FieldName: "CreateTime"})
-	}
-
-	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, clientTlsPolicyDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
-	}
-
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, clientTlsPolicyDiff{
-			UpdateOp: &updateClientTlsPolicyUpdateClientTlsPolicyOperation{}, FieldName: "Labels",
+			UpdateOp: &updateClientTlsPolicyUpdateClientTlsPolicyOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Sni, actual.Sni, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clientTlsPolicyDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clientTlsPolicyDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, clientTlsPolicyDiff{
-			UpdateOp: &updateClientTlsPolicyUpdateClientTlsPolicyOperation{}, FieldName: "Sni",
+			UpdateOp: &updateClientTlsPolicyUpdateClientTlsPolicyOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
+	if ds, err := dcl.Diff(desired.Sni, actual.Sni, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "sni"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, clientTlsPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
+			UpdateOp: &updateClientTlsPolicyUpdateClientTlsPolicyOperation{}, Diffs: ds,
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
-		diffs = append(diffs, clientTlsPolicyDiff{
-			UpdateOp:  &updateClientTlsPolicyUpdateClientTlsPolicyOperation{},
-			FieldName: "Description",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clientTlsPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
-		diffs = append(diffs, clientTlsPolicyDiff{
-			UpdateOp:  &updateClientTlsPolicyUpdateClientTlsPolicyOperation{},
-			FieldName: "Labels",
-		})
-
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clientTlsPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Sni) && !dcl.StringCanonicalize(desired.Sni, actual.Sni) {
-		c.Config.Logger.Infof("Detected diff in Sni.\nDESIRED: %v\nACTUAL: %v", desired.Sni, actual.Sni)
 
-		diffs = append(diffs, clientTlsPolicyDiff{
-			UpdateOp:  &updateClientTlsPolicyUpdateClientTlsPolicyOperation{},
-			FieldName: "Sni",
-		})
-
-	}
 	if compareClientTlsPolicyClientCertificate(c, desired.ClientCertificate, actual.ClientCertificate) {
 		c.Config.Logger.Infof("Detected diff in ClientCertificate.\nDESIRED: %v\nACTUAL: %v", desired.ClientCertificate, actual.ClientCertificate)
 
@@ -1302,28 +1282,16 @@ func compareClientTlsPolicyClientCertificate(c *Client, desired, actual *ClientT
 	if actual == nil {
 		return true
 	}
-	if actual.LocalFilepath == nil && desired.LocalFilepath != nil && !dcl.IsEmptyValueIndirect(desired.LocalFilepath) {
-		c.Config.Logger.Infof("desired LocalFilepath %s - but actually nil", dcl.SprintResource(desired.LocalFilepath))
-		return true
-	}
 	if compareClientTlsPolicyClientCertificateLocalFilepath(c, desired.LocalFilepath, actual.LocalFilepath) && !dcl.IsZeroValue(desired.LocalFilepath) {
-		c.Config.Logger.Infof("Diff in LocalFilepath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalFilepath), dcl.SprintResource(actual.LocalFilepath))
-		return true
-	}
-	if actual.GrpcEndpoint == nil && desired.GrpcEndpoint != nil && !dcl.IsEmptyValueIndirect(desired.GrpcEndpoint) {
-		c.Config.Logger.Infof("desired GrpcEndpoint %s - but actually nil", dcl.SprintResource(desired.GrpcEndpoint))
+		c.Config.Logger.Infof("Diff in LocalFilepath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalFilepath), dcl.SprintResource(actual.LocalFilepath))
 		return true
 	}
 	if compareClientTlsPolicyClientCertificateGrpcEndpoint(c, desired.GrpcEndpoint, actual.GrpcEndpoint) && !dcl.IsZeroValue(desired.GrpcEndpoint) {
-		c.Config.Logger.Infof("Diff in GrpcEndpoint. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrpcEndpoint), dcl.SprintResource(actual.GrpcEndpoint))
-		return true
-	}
-	if actual.CertificateProviderInstance == nil && desired.CertificateProviderInstance != nil && !dcl.IsEmptyValueIndirect(desired.CertificateProviderInstance) {
-		c.Config.Logger.Infof("desired CertificateProviderInstance %s - but actually nil", dcl.SprintResource(desired.CertificateProviderInstance))
+		c.Config.Logger.Infof("Diff in GrpcEndpoint.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrpcEndpoint), dcl.SprintResource(actual.GrpcEndpoint))
 		return true
 	}
 	if compareClientTlsPolicyClientCertificateCertificateProviderInstance(c, desired.CertificateProviderInstance, actual.CertificateProviderInstance) && !dcl.IsZeroValue(desired.CertificateProviderInstance) {
-		c.Config.Logger.Infof("Diff in CertificateProviderInstance. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CertificateProviderInstance), dcl.SprintResource(actual.CertificateProviderInstance))
+		c.Config.Logger.Infof("Diff in CertificateProviderInstance.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CertificateProviderInstance), dcl.SprintResource(actual.CertificateProviderInstance))
 		return true
 	}
 	return false
@@ -1336,7 +1304,7 @@ func compareClientTlsPolicyClientCertificateSlice(c *Client, desired, actual []C
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClientTlsPolicyClientCertificate(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificate, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificate, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1355,7 +1323,7 @@ func compareClientTlsPolicyClientCertificateMap(c *Client, desired, actual map[s
 			return true
 		}
 		if compareClientTlsPolicyClientCertificate(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificate, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificate, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1369,20 +1337,12 @@ func compareClientTlsPolicyClientCertificateLocalFilepath(c *Client, desired, ac
 	if actual == nil {
 		return true
 	}
-	if actual.CertificatePath == nil && desired.CertificatePath != nil && !dcl.IsEmptyValueIndirect(desired.CertificatePath) {
-		c.Config.Logger.Infof("desired CertificatePath %s - but actually nil", dcl.SprintResource(desired.CertificatePath))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.CertificatePath, actual.CertificatePath) && !dcl.IsZeroValue(desired.CertificatePath) {
-		c.Config.Logger.Infof("Diff in CertificatePath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CertificatePath), dcl.SprintResource(actual.CertificatePath))
-		return true
-	}
-	if actual.PrivateKeyPath == nil && desired.PrivateKeyPath != nil && !dcl.IsEmptyValueIndirect(desired.PrivateKeyPath) {
-		c.Config.Logger.Infof("desired PrivateKeyPath %s - but actually nil", dcl.SprintResource(desired.PrivateKeyPath))
+		c.Config.Logger.Infof("Diff in CertificatePath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CertificatePath), dcl.SprintResource(actual.CertificatePath))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.PrivateKeyPath, actual.PrivateKeyPath) && !dcl.IsZeroValue(desired.PrivateKeyPath) {
-		c.Config.Logger.Infof("Diff in PrivateKeyPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrivateKeyPath), dcl.SprintResource(actual.PrivateKeyPath))
+		c.Config.Logger.Infof("Diff in PrivateKeyPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrivateKeyPath), dcl.SprintResource(actual.PrivateKeyPath))
 		return true
 	}
 	return false
@@ -1395,7 +1355,7 @@ func compareClientTlsPolicyClientCertificateLocalFilepathSlice(c *Client, desire
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClientTlsPolicyClientCertificateLocalFilepath(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificateLocalFilepath, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificateLocalFilepath, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1414,7 +1374,7 @@ func compareClientTlsPolicyClientCertificateLocalFilepathMap(c *Client, desired,
 			return true
 		}
 		if compareClientTlsPolicyClientCertificateLocalFilepath(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificateLocalFilepath, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificateLocalFilepath, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1428,12 +1388,8 @@ func compareClientTlsPolicyClientCertificateGrpcEndpoint(c *Client, desired, act
 	if actual == nil {
 		return true
 	}
-	if actual.TargetUri == nil && desired.TargetUri != nil && !dcl.IsEmptyValueIndirect(desired.TargetUri) {
-		c.Config.Logger.Infof("desired TargetUri %s - but actually nil", dcl.SprintResource(desired.TargetUri))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.TargetUri, actual.TargetUri) && !dcl.IsZeroValue(desired.TargetUri) {
-		c.Config.Logger.Infof("Diff in TargetUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetUri), dcl.SprintResource(actual.TargetUri))
+		c.Config.Logger.Infof("Diff in TargetUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetUri), dcl.SprintResource(actual.TargetUri))
 		return true
 	}
 	return false
@@ -1446,7 +1402,7 @@ func compareClientTlsPolicyClientCertificateGrpcEndpointSlice(c *Client, desired
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClientTlsPolicyClientCertificateGrpcEndpoint(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificateGrpcEndpoint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificateGrpcEndpoint, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1465,7 +1421,7 @@ func compareClientTlsPolicyClientCertificateGrpcEndpointMap(c *Client, desired, 
 			return true
 		}
 		if compareClientTlsPolicyClientCertificateGrpcEndpoint(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificateGrpcEndpoint, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificateGrpcEndpoint, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1479,12 +1435,8 @@ func compareClientTlsPolicyClientCertificateCertificateProviderInstance(c *Clien
 	if actual == nil {
 		return true
 	}
-	if actual.PluginInstance == nil && desired.PluginInstance != nil && !dcl.IsEmptyValueIndirect(desired.PluginInstance) {
-		c.Config.Logger.Infof("desired PluginInstance %s - but actually nil", dcl.SprintResource(desired.PluginInstance))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.PluginInstance, actual.PluginInstance) && !dcl.IsZeroValue(desired.PluginInstance) {
-		c.Config.Logger.Infof("Diff in PluginInstance. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PluginInstance), dcl.SprintResource(actual.PluginInstance))
+		c.Config.Logger.Infof("Diff in PluginInstance.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PluginInstance), dcl.SprintResource(actual.PluginInstance))
 		return true
 	}
 	return false
@@ -1497,7 +1449,7 @@ func compareClientTlsPolicyClientCertificateCertificateProviderInstanceSlice(c *
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClientTlsPolicyClientCertificateCertificateProviderInstance(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificateCertificateProviderInstance, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificateCertificateProviderInstance, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1516,7 +1468,7 @@ func compareClientTlsPolicyClientCertificateCertificateProviderInstanceMap(c *Cl
 			return true
 		}
 		if compareClientTlsPolicyClientCertificateCertificateProviderInstance(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificateCertificateProviderInstance, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyClientCertificateCertificateProviderInstance, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1530,28 +1482,16 @@ func compareClientTlsPolicyServerValidationCa(c *Client, desired, actual *Client
 	if actual == nil {
 		return true
 	}
-	if actual.CaCertPath == nil && desired.CaCertPath != nil && !dcl.IsEmptyValueIndirect(desired.CaCertPath) {
-		c.Config.Logger.Infof("desired CaCertPath %s - but actually nil", dcl.SprintResource(desired.CaCertPath))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.CaCertPath, actual.CaCertPath) && !dcl.IsZeroValue(desired.CaCertPath) {
-		c.Config.Logger.Infof("Diff in CaCertPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CaCertPath), dcl.SprintResource(actual.CaCertPath))
-		return true
-	}
-	if actual.GrpcEndpoint == nil && desired.GrpcEndpoint != nil && !dcl.IsEmptyValueIndirect(desired.GrpcEndpoint) {
-		c.Config.Logger.Infof("desired GrpcEndpoint %s - but actually nil", dcl.SprintResource(desired.GrpcEndpoint))
+		c.Config.Logger.Infof("Diff in CaCertPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CaCertPath), dcl.SprintResource(actual.CaCertPath))
 		return true
 	}
 	if compareClientTlsPolicyServerValidationCaGrpcEndpoint(c, desired.GrpcEndpoint, actual.GrpcEndpoint) && !dcl.IsZeroValue(desired.GrpcEndpoint) {
-		c.Config.Logger.Infof("Diff in GrpcEndpoint. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrpcEndpoint), dcl.SprintResource(actual.GrpcEndpoint))
-		return true
-	}
-	if actual.CertificateProviderInstance == nil && desired.CertificateProviderInstance != nil && !dcl.IsEmptyValueIndirect(desired.CertificateProviderInstance) {
-		c.Config.Logger.Infof("desired CertificateProviderInstance %s - but actually nil", dcl.SprintResource(desired.CertificateProviderInstance))
+		c.Config.Logger.Infof("Diff in GrpcEndpoint.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrpcEndpoint), dcl.SprintResource(actual.GrpcEndpoint))
 		return true
 	}
 	if compareClientTlsPolicyServerValidationCaCertificateProviderInstance(c, desired.CertificateProviderInstance, actual.CertificateProviderInstance) && !dcl.IsZeroValue(desired.CertificateProviderInstance) {
-		c.Config.Logger.Infof("Diff in CertificateProviderInstance. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CertificateProviderInstance), dcl.SprintResource(actual.CertificateProviderInstance))
+		c.Config.Logger.Infof("Diff in CertificateProviderInstance.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CertificateProviderInstance), dcl.SprintResource(actual.CertificateProviderInstance))
 		return true
 	}
 	return false
@@ -1564,7 +1504,7 @@ func compareClientTlsPolicyServerValidationCaSlice(c *Client, desired, actual []
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClientTlsPolicyServerValidationCa(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyServerValidationCa, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyServerValidationCa, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1583,7 +1523,7 @@ func compareClientTlsPolicyServerValidationCaMap(c *Client, desired, actual map[
 			return true
 		}
 		if compareClientTlsPolicyServerValidationCa(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyServerValidationCa, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyServerValidationCa, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1597,12 +1537,8 @@ func compareClientTlsPolicyServerValidationCaGrpcEndpoint(c *Client, desired, ac
 	if actual == nil {
 		return true
 	}
-	if actual.TargetUri == nil && desired.TargetUri != nil && !dcl.IsEmptyValueIndirect(desired.TargetUri) {
-		c.Config.Logger.Infof("desired TargetUri %s - but actually nil", dcl.SprintResource(desired.TargetUri))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.TargetUri, actual.TargetUri) && !dcl.IsZeroValue(desired.TargetUri) {
-		c.Config.Logger.Infof("Diff in TargetUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetUri), dcl.SprintResource(actual.TargetUri))
+		c.Config.Logger.Infof("Diff in TargetUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetUri), dcl.SprintResource(actual.TargetUri))
 		return true
 	}
 	return false
@@ -1615,7 +1551,7 @@ func compareClientTlsPolicyServerValidationCaGrpcEndpointSlice(c *Client, desire
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClientTlsPolicyServerValidationCaGrpcEndpoint(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyServerValidationCaGrpcEndpoint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyServerValidationCaGrpcEndpoint, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1634,7 +1570,7 @@ func compareClientTlsPolicyServerValidationCaGrpcEndpointMap(c *Client, desired,
 			return true
 		}
 		if compareClientTlsPolicyServerValidationCaGrpcEndpoint(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyServerValidationCaGrpcEndpoint, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyServerValidationCaGrpcEndpoint, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1648,12 +1584,8 @@ func compareClientTlsPolicyServerValidationCaCertificateProviderInstance(c *Clie
 	if actual == nil {
 		return true
 	}
-	if actual.PluginInstance == nil && desired.PluginInstance != nil && !dcl.IsEmptyValueIndirect(desired.PluginInstance) {
-		c.Config.Logger.Infof("desired PluginInstance %s - but actually nil", dcl.SprintResource(desired.PluginInstance))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.PluginInstance, actual.PluginInstance) && !dcl.IsZeroValue(desired.PluginInstance) {
-		c.Config.Logger.Infof("Diff in PluginInstance. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PluginInstance), dcl.SprintResource(actual.PluginInstance))
+		c.Config.Logger.Infof("Diff in PluginInstance.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PluginInstance), dcl.SprintResource(actual.PluginInstance))
 		return true
 	}
 	return false
@@ -1666,7 +1598,7 @@ func compareClientTlsPolicyServerValidationCaCertificateProviderInstanceSlice(c 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClientTlsPolicyServerValidationCaCertificateProviderInstance(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyServerValidationCaCertificateProviderInstance, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyServerValidationCaCertificateProviderInstance, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1685,7 +1617,7 @@ func compareClientTlsPolicyServerValidationCaCertificateProviderInstanceMap(c *C
 			return true
 		}
 		if compareClientTlsPolicyServerValidationCaCertificateProviderInstance(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClientTlsPolicyServerValidationCaCertificateProviderInstance, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClientTlsPolicyServerValidationCaCertificateProviderInstance, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1696,7 +1628,7 @@ func compareClientTlsPolicyServerValidationCaCertificateProviderInstanceMap(c *C
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *ClientTlsPolicy) urlNormalized() *ClientTlsPolicy {
-	normalized := deepcopy.Copy(*r).(ClientTlsPolicy)
+	normalized := dcl.Copy(*r).(ClientTlsPolicy)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Sni = dcl.SelfLinkToName(r.Sni)
@@ -1765,7 +1697,7 @@ func expandClientTlsPolicy(c *Client, f *ClientTlsPolicy) (map[string]interface{
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/clientTlsPolicies/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
@@ -1785,22 +1717,22 @@ func expandClientTlsPolicy(c *Client, f *ClientTlsPolicy) (map[string]interface{
 	}
 	if v, err := expandClientTlsPolicyClientCertificate(c, f.ClientCertificate); err != nil {
 		return nil, fmt.Errorf("error expanding ClientCertificate into clientCertificate: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["clientCertificate"] = v
 	}
 	if v, err := expandClientTlsPolicyServerValidationCaSlice(c, f.ServerValidationCa); err != nil {
 		return nil, fmt.Errorf("error expanding ServerValidationCa into serverValidationCa: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["serverValidationCa"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 
@@ -1917,11 +1849,10 @@ func flattenClientTlsPolicyClientCertificateSlice(c *Client, i interface{}) []Cl
 // expandClientTlsPolicyClientCertificate expands an instance of ClientTlsPolicyClientCertificate into a JSON
 // request object.
 func expandClientTlsPolicyClientCertificate(c *Client, f *ClientTlsPolicyClientCertificate) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandClientTlsPolicyClientCertificateLocalFilepath(c, f.LocalFilepath); err != nil {
 		return nil, fmt.Errorf("error expanding LocalFilepath into localFilepath: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2041,11 +1972,10 @@ func flattenClientTlsPolicyClientCertificateLocalFilepathSlice(c *Client, i inte
 // expandClientTlsPolicyClientCertificateLocalFilepath expands an instance of ClientTlsPolicyClientCertificateLocalFilepath into a JSON
 // request object.
 func expandClientTlsPolicyClientCertificateLocalFilepath(c *Client, f *ClientTlsPolicyClientCertificateLocalFilepath) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.CertificatePath; !dcl.IsEmptyValueIndirect(v) {
 		m["certificatePath"] = v
 	}
@@ -2155,11 +2085,10 @@ func flattenClientTlsPolicyClientCertificateGrpcEndpointSlice(c *Client, i inter
 // expandClientTlsPolicyClientCertificateGrpcEndpoint expands an instance of ClientTlsPolicyClientCertificateGrpcEndpoint into a JSON
 // request object.
 func expandClientTlsPolicyClientCertificateGrpcEndpoint(c *Client, f *ClientTlsPolicyClientCertificateGrpcEndpoint) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetUri; !dcl.IsEmptyValueIndirect(v) {
 		m["targetUri"] = v
 	}
@@ -2265,11 +2194,10 @@ func flattenClientTlsPolicyClientCertificateCertificateProviderInstanceSlice(c *
 // expandClientTlsPolicyClientCertificateCertificateProviderInstance expands an instance of ClientTlsPolicyClientCertificateCertificateProviderInstance into a JSON
 // request object.
 func expandClientTlsPolicyClientCertificateCertificateProviderInstance(c *Client, f *ClientTlsPolicyClientCertificateCertificateProviderInstance) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.PluginInstance; !dcl.IsEmptyValueIndirect(v) {
 		m["pluginInstance"] = v
 	}
@@ -2375,11 +2303,10 @@ func flattenClientTlsPolicyServerValidationCaSlice(c *Client, i interface{}) []C
 // expandClientTlsPolicyServerValidationCa expands an instance of ClientTlsPolicyServerValidationCa into a JSON
 // request object.
 func expandClientTlsPolicyServerValidationCa(c *Client, f *ClientTlsPolicyServerValidationCa) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.CaCertPath; !dcl.IsEmptyValueIndirect(v) {
 		m["caCertPath"] = v
 	}
@@ -2497,11 +2424,10 @@ func flattenClientTlsPolicyServerValidationCaGrpcEndpointSlice(c *Client, i inte
 // expandClientTlsPolicyServerValidationCaGrpcEndpoint expands an instance of ClientTlsPolicyServerValidationCaGrpcEndpoint into a JSON
 // request object.
 func expandClientTlsPolicyServerValidationCaGrpcEndpoint(c *Client, f *ClientTlsPolicyServerValidationCaGrpcEndpoint) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetUri; !dcl.IsEmptyValueIndirect(v) {
 		m["targetUri"] = v
 	}
@@ -2607,11 +2533,10 @@ func flattenClientTlsPolicyServerValidationCaCertificateProviderInstanceSlice(c 
 // expandClientTlsPolicyServerValidationCaCertificateProviderInstance expands an instance of ClientTlsPolicyServerValidationCaCertificateProviderInstance into a JSON
 // request object.
 func expandClientTlsPolicyServerValidationCaCertificateProviderInstance(c *Client, f *ClientTlsPolicyServerValidationCaCertificateProviderInstance) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.PluginInstance; !dcl.IsEmptyValueIndirect(v) {
 		m["pluginInstance"] = v
 	}

@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -820,6 +819,7 @@ type instanceDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         instanceApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -838,78 +838,90 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	var diffs []instanceDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Description",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "StatusMessage",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "status_message"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "CreateTime",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Labels",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Etag, actual.Etag, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Tier, actual.Tier, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "tier"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Etag",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "Description",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
-
 	}
-	if !reflect.DeepEqual(desired.Tier, actual.Tier) {
-		c.Config.Logger.Infof("Detected diff in Tier.\nDESIRED: %v\nACTUAL: %v", desired.Tier, actual.Tier)
 
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "etag"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "Tier",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "Labels",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareInstanceFileSharesSlice(c, desired.FileShares, actual.FileShares) {
 		c.Config.Logger.Infof("Detected diff in FileShares.\nDESIRED: %v\nACTUAL: %v", desired.FileShares, actual.FileShares)
 
@@ -925,15 +937,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
 			FieldName: "Networks",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Etag) && !dcl.StringCanonicalize(desired.Etag, actual.Etag) {
-		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %v\nACTUAL: %v", desired.Etag, actual.Etag)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "Etag",
 		})
 
 	}
@@ -968,36 +971,20 @@ func compareInstanceFileShares(c *Client, desired, actual *InstanceFileShares) b
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.CapacityGb == nil && desired.CapacityGb != nil && !dcl.IsEmptyValueIndirect(desired.CapacityGb) {
-		c.Config.Logger.Infof("desired CapacityGb %s - but actually nil", dcl.SprintResource(desired.CapacityGb))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !reflect.DeepEqual(desired.CapacityGb, actual.CapacityGb) && !dcl.IsZeroValue(desired.CapacityGb) {
-		c.Config.Logger.Infof("Diff in CapacityGb. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CapacityGb), dcl.SprintResource(actual.CapacityGb))
-		return true
-	}
-	if actual.SourceBackup == nil && desired.SourceBackup != nil && !dcl.IsEmptyValueIndirect(desired.SourceBackup) {
-		c.Config.Logger.Infof("desired SourceBackup %s - but actually nil", dcl.SprintResource(desired.SourceBackup))
+		c.Config.Logger.Infof("Diff in CapacityGb.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CapacityGb), dcl.SprintResource(actual.CapacityGb))
 		return true
 	}
 	if !dcl.NameToSelfLink(desired.SourceBackup, actual.SourceBackup) && !dcl.IsZeroValue(desired.SourceBackup) {
-		c.Config.Logger.Infof("Diff in SourceBackup. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceBackup), dcl.SprintResource(actual.SourceBackup))
-		return true
-	}
-	if actual.NfsExportOptions == nil && desired.NfsExportOptions != nil && !dcl.IsEmptyValueIndirect(desired.NfsExportOptions) {
-		c.Config.Logger.Infof("desired NfsExportOptions %s - but actually nil", dcl.SprintResource(desired.NfsExportOptions))
+		c.Config.Logger.Infof("Diff in SourceBackup.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceBackup), dcl.SprintResource(actual.SourceBackup))
 		return true
 	}
 	if compareInstanceFileSharesNfsExportOptionsSlice(c, desired.NfsExportOptions, actual.NfsExportOptions) && !dcl.IsZeroValue(desired.NfsExportOptions) {
-		c.Config.Logger.Infof("Diff in NfsExportOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NfsExportOptions), dcl.SprintResource(actual.NfsExportOptions))
+		c.Config.Logger.Infof("Diff in NfsExportOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NfsExportOptions), dcl.SprintResource(actual.NfsExportOptions))
 		return true
 	}
 	return false
@@ -1010,7 +997,7 @@ func compareInstanceFileSharesSlice(c *Client, desired, actual []InstanceFileSha
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceFileShares(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceFileShares, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceFileShares, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1029,7 +1016,7 @@ func compareInstanceFileSharesMap(c *Client, desired, actual map[string]Instance
 			return true
 		}
 		if compareInstanceFileShares(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceFileShares, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceFileShares, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1043,44 +1030,24 @@ func compareInstanceFileSharesNfsExportOptions(c *Client, desired, actual *Insta
 	if actual == nil {
 		return true
 	}
-	if actual.IPRanges == nil && desired.IPRanges != nil && !dcl.IsEmptyValueIndirect(desired.IPRanges) {
-		c.Config.Logger.Infof("desired IPRanges %s - but actually nil", dcl.SprintResource(desired.IPRanges))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.IPRanges, actual.IPRanges) && !dcl.IsZeroValue(desired.IPRanges) {
-		c.Config.Logger.Infof("Diff in IPRanges. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPRanges), dcl.SprintResource(actual.IPRanges))
-		return true
-	}
-	if actual.AccessMode == nil && desired.AccessMode != nil && !dcl.IsEmptyValueIndirect(desired.AccessMode) {
-		c.Config.Logger.Infof("desired AccessMode %s - but actually nil", dcl.SprintResource(desired.AccessMode))
+		c.Config.Logger.Infof("Diff in IPRanges.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPRanges), dcl.SprintResource(actual.IPRanges))
 		return true
 	}
 	if !reflect.DeepEqual(desired.AccessMode, actual.AccessMode) && !dcl.IsZeroValue(desired.AccessMode) {
-		c.Config.Logger.Infof("Diff in AccessMode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AccessMode), dcl.SprintResource(actual.AccessMode))
-		return true
-	}
-	if actual.SquashMode == nil && desired.SquashMode != nil && !dcl.IsEmptyValueIndirect(desired.SquashMode) {
-		c.Config.Logger.Infof("desired SquashMode %s - but actually nil", dcl.SprintResource(desired.SquashMode))
+		c.Config.Logger.Infof("Diff in AccessMode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AccessMode), dcl.SprintResource(actual.AccessMode))
 		return true
 	}
 	if !reflect.DeepEqual(desired.SquashMode, actual.SquashMode) && !dcl.IsZeroValue(desired.SquashMode) {
-		c.Config.Logger.Infof("Diff in SquashMode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SquashMode), dcl.SprintResource(actual.SquashMode))
-		return true
-	}
-	if actual.AnonUid == nil && desired.AnonUid != nil && !dcl.IsEmptyValueIndirect(desired.AnonUid) {
-		c.Config.Logger.Infof("desired AnonUid %s - but actually nil", dcl.SprintResource(desired.AnonUid))
+		c.Config.Logger.Infof("Diff in SquashMode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SquashMode), dcl.SprintResource(actual.SquashMode))
 		return true
 	}
 	if !reflect.DeepEqual(desired.AnonUid, actual.AnonUid) && !dcl.IsZeroValue(desired.AnonUid) {
-		c.Config.Logger.Infof("Diff in AnonUid. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AnonUid), dcl.SprintResource(actual.AnonUid))
-		return true
-	}
-	if actual.AnonGid == nil && desired.AnonGid != nil && !dcl.IsEmptyValueIndirect(desired.AnonGid) {
-		c.Config.Logger.Infof("desired AnonGid %s - but actually nil", dcl.SprintResource(desired.AnonGid))
+		c.Config.Logger.Infof("Diff in AnonUid.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AnonUid), dcl.SprintResource(actual.AnonUid))
 		return true
 	}
 	if !reflect.DeepEqual(desired.AnonGid, actual.AnonGid) && !dcl.IsZeroValue(desired.AnonGid) {
-		c.Config.Logger.Infof("Diff in AnonGid. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AnonGid), dcl.SprintResource(actual.AnonGid))
+		c.Config.Logger.Infof("Diff in AnonGid.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AnonGid), dcl.SprintResource(actual.AnonGid))
 		return true
 	}
 	return false
@@ -1093,7 +1060,7 @@ func compareInstanceFileSharesNfsExportOptionsSlice(c *Client, desired, actual [
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceFileSharesNfsExportOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceFileSharesNfsExportOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceFileSharesNfsExportOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1112,7 +1079,7 @@ func compareInstanceFileSharesNfsExportOptionsMap(c *Client, desired, actual map
 			return true
 		}
 		if compareInstanceFileSharesNfsExportOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceFileSharesNfsExportOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceFileSharesNfsExportOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1126,28 +1093,16 @@ func compareInstanceNetworks(c *Client, desired, actual *InstanceNetworks) bool 
 	if actual == nil {
 		return true
 	}
-	if actual.Network == nil && desired.Network != nil && !dcl.IsEmptyValueIndirect(desired.Network) {
-		c.Config.Logger.Infof("desired Network %s - but actually nil", dcl.SprintResource(desired.Network))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Network, actual.Network) && !dcl.IsZeroValue(desired.Network) {
-		c.Config.Logger.Infof("Diff in Network. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Network), dcl.SprintResource(actual.Network))
-		return true
-	}
-	if actual.Modes == nil && desired.Modes != nil && !dcl.IsEmptyValueIndirect(desired.Modes) {
-		c.Config.Logger.Infof("desired Modes %s - but actually nil", dcl.SprintResource(desired.Modes))
+		c.Config.Logger.Infof("Diff in Network.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Network), dcl.SprintResource(actual.Network))
 		return true
 	}
 	if compareInstanceNetworksModesEnumSlice(c, desired.Modes, actual.Modes) && !dcl.IsZeroValue(desired.Modes) {
-		c.Config.Logger.Infof("Diff in Modes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Modes), dcl.SprintResource(actual.Modes))
-		return true
-	}
-	if actual.ReservedIPRange == nil && desired.ReservedIPRange != nil && !dcl.IsEmptyValueIndirect(desired.ReservedIPRange) {
-		c.Config.Logger.Infof("desired ReservedIPRange %s - but actually nil", dcl.SprintResource(desired.ReservedIPRange))
+		c.Config.Logger.Infof("Diff in Modes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Modes), dcl.SprintResource(actual.Modes))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.ReservedIPRange, actual.ReservedIPRange) && !dcl.IsZeroValue(desired.ReservedIPRange) {
-		c.Config.Logger.Infof("Diff in ReservedIPRange. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReservedIPRange), dcl.SprintResource(actual.ReservedIPRange))
+		c.Config.Logger.Infof("Diff in ReservedIPRange.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReservedIPRange), dcl.SprintResource(actual.ReservedIPRange))
 		return true
 	}
 	return false
@@ -1160,7 +1115,7 @@ func compareInstanceNetworksSlice(c *Client, desired, actual []InstanceNetworks)
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceNetworks(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceNetworks, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceNetworks, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1179,7 +1134,7 @@ func compareInstanceNetworksMap(c *Client, desired, actual map[string]InstanceNe
 			return true
 		}
 		if compareInstanceNetworks(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceNetworks, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceNetworks, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1193,7 +1148,7 @@ func compareInstanceStateEnumSlice(c *Client, desired, actual []InstanceStateEnu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1211,7 +1166,7 @@ func compareInstanceTierEnumSlice(c *Client, desired, actual []InstanceTierEnum)
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceTierEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTierEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceTierEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1229,7 +1184,7 @@ func compareInstanceFileSharesNfsExportOptionsAccessModeEnumSlice(c *Client, des
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceFileSharesNfsExportOptionsAccessModeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceFileSharesNfsExportOptionsAccessModeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceFileSharesNfsExportOptionsAccessModeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1247,7 +1202,7 @@ func compareInstanceFileSharesNfsExportOptionsSquashModeEnumSlice(c *Client, des
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceFileSharesNfsExportOptionsSquashModeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceFileSharesNfsExportOptionsSquashModeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceFileSharesNfsExportOptionsSquashModeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1265,7 +1220,7 @@ func compareInstanceNetworksModesEnumSlice(c *Client, desired, actual []Instance
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceNetworksModesEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceNetworksModesEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceNetworksModesEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1280,7 +1235,7 @@ func compareInstanceNetworksModesEnum(c *Client, desired, actual *InstanceNetwor
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Instance) urlNormalized() *Instance {
-	normalized := deepcopy.Copy(*r).(Instance)
+	normalized := dcl.Copy(*r).(Instance)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.StatusMessage = dcl.SelfLinkToName(r.StatusMessage)
@@ -1350,7 +1305,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
@@ -1373,12 +1328,12 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceFileSharesSlice(c, f.FileShares); err != nil {
 		return nil, fmt.Errorf("error expanding FileShares into fileShares: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["fileShares"] = v
 	}
 	if v, err := expandInstanceNetworksSlice(c, f.Networks); err != nil {
 		return nil, fmt.Errorf("error expanding Networks into networks: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["networks"] = v
 	}
 	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
@@ -1386,12 +1341,12 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 
@@ -1510,11 +1465,10 @@ func flattenInstanceFileSharesSlice(c *Client, i interface{}) []InstanceFileShar
 // expandInstanceFileShares expands an instance of InstanceFileShares into a JSON
 // request object.
 func expandInstanceFileShares(c *Client, f *InstanceFileShares) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -1634,11 +1588,10 @@ func flattenInstanceFileSharesNfsExportOptionsSlice(c *Client, i interface{}) []
 // expandInstanceFileSharesNfsExportOptions expands an instance of InstanceFileSharesNfsExportOptions into a JSON
 // request object.
 func expandInstanceFileSharesNfsExportOptions(c *Client, f *InstanceFileSharesNfsExportOptions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.IPRanges; !dcl.IsEmptyValueIndirect(v) {
 		m["ipRanges"] = v
 	}
@@ -1760,11 +1713,10 @@ func flattenInstanceNetworksSlice(c *Client, i interface{}) []InstanceNetworks {
 // expandInstanceNetworks expands an instance of InstanceNetworks into a JSON
 // request object.
 func expandInstanceNetworks(c *Client, f *InstanceNetworks) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Network; !dcl.IsEmptyValueIndirect(v) {
 		m["network"] = v
 	}

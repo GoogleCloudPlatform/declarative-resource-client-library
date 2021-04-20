@@ -1,4 +1,5 @@
 {
+  "name": "{{ref:basic.tenant.json:name}}",
   "project": "{{project}}",
   "displayName": "myUpdatedTenant1",
   "allowPasswordSignup": true,

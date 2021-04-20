@@ -22,7 +22,6 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -546,6 +545,7 @@ type projectDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         projectApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -564,64 +564,48 @@ func diffProject(c *Client, desired, actual *Project, opts ...dcl.ApplyOption) (
 
 	var diffs []projectDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, projectDiff{
-			UpdateOp: &updateProjectUpdateProjectOperation{}, FieldName: "Labels",
+			UpdateOp: &updateProjectUpdateProjectOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.LifecycleState, actual.LifecycleState, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "lifecycle_state"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, projectDiff{RequiresRecreate: true, FieldName: "DisplayName"})
+		diffs = append(diffs, projectDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "displayName"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, projectDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, projectDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.ProjectNumber, actual.ProjectNumber, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, projectDiff{RequiresRecreate: true, FieldName: "ProjectNumber"})
+		diffs = append(diffs, projectDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
-
-		diffs = append(diffs, projectDiff{
-			UpdateOp:  &updateProjectUpdateProjectOperation{},
-			FieldName: "Labels",
-		})
-
+	if ds, err := dcl.Diff(desired.ProjectNumber, actual.ProjectNumber, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project_number"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, projectDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
-		diffs = append(diffs, projectDiff{
-			RequiresRecreate: true,
-			FieldName:        "DisplayName",
-		})
-	}
+
 	if compareProjectParent(c, desired.Parent, actual.Parent) {
 		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %v\nACTUAL: %v", desired.Parent, actual.Parent)
 		diffs = append(diffs, projectDiff{
 			RequiresRecreate: true,
 			FieldName:        "Parent",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, projectDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -655,20 +639,12 @@ func compareProjectParent(c *Client, desired, actual *ProjectParent) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
-		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	if actual.Id == nil && desired.Id != nil && !dcl.IsEmptyValueIndirect(desired.Id) {
-		c.Config.Logger.Infof("desired Id %s - but actually nil", dcl.SprintResource(desired.Id))
+		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Id, actual.Id) && !dcl.IsZeroValue(desired.Id) {
-		c.Config.Logger.Infof("Diff in Id. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
+		c.Config.Logger.Infof("Diff in Id.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
 		return true
 	}
 	return false
@@ -681,7 +657,7 @@ func compareProjectParentSlice(c *Client, desired, actual []ProjectParent) bool 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareProjectParent(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ProjectParent, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ProjectParent, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -700,7 +676,7 @@ func compareProjectParentMap(c *Client, desired, actual map[string]ProjectParent
 			return true
 		}
 		if compareProjectParent(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ProjectParent, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ProjectParent, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -714,7 +690,7 @@ func compareProjectLifecycleStateEnumSlice(c *Client, desired, actual []ProjectL
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareProjectLifecycleStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ProjectLifecycleStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ProjectLifecycleStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -729,7 +705,7 @@ func compareProjectLifecycleStateEnum(c *Client, desired, actual *ProjectLifecyc
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Project) urlNormalized() *Project {
-	normalized := deepcopy.Copy(*r).(Project)
+	normalized := dcl.Copy(*r).(Project)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	return &normalized
@@ -801,7 +777,7 @@ func expandProject(c *Client, f *Project) (map[string]interface{}, error) {
 	}
 	if v, err := expandProjectParent(c, f.Parent); err != nil {
 		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["parent"] = v
 	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
@@ -920,11 +896,10 @@ func flattenProjectParentSlice(c *Client, i interface{}) []ProjectParent {
 // expandProjectParent expands an instance of ProjectParent into a JSON
 // request object.
 func expandProjectParent(c *Client, f *ProjectParent) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}

@@ -22,7 +22,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -542,6 +541,7 @@ type repoDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         repoApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -560,39 +560,39 @@ func diffRepo(c *Client, desired, actual *Repo, opts ...dcl.ApplyOption) ([]repo
 
 	var diffs []repoDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, repoDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Size, actual.Size, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Size, actual.Size, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "size"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, repoDiff{RequiresRecreate: true, FieldName: "Size"})
+		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Url, actual.Url, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "url"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, repoDiff{RequiresRecreate: true, FieldName: "Url"})
+		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, repoDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
 	if compareRepoPubsubConfigsSlice(c, desired.PubsubConfigs, actual.PubsubConfigs) {
 		c.Config.Logger.Infof("Detected diff in PubsubConfigs.\nDESIRED: %v\nACTUAL: %v", desired.PubsubConfigs, actual.PubsubConfigs)
 
 		toAdd, toRemove := compareRepoPubsubConfigsSets(c, desired.PubsubConfigs, actual.PubsubConfigs)
-		c.Config.Logger.Infof("diff in PubsubConfigs is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
+		c.Config.Logger.Infof("diff in PubsubConfigs is a set field - recomparing with set logic.\nto add: %#v\nto remove: %#v", toAdd, toRemove)
 		if len(toAdd) != 0 || len(toRemove) != 0 {
 			c.Config.Logger.Info("diff in PubsubConfigs persists after set logic analysis.")
 			diffs = append(diffs, repoDiff{
@@ -633,28 +633,16 @@ func compareRepoPubsubConfigs(c *Client, desired, actual *RepoPubsubConfigs) boo
 	if actual == nil {
 		return true
 	}
-	if actual.Topic == nil && desired.Topic != nil && !dcl.IsEmptyValueIndirect(desired.Topic) {
-		c.Config.Logger.Infof("desired Topic %s - but actually nil", dcl.SprintResource(desired.Topic))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Topic, actual.Topic) && !dcl.IsZeroValue(desired.Topic) {
-		c.Config.Logger.Infof("Diff in Topic. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Topic), dcl.SprintResource(actual.Topic))
-		return true
-	}
-	if actual.MessageFormat == nil && desired.MessageFormat != nil && !dcl.IsEmptyValueIndirect(desired.MessageFormat) {
-		c.Config.Logger.Infof("desired MessageFormat %s - but actually nil", dcl.SprintResource(desired.MessageFormat))
+		c.Config.Logger.Infof("Diff in Topic.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Topic), dcl.SprintResource(actual.Topic))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.MessageFormat, actual.MessageFormat) && !dcl.IsZeroValue(desired.MessageFormat) {
-		c.Config.Logger.Infof("Diff in MessageFormat. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MessageFormat), dcl.SprintResource(actual.MessageFormat))
-		return true
-	}
-	if actual.ServiceAccountEmail == nil && desired.ServiceAccountEmail != nil && !dcl.IsEmptyValueIndirect(desired.ServiceAccountEmail) {
-		c.Config.Logger.Infof("desired ServiceAccountEmail %s - but actually nil", dcl.SprintResource(desired.ServiceAccountEmail))
+		c.Config.Logger.Infof("Diff in MessageFormat.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MessageFormat), dcl.SprintResource(actual.MessageFormat))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.ServiceAccountEmail, actual.ServiceAccountEmail) && !dcl.IsZeroValue(desired.ServiceAccountEmail) {
-		c.Config.Logger.Infof("Diff in ServiceAccountEmail. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountEmail), dcl.SprintResource(actual.ServiceAccountEmail))
+		c.Config.Logger.Infof("Diff in ServiceAccountEmail.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountEmail), dcl.SprintResource(actual.ServiceAccountEmail))
 		return true
 	}
 	return false
@@ -667,7 +655,7 @@ func compareRepoPubsubConfigsSlice(c *Client, desired, actual []RepoPubsubConfig
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareRepoPubsubConfigs(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RepoPubsubConfigs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in RepoPubsubConfigs, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -686,7 +674,7 @@ func compareRepoPubsubConfigsMap(c *Client, desired, actual map[string]RepoPubsu
 			return true
 		}
 		if compareRepoPubsubConfigs(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RepoPubsubConfigs, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in RepoPubsubConfigs, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -746,7 +734,7 @@ func compareRepoPubsubConfigsSets(c *Client, desired, actual []RepoPubsubConfigs
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Repo) urlNormalized() *Repo {
-	normalized := deepcopy.Copy(*r).(Repo)
+	normalized := dcl.Copy(*r).(Repo)
 	normalized.Name = dcl.SelfLinkToNameWithPattern(r.Name, "projects/%s/repos/%s")
 	normalized.Url = dcl.SelfLinkToName(r.Url)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
@@ -812,7 +800,7 @@ func expandRepo(c *Client, f *Repo) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveFromPattern("projects/%s/repos/%s", f.Name, f.Project, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.Size; !dcl.IsEmptyValueIndirect(v) {
@@ -823,12 +811,12 @@ func expandRepo(c *Client, f *Repo) (map[string]interface{}, error) {
 	}
 	if v, err := expandRepoPubsubConfig(f, f.PubsubConfigs); err != nil {
 		return nil, fmt.Errorf("error expanding PubsubConfigs into pubsubConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["pubsubConfigs"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -940,11 +928,10 @@ func flattenRepoPubsubConfigsSlice(c *Client, i interface{}) []RepoPubsubConfigs
 // expandRepoPubsubConfigs expands an instance of RepoPubsubConfigs into a JSON
 // request object.
 func expandRepoPubsubConfigs(c *Client, f *RepoPubsubConfigs) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Topic; !dcl.IsEmptyValueIndirect(v) {
 		m["topic"] = v
 	}

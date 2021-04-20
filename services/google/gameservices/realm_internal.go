@@ -22,7 +22,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -507,6 +506,7 @@ type realmDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         realmApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -525,88 +525,68 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 
 	var diffs []realmDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, realmDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, realmDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, realmDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+		diffs = append(diffs, realmDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, realmDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+		diffs = append(diffs, realmDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, realmDiff{
-			UpdateOp: &updateRealmUpdateOperation{}, FieldName: "Labels",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.TimeZone, actual.TimeZone, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, realmDiff{
-			UpdateOp: &updateRealmUpdateOperation{}, FieldName: "TimeZone",
+			UpdateOp: &updateRealmUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.TimeZone, actual.TimeZone, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "time_zone"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, realmDiff{
-			UpdateOp: &updateRealmUpdateOperation{}, FieldName: "Description",
+			UpdateOp: &updateRealmUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, realmDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
+			UpdateOp: &updateRealmUpdateOperation{}, Diffs: ds,
 		})
 	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
-		diffs = append(diffs, realmDiff{
-			UpdateOp:  &updateRealmUpdateOperation{},
-			FieldName: "Labels",
-		})
-
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, realmDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.TimeZone) && !dcl.StringCanonicalize(desired.TimeZone, actual.TimeZone) {
-		c.Config.Logger.Infof("Detected diff in TimeZone.\nDESIRED: %v\nACTUAL: %v", desired.TimeZone, actual.TimeZone)
 
-		diffs = append(diffs, realmDiff{
-			UpdateOp:  &updateRealmUpdateOperation{},
-			FieldName: "TimeZone",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, realmDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
-		diffs = append(diffs, realmDiff{
-			UpdateOp:  &updateRealmUpdateOperation{},
-			FieldName: "Description",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -636,7 +616,7 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Realm) urlNormalized() *Realm {
-	normalized := deepcopy.Copy(*r).(Realm)
+	normalized := dcl.Copy(*r).(Realm)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.TimeZone = dcl.SelfLinkToName(r.TimeZone)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
@@ -723,12 +703,12 @@ func expandRealm(c *Client, f *Realm) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 

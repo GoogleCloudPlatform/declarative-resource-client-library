@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -514,6 +513,7 @@ type notificationChannelDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         notificationChannelApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -532,114 +532,74 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 
 	var diffs []notificationChannelDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp: &updateNotificationChannelUpdateOperation{}, FieldName: "Description",
+			UpdateOp: &updateNotificationChannelUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp: &updateNotificationChannelUpdateOperation{}, FieldName: "DisplayName",
+			UpdateOp: &updateNotificationChannelUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Enabled, actual.Enabled, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enabled"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp: &updateNotificationChannelUpdateOperation{}, FieldName: "Enabled",
+			UpdateOp: &updateNotificationChannelUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp: &updateNotificationChannelUpdateOperation{}, FieldName: "Labels",
+			UpdateOp: &updateNotificationChannelUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Type, actual.Type, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "type"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp: &updateNotificationChannelUpdateOperation{}, FieldName: "Type",
+			UpdateOp: &updateNotificationChannelUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.UserLabels, actual.UserLabels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.UserLabels, actual.UserLabels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "user_labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp: &updateNotificationChannelUpdateOperation{}, FieldName: "UserLabels",
+			UpdateOp: &updateNotificationChannelUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-
-		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp:  &updateNotificationChannelUpdateOperation{},
-			FieldName: "Description",
-		})
-
+	if ds, err := dcl.Diff(desired.VerificationStatus, actual.VerificationStatus, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "verification_status"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, notificationChannelDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
-		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp:  &updateNotificationChannelUpdateOperation{},
-			FieldName: "DisplayName",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, notificationChannelDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Enabled) && !dcl.BoolCanonicalize(desired.Enabled, actual.Enabled) {
-		c.Config.Logger.Infof("Detected diff in Enabled.\nDESIRED: %v\nACTUAL: %v", desired.Enabled, actual.Enabled)
 
-		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp:  &updateNotificationChannelUpdateOperation{},
-			FieldName: "Enabled",
-		})
-
-	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
-
-		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp:  &updateNotificationChannelUpdateOperation{},
-			FieldName: "Labels",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Type) && !dcl.StringCanonicalize(desired.Type, actual.Type) {
-		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
-
-		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp:  &updateNotificationChannelUpdateOperation{},
-			FieldName: "Type",
-		})
-
-	}
-	if !dcl.MapEquals(desired.UserLabels, actual.UserLabels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in UserLabels.\nDESIRED: %v\nACTUAL: %v", desired.UserLabels, actual.UserLabels)
-
-		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp:  &updateNotificationChannelUpdateOperation{},
-			FieldName: "UserLabels",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -671,7 +631,7 @@ func compareNotificationChannelVerificationStatusEnumSlice(c *Client, desired, a
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareNotificationChannelVerificationStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NotificationChannelVerificationStatusEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in NotificationChannelVerificationStatusEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -686,7 +646,7 @@ func compareNotificationChannelVerificationStatusEnum(c *Client, desired, actual
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *NotificationChannel) urlNormalized() *NotificationChannel {
-	normalized := deepcopy.Copy(*r).(NotificationChannel)
+	normalized := dcl.Copy(*r).(NotificationChannel)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
@@ -778,7 +738,7 @@ func expandNotificationChannel(c *Client, f *NotificationChannel) (map[string]in
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 

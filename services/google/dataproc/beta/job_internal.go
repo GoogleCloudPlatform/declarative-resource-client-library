@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -3212,6 +3211,7 @@ type jobDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         jobApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -3230,55 +3230,69 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 
 	var diffs []jobDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.SubmittedBy, actual.SubmittedBy, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SubmittedBy, actual.SubmittedBy, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "submitted_by"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, FieldName: "SubmittedBy"})
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.DriverInputResourceUri, actual.DriverInputResourceUri, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DriverInputResourceUri, actual.DriverInputResourceUri, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "driver_input_resource_uri"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, FieldName: "DriverInputResourceUri"})
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.DriverOutputResourceUri, actual.DriverOutputResourceUri, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DriverOutputResourceUri, actual.DriverOutputResourceUri, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "driver_output_resource_uri"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, FieldName: "DriverOutputResourceUri"})
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.DriverControlFilesUri, actual.DriverControlFilesUri, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DriverControlFilesUri, actual.DriverControlFilesUri, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "driver_control_files_uri"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, FieldName: "DriverControlFilesUri"})
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Interactive, actual.Interactive, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Interactive, actual.Interactive, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "interactive"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, FieldName: "Interactive"})
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, jobDiff{
-			UpdateOp: &updateJobPatchOperation{}, FieldName: "Labels",
+			UpdateOp: &updateJobPatchOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Done, actual.Done, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Done, actual.Done, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "done"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, FieldName: "Done"})
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
 	if compareJobReference(c, desired.Reference, actual.Reference) {
@@ -3351,22 +3365,6 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 			FieldName:        "PrestoJob",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Interactive) && !dcl.BoolCanonicalize(desired.Interactive, actual.Interactive) {
-		c.Config.Logger.Infof("Detected diff in Interactive.\nDESIRED: %v\nACTUAL: %v", desired.Interactive, actual.Interactive)
-		diffs = append(diffs, jobDiff{
-			RequiresRecreate: true,
-			FieldName:        "Interactive",
-		})
-	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
-
-		diffs = append(diffs, jobDiff{
-			UpdateOp:  &updateJobPatchOperation{},
-			FieldName: "Labels",
-		})
-
-	}
 	if compareJobScheduling(c, desired.Scheduling, actual.Scheduling) {
 		c.Config.Logger.Infof("Detected diff in Scheduling.\nDESIRED: %v\nACTUAL: %v", desired.Scheduling, actual.Scheduling)
 		diffs = append(diffs, jobDiff{
@@ -3412,20 +3410,12 @@ func compareJobReference(c *Client, desired, actual *JobReference) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.ProjectId == nil && desired.ProjectId != nil && !dcl.IsEmptyValueIndirect(desired.ProjectId) {
-		c.Config.Logger.Infof("desired ProjectId %s - but actually nil", dcl.SprintResource(desired.ProjectId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ProjectId, actual.ProjectId) && !dcl.IsZeroValue(desired.ProjectId) {
-		c.Config.Logger.Infof("Diff in ProjectId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProjectId), dcl.SprintResource(actual.ProjectId))
-		return true
-	}
-	if actual.JobId == nil && desired.JobId != nil && !dcl.IsEmptyValueIndirect(desired.JobId) {
-		c.Config.Logger.Infof("desired JobId %s - but actually nil", dcl.SprintResource(desired.JobId))
+		c.Config.Logger.Infof("Diff in ProjectId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProjectId), dcl.SprintResource(actual.ProjectId))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.JobId, actual.JobId) && !dcl.IsZeroValue(desired.JobId) {
-		c.Config.Logger.Infof("Diff in JobId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JobId), dcl.SprintResource(actual.JobId))
+		c.Config.Logger.Infof("Diff in JobId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JobId), dcl.SprintResource(actual.JobId))
 		return true
 	}
 	return false
@@ -3438,7 +3428,7 @@ func compareJobReferenceSlice(c *Client, desired, actual []JobReference) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobReference(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobReference, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobReference, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3457,7 +3447,7 @@ func compareJobReferenceMap(c *Client, desired, actual map[string]JobReference) 
 			return true
 		}
 		if compareJobReference(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobReference, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobReference, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3471,20 +3461,12 @@ func compareJobPlacement(c *Client, desired, actual *JobPlacement) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.ClusterName == nil && desired.ClusterName != nil && !dcl.IsEmptyValueIndirect(desired.ClusterName) {
-		c.Config.Logger.Infof("desired ClusterName %s - but actually nil", dcl.SprintResource(desired.ClusterName))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ClusterName, actual.ClusterName) && !dcl.IsZeroValue(desired.ClusterName) {
-		c.Config.Logger.Infof("Diff in ClusterName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterName), dcl.SprintResource(actual.ClusterName))
-		return true
-	}
-	if actual.ClusterLabels == nil && desired.ClusterLabels != nil && !dcl.IsEmptyValueIndirect(desired.ClusterLabels) {
-		c.Config.Logger.Infof("desired ClusterLabels %s - but actually nil", dcl.SprintResource(desired.ClusterLabels))
+		c.Config.Logger.Infof("Diff in ClusterName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterName), dcl.SprintResource(actual.ClusterName))
 		return true
 	}
 	if !dcl.MapEquals(desired.ClusterLabels, actual.ClusterLabels, []string(nil)) && !dcl.IsZeroValue(desired.ClusterLabels) {
-		c.Config.Logger.Infof("Diff in ClusterLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterLabels), dcl.SprintResource(actual.ClusterLabels))
+		c.Config.Logger.Infof("Diff in ClusterLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterLabels), dcl.SprintResource(actual.ClusterLabels))
 		return true
 	}
 	return false
@@ -3497,7 +3479,7 @@ func compareJobPlacementSlice(c *Client, desired, actual []JobPlacement) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobPlacement(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPlacement, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobPlacement, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3516,7 +3498,7 @@ func compareJobPlacementMap(c *Client, desired, actual map[string]JobPlacement) 
 			return true
 		}
 		if compareJobPlacement(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPlacement, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobPlacement, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3530,68 +3512,36 @@ func compareJobHadoopJob(c *Client, desired, actual *JobHadoopJob) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.MainJarFileUri == nil && desired.MainJarFileUri != nil && !dcl.IsEmptyValueIndirect(desired.MainJarFileUri) {
-		c.Config.Logger.Infof("desired MainJarFileUri %s - but actually nil", dcl.SprintResource(desired.MainJarFileUri))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.MainJarFileUri, actual.MainJarFileUri) && !dcl.IsZeroValue(desired.MainJarFileUri) {
-		c.Config.Logger.Infof("Diff in MainJarFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainJarFileUri), dcl.SprintResource(actual.MainJarFileUri))
-		return true
-	}
-	if actual.MainClass == nil && desired.MainClass != nil && !dcl.IsEmptyValueIndirect(desired.MainClass) {
-		c.Config.Logger.Infof("desired MainClass %s - but actually nil", dcl.SprintResource(desired.MainClass))
+		c.Config.Logger.Infof("Diff in MainJarFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainJarFileUri), dcl.SprintResource(actual.MainJarFileUri))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.MainClass, actual.MainClass) && !dcl.IsZeroValue(desired.MainClass) {
-		c.Config.Logger.Infof("Diff in MainClass. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainClass), dcl.SprintResource(actual.MainClass))
-		return true
-	}
-	if actual.Args == nil && desired.Args != nil && !dcl.IsEmptyValueIndirect(desired.Args) {
-		c.Config.Logger.Infof("desired Args %s - but actually nil", dcl.SprintResource(desired.Args))
+		c.Config.Logger.Infof("Diff in MainClass.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainClass), dcl.SprintResource(actual.MainClass))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if actual.JarFileUris == nil && desired.JarFileUris != nil && !dcl.IsEmptyValueIndirect(desired.JarFileUris) {
-		c.Config.Logger.Infof("desired JarFileUris %s - but actually nil", dcl.SprintResource(desired.JarFileUris))
+		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
-		c.Config.Logger.Infof("Diff in JarFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
-		return true
-	}
-	if actual.FileUris == nil && desired.FileUris != nil && !dcl.IsEmptyValueIndirect(desired.FileUris) {
-		c.Config.Logger.Infof("desired FileUris %s - but actually nil", dcl.SprintResource(desired.FileUris))
+		c.Config.Logger.Infof("Diff in JarFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
-		c.Config.Logger.Infof("Diff in FileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
-		return true
-	}
-	if actual.ArchiveUris == nil && desired.ArchiveUris != nil && !dcl.IsEmptyValueIndirect(desired.ArchiveUris) {
-		c.Config.Logger.Infof("desired ArchiveUris %s - but actually nil", dcl.SprintResource(desired.ArchiveUris))
+		c.Config.Logger.Infof("Diff in FileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
-		c.Config.Logger.Infof("Diff in ArchiveUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
-		return true
-	}
-	if actual.Properties == nil && desired.Properties != nil && !dcl.IsEmptyValueIndirect(desired.Properties) {
-		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
+		c.Config.Logger.Infof("Diff in ArchiveUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
 		return true
 	}
 	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if actual.LoggingConfig == nil && desired.LoggingConfig != nil && !dcl.IsEmptyValueIndirect(desired.LoggingConfig) {
-		c.Config.Logger.Infof("desired LoggingConfig %s - but actually nil", dcl.SprintResource(desired.LoggingConfig))
+		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
 	if compareJobHadoopJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
+		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
 		return true
 	}
 	return false
@@ -3604,7 +3554,7 @@ func compareJobHadoopJobSlice(c *Client, desired, actual []JobHadoopJob) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobHadoopJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobHadoopJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobHadoopJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3623,7 +3573,7 @@ func compareJobHadoopJobMap(c *Client, desired, actual map[string]JobHadoopJob) 
 			return true
 		}
 		if compareJobHadoopJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobHadoopJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobHadoopJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3637,12 +3587,8 @@ func compareJobHadoopJobLoggingConfig(c *Client, desired, actual *JobHadoopJobLo
 	if actual == nil {
 		return true
 	}
-	if actual.DriverLogLevels == nil && desired.DriverLogLevels != nil && !dcl.IsEmptyValueIndirect(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
-		return true
-	}
 	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
+		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
@@ -3655,7 +3601,7 @@ func compareJobHadoopJobLoggingConfigSlice(c *Client, desired, actual []JobHadoo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobHadoopJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobHadoopJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobHadoopJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3674,7 +3620,7 @@ func compareJobHadoopJobLoggingConfigMap(c *Client, desired, actual map[string]J
 			return true
 		}
 		if compareJobHadoopJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobHadoopJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobHadoopJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3688,68 +3634,36 @@ func compareJobSparkJob(c *Client, desired, actual *JobSparkJob) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.MainJarFileUri == nil && desired.MainJarFileUri != nil && !dcl.IsEmptyValueIndirect(desired.MainJarFileUri) {
-		c.Config.Logger.Infof("desired MainJarFileUri %s - but actually nil", dcl.SprintResource(desired.MainJarFileUri))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.MainJarFileUri, actual.MainJarFileUri) && !dcl.IsZeroValue(desired.MainJarFileUri) {
-		c.Config.Logger.Infof("Diff in MainJarFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainJarFileUri), dcl.SprintResource(actual.MainJarFileUri))
-		return true
-	}
-	if actual.MainClass == nil && desired.MainClass != nil && !dcl.IsEmptyValueIndirect(desired.MainClass) {
-		c.Config.Logger.Infof("desired MainClass %s - but actually nil", dcl.SprintResource(desired.MainClass))
+		c.Config.Logger.Infof("Diff in MainJarFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainJarFileUri), dcl.SprintResource(actual.MainJarFileUri))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.MainClass, actual.MainClass) && !dcl.IsZeroValue(desired.MainClass) {
-		c.Config.Logger.Infof("Diff in MainClass. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainClass), dcl.SprintResource(actual.MainClass))
-		return true
-	}
-	if actual.Args == nil && desired.Args != nil && !dcl.IsEmptyValueIndirect(desired.Args) {
-		c.Config.Logger.Infof("desired Args %s - but actually nil", dcl.SprintResource(desired.Args))
+		c.Config.Logger.Infof("Diff in MainClass.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainClass), dcl.SprintResource(actual.MainClass))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if actual.JarFileUris == nil && desired.JarFileUris != nil && !dcl.IsEmptyValueIndirect(desired.JarFileUris) {
-		c.Config.Logger.Infof("desired JarFileUris %s - but actually nil", dcl.SprintResource(desired.JarFileUris))
+		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
-		c.Config.Logger.Infof("Diff in JarFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
-		return true
-	}
-	if actual.FileUris == nil && desired.FileUris != nil && !dcl.IsEmptyValueIndirect(desired.FileUris) {
-		c.Config.Logger.Infof("desired FileUris %s - but actually nil", dcl.SprintResource(desired.FileUris))
+		c.Config.Logger.Infof("Diff in JarFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
-		c.Config.Logger.Infof("Diff in FileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
-		return true
-	}
-	if actual.ArchiveUris == nil && desired.ArchiveUris != nil && !dcl.IsEmptyValueIndirect(desired.ArchiveUris) {
-		c.Config.Logger.Infof("desired ArchiveUris %s - but actually nil", dcl.SprintResource(desired.ArchiveUris))
+		c.Config.Logger.Infof("Diff in FileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
-		c.Config.Logger.Infof("Diff in ArchiveUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
-		return true
-	}
-	if actual.Properties == nil && desired.Properties != nil && !dcl.IsEmptyValueIndirect(desired.Properties) {
-		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
+		c.Config.Logger.Infof("Diff in ArchiveUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
 		return true
 	}
 	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if actual.LoggingConfig == nil && desired.LoggingConfig != nil && !dcl.IsEmptyValueIndirect(desired.LoggingConfig) {
-		c.Config.Logger.Infof("desired LoggingConfig %s - but actually nil", dcl.SprintResource(desired.LoggingConfig))
+		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
 	if compareJobSparkJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
+		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
 		return true
 	}
 	return false
@@ -3762,7 +3676,7 @@ func compareJobSparkJobSlice(c *Client, desired, actual []JobSparkJob) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobSparkJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobSparkJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3781,7 +3695,7 @@ func compareJobSparkJobMap(c *Client, desired, actual map[string]JobSparkJob) bo
 			return true
 		}
 		if compareJobSparkJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobSparkJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3795,12 +3709,8 @@ func compareJobSparkJobLoggingConfig(c *Client, desired, actual *JobSparkJobLogg
 	if actual == nil {
 		return true
 	}
-	if actual.DriverLogLevels == nil && desired.DriverLogLevels != nil && !dcl.IsEmptyValueIndirect(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
-		return true
-	}
 	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
+		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
@@ -3813,7 +3723,7 @@ func compareJobSparkJobLoggingConfigSlice(c *Client, desired, actual []JobSparkJ
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobSparkJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobSparkJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3832,7 +3742,7 @@ func compareJobSparkJobLoggingConfigMap(c *Client, desired, actual map[string]Jo
 			return true
 		}
 		if compareJobSparkJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobSparkJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3846,68 +3756,36 @@ func compareJobPysparkJob(c *Client, desired, actual *JobPysparkJob) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.MainPythonFileUri == nil && desired.MainPythonFileUri != nil && !dcl.IsEmptyValueIndirect(desired.MainPythonFileUri) {
-		c.Config.Logger.Infof("desired MainPythonFileUri %s - but actually nil", dcl.SprintResource(desired.MainPythonFileUri))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.MainPythonFileUri, actual.MainPythonFileUri) && !dcl.IsZeroValue(desired.MainPythonFileUri) {
-		c.Config.Logger.Infof("Diff in MainPythonFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainPythonFileUri), dcl.SprintResource(actual.MainPythonFileUri))
-		return true
-	}
-	if actual.Args == nil && desired.Args != nil && !dcl.IsEmptyValueIndirect(desired.Args) {
-		c.Config.Logger.Infof("desired Args %s - but actually nil", dcl.SprintResource(desired.Args))
+		c.Config.Logger.Infof("Diff in MainPythonFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainPythonFileUri), dcl.SprintResource(actual.MainPythonFileUri))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if actual.PythonFileUris == nil && desired.PythonFileUris != nil && !dcl.IsEmptyValueIndirect(desired.PythonFileUris) {
-		c.Config.Logger.Infof("desired PythonFileUris %s - but actually nil", dcl.SprintResource(desired.PythonFileUris))
+		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.PythonFileUris, actual.PythonFileUris) && !dcl.IsZeroValue(desired.PythonFileUris) {
-		c.Config.Logger.Infof("Diff in PythonFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PythonFileUris), dcl.SprintResource(actual.PythonFileUris))
-		return true
-	}
-	if actual.JarFileUris == nil && desired.JarFileUris != nil && !dcl.IsEmptyValueIndirect(desired.JarFileUris) {
-		c.Config.Logger.Infof("desired JarFileUris %s - but actually nil", dcl.SprintResource(desired.JarFileUris))
+		c.Config.Logger.Infof("Diff in PythonFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PythonFileUris), dcl.SprintResource(actual.PythonFileUris))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
-		c.Config.Logger.Infof("Diff in JarFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
-		return true
-	}
-	if actual.FileUris == nil && desired.FileUris != nil && !dcl.IsEmptyValueIndirect(desired.FileUris) {
-		c.Config.Logger.Infof("desired FileUris %s - but actually nil", dcl.SprintResource(desired.FileUris))
+		c.Config.Logger.Infof("Diff in JarFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
-		c.Config.Logger.Infof("Diff in FileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
-		return true
-	}
-	if actual.ArchiveUris == nil && desired.ArchiveUris != nil && !dcl.IsEmptyValueIndirect(desired.ArchiveUris) {
-		c.Config.Logger.Infof("desired ArchiveUris %s - but actually nil", dcl.SprintResource(desired.ArchiveUris))
+		c.Config.Logger.Infof("Diff in FileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
-		c.Config.Logger.Infof("Diff in ArchiveUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
-		return true
-	}
-	if actual.Properties == nil && desired.Properties != nil && !dcl.IsEmptyValueIndirect(desired.Properties) {
-		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
+		c.Config.Logger.Infof("Diff in ArchiveUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
 		return true
 	}
 	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if actual.LoggingConfig == nil && desired.LoggingConfig != nil && !dcl.IsEmptyValueIndirect(desired.LoggingConfig) {
-		c.Config.Logger.Infof("desired LoggingConfig %s - but actually nil", dcl.SprintResource(desired.LoggingConfig))
+		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
 	if compareJobPysparkJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
+		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
 		return true
 	}
 	return false
@@ -3920,7 +3798,7 @@ func compareJobPysparkJobSlice(c *Client, desired, actual []JobPysparkJob) bool 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobPysparkJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPysparkJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobPysparkJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3939,7 +3817,7 @@ func compareJobPysparkJobMap(c *Client, desired, actual map[string]JobPysparkJob
 			return true
 		}
 		if compareJobPysparkJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPysparkJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobPysparkJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3953,12 +3831,8 @@ func compareJobPysparkJobLoggingConfig(c *Client, desired, actual *JobPysparkJob
 	if actual == nil {
 		return true
 	}
-	if actual.DriverLogLevels == nil && desired.DriverLogLevels != nil && !dcl.IsEmptyValueIndirect(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
-		return true
-	}
 	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
+		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
@@ -3971,7 +3845,7 @@ func compareJobPysparkJobLoggingConfigSlice(c *Client, desired, actual []JobPysp
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobPysparkJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPysparkJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobPysparkJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3990,7 +3864,7 @@ func compareJobPysparkJobLoggingConfigMap(c *Client, desired, actual map[string]
 			return true
 		}
 		if compareJobPysparkJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPysparkJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobPysparkJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4004,52 +3878,28 @@ func compareJobHiveJob(c *Client, desired, actual *JobHiveJob) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.QueryFileUri == nil && desired.QueryFileUri != nil && !dcl.IsEmptyValueIndirect(desired.QueryFileUri) {
-		c.Config.Logger.Infof("desired QueryFileUri %s - but actually nil", dcl.SprintResource(desired.QueryFileUri))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) {
-		c.Config.Logger.Infof("Diff in QueryFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
-		return true
-	}
-	if actual.QueryList == nil && desired.QueryList != nil && !dcl.IsEmptyValueIndirect(desired.QueryList) {
-		c.Config.Logger.Infof("desired QueryList %s - but actually nil", dcl.SprintResource(desired.QueryList))
+		c.Config.Logger.Infof("Diff in QueryFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
 		return true
 	}
 	if compareJobHiveJobQueryList(c, desired.QueryList, actual.QueryList) && !dcl.IsZeroValue(desired.QueryList) {
-		c.Config.Logger.Infof("Diff in QueryList. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryList), dcl.SprintResource(actual.QueryList))
-		return true
-	}
-	if actual.ContinueOnFailure == nil && desired.ContinueOnFailure != nil && !dcl.IsEmptyValueIndirect(desired.ContinueOnFailure) {
-		c.Config.Logger.Infof("desired ContinueOnFailure %s - but actually nil", dcl.SprintResource(desired.ContinueOnFailure))
+		c.Config.Logger.Infof("Diff in QueryList.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryList), dcl.SprintResource(actual.QueryList))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
-		c.Config.Logger.Infof("Diff in ContinueOnFailure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
-		return true
-	}
-	if actual.ScriptVariables == nil && desired.ScriptVariables != nil && !dcl.IsEmptyValueIndirect(desired.ScriptVariables) {
-		c.Config.Logger.Infof("desired ScriptVariables %s - but actually nil", dcl.SprintResource(desired.ScriptVariables))
+		c.Config.Logger.Infof("Diff in ContinueOnFailure.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
 		return true
 	}
 	if !dcl.MapEquals(desired.ScriptVariables, actual.ScriptVariables, []string(nil)) && !dcl.IsZeroValue(desired.ScriptVariables) {
-		c.Config.Logger.Infof("Diff in ScriptVariables. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
-		return true
-	}
-	if actual.Properties == nil && desired.Properties != nil && !dcl.IsEmptyValueIndirect(desired.Properties) {
-		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
+		c.Config.Logger.Infof("Diff in ScriptVariables.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
 		return true
 	}
 	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if actual.JarFileUris == nil && desired.JarFileUris != nil && !dcl.IsEmptyValueIndirect(desired.JarFileUris) {
-		c.Config.Logger.Infof("desired JarFileUris %s - but actually nil", dcl.SprintResource(desired.JarFileUris))
+		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
-		c.Config.Logger.Infof("Diff in JarFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
+		c.Config.Logger.Infof("Diff in JarFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
 		return true
 	}
 	return false
@@ -4062,7 +3912,7 @@ func compareJobHiveJobSlice(c *Client, desired, actual []JobHiveJob) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobHiveJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobHiveJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobHiveJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4081,7 +3931,7 @@ func compareJobHiveJobMap(c *Client, desired, actual map[string]JobHiveJob) bool
 			return true
 		}
 		if compareJobHiveJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobHiveJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobHiveJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4095,12 +3945,8 @@ func compareJobHiveJobQueryList(c *Client, desired, actual *JobHiveJobQueryList)
 	if actual == nil {
 		return true
 	}
-	if actual.Queries == nil && desired.Queries != nil && !dcl.IsEmptyValueIndirect(desired.Queries) {
-		c.Config.Logger.Infof("desired Queries %s - but actually nil", dcl.SprintResource(desired.Queries))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
-		c.Config.Logger.Infof("Diff in Queries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
+		c.Config.Logger.Infof("Diff in Queries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
 		return true
 	}
 	return false
@@ -4113,7 +3959,7 @@ func compareJobHiveJobQueryListSlice(c *Client, desired, actual []JobHiveJobQuer
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobHiveJobQueryList(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobHiveJobQueryList, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobHiveJobQueryList, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4132,7 +3978,7 @@ func compareJobHiveJobQueryListMap(c *Client, desired, actual map[string]JobHive
 			return true
 		}
 		if compareJobHiveJobQueryList(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobHiveJobQueryList, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobHiveJobQueryList, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4146,60 +3992,32 @@ func compareJobPigJob(c *Client, desired, actual *JobPigJob) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.QueryFileUri == nil && desired.QueryFileUri != nil && !dcl.IsEmptyValueIndirect(desired.QueryFileUri) {
-		c.Config.Logger.Infof("desired QueryFileUri %s - but actually nil", dcl.SprintResource(desired.QueryFileUri))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) {
-		c.Config.Logger.Infof("Diff in QueryFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
-		return true
-	}
-	if actual.QueryList == nil && desired.QueryList != nil && !dcl.IsEmptyValueIndirect(desired.QueryList) {
-		c.Config.Logger.Infof("desired QueryList %s - but actually nil", dcl.SprintResource(desired.QueryList))
+		c.Config.Logger.Infof("Diff in QueryFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
 		return true
 	}
 	if compareJobPigJobQueryList(c, desired.QueryList, actual.QueryList) && !dcl.IsZeroValue(desired.QueryList) {
-		c.Config.Logger.Infof("Diff in QueryList. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryList), dcl.SprintResource(actual.QueryList))
-		return true
-	}
-	if actual.ContinueOnFailure == nil && desired.ContinueOnFailure != nil && !dcl.IsEmptyValueIndirect(desired.ContinueOnFailure) {
-		c.Config.Logger.Infof("desired ContinueOnFailure %s - but actually nil", dcl.SprintResource(desired.ContinueOnFailure))
+		c.Config.Logger.Infof("Diff in QueryList.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryList), dcl.SprintResource(actual.QueryList))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
-		c.Config.Logger.Infof("Diff in ContinueOnFailure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
-		return true
-	}
-	if actual.ScriptVariables == nil && desired.ScriptVariables != nil && !dcl.IsEmptyValueIndirect(desired.ScriptVariables) {
-		c.Config.Logger.Infof("desired ScriptVariables %s - but actually nil", dcl.SprintResource(desired.ScriptVariables))
+		c.Config.Logger.Infof("Diff in ContinueOnFailure.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
 		return true
 	}
 	if !dcl.MapEquals(desired.ScriptVariables, actual.ScriptVariables, []string(nil)) && !dcl.IsZeroValue(desired.ScriptVariables) {
-		c.Config.Logger.Infof("Diff in ScriptVariables. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
-		return true
-	}
-	if actual.Properties == nil && desired.Properties != nil && !dcl.IsEmptyValueIndirect(desired.Properties) {
-		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
+		c.Config.Logger.Infof("Diff in ScriptVariables.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
 		return true
 	}
 	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if actual.JarFileUris == nil && desired.JarFileUris != nil && !dcl.IsEmptyValueIndirect(desired.JarFileUris) {
-		c.Config.Logger.Infof("desired JarFileUris %s - but actually nil", dcl.SprintResource(desired.JarFileUris))
+		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
-		c.Config.Logger.Infof("Diff in JarFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
-		return true
-	}
-	if actual.LoggingConfig == nil && desired.LoggingConfig != nil && !dcl.IsEmptyValueIndirect(desired.LoggingConfig) {
-		c.Config.Logger.Infof("desired LoggingConfig %s - but actually nil", dcl.SprintResource(desired.LoggingConfig))
+		c.Config.Logger.Infof("Diff in JarFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
 		return true
 	}
 	if compareJobPigJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
+		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
 		return true
 	}
 	return false
@@ -4212,7 +4030,7 @@ func compareJobPigJobSlice(c *Client, desired, actual []JobPigJob) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobPigJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPigJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobPigJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4231,7 +4049,7 @@ func compareJobPigJobMap(c *Client, desired, actual map[string]JobPigJob) bool {
 			return true
 		}
 		if compareJobPigJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPigJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobPigJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4245,12 +4063,8 @@ func compareJobPigJobQueryList(c *Client, desired, actual *JobPigJobQueryList) b
 	if actual == nil {
 		return true
 	}
-	if actual.Queries == nil && desired.Queries != nil && !dcl.IsEmptyValueIndirect(desired.Queries) {
-		c.Config.Logger.Infof("desired Queries %s - but actually nil", dcl.SprintResource(desired.Queries))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
-		c.Config.Logger.Infof("Diff in Queries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
+		c.Config.Logger.Infof("Diff in Queries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
 		return true
 	}
 	return false
@@ -4263,7 +4077,7 @@ func compareJobPigJobQueryListSlice(c *Client, desired, actual []JobPigJobQueryL
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobPigJobQueryList(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPigJobQueryList, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobPigJobQueryList, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4282,7 +4096,7 @@ func compareJobPigJobQueryListMap(c *Client, desired, actual map[string]JobPigJo
 			return true
 		}
 		if compareJobPigJobQueryList(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPigJobQueryList, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobPigJobQueryList, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4296,12 +4110,8 @@ func compareJobPigJobLoggingConfig(c *Client, desired, actual *JobPigJobLoggingC
 	if actual == nil {
 		return true
 	}
-	if actual.DriverLogLevels == nil && desired.DriverLogLevels != nil && !dcl.IsEmptyValueIndirect(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
-		return true
-	}
 	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
+		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
@@ -4314,7 +4124,7 @@ func compareJobPigJobLoggingConfigSlice(c *Client, desired, actual []JobPigJobLo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobPigJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPigJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobPigJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4333,7 +4143,7 @@ func compareJobPigJobLoggingConfigMap(c *Client, desired, actual map[string]JobP
 			return true
 		}
 		if compareJobPigJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPigJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobPigJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4347,52 +4157,28 @@ func compareJobSparkRJob(c *Client, desired, actual *JobSparkRJob) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.MainRFileUri == nil && desired.MainRFileUri != nil && !dcl.IsEmptyValueIndirect(desired.MainRFileUri) {
-		c.Config.Logger.Infof("desired MainRFileUri %s - but actually nil", dcl.SprintResource(desired.MainRFileUri))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.MainRFileUri, actual.MainRFileUri) && !dcl.IsZeroValue(desired.MainRFileUri) {
-		c.Config.Logger.Infof("Diff in MainRFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainRFileUri), dcl.SprintResource(actual.MainRFileUri))
-		return true
-	}
-	if actual.Args == nil && desired.Args != nil && !dcl.IsEmptyValueIndirect(desired.Args) {
-		c.Config.Logger.Infof("desired Args %s - but actually nil", dcl.SprintResource(desired.Args))
+		c.Config.Logger.Infof("Diff in MainRFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainRFileUri), dcl.SprintResource(actual.MainRFileUri))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if actual.FileUris == nil && desired.FileUris != nil && !dcl.IsEmptyValueIndirect(desired.FileUris) {
-		c.Config.Logger.Infof("desired FileUris %s - but actually nil", dcl.SprintResource(desired.FileUris))
+		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
-		c.Config.Logger.Infof("Diff in FileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
-		return true
-	}
-	if actual.ArchiveUris == nil && desired.ArchiveUris != nil && !dcl.IsEmptyValueIndirect(desired.ArchiveUris) {
-		c.Config.Logger.Infof("desired ArchiveUris %s - but actually nil", dcl.SprintResource(desired.ArchiveUris))
+		c.Config.Logger.Infof("Diff in FileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
-		c.Config.Logger.Infof("Diff in ArchiveUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
-		return true
-	}
-	if actual.Properties == nil && desired.Properties != nil && !dcl.IsEmptyValueIndirect(desired.Properties) {
-		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
+		c.Config.Logger.Infof("Diff in ArchiveUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
 		return true
 	}
 	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if actual.LoggingConfig == nil && desired.LoggingConfig != nil && !dcl.IsEmptyValueIndirect(desired.LoggingConfig) {
-		c.Config.Logger.Infof("desired LoggingConfig %s - but actually nil", dcl.SprintResource(desired.LoggingConfig))
+		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
 	if compareJobSparkRJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
+		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
 		return true
 	}
 	return false
@@ -4405,7 +4191,7 @@ func compareJobSparkRJobSlice(c *Client, desired, actual []JobSparkRJob) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobSparkRJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkRJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobSparkRJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4424,7 +4210,7 @@ func compareJobSparkRJobMap(c *Client, desired, actual map[string]JobSparkRJob) 
 			return true
 		}
 		if compareJobSparkRJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkRJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobSparkRJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4438,12 +4224,8 @@ func compareJobSparkRJobLoggingConfig(c *Client, desired, actual *JobSparkRJobLo
 	if actual == nil {
 		return true
 	}
-	if actual.DriverLogLevels == nil && desired.DriverLogLevels != nil && !dcl.IsEmptyValueIndirect(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
-		return true
-	}
 	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
+		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
@@ -4456,7 +4238,7 @@ func compareJobSparkRJobLoggingConfigSlice(c *Client, desired, actual []JobSpark
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobSparkRJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkRJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobSparkRJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4475,7 +4257,7 @@ func compareJobSparkRJobLoggingConfigMap(c *Client, desired, actual map[string]J
 			return true
 		}
 		if compareJobSparkRJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkRJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobSparkRJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4489,52 +4271,28 @@ func compareJobSparkSqlJob(c *Client, desired, actual *JobSparkSqlJob) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.QueryFileUri == nil && desired.QueryFileUri != nil && !dcl.IsEmptyValueIndirect(desired.QueryFileUri) {
-		c.Config.Logger.Infof("desired QueryFileUri %s - but actually nil", dcl.SprintResource(desired.QueryFileUri))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) {
-		c.Config.Logger.Infof("Diff in QueryFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
-		return true
-	}
-	if actual.QueryList == nil && desired.QueryList != nil && !dcl.IsEmptyValueIndirect(desired.QueryList) {
-		c.Config.Logger.Infof("desired QueryList %s - but actually nil", dcl.SprintResource(desired.QueryList))
+		c.Config.Logger.Infof("Diff in QueryFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
 		return true
 	}
 	if compareJobSparkSqlJobQueryList(c, desired.QueryList, actual.QueryList) && !dcl.IsZeroValue(desired.QueryList) {
-		c.Config.Logger.Infof("Diff in QueryList. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryList), dcl.SprintResource(actual.QueryList))
-		return true
-	}
-	if actual.ScriptVariables == nil && desired.ScriptVariables != nil && !dcl.IsEmptyValueIndirect(desired.ScriptVariables) {
-		c.Config.Logger.Infof("desired ScriptVariables %s - but actually nil", dcl.SprintResource(desired.ScriptVariables))
+		c.Config.Logger.Infof("Diff in QueryList.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryList), dcl.SprintResource(actual.QueryList))
 		return true
 	}
 	if !dcl.MapEquals(desired.ScriptVariables, actual.ScriptVariables, []string(nil)) && !dcl.IsZeroValue(desired.ScriptVariables) {
-		c.Config.Logger.Infof("Diff in ScriptVariables. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
-		return true
-	}
-	if actual.Properties == nil && desired.Properties != nil && !dcl.IsEmptyValueIndirect(desired.Properties) {
-		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
+		c.Config.Logger.Infof("Diff in ScriptVariables.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
 		return true
 	}
 	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if actual.JarFileUris == nil && desired.JarFileUris != nil && !dcl.IsEmptyValueIndirect(desired.JarFileUris) {
-		c.Config.Logger.Infof("desired JarFileUris %s - but actually nil", dcl.SprintResource(desired.JarFileUris))
+		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
-		c.Config.Logger.Infof("Diff in JarFileUris. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
-		return true
-	}
-	if actual.LoggingConfig == nil && desired.LoggingConfig != nil && !dcl.IsEmptyValueIndirect(desired.LoggingConfig) {
-		c.Config.Logger.Infof("desired LoggingConfig %s - but actually nil", dcl.SprintResource(desired.LoggingConfig))
+		c.Config.Logger.Infof("Diff in JarFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
 		return true
 	}
 	if compareJobSparkSqlJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
+		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
 		return true
 	}
 	return false
@@ -4547,7 +4305,7 @@ func compareJobSparkSqlJobSlice(c *Client, desired, actual []JobSparkSqlJob) boo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobSparkSqlJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobSparkSqlJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4566,7 +4324,7 @@ func compareJobSparkSqlJobMap(c *Client, desired, actual map[string]JobSparkSqlJ
 			return true
 		}
 		if compareJobSparkSqlJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobSparkSqlJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4580,12 +4338,8 @@ func compareJobSparkSqlJobQueryList(c *Client, desired, actual *JobSparkSqlJobQu
 	if actual == nil {
 		return true
 	}
-	if actual.Queries == nil && desired.Queries != nil && !dcl.IsEmptyValueIndirect(desired.Queries) {
-		c.Config.Logger.Infof("desired Queries %s - but actually nil", dcl.SprintResource(desired.Queries))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
-		c.Config.Logger.Infof("Diff in Queries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
+		c.Config.Logger.Infof("Diff in Queries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
 		return true
 	}
 	return false
@@ -4598,7 +4352,7 @@ func compareJobSparkSqlJobQueryListSlice(c *Client, desired, actual []JobSparkSq
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobSparkSqlJobQueryList(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJobQueryList, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobSparkSqlJobQueryList, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4617,7 +4371,7 @@ func compareJobSparkSqlJobQueryListMap(c *Client, desired, actual map[string]Job
 			return true
 		}
 		if compareJobSparkSqlJobQueryList(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJobQueryList, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobSparkSqlJobQueryList, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4631,12 +4385,8 @@ func compareJobSparkSqlJobLoggingConfig(c *Client, desired, actual *JobSparkSqlJ
 	if actual == nil {
 		return true
 	}
-	if actual.DriverLogLevels == nil && desired.DriverLogLevels != nil && !dcl.IsEmptyValueIndirect(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
-		return true
-	}
 	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
+		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
@@ -4649,7 +4399,7 @@ func compareJobSparkSqlJobLoggingConfigSlice(c *Client, desired, actual []JobSpa
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobSparkSqlJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobSparkSqlJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4668,7 +4418,7 @@ func compareJobSparkSqlJobLoggingConfigMap(c *Client, desired, actual map[string
 			return true
 		}
 		if compareJobSparkSqlJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobSparkSqlJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4682,60 +4432,32 @@ func compareJobPrestoJob(c *Client, desired, actual *JobPrestoJob) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.QueryFileUri == nil && desired.QueryFileUri != nil && !dcl.IsEmptyValueIndirect(desired.QueryFileUri) {
-		c.Config.Logger.Infof("desired QueryFileUri %s - but actually nil", dcl.SprintResource(desired.QueryFileUri))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) {
-		c.Config.Logger.Infof("Diff in QueryFileUri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
-		return true
-	}
-	if actual.QueryList == nil && desired.QueryList != nil && !dcl.IsEmptyValueIndirect(desired.QueryList) {
-		c.Config.Logger.Infof("desired QueryList %s - but actually nil", dcl.SprintResource(desired.QueryList))
+		c.Config.Logger.Infof("Diff in QueryFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
 		return true
 	}
 	if compareJobPrestoJobQueryList(c, desired.QueryList, actual.QueryList) && !dcl.IsZeroValue(desired.QueryList) {
-		c.Config.Logger.Infof("Diff in QueryList. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryList), dcl.SprintResource(actual.QueryList))
-		return true
-	}
-	if actual.ContinueOnFailure == nil && desired.ContinueOnFailure != nil && !dcl.IsEmptyValueIndirect(desired.ContinueOnFailure) {
-		c.Config.Logger.Infof("desired ContinueOnFailure %s - but actually nil", dcl.SprintResource(desired.ContinueOnFailure))
+		c.Config.Logger.Infof("Diff in QueryList.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryList), dcl.SprintResource(actual.QueryList))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
-		c.Config.Logger.Infof("Diff in ContinueOnFailure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
-		return true
-	}
-	if actual.OutputFormat == nil && desired.OutputFormat != nil && !dcl.IsEmptyValueIndirect(desired.OutputFormat) {
-		c.Config.Logger.Infof("desired OutputFormat %s - but actually nil", dcl.SprintResource(desired.OutputFormat))
+		c.Config.Logger.Infof("Diff in ContinueOnFailure.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.OutputFormat, actual.OutputFormat) && !dcl.IsZeroValue(desired.OutputFormat) {
-		c.Config.Logger.Infof("Diff in OutputFormat. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OutputFormat), dcl.SprintResource(actual.OutputFormat))
-		return true
-	}
-	if actual.ClientTags == nil && desired.ClientTags != nil && !dcl.IsEmptyValueIndirect(desired.ClientTags) {
-		c.Config.Logger.Infof("desired ClientTags %s - but actually nil", dcl.SprintResource(desired.ClientTags))
+		c.Config.Logger.Infof("Diff in OutputFormat.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OutputFormat), dcl.SprintResource(actual.OutputFormat))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.ClientTags, actual.ClientTags) && !dcl.IsZeroValue(desired.ClientTags) {
-		c.Config.Logger.Infof("Diff in ClientTags. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClientTags), dcl.SprintResource(actual.ClientTags))
-		return true
-	}
-	if actual.Properties == nil && desired.Properties != nil && !dcl.IsEmptyValueIndirect(desired.Properties) {
-		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
+		c.Config.Logger.Infof("Diff in ClientTags.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClientTags), dcl.SprintResource(actual.ClientTags))
 		return true
 	}
 	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if actual.LoggingConfig == nil && desired.LoggingConfig != nil && !dcl.IsEmptyValueIndirect(desired.LoggingConfig) {
-		c.Config.Logger.Infof("desired LoggingConfig %s - but actually nil", dcl.SprintResource(desired.LoggingConfig))
+		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
 	if compareJobPrestoJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
+		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
 		return true
 	}
 	return false
@@ -4748,7 +4470,7 @@ func compareJobPrestoJobSlice(c *Client, desired, actual []JobPrestoJob) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobPrestoJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPrestoJob, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobPrestoJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4767,7 +4489,7 @@ func compareJobPrestoJobMap(c *Client, desired, actual map[string]JobPrestoJob) 
 			return true
 		}
 		if compareJobPrestoJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPrestoJob, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobPrestoJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4781,12 +4503,8 @@ func compareJobPrestoJobQueryList(c *Client, desired, actual *JobPrestoJobQueryL
 	if actual == nil {
 		return true
 	}
-	if actual.Queries == nil && desired.Queries != nil && !dcl.IsEmptyValueIndirect(desired.Queries) {
-		c.Config.Logger.Infof("desired Queries %s - but actually nil", dcl.SprintResource(desired.Queries))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
-		c.Config.Logger.Infof("Diff in Queries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
+		c.Config.Logger.Infof("Diff in Queries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
 		return true
 	}
 	return false
@@ -4799,7 +4517,7 @@ func compareJobPrestoJobQueryListSlice(c *Client, desired, actual []JobPrestoJob
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobPrestoJobQueryList(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPrestoJobQueryList, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobPrestoJobQueryList, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4818,7 +4536,7 @@ func compareJobPrestoJobQueryListMap(c *Client, desired, actual map[string]JobPr
 			return true
 		}
 		if compareJobPrestoJobQueryList(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPrestoJobQueryList, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobPrestoJobQueryList, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4832,12 +4550,8 @@ func compareJobPrestoJobLoggingConfig(c *Client, desired, actual *JobPrestoJobLo
 	if actual == nil {
 		return true
 	}
-	if actual.DriverLogLevels == nil && desired.DriverLogLevels != nil && !dcl.IsEmptyValueIndirect(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("desired DriverLogLevels %s - but actually nil", dcl.SprintResource(desired.DriverLogLevels))
-		return true
-	}
 	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
+		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
 		return true
 	}
 	return false
@@ -4850,7 +4564,7 @@ func compareJobPrestoJobLoggingConfigSlice(c *Client, desired, actual []JobPrest
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobPrestoJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPrestoJobLoggingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobPrestoJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4869,7 +4583,7 @@ func compareJobPrestoJobLoggingConfigMap(c *Client, desired, actual map[string]J
 			return true
 		}
 		if compareJobPrestoJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPrestoJobLoggingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobPrestoJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4893,7 +4607,7 @@ func compareJobStatusSlice(c *Client, desired, actual []JobStatus) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobStatus(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobStatus, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobStatus, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4912,7 +4626,7 @@ func compareJobStatusMap(c *Client, desired, actual map[string]JobStatus) bool {
 			return true
 		}
 		if compareJobStatus(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobStatus, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobStatus, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4936,7 +4650,7 @@ func compareJobStatusHistorySlice(c *Client, desired, actual []JobStatusHistory)
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobStatusHistory(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobStatusHistory, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobStatusHistory, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4955,7 +4669,7 @@ func compareJobStatusHistoryMap(c *Client, desired, actual map[string]JobStatusH
 			return true
 		}
 		if compareJobStatusHistory(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobStatusHistory, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobStatusHistory, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4979,7 +4693,7 @@ func compareJobYarnApplicationsSlice(c *Client, desired, actual []JobYarnApplica
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobYarnApplications(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobYarnApplications, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobYarnApplications, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4998,7 +4712,7 @@ func compareJobYarnApplicationsMap(c *Client, desired, actual map[string]JobYarn
 			return true
 		}
 		if compareJobYarnApplications(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobYarnApplications, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobYarnApplications, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5012,20 +4726,12 @@ func compareJobScheduling(c *Client, desired, actual *JobScheduling) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.MaxFailuresPerHour == nil && desired.MaxFailuresPerHour != nil && !dcl.IsEmptyValueIndirect(desired.MaxFailuresPerHour) {
-		c.Config.Logger.Infof("desired MaxFailuresPerHour %s - but actually nil", dcl.SprintResource(desired.MaxFailuresPerHour))
-		return true
-	}
 	if !reflect.DeepEqual(desired.MaxFailuresPerHour, actual.MaxFailuresPerHour) && !dcl.IsZeroValue(desired.MaxFailuresPerHour) {
-		c.Config.Logger.Infof("Diff in MaxFailuresPerHour. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxFailuresPerHour), dcl.SprintResource(actual.MaxFailuresPerHour))
-		return true
-	}
-	if actual.MaxFailuresTotal == nil && desired.MaxFailuresTotal != nil && !dcl.IsEmptyValueIndirect(desired.MaxFailuresTotal) {
-		c.Config.Logger.Infof("desired MaxFailuresTotal %s - but actually nil", dcl.SprintResource(desired.MaxFailuresTotal))
+		c.Config.Logger.Infof("Diff in MaxFailuresPerHour.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxFailuresPerHour), dcl.SprintResource(actual.MaxFailuresPerHour))
 		return true
 	}
 	if !reflect.DeepEqual(desired.MaxFailuresTotal, actual.MaxFailuresTotal) && !dcl.IsZeroValue(desired.MaxFailuresTotal) {
-		c.Config.Logger.Infof("Diff in MaxFailuresTotal. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxFailuresTotal), dcl.SprintResource(actual.MaxFailuresTotal))
+		c.Config.Logger.Infof("Diff in MaxFailuresTotal.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxFailuresTotal), dcl.SprintResource(actual.MaxFailuresTotal))
 		return true
 	}
 	return false
@@ -5038,7 +4744,7 @@ func compareJobSchedulingSlice(c *Client, desired, actual []JobScheduling) bool 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobScheduling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobScheduling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobScheduling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5057,7 +4763,7 @@ func compareJobSchedulingMap(c *Client, desired, actual map[string]JobScheduling
 			return true
 		}
 		if compareJobScheduling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobScheduling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobScheduling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5071,20 +4777,12 @@ func compareJobDriverRunner(c *Client, desired, actual *JobDriverRunner) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.MasterDriverRunner == nil && desired.MasterDriverRunner != nil && !dcl.IsEmptyValueIndirect(desired.MasterDriverRunner) {
-		c.Config.Logger.Infof("desired MasterDriverRunner %s - but actually nil", dcl.SprintResource(desired.MasterDriverRunner))
-		return true
-	}
 	if compareJobDriverRunnerMasterDriverRunner(c, desired.MasterDriverRunner, actual.MasterDriverRunner) && !dcl.IsZeroValue(desired.MasterDriverRunner) {
-		c.Config.Logger.Infof("Diff in MasterDriverRunner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MasterDriverRunner), dcl.SprintResource(actual.MasterDriverRunner))
-		return true
-	}
-	if actual.YarnDriverRunner == nil && desired.YarnDriverRunner != nil && !dcl.IsEmptyValueIndirect(desired.YarnDriverRunner) {
-		c.Config.Logger.Infof("desired YarnDriverRunner %s - but actually nil", dcl.SprintResource(desired.YarnDriverRunner))
+		c.Config.Logger.Infof("Diff in MasterDriverRunner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MasterDriverRunner), dcl.SprintResource(actual.MasterDriverRunner))
 		return true
 	}
 	if compareJobDriverRunnerYarnDriverRunner(c, desired.YarnDriverRunner, actual.YarnDriverRunner) && !dcl.IsZeroValue(desired.YarnDriverRunner) {
-		c.Config.Logger.Infof("Diff in YarnDriverRunner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YarnDriverRunner), dcl.SprintResource(actual.YarnDriverRunner))
+		c.Config.Logger.Infof("Diff in YarnDriverRunner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YarnDriverRunner), dcl.SprintResource(actual.YarnDriverRunner))
 		return true
 	}
 	return false
@@ -5097,7 +4795,7 @@ func compareJobDriverRunnerSlice(c *Client, desired, actual []JobDriverRunner) b
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobDriverRunner(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobDriverRunner, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobDriverRunner, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5116,7 +4814,7 @@ func compareJobDriverRunnerMap(c *Client, desired, actual map[string]JobDriverRu
 			return true
 		}
 		if compareJobDriverRunner(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobDriverRunner, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobDriverRunner, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5140,7 +4838,7 @@ func compareJobDriverRunnerMasterDriverRunnerSlice(c *Client, desired, actual []
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobDriverRunnerMasterDriverRunner(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobDriverRunnerMasterDriverRunner, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobDriverRunnerMasterDriverRunner, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5159,7 +4857,7 @@ func compareJobDriverRunnerMasterDriverRunnerMap(c *Client, desired, actual map[
 			return true
 		}
 		if compareJobDriverRunnerMasterDriverRunner(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobDriverRunnerMasterDriverRunner, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobDriverRunnerMasterDriverRunner, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5173,20 +4871,12 @@ func compareJobDriverRunnerYarnDriverRunner(c *Client, desired, actual *JobDrive
 	if actual == nil {
 		return true
 	}
-	if actual.MemoryMb == nil && desired.MemoryMb != nil && !dcl.IsEmptyValueIndirect(desired.MemoryMb) {
-		c.Config.Logger.Infof("desired MemoryMb %s - but actually nil", dcl.SprintResource(desired.MemoryMb))
-		return true
-	}
 	if !reflect.DeepEqual(desired.MemoryMb, actual.MemoryMb) && !dcl.IsZeroValue(desired.MemoryMb) {
-		c.Config.Logger.Infof("Diff in MemoryMb. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MemoryMb), dcl.SprintResource(actual.MemoryMb))
-		return true
-	}
-	if actual.Vcores == nil && desired.Vcores != nil && !dcl.IsEmptyValueIndirect(desired.Vcores) {
-		c.Config.Logger.Infof("desired Vcores %s - but actually nil", dcl.SprintResource(desired.Vcores))
+		c.Config.Logger.Infof("Diff in MemoryMb.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MemoryMb), dcl.SprintResource(actual.MemoryMb))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Vcores, actual.Vcores) && !dcl.IsZeroValue(desired.Vcores) {
-		c.Config.Logger.Infof("Diff in Vcores. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Vcores), dcl.SprintResource(actual.Vcores))
+		c.Config.Logger.Infof("Diff in Vcores.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Vcores), dcl.SprintResource(actual.Vcores))
 		return true
 	}
 	return false
@@ -5199,7 +4889,7 @@ func compareJobDriverRunnerYarnDriverRunnerSlice(c *Client, desired, actual []Jo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobDriverRunnerYarnDriverRunner(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobDriverRunnerYarnDriverRunner, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobDriverRunnerYarnDriverRunner, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5218,7 +4908,7 @@ func compareJobDriverRunnerYarnDriverRunnerMap(c *Client, desired, actual map[st
 			return true
 		}
 		if compareJobDriverRunnerYarnDriverRunner(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobDriverRunnerYarnDriverRunner, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in JobDriverRunnerYarnDriverRunner, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5232,7 +4922,7 @@ func compareJobStatusStateEnumSlice(c *Client, desired, actual []JobStatusStateE
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobStatusStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobStatusStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobStatusStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5250,7 +4940,7 @@ func compareJobStatusSubstateEnumSlice(c *Client, desired, actual []JobStatusSub
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobStatusSubstateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobStatusSubstateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobStatusSubstateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5268,7 +4958,7 @@ func compareJobStatusHistoryStateEnumSlice(c *Client, desired, actual []JobStatu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobStatusHistoryStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobStatusHistoryStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobStatusHistoryStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5286,7 +4976,7 @@ func compareJobStatusHistorySubstateEnumSlice(c *Client, desired, actual []JobSt
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobStatusHistorySubstateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobStatusHistorySubstateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobStatusHistorySubstateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5304,7 +4994,7 @@ func compareJobYarnApplicationsStateEnumSlice(c *Client, desired, actual []JobYa
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareJobYarnApplicationsStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobYarnApplicationsStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in JobYarnApplicationsStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5319,7 +5009,7 @@ func compareJobYarnApplicationsStateEnum(c *Client, desired, actual *JobYarnAppl
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Job) urlNormalized() *Job {
-	normalized := deepcopy.Copy(*r).(Job)
+	normalized := dcl.Copy(*r).(Job)
 	normalized.SubmittedBy = dcl.SelfLinkToName(r.SubmittedBy)
 	normalized.DriverInputResourceUri = dcl.SelfLinkToName(r.DriverInputResourceUri)
 	normalized.DriverOutputResourceUri = dcl.SelfLinkToName(r.DriverOutputResourceUri)
@@ -5391,67 +5081,67 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := expandJobReference(c, f.Reference); err != nil {
 		return nil, fmt.Errorf("error expanding Reference into reference: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["reference"] = v
 	}
 	if v, err := expandJobPlacement(c, f.Placement); err != nil {
 		return nil, fmt.Errorf("error expanding Placement into placement: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["placement"] = v
 	}
 	if v, err := expandJobHadoopJob(c, f.HadoopJob); err != nil {
 		return nil, fmt.Errorf("error expanding HadoopJob into hadoopJob: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["hadoopJob"] = v
 	}
 	if v, err := expandJobSparkJob(c, f.SparkJob); err != nil {
 		return nil, fmt.Errorf("error expanding SparkJob into sparkJob: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sparkJob"] = v
 	}
 	if v, err := expandJobPysparkJob(c, f.PysparkJob); err != nil {
 		return nil, fmt.Errorf("error expanding PysparkJob into pysparkJob: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["pysparkJob"] = v
 	}
 	if v, err := expandJobHiveJob(c, f.HiveJob); err != nil {
 		return nil, fmt.Errorf("error expanding HiveJob into hiveJob: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["hiveJob"] = v
 	}
 	if v, err := expandJobPigJob(c, f.PigJob); err != nil {
 		return nil, fmt.Errorf("error expanding PigJob into pigJob: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["pigJob"] = v
 	}
 	if v, err := expandJobSparkRJob(c, f.SparkRJob); err != nil {
 		return nil, fmt.Errorf("error expanding SparkRJob into sparkRJob: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sparkRJob"] = v
 	}
 	if v, err := expandJobSparkSqlJob(c, f.SparkSqlJob); err != nil {
 		return nil, fmt.Errorf("error expanding SparkSqlJob into sparkSqlJob: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sparkSqlJob"] = v
 	}
 	if v, err := expandJobPrestoJob(c, f.PrestoJob); err != nil {
 		return nil, fmt.Errorf("error expanding PrestoJob into prestoJob: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["prestoJob"] = v
 	}
 	if v, err := expandJobStatus(c, f.Status); err != nil {
 		return nil, fmt.Errorf("error expanding Status into status: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["status"] = v
 	}
 	if v, err := expandJobStatusHistorySlice(c, f.StatusHistory); err != nil {
 		return nil, fmt.Errorf("error expanding StatusHistory into statusHistory: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["statusHistory"] = v
 	}
 	if v, err := expandJobYarnApplicationsSlice(c, f.YarnApplications); err != nil {
 		return nil, fmt.Errorf("error expanding YarnApplications into yarnApplications: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["yarnApplications"] = v
 	}
 	if v := f.SubmittedBy; !dcl.IsEmptyValueIndirect(v) {
@@ -5474,7 +5164,7 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	}
 	if v, err := expandJobScheduling(c, f.Scheduling); err != nil {
 		return nil, fmt.Errorf("error expanding Scheduling into scheduling: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["scheduling"] = v
 	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
@@ -5485,17 +5175,17 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	}
 	if v, err := expandJobDriverRunner(c, f.DriverRunner); err != nil {
 		return nil, fmt.Errorf("error expanding DriverRunner into driverRunner: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["driverRunner"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Region into region: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["region"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -5627,11 +5317,10 @@ func flattenJobReferenceSlice(c *Client, i interface{}) []JobReference {
 // expandJobReference expands an instance of JobReference into a JSON
 // request object.
 func expandJobReference(c *Client, f *JobReference) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ProjectId; !dcl.IsEmptyValueIndirect(v) {
 		m["projectId"] = v
 	}
@@ -5741,11 +5430,10 @@ func flattenJobPlacementSlice(c *Client, i interface{}) []JobPlacement {
 // expandJobPlacement expands an instance of JobPlacement into a JSON
 // request object.
 func expandJobPlacement(c *Client, f *JobPlacement) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ClusterName; !dcl.IsEmptyValueIndirect(v) {
 		m["clusterName"] = v
 	}
@@ -5859,11 +5547,10 @@ func flattenJobHadoopJobSlice(c *Client, i interface{}) []JobHadoopJob {
 // expandJobHadoopJob expands an instance of JobHadoopJob into a JSON
 // request object.
 func expandJobHadoopJob(c *Client, f *JobHadoopJob) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MainJarFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["mainJarFileUri"] = v
 	}
@@ -5999,11 +5686,10 @@ func flattenJobHadoopJobLoggingConfigSlice(c *Client, i interface{}) []JobHadoop
 // expandJobHadoopJobLoggingConfig expands an instance of JobHadoopJobLoggingConfig into a JSON
 // request object.
 func expandJobHadoopJobLoggingConfig(c *Client, f *JobHadoopJobLoggingConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -6109,11 +5795,10 @@ func flattenJobSparkJobSlice(c *Client, i interface{}) []JobSparkJob {
 // expandJobSparkJob expands an instance of JobSparkJob into a JSON
 // request object.
 func expandJobSparkJob(c *Client, f *JobSparkJob) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MainJarFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["mainJarFileUri"] = v
 	}
@@ -6249,11 +5934,10 @@ func flattenJobSparkJobLoggingConfigSlice(c *Client, i interface{}) []JobSparkJo
 // expandJobSparkJobLoggingConfig expands an instance of JobSparkJobLoggingConfig into a JSON
 // request object.
 func expandJobSparkJobLoggingConfig(c *Client, f *JobSparkJobLoggingConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -6359,11 +6043,10 @@ func flattenJobPysparkJobSlice(c *Client, i interface{}) []JobPysparkJob {
 // expandJobPysparkJob expands an instance of JobPysparkJob into a JSON
 // request object.
 func expandJobPysparkJob(c *Client, f *JobPysparkJob) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MainPythonFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["mainPythonFileUri"] = v
 	}
@@ -6499,11 +6182,10 @@ func flattenJobPysparkJobLoggingConfigSlice(c *Client, i interface{}) []JobPyspa
 // expandJobPysparkJobLoggingConfig expands an instance of JobPysparkJobLoggingConfig into a JSON
 // request object.
 func expandJobPysparkJobLoggingConfig(c *Client, f *JobPysparkJobLoggingConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -6609,11 +6291,10 @@ func flattenJobHiveJobSlice(c *Client, i interface{}) []JobHiveJob {
 // expandJobHiveJob expands an instance of JobHiveJob into a JSON
 // request object.
 func expandJobHiveJob(c *Client, f *JobHiveJob) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.QueryFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["queryFileUri"] = v
 	}
@@ -6741,11 +6422,10 @@ func flattenJobHiveJobQueryListSlice(c *Client, i interface{}) []JobHiveJobQuery
 // expandJobHiveJobQueryList expands an instance of JobHiveJobQueryList into a JSON
 // request object.
 func expandJobHiveJobQueryList(c *Client, f *JobHiveJobQueryList) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
 		m["queries"] = v
 	}
@@ -6851,11 +6531,10 @@ func flattenJobPigJobSlice(c *Client, i interface{}) []JobPigJob {
 // expandJobPigJob expands an instance of JobPigJob into a JSON
 // request object.
 func expandJobPigJob(c *Client, f *JobPigJob) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.QueryFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["queryFileUri"] = v
 	}
@@ -6989,11 +6668,10 @@ func flattenJobPigJobQueryListSlice(c *Client, i interface{}) []JobPigJobQueryLi
 // expandJobPigJobQueryList expands an instance of JobPigJobQueryList into a JSON
 // request object.
 func expandJobPigJobQueryList(c *Client, f *JobPigJobQueryList) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
 		m["queries"] = v
 	}
@@ -7099,11 +6777,10 @@ func flattenJobPigJobLoggingConfigSlice(c *Client, i interface{}) []JobPigJobLog
 // expandJobPigJobLoggingConfig expands an instance of JobPigJobLoggingConfig into a JSON
 // request object.
 func expandJobPigJobLoggingConfig(c *Client, f *JobPigJobLoggingConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -7209,11 +6886,10 @@ func flattenJobSparkRJobSlice(c *Client, i interface{}) []JobSparkRJob {
 // expandJobSparkRJob expands an instance of JobSparkRJob into a JSON
 // request object.
 func expandJobSparkRJob(c *Client, f *JobSparkRJob) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MainRFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["mainRFileUri"] = v
 	}
@@ -7341,11 +7017,10 @@ func flattenJobSparkRJobLoggingConfigSlice(c *Client, i interface{}) []JobSparkR
 // expandJobSparkRJobLoggingConfig expands an instance of JobSparkRJobLoggingConfig into a JSON
 // request object.
 func expandJobSparkRJobLoggingConfig(c *Client, f *JobSparkRJobLoggingConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -7451,11 +7126,10 @@ func flattenJobSparkSqlJobSlice(c *Client, i interface{}) []JobSparkSqlJob {
 // expandJobSparkSqlJob expands an instance of JobSparkSqlJob into a JSON
 // request object.
 func expandJobSparkSqlJob(c *Client, f *JobSparkSqlJob) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.QueryFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["queryFileUri"] = v
 	}
@@ -7585,11 +7259,10 @@ func flattenJobSparkSqlJobQueryListSlice(c *Client, i interface{}) []JobSparkSql
 // expandJobSparkSqlJobQueryList expands an instance of JobSparkSqlJobQueryList into a JSON
 // request object.
 func expandJobSparkSqlJobQueryList(c *Client, f *JobSparkSqlJobQueryList) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
 		m["queries"] = v
 	}
@@ -7695,11 +7368,10 @@ func flattenJobSparkSqlJobLoggingConfigSlice(c *Client, i interface{}) []JobSpar
 // expandJobSparkSqlJobLoggingConfig expands an instance of JobSparkSqlJobLoggingConfig into a JSON
 // request object.
 func expandJobSparkSqlJobLoggingConfig(c *Client, f *JobSparkSqlJobLoggingConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -7805,11 +7477,10 @@ func flattenJobPrestoJobSlice(c *Client, i interface{}) []JobPrestoJob {
 // expandJobPrestoJob expands an instance of JobPrestoJob into a JSON
 // request object.
 func expandJobPrestoJob(c *Client, f *JobPrestoJob) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.QueryFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["queryFileUri"] = v
 	}
@@ -7943,11 +7614,10 @@ func flattenJobPrestoJobQueryListSlice(c *Client, i interface{}) []JobPrestoJobQ
 // expandJobPrestoJobQueryList expands an instance of JobPrestoJobQueryList into a JSON
 // request object.
 func expandJobPrestoJobQueryList(c *Client, f *JobPrestoJobQueryList) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
 		m["queries"] = v
 	}
@@ -8053,11 +7723,10 @@ func flattenJobPrestoJobLoggingConfigSlice(c *Client, i interface{}) []JobPresto
 // expandJobPrestoJobLoggingConfig expands an instance of JobPrestoJobLoggingConfig into a JSON
 // request object.
 func expandJobPrestoJobLoggingConfig(c *Client, f *JobPrestoJobLoggingConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -8163,11 +7832,10 @@ func flattenJobStatusSlice(c *Client, i interface{}) []JobStatus {
 // expandJobStatus expands an instance of JobStatus into a JSON
 // request object.
 func expandJobStatus(c *Client, f *JobStatus) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
 		m["state"] = v
 	}
@@ -8285,11 +7953,10 @@ func flattenJobStatusHistorySlice(c *Client, i interface{}) []JobStatusHistory {
 // expandJobStatusHistory expands an instance of JobStatusHistory into a JSON
 // request object.
 func expandJobStatusHistory(c *Client, f *JobStatusHistory) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
 		m["state"] = v
 	}
@@ -8407,11 +8074,10 @@ func flattenJobYarnApplicationsSlice(c *Client, i interface{}) []JobYarnApplicat
 // expandJobYarnApplications expands an instance of JobYarnApplications into a JSON
 // request object.
 func expandJobYarnApplications(c *Client, f *JobYarnApplications) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -8529,11 +8195,10 @@ func flattenJobSchedulingSlice(c *Client, i interface{}) []JobScheduling {
 // expandJobScheduling expands an instance of JobScheduling into a JSON
 // request object.
 func expandJobScheduling(c *Client, f *JobScheduling) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MaxFailuresPerHour; !dcl.IsEmptyValueIndirect(v) {
 		m["maxFailuresPerHour"] = v
 	}
@@ -8643,11 +8308,10 @@ func flattenJobDriverRunnerSlice(c *Client, i interface{}) []JobDriverRunner {
 // expandJobDriverRunner expands an instance of JobDriverRunner into a JSON
 // request object.
 func expandJobDriverRunner(c *Client, f *JobDriverRunner) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandJobDriverRunnerMasterDriverRunner(c, f.MasterDriverRunner); err != nil {
 		return nil, fmt.Errorf("error expanding MasterDriverRunner into masterDriverRunner: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -8761,11 +8425,10 @@ func flattenJobDriverRunnerMasterDriverRunnerSlice(c *Client, i interface{}) []J
 // expandJobDriverRunnerMasterDriverRunner expands an instance of JobDriverRunnerMasterDriverRunner into a JSON
 // request object.
 func expandJobDriverRunnerMasterDriverRunner(c *Client, f *JobDriverRunnerMasterDriverRunner) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 
 	return m, nil
 }
@@ -8867,11 +8530,10 @@ func flattenJobDriverRunnerYarnDriverRunnerSlice(c *Client, i interface{}) []Job
 // expandJobDriverRunnerYarnDriverRunner expands an instance of JobDriverRunnerYarnDriverRunner into a JSON
 // request object.
 func expandJobDriverRunnerYarnDriverRunner(c *Client, f *JobDriverRunnerYarnDriverRunner) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MemoryMb; !dcl.IsEmptyValueIndirect(v) {
 		m["memoryMb"] = v
 	}

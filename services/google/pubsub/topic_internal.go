@@ -22,7 +22,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -307,10 +306,11 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
 	op.response = o
+
 	// Poll for the Topic resource to be created. Topic resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
 	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
-		u, err := topicGetURL(c.Config.BasePath, r)
+		u, err := topicGetURL(c.Config.BasePath, r.urlNormalized())
 		if err != nil {
 			return nil, err
 		}
@@ -319,7 +319,7 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 			// If the error is a transient server error (e.g., 500) or not found (i.e., the resource has not yet been created),
 			// continue retrying until the transient error is resolved, the resource is created, or we time out.
 			if dcl.IsRetryableRequestError(c.Config, err, true) {
-				return nil, dcl.OperationNotDone{Err: err}
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
 			}
 			return nil, err
 		}
@@ -544,6 +544,7 @@ type topicDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         topicApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -562,42 +563,38 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 
 	var diffs []topicDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "kms_key_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, topicDiff{
-			UpdateOp: &updateTopicUpdateOperation{}, FieldName: "KmsKeyName",
+			UpdateOp: &updateTopicUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, topicDiff{
-			UpdateOp: &updateTopicUpdateOperation{}, FieldName: "Labels",
+			UpdateOp: &updateTopicUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.KmsKeyName) && !dcl.StringCanonicalize(desired.KmsKeyName, actual.KmsKeyName) {
-		c.Config.Logger.Infof("Detected diff in KmsKeyName.\nDESIRED: %v\nACTUAL: %v", desired.KmsKeyName, actual.KmsKeyName)
-
-		diffs = append(diffs, topicDiff{
-			UpdateOp:  &updateTopicUpdateOperation{},
-			FieldName: "KmsKeyName",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
-		diffs = append(diffs, topicDiff{
-			UpdateOp:  &updateTopicUpdateOperation{},
-			FieldName: "Labels",
-		})
-
-	}
 	if compareTopicMessageStoragePolicy(c, desired.MessageStoragePolicy, actual.MessageStoragePolicy) {
 		c.Config.Logger.Infof("Detected diff in MessageStoragePolicy.\nDESIRED: %v\nACTUAL: %v", desired.MessageStoragePolicy, actual.MessageStoragePolicy)
 
@@ -638,12 +635,8 @@ func compareTopicMessageStoragePolicy(c *Client, desired, actual *TopicMessageSt
 	if actual == nil {
 		return true
 	}
-	if actual.AllowedPersistenceRegions == nil && desired.AllowedPersistenceRegions != nil && !dcl.IsEmptyValueIndirect(desired.AllowedPersistenceRegions) {
-		c.Config.Logger.Infof("desired AllowedPersistenceRegions %s - but actually nil", dcl.SprintResource(desired.AllowedPersistenceRegions))
-		return true
-	}
 	if toAdd, toRemove := dcl.CompareStringSets(desired.AllowedPersistenceRegions, actual.AllowedPersistenceRegions); len(toAdd)+len(toRemove) > 0 {
-		c.Config.Logger.Infof("Diff in AllowedPersistenceRegions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedPersistenceRegions), dcl.SprintResource(actual.AllowedPersistenceRegions))
+		c.Config.Logger.Infof("Diff in AllowedPersistenceRegions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedPersistenceRegions), dcl.SprintResource(actual.AllowedPersistenceRegions))
 		return true
 	}
 	return false
@@ -656,7 +649,7 @@ func compareTopicMessageStoragePolicySlice(c *Client, desired, actual []TopicMes
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareTopicMessageStoragePolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TopicMessageStoragePolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in TopicMessageStoragePolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -675,7 +668,7 @@ func compareTopicMessageStoragePolicyMap(c *Client, desired, actual map[string]T
 			return true
 		}
 		if compareTopicMessageStoragePolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in TopicMessageStoragePolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in TopicMessageStoragePolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -686,7 +679,7 @@ func compareTopicMessageStoragePolicyMap(c *Client, desired, actual map[string]T
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Topic) urlNormalized() *Topic {
-	normalized := deepcopy.Copy(*r).(Topic)
+	normalized := dcl.Copy(*r).(Topic)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.KmsKeyName = dcl.SelfLinkToName(r.KmsKeyName)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
@@ -752,7 +745,7 @@ func expandTopic(c *Client, f *Topic) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.KmsKeyName; !dcl.IsEmptyValueIndirect(v) {
@@ -763,12 +756,12 @@ func expandTopic(c *Client, f *Topic) (map[string]interface{}, error) {
 	}
 	if v, err := expandTopicMessageStoragePolicy(c, f.MessageStoragePolicy); err != nil {
 		return nil, fmt.Errorf("error expanding MessageStoragePolicy into messageStoragePolicy: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["messageStoragePolicy"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -880,11 +873,10 @@ func flattenTopicMessageStoragePolicySlice(c *Client, i interface{}) []TopicMess
 // expandTopicMessageStoragePolicy expands an instance of TopicMessageStoragePolicy into a JSON
 // request object.
 func expandTopicMessageStoragePolicy(c *Client, f *TopicMessageStoragePolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AllowedPersistenceRegions; !dcl.IsEmptyValueIndirect(v) {
 		m["allowedPersistenceRegions"] = v
 	}

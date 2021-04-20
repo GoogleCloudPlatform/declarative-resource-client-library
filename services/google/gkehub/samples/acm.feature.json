@@ -1,0 +1,8 @@
+{
+  "name": "configmanagement",
+  "project": "{{project}}",
+  "location": "global",
+  "labels": {
+    "label-one": "value-one"
+  }
+}

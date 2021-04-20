@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -390,6 +389,7 @@ type databaseDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         databaseApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -408,6 +408,41 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 
 	var diffs []databaseDiff
 	// New style diffs.
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "instance"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Ddl, actual.Ddl, dcl.Info{Ignore: true, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ddl"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -439,7 +474,7 @@ func compareDatabaseStateEnumSlice(c *Client, desired, actual []DatabaseStateEnu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDatabaseStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DatabaseStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DatabaseStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -454,7 +489,7 @@ func compareDatabaseStateEnum(c *Client, desired, actual *DatabaseStateEnum) boo
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Database) urlNormalized() *Database {
-	normalized := deepcopy.Copy(*r).(Database)
+	normalized := dcl.Copy(*r).(Database)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Instance = dcl.SelfLinkToName(r.Instance)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
@@ -511,12 +546,12 @@ func expandDatabase(c *Client, f *Database) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Instance into instance: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["instance"] = v
 	}
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
@@ -524,7 +559,7 @@ func expandDatabase(c *Client, f *Database) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v := f.Ddl; !dcl.IsEmptyValueIndirect(v) {

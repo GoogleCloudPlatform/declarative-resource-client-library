@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -341,10 +340,11 @@ func (op *createSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
 	op.response = o
+
 	// Poll for the Subscription resource to be created. Subscription resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
 	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
-		u, err := subscriptionGetURL(c.Config.BasePath, r)
+		u, err := subscriptionGetURL(c.Config.BasePath, r.urlNormalized())
 		if err != nil {
 			return nil, err
 		}
@@ -353,7 +353,7 @@ func (op *createSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 			// If the error is a transient server error (e.g., 500) or not found (i.e., the resource has not yet been created),
 			// continue retrying until the transient error is resolved, the resource is created, or we time out.
 			if dcl.IsRetryableRequestError(c.Config, err, true) {
-				return nil, dcl.OperationNotDone{Err: err}
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
 			}
 			return nil, err
 		}
@@ -872,6 +872,7 @@ type subscriptionDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         subscriptionApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -890,81 +891,61 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 
 	var diffs []subscriptionDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Topic, actual.Topic, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, FieldName: "Topic"})
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Topic, actual.Topic, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "topic"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subscriptionDiff{
-			UpdateOp: &updateSubscriptionUpdateOperation{}, FieldName: "Labels",
-		})
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.MessageRetentionDuration, actual.MessageRetentionDuration, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, subscriptionDiff{
-			UpdateOp: &updateSubscriptionUpdateOperation{}, FieldName: "MessageRetentionDuration",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.RetainAckedMessages, actual.RetainAckedMessages, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, subscriptionDiff{
-			UpdateOp: &updateSubscriptionUpdateOperation{}, FieldName: "RetainAckedMessages",
+			UpdateOp: &updateSubscriptionUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.AckDeadlineSeconds, actual.AckDeadlineSeconds, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.MessageRetentionDuration, actual.MessageRetentionDuration, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "message_retention_duration"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, FieldName: "AckDeadlineSeconds"})
-	}
-
-	if !dcl.IsZeroValue(desired.Topic) && !dcl.PartialSelfLinkToSelfLink(desired.Topic, actual.Topic) {
-		c.Config.Logger.Infof("Detected diff in Topic.\nDESIRED: %v\nACTUAL: %v", desired.Topic, actual.Topic)
 		diffs = append(diffs, subscriptionDiff{
-			RequiresRecreate: true,
-			FieldName:        "Topic",
+			UpdateOp: &updateSubscriptionUpdateOperation{}, Diffs: ds,
 		})
 	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
+	if ds, err := dcl.Diff(desired.RetainAckedMessages, actual.RetainAckedMessages, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "retain_acked_messages"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, subscriptionDiff{
-			UpdateOp:  &updateSubscriptionUpdateOperation{},
-			FieldName: "Labels",
+			UpdateOp: &updateSubscriptionUpdateOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.IsZeroValue(desired.MessageRetentionDuration) && !dcl.StringCanonicalize(desired.MessageRetentionDuration, actual.MessageRetentionDuration) {
-		c.Config.Logger.Infof("Detected diff in MessageRetentionDuration.\nDESIRED: %v\nACTUAL: %v", desired.MessageRetentionDuration, actual.MessageRetentionDuration)
 
-		diffs = append(diffs, subscriptionDiff{
-			UpdateOp:  &updateSubscriptionUpdateOperation{},
-			FieldName: "MessageRetentionDuration",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.RetainAckedMessages) && !dcl.BoolCanonicalize(desired.RetainAckedMessages, actual.RetainAckedMessages) {
-		c.Config.Logger.Infof("Detected diff in RetainAckedMessages.\nDESIRED: %v\nACTUAL: %v", desired.RetainAckedMessages, actual.RetainAckedMessages)
 
-		diffs = append(diffs, subscriptionDiff{
-			UpdateOp:  &updateSubscriptionUpdateOperation{},
-			FieldName: "RetainAckedMessages",
-		})
-
+	if ds, err := dcl.Diff(desired.AckDeadlineSeconds, actual.AckDeadlineSeconds, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ack_deadline_seconds"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
 	if compareSubscriptionExpirationPolicy(c, desired.ExpirationPolicy, actual.ExpirationPolicy) {
 		c.Config.Logger.Infof("Detected diff in ExpirationPolicy.\nDESIRED: %v\nACTUAL: %v", desired.ExpirationPolicy, actual.ExpirationPolicy)
 
@@ -986,13 +967,6 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 		diffs = append(diffs, subscriptionDiff{
 			RequiresRecreate: true,
 			FieldName:        "PushConfig",
-		})
-	}
-	if !reflect.DeepEqual(desired.AckDeadlineSeconds, actual.AckDeadlineSeconds) {
-		c.Config.Logger.Infof("Detected diff in AckDeadlineSeconds.\nDESIRED: %v\nACTUAL: %v", desired.AckDeadlineSeconds, actual.AckDeadlineSeconds)
-		diffs = append(diffs, subscriptionDiff{
-			RequiresRecreate: true,
-			FieldName:        "AckDeadlineSeconds",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1026,12 +1000,8 @@ func compareSubscriptionExpirationPolicy(c *Client, desired, actual *Subscriptio
 	if actual == nil {
 		return true
 	}
-	if actual.Ttl == nil && desired.Ttl != nil && !dcl.IsEmptyValueIndirect(desired.Ttl) {
-		c.Config.Logger.Infof("desired Ttl %s - but actually nil", dcl.SprintResource(desired.Ttl))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Ttl, actual.Ttl) && !dcl.IsZeroValue(desired.Ttl) {
-		c.Config.Logger.Infof("Diff in Ttl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ttl), dcl.SprintResource(actual.Ttl))
+		c.Config.Logger.Infof("Diff in Ttl.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ttl), dcl.SprintResource(actual.Ttl))
 		return true
 	}
 	return false
@@ -1044,7 +1014,7 @@ func compareSubscriptionExpirationPolicySlice(c *Client, desired, actual []Subsc
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSubscriptionExpirationPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubscriptionExpirationPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SubscriptionExpirationPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1063,7 +1033,7 @@ func compareSubscriptionExpirationPolicyMap(c *Client, desired, actual map[strin
 			return true
 		}
 		if compareSubscriptionExpirationPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SubscriptionExpirationPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in SubscriptionExpirationPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1077,20 +1047,12 @@ func compareSubscriptionDeadLetterPolicy(c *Client, desired, actual *Subscriptio
 	if actual == nil {
 		return true
 	}
-	if actual.DeadLetterTopic == nil && desired.DeadLetterTopic != nil && !dcl.IsEmptyValueIndirect(desired.DeadLetterTopic) {
-		c.Config.Logger.Infof("desired DeadLetterTopic %s - but actually nil", dcl.SprintResource(desired.DeadLetterTopic))
-		return true
-	}
 	if !dcl.NameToSelfLink(desired.DeadLetterTopic, actual.DeadLetterTopic) && !dcl.IsZeroValue(desired.DeadLetterTopic) {
-		c.Config.Logger.Infof("Diff in DeadLetterTopic. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeadLetterTopic), dcl.SprintResource(actual.DeadLetterTopic))
-		return true
-	}
-	if actual.MaxDeliveryAttempts == nil && desired.MaxDeliveryAttempts != nil && !dcl.IsEmptyValueIndirect(desired.MaxDeliveryAttempts) {
-		c.Config.Logger.Infof("desired MaxDeliveryAttempts %s - but actually nil", dcl.SprintResource(desired.MaxDeliveryAttempts))
+		c.Config.Logger.Infof("Diff in DeadLetterTopic.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeadLetterTopic), dcl.SprintResource(actual.DeadLetterTopic))
 		return true
 	}
 	if !reflect.DeepEqual(desired.MaxDeliveryAttempts, actual.MaxDeliveryAttempts) && !dcl.IsZeroValue(desired.MaxDeliveryAttempts) {
-		c.Config.Logger.Infof("Diff in MaxDeliveryAttempts. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxDeliveryAttempts), dcl.SprintResource(actual.MaxDeliveryAttempts))
+		c.Config.Logger.Infof("Diff in MaxDeliveryAttempts.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxDeliveryAttempts), dcl.SprintResource(actual.MaxDeliveryAttempts))
 		return true
 	}
 	return false
@@ -1103,7 +1065,7 @@ func compareSubscriptionDeadLetterPolicySlice(c *Client, desired, actual []Subsc
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSubscriptionDeadLetterPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubscriptionDeadLetterPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SubscriptionDeadLetterPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1122,7 +1084,7 @@ func compareSubscriptionDeadLetterPolicyMap(c *Client, desired, actual map[strin
 			return true
 		}
 		if compareSubscriptionDeadLetterPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SubscriptionDeadLetterPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in SubscriptionDeadLetterPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1136,28 +1098,16 @@ func compareSubscriptionPushConfig(c *Client, desired, actual *SubscriptionPushC
 	if actual == nil {
 		return true
 	}
-	if actual.PushEndpoint == nil && desired.PushEndpoint != nil && !dcl.IsEmptyValueIndirect(desired.PushEndpoint) {
-		c.Config.Logger.Infof("desired PushEndpoint %s - but actually nil", dcl.SprintResource(desired.PushEndpoint))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.PushEndpoint, actual.PushEndpoint) && !dcl.IsZeroValue(desired.PushEndpoint) {
-		c.Config.Logger.Infof("Diff in PushEndpoint. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PushEndpoint), dcl.SprintResource(actual.PushEndpoint))
-		return true
-	}
-	if actual.Attributes == nil && desired.Attributes != nil && !dcl.IsEmptyValueIndirect(desired.Attributes) {
-		c.Config.Logger.Infof("desired Attributes %s - but actually nil", dcl.SprintResource(desired.Attributes))
+		c.Config.Logger.Infof("Diff in PushEndpoint.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PushEndpoint), dcl.SprintResource(actual.PushEndpoint))
 		return true
 	}
 	if !dcl.MapEquals(desired.Attributes, actual.Attributes, []string(nil)) && !dcl.IsZeroValue(desired.Attributes) {
-		c.Config.Logger.Infof("Diff in Attributes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Attributes), dcl.SprintResource(actual.Attributes))
-		return true
-	}
-	if actual.OidcToken == nil && desired.OidcToken != nil && !dcl.IsEmptyValueIndirect(desired.OidcToken) {
-		c.Config.Logger.Infof("desired OidcToken %s - but actually nil", dcl.SprintResource(desired.OidcToken))
+		c.Config.Logger.Infof("Diff in Attributes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Attributes), dcl.SprintResource(actual.Attributes))
 		return true
 	}
 	if compareSubscriptionPushConfigOidcToken(c, desired.OidcToken, actual.OidcToken) && !dcl.IsZeroValue(desired.OidcToken) {
-		c.Config.Logger.Infof("Diff in OidcToken. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OidcToken), dcl.SprintResource(actual.OidcToken))
+		c.Config.Logger.Infof("Diff in OidcToken.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OidcToken), dcl.SprintResource(actual.OidcToken))
 		return true
 	}
 	return false
@@ -1170,7 +1120,7 @@ func compareSubscriptionPushConfigSlice(c *Client, desired, actual []Subscriptio
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSubscriptionPushConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubscriptionPushConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SubscriptionPushConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1189,7 +1139,7 @@ func compareSubscriptionPushConfigMap(c *Client, desired, actual map[string]Subs
 			return true
 		}
 		if compareSubscriptionPushConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SubscriptionPushConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in SubscriptionPushConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1203,20 +1153,12 @@ func compareSubscriptionPushConfigOidcToken(c *Client, desired, actual *Subscrip
 	if actual == nil {
 		return true
 	}
-	if actual.ServiceAccountEmail == nil && desired.ServiceAccountEmail != nil && !dcl.IsEmptyValueIndirect(desired.ServiceAccountEmail) {
-		c.Config.Logger.Infof("desired ServiceAccountEmail %s - but actually nil", dcl.SprintResource(desired.ServiceAccountEmail))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ServiceAccountEmail, actual.ServiceAccountEmail) && !dcl.IsZeroValue(desired.ServiceAccountEmail) {
-		c.Config.Logger.Infof("Diff in ServiceAccountEmail. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountEmail), dcl.SprintResource(actual.ServiceAccountEmail))
-		return true
-	}
-	if actual.Audience == nil && desired.Audience != nil && !dcl.IsEmptyValueIndirect(desired.Audience) {
-		c.Config.Logger.Infof("desired Audience %s - but actually nil", dcl.SprintResource(desired.Audience))
+		c.Config.Logger.Infof("Diff in ServiceAccountEmail.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountEmail), dcl.SprintResource(actual.ServiceAccountEmail))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Audience, actual.Audience) && !dcl.IsZeroValue(desired.Audience) {
-		c.Config.Logger.Infof("Diff in Audience. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Audience), dcl.SprintResource(actual.Audience))
+		c.Config.Logger.Infof("Diff in Audience.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Audience), dcl.SprintResource(actual.Audience))
 		return true
 	}
 	return false
@@ -1229,7 +1171,7 @@ func compareSubscriptionPushConfigOidcTokenSlice(c *Client, desired, actual []Su
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSubscriptionPushConfigOidcToken(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubscriptionPushConfigOidcToken, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SubscriptionPushConfigOidcToken, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1248,7 +1190,7 @@ func compareSubscriptionPushConfigOidcTokenMap(c *Client, desired, actual map[st
 			return true
 		}
 		if compareSubscriptionPushConfigOidcToken(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SubscriptionPushConfigOidcToken, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in SubscriptionPushConfigOidcToken, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1259,7 +1201,7 @@ func compareSubscriptionPushConfigOidcTokenMap(c *Client, desired, actual map[st
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Subscription) urlNormalized() *Subscription {
-	normalized := deepcopy.Copy(*r).(Subscription)
+	normalized := dcl.Copy(*r).(Subscription)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Topic = dcl.SelfLinkToName(r.Topic)
 	normalized.MessageRetentionDuration = dcl.SelfLinkToName(r.MessageRetentionDuration)
@@ -1326,12 +1268,12 @@ func expandSubscription(c *Client, f *Subscription) (map[string]interface{}, err
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v, err := dcl.DeriveField("projects/%s/topics/%s", f.Topic, f.Project, f.Topic); err != nil {
 		return nil, fmt.Errorf("error expanding Topic into topic: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["topic"] = v
 	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
@@ -1345,22 +1287,22 @@ func expandSubscription(c *Client, f *Subscription) (map[string]interface{}, err
 	}
 	if v, err := expandSubscriptionExpirationPolicy(c, f.ExpirationPolicy); err != nil {
 		return nil, fmt.Errorf("error expanding ExpirationPolicy into expirationPolicy: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["expirationPolicy"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := expandSubscriptionDeadLetterPolicy(c, f.DeadLetterPolicy); err != nil {
 		return nil, fmt.Errorf("error expanding DeadLetterPolicy into deadLetterPolicy: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["deadLetterPolicy"] = v
 	}
 	if v, err := expandSubscriptionPushConfig(c, f.PushConfig); err != nil {
 		return nil, fmt.Errorf("error expanding PushConfig into pushConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["pushConfig"] = v
 	}
 	if v := f.AckDeadlineSeconds; !dcl.IsEmptyValueIndirect(v) {
@@ -1480,11 +1422,10 @@ func flattenSubscriptionExpirationPolicySlice(c *Client, i interface{}) []Subscr
 // expandSubscriptionExpirationPolicy expands an instance of SubscriptionExpirationPolicy into a JSON
 // request object.
 func expandSubscriptionExpirationPolicy(c *Client, f *SubscriptionExpirationPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Ttl; !dcl.IsEmptyValueIndirect(v) {
 		m["ttl"] = v
 	}
@@ -1590,11 +1531,10 @@ func flattenSubscriptionDeadLetterPolicySlice(c *Client, i interface{}) []Subscr
 // expandSubscriptionDeadLetterPolicy expands an instance of SubscriptionDeadLetterPolicy into a JSON
 // request object.
 func expandSubscriptionDeadLetterPolicy(c *Client, f *SubscriptionDeadLetterPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.DeadLetterTopic; !dcl.IsEmptyValueIndirect(v) {
 		m["deadLetterTopic"] = v
 	}
@@ -1704,11 +1644,10 @@ func flattenSubscriptionPushConfigSlice(c *Client, i interface{}) []Subscription
 // expandSubscriptionPushConfig expands an instance of SubscriptionPushConfig into a JSON
 // request object.
 func expandSubscriptionPushConfig(c *Client, f *SubscriptionPushConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.PushEndpoint; !dcl.IsEmptyValueIndirect(v) {
 		m["pushEndpoint"] = v
 	}
@@ -1828,11 +1767,10 @@ func flattenSubscriptionPushConfigOidcTokenSlice(c *Client, i interface{}) []Sub
 // expandSubscriptionPushConfigOidcToken expands an instance of SubscriptionPushConfigOidcToken into a JSON
 // request object.
 func expandSubscriptionPushConfigOidcToken(c *Client, f *SubscriptionPushConfigOidcToken) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ServiceAccountEmail; !dcl.IsEmptyValueIndirect(v) {
 		m["serviceAccountEmail"] = v
 	}

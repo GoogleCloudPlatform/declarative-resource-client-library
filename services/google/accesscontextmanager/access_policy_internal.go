@@ -22,7 +22,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -482,6 +481,7 @@ type accessPolicyDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         accessPolicyApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -500,52 +500,36 @@ func diffAccessPolicy(c *Client, desired, actual *AccessPolicy, opts ...dcl.Appl
 
 	var diffs []accessPolicyDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Parent, actual.Parent, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "parent"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, accessPolicyDiff{RequiresRecreate: true, FieldName: "Parent"})
+		diffs = append(diffs, accessPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Title, actual.Title, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "title"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, accessPolicyDiff{
-			UpdateOp: &updateAccessPolicyUpdateOperation{}, FieldName: "Title",
+			UpdateOp: &updateAccessPolicyUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, accessPolicyDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+		diffs = append(diffs, accessPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, accessPolicyDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+		diffs = append(diffs, accessPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Parent) && !dcl.PartialSelfLinkToSelfLink(desired.Parent, actual.Parent) {
-		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %v\nACTUAL: %v", desired.Parent, actual.Parent)
-		diffs = append(diffs, accessPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Parent",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Title) && !dcl.StringCanonicalize(desired.Title, actual.Title) {
-		c.Config.Logger.Infof("Detected diff in Title.\nDESIRED: %v\nACTUAL: %v", desired.Title, actual.Title)
-
-		diffs = append(diffs, accessPolicyDiff{
-			UpdateOp:  &updateAccessPolicyUpdateOperation{},
-			FieldName: "Title",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -575,7 +559,7 @@ func diffAccessPolicy(c *Client, desired, actual *AccessPolicy, opts ...dcl.Appl
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *AccessPolicy) urlNormalized() *AccessPolicy {
-	normalized := deepcopy.Copy(*r).(AccessPolicy)
+	normalized := dcl.Copy(*r).(AccessPolicy)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Parent = dcl.SelfLinkToName(r.Parent)
 	normalized.Title = dcl.SelfLinkToName(r.Title)
@@ -642,7 +626,7 @@ func expandAccessPolicy(c *Client, f *AccessPolicy) (map[string]interface{}, err
 	}
 	if v, err := dcl.DeriveField("organizations/%s", f.Parent, f.Parent); err != nil {
 		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["parent"] = v
 	}
 	if v := f.Title; !dcl.IsEmptyValueIndirect(v) {

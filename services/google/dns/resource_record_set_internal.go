@@ -19,10 +19,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -370,6 +368,7 @@ type resourceRecordSetDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         resourceRecordSetApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -388,69 +387,56 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 
 	var diffs []resourceRecordSetDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.DnsName, actual.DnsName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DnsName, actual.DnsName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "dns_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, resourceRecordSetDiff{
-			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, FieldName: "DnsName",
+			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.DnsType, actual.DnsType, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DnsType, actual.DnsType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "dns_type"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, resourceRecordSetDiff{
-			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, FieldName: "DnsType",
+			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Ttl, actual.Ttl, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Ttl, actual.Ttl, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ttl"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, resourceRecordSetDiff{
-			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, FieldName: "Ttl",
+			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.DnsName) && !dcl.StringCanonicalize(desired.DnsName, actual.DnsName) {
-		c.Config.Logger.Infof("Detected diff in DnsName.\nDESIRED: %v\nACTUAL: %v", desired.DnsName, actual.DnsName)
-
+	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "target"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, resourceRecordSetDiff{
-			UpdateOp:  &updateResourceRecordSetUpdateOperation{ApplyOptions: opts},
-			FieldName: "DnsName",
+			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, Diffs: ds,
 		})
-
 	}
-	if !dcl.IsZeroValue(desired.DnsType) && !dcl.StringCanonicalize(desired.DnsType, actual.DnsType) {
-		c.Config.Logger.Infof("Detected diff in DnsType.\nDESIRED: %v\nACTUAL: %v", desired.DnsType, actual.DnsType)
 
-		diffs = append(diffs, resourceRecordSetDiff{
-			UpdateOp:  &updateResourceRecordSetUpdateOperation{ApplyOptions: opts},
-			FieldName: "DnsType",
-		})
-
+	if ds, err := dcl.Diff(desired.ManagedZone, actual.ManagedZone, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "managed_zone"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, resourceRecordSetDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.Ttl, actual.Ttl) {
-		c.Config.Logger.Infof("Detected diff in Ttl.\nDESIRED: %v\nACTUAL: %v", desired.Ttl, actual.Ttl)
 
-		diffs = append(diffs, resourceRecordSetDiff{
-			UpdateOp:  &updateResourceRecordSetUpdateOperation{ApplyOptions: opts},
-			FieldName: "Ttl",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, resourceRecordSetDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Target) && !dcl.QuoteAndCaseInsensitiveStringArray(desired.Target, actual.Target) {
-		c.Config.Logger.Infof("Detected diff in Target.\nDESIRED: %v\nACTUAL: %v", desired.Target, actual.Target)
 
-		diffs = append(diffs, resourceRecordSetDiff{
-			UpdateOp:  &updateResourceRecordSetUpdateOperation{ApplyOptions: opts},
-			FieldName: "Target",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -480,7 +466,7 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *ResourceRecordSet) urlNormalized() *ResourceRecordSet {
-	normalized := deepcopy.Copy(*r).(ResourceRecordSet)
+	normalized := dcl.Copy(*r).(ResourceRecordSet)
 	normalized.DnsName = dcl.SelfLinkToName(r.DnsName)
 	normalized.DnsType = dcl.SelfLinkToName(r.DnsType)
 	normalized.ManagedZone = dcl.SelfLinkToName(r.ManagedZone)
@@ -560,12 +546,12 @@ func expandResourceRecordSet(c *Client, f *ResourceRecordSet) (map[string]interf
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding ManagedZone into managedZone: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["managedZone"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 

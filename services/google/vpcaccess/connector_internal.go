@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -453,6 +452,7 @@ type connectorDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         connectorApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -471,69 +471,69 @@ func diffConnector(c *Client, desired, actual *Connector, opts ...dcl.ApplyOptio
 
 	var diffs []connectorDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Network, actual.Network, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, FieldName: "Network"})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "network"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, FieldName: "IPCidrRange"})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.MinThroughput, actual.MinThroughput, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ip_cidr_range"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, FieldName: "MinThroughput"})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.MaxThroughput, actual.MaxThroughput, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.MinThroughput, actual.MinThroughput, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "min_throughput"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, FieldName: "MaxThroughput"})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.MaxThroughput, actual.MaxThroughput, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "max_throughput"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Network) && !dcl.StringCanonicalize(desired.Network, actual.Network) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
-		diffs = append(diffs, connectorDiff{
-			RequiresRecreate: true,
-			FieldName:        "Network",
-		})
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.IPCidrRange) && !dcl.StringCanonicalize(desired.IPCidrRange, actual.IPCidrRange) {
-		c.Config.Logger.Infof("Detected diff in IPCidrRange.\nDESIRED: %v\nACTUAL: %v", desired.IPCidrRange, actual.IPCidrRange)
-		diffs = append(diffs, connectorDiff{
-			RequiresRecreate: true,
-			FieldName:        "IPCidrRange",
-		})
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.MinThroughput, actual.MinThroughput) {
-		c.Config.Logger.Infof("Detected diff in MinThroughput.\nDESIRED: %v\nACTUAL: %v", desired.MinThroughput, actual.MinThroughput)
-		diffs = append(diffs, connectorDiff{
-			RequiresRecreate: true,
-			FieldName:        "MinThroughput",
-		})
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.MaxThroughput, actual.MaxThroughput) {
-		c.Config.Logger.Infof("Detected diff in MaxThroughput.\nDESIRED: %v\nACTUAL: %v", desired.MaxThroughput, actual.MaxThroughput)
-		diffs = append(diffs, connectorDiff{
-			RequiresRecreate: true,
-			FieldName:        "MaxThroughput",
-		})
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -565,7 +565,7 @@ func compareConnectorStateEnumSlice(c *Client, desired, actual []ConnectorStateE
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareConnectorStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ConnectorStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ConnectorStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -580,7 +580,7 @@ func compareConnectorStateEnum(c *Client, desired, actual *ConnectorStateEnum) b
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Connector) urlNormalized() *Connector {
-	normalized := deepcopy.Copy(*r).(Connector)
+	normalized := dcl.Copy(*r).(Connector)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Network = dcl.SelfLinkToName(r.Network)
 	normalized.IPCidrRange = dcl.SelfLinkToName(r.IPCidrRange)
@@ -640,7 +640,7 @@ func expandConnector(c *Client, f *Connector) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.Network; !dcl.IsEmptyValueIndirect(v) {
@@ -657,12 +657,12 @@ func expandConnector(c *Client, f *Connector) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {

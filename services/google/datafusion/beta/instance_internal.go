@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -875,6 +874,7 @@ type instanceDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         instanceApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -893,189 +893,185 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	var diffs []instanceDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "Description"})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.EnableStackdriverLogging, actual.EnableStackdriverLogging, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "EnableStackdriverLogging",
-		})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.EnableStackdriverMonitoring, actual.EnableStackdriverMonitoring, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "EnableStackdriverMonitoring",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.PrivateInstance, actual.PrivateInstance, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "PrivateInstance"})
-	}
-
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "type"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Labels",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Options, actual.Options, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.EnableStackdriverLogging, actual.EnableStackdriverLogging, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enable_stackdriver_logging"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Options",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "CreateTime"})
-	}
-
-	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
-	}
-
-	if d, err := dcl.Diff(desired.StateMessage, actual.StateMessage, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "StateMessage"})
-	}
-
-	if d, err := dcl.Diff(desired.ServiceEndpoint, actual.ServiceEndpoint, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "ServiceEndpoint"})
-	}
-
-	if d, err := dcl.Diff(desired.Zone, actual.Zone, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.EnableStackdriverMonitoring, actual.EnableStackdriverMonitoring, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enable_stackdriver_monitoring"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Zone",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Version, actual.Version, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.PrivateInstance, actual.PrivateInstance, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "private_instance"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Version",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Options, actual.Options, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "options"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "DisplayName",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.ApiEndpoint, actual.ApiEndpoint, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "ApiEndpoint"})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.GcsBucket, actual.GcsBucket, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "GcsBucket"})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "P4ServiceAccount"})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.TenantProjectId, actual.TenantProjectId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.StateMessage, actual.StateMessage, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "state_message"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "TenantProjectId"})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.DataprocServiceAccount, actual.DataprocServiceAccount, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceEndpoint, actual.ServiceEndpoint, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "service_endpoint"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "zone"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "DataprocServiceAccount",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "version"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Description",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) {
-		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
 
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "Type",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.IsZeroValue(desired.EnableStackdriverLogging) && !dcl.BoolCanonicalize(desired.EnableStackdriverLogging, actual.EnableStackdriverLogging) {
-		c.Config.Logger.Infof("Detected diff in EnableStackdriverLogging.\nDESIRED: %v\nACTUAL: %v", desired.EnableStackdriverLogging, actual.EnableStackdriverLogging)
 
+	if ds, err := dcl.Diff(desired.ApiEndpoint, actual.ApiEndpoint, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "api_endpoint"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.GcsBucket, actual.GcsBucket, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "gcs_bucket"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "p4_service_account"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.TenantProjectId, actual.TenantProjectId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "tenant_project_id"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.DataprocServiceAccount, actual.DataprocServiceAccount, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "dataproc_service_account"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "EnableStackdriverLogging",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.EnableStackdriverMonitoring) && !dcl.BoolCanonicalize(desired.EnableStackdriverMonitoring, actual.EnableStackdriverMonitoring) {
-		c.Config.Logger.Infof("Detected diff in EnableStackdriverMonitoring.\nDESIRED: %v\nACTUAL: %v", desired.EnableStackdriverMonitoring, actual.EnableStackdriverMonitoring)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "EnableStackdriverMonitoring",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.PrivateInstance) && !dcl.BoolCanonicalize(desired.PrivateInstance, actual.PrivateInstance) {
-		c.Config.Logger.Infof("Detected diff in PrivateInstance.\nDESIRED: %v\nACTUAL: %v", desired.PrivateInstance, actual.PrivateInstance)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "PrivateInstance",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareInstanceNetworkConfig(c, desired.NetworkConfig, actual.NetworkConfig) {
 		c.Config.Logger.Infof("Detected diff in NetworkConfig.\nDESIRED: %v\nACTUAL: %v", desired.NetworkConfig, actual.NetworkConfig)
 
@@ -1085,66 +1081,12 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		})
 
 	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "Labels",
-		})
-
-	}
-	if !dcl.MapEquals(desired.Options, actual.Options, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Options.\nDESIRED: %v\nACTUAL: %v", desired.Options, actual.Options)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "Options",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Zone) && !dcl.StringCanonicalize(desired.Zone, actual.Zone) {
-		c.Config.Logger.Infof("Detected diff in Zone.\nDESIRED: %v\nACTUAL: %v", desired.Zone, actual.Zone)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "Zone",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Version) && !dcl.StringCanonicalize(desired.Version, actual.Version) {
-		c.Config.Logger.Infof("Detected diff in Version.\nDESIRED: %v\nACTUAL: %v", desired.Version, actual.Version)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "Version",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "DisplayName",
-		})
-
-	}
 	if compareInstanceAvailableVersionSlice(c, desired.AvailableVersion, actual.AvailableVersion) {
 		c.Config.Logger.Infof("Detected diff in AvailableVersion.\nDESIRED: %v\nACTUAL: %v", desired.AvailableVersion, actual.AvailableVersion)
 
 		diffs = append(diffs, instanceDiff{
 			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
 			FieldName: "AvailableVersion",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.DataprocServiceAccount) && !dcl.NameToSelfLink(desired.DataprocServiceAccount, actual.DataprocServiceAccount) {
-		c.Config.Logger.Infof("Detected diff in DataprocServiceAccount.\nDESIRED: %v\nACTUAL: %v", desired.DataprocServiceAccount, actual.DataprocServiceAccount)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "DataprocServiceAccount",
 		})
 
 	}
@@ -1179,20 +1121,12 @@ func compareInstanceNetworkConfig(c *Client, desired, actual *InstanceNetworkCon
 	if actual == nil {
 		return true
 	}
-	if actual.Network == nil && desired.Network != nil && !dcl.IsEmptyValueIndirect(desired.Network) {
-		c.Config.Logger.Infof("desired Network %s - but actually nil", dcl.SprintResource(desired.Network))
-		return true
-	}
 	if !dcl.NameToSelfLink(desired.Network, actual.Network) && !dcl.IsZeroValue(desired.Network) {
-		c.Config.Logger.Infof("Diff in Network. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Network), dcl.SprintResource(actual.Network))
-		return true
-	}
-	if actual.IPAllocation == nil && desired.IPAllocation != nil && !dcl.IsEmptyValueIndirect(desired.IPAllocation) {
-		c.Config.Logger.Infof("desired IPAllocation %s - but actually nil", dcl.SprintResource(desired.IPAllocation))
+		c.Config.Logger.Infof("Diff in Network.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Network), dcl.SprintResource(actual.Network))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.IPAllocation, actual.IPAllocation) && !dcl.IsZeroValue(desired.IPAllocation) {
-		c.Config.Logger.Infof("Diff in IPAllocation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPAllocation), dcl.SprintResource(actual.IPAllocation))
+		c.Config.Logger.Infof("Diff in IPAllocation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPAllocation), dcl.SprintResource(actual.IPAllocation))
 		return true
 	}
 	return false
@@ -1205,7 +1139,7 @@ func compareInstanceNetworkConfigSlice(c *Client, desired, actual []InstanceNetw
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceNetworkConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceNetworkConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceNetworkConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1224,7 +1158,7 @@ func compareInstanceNetworkConfigMap(c *Client, desired, actual map[string]Insta
 			return true
 		}
 		if compareInstanceNetworkConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceNetworkConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceNetworkConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1238,28 +1172,16 @@ func compareInstanceAvailableVersion(c *Client, desired, actual *InstanceAvailab
 	if actual == nil {
 		return true
 	}
-	if actual.VersionNumber == nil && desired.VersionNumber != nil && !dcl.IsEmptyValueIndirect(desired.VersionNumber) {
-		c.Config.Logger.Infof("desired VersionNumber %s - but actually nil", dcl.SprintResource(desired.VersionNumber))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.VersionNumber, actual.VersionNumber) && !dcl.IsZeroValue(desired.VersionNumber) {
-		c.Config.Logger.Infof("Diff in VersionNumber. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.VersionNumber), dcl.SprintResource(actual.VersionNumber))
-		return true
-	}
-	if actual.DefaultVersion == nil && desired.DefaultVersion != nil && !dcl.IsEmptyValueIndirect(desired.DefaultVersion) {
-		c.Config.Logger.Infof("desired DefaultVersion %s - but actually nil", dcl.SprintResource(desired.DefaultVersion))
+		c.Config.Logger.Infof("Diff in VersionNumber.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.VersionNumber), dcl.SprintResource(actual.VersionNumber))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.DefaultVersion, actual.DefaultVersion) && !dcl.IsZeroValue(desired.DefaultVersion) {
-		c.Config.Logger.Infof("Diff in DefaultVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultVersion), dcl.SprintResource(actual.DefaultVersion))
-		return true
-	}
-	if actual.AvailableFeatures == nil && desired.AvailableFeatures != nil && !dcl.IsEmptyValueIndirect(desired.AvailableFeatures) {
-		c.Config.Logger.Infof("desired AvailableFeatures %s - but actually nil", dcl.SprintResource(desired.AvailableFeatures))
+		c.Config.Logger.Infof("Diff in DefaultVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultVersion), dcl.SprintResource(actual.DefaultVersion))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.AvailableFeatures, actual.AvailableFeatures) && !dcl.IsZeroValue(desired.AvailableFeatures) {
-		c.Config.Logger.Infof("Diff in AvailableFeatures. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AvailableFeatures), dcl.SprintResource(actual.AvailableFeatures))
+		c.Config.Logger.Infof("Diff in AvailableFeatures.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AvailableFeatures), dcl.SprintResource(actual.AvailableFeatures))
 		return true
 	}
 	return false
@@ -1272,7 +1194,7 @@ func compareInstanceAvailableVersionSlice(c *Client, desired, actual []InstanceA
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceAvailableVersion(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceAvailableVersion, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceAvailableVersion, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1291,7 +1213,7 @@ func compareInstanceAvailableVersionMap(c *Client, desired, actual map[string]In
 			return true
 		}
 		if compareInstanceAvailableVersion(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceAvailableVersion, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceAvailableVersion, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1305,7 +1227,7 @@ func compareInstanceTypeEnumSlice(c *Client, desired, actual []InstanceTypeEnum)
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1323,7 +1245,7 @@ func compareInstanceStateEnumSlice(c *Client, desired, actual []InstanceStateEnu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1338,7 +1260,7 @@ func compareInstanceStateEnum(c *Client, desired, actual *InstanceStateEnum) boo
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Instance) urlNormalized() *Instance {
-	normalized := deepcopy.Copy(*r).(Instance)
+	normalized := dcl.Copy(*r).(Instance)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.StateMessage = dcl.SelfLinkToName(r.StateMessage)
@@ -1416,7 +1338,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
@@ -1436,7 +1358,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceNetworkConfig(c, f.NetworkConfig); err != nil {
 		return nil, fmt.Errorf("error expanding NetworkConfig into networkConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["networkConfig"] = v
 	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
@@ -1471,7 +1393,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceAvailableVersionSlice(c, f.AvailableVersion); err != nil {
 		return nil, fmt.Errorf("error expanding AvailableVersion into availableVersion: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["availableVersion"] = v
 	}
 	if v := f.ApiEndpoint; !dcl.IsEmptyValueIndirect(v) {
@@ -1491,12 +1413,12 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 
@@ -1628,11 +1550,10 @@ func flattenInstanceNetworkConfigSlice(c *Client, i interface{}) []InstanceNetwo
 // expandInstanceNetworkConfig expands an instance of InstanceNetworkConfig into a JSON
 // request object.
 func expandInstanceNetworkConfig(c *Client, f *InstanceNetworkConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Network; !dcl.IsEmptyValueIndirect(v) {
 		m["network"] = v
 	}
@@ -1742,11 +1663,10 @@ func flattenInstanceAvailableVersionSlice(c *Client, i interface{}) []InstanceAv
 // expandInstanceAvailableVersion expands an instance of InstanceAvailableVersion into a JSON
 // request object.
 func expandInstanceAvailableVersion(c *Client, f *InstanceAvailableVersion) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.VersionNumber; !dcl.IsEmptyValueIndirect(v) {
 		m["versionNumber"] = v
 	}

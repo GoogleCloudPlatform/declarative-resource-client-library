@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -618,6 +617,7 @@ type routeDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         routeApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -636,188 +636,118 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]ro
 
 	var diffs []routeDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "Id"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "Description"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Network, actual.Network, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "network"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "Network"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.DestRange, actual.DestRange, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "tag"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "DestRange"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Priority, actual.Priority, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DestRange, actual.DestRange, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "dest_range"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "Priority"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.NextHopInstance, actual.NextHopInstance, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Priority, actual.Priority, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "priority"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "NextHopInstance"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.NextHopIP, actual.NextHopIP, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopInstance, actual.NextHopInstance, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_instance"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "NextHopIP"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.NextHopNetwork, actual.NextHopNetwork, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopIP, actual.NextHopIP, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_ip"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "NextHopNetwork"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.NextHopGateway, actual.NextHopGateway, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopNetwork, actual.NextHopNetwork, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_network"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "NextHopGateway"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.NextHopPeering, actual.NextHopPeering, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopGateway, actual.NextHopGateway, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_gateway"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "NextHopPeering"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.NextHopIlb, actual.NextHopIlb, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopPeering, actual.NextHopPeering, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_peering"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "NextHopIlb"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.NextHopVpnTunnel, actual.NextHopVpnTunnel, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopIlb, actual.NextHopIlb, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_ilb"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "NextHopVpnTunnel"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopVpnTunnel, actual.NextHopVpnTunnel, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_vpn_tunnel"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, routeDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-		diffs = append(diffs, routeDiff{
-			RequiresRecreate: true,
-			FieldName:        "Description",
-		})
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Network) && !dcl.PartialSelfLinkToSelfLink(desired.Network, actual.Network) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
-		diffs = append(diffs, routeDiff{
-			RequiresRecreate: true,
-			FieldName:        "Network",
-		})
-	}
-	if !dcl.StringSliceEquals(desired.Tag, actual.Tag) {
-		c.Config.Logger.Infof("Detected diff in Tag.\nDESIRED: %v\nACTUAL: %v", desired.Tag, actual.Tag)
-		diffs = append(diffs, routeDiff{
-			RequiresRecreate: true,
-			FieldName:        "Tag",
-		})
-	}
-	if !dcl.IsZeroValue(desired.DestRange) && !dcl.StringCanonicalize(desired.DestRange, actual.DestRange) {
-		c.Config.Logger.Infof("Detected diff in DestRange.\nDESIRED: %v\nACTUAL: %v", desired.DestRange, actual.DestRange)
-		diffs = append(diffs, routeDiff{
-			RequiresRecreate: true,
-			FieldName:        "DestRange",
-		})
-	}
-	if !reflect.DeepEqual(desired.Priority, actual.Priority) {
-		c.Config.Logger.Infof("Detected diff in Priority.\nDESIRED: %v\nACTUAL: %v", desired.Priority, actual.Priority)
-		diffs = append(diffs, routeDiff{
-			RequiresRecreate: true,
-			FieldName:        "Priority",
-		})
-	}
-	if !dcl.IsZeroValue(desired.NextHopInstance) && !dcl.StringCanonicalize(desired.NextHopInstance, actual.NextHopInstance) {
-		c.Config.Logger.Infof("Detected diff in NextHopInstance.\nDESIRED: %v\nACTUAL: %v", desired.NextHopInstance, actual.NextHopInstance)
-		diffs = append(diffs, routeDiff{
-			RequiresRecreate: true,
-			FieldName:        "NextHopInstance",
-		})
-	}
-	if !dcl.IsZeroValue(desired.NextHopIP) && !dcl.StringCanonicalize(desired.NextHopIP, actual.NextHopIP) {
-		c.Config.Logger.Infof("Detected diff in NextHopIP.\nDESIRED: %v\nACTUAL: %v", desired.NextHopIP, actual.NextHopIP)
-		diffs = append(diffs, routeDiff{
-			RequiresRecreate: true,
-			FieldName:        "NextHopIP",
-		})
-	}
-	if !dcl.IsZeroValue(desired.NextHopNetwork) && !dcl.StringCanonicalize(desired.NextHopNetwork, actual.NextHopNetwork) {
-		c.Config.Logger.Infof("Detected diff in NextHopNetwork.\nDESIRED: %v\nACTUAL: %v", desired.NextHopNetwork, actual.NextHopNetwork)
-		diffs = append(diffs, routeDiff{
-			RequiresRecreate: true,
-			FieldName:        "NextHopNetwork",
-		})
-	}
-	if !dcl.IsZeroValue(desired.NextHopGateway) && !dcl.PartialSelfLinkToSelfLink(desired.NextHopGateway, actual.NextHopGateway) {
-		c.Config.Logger.Infof("Detected diff in NextHopGateway.\nDESIRED: %v\nACTUAL: %v", desired.NextHopGateway, actual.NextHopGateway)
-		diffs = append(diffs, routeDiff{
-			RequiresRecreate: true,
-			FieldName:        "NextHopGateway",
-		})
-	}
-	if !dcl.IsZeroValue(desired.NextHopIlb) && !dcl.StringCanonicalize(desired.NextHopIlb, actual.NextHopIlb) {
-		c.Config.Logger.Infof("Detected diff in NextHopIlb.\nDESIRED: %v\nACTUAL: %v", desired.NextHopIlb, actual.NextHopIlb)
-		diffs = append(diffs, routeDiff{
-			RequiresRecreate: true,
-			FieldName:        "NextHopIlb",
-		})
-	}
-	if !dcl.IsZeroValue(desired.NextHopVpnTunnel) && !dcl.StringCanonicalize(desired.NextHopVpnTunnel, actual.NextHopVpnTunnel) {
-		c.Config.Logger.Infof("Detected diff in NextHopVpnTunnel.\nDESIRED: %v\nACTUAL: %v", desired.NextHopVpnTunnel, actual.NextHopVpnTunnel)
-		diffs = append(diffs, routeDiff{
-			RequiresRecreate: true,
-			FieldName:        "NextHopVpnTunnel",
-		})
-	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -859,7 +789,7 @@ func compareRouteWarningSlice(c *Client, desired, actual []RouteWarning) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareRouteWarning(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouteWarning, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in RouteWarning, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -878,7 +808,7 @@ func compareRouteWarningMap(c *Client, desired, actual map[string]RouteWarning) 
 			return true
 		}
 		if compareRouteWarning(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RouteWarning, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in RouteWarning, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -892,7 +822,7 @@ func compareRouteWarningCodeEnumSlice(c *Client, desired, actual []RouteWarningC
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareRouteWarningCodeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouteWarningCodeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in RouteWarningCodeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -907,7 +837,7 @@ func compareRouteWarningCodeEnum(c *Client, desired, actual *RouteWarningCodeEnu
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Route) urlNormalized() *Route {
-	normalized := deepcopy.Copy(*r).(Route)
+	normalized := dcl.Copy(*r).(Route)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Network = dcl.SelfLinkToName(r.Network)
@@ -992,7 +922,7 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.DeriveField("projects/%s/global/networks/%s", f.Network, f.Project, f.Network); err != nil {
 		return nil, fmt.Errorf("error expanding Network into network: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["network"] = v
 	}
 	if v := f.Tag; !dcl.IsEmptyValueIndirect(v) {
@@ -1015,7 +945,7 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.DeriveField("projects/%s/global/gateways/%s", f.NextHopGateway, f.Project, f.NextHopGateway); err != nil {
 		return nil, fmt.Errorf("error expanding NextHopGateway into nextHopGateway: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["nextHopGateway"] = v
 	}
 	if v := f.NextHopPeering; !dcl.IsEmptyValueIndirect(v) {
@@ -1026,7 +956,7 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	}
 	if v, err := expandRouteWarningSlice(c, f.Warning); err != nil {
 		return nil, fmt.Errorf("error expanding Warning into warnings: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["warnings"] = v
 	}
 	if v := f.NextHopVpnTunnel; !dcl.IsEmptyValueIndirect(v) {
@@ -1037,7 +967,7 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -1165,11 +1095,10 @@ func flattenRouteWarningSlice(c *Client, i interface{}) []RouteWarning {
 // expandRouteWarning expands an instance of RouteWarning into a JSON
 // request object.
 func expandRouteWarning(c *Client, f *RouteWarning) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Code; !dcl.IsEmptyValueIndirect(v) {
 		m["code"] = v
 	}

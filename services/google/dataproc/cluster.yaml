@@ -274,6 +274,7 @@ components:
                 IP addresses.
               type: boolean
               x-dcl-go-name: InternalIPOnly
+              x-dcl-server-default: true
               x-kubernetes-immutable: true
             metadata:
               additionalProperties:
@@ -755,6 +756,7 @@ components:
               format: int64
               type: integer
               x-dcl-go-name: NumLocalSsds
+              x-dcl-server-default: true
               x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: DiskConfig

@@ -97,6 +97,8 @@ func deriveAutoscalerTarget(as *Autoscaler) (*string, error) {
 	return nil, errors.New("could not derive autoscaler target - location was neither zone or region")
 }
 
+// Custom methods for firewall policy and firewall policy rule and association which wait on a compute global organization operation.
+
 func (op *createFirewallPolicyOperation) do(ctx context.Context, r *FirewallPolicy, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
 
@@ -129,6 +131,45 @@ func (op *createFirewallPolicyOperation) do(ctx context.Context, r *FirewallPoli
 	r.Name = &o.BaseOperation.TargetID
 
 	if _, err := c.GetFirewallPolicy(ctx, r.urlNormalized()); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (op *updateFirewallPolicyPatchOperation) do(ctx context.Context, r *FirewallPolicy, c *Client) error {
+	_, err := c.GetFirewallPolicy(ctx, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "Patch")
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateFirewallPolicyPatchRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.Infof("Created update: %#v", req)
+	body, err := marshalUpdateFirewallPolicyPatchRequest(c, req)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	// Wait for object to be updated.
+	var o operations.ComputeGlobalOrganizationOperation
+	if err := dcl.ParseResponse(resp.Response, &o.BaseOperation); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, r.Parent); err != nil {
+		c.Config.Logger.Warningf("Update failed after waiting for operation: %v", err)
 		return err
 	}
 

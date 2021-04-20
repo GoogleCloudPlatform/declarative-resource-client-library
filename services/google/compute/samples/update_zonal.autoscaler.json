@@ -1,8 +1,8 @@
 {
-  "project": "{{ref:zonal.autoscaler.json:project}}",
   "name": "{{ref:zonal.autoscaler.json:name}}",
+  "project": "{{ref:zonal.autoscaler.json:project}}",
   "description": "A test autoscaler",
-  "location": "us-west1-a",
+  "location": "{{zone}}",
   "target": "{{ref:zonal.instance_group_manager.json:name}}",
   "autoscalingPolicy": {
     "maxNumReplicas": 5,

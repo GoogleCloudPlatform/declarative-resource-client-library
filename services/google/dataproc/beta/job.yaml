@@ -189,6 +189,7 @@ components:
                 when executing independent parallel queries.
               type: boolean
               x-dcl-go-name: ContinueOnFailure
+              x-dcl-server-default: true
               x-kubernetes-immutable: true
             jarFileUris:
               description: Optional. HCFS URIs of jar files to add to the CLASSPATH

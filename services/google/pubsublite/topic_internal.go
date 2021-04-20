@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -326,10 +325,11 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
 	op.response = o
+
 	// Poll for the Topic resource to be created. Topic resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
 	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
-		u, err := topicGetURL(c.Config.BasePath, r)
+		u, err := topicGetURL(c.Config.BasePath, r.urlNormalized())
 		if err != nil {
 			return nil, err
 		}
@@ -338,7 +338,7 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 			// If the error is a transient server error (e.g., 500) or not found (i.e., the resource has not yet been created),
 			// continue retrying until the transient error is resolved, the resource is created, or we time out.
 			if dcl.IsRetryableRequestError(c.Config, err, true) {
-				return nil, dcl.OperationNotDone{Err: err}
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
 			}
 			return nil, err
 		}
@@ -716,6 +716,7 @@ type topicDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         topicApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -734,20 +735,27 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 
 	var diffs []topicDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, topicDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, topicDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareTopicPartitionConfig(c, desired.PartitionConfig, actual.PartitionConfig) {
 		c.Config.Logger.Infof("Detected diff in PartitionConfig.\nDESIRED: %v\nACTUAL: %v", desired.PartitionConfig, actual.PartitionConfig)
 
@@ -797,20 +805,12 @@ func compareTopicPartitionConfig(c *Client, desired, actual *TopicPartitionConfi
 	if actual == nil {
 		return true
 	}
-	if actual.Count == nil && desired.Count != nil && !dcl.IsEmptyValueIndirect(desired.Count) {
-		c.Config.Logger.Infof("desired Count %s - but actually nil", dcl.SprintResource(desired.Count))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Count, actual.Count) && !dcl.IsZeroValue(desired.Count) {
-		c.Config.Logger.Infof("Diff in Count. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Count), dcl.SprintResource(actual.Count))
-		return true
-	}
-	if actual.Capacity == nil && desired.Capacity != nil && !dcl.IsEmptyValueIndirect(desired.Capacity) {
-		c.Config.Logger.Infof("desired Capacity %s - but actually nil", dcl.SprintResource(desired.Capacity))
+		c.Config.Logger.Infof("Diff in Count.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Count), dcl.SprintResource(actual.Count))
 		return true
 	}
 	if compareTopicPartitionConfigCapacity(c, desired.Capacity, actual.Capacity) && !dcl.IsZeroValue(desired.Capacity) {
-		c.Config.Logger.Infof("Diff in Capacity. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Capacity), dcl.SprintResource(actual.Capacity))
+		c.Config.Logger.Infof("Diff in Capacity.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Capacity), dcl.SprintResource(actual.Capacity))
 		return true
 	}
 	return false
@@ -823,7 +823,7 @@ func compareTopicPartitionConfigSlice(c *Client, desired, actual []TopicPartitio
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareTopicPartitionConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TopicPartitionConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in TopicPartitionConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -842,7 +842,7 @@ func compareTopicPartitionConfigMap(c *Client, desired, actual map[string]TopicP
 			return true
 		}
 		if compareTopicPartitionConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in TopicPartitionConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in TopicPartitionConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -856,20 +856,12 @@ func compareTopicPartitionConfigCapacity(c *Client, desired, actual *TopicPartit
 	if actual == nil {
 		return true
 	}
-	if actual.PublishMibPerSec == nil && desired.PublishMibPerSec != nil && !dcl.IsEmptyValueIndirect(desired.PublishMibPerSec) {
-		c.Config.Logger.Infof("desired PublishMibPerSec %s - but actually nil", dcl.SprintResource(desired.PublishMibPerSec))
-		return true
-	}
 	if !reflect.DeepEqual(desired.PublishMibPerSec, actual.PublishMibPerSec) && !dcl.IsZeroValue(desired.PublishMibPerSec) {
-		c.Config.Logger.Infof("Diff in PublishMibPerSec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PublishMibPerSec), dcl.SprintResource(actual.PublishMibPerSec))
-		return true
-	}
-	if actual.SubscribeMibPerSec == nil && desired.SubscribeMibPerSec != nil && !dcl.IsEmptyValueIndirect(desired.SubscribeMibPerSec) {
-		c.Config.Logger.Infof("desired SubscribeMibPerSec %s - but actually nil", dcl.SprintResource(desired.SubscribeMibPerSec))
+		c.Config.Logger.Infof("Diff in PublishMibPerSec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PublishMibPerSec), dcl.SprintResource(actual.PublishMibPerSec))
 		return true
 	}
 	if !reflect.DeepEqual(desired.SubscribeMibPerSec, actual.SubscribeMibPerSec) && !dcl.IsZeroValue(desired.SubscribeMibPerSec) {
-		c.Config.Logger.Infof("Diff in SubscribeMibPerSec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SubscribeMibPerSec), dcl.SprintResource(actual.SubscribeMibPerSec))
+		c.Config.Logger.Infof("Diff in SubscribeMibPerSec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SubscribeMibPerSec), dcl.SprintResource(actual.SubscribeMibPerSec))
 		return true
 	}
 	return false
@@ -882,7 +874,7 @@ func compareTopicPartitionConfigCapacitySlice(c *Client, desired, actual []Topic
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareTopicPartitionConfigCapacity(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TopicPartitionConfigCapacity, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in TopicPartitionConfigCapacity, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -901,7 +893,7 @@ func compareTopicPartitionConfigCapacityMap(c *Client, desired, actual map[strin
 			return true
 		}
 		if compareTopicPartitionConfigCapacity(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in TopicPartitionConfigCapacity, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in TopicPartitionConfigCapacity, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -915,20 +907,12 @@ func compareTopicRetentionConfig(c *Client, desired, actual *TopicRetentionConfi
 	if actual == nil {
 		return true
 	}
-	if actual.PerPartitionBytes == nil && desired.PerPartitionBytes != nil && !dcl.IsEmptyValueIndirect(desired.PerPartitionBytes) {
-		c.Config.Logger.Infof("desired PerPartitionBytes %s - but actually nil", dcl.SprintResource(desired.PerPartitionBytes))
-		return true
-	}
 	if !reflect.DeepEqual(desired.PerPartitionBytes, actual.PerPartitionBytes) && !dcl.IsZeroValue(desired.PerPartitionBytes) {
-		c.Config.Logger.Infof("Diff in PerPartitionBytes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerPartitionBytes), dcl.SprintResource(actual.PerPartitionBytes))
-		return true
-	}
-	if actual.Period == nil && desired.Period != nil && !dcl.IsEmptyValueIndirect(desired.Period) {
-		c.Config.Logger.Infof("desired Period %s - but actually nil", dcl.SprintResource(desired.Period))
+		c.Config.Logger.Infof("Diff in PerPartitionBytes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerPartitionBytes), dcl.SprintResource(actual.PerPartitionBytes))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Period, actual.Period) && !dcl.IsZeroValue(desired.Period) {
-		c.Config.Logger.Infof("Diff in Period. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Period), dcl.SprintResource(actual.Period))
+		c.Config.Logger.Infof("Diff in Period.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Period), dcl.SprintResource(actual.Period))
 		return true
 	}
 	return false
@@ -941,7 +925,7 @@ func compareTopicRetentionConfigSlice(c *Client, desired, actual []TopicRetentio
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareTopicRetentionConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TopicRetentionConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in TopicRetentionConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -960,7 +944,7 @@ func compareTopicRetentionConfigMap(c *Client, desired, actual map[string]TopicR
 			return true
 		}
 		if compareTopicRetentionConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in TopicRetentionConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in TopicRetentionConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -971,7 +955,7 @@ func compareTopicRetentionConfigMap(c *Client, desired, actual map[string]TopicR
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Topic) urlNormalized() *Topic {
-	normalized := deepcopy.Copy(*r).(Topic)
+	normalized := dcl.Copy(*r).(Topic)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
@@ -1038,27 +1022,27 @@ func expandTopic(c *Client, f *Topic) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/topics/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v, err := expandTopicPartitionConfig(c, f.PartitionConfig); err != nil {
 		return nil, fmt.Errorf("error expanding PartitionConfig into partitionConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["partitionConfig"] = v
 	}
 	if v, err := expandTopicRetentionConfig(c, f.RetentionConfig); err != nil {
 		return nil, fmt.Errorf("error expanding RetentionConfig into retentionConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["retentionConfig"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 
@@ -1170,11 +1154,10 @@ func flattenTopicPartitionConfigSlice(c *Client, i interface{}) []TopicPartition
 // expandTopicPartitionConfig expands an instance of TopicPartitionConfig into a JSON
 // request object.
 func expandTopicPartitionConfig(c *Client, f *TopicPartitionConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Count; !dcl.IsEmptyValueIndirect(v) {
 		m["count"] = v
 	}
@@ -1286,11 +1269,10 @@ func flattenTopicPartitionConfigCapacitySlice(c *Client, i interface{}) []TopicP
 // expandTopicPartitionConfigCapacity expands an instance of TopicPartitionConfigCapacity into a JSON
 // request object.
 func expandTopicPartitionConfigCapacity(c *Client, f *TopicPartitionConfigCapacity) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.PublishMibPerSec; !dcl.IsEmptyValueIndirect(v) {
 		m["publishMibPerSec"] = v
 	}
@@ -1400,11 +1382,10 @@ func flattenTopicRetentionConfigSlice(c *Client, i interface{}) []TopicRetention
 // expandTopicRetentionConfig expands an instance of TopicRetentionConfig into a JSON
 // request object.
 func expandTopicRetentionConfig(c *Client, f *TopicRetentionConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.PerPartitionBytes; !dcl.IsEmptyValueIndirect(v) {
 		m["perPartitionBytes"] = v
 	}

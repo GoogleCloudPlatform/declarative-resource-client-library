@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -615,6 +614,7 @@ type objectAccessControlDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         objectAccessControlApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -633,104 +633,84 @@ func diffObjectAccessControl(c *Client, desired, actual *ObjectAccessControl, op
 
 	var diffs []objectAccessControlDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Bucket, actual.Bucket, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Bucket, actual.Bucket, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "bucket"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, objectAccessControlDiff{
-			UpdateOp: &updateObjectAccessControlUpdateOperation{}, FieldName: "Bucket",
+			UpdateOp: &updateObjectAccessControlUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Domain, actual.Domain, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Domain, actual.Domain, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "domain"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, FieldName: "Domain"})
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Email, actual.Email, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Email, actual.Email, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "email"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, FieldName: "Email"})
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Entity, actual.Entity, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, objectAccessControlDiff{
-			UpdateOp: &updateObjectAccessControlUpdateOperation{}, FieldName: "Entity",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.EntityId, actual.EntityId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, FieldName: "EntityId"})
-	}
-
-	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, FieldName: "Id"})
-	}
-
-	if d, err := dcl.Diff(desired.Object, actual.Object, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Entity, actual.Entity, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "entity"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, objectAccessControlDiff{
-			UpdateOp: &updateObjectAccessControlUpdateOperation{}, FieldName: "Object",
+			UpdateOp: &updateObjectAccessControlUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Generation, actual.Generation, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.EntityId, actual.EntityId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "entity_id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, FieldName: "Generation"})
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Bucket) && !dcl.NameToSelfLink(desired.Bucket, actual.Bucket) {
-		c.Config.Logger.Infof("Detected diff in Bucket.\nDESIRED: %v\nACTUAL: %v", desired.Bucket, actual.Bucket)
-
+	if ds, err := dcl.Diff(desired.Role, actual.Role, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "role"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, objectAccessControlDiff{
-			UpdateOp:  &updateObjectAccessControlUpdateOperation{},
-			FieldName: "Bucket",
+			UpdateOp: &updateObjectAccessControlUpdateOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.IsZeroValue(desired.Entity) && !dcl.StringCanonicalize(desired.Entity, actual.Entity) {
-		c.Config.Logger.Infof("Detected diff in Entity.\nDESIRED: %v\nACTUAL: %v", desired.Entity, actual.Entity)
 
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Object, actual.Object, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "object"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, objectAccessControlDiff{
-			UpdateOp:  &updateObjectAccessControlUpdateOperation{},
-			FieldName: "Entity",
+			UpdateOp: &updateObjectAccessControlUpdateOperation{}, Diffs: ds,
 		})
-
 	}
-	if !reflect.DeepEqual(desired.Role, actual.Role) {
-		c.Config.Logger.Infof("Detected diff in Role.\nDESIRED: %v\nACTUAL: %v", desired.Role, actual.Role)
 
-		diffs = append(diffs, objectAccessControlDiff{
-			UpdateOp:  &updateObjectAccessControlUpdateOperation{},
-			FieldName: "Role",
-		})
-
+	if ds, err := dcl.Diff(desired.Generation, actual.Generation, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "generation"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Object) && !dcl.StringCanonicalize(desired.Object, actual.Object) {
-		c.Config.Logger.Infof("Detected diff in Object.\nDESIRED: %v\nACTUAL: %v", desired.Object, actual.Object)
 
-		diffs = append(diffs, objectAccessControlDiff{
-			UpdateOp:  &updateObjectAccessControlUpdateOperation{},
-			FieldName: "Object",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -762,20 +742,12 @@ func compareObjectAccessControlProjectTeam(c *Client, desired, actual *ObjectAcc
 	if actual == nil {
 		return true
 	}
-	if actual.ProjectNumber == nil && desired.ProjectNumber != nil && !dcl.IsEmptyValueIndirect(desired.ProjectNumber) {
-		c.Config.Logger.Infof("desired ProjectNumber %s - but actually nil", dcl.SprintResource(desired.ProjectNumber))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ProjectNumber, actual.ProjectNumber) && !dcl.IsZeroValue(desired.ProjectNumber) {
-		c.Config.Logger.Infof("Diff in ProjectNumber. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProjectNumber), dcl.SprintResource(actual.ProjectNumber))
-		return true
-	}
-	if actual.Team == nil && desired.Team != nil && !dcl.IsEmptyValueIndirect(desired.Team) {
-		c.Config.Logger.Infof("desired Team %s - but actually nil", dcl.SprintResource(desired.Team))
+		c.Config.Logger.Infof("Diff in ProjectNumber.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProjectNumber), dcl.SprintResource(actual.ProjectNumber))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Team, actual.Team) && !dcl.IsZeroValue(desired.Team) {
-		c.Config.Logger.Infof("Diff in Team. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Team), dcl.SprintResource(actual.Team))
+		c.Config.Logger.Infof("Diff in Team.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Team), dcl.SprintResource(actual.Team))
 		return true
 	}
 	return false
@@ -788,7 +760,7 @@ func compareObjectAccessControlProjectTeamSlice(c *Client, desired, actual []Obj
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareObjectAccessControlProjectTeam(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ObjectAccessControlProjectTeam, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ObjectAccessControlProjectTeam, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -807,7 +779,7 @@ func compareObjectAccessControlProjectTeamMap(c *Client, desired, actual map[str
 			return true
 		}
 		if compareObjectAccessControlProjectTeam(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ObjectAccessControlProjectTeam, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ObjectAccessControlProjectTeam, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -821,7 +793,7 @@ func compareObjectAccessControlProjectTeamTeamEnumSlice(c *Client, desired, actu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareObjectAccessControlProjectTeamTeamEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ObjectAccessControlProjectTeamTeamEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ObjectAccessControlProjectTeamTeamEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -839,7 +811,7 @@ func compareObjectAccessControlRoleEnumSlice(c *Client, desired, actual []Object
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareObjectAccessControlRoleEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ObjectAccessControlRoleEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ObjectAccessControlRoleEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -854,7 +826,7 @@ func compareObjectAccessControlRoleEnum(c *Client, desired, actual *ObjectAccess
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *ObjectAccessControl) urlNormalized() *ObjectAccessControl {
-	normalized := deepcopy.Copy(*r).(ObjectAccessControl)
+	normalized := dcl.Copy(*r).(ObjectAccessControl)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Bucket = dcl.SelfLinkToName(r.Bucket)
 	normalized.Domain = dcl.SelfLinkToName(r.Domain)
@@ -927,7 +899,7 @@ func expandObjectAccessControl(c *Client, f *ObjectAccessControl) (map[string]in
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v := f.Bucket; !dcl.IsEmptyValueIndirect(v) {
@@ -947,7 +919,7 @@ func expandObjectAccessControl(c *Client, f *ObjectAccessControl) (map[string]in
 	}
 	if v, err := expandObjectAccessControlProjectTeam(c, f.ProjectTeam); err != nil {
 		return nil, fmt.Errorf("error expanding ProjectTeam into projectTeam: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["projectTeam"] = v
 	}
 	if v := f.Role; !dcl.IsEmptyValueIndirect(v) {
@@ -1077,11 +1049,10 @@ func flattenObjectAccessControlProjectTeamSlice(c *Client, i interface{}) []Obje
 // expandObjectAccessControlProjectTeam expands an instance of ObjectAccessControlProjectTeam into a JSON
 // request object.
 func expandObjectAccessControlProjectTeam(c *Client, f *ObjectAccessControlProjectTeam) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ProjectNumber; !dcl.IsEmptyValueIndirect(v) {
 		m["projectNumber"] = v
 	}

@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -996,6 +995,7 @@ type endpointConfigSelectorDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         endpointConfigSelectorApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -1014,106 +1014,95 @@ func diffEndpointConfigSelector(c *Client, desired, actual *EndpointConfigSelect
 
 	var diffs []endpointConfigSelectorDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, endpointConfigSelectorDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, endpointConfigSelectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, endpointConfigSelectorDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+		diffs = append(diffs, endpointConfigSelectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, endpointConfigSelectorDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+		diffs = append(diffs, endpointConfigSelectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, endpointConfigSelectorDiff{
-			UpdateOp: &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{}, FieldName: "Labels",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.AuthorizationPolicy, actual.AuthorizationPolicy, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, endpointConfigSelectorDiff{
-			UpdateOp: &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{}, FieldName: "AuthorizationPolicy",
+			UpdateOp: &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "type"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, endpointConfigSelectorDiff{
-			UpdateOp: &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{}, FieldName: "Description",
+			UpdateOp: &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.ServerTlsPolicy, actual.ServerTlsPolicy, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.AuthorizationPolicy, actual.AuthorizationPolicy, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "authorization_policy"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, endpointConfigSelectorDiff{
-			UpdateOp: &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{}, FieldName: "ServerTlsPolicy",
+			UpdateOp: &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.ClientTlsPolicy, actual.ClientTlsPolicy, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, endpointConfigSelectorDiff{
-			UpdateOp: &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{}, FieldName: "ClientTlsPolicy",
+			UpdateOp: &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
+	if ds, err := dcl.Diff(desired.ServerTlsPolicy, actual.ServerTlsPolicy, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "server_tls_policy"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, endpointConfigSelectorDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
+			UpdateOp: &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{}, Diffs: ds,
 		})
 	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
+	if ds, err := dcl.Diff(desired.ClientTlsPolicy, actual.ClientTlsPolicy, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "client_tls_policy"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, endpointConfigSelectorDiff{
-			UpdateOp:  &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{},
-			FieldName: "Labels",
+			UpdateOp: &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{}, Diffs: ds,
 		})
-
 	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) {
-		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
 
-		diffs = append(diffs, endpointConfigSelectorDiff{
-			UpdateOp:  &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{},
-			FieldName: "Type",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, endpointConfigSelectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.AuthorizationPolicy) && !dcl.NameToSelfLink(desired.AuthorizationPolicy, actual.AuthorizationPolicy) {
-		c.Config.Logger.Infof("Detected diff in AuthorizationPolicy.\nDESIRED: %v\nACTUAL: %v", desired.AuthorizationPolicy, actual.AuthorizationPolicy)
 
-		diffs = append(diffs, endpointConfigSelectorDiff{
-			UpdateOp:  &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{},
-			FieldName: "AuthorizationPolicy",
-		})
-
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, endpointConfigSelectorDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
 	if compareEndpointConfigSelectorHttpFilters(c, desired.HttpFilters, actual.HttpFilters) {
 		c.Config.Logger.Infof("Detected diff in HttpFilters.\nDESIRED: %v\nACTUAL: %v", desired.HttpFilters, actual.HttpFilters)
 
@@ -1138,33 +1127,6 @@ func diffEndpointConfigSelector(c *Client, desired, actual *EndpointConfigSelect
 		diffs = append(diffs, endpointConfigSelectorDiff{
 			UpdateOp:  &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{},
 			FieldName: "TrafficPortSelector",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-
-		diffs = append(diffs, endpointConfigSelectorDiff{
-			UpdateOp:  &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{},
-			FieldName: "Description",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.ServerTlsPolicy) && !dcl.NameToSelfLink(desired.ServerTlsPolicy, actual.ServerTlsPolicy) {
-		c.Config.Logger.Infof("Detected diff in ServerTlsPolicy.\nDESIRED: %v\nACTUAL: %v", desired.ServerTlsPolicy, actual.ServerTlsPolicy)
-
-		diffs = append(diffs, endpointConfigSelectorDiff{
-			UpdateOp:  &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{},
-			FieldName: "ServerTlsPolicy",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.ClientTlsPolicy) && !dcl.NameToSelfLink(desired.ClientTlsPolicy, actual.ClientTlsPolicy) {
-		c.Config.Logger.Infof("Detected diff in ClientTlsPolicy.\nDESIRED: %v\nACTUAL: %v", desired.ClientTlsPolicy, actual.ClientTlsPolicy)
-
-		diffs = append(diffs, endpointConfigSelectorDiff{
-			UpdateOp:  &updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation{},
-			FieldName: "ClientTlsPolicy",
 		})
 
 	}
@@ -1199,12 +1161,8 @@ func compareEndpointConfigSelectorHttpFilters(c *Client, desired, actual *Endpoi
 	if actual == nil {
 		return true
 	}
-	if actual.HttpFilters == nil && desired.HttpFilters != nil && !dcl.IsEmptyValueIndirect(desired.HttpFilters) {
-		c.Config.Logger.Infof("desired HttpFilters %s - but actually nil", dcl.SprintResource(desired.HttpFilters))
-		return true
-	}
 	if !dcl.StringSliceEqualsWithSelfLink(desired.HttpFilters, actual.HttpFilters) && !dcl.IsZeroValue(desired.HttpFilters) {
-		c.Config.Logger.Infof("Diff in HttpFilters. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpFilters), dcl.SprintResource(actual.HttpFilters))
+		c.Config.Logger.Infof("Diff in HttpFilters.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpFilters), dcl.SprintResource(actual.HttpFilters))
 		return true
 	}
 	return false
@@ -1217,7 +1175,7 @@ func compareEndpointConfigSelectorHttpFiltersSlice(c *Client, desired, actual []
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareEndpointConfigSelectorHttpFilters(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in EndpointConfigSelectorHttpFilters, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in EndpointConfigSelectorHttpFilters, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1236,7 +1194,7 @@ func compareEndpointConfigSelectorHttpFiltersMap(c *Client, desired, actual map[
 			return true
 		}
 		if compareEndpointConfigSelectorHttpFilters(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in EndpointConfigSelectorHttpFilters, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in EndpointConfigSelectorHttpFilters, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1250,12 +1208,8 @@ func compareEndpointConfigSelectorEndpointMatcher(c *Client, desired, actual *En
 	if actual == nil {
 		return true
 	}
-	if actual.MetadataLabelMatcher == nil && desired.MetadataLabelMatcher != nil && !dcl.IsEmptyValueIndirect(desired.MetadataLabelMatcher) {
-		c.Config.Logger.Infof("desired MetadataLabelMatcher %s - but actually nil", dcl.SprintResource(desired.MetadataLabelMatcher))
-		return true
-	}
 	if compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(c, desired.MetadataLabelMatcher, actual.MetadataLabelMatcher) && !dcl.IsZeroValue(desired.MetadataLabelMatcher) {
-		c.Config.Logger.Infof("Diff in MetadataLabelMatcher. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataLabelMatcher), dcl.SprintResource(actual.MetadataLabelMatcher))
+		c.Config.Logger.Infof("Diff in MetadataLabelMatcher.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataLabelMatcher), dcl.SprintResource(actual.MetadataLabelMatcher))
 		return true
 	}
 	return false
@@ -1268,7 +1222,7 @@ func compareEndpointConfigSelectorEndpointMatcherSlice(c *Client, desired, actua
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareEndpointConfigSelectorEndpointMatcher(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcher, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcher, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1287,7 +1241,7 @@ func compareEndpointConfigSelectorEndpointMatcherMap(c *Client, desired, actual 
 			return true
 		}
 		if compareEndpointConfigSelectorEndpointMatcher(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcher, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcher, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1301,20 +1255,12 @@ func compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(c *Client,
 	if actual == nil {
 		return true
 	}
-	if actual.MetadataLabelMatchCriteria == nil && desired.MetadataLabelMatchCriteria != nil && !dcl.IsEmptyValueIndirect(desired.MetadataLabelMatchCriteria) {
-		c.Config.Logger.Infof("desired MetadataLabelMatchCriteria %s - but actually nil", dcl.SprintResource(desired.MetadataLabelMatchCriteria))
-		return true
-	}
 	if !reflect.DeepEqual(desired.MetadataLabelMatchCriteria, actual.MetadataLabelMatchCriteria) && !dcl.IsZeroValue(desired.MetadataLabelMatchCriteria) {
-		c.Config.Logger.Infof("Diff in MetadataLabelMatchCriteria. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataLabelMatchCriteria), dcl.SprintResource(actual.MetadataLabelMatchCriteria))
-		return true
-	}
-	if actual.MetadataLabels == nil && desired.MetadataLabels != nil && !dcl.IsEmptyValueIndirect(desired.MetadataLabels) {
-		c.Config.Logger.Infof("desired MetadataLabels %s - but actually nil", dcl.SprintResource(desired.MetadataLabels))
+		c.Config.Logger.Infof("Diff in MetadataLabelMatchCriteria.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataLabelMatchCriteria), dcl.SprintResource(actual.MetadataLabelMatchCriteria))
 		return true
 	}
 	if compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c, desired.MetadataLabels, actual.MetadataLabels) && !dcl.IsZeroValue(desired.MetadataLabels) {
-		c.Config.Logger.Infof("Diff in MetadataLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataLabels), dcl.SprintResource(actual.MetadataLabels))
+		c.Config.Logger.Infof("Diff in MetadataLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataLabels), dcl.SprintResource(actual.MetadataLabels))
 		return true
 	}
 	return false
@@ -1327,7 +1273,7 @@ func compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherSlice(c *Cl
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1346,7 +1292,7 @@ func compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMap(c *Clie
 			return true
 		}
 		if compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1360,20 +1306,12 @@ func compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLab
 	if actual == nil {
 		return true
 	}
-	if actual.LabelName == nil && desired.LabelName != nil && !dcl.IsEmptyValueIndirect(desired.LabelName) {
-		c.Config.Logger.Infof("desired LabelName %s - but actually nil", dcl.SprintResource(desired.LabelName))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.LabelName, actual.LabelName) && !dcl.IsZeroValue(desired.LabelName) {
-		c.Config.Logger.Infof("Diff in LabelName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LabelName), dcl.SprintResource(actual.LabelName))
-		return true
-	}
-	if actual.LabelValue == nil && desired.LabelValue != nil && !dcl.IsEmptyValueIndirect(desired.LabelValue) {
-		c.Config.Logger.Infof("desired LabelValue %s - but actually nil", dcl.SprintResource(desired.LabelValue))
+		c.Config.Logger.Infof("Diff in LabelName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LabelName), dcl.SprintResource(actual.LabelName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.LabelValue, actual.LabelValue) && !dcl.IsZeroValue(desired.LabelValue) {
-		c.Config.Logger.Infof("Diff in LabelValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LabelValue), dcl.SprintResource(actual.LabelValue))
+		c.Config.Logger.Infof("Diff in LabelValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LabelValue), dcl.SprintResource(actual.LabelValue))
 		return true
 	}
 	return false
@@ -1386,7 +1324,7 @@ func compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLab
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1405,7 +1343,7 @@ func compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLab
 			return true
 		}
 		if compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1419,12 +1357,8 @@ func compareEndpointConfigSelectorTrafficPortSelector(c *Client, desired, actual
 	if actual == nil {
 		return true
 	}
-	if actual.Ports == nil && desired.Ports != nil && !dcl.IsEmptyValueIndirect(desired.Ports) {
-		c.Config.Logger.Infof("desired Ports %s - but actually nil", dcl.SprintResource(desired.Ports))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.Ports, actual.Ports) && !dcl.IsZeroValue(desired.Ports) {
-		c.Config.Logger.Infof("Diff in Ports. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
+		c.Config.Logger.Infof("Diff in Ports.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
 		return true
 	}
 	return false
@@ -1437,7 +1371,7 @@ func compareEndpointConfigSelectorTrafficPortSelectorSlice(c *Client, desired, a
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareEndpointConfigSelectorTrafficPortSelector(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in EndpointConfigSelectorTrafficPortSelector, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in EndpointConfigSelectorTrafficPortSelector, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1456,7 +1390,7 @@ func compareEndpointConfigSelectorTrafficPortSelectorMap(c *Client, desired, act
 			return true
 		}
 		if compareEndpointConfigSelectorTrafficPortSelector(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in EndpointConfigSelectorTrafficPortSelector, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in EndpointConfigSelectorTrafficPortSelector, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1470,7 +1404,7 @@ func compareEndpointConfigSelectorTypeEnumSlice(c *Client, desired, actual []End
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareEndpointConfigSelectorTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in EndpointConfigSelectorTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in EndpointConfigSelectorTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1488,7 +1422,7 @@ func compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLab
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1503,7 +1437,7 @@ func compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLab
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *EndpointConfigSelector) urlNormalized() *EndpointConfigSelector {
-	normalized := deepcopy.Copy(*r).(EndpointConfigSelector)
+	normalized := dcl.Copy(*r).(EndpointConfigSelector)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.AuthorizationPolicy = dcl.SelfLinkToName(r.AuthorizationPolicy)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
@@ -1574,7 +1508,7 @@ func expandEndpointConfigSelector(c *Client, f *EndpointConfigSelector) (map[str
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/*/locations/global/endpointConfigSelectors/%s", f.Name, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
@@ -1594,17 +1528,17 @@ func expandEndpointConfigSelector(c *Client, f *EndpointConfigSelector) (map[str
 	}
 	if v, err := expandEndpointConfigSelectorHttpFilters(c, f.HttpFilters); err != nil {
 		return nil, fmt.Errorf("error expanding HttpFilters into httpFilters: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["httpFilters"] = v
 	}
 	if v, err := expandEndpointConfigSelectorEndpointMatcher(c, f.EndpointMatcher); err != nil {
 		return nil, fmt.Errorf("error expanding EndpointMatcher into endpointMatcher: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["endpointMatcher"] = v
 	}
 	if v, err := expandEndpointConfigSelectorTrafficPortSelector(c, f.TrafficPortSelector); err != nil {
 		return nil, fmt.Errorf("error expanding TrafficPortSelector into trafficPortSelector: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["trafficPortSelector"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
@@ -1618,12 +1552,12 @@ func expandEndpointConfigSelector(c *Client, f *EndpointConfigSelector) (map[str
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 
@@ -1744,11 +1678,10 @@ func flattenEndpointConfigSelectorHttpFiltersSlice(c *Client, i interface{}) []E
 // expandEndpointConfigSelectorHttpFilters expands an instance of EndpointConfigSelectorHttpFilters into a JSON
 // request object.
 func expandEndpointConfigSelectorHttpFilters(c *Client, f *EndpointConfigSelectorHttpFilters) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HttpFilters; !dcl.IsEmptyValueIndirect(v) {
 		m["httpFilters"] = v
 	}
@@ -1854,11 +1787,10 @@ func flattenEndpointConfigSelectorEndpointMatcherSlice(c *Client, i interface{})
 // expandEndpointConfigSelectorEndpointMatcher expands an instance of EndpointConfigSelectorEndpointMatcher into a JSON
 // request object.
 func expandEndpointConfigSelectorEndpointMatcher(c *Client, f *EndpointConfigSelectorEndpointMatcher) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(c, f.MetadataLabelMatcher); err != nil {
 		return nil, fmt.Errorf("error expanding MetadataLabelMatcher into metadataLabelMatcher: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1966,11 +1898,10 @@ func flattenEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherSlice(c *Cl
 // expandEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher expands an instance of EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher into a JSON
 // request object.
 func expandEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(c *Client, f *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MetadataLabelMatchCriteria; !dcl.IsEmptyValueIndirect(v) {
 		m["metadataLabelMatchCriteria"] = v
 	}
@@ -2082,11 +2013,10 @@ func flattenEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLab
 // expandEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels expands an instance of EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels into a JSON
 // request object.
 func expandEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels(c *Client, f *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.LabelName; !dcl.IsEmptyValueIndirect(v) {
 		m["labelName"] = v
 	}
@@ -2196,11 +2126,10 @@ func flattenEndpointConfigSelectorTrafficPortSelectorSlice(c *Client, i interfac
 // expandEndpointConfigSelectorTrafficPortSelector expands an instance of EndpointConfigSelectorTrafficPortSelector into a JSON
 // request object.
 func expandEndpointConfigSelectorTrafficPortSelector(c *Client, f *EndpointConfigSelectorTrafficPortSelector) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Ports; !dcl.IsEmptyValueIndirect(v) {
 		m["ports"] = v
 	}

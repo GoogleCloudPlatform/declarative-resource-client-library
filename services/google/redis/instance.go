@@ -49,7 +49,6 @@ type Instance struct {
 	MaintenanceSchedule    *InstanceMaintenanceSchedule       `json:"maintenanceSchedule"`
 	Project                *string                            `json:"project"`
 	Location               *string                            `json:"location"`
-	Region                 *string                            `json:"region"`
 }
 
 func (r *Instance) String() string {
@@ -288,10 +287,11 @@ func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) HashCode() s
 }
 
 type InstanceMaintenanceSchedule struct {
-	empty         bool    `json:"-"`
-	StartTime     *string `json:"startTime"`
-	EndTime       *string `json:"endTime"`
-	CanReschedule *bool   `json:"canReschedule"`
+	empty                bool    `json:"-"`
+	StartTime            *string `json:"startTime"`
+	EndTime              *string `json:"endTime"`
+	CanReschedule        *bool   `json:"canReschedule"`
+	ScheduleDeadlineTime *string `json:"scheduleDeadlineTime"`
 }
 
 // This object is used to assert a desired state where this InstanceMaintenanceSchedule is

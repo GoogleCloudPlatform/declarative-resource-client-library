@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -641,6 +640,7 @@ type domainMappingDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         domainMappingApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -659,34 +659,27 @@ func diffDomainMapping(c *Client, desired, actual *DomainMapping, opts ...dcl.Ap
 
 	var diffs []domainMappingDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.SelfLink) && !dcl.StringCanonicalize(desired.SelfLink, actual.SelfLink) {
-		c.Config.Logger.Infof("Detected diff in SelfLink.\nDESIRED: %v\nACTUAL: %v", desired.SelfLink, actual.SelfLink)
-		diffs = append(diffs, domainMappingDiff{
-			RequiresRecreate: true,
-			FieldName:        "SelfLink",
-		})
+	if ds, err := dcl.Diff(desired.App, actual.App, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "app"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, domainMappingDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
+
 	if compareDomainMappingSslSettings(c, desired.SslSettings, actual.SslSettings) {
 		c.Config.Logger.Infof("Detected diff in SslSettings.\nDESIRED: %v\nACTUAL: %v", desired.SslSettings, actual.SslSettings)
 
@@ -727,20 +720,12 @@ func compareDomainMappingSslSettings(c *Client, desired, actual *DomainMappingSs
 	if actual == nil {
 		return true
 	}
-	if actual.CertificateId == nil && desired.CertificateId != nil && !dcl.IsEmptyValueIndirect(desired.CertificateId) {
-		c.Config.Logger.Infof("desired CertificateId %s - but actually nil", dcl.SprintResource(desired.CertificateId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.CertificateId, actual.CertificateId) && !dcl.IsZeroValue(desired.CertificateId) {
-		c.Config.Logger.Infof("Diff in CertificateId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CertificateId), dcl.SprintResource(actual.CertificateId))
-		return true
-	}
-	if actual.SslManagementType == nil && desired.SslManagementType != nil && !dcl.IsEmptyValueIndirect(desired.SslManagementType) {
-		c.Config.Logger.Infof("desired SslManagementType %s - but actually nil", dcl.SprintResource(desired.SslManagementType))
+		c.Config.Logger.Infof("Diff in CertificateId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CertificateId), dcl.SprintResource(actual.CertificateId))
 		return true
 	}
 	if !reflect.DeepEqual(desired.SslManagementType, actual.SslManagementType) && !dcl.IsZeroValue(desired.SslManagementType) {
-		c.Config.Logger.Infof("Diff in SslManagementType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SslManagementType), dcl.SprintResource(actual.SslManagementType))
+		c.Config.Logger.Infof("Diff in SslManagementType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SslManagementType), dcl.SprintResource(actual.SslManagementType))
 		return true
 	}
 	return false
@@ -753,7 +738,7 @@ func compareDomainMappingSslSettingsSlice(c *Client, desired, actual []DomainMap
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDomainMappingSslSettings(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DomainMappingSslSettings, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DomainMappingSslSettings, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -772,7 +757,7 @@ func compareDomainMappingSslSettingsMap(c *Client, desired, actual map[string]Do
 			return true
 		}
 		if compareDomainMappingSslSettings(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DomainMappingSslSettings, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DomainMappingSslSettings, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -786,28 +771,16 @@ func compareDomainMappingResourceRecords(c *Client, desired, actual *DomainMappi
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Rrdata == nil && desired.Rrdata != nil && !dcl.IsEmptyValueIndirect(desired.Rrdata) {
-		c.Config.Logger.Infof("desired Rrdata %s - but actually nil", dcl.SprintResource(desired.Rrdata))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Rrdata, actual.Rrdata) && !dcl.IsZeroValue(desired.Rrdata) {
-		c.Config.Logger.Infof("Diff in Rrdata. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Rrdata), dcl.SprintResource(actual.Rrdata))
-		return true
-	}
-	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
-		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
+		c.Config.Logger.Infof("Diff in Rrdata.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Rrdata), dcl.SprintResource(actual.Rrdata))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
+		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	return false
@@ -820,7 +793,7 @@ func compareDomainMappingResourceRecordsSlice(c *Client, desired, actual []Domai
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDomainMappingResourceRecords(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DomainMappingResourceRecords, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DomainMappingResourceRecords, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -839,7 +812,7 @@ func compareDomainMappingResourceRecordsMap(c *Client, desired, actual map[strin
 			return true
 		}
 		if compareDomainMappingResourceRecords(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DomainMappingResourceRecords, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DomainMappingResourceRecords, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -853,7 +826,7 @@ func compareDomainMappingSslSettingsSslManagementTypeEnumSlice(c *Client, desire
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDomainMappingSslSettingsSslManagementTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DomainMappingSslSettingsSslManagementTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DomainMappingSslSettingsSslManagementTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -871,7 +844,7 @@ func compareDomainMappingResourceRecordsTypeEnumSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDomainMappingResourceRecordsTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DomainMappingResourceRecordsTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DomainMappingResourceRecordsTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -886,7 +859,7 @@ func compareDomainMappingResourceRecordsTypeEnum(c *Client, desired, actual *Dom
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *DomainMapping) urlNormalized() *DomainMapping {
-	normalized := deepcopy.Copy(*r).(DomainMapping)
+	normalized := dcl.Copy(*r).(DomainMapping)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.App = dcl.SelfLinkToName(r.App)
@@ -958,17 +931,17 @@ func expandDomainMapping(c *Client, f *DomainMapping) (map[string]interface{}, e
 	}
 	if v, err := expandDomainMappingSslSettings(c, f.SslSettings); err != nil {
 		return nil, fmt.Errorf("error expanding SslSettings into sslSettings: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sslSettings"] = v
 	}
 	if v, err := expandDomainMappingResourceRecordsSlice(c, f.ResourceRecords); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceRecords into resourceRecords: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["resourceRecords"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding App into app: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["app"] = v
 	}
 
@@ -1080,11 +1053,10 @@ func flattenDomainMappingSslSettingsSlice(c *Client, i interface{}) []DomainMapp
 // expandDomainMappingSslSettings expands an instance of DomainMappingSslSettings into a JSON
 // request object.
 func expandDomainMappingSslSettings(c *Client, f *DomainMappingSslSettings) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.CertificateId; !dcl.IsEmptyValueIndirect(v) {
 		m["certificateId"] = v
 	}
@@ -1198,11 +1170,10 @@ func flattenDomainMappingResourceRecordsSlice(c *Client, i interface{}) []Domain
 // expandDomainMappingResourceRecords expands an instance of DomainMappingResourceRecords into a JSON
 // request object.
 func expandDomainMappingResourceRecords(c *Client, f *DomainMappingResourceRecords) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}

@@ -22,7 +22,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -656,6 +655,7 @@ type serviceAccountDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         serviceAccountApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -674,91 +674,66 @@ func diffServiceAccount(c *Client, desired, actual *ServiceAccount, opts ...dcl.
 
 	var diffs []serviceAccountDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Project, actual.Project, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, FieldName: "Project"})
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.UniqueId, actual.UniqueId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.UniqueId, actual.UniqueId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "unique_id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, FieldName: "UniqueId"})
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Email, actual.Email, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Email, actual.Email, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "email"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, FieldName: "Email"})
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, serviceAccountDiff{
-			UpdateOp: &updateServiceAccountPatchServiceAccountOperation{}, FieldName: "DisplayName",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, serviceAccountDiff{
-			UpdateOp: &updateServiceAccountPatchServiceAccountOperation{}, FieldName: "Description",
+			UpdateOp: &updateServiceAccountPatchServiceAccountOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.OAuth2ClientId, actual.OAuth2ClientId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, FieldName: "OAuth2ClientId"})
+		diffs = append(diffs, serviceAccountDiff{
+			UpdateOp: &updateServiceAccountPatchServiceAccountOperation{}, Diffs: ds,
+		})
 	}
 
-	if d, err := dcl.Diff(desired.Disabled, actual.Disabled, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.OAuth2ClientId, actual.OAuth2ClientId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "oauth2_client_id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, FieldName: "Disabled"})
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, serviceAccountDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "disabled"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
-		diffs = append(diffs, serviceAccountDiff{
-			UpdateOp:  &updateServiceAccountPatchServiceAccountOperation{},
-			FieldName: "DisplayName",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-
-		diffs = append(diffs, serviceAccountDiff{
-			UpdateOp:  &updateServiceAccountPatchServiceAccountOperation{},
-			FieldName: "Description",
-		})
-
-	}
 	if compareServiceAccountActasResources(c, desired.ActasResources, actual.ActasResources) {
 		c.Config.Logger.Infof("Detected diff in ActasResources.\nDESIRED: %v\nACTUAL: %v", desired.ActasResources, actual.ActasResources)
 		diffs = append(diffs, serviceAccountDiff{
@@ -797,12 +772,8 @@ func compareServiceAccountActasResources(c *Client, desired, actual *ServiceAcco
 	if actual == nil {
 		return true
 	}
-	if actual.Resources == nil && desired.Resources != nil && !dcl.IsEmptyValueIndirect(desired.Resources) {
-		c.Config.Logger.Infof("desired Resources %s - but actually nil", dcl.SprintResource(desired.Resources))
-		return true
-	}
 	if compareServiceAccountActasResourcesResourcesSlice(c, desired.Resources, actual.Resources) && !dcl.IsZeroValue(desired.Resources) {
-		c.Config.Logger.Infof("Diff in Resources. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Resources), dcl.SprintResource(actual.Resources))
+		c.Config.Logger.Infof("Diff in Resources.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Resources), dcl.SprintResource(actual.Resources))
 		return true
 	}
 	return false
@@ -815,7 +786,7 @@ func compareServiceAccountActasResourcesSlice(c *Client, desired, actual []Servi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceAccountActasResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceAccountActasResources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceAccountActasResources, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -834,7 +805,7 @@ func compareServiceAccountActasResourcesMap(c *Client, desired, actual map[strin
 			return true
 		}
 		if compareServiceAccountActasResources(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceAccountActasResources, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceAccountActasResources, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -848,12 +819,8 @@ func compareServiceAccountActasResourcesResources(c *Client, desired, actual *Se
 	if actual == nil {
 		return true
 	}
-	if actual.FullResourceName == nil && desired.FullResourceName != nil && !dcl.IsEmptyValueIndirect(desired.FullResourceName) {
-		c.Config.Logger.Infof("desired FullResourceName %s - but actually nil", dcl.SprintResource(desired.FullResourceName))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.FullResourceName, actual.FullResourceName) && !dcl.IsZeroValue(desired.FullResourceName) {
-		c.Config.Logger.Infof("Diff in FullResourceName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FullResourceName), dcl.SprintResource(actual.FullResourceName))
+		c.Config.Logger.Infof("Diff in FullResourceName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FullResourceName), dcl.SprintResource(actual.FullResourceName))
 		return true
 	}
 	return false
@@ -866,7 +833,7 @@ func compareServiceAccountActasResourcesResourcesSlice(c *Client, desired, actua
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceAccountActasResourcesResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceAccountActasResourcesResources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceAccountActasResourcesResources, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -885,7 +852,7 @@ func compareServiceAccountActasResourcesResourcesMap(c *Client, desired, actual 
 			return true
 		}
 		if compareServiceAccountActasResourcesResources(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceAccountActasResourcesResources, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceAccountActasResourcesResources, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -896,7 +863,7 @@ func compareServiceAccountActasResourcesResourcesMap(c *Client, desired, actual 
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *ServiceAccount) urlNormalized() *ServiceAccount {
-	normalized := deepcopy.Copy(*r).(ServiceAccount)
+	normalized := dcl.Copy(*r).(ServiceAccount)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.UniqueId = dcl.SelfLinkToName(r.UniqueId)
@@ -977,7 +944,7 @@ func expandServiceAccount(c *Client, f *ServiceAccount) (map[string]interface{},
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/serviceAccounts/%s@%s.iam.gserviceaccounts.com", f.Name, f.Project, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.Project; !dcl.IsEmptyValueIndirect(v) {
@@ -1000,7 +967,7 @@ func expandServiceAccount(c *Client, f *ServiceAccount) (map[string]interface{},
 	}
 	if v, err := expandServiceAccountActasResources(c, f.ActasResources); err != nil {
 		return nil, fmt.Errorf("error expanding ActasResources into actasResources: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["actasResources"] = v
 	}
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
@@ -1119,11 +1086,10 @@ func flattenServiceAccountActasResourcesSlice(c *Client, i interface{}) []Servic
 // expandServiceAccountActasResources expands an instance of ServiceAccountActasResources into a JSON
 // request object.
 func expandServiceAccountActasResources(c *Client, f *ServiceAccountActasResources) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandServiceAccountActasResourcesResourcesSlice(c, f.Resources); err != nil {
 		return nil, fmt.Errorf("error expanding Resources into resources: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1231,11 +1197,10 @@ func flattenServiceAccountActasResourcesResourcesSlice(c *Client, i interface{})
 // expandServiceAccountActasResourcesResources expands an instance of ServiceAccountActasResourcesResources into a JSON
 // request object.
 func expandServiceAccountActasResourcesResources(c *Client, f *ServiceAccountActasResourcesResources) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.FullResourceName; !dcl.IsEmptyValueIndirect(v) {
 		m["fullResourceName"] = v
 	}

@@ -36,8 +36,6 @@ class FirewallPolicy(object):
         self.name = name
         self.description = description
         self.fingerprint = fingerprint
-        self.self_link = self_link
-        self.self_link_with_id = self_link_with_id
         self.display_name = display_name
         self.parent = parent
         self.service_account_file = service_account_file
@@ -55,14 +53,6 @@ class FirewallPolicy(object):
 
         if Primitive.to_proto(self.fingerprint):
             request.resource.fingerprint = Primitive.to_proto(self.fingerprint)
-
-        if Primitive.to_proto(self.self_link):
-            request.resource.self_link = Primitive.to_proto(self.self_link)
-
-        if Primitive.to_proto(self.self_link_with_id):
-            request.resource.self_link_with_id = Primitive.to_proto(
-                self.self_link_with_id
-            )
 
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
@@ -96,14 +86,6 @@ class FirewallPolicy(object):
 
         if Primitive.to_proto(self.fingerprint):
             request.resource.fingerprint = Primitive.to_proto(self.fingerprint)
-
-        if Primitive.to_proto(self.self_link):
-            request.resource.self_link = Primitive.to_proto(self.self_link)
-
-        if Primitive.to_proto(self.self_link_with_id):
-            request.resource.self_link_with_id = Primitive.to_proto(
-                self.self_link_with_id
-            )
 
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
@@ -149,10 +131,6 @@ class FirewallPolicy(object):
             resource.description = Primitive.to_proto(self.description)
         if Primitive.to_proto(self.fingerprint):
             resource.fingerprint = Primitive.to_proto(self.fingerprint)
-        if Primitive.to_proto(self.self_link):
-            resource.self_link = Primitive.to_proto(self.self_link)
-        if Primitive.to_proto(self.self_link_with_id):
-            resource.self_link_with_id = Primitive.to_proto(self.self_link_with_id)
         if Primitive.to_proto(self.display_name):
             resource.display_name = Primitive.to_proto(self.display_name)
         if Primitive.to_proto(self.parent):

@@ -22,7 +22,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -549,6 +548,7 @@ type httpFilterDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         httpFilterApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -567,128 +567,88 @@ func diffHttpFilter(c *Client, desired, actual *HttpFilter, opts ...dcl.ApplyOpt
 
 	var diffs []httpFilterDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, httpFilterDiff{
-			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, FieldName: "Name",
+			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpFilterDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+		diffs = append(diffs, httpFilterDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpFilterDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+		diffs = append(diffs, httpFilterDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, httpFilterDiff{
-			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, FieldName: "Labels",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.FilterName, actual.FilterName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, httpFilterDiff{
-			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, FieldName: "FilterName",
+			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.ConfigTypeUrl, actual.ConfigTypeUrl, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.FilterName, actual.FilterName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "filter_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, httpFilterDiff{
-			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, FieldName: "ConfigTypeUrl",
+			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Config, actual.Config, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigTypeUrl, actual.ConfigTypeUrl, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "config_type_url"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, httpFilterDiff{
-			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, FieldName: "Config",
+			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "config"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, httpFilterDiff{
-			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, FieldName: "Description",
+			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, httpFilterDiff{
-			UpdateOp:  &updateHttpFilterUpdateHttpFilterOperation{},
-			FieldName: "Name",
+			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
-		diffs = append(diffs, httpFilterDiff{
-			UpdateOp:  &updateHttpFilterUpdateHttpFilterOperation{},
-			FieldName: "Labels",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpFilterDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.FilterName) && !dcl.StringCanonicalize(desired.FilterName, actual.FilterName) {
-		c.Config.Logger.Infof("Detected diff in FilterName.\nDESIRED: %v\nACTUAL: %v", desired.FilterName, actual.FilterName)
 
-		diffs = append(diffs, httpFilterDiff{
-			UpdateOp:  &updateHttpFilterUpdateHttpFilterOperation{},
-			FieldName: "FilterName",
-		})
-
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpFilterDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.ConfigTypeUrl) && !dcl.StringCanonicalize(desired.ConfigTypeUrl, actual.ConfigTypeUrl) {
-		c.Config.Logger.Infof("Detected diff in ConfigTypeUrl.\nDESIRED: %v\nACTUAL: %v", desired.ConfigTypeUrl, actual.ConfigTypeUrl)
 
-		diffs = append(diffs, httpFilterDiff{
-			UpdateOp:  &updateHttpFilterUpdateHttpFilterOperation{},
-			FieldName: "ConfigTypeUrl",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Config) && !dcl.StringCanonicalize(desired.Config, actual.Config) {
-		c.Config.Logger.Infof("Detected diff in Config.\nDESIRED: %v\nACTUAL: %v", desired.Config, actual.Config)
-
-		diffs = append(diffs, httpFilterDiff{
-			UpdateOp:  &updateHttpFilterUpdateHttpFilterOperation{},
-			FieldName: "Config",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-
-		diffs = append(diffs, httpFilterDiff{
-			UpdateOp:  &updateHttpFilterUpdateHttpFilterOperation{},
-			FieldName: "Description",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -718,7 +678,7 @@ func diffHttpFilter(c *Client, desired, actual *HttpFilter, opts ...dcl.ApplyOpt
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *HttpFilter) urlNormalized() *HttpFilter {
-	normalized := deepcopy.Copy(*r).(HttpFilter)
+	normalized := dcl.Copy(*r).(HttpFilter)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.FilterName = dcl.SelfLinkToName(r.FilterName)
 	normalized.ConfigTypeUrl = dcl.SelfLinkToName(r.ConfigTypeUrl)
@@ -789,7 +749,7 @@ func expandHttpFilter(c *Client, f *HttpFilter) (map[string]interface{}, error) 
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/global/httpFilters/%s", f.Name, f.Project, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
@@ -815,12 +775,12 @@ func expandHttpFilter(c *Client, f *HttpFilter) (map[string]interface{}, error) 
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 

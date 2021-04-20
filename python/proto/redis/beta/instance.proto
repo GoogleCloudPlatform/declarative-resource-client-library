@@ -91,7 +91,6 @@ message RedisBetaInstance {
   RedisBetaInstanceMaintenanceSchedule maintenance_schedule = 24;
   string project = 25;
   string location = 26;
-  string region = 27;
 }
 
 message RedisBetaInstanceServerCaCerts {
@@ -126,6 +125,7 @@ message RedisBetaInstanceMaintenanceSchedule {
   string start_time = 1;
   string end_time = 2;
   bool can_reschedule = 3;
+  string schedule_deadline_time = 4;
 }
 
 message ApplyRedisBetaInstanceRequest {

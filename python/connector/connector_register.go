@@ -16,6 +16,8 @@ package connector
 import (
 	connectorpb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/connector_go_proto"
 
+	cloudbuild_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta_connector"
+
 	accesscontextmanager_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/accesscontextmanager/connector"
 
 	apigee_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee/connector"
@@ -31,8 +33,6 @@ import (
 	binaryauthorization_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/connector"
 
 	cloudbilling_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbilling/connector"
-
-	cloudbuild_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/connector"
 
 	cloudfunctions_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/connector"
 
@@ -100,6 +100,8 @@ import (
 
 	storage_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/connector"
 
+	tier2_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/tier2/alpha_connector"
+
 	tpu_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/tpu/connector"
 
 	vpcaccess_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/connector"
@@ -112,6 +114,8 @@ import (
 // InitializeServer prepares the server for future RPC requests. It must be called before
 // attempting to response to any requests.
 func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
+
+	cloudbuild_beta_connector.RegisterServers(grpcServer)
 
 	accesscontextmanager_connector.RegisterServers(grpcServer)
 
@@ -128,8 +132,6 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	binaryauthorization_connector.RegisterServers(grpcServer)
 
 	cloudbilling_connector.RegisterServers(grpcServer)
-
-	cloudbuild_connector.RegisterServers(grpcServer)
 
 	cloudfunctions_connector.RegisterServers(grpcServer)
 
@@ -196,6 +198,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	sql_beta_connector.RegisterServers(grpcServer)
 
 	storage_connector.RegisterServers(grpcServer)
+
+	tier2_alpha_connector.RegisterServers(grpcServer)
 
 	tpu_connector.RegisterServers(grpcServer)
 

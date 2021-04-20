@@ -3,6 +3,6 @@
   "project": "{{project}}",
   "description": "A basic binary authorization attestor",
   "userOwnedGrafeasNote": {
-    "noteReference": "{{ref:basic.containeranalysis.note.json:name}}"
+    "noteReference": "projects/{{project}}/notes/{{ref:basic.containeranalysis.note.json:name}}"
   }
 }

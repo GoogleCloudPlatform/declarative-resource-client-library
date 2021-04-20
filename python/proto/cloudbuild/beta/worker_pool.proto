@@ -1,0 +1,77 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+
+enum CloudbuildBetaWorkerPoolStateEnum {
+  CloudbuildBetaWorkerPoolStateEnumNO_VALUE_DO_NOT_USE = 0;
+  CloudbuildBetaWorkerPoolStateEnumSTATE_UNSPECIFIED = 1;
+  CloudbuildBetaWorkerPoolStateEnumPENDING = 2;
+  CloudbuildBetaWorkerPoolStateEnumAPPROVED = 3;
+  CloudbuildBetaWorkerPoolStateEnumREJECTED = 4;
+  CloudbuildBetaWorkerPoolStateEnumCANCELLED = 5;
+}
+
+message CloudbuildBetaWorkerPool {
+  string name = 1;
+  CloudbuildBetaWorkerPoolStateEnum state = 2;
+  string create_time = 3;
+  string update_time = 4;
+  string delete_time = 5;
+  CloudbuildBetaWorkerPoolWorkerConfig worker_config = 6;
+  CloudbuildBetaWorkerPoolNetworkConfig network_config = 7;
+  string project = 8;
+  string location = 9;
+}
+
+message CloudbuildBetaWorkerPoolWorkerConfig {
+  string machine_type = 1;
+  int64 disk_size_gb = 2;
+  bool no_external_ip = 3;
+}
+
+message CloudbuildBetaWorkerPoolNetworkConfig {
+  string peered_network = 1;
+}
+
+message ApplyCloudbuildBetaWorkerPoolRequest {
+  CloudbuildBetaWorkerPool resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteCloudbuildBetaWorkerPoolRequest {
+  string service_account_file = 1;
+  CloudbuildBetaWorkerPool resource = 2;
+}
+
+message ListCloudbuildBetaWorkerPoolRequest {
+  string service_account_file = 1;
+  string Project = 2;
+  string Location = 3;
+}
+
+message ListCloudbuildBetaWorkerPoolResponse {
+  repeated CloudbuildBetaWorkerPool items = 1;
+}
+
+service CloudbuildBetaWorkerPoolService {
+  rpc ApplyCloudbuildBetaWorkerPool(ApplyCloudbuildBetaWorkerPoolRequest) returns (CloudbuildBetaWorkerPool);
+  rpc DeleteCloudbuildBetaWorkerPool(DeleteCloudbuildBetaWorkerPoolRequest) returns (google.protobuf.Empty);
+  rpc ListCloudbuildBetaWorkerPool(ListCloudbuildBetaWorkerPoolRequest) returns (ListCloudbuildBetaWorkerPoolResponse);
+}

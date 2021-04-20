@@ -348,7 +348,7 @@ components:
           type: string
           x-dcl-go-name: Target
           x-dcl-references:
-          - field: name
+          - field: instanceGroup
             resource: Compute/InstanceGroupManager
         zone:
           description: URL of the [zone](/compute/docs/regions-zones/#available) where

@@ -22,7 +22,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -599,6 +598,7 @@ type tenantOAuthIdpConfigDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         tenantOAuthIdpConfigApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -617,114 +617,74 @@ func diffTenantOAuthIdpConfig(c *Client, desired, actual *TenantOAuthIdpConfig, 
 
 	var diffs []tenantOAuthIdpConfigDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, FieldName: "Name",
+			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.ClientId, actual.ClientId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ClientId, actual.ClientId, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "client_id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, FieldName: "ClientId",
+			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Issuer, actual.Issuer, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Issuer, actual.Issuer, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "issuer"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, FieldName: "Issuer",
+			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, FieldName: "DisplayName",
+			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Enabled, actual.Enabled, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enabled"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, FieldName: "Enabled",
+			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.ClientSecret, actual.ClientSecret, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ClientSecret, actual.ClientSecret, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "client_secret"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, FieldName: "ClientSecret",
+			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp:  &updateTenantOAuthIdpConfigUpdateConfigOperation{},
-			FieldName: "Name",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantOAuthIdpConfigDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.ClientId) && !dcl.StringCanonicalize(desired.ClientId, actual.ClientId) {
-		c.Config.Logger.Infof("Detected diff in ClientId.\nDESIRED: %v\nACTUAL: %v", desired.ClientId, actual.ClientId)
 
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp:  &updateTenantOAuthIdpConfigUpdateConfigOperation{},
-			FieldName: "ClientId",
-		})
-
+	if ds, err := dcl.Diff(desired.Tenant, actual.Tenant, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "tenant"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantOAuthIdpConfigDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Issuer) && !dcl.StringCanonicalize(desired.Issuer, actual.Issuer) {
-		c.Config.Logger.Infof("Detected diff in Issuer.\nDESIRED: %v\nACTUAL: %v", desired.Issuer, actual.Issuer)
 
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp:  &updateTenantOAuthIdpConfigUpdateConfigOperation{},
-			FieldName: "Issuer",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
-
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp:  &updateTenantOAuthIdpConfigUpdateConfigOperation{},
-			FieldName: "DisplayName",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Enabled) && !dcl.BoolCanonicalize(desired.Enabled, actual.Enabled) {
-		c.Config.Logger.Infof("Detected diff in Enabled.\nDESIRED: %v\nACTUAL: %v", desired.Enabled, actual.Enabled)
-
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp:  &updateTenantOAuthIdpConfigUpdateConfigOperation{},
-			FieldName: "Enabled",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.ClientSecret) && !dcl.StringCanonicalize(desired.ClientSecret, actual.ClientSecret) {
-		c.Config.Logger.Infof("Detected diff in ClientSecret.\nDESIRED: %v\nACTUAL: %v", desired.ClientSecret, actual.ClientSecret)
-
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp:  &updateTenantOAuthIdpConfigUpdateConfigOperation{},
-			FieldName: "ClientSecret",
-		})
-
-	}
 	if compareTenantOAuthIdpConfigResponseType(c, desired.ResponseType, actual.ResponseType) {
 		c.Config.Logger.Infof("Detected diff in ResponseType.\nDESIRED: %v\nACTUAL: %v", desired.ResponseType, actual.ResponseType)
 
@@ -765,28 +725,16 @@ func compareTenantOAuthIdpConfigResponseType(c *Client, desired, actual *TenantO
 	if actual == nil {
 		return true
 	}
-	if actual.IdToken == nil && desired.IdToken != nil && !dcl.IsEmptyValueIndirect(desired.IdToken) {
-		c.Config.Logger.Infof("desired IdToken %s - but actually nil", dcl.SprintResource(desired.IdToken))
-		return true
-	}
 	if !dcl.BoolCanonicalize(desired.IdToken, actual.IdToken) && !dcl.IsZeroValue(desired.IdToken) {
-		c.Config.Logger.Infof("Diff in IdToken. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IdToken), dcl.SprintResource(actual.IdToken))
-		return true
-	}
-	if actual.Code == nil && desired.Code != nil && !dcl.IsEmptyValueIndirect(desired.Code) {
-		c.Config.Logger.Infof("desired Code %s - but actually nil", dcl.SprintResource(desired.Code))
+		c.Config.Logger.Infof("Diff in IdToken.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IdToken), dcl.SprintResource(actual.IdToken))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Code, actual.Code) && !dcl.IsZeroValue(desired.Code) {
-		c.Config.Logger.Infof("Diff in Code. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Code), dcl.SprintResource(actual.Code))
-		return true
-	}
-	if actual.Token == nil && desired.Token != nil && !dcl.IsEmptyValueIndirect(desired.Token) {
-		c.Config.Logger.Infof("desired Token %s - but actually nil", dcl.SprintResource(desired.Token))
+		c.Config.Logger.Infof("Diff in Code.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Code), dcl.SprintResource(actual.Code))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Token, actual.Token) && !dcl.IsZeroValue(desired.Token) {
-		c.Config.Logger.Infof("Diff in Token. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Token), dcl.SprintResource(actual.Token))
+		c.Config.Logger.Infof("Diff in Token.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Token), dcl.SprintResource(actual.Token))
 		return true
 	}
 	return false
@@ -799,7 +747,7 @@ func compareTenantOAuthIdpConfigResponseTypeSlice(c *Client, desired, actual []T
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareTenantOAuthIdpConfigResponseType(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TenantOAuthIdpConfigResponseType, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in TenantOAuthIdpConfigResponseType, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -818,7 +766,7 @@ func compareTenantOAuthIdpConfigResponseTypeMap(c *Client, desired, actual map[s
 			return true
 		}
 		if compareTenantOAuthIdpConfigResponseType(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in TenantOAuthIdpConfigResponseType, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in TenantOAuthIdpConfigResponseType, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -829,7 +777,7 @@ func compareTenantOAuthIdpConfigResponseTypeMap(c *Client, desired, actual map[s
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *TenantOAuthIdpConfig) urlNormalized() *TenantOAuthIdpConfig {
-	normalized := deepcopy.Copy(*r).(TenantOAuthIdpConfig)
+	normalized := dcl.Copy(*r).(TenantOAuthIdpConfig)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.ClientId = dcl.SelfLinkToName(r.ClientId)
 	normalized.Issuer = dcl.SelfLinkToName(r.Issuer)
@@ -923,17 +871,17 @@ func expandTenantOAuthIdpConfig(c *Client, f *TenantOAuthIdpConfig) (map[string]
 	}
 	if v, err := expandTenantOAuthIdpConfigResponseType(c, f.ResponseType); err != nil {
 		return nil, fmt.Errorf("error expanding ResponseType into responseType: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["responseType"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Tenant into tenant: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["tenant"] = v
 	}
 
@@ -1049,11 +997,10 @@ func flattenTenantOAuthIdpConfigResponseTypeSlice(c *Client, i interface{}) []Te
 // expandTenantOAuthIdpConfigResponseType expands an instance of TenantOAuthIdpConfigResponseType into a JSON
 // request object.
 func expandTenantOAuthIdpConfigResponseType(c *Client, f *TenantOAuthIdpConfigResponseType) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.IdToken; !dcl.IsEmptyValueIndirect(v) {
 		m["idToken"] = v
 	}

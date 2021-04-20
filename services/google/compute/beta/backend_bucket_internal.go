@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -578,6 +577,7 @@ type backendBucketDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         backendBucketApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -596,91 +596,62 @@ func diffBackendBucket(c *Client, desired, actual *BackendBucket, opts ...dcl.Ap
 
 	var diffs []backendBucketDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.BucketName, actual.BucketName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.BucketName, actual.BucketName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "bucket_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, backendBucketDiff{
-			UpdateOp: &updateBackendBucketUpdateOperation{}, FieldName: "BucketName",
+			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, backendBucketDiff{
-			UpdateOp: &updateBackendBucketUpdateOperation{}, FieldName: "Description",
+			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.EnableCdn, actual.EnableCdn, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.EnableCdn, actual.EnableCdn, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enable_cdn"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, backendBucketDiff{
-			UpdateOp: &updateBackendBucketUpdateOperation{}, FieldName: "EnableCdn",
+			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, backendBucketDiff{
-			UpdateOp: &updateBackendBucketUpdateOperation{}, FieldName: "Name",
+			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, backendBucketDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, backendBucketDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.BucketName) && !dcl.NameToSelfLink(desired.BucketName, actual.BucketName) {
-		c.Config.Logger.Infof("Detected diff in BucketName.\nDESIRED: %v\nACTUAL: %v", desired.BucketName, actual.BucketName)
-
-		diffs = append(diffs, backendBucketDiff{
-			UpdateOp:  &updateBackendBucketUpdateOperation{},
-			FieldName: "BucketName",
-		})
-
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, backendBucketDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
 	if compareBackendBucketCdnPolicy(c, desired.CdnPolicy, actual.CdnPolicy) {
 		c.Config.Logger.Infof("Detected diff in CdnPolicy.\nDESIRED: %v\nACTUAL: %v", desired.CdnPolicy, actual.CdnPolicy)
 
 		diffs = append(diffs, backendBucketDiff{
 			UpdateOp:  &updateBackendBucketUpdateOperation{},
 			FieldName: "CdnPolicy",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-
-		diffs = append(diffs, backendBucketDiff{
-			UpdateOp:  &updateBackendBucketUpdateOperation{},
-			FieldName: "Description",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.EnableCdn) && !dcl.BoolCanonicalize(desired.EnableCdn, actual.EnableCdn) {
-		c.Config.Logger.Infof("Detected diff in EnableCdn.\nDESIRED: %v\nACTUAL: %v", desired.EnableCdn, actual.EnableCdn)
-
-		diffs = append(diffs, backendBucketDiff{
-			UpdateOp:  &updateBackendBucketUpdateOperation{},
-			FieldName: "EnableCdn",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-
-		diffs = append(diffs, backendBucketDiff{
-			UpdateOp:  &updateBackendBucketUpdateOperation{},
-			FieldName: "Name",
 		})
 
 	}
@@ -715,20 +686,12 @@ func compareBackendBucketCdnPolicy(c *Client, desired, actual *BackendBucketCdnP
 	if actual == nil {
 		return true
 	}
-	if actual.SignedUrlKeyNames == nil && desired.SignedUrlKeyNames != nil && !dcl.IsEmptyValueIndirect(desired.SignedUrlKeyNames) {
-		c.Config.Logger.Infof("desired SignedUrlKeyNames %s - but actually nil", dcl.SprintResource(desired.SignedUrlKeyNames))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.SignedUrlKeyNames, actual.SignedUrlKeyNames) && !dcl.IsZeroValue(desired.SignedUrlKeyNames) {
-		c.Config.Logger.Infof("Diff in SignedUrlKeyNames. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SignedUrlKeyNames), dcl.SprintResource(actual.SignedUrlKeyNames))
-		return true
-	}
-	if actual.SignedUrlCacheMaxAgeSec == nil && desired.SignedUrlCacheMaxAgeSec != nil && !dcl.IsEmptyValueIndirect(desired.SignedUrlCacheMaxAgeSec) {
-		c.Config.Logger.Infof("desired SignedUrlCacheMaxAgeSec %s - but actually nil", dcl.SprintResource(desired.SignedUrlCacheMaxAgeSec))
+		c.Config.Logger.Infof("Diff in SignedUrlKeyNames.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SignedUrlKeyNames), dcl.SprintResource(actual.SignedUrlKeyNames))
 		return true
 	}
 	if !reflect.DeepEqual(desired.SignedUrlCacheMaxAgeSec, actual.SignedUrlCacheMaxAgeSec) && !dcl.IsZeroValue(desired.SignedUrlCacheMaxAgeSec) {
-		c.Config.Logger.Infof("Diff in SignedUrlCacheMaxAgeSec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SignedUrlCacheMaxAgeSec), dcl.SprintResource(actual.SignedUrlCacheMaxAgeSec))
+		c.Config.Logger.Infof("Diff in SignedUrlCacheMaxAgeSec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SignedUrlCacheMaxAgeSec), dcl.SprintResource(actual.SignedUrlCacheMaxAgeSec))
 		return true
 	}
 	return false
@@ -741,7 +704,7 @@ func compareBackendBucketCdnPolicySlice(c *Client, desired, actual []BackendBuck
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareBackendBucketCdnPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BackendBucketCdnPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in BackendBucketCdnPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -760,7 +723,7 @@ func compareBackendBucketCdnPolicyMap(c *Client, desired, actual map[string]Back
 			return true
 		}
 		if compareBackendBucketCdnPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in BackendBucketCdnPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in BackendBucketCdnPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -771,7 +734,7 @@ func compareBackendBucketCdnPolicyMap(c *Client, desired, actual map[string]Back
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *BackendBucket) urlNormalized() *BackendBucket {
-	normalized := deepcopy.Copy(*r).(BackendBucket)
+	normalized := dcl.Copy(*r).(BackendBucket)
 	normalized.BucketName = dcl.SelfLinkToName(r.BucketName)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
@@ -842,7 +805,7 @@ func expandBackendBucket(c *Client, f *BackendBucket) (map[string]interface{}, e
 	}
 	if v, err := expandBackendBucketCdnPolicy(c, f.CdnPolicy); err != nil {
 		return nil, fmt.Errorf("error expanding CdnPolicy into cdnPolicy: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["cdnPolicy"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
@@ -856,7 +819,7 @@ func expandBackendBucket(c *Client, f *BackendBucket) (map[string]interface{}, e
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
@@ -973,11 +936,10 @@ func flattenBackendBucketCdnPolicySlice(c *Client, i interface{}) []BackendBucke
 // expandBackendBucketCdnPolicy expands an instance of BackendBucketCdnPolicy into a JSON
 // request object.
 func expandBackendBucketCdnPolicy(c *Client, f *BackendBucketCdnPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.SignedUrlKeyNames; !dcl.IsEmptyValueIndirect(v) {
 		m["signedUrlKeyNames"] = v
 	}

@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -1722,6 +1721,7 @@ type instanceGroupManagerDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         instanceGroupManagerApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -1740,97 +1740,106 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 
 	var diffs []instanceGroupManagerDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.BaseInstanceName, actual.BaseInstanceName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.BaseInstanceName, actual.BaseInstanceName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "base_instance_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "BaseInstanceName"})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "creation_timestamp"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "CreationTimestamp"})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "Description"})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "Id"})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.InstanceGroup, actual.InstanceGroup, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceGroup, actual.InstanceGroup, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "instance_group"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "InstanceGroup"})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "instance_template"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceGroupManagerDiff{
-			UpdateOp: &updateInstanceGroupManagerSetInstanceTemplateOperation{}, FieldName: "InstanceTemplate",
+			UpdateOp: &updateInstanceGroupManagerSetInstanceTemplateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.TargetSize, actual.TargetSize, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.TargetPools, actual.TargetPools, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "target_pools"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "TargetSize"})
-	}
-
-	if d, err := dcl.Diff(desired.Zone, actual.Zone, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "Zone"})
-	}
-
-	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, FieldName: "Region"})
-	}
-
-	if !dcl.IsZeroValue(desired.BaseInstanceName) && !dcl.StringCanonicalize(desired.BaseInstanceName, actual.BaseInstanceName) {
-		c.Config.Logger.Infof("Detected diff in BaseInstanceName.\nDESIRED: %v\nACTUAL: %v", desired.BaseInstanceName, actual.BaseInstanceName)
 		diffs = append(diffs, instanceGroupManagerDiff{
-			RequiresRecreate: true,
-			FieldName:        "BaseInstanceName",
+			UpdateOp: &updateInstanceGroupManagerSetTargetPoolsOperation{}, Diffs: ds,
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "target_size"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "zone"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareInstanceGroupManagerDistributionPolicy(c, desired.DistributionPolicy, actual.DistributionPolicy) {
 		c.Config.Logger.Infof("Detected diff in DistributionPolicy.\nDESIRED: %v\nACTUAL: %v", desired.DistributionPolicy, actual.DistributionPolicy)
 		diffs = append(diffs, instanceGroupManagerDiff{
 			RequiresRecreate: true,
 			FieldName:        "DistributionPolicy",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-		diffs = append(diffs, instanceGroupManagerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Description",
 		})
 	}
 	if compareInstanceGroupManagerVersionsSlice(c, desired.Versions, actual.Versions) {
@@ -1840,37 +1849,12 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 			FieldName:        "Versions",
 		})
 	}
-	if !dcl.IsZeroValue(desired.InstanceTemplate) && !dcl.NameToSelfLink(desired.InstanceTemplate, actual.InstanceTemplate) {
-		c.Config.Logger.Infof("Detected diff in InstanceTemplate.\nDESIRED: %v\nACTUAL: %v", desired.InstanceTemplate, actual.InstanceTemplate)
-
-		diffs = append(diffs, instanceGroupManagerDiff{
-			UpdateOp:  &updateInstanceGroupManagerSetInstanceTemplateOperation{},
-			FieldName: "InstanceTemplate",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, instanceGroupManagerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
 	if compareInstanceGroupManagerNamedPortsSlice(c, desired.NamedPorts, actual.NamedPorts) {
 		c.Config.Logger.Infof("Detected diff in NamedPorts.\nDESIRED: %v\nACTUAL: %v", desired.NamedPorts, actual.NamedPorts)
 		diffs = append(diffs, instanceGroupManagerDiff{
 			RequiresRecreate: true,
 			FieldName:        "NamedPorts",
 		})
-	}
-	if !dcl.StringSliceEqualsWithSelfLink(desired.TargetPools, actual.TargetPools) {
-		c.Config.Logger.Infof("Detected diff in TargetPools.\nDESIRED: %v\nACTUAL: %v", desired.TargetPools, actual.TargetPools)
-
-		diffs = append(diffs, instanceGroupManagerDiff{
-			UpdateOp:  &updateInstanceGroupManagerSetTargetPoolsOperation{},
-			FieldName: "TargetPools",
-		})
-
 	}
 	if compareInstanceGroupManagerAutoHealingPoliciesSlice(c, desired.AutoHealingPolicies, actual.AutoHealingPolicies) {
 		c.Config.Logger.Infof("Detected diff in AutoHealingPolicies.\nDESIRED: %v\nACTUAL: %v", desired.AutoHealingPolicies, actual.AutoHealingPolicies)
@@ -1884,13 +1868,6 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 		diffs = append(diffs, instanceGroupManagerDiff{
 			RequiresRecreate: true,
 			FieldName:        "UpdatePolicy",
-		})
-	}
-	if !reflect.DeepEqual(desired.TargetSize, actual.TargetSize) {
-		c.Config.Logger.Infof("Detected diff in TargetSize.\nDESIRED: %v\nACTUAL: %v", desired.TargetSize, actual.TargetSize)
-		diffs = append(diffs, instanceGroupManagerDiff{
-			RequiresRecreate: true,
-			FieldName:        "TargetSize",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1924,12 +1901,8 @@ func compareInstanceGroupManagerDistributionPolicy(c *Client, desired, actual *I
 	if actual == nil {
 		return true
 	}
-	if actual.Zones == nil && desired.Zones != nil && !dcl.IsEmptyValueIndirect(desired.Zones) {
-		c.Config.Logger.Infof("desired Zones %s - but actually nil", dcl.SprintResource(desired.Zones))
-		return true
-	}
 	if compareInstanceGroupManagerDistributionPolicyZonesSlice(c, desired.Zones, actual.Zones) && !dcl.IsZeroValue(desired.Zones) {
-		c.Config.Logger.Infof("Diff in Zones. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zones), dcl.SprintResource(actual.Zones))
+		c.Config.Logger.Infof("Diff in Zones.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zones), dcl.SprintResource(actual.Zones))
 		return true
 	}
 	return false
@@ -1942,7 +1915,7 @@ func compareInstanceGroupManagerDistributionPolicySlice(c *Client, desired, actu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerDistributionPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerDistributionPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerDistributionPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1961,7 +1934,7 @@ func compareInstanceGroupManagerDistributionPolicyMap(c *Client, desired, actual
 			return true
 		}
 		if compareInstanceGroupManagerDistributionPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerDistributionPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerDistributionPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1975,12 +1948,8 @@ func compareInstanceGroupManagerDistributionPolicyZones(c *Client, desired, actu
 	if actual == nil {
 		return true
 	}
-	if actual.Zone == nil && desired.Zone != nil && !dcl.IsEmptyValueIndirect(desired.Zone) {
-		c.Config.Logger.Infof("desired Zone %s - but actually nil", dcl.SprintResource(desired.Zone))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Zone, actual.Zone) && !dcl.IsZeroValue(desired.Zone) {
-		c.Config.Logger.Infof("Diff in Zone. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zone), dcl.SprintResource(actual.Zone))
+		c.Config.Logger.Infof("Diff in Zone.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zone), dcl.SprintResource(actual.Zone))
 		return true
 	}
 	return false
@@ -1993,7 +1962,7 @@ func compareInstanceGroupManagerDistributionPolicyZonesSlice(c *Client, desired,
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerDistributionPolicyZones(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerDistributionPolicyZones, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerDistributionPolicyZones, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2012,7 +1981,7 @@ func compareInstanceGroupManagerDistributionPolicyZonesMap(c *Client, desired, a
 			return true
 		}
 		if compareInstanceGroupManagerDistributionPolicyZones(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerDistributionPolicyZones, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerDistributionPolicyZones, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2036,7 +2005,7 @@ func compareInstanceGroupManagerCurrentActionsSlice(c *Client, desired, actual [
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerCurrentActions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerCurrentActions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerCurrentActions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2055,7 +2024,7 @@ func compareInstanceGroupManagerCurrentActionsMap(c *Client, desired, actual map
 			return true
 		}
 		if compareInstanceGroupManagerCurrentActions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerCurrentActions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerCurrentActions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2069,28 +2038,16 @@ func compareInstanceGroupManagerVersions(c *Client, desired, actual *InstanceGro
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.InstanceTemplate == nil && desired.InstanceTemplate != nil && !dcl.IsEmptyValueIndirect(desired.InstanceTemplate) {
-		c.Config.Logger.Infof("desired InstanceTemplate %s - but actually nil", dcl.SprintResource(desired.InstanceTemplate))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.NameToSelfLink(desired.InstanceTemplate, actual.InstanceTemplate) && !dcl.IsZeroValue(desired.InstanceTemplate) {
-		c.Config.Logger.Infof("Diff in InstanceTemplate. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceTemplate), dcl.SprintResource(actual.InstanceTemplate))
-		return true
-	}
-	if actual.TargetSize == nil && desired.TargetSize != nil && !dcl.IsEmptyValueIndirect(desired.TargetSize) {
-		c.Config.Logger.Infof("desired TargetSize %s - but actually nil", dcl.SprintResource(desired.TargetSize))
+		c.Config.Logger.Infof("Diff in InstanceTemplate.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceTemplate), dcl.SprintResource(actual.InstanceTemplate))
 		return true
 	}
 	if compareInstanceGroupManagerVersionsTargetSize(c, desired.TargetSize, actual.TargetSize) && !dcl.IsZeroValue(desired.TargetSize) {
-		c.Config.Logger.Infof("Diff in TargetSize. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetSize), dcl.SprintResource(actual.TargetSize))
+		c.Config.Logger.Infof("Diff in TargetSize.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetSize), dcl.SprintResource(actual.TargetSize))
 		return true
 	}
 	return false
@@ -2103,7 +2060,7 @@ func compareInstanceGroupManagerVersionsSlice(c *Client, desired, actual []Insta
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerVersions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerVersions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerVersions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2122,7 +2079,7 @@ func compareInstanceGroupManagerVersionsMap(c *Client, desired, actual map[strin
 			return true
 		}
 		if compareInstanceGroupManagerVersions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerVersions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerVersions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2136,20 +2093,12 @@ func compareInstanceGroupManagerVersionsTargetSize(c *Client, desired, actual *I
 	if actual == nil {
 		return true
 	}
-	if actual.Fixed == nil && desired.Fixed != nil && !dcl.IsEmptyValueIndirect(desired.Fixed) {
-		c.Config.Logger.Infof("desired Fixed %s - but actually nil", dcl.SprintResource(desired.Fixed))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Fixed, actual.Fixed) && !dcl.IsZeroValue(desired.Fixed) {
-		c.Config.Logger.Infof("Diff in Fixed. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Fixed), dcl.SprintResource(actual.Fixed))
-		return true
-	}
-	if actual.Percent == nil && desired.Percent != nil && !dcl.IsEmptyValueIndirect(desired.Percent) {
-		c.Config.Logger.Infof("desired Percent %s - but actually nil", dcl.SprintResource(desired.Percent))
+		c.Config.Logger.Infof("Diff in Fixed.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Fixed), dcl.SprintResource(actual.Fixed))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
+		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
 		return true
 	}
 	return false
@@ -2162,7 +2111,7 @@ func compareInstanceGroupManagerVersionsTargetSizeSlice(c *Client, desired, actu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerVersionsTargetSize(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerVersionsTargetSize, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerVersionsTargetSize, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2181,7 +2130,7 @@ func compareInstanceGroupManagerVersionsTargetSizeMap(c *Client, desired, actual
 			return true
 		}
 		if compareInstanceGroupManagerVersionsTargetSize(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerVersionsTargetSize, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerVersionsTargetSize, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2195,20 +2144,12 @@ func compareInstanceGroupManagerNamedPorts(c *Client, desired, actual *InstanceG
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Port == nil && desired.Port != nil && !dcl.IsEmptyValueIndirect(desired.Port) {
-		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
-		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
+		c.Config.Logger.Infof("Diff in Port.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
 		return true
 	}
 	return false
@@ -2221,7 +2162,7 @@ func compareInstanceGroupManagerNamedPortsSlice(c *Client, desired, actual []Ins
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerNamedPorts(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerNamedPorts, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerNamedPorts, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2240,7 +2181,7 @@ func compareInstanceGroupManagerNamedPortsMap(c *Client, desired, actual map[str
 			return true
 		}
 		if compareInstanceGroupManagerNamedPorts(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerNamedPorts, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerNamedPorts, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2254,28 +2195,16 @@ func compareInstanceGroupManagerStatus(c *Client, desired, actual *InstanceGroup
 	if actual == nil {
 		return true
 	}
-	if actual.IsStable == nil && desired.IsStable != nil && !dcl.IsEmptyValueIndirect(desired.IsStable) {
-		c.Config.Logger.Infof("desired IsStable %s - but actually nil", dcl.SprintResource(desired.IsStable))
-		return true
-	}
 	if !dcl.BoolCanonicalize(desired.IsStable, actual.IsStable) && !dcl.IsZeroValue(desired.IsStable) {
-		c.Config.Logger.Infof("Diff in IsStable. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IsStable), dcl.SprintResource(actual.IsStable))
-		return true
-	}
-	if actual.VersionTarget == nil && desired.VersionTarget != nil && !dcl.IsEmptyValueIndirect(desired.VersionTarget) {
-		c.Config.Logger.Infof("desired VersionTarget %s - but actually nil", dcl.SprintResource(desired.VersionTarget))
+		c.Config.Logger.Infof("Diff in IsStable.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IsStable), dcl.SprintResource(actual.IsStable))
 		return true
 	}
 	if compareInstanceGroupManagerStatusVersionTarget(c, desired.VersionTarget, actual.VersionTarget) && !dcl.IsZeroValue(desired.VersionTarget) {
-		c.Config.Logger.Infof("Diff in VersionTarget. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.VersionTarget), dcl.SprintResource(actual.VersionTarget))
-		return true
-	}
-	if actual.Autoscalar == nil && desired.Autoscalar != nil && !dcl.IsEmptyValueIndirect(desired.Autoscalar) {
-		c.Config.Logger.Infof("desired Autoscalar %s - but actually nil", dcl.SprintResource(desired.Autoscalar))
+		c.Config.Logger.Infof("Diff in VersionTarget.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.VersionTarget), dcl.SprintResource(actual.VersionTarget))
 		return true
 	}
 	if !dcl.NameToSelfLink(desired.Autoscalar, actual.Autoscalar) && !dcl.IsZeroValue(desired.Autoscalar) {
-		c.Config.Logger.Infof("Diff in Autoscalar. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Autoscalar), dcl.SprintResource(actual.Autoscalar))
+		c.Config.Logger.Infof("Diff in Autoscalar.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Autoscalar), dcl.SprintResource(actual.Autoscalar))
 		return true
 	}
 	return false
@@ -2288,7 +2217,7 @@ func compareInstanceGroupManagerStatusSlice(c *Client, desired, actual []Instanc
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerStatus(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerStatus, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerStatus, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2307,7 +2236,7 @@ func compareInstanceGroupManagerStatusMap(c *Client, desired, actual map[string]
 			return true
 		}
 		if compareInstanceGroupManagerStatus(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerStatus, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerStatus, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2321,12 +2250,8 @@ func compareInstanceGroupManagerStatusVersionTarget(c *Client, desired, actual *
 	if actual == nil {
 		return true
 	}
-	if actual.IsReached == nil && desired.IsReached != nil && !dcl.IsEmptyValueIndirect(desired.IsReached) {
-		c.Config.Logger.Infof("desired IsReached %s - but actually nil", dcl.SprintResource(desired.IsReached))
-		return true
-	}
 	if !dcl.BoolCanonicalize(desired.IsReached, actual.IsReached) && !dcl.IsZeroValue(desired.IsReached) {
-		c.Config.Logger.Infof("Diff in IsReached. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IsReached), dcl.SprintResource(actual.IsReached))
+		c.Config.Logger.Infof("Diff in IsReached.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IsReached), dcl.SprintResource(actual.IsReached))
 		return true
 	}
 	return false
@@ -2339,7 +2264,7 @@ func compareInstanceGroupManagerStatusVersionTargetSlice(c *Client, desired, act
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerStatusVersionTarget(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerStatusVersionTarget, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerStatusVersionTarget, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2358,7 +2283,7 @@ func compareInstanceGroupManagerStatusVersionTargetMap(c *Client, desired, actua
 			return true
 		}
 		if compareInstanceGroupManagerStatusVersionTarget(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerStatusVersionTarget, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerStatusVersionTarget, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2372,20 +2297,12 @@ func compareInstanceGroupManagerAutoHealingPolicies(c *Client, desired, actual *
 	if actual == nil {
 		return true
 	}
-	if actual.HealthCheck == nil && desired.HealthCheck != nil && !dcl.IsEmptyValueIndirect(desired.HealthCheck) {
-		c.Config.Logger.Infof("desired HealthCheck %s - but actually nil", dcl.SprintResource(desired.HealthCheck))
-		return true
-	}
 	if !dcl.NameToSelfLink(desired.HealthCheck, actual.HealthCheck) && !dcl.IsZeroValue(desired.HealthCheck) {
-		c.Config.Logger.Infof("Diff in HealthCheck. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HealthCheck), dcl.SprintResource(actual.HealthCheck))
-		return true
-	}
-	if actual.InitialDelaySec == nil && desired.InitialDelaySec != nil && !dcl.IsEmptyValueIndirect(desired.InitialDelaySec) {
-		c.Config.Logger.Infof("desired InitialDelaySec %s - but actually nil", dcl.SprintResource(desired.InitialDelaySec))
+		c.Config.Logger.Infof("Diff in HealthCheck.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HealthCheck), dcl.SprintResource(actual.HealthCheck))
 		return true
 	}
 	if !reflect.DeepEqual(desired.InitialDelaySec, actual.InitialDelaySec) && !dcl.IsZeroValue(desired.InitialDelaySec) {
-		c.Config.Logger.Infof("Diff in InitialDelaySec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitialDelaySec), dcl.SprintResource(actual.InitialDelaySec))
+		c.Config.Logger.Infof("Diff in InitialDelaySec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitialDelaySec), dcl.SprintResource(actual.InitialDelaySec))
 		return true
 	}
 	return false
@@ -2398,7 +2315,7 @@ func compareInstanceGroupManagerAutoHealingPoliciesSlice(c *Client, desired, act
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerAutoHealingPolicies(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerAutoHealingPolicies, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerAutoHealingPolicies, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2417,7 +2334,7 @@ func compareInstanceGroupManagerAutoHealingPoliciesMap(c *Client, desired, actua
 			return true
 		}
 		if compareInstanceGroupManagerAutoHealingPolicies(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerAutoHealingPolicies, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerAutoHealingPolicies, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2431,28 +2348,16 @@ func compareInstanceGroupManagerUpdatePolicy(c *Client, desired, actual *Instanc
 	if actual == nil {
 		return true
 	}
-	if actual.InstanceRedistributionType == nil && desired.InstanceRedistributionType != nil && !dcl.IsEmptyValueIndirect(desired.InstanceRedistributionType) {
-		c.Config.Logger.Infof("desired InstanceRedistributionType %s - but actually nil", dcl.SprintResource(desired.InstanceRedistributionType))
-		return true
-	}
 	if !reflect.DeepEqual(desired.InstanceRedistributionType, actual.InstanceRedistributionType) && !dcl.IsZeroValue(desired.InstanceRedistributionType) {
-		c.Config.Logger.Infof("Diff in InstanceRedistributionType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceRedistributionType), dcl.SprintResource(actual.InstanceRedistributionType))
-		return true
-	}
-	if actual.MinimalAction == nil && desired.MinimalAction != nil && !dcl.IsEmptyValueIndirect(desired.MinimalAction) {
-		c.Config.Logger.Infof("desired MinimalAction %s - but actually nil", dcl.SprintResource(desired.MinimalAction))
+		c.Config.Logger.Infof("Diff in InstanceRedistributionType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceRedistributionType), dcl.SprintResource(actual.InstanceRedistributionType))
 		return true
 	}
 	if !reflect.DeepEqual(desired.MinimalAction, actual.MinimalAction) && !dcl.IsZeroValue(desired.MinimalAction) {
-		c.Config.Logger.Infof("Diff in MinimalAction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimalAction), dcl.SprintResource(actual.MinimalAction))
-		return true
-	}
-	if actual.MaxSurge == nil && desired.MaxSurge != nil && !dcl.IsEmptyValueIndirect(desired.MaxSurge) {
-		c.Config.Logger.Infof("desired MaxSurge %s - but actually nil", dcl.SprintResource(desired.MaxSurge))
+		c.Config.Logger.Infof("Diff in MinimalAction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimalAction), dcl.SprintResource(actual.MinimalAction))
 		return true
 	}
 	if compareInstanceGroupManagerUpdatePolicyMaxSurge(c, desired.MaxSurge, actual.MaxSurge) && !dcl.IsZeroValue(desired.MaxSurge) {
-		c.Config.Logger.Infof("Diff in MaxSurge. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxSurge), dcl.SprintResource(actual.MaxSurge))
+		c.Config.Logger.Infof("Diff in MaxSurge.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxSurge), dcl.SprintResource(actual.MaxSurge))
 		return true
 	}
 	return false
@@ -2465,7 +2370,7 @@ func compareInstanceGroupManagerUpdatePolicySlice(c *Client, desired, actual []I
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerUpdatePolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2484,7 +2389,7 @@ func compareInstanceGroupManagerUpdatePolicyMap(c *Client, desired, actual map[s
 			return true
 		}
 		if compareInstanceGroupManagerUpdatePolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2498,28 +2403,16 @@ func compareInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, desired, actual 
 	if actual == nil {
 		return true
 	}
-	if actual.Fixed == nil && desired.Fixed != nil && !dcl.IsEmptyValueIndirect(desired.Fixed) {
-		c.Config.Logger.Infof("desired Fixed %s - but actually nil", dcl.SprintResource(desired.Fixed))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Fixed, actual.Fixed) && !dcl.IsZeroValue(desired.Fixed) {
-		c.Config.Logger.Infof("Diff in Fixed. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Fixed), dcl.SprintResource(actual.Fixed))
-		return true
-	}
-	if actual.Percent == nil && desired.Percent != nil && !dcl.IsEmptyValueIndirect(desired.Percent) {
-		c.Config.Logger.Infof("desired Percent %s - but actually nil", dcl.SprintResource(desired.Percent))
+		c.Config.Logger.Infof("Diff in Fixed.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Fixed), dcl.SprintResource(actual.Fixed))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
-		return true
-	}
-	if actual.MaxUnavailable == nil && desired.MaxUnavailable != nil && !dcl.IsEmptyValueIndirect(desired.MaxUnavailable) {
-		c.Config.Logger.Infof("desired MaxUnavailable %s - but actually nil", dcl.SprintResource(desired.MaxUnavailable))
+		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
 		return true
 	}
 	if compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c, desired.MaxUnavailable, actual.MaxUnavailable) && !dcl.IsZeroValue(desired.MaxUnavailable) {
-		c.Config.Logger.Infof("Diff in MaxUnavailable. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxUnavailable), dcl.SprintResource(actual.MaxUnavailable))
+		c.Config.Logger.Infof("Diff in MaxUnavailable.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxUnavailable), dcl.SprintResource(actual.MaxUnavailable))
 		return true
 	}
 	return false
@@ -2532,7 +2425,7 @@ func compareInstanceGroupManagerUpdatePolicyMaxSurgeSlice(c *Client, desired, ac
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerUpdatePolicyMaxSurge(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicyMaxSurge, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicyMaxSurge, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2551,7 +2444,7 @@ func compareInstanceGroupManagerUpdatePolicyMaxSurgeMap(c *Client, desired, actu
 			return true
 		}
 		if compareInstanceGroupManagerUpdatePolicyMaxSurge(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicyMaxSurge, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicyMaxSurge, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2565,20 +2458,12 @@ func compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c *Client, de
 	if actual == nil {
 		return true
 	}
-	if actual.Fixed == nil && desired.Fixed != nil && !dcl.IsEmptyValueIndirect(desired.Fixed) {
-		c.Config.Logger.Infof("desired Fixed %s - but actually nil", dcl.SprintResource(desired.Fixed))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Fixed, actual.Fixed) && !dcl.IsZeroValue(desired.Fixed) {
-		c.Config.Logger.Infof("Diff in Fixed. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Fixed), dcl.SprintResource(actual.Fixed))
-		return true
-	}
-	if actual.Percent == nil && desired.Percent != nil && !dcl.IsEmptyValueIndirect(desired.Percent) {
-		c.Config.Logger.Infof("desired Percent %s - but actually nil", dcl.SprintResource(desired.Percent))
+		c.Config.Logger.Infof("Diff in Fixed.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Fixed), dcl.SprintResource(actual.Fixed))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
+		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
 		return true
 	}
 	return false
@@ -2591,7 +2476,7 @@ func compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableSlice(c *Clien
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2610,7 +2495,7 @@ func compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableMap(c *Client,
 			return true
 		}
 		if compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2624,7 +2509,7 @@ func compareInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumSlice(
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2642,7 +2527,7 @@ func compareInstanceGroupManagerUpdatePolicyMinimalActionEnumSlice(c *Client, de
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceGroupManagerUpdatePolicyMinimalActionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicyMinimalActionEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceGroupManagerUpdatePolicyMinimalActionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2657,7 +2542,7 @@ func compareInstanceGroupManagerUpdatePolicyMinimalActionEnum(c *Client, desired
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *InstanceGroupManager) urlNormalized() *InstanceGroupManager {
-	normalized := deepcopy.Copy(*r).(InstanceGroupManager)
+	normalized := dcl.Copy(*r).(InstanceGroupManager)
 	normalized.BaseInstanceName = dcl.SelfLinkToName(r.BaseInstanceName)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.InstanceGroup = dcl.SelfLinkToName(r.InstanceGroup)
@@ -2761,12 +2646,12 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	}
 	if v, err := expandInstanceGroupManagerDistributionPolicy(c, f.DistributionPolicy); err != nil {
 		return nil, fmt.Errorf("error expanding DistributionPolicy into distributionPolicy: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["distributionPolicy"] = v
 	}
 	if v, err := expandInstanceGroupManagerCurrentActions(c, f.CurrentActions); err != nil {
 		return nil, fmt.Errorf("error expanding CurrentActions into currentActions: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["currentActions"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
@@ -2774,7 +2659,7 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	}
 	if v, err := expandInstanceGroupManagerVersionsSlice(c, f.Versions); err != nil {
 		return nil, fmt.Errorf("error expanding Versions into versions: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["versions"] = v
 	}
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
@@ -2791,12 +2676,12 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	}
 	if v, err := expandInstanceGroupManagerNamedPortsSlice(c, f.NamedPorts); err != nil {
 		return nil, fmt.Errorf("error expanding NamedPorts into namedPorts: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["namedPorts"] = v
 	}
 	if v, err := expandInstanceGroupManagerStatus(c, f.Status); err != nil {
 		return nil, fmt.Errorf("error expanding Status into status: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["status"] = v
 	}
 	if v := f.TargetPools; !dcl.IsEmptyValueIndirect(v) {
@@ -2804,12 +2689,12 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	}
 	if v, err := expandInstanceGroupManagerAutoHealingPoliciesSlice(c, f.AutoHealingPolicies); err != nil {
 		return nil, fmt.Errorf("error expanding AutoHealingPolicies into autoHealingPolicies: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["autoHealingPolicies"] = v
 	}
 	if v, err := expandInstanceGroupManagerUpdatePolicy(c, f.UpdatePolicy); err != nil {
 		return nil, fmt.Errorf("error expanding UpdatePolicy into updatePolicy: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["updatePolicy"] = v
 	}
 	if v := f.TargetSize; !dcl.IsEmptyValueIndirect(v) {
@@ -2823,12 +2708,12 @@ func expandInstanceGroupManager(c *Client, f *InstanceGroupManager) (map[string]
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 
@@ -2955,11 +2840,10 @@ func flattenInstanceGroupManagerDistributionPolicySlice(c *Client, i interface{}
 // expandInstanceGroupManagerDistributionPolicy expands an instance of InstanceGroupManagerDistributionPolicy into a JSON
 // request object.
 func expandInstanceGroupManagerDistributionPolicy(c *Client, f *InstanceGroupManagerDistributionPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandInstanceGroupManagerDistributionPolicyZonesSlice(c, f.Zones); err != nil {
 		return nil, fmt.Errorf("error expanding Zones into zones: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -3067,11 +2951,10 @@ func flattenInstanceGroupManagerDistributionPolicyZonesSlice(c *Client, i interf
 // expandInstanceGroupManagerDistributionPolicyZones expands an instance of InstanceGroupManagerDistributionPolicyZones into a JSON
 // request object.
 func expandInstanceGroupManagerDistributionPolicyZones(c *Client, f *InstanceGroupManagerDistributionPolicyZones) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Zone; !dcl.IsEmptyValueIndirect(v) {
 		m["zone"] = v
 	}
@@ -3177,11 +3060,10 @@ func flattenInstanceGroupManagerCurrentActionsSlice(c *Client, i interface{}) []
 // expandInstanceGroupManagerCurrentActions expands an instance of InstanceGroupManagerCurrentActions into a JSON
 // request object.
 func expandInstanceGroupManagerCurrentActions(c *Client, f *InstanceGroupManagerCurrentActions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Abandoning; !dcl.IsEmptyValueIndirect(v) {
 		m["abandoning"] = v
 	}
@@ -3315,11 +3197,10 @@ func flattenInstanceGroupManagerVersionsSlice(c *Client, i interface{}) []Instan
 // expandInstanceGroupManagerVersions expands an instance of InstanceGroupManagerVersions into a JSON
 // request object.
 func expandInstanceGroupManagerVersions(c *Client, f *InstanceGroupManagerVersions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -3435,11 +3316,10 @@ func flattenInstanceGroupManagerVersionsTargetSizeSlice(c *Client, i interface{}
 // expandInstanceGroupManagerVersionsTargetSize expands an instance of InstanceGroupManagerVersionsTargetSize into a JSON
 // request object.
 func expandInstanceGroupManagerVersionsTargetSize(c *Client, f *InstanceGroupManagerVersionsTargetSize) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Fixed; !dcl.IsEmptyValueIndirect(v) {
 		m["fixed"] = v
 	}
@@ -3553,11 +3433,10 @@ func flattenInstanceGroupManagerNamedPortsSlice(c *Client, i interface{}) []Inst
 // expandInstanceGroupManagerNamedPorts expands an instance of InstanceGroupManagerNamedPorts into a JSON
 // request object.
 func expandInstanceGroupManagerNamedPorts(c *Client, f *InstanceGroupManagerNamedPorts) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -3667,11 +3546,10 @@ func flattenInstanceGroupManagerStatusSlice(c *Client, i interface{}) []Instance
 // expandInstanceGroupManagerStatus expands an instance of InstanceGroupManagerStatus into a JSON
 // request object.
 func expandInstanceGroupManagerStatus(c *Client, f *InstanceGroupManagerStatus) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.IsStable; !dcl.IsEmptyValueIndirect(v) {
 		m["isStable"] = v
 	}
@@ -3787,11 +3665,10 @@ func flattenInstanceGroupManagerStatusVersionTargetSlice(c *Client, i interface{
 // expandInstanceGroupManagerStatusVersionTarget expands an instance of InstanceGroupManagerStatusVersionTarget into a JSON
 // request object.
 func expandInstanceGroupManagerStatusVersionTarget(c *Client, f *InstanceGroupManagerStatusVersionTarget) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.IsReached; !dcl.IsEmptyValueIndirect(v) {
 		m["isReached"] = v
 	}
@@ -3897,11 +3774,10 @@ func flattenInstanceGroupManagerAutoHealingPoliciesSlice(c *Client, i interface{
 // expandInstanceGroupManagerAutoHealingPolicies expands an instance of InstanceGroupManagerAutoHealingPolicies into a JSON
 // request object.
 func expandInstanceGroupManagerAutoHealingPolicies(c *Client, f *InstanceGroupManagerAutoHealingPolicies) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HealthCheck; !dcl.IsEmptyValueIndirect(v) {
 		m["healthCheck"] = v
 	}
@@ -4011,11 +3887,10 @@ func flattenInstanceGroupManagerUpdatePolicySlice(c *Client, i interface{}) []In
 // expandInstanceGroupManagerUpdatePolicy expands an instance of InstanceGroupManagerUpdatePolicy into a JSON
 // request object.
 func expandInstanceGroupManagerUpdatePolicy(c *Client, f *InstanceGroupManagerUpdatePolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.InstanceRedistributionType; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceRedistributionType"] = v
 	}
@@ -4131,11 +4006,10 @@ func flattenInstanceGroupManagerUpdatePolicyMaxSurgeSlice(c *Client, i interface
 // expandInstanceGroupManagerUpdatePolicyMaxSurge expands an instance of InstanceGroupManagerUpdatePolicyMaxSurge into a JSON
 // request object.
 func expandInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, f *InstanceGroupManagerUpdatePolicyMaxSurge) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Fixed; !dcl.IsEmptyValueIndirect(v) {
 		m["fixed"] = v
 	}
@@ -4255,11 +4129,10 @@ func flattenInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableSlice(c *Clien
 // expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable expands an instance of InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable into a JSON
 // request object.
 func expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c *Client, f *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Fixed; !dcl.IsEmptyValueIndirect(v) {
 		m["fixed"] = v
 	}

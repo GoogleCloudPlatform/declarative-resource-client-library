@@ -4,5 +4,6 @@
   "region": "{{region}}",
   "settings": {
     "tier": "db-f1-micro"
-  }
+  },
+  "rootPassword": "{{random}}"
 }

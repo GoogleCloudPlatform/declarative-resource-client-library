@@ -182,41 +182,6 @@ type ApplicationList struct {
 	nextToken string
 }
 
-func (l *ApplicationList) HasNext() bool {
-	return l.nextToken != ""
-}
-
-func (l *ApplicationList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
-	if !l.HasNext() {
-		return fmt.Errorf("no next page")
-	}
-	items, token, err := c.listApplication(ctx, l.nextToken)
-	if err != nil {
-		return err
-	}
-	l.Items = items
-	l.nextToken = token
-	return err
-}
-
-func (c *Client) ListApplication(ctx context.Context) (*ApplicationList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
-	items, token, err := c.listApplication(ctx, "")
-	if err != nil {
-		return nil, err
-	}
-	return &ApplicationList{
-		Items:     items,
-		nextToken: token,
-	}, nil
-
-}
-
 func (c *Client) GetApplication(ctx context.Context, r *Application) (*Application, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
 	defer cancel()

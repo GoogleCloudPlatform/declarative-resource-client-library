@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -443,6 +442,7 @@ type targetSslProxyDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         targetSslProxyApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -461,97 +461,69 @@ func diffTargetSslProxy(c *Client, desired, actual *TargetSslProxy, opts ...dcl.
 
 	var diffs []targetSslProxyDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, FieldName: "Id"})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, FieldName: "Description"})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Service, actual.Service, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "service"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, FieldName: "Service"})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SslPolicy, actual.SslPolicy, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SslCertificates, actual.SslCertificates, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ssl_certificates"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, FieldName: "SslPolicy"})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !reflect.DeepEqual(desired.Id, actual.Id) {
-		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %v\nACTUAL: %v", desired.Id, actual.Id)
-		diffs = append(diffs, targetSslProxyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Id",
-		})
+	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "proxy_header"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, targetSslProxyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
+
+	if ds, err := dcl.Diff(desired.SslPolicy, actual.SslPolicy, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ssl_policy"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-		diffs = append(diffs, targetSslProxyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Description",
-		})
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Service) && !dcl.StringCanonicalize(desired.Service, actual.Service) {
-		c.Config.Logger.Infof("Detected diff in Service.\nDESIRED: %v\nACTUAL: %v", desired.Service, actual.Service)
-		diffs = append(diffs, targetSslProxyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Service",
-		})
-	}
-	if !dcl.StringSliceEqualsWithSelfLink(desired.SslCertificates, actual.SslCertificates) {
-		c.Config.Logger.Infof("Detected diff in SslCertificates.\nDESIRED: %v\nACTUAL: %v", desired.SslCertificates, actual.SslCertificates)
-		diffs = append(diffs, targetSslProxyDiff{
-			RequiresRecreate: true,
-			FieldName:        "SslCertificates",
-		})
-	}
-	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) {
-		c.Config.Logger.Infof("Detected diff in ProxyHeader.\nDESIRED: %v\nACTUAL: %v", desired.ProxyHeader, actual.ProxyHeader)
-		diffs = append(diffs, targetSslProxyDiff{
-			RequiresRecreate: true,
-			FieldName:        "ProxyHeader",
-		})
-	}
-	if !dcl.IsZeroValue(desired.SslPolicy) && !dcl.StringCanonicalize(desired.SslPolicy, actual.SslPolicy) {
-		c.Config.Logger.Infof("Detected diff in SslPolicy.\nDESIRED: %v\nACTUAL: %v", desired.SslPolicy, actual.SslPolicy)
-		diffs = append(diffs, targetSslProxyDiff{
-			RequiresRecreate: true,
-			FieldName:        "SslPolicy",
-		})
-	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -583,7 +555,7 @@ func compareTargetSslProxyProxyHeaderEnumSlice(c *Client, desired, actual []Targ
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareTargetSslProxyProxyHeaderEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TargetSslProxyProxyHeaderEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in TargetSslProxyProxyHeaderEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -598,7 +570,7 @@ func compareTargetSslProxyProxyHeaderEnum(c *Client, desired, actual *TargetSslP
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *TargetSslProxy) urlNormalized() *TargetSslProxy {
-	normalized := deepcopy.Copy(*r).(TargetSslProxy)
+	normalized := dcl.Copy(*r).(TargetSslProxy)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
@@ -682,7 +654,7 @@ func expandTargetSslProxy(c *Client, f *TargetSslProxy) (map[string]interface{},
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 

@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -844,6 +843,7 @@ type interconnectDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         interconnectApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -862,192 +862,157 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 
 	var diffs []interconnectDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "Description",
+			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, FieldName: "Id"})
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "Name",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.Location, actual.Location, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "Location",
+			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.RequestedLinkCount, actual.RequestedLinkCount, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "RequestedLinkCount",
+			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.AdminEnabled, actual.AdminEnabled, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.LinkType, actual.LinkType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "link_type"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "AdminEnabled",
+			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.NocContactEmail, actual.NocContactEmail, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedLinkCount, actual.RequestedLinkCount, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "requested_link_count"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "NocContactEmail",
+			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.CustomerName, actual.CustomerName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.InterconnectType, actual.InterconnectType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "interconnect_type"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, FieldName: "CustomerName",
+			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.ProvisionedLinkCount, actual.ProvisionedLinkCount, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.AdminEnabled, actual.AdminEnabled, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "admin_enabled"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, FieldName: "ProvisionedLinkCount"})
+		diffs = append(diffs, interconnectDiff{
+			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
+		})
 	}
 
-	if d, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.NocContactEmail, actual.NocContactEmail, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "noc_contact_email"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, FieldName: "PeerIPAddress"})
+		diffs = append(diffs, interconnectDiff{
+			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
+		})
 	}
 
-	if d, err := dcl.Diff(desired.GoogleIPAddress, actual.GoogleIPAddress, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CustomerName, actual.CustomerName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "customer_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, FieldName: "GoogleIPAddress"})
+		diffs = append(diffs, interconnectDiff{
+			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
+		})
 	}
 
-	if d, err := dcl.Diff(desired.GoogleReferenceId, actual.GoogleReferenceId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.OperationalStatus, actual.OperationalStatus, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "operational_status"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, FieldName: "GoogleReferenceId"})
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp:  &updateInterconnectPatchOperation{},
-			FieldName: "Description",
-		})
-
+	if ds, err := dcl.Diff(desired.ProvisionedLinkCount, actual.ProvisionedLinkCount, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "provisioned_link_count"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
 
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp:  &updateInterconnectPatchOperation{},
-			FieldName: "Name",
-		})
-
+	if ds, err := dcl.Diff(desired.InterconnectAttachments, actual.InterconnectAttachments, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "interconnect_attachments"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Location) && !dcl.StringCanonicalize(desired.Location, actual.Location) {
-		c.Config.Logger.Infof("Detected diff in Location.\nDESIRED: %v\nACTUAL: %v", desired.Location, actual.Location)
 
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp:  &updateInterconnectPatchOperation{},
-			FieldName: "Location",
-		})
-
+	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "peer_ip_address"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.LinkType, actual.LinkType) {
-		c.Config.Logger.Infof("Detected diff in LinkType.\nDESIRED: %v\nACTUAL: %v", desired.LinkType, actual.LinkType)
 
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp:  &updateInterconnectPatchOperation{},
-			FieldName: "LinkType",
-		})
-
+	if ds, err := dcl.Diff(desired.GoogleIPAddress, actual.GoogleIPAddress, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "google_ip_address"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.RequestedLinkCount, actual.RequestedLinkCount) {
-		c.Config.Logger.Infof("Detected diff in RequestedLinkCount.\nDESIRED: %v\nACTUAL: %v", desired.RequestedLinkCount, actual.RequestedLinkCount)
 
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp:  &updateInterconnectPatchOperation{},
-			FieldName: "RequestedLinkCount",
-		})
-
+	if ds, err := dcl.Diff(desired.GoogleReferenceId, actual.GoogleReferenceId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "google_reference_id"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.InterconnectType, actual.InterconnectType) {
-		c.Config.Logger.Infof("Detected diff in InterconnectType.\nDESIRED: %v\nACTUAL: %v", desired.InterconnectType, actual.InterconnectType)
 
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp:  &updateInterconnectPatchOperation{},
-			FieldName: "InterconnectType",
-		})
-
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.AdminEnabled) && !dcl.BoolCanonicalize(desired.AdminEnabled, actual.AdminEnabled) {
-		c.Config.Logger.Infof("Detected diff in AdminEnabled.\nDESIRED: %v\nACTUAL: %v", desired.AdminEnabled, actual.AdminEnabled)
 
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp:  &updateInterconnectPatchOperation{},
-			FieldName: "AdminEnabled",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.NocContactEmail) && !dcl.StringCanonicalize(desired.NocContactEmail, actual.NocContactEmail) {
-		c.Config.Logger.Infof("Detected diff in NocContactEmail.\nDESIRED: %v\nACTUAL: %v", desired.NocContactEmail, actual.NocContactEmail)
 
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp:  &updateInterconnectPatchOperation{},
-			FieldName: "NocContactEmail",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.CustomerName) && !dcl.StringCanonicalize(desired.CustomerName, actual.CustomerName) {
-		c.Config.Logger.Infof("Detected diff in CustomerName.\nDESIRED: %v\nACTUAL: %v", desired.CustomerName, actual.CustomerName)
-
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp:  &updateInterconnectPatchOperation{},
-			FieldName: "CustomerName",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -1079,68 +1044,36 @@ func compareInterconnectExpectedOutages(c *Client, desired, actual *Interconnect
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Description == nil && desired.Description != nil && !dcl.IsEmptyValueIndirect(desired.Description) {
-		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
-		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
-		return true
-	}
-	if actual.Source == nil && desired.Source != nil && !dcl.IsEmptyValueIndirect(desired.Source) {
-		c.Config.Logger.Infof("desired Source %s - but actually nil", dcl.SprintResource(desired.Source))
+		c.Config.Logger.Infof("Diff in Description.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Source, actual.Source) && !dcl.IsZeroValue(desired.Source) {
-		c.Config.Logger.Infof("Diff in Source. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Source), dcl.SprintResource(actual.Source))
-		return true
-	}
-	if actual.State == nil && desired.State != nil && !dcl.IsEmptyValueIndirect(desired.State) {
-		c.Config.Logger.Infof("desired State %s - but actually nil", dcl.SprintResource(desired.State))
+		c.Config.Logger.Infof("Diff in Source.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Source), dcl.SprintResource(actual.Source))
 		return true
 	}
 	if !reflect.DeepEqual(desired.State, actual.State) && !dcl.IsZeroValue(desired.State) {
-		c.Config.Logger.Infof("Diff in State. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.State), dcl.SprintResource(actual.State))
-		return true
-	}
-	if actual.IssueType == nil && desired.IssueType != nil && !dcl.IsEmptyValueIndirect(desired.IssueType) {
-		c.Config.Logger.Infof("desired IssueType %s - but actually nil", dcl.SprintResource(desired.IssueType))
+		c.Config.Logger.Infof("Diff in State.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.State), dcl.SprintResource(actual.State))
 		return true
 	}
 	if !reflect.DeepEqual(desired.IssueType, actual.IssueType) && !dcl.IsZeroValue(desired.IssueType) {
-		c.Config.Logger.Infof("Diff in IssueType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IssueType), dcl.SprintResource(actual.IssueType))
-		return true
-	}
-	if actual.AffectedCircuits == nil && desired.AffectedCircuits != nil && !dcl.IsEmptyValueIndirect(desired.AffectedCircuits) {
-		c.Config.Logger.Infof("desired AffectedCircuits %s - but actually nil", dcl.SprintResource(desired.AffectedCircuits))
+		c.Config.Logger.Infof("Diff in IssueType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IssueType), dcl.SprintResource(actual.IssueType))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.AffectedCircuits, actual.AffectedCircuits) && !dcl.IsZeroValue(desired.AffectedCircuits) {
-		c.Config.Logger.Infof("Diff in AffectedCircuits. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AffectedCircuits), dcl.SprintResource(actual.AffectedCircuits))
-		return true
-	}
-	if actual.StartTime == nil && desired.StartTime != nil && !dcl.IsEmptyValueIndirect(desired.StartTime) {
-		c.Config.Logger.Infof("desired StartTime %s - but actually nil", dcl.SprintResource(desired.StartTime))
+		c.Config.Logger.Infof("Diff in AffectedCircuits.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AffectedCircuits), dcl.SprintResource(actual.AffectedCircuits))
 		return true
 	}
 	if !reflect.DeepEqual(desired.StartTime, actual.StartTime) && !dcl.IsZeroValue(desired.StartTime) {
-		c.Config.Logger.Infof("Diff in StartTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StartTime), dcl.SprintResource(actual.StartTime))
-		return true
-	}
-	if actual.EndTime == nil && desired.EndTime != nil && !dcl.IsEmptyValueIndirect(desired.EndTime) {
-		c.Config.Logger.Infof("desired EndTime %s - but actually nil", dcl.SprintResource(desired.EndTime))
+		c.Config.Logger.Infof("Diff in StartTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StartTime), dcl.SprintResource(actual.StartTime))
 		return true
 	}
 	if !reflect.DeepEqual(desired.EndTime, actual.EndTime) && !dcl.IsZeroValue(desired.EndTime) {
-		c.Config.Logger.Infof("Diff in EndTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EndTime), dcl.SprintResource(actual.EndTime))
+		c.Config.Logger.Infof("Diff in EndTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EndTime), dcl.SprintResource(actual.EndTime))
 		return true
 	}
 	return false
@@ -1153,7 +1086,7 @@ func compareInterconnectExpectedOutagesSlice(c *Client, desired, actual []Interc
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInterconnectExpectedOutages(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectExpectedOutages, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InterconnectExpectedOutages, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1172,7 +1105,7 @@ func compareInterconnectExpectedOutagesMap(c *Client, desired, actual map[string
 			return true
 		}
 		if compareInterconnectExpectedOutages(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InterconnectExpectedOutages, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InterconnectExpectedOutages, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1186,28 +1119,16 @@ func compareInterconnectCircuitInfos(c *Client, desired, actual *InterconnectCir
 	if actual == nil {
 		return true
 	}
-	if actual.GoogleCircuitId == nil && desired.GoogleCircuitId != nil && !dcl.IsEmptyValueIndirect(desired.GoogleCircuitId) {
-		c.Config.Logger.Infof("desired GoogleCircuitId %s - but actually nil", dcl.SprintResource(desired.GoogleCircuitId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.GoogleCircuitId, actual.GoogleCircuitId) && !dcl.IsZeroValue(desired.GoogleCircuitId) {
-		c.Config.Logger.Infof("Diff in GoogleCircuitId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GoogleCircuitId), dcl.SprintResource(actual.GoogleCircuitId))
-		return true
-	}
-	if actual.GoogleDemarcId == nil && desired.GoogleDemarcId != nil && !dcl.IsEmptyValueIndirect(desired.GoogleDemarcId) {
-		c.Config.Logger.Infof("desired GoogleDemarcId %s - but actually nil", dcl.SprintResource(desired.GoogleDemarcId))
+		c.Config.Logger.Infof("Diff in GoogleCircuitId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GoogleCircuitId), dcl.SprintResource(actual.GoogleCircuitId))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.GoogleDemarcId, actual.GoogleDemarcId) && !dcl.IsZeroValue(desired.GoogleDemarcId) {
-		c.Config.Logger.Infof("Diff in GoogleDemarcId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GoogleDemarcId), dcl.SprintResource(actual.GoogleDemarcId))
-		return true
-	}
-	if actual.CustomerDemarcId == nil && desired.CustomerDemarcId != nil && !dcl.IsEmptyValueIndirect(desired.CustomerDemarcId) {
-		c.Config.Logger.Infof("desired CustomerDemarcId %s - but actually nil", dcl.SprintResource(desired.CustomerDemarcId))
+		c.Config.Logger.Infof("Diff in GoogleDemarcId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GoogleDemarcId), dcl.SprintResource(actual.GoogleDemarcId))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.CustomerDemarcId, actual.CustomerDemarcId) && !dcl.IsZeroValue(desired.CustomerDemarcId) {
-		c.Config.Logger.Infof("Diff in CustomerDemarcId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CustomerDemarcId), dcl.SprintResource(actual.CustomerDemarcId))
+		c.Config.Logger.Infof("Diff in CustomerDemarcId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CustomerDemarcId), dcl.SprintResource(actual.CustomerDemarcId))
 		return true
 	}
 	return false
@@ -1220,7 +1141,7 @@ func compareInterconnectCircuitInfosSlice(c *Client, desired, actual []Interconn
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInterconnectCircuitInfos(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectCircuitInfos, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InterconnectCircuitInfos, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1239,7 +1160,7 @@ func compareInterconnectCircuitInfosMap(c *Client, desired, actual map[string]In
 			return true
 		}
 		if compareInterconnectCircuitInfos(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InterconnectCircuitInfos, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InterconnectCircuitInfos, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1253,7 +1174,7 @@ func compareInterconnectLinkTypeEnumSlice(c *Client, desired, actual []Interconn
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInterconnectLinkTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectLinkTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InterconnectLinkTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1271,7 +1192,7 @@ func compareInterconnectInterconnectTypeEnumSlice(c *Client, desired, actual []I
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInterconnectInterconnectTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectInterconnectTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InterconnectInterconnectTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1289,7 +1210,7 @@ func compareInterconnectOperationalStatusEnumSlice(c *Client, desired, actual []
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInterconnectOperationalStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectOperationalStatusEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InterconnectOperationalStatusEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1307,7 +1228,7 @@ func compareInterconnectExpectedOutagesSourceEnumSlice(c *Client, desired, actua
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInterconnectExpectedOutagesSourceEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectExpectedOutagesSourceEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InterconnectExpectedOutagesSourceEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1325,7 +1246,7 @@ func compareInterconnectExpectedOutagesStateEnumSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInterconnectExpectedOutagesStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectExpectedOutagesStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InterconnectExpectedOutagesStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1343,7 +1264,7 @@ func compareInterconnectExpectedOutagesIssueTypeEnumSlice(c *Client, desired, ac
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInterconnectExpectedOutagesIssueTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectExpectedOutagesIssueTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InterconnectExpectedOutagesIssueTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1361,7 +1282,7 @@ func compareInterconnectStateEnumSlice(c *Client, desired, actual []Interconnect
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInterconnectStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InterconnectStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1376,7 +1297,7 @@ func compareInterconnectStateEnum(c *Client, desired, actual *InterconnectStateE
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Interconnect) urlNormalized() *Interconnect {
-	normalized := deepcopy.Copy(*r).(Interconnect)
+	normalized := dcl.Copy(*r).(Interconnect)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
@@ -1500,12 +1421,12 @@ func expandInterconnect(c *Client, f *Interconnect) (map[string]interface{}, err
 	}
 	if v, err := expandInterconnectExpectedOutagesSlice(c, f.ExpectedOutages); err != nil {
 		return nil, fmt.Errorf("error expanding ExpectedOutages into expectedOutages: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["expectedOutages"] = v
 	}
 	if v, err := expandInterconnectCircuitInfosSlice(c, f.CircuitInfos); err != nil {
 		return nil, fmt.Errorf("error expanding CircuitInfos into circuitInfos: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["circuitInfos"] = v
 	}
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
@@ -1513,7 +1434,7 @@ func expandInterconnect(c *Client, f *Interconnect) (map[string]interface{}, err
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -1641,11 +1562,10 @@ func flattenInterconnectExpectedOutagesSlice(c *Client, i interface{}) []Interco
 // expandInterconnectExpectedOutages expands an instance of InterconnectExpectedOutages into a JSON
 // request object.
 func expandInterconnectExpectedOutages(c *Client, f *InterconnectExpectedOutages) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -1779,11 +1699,10 @@ func flattenInterconnectCircuitInfosSlice(c *Client, i interface{}) []Interconne
 // expandInterconnectCircuitInfos expands an instance of InterconnectCircuitInfos into a JSON
 // request object.
 func expandInterconnectCircuitInfos(c *Client, f *InterconnectCircuitInfos) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.GoogleCircuitId; !dcl.IsEmptyValueIndirect(v) {
 		m["googleCircuitId"] = v
 	}

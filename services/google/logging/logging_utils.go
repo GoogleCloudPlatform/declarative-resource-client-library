@@ -92,3 +92,16 @@ func (op *deleteLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Cli
 	}
 	return nil
 }
+
+func canonicalizeLogMetricValueType(m, n *LogMetricMetricDescriptorLabelsValueTypeEnum) bool {
+	if m == nil && n == nil {
+		return true
+	}
+	v := *LogMetricMetricDescriptorLabelsValueTypeEnumRef("STRING")
+	if m == nil {
+		return *n == v
+	} else if n == nil {
+		return *m == v
+	}
+	return *m == *n
+}

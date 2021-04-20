@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -528,6 +527,7 @@ type sslCertificateDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         sslCertificateApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -546,67 +546,67 @@ func diffSslCertificate(c *Client, desired, actual *SslCertificate, opts ...dcl.
 
 	var diffs []sslCertificateDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertificateDiff{RequiresRecreate: true, FieldName: "Id"})
+		diffs = append(diffs, sslCertificateDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertificateDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, sslCertificateDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertificateDiff{RequiresRecreate: true, FieldName: "Description"})
+		diffs = append(diffs, sslCertificateDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertificateDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, sslCertificateDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.ExpireTime, actual.ExpireTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "type"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertificateDiff{RequiresRecreate: true, FieldName: "ExpireTime"})
+		diffs = append(diffs, sslCertificateDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, sslCertificateDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
+	if ds, err := dcl.Diff(desired.SubjectAlternativeNames, actual.SubjectAlternativeNames, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "subject_alternative_names"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, sslCertificateDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-		diffs = append(diffs, sslCertificateDiff{
-			RequiresRecreate: true,
-			FieldName:        "Description",
-		})
+
+	if ds, err := dcl.Diff(desired.ExpireTime, actual.ExpireTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "expire_time"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, sslCertificateDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, sslCertificateDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareSslCertificateSelfManaged(c, desired.SelfManaged, actual.SelfManaged) {
 		c.Config.Logger.Infof("Detected diff in SelfManaged.\nDESIRED: %v\nACTUAL: %v", desired.SelfManaged, actual.SelfManaged)
 		diffs = append(diffs, sslCertificateDiff{
 			RequiresRecreate: true,
 			FieldName:        "SelfManaged",
-		})
-	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) {
-		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
-		diffs = append(diffs, sslCertificateDiff{
-			RequiresRecreate: true,
-			FieldName:        "Type",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -640,12 +640,8 @@ func compareSslCertificateSelfManaged(c *Client, desired, actual *SslCertificate
 	if actual == nil {
 		return true
 	}
-	if actual.Certificate == nil && desired.Certificate != nil && !dcl.IsEmptyValueIndirect(desired.Certificate) {
-		c.Config.Logger.Infof("desired Certificate %s - but actually nil", dcl.SprintResource(desired.Certificate))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Certificate, actual.Certificate) && !dcl.IsZeroValue(desired.Certificate) {
-		c.Config.Logger.Infof("Diff in Certificate. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Certificate), dcl.SprintResource(actual.Certificate))
+		c.Config.Logger.Infof("Diff in Certificate.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Certificate), dcl.SprintResource(actual.Certificate))
 		return true
 	}
 	return false
@@ -658,7 +654,7 @@ func compareSslCertificateSelfManagedSlice(c *Client, desired, actual []SslCerti
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSslCertificateSelfManaged(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SslCertificateSelfManaged, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SslCertificateSelfManaged, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -677,7 +673,7 @@ func compareSslCertificateSelfManagedMap(c *Client, desired, actual map[string]S
 			return true
 		}
 		if compareSslCertificateSelfManaged(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SslCertificateSelfManaged, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in SslCertificateSelfManaged, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -691,7 +687,7 @@ func compareSslCertificateTypeEnumSlice(c *Client, desired, actual []SslCertific
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSslCertificateTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SslCertificateTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SslCertificateTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -706,7 +702,7 @@ func compareSslCertificateTypeEnum(c *Client, desired, actual *SslCertificateTyp
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *SslCertificate) urlNormalized() *SslCertificate {
-	normalized := deepcopy.Copy(*r).(SslCertificate)
+	normalized := dcl.Copy(*r).(SslCertificate)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
@@ -777,7 +773,7 @@ func expandSslCertificate(c *Client, f *SslCertificate) (map[string]interface{},
 	}
 	if v, err := expandSslCertificateSelfManaged(c, f.SelfManaged); err != nil {
 		return nil, fmt.Errorf("error expanding SelfManaged into selfManaged: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["selfManaged"] = v
 	}
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
@@ -791,7 +787,7 @@ func expandSslCertificate(c *Client, f *SslCertificate) (map[string]interface{},
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -911,11 +907,10 @@ func flattenSslCertificateSelfManagedSlice(c *Client, i interface{}) []SslCertif
 // expandSslCertificateSelfManaged expands an instance of SslCertificateSelfManaged into a JSON
 // request object.
 func expandSslCertificateSelfManaged(c *Client, f *SslCertificateSelfManaged) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Certificate; !dcl.IsEmptyValueIndirect(v) {
 		m["certificate"] = v
 	}

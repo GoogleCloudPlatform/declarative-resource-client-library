@@ -23,49 +23,18 @@ import (
 )
 
 type Feature struct {
-	Name             *string               `json:"name"`
-	Labels           map[string]string     `json:"labels"`
-	ResourceState    *FeatureResourceState `json:"resourceState"`
-	Spec             *FeatureSpec          `json:"spec"`
-	MembershipSpecs  map[string]string     `json:"membershipSpecs"`
-	State            *FeatureState         `json:"state"`
-	MembershipStates map[string]string     `json:"membershipStates"`
-	CreateTime       *string               `json:"createTime"`
-	UpdateTime       *string               `json:"updateTime"`
-	DeleteTime       *string               `json:"deleteTime"`
-	Project          *string               `json:"project"`
-	Location         *string               `json:"location"`
+	Name       *string           `json:"name"`
+	Labels     map[string]string `json:"labels"`
+	Spec       *FeatureSpec      `json:"spec"`
+	CreateTime *string           `json:"createTime"`
+	UpdateTime *string           `json:"updateTime"`
+	DeleteTime *string           `json:"deleteTime"`
+	Project    *string           `json:"project"`
+	Location   *string           `json:"location"`
 }
 
 func (r *Feature) String() string {
 	return dcl.SprintResource(r)
-}
-
-// The enum FeatureResourceStateStateEnum.
-type FeatureResourceStateStateEnum string
-
-// FeatureResourceStateStateEnumRef returns a *FeatureResourceStateStateEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func FeatureResourceStateStateEnumRef(s string) *FeatureResourceStateStateEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := FeatureResourceStateStateEnum(s)
-	return &v
-}
-
-func (v FeatureResourceStateStateEnum) Validate() error {
-	for _, s := range []string{"DEPLOYMENT_STATE_UNSPECIFIED", "NOT_INSTALLED", "INSTALLED", "ERROR"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "FeatureResourceStateStateEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
 }
 
 // The enum FeatureSpecMulticlusteringressBillingEnum.
@@ -95,85 +64,9 @@ func (v FeatureSpecMulticlusteringressBillingEnum) Validate() error {
 	}
 }
 
-// The enum FeatureSpecHelloworldFeatureTestThirdEnum.
-type FeatureSpecHelloworldFeatureTestThirdEnum string
-
-// FeatureSpecHelloworldFeatureTestThirdEnumRef returns a *FeatureSpecHelloworldFeatureTestThirdEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func FeatureSpecHelloworldFeatureTestThirdEnumRef(s string) *FeatureSpecHelloworldFeatureTestThirdEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := FeatureSpecHelloworldFeatureTestThirdEnum(s)
-	return &v
-}
-
-func (v FeatureSpecHelloworldFeatureTestThirdEnum) Validate() error {
-	for _, s := range []string{"BAR_UNSPECIFIED", "FIRST", "SECOND"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "FeatureSpecHelloworldFeatureTestThirdEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum FeatureStateStateCodeEnum.
-type FeatureStateStateCodeEnum string
-
-// FeatureStateStateCodeEnumRef returns a *FeatureStateStateCodeEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func FeatureStateStateCodeEnumRef(s string) *FeatureStateStateCodeEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := FeatureStateStateCodeEnum(s)
-	return &v
-}
-
-func (v FeatureStateStateCodeEnum) Validate() error {
-	for _, s := range []string{"CODE_UNSPECIFIED", "CREATING", "READY", "DELETING", "UPDATING", "SERVICE_UPDATING"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "FeatureStateStateCodeEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-type FeatureResourceState struct {
-	empty bool                           `json:"-"`
-	State *FeatureResourceStateStateEnum `json:"state"`
-}
-
-// This object is used to assert a desired state where this FeatureResourceState is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyFeatureResourceState *FeatureResourceState = &FeatureResourceState{empty: true}
-
-func (r *FeatureResourceState) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *FeatureResourceState) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type FeatureSpec struct {
 	empty               bool                            `json:"-"`
 	Multiclusteringress *FeatureSpecMulticlusteringress `json:"multiclusteringress"`
-	Helloworld          *FeatureSpecHelloworld          `json:"helloworld"`
 }
 
 // This object is used to assert a desired state where this FeatureSpec is
@@ -208,166 +101,6 @@ func (r *FeatureSpecMulticlusteringress) String() string {
 }
 
 func (r *FeatureSpecMulticlusteringress) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type FeatureSpecHelloworld struct {
-	empty        bool                              `json:"-"`
-	FeatureTest  *FeatureSpecHelloworldFeatureTest `json:"featureTest"`
-	CustomConfig *string                           `json:"customConfig"`
-}
-
-// This object is used to assert a desired state where this FeatureSpecHelloworld is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyFeatureSpecHelloworld *FeatureSpecHelloworld = &FeatureSpecHelloworld{empty: true}
-
-func (r *FeatureSpecHelloworld) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *FeatureSpecHelloworld) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type FeatureSpecHelloworldFeatureTest struct {
-	empty   bool                                       `json:"-"`
-	First   *string                                    `json:"first"`
-	Second  *int64                                     `json:"second"`
-	Third   *FeatureSpecHelloworldFeatureTestThirdEnum `json:"third"`
-	Fourth  *string                                    `json:"fourth"`
-	Fifth   *FeatureSpecHelloworldFeatureTestFifth     `json:"fifth"`
-	Sixth   *int64                                     `json:"sixth"`
-	Seventh *string                                    `json:"seventh"`
-	Eighth  []FeatureSpecHelloworldFeatureTestEighth   `json:"eighth"`
-	Ninth   map[string]string                          `json:"ninth"`
-}
-
-// This object is used to assert a desired state where this FeatureSpecHelloworldFeatureTest is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyFeatureSpecHelloworldFeatureTest *FeatureSpecHelloworldFeatureTest = &FeatureSpecHelloworldFeatureTest{empty: true}
-
-func (r *FeatureSpecHelloworldFeatureTest) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *FeatureSpecHelloworldFeatureTest) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type FeatureSpecHelloworldFeatureTestFifth struct {
-	empty   bool    `json:"-"`
-	TypeUrl *string `json:"typeUrl"`
-	Value   *string `json:"value"`
-}
-
-// This object is used to assert a desired state where this FeatureSpecHelloworldFeatureTestFifth is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyFeatureSpecHelloworldFeatureTestFifth *FeatureSpecHelloworldFeatureTestFifth = &FeatureSpecHelloworldFeatureTestFifth{empty: true}
-
-func (r *FeatureSpecHelloworldFeatureTestFifth) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *FeatureSpecHelloworldFeatureTestFifth) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type FeatureSpecHelloworldFeatureTestEighth struct {
-	empty  bool    `json:"-"`
-	First  *string `json:"first"`
-	Second *int64  `json:"second"`
-}
-
-// This object is used to assert a desired state where this FeatureSpecHelloworldFeatureTestEighth is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyFeatureSpecHelloworldFeatureTestEighth *FeatureSpecHelloworldFeatureTestEighth = &FeatureSpecHelloworldFeatureTestEighth{empty: true}
-
-func (r *FeatureSpecHelloworldFeatureTestEighth) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *FeatureSpecHelloworldFeatureTestEighth) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type FeatureState struct {
-	empty      bool                    `json:"-"`
-	State      *FeatureStateState      `json:"state"`
-	Helloworld *FeatureStateHelloworld `json:"helloworld"`
-}
-
-// This object is used to assert a desired state where this FeatureState is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyFeatureState *FeatureState = &FeatureState{empty: true}
-
-func (r *FeatureState) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *FeatureState) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type FeatureStateState struct {
-	empty       bool                       `json:"-"`
-	Code        *FeatureStateStateCodeEnum `json:"code"`
-	Description *string                    `json:"description"`
-	UpdateTime  *string                    `json:"updateTime"`
-}
-
-// This object is used to assert a desired state where this FeatureStateState is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyFeatureStateState *FeatureStateState = &FeatureStateState{empty: true}
-
-func (r *FeatureStateState) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *FeatureStateState) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type FeatureStateHelloworld struct {
-	empty bool `json:"-"`
-}
-
-// This object is used to assert a desired state where this FeatureStateHelloworld is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyFeatureStateHelloworld *FeatureStateHelloworld = &FeatureStateHelloworld{empty: true}
-
-func (r *FeatureStateHelloworld) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *FeatureStateHelloworld) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

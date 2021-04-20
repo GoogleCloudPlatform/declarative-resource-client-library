@@ -19,11 +19,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -758,6 +756,7 @@ type routerPeerDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         routerPeerApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -776,179 +775,121 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 
 	var diffs []routerPeerDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "creation_timestamp"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, FieldName: "CreationTimestamp"})
+		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Router, actual.Router, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "router"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerPeerDiff{
-			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "Name",
-		})
+		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.InterfaceName, actual.InterfaceName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, routerPeerDiff{
-			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "InterfaceName",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.IPAddress, actual.IPAddress, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
-			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "IPAddress",
+			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.InterfaceName, actual.InterfaceName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "interface_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
-			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "PeerIPAddress",
+			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.PeerAsn, actual.PeerAsn, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ip_address"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
-			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "PeerAsn",
+			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "peer_ip_address"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
-			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "AdvertisedRoutePriority",
+			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.AdvertiseMode, actual.AdvertiseMode, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.PeerAsn, actual.PeerAsn, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "peer_asn"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
-			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "AdvertiseMode",
+			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.ManagementType, actual.ManagementType, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, FieldName: "ManagementType"})
-	}
-
-	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "advertised_route_priority"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
-			UpdateOp: &updateRouterPeerUpdateOperation{}, FieldName: "Region",
+			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-
+	if ds, err := dcl.Diff(desired.AdvertiseMode, actual.AdvertiseMode, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "advertise_mode"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, routerPeerDiff{
-			UpdateOp:  &updateRouterPeerUpdateOperation{},
-			FieldName: "Name",
+			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.IsZeroValue(desired.InterfaceName) && !dcl.StringCanonicalize(desired.InterfaceName, actual.InterfaceName) {
-		c.Config.Logger.Infof("Detected diff in InterfaceName.\nDESIRED: %v\nACTUAL: %v", desired.InterfaceName, actual.InterfaceName)
 
+	if ds, err := dcl.Diff(desired.ManagementType, actual.ManagementType, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "management_type"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.AdvertisedGroups, actual.AdvertisedGroups, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "advertised_groups"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, routerPeerDiff{
-			UpdateOp:  &updateRouterPeerUpdateOperation{},
-			FieldName: "InterfaceName",
+			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.IsZeroValue(desired.IPAddress) && !dcl.StringCanonicalize(desired.IPAddress, actual.IPAddress) {
-		c.Config.Logger.Infof("Detected diff in IPAddress.\nDESIRED: %v\nACTUAL: %v", desired.IPAddress, actual.IPAddress)
 
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "region"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, routerPeerDiff{
-			UpdateOp:  &updateRouterPeerUpdateOperation{},
-			FieldName: "IPAddress",
+			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.IsZeroValue(desired.PeerIPAddress) && !dcl.StringCanonicalize(desired.PeerIPAddress, actual.PeerIPAddress) {
-		c.Config.Logger.Infof("Detected diff in PeerIPAddress.\nDESIRED: %v\nACTUAL: %v", desired.PeerIPAddress, actual.PeerIPAddress)
 
-		diffs = append(diffs, routerPeerDiff{
-			UpdateOp:  &updateRouterPeerUpdateOperation{},
-			FieldName: "PeerIPAddress",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.PeerAsn, actual.PeerAsn) {
-		c.Config.Logger.Infof("Detected diff in PeerAsn.\nDESIRED: %v\nACTUAL: %v", desired.PeerAsn, actual.PeerAsn)
 
-		diffs = append(diffs, routerPeerDiff{
-			UpdateOp:  &updateRouterPeerUpdateOperation{},
-			FieldName: "PeerAsn",
-		})
-
-	}
-	if !reflect.DeepEqual(desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority) {
-		c.Config.Logger.Infof("Detected diff in AdvertisedRoutePriority.\nDESIRED: %v\nACTUAL: %v", desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority)
-
-		diffs = append(diffs, routerPeerDiff{
-			UpdateOp:  &updateRouterPeerUpdateOperation{},
-			FieldName: "AdvertisedRoutePriority",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.AdvertiseMode) && !dcl.StringCanonicalize(desired.AdvertiseMode, actual.AdvertiseMode) {
-		c.Config.Logger.Infof("Detected diff in AdvertiseMode.\nDESIRED: %v\nACTUAL: %v", desired.AdvertiseMode, actual.AdvertiseMode)
-
-		diffs = append(diffs, routerPeerDiff{
-			UpdateOp:  &updateRouterPeerUpdateOperation{},
-			FieldName: "AdvertiseMode",
-		})
-
-	}
-	if !dcl.StringSliceEquals(desired.AdvertisedGroups, actual.AdvertisedGroups) {
-		c.Config.Logger.Infof("Detected diff in AdvertisedGroups.\nDESIRED: %v\nACTUAL: %v", desired.AdvertisedGroups, actual.AdvertisedGroups)
-
-		diffs = append(diffs, routerPeerDiff{
-			UpdateOp:  &updateRouterPeerUpdateOperation{},
-			FieldName: "AdvertisedGroups",
-		})
-
-	}
 	if compareRouterPeerAdvertisedIPRangesSlice(c, desired.AdvertisedIPRanges, actual.AdvertisedIPRanges) {
 		c.Config.Logger.Infof("Detected diff in AdvertisedIPRanges.\nDESIRED: %v\nACTUAL: %v", desired.AdvertisedIPRanges, actual.AdvertisedIPRanges)
 
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp:  &updateRouterPeerUpdateOperation{},
 			FieldName: "AdvertisedIPRanges",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Region) && !dcl.NameToSelfLink(desired.Region, actual.Region) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
-
-		diffs = append(diffs, routerPeerDiff{
-			UpdateOp:  &updateRouterPeerUpdateOperation{},
-			FieldName: "Region",
 		})
 
 	}
@@ -983,20 +924,12 @@ func compareRouterPeerAdvertisedIPRanges(c *Client, desired, actual *RouterPeerA
 	if actual == nil {
 		return true
 	}
-	if actual.Range == nil && desired.Range != nil && !dcl.IsEmptyValueIndirect(desired.Range) {
-		c.Config.Logger.Infof("desired Range %s - but actually nil", dcl.SprintResource(desired.Range))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Range, actual.Range) && !dcl.IsZeroValue(desired.Range) {
-		c.Config.Logger.Infof("Diff in Range. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Range), dcl.SprintResource(actual.Range))
-		return true
-	}
-	if actual.Description == nil && desired.Description != nil && !dcl.IsEmptyValueIndirect(desired.Description) {
-		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
+		c.Config.Logger.Infof("Diff in Range.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Range), dcl.SprintResource(actual.Range))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
-		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
+		c.Config.Logger.Infof("Diff in Description.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
 	return false
@@ -1009,7 +942,7 @@ func compareRouterPeerAdvertisedIPRangesSlice(c *Client, desired, actual []Route
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareRouterPeerAdvertisedIPRanges(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterPeerAdvertisedIPRanges, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in RouterPeerAdvertisedIPRanges, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1028,7 +961,7 @@ func compareRouterPeerAdvertisedIPRangesMap(c *Client, desired, actual map[strin
 			return true
 		}
 		if compareRouterPeerAdvertisedIPRanges(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RouterPeerAdvertisedIPRanges, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in RouterPeerAdvertisedIPRanges, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1039,7 +972,7 @@ func compareRouterPeerAdvertisedIPRangesMap(c *Client, desired, actual map[strin
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *RouterPeer) urlNormalized() *RouterPeer {
-	normalized := deepcopy.Copy(*r).(RouterPeer)
+	normalized := dcl.Copy(*r).(RouterPeer)
 	normalized.Router = dcl.SelfLinkToName(r.Router)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.InterfaceName = dcl.SelfLinkToName(r.InterfaceName)
@@ -1115,7 +1048,7 @@ func expandRouterPeer(c *Client, f *RouterPeer) (map[string]interface{}, error) 
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Router into router: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["router"] = v
 	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
@@ -1147,7 +1080,7 @@ func expandRouterPeer(c *Client, f *RouterPeer) (map[string]interface{}, error) 
 	}
 	if v, err := expandRouterPeerAdvertisedIPRangesSlice(c, f.AdvertisedIPRanges); err != nil {
 		return nil, fmt.Errorf("error expanding AdvertisedIPRanges into advertisedIpRanges: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["advertisedIpRanges"] = v
 	}
 	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
@@ -1155,7 +1088,7 @@ func expandRouterPeer(c *Client, f *RouterPeer) (map[string]interface{}, error) 
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -1276,11 +1209,10 @@ func flattenRouterPeerAdvertisedIPRangesSlice(c *Client, i interface{}) []Router
 // expandRouterPeerAdvertisedIPRanges expands an instance of RouterPeerAdvertisedIPRanges into a JSON
 // request object.
 func expandRouterPeerAdvertisedIPRanges(c *Client, f *RouterPeerAdvertisedIPRanges) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Range; !dcl.IsEmptyValueIndirect(v) {
 		m["range"] = v
 	}

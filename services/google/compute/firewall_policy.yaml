@@ -61,12 +61,16 @@ components:
           x-kubernetes-immutable: true
         selfLink:
           description: Server-defined URL for the resource.
+          readOnly: true
           type: string
           x-dcl-go-name: SelfLink
+          x-kubernetes-immutable: true
         selfLinkWithId:
           description: Server-defined URL for this resource with the resource id.
+          readOnly: true
           type: string
           x-dcl-go-name: SelfLinkWithId
+          x-kubernetes-immutable: true
       title: FirewallPolicy
       type: object
       x-dcl-id: locations/global/firewallPolicies/{{name}}

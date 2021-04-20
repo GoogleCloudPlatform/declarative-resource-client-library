@@ -1,8 +1,8 @@
 {
-  "project": "{{ref:regional.autoscaler.json:project}}",
   "name": "{{ref:regional.autoscaler.json:name}}",
+  "project": "{{ref:regional.autoscaler.json:project}}",
   "description": "A test autoscaler",
-  "location": "us-west1",
+  "location": "{{region}}",
   "target": "{{ref:regional.instance_group_manager.json:name}}",
   "autoscalingPolicy": {
     "maxNumReplicas": 5,

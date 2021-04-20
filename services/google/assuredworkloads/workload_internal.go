@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -156,40 +155,6 @@ type updateWorkloadUpdateWorkloadOperation struct {
 // do creates a request and sends it to the appropriate URL. In most operations,
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
-
-func (op *updateWorkloadUpdateWorkloadOperation) do(ctx context.Context, r *Workload, c *Client) error {
-	_, err := c.GetWorkload(ctx, r.urlNormalized())
-	if err != nil {
-		return err
-	}
-
-	u, err := r.updateURL(c.Config.BasePath, "UpdateWorkload")
-	if err != nil {
-		return err
-	}
-	mask := strings.Join([]string{"displayName", "labels", "etag"}, ",")
-	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
-	if err != nil {
-		return err
-	}
-
-	req, err := newUpdateWorkloadUpdateWorkloadRequest(ctx, r, c)
-	if err != nil {
-		return err
-	}
-
-	c.Config.Logger.Infof("Created update: %#v", req)
-	body, err := marshalUpdateWorkloadUpdateWorkloadRequest(c, req)
-	if err != nil {
-		return err
-	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
 
 func (c *Client) listWorkloadRaw(ctx context.Context, organization, location, pageToken string, pageSize int32) ([]byte, error) {
 	u, err := workloadListURL(c.Config.BasePath, organization, location)
@@ -706,6 +671,7 @@ type workloadDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         workloadApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -724,77 +690,66 @@ func diffWorkload(c *Client, desired, actual *Workload, opts ...dcl.ApplyOption)
 
 	var diffs []workloadDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, workloadDiff{
-			UpdateOp: &updateWorkloadUpdateWorkloadOperation{}, FieldName: "DisplayName",
+			UpdateOp: &updateWorkloadUpdateWorkloadOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ComplianceRegime, actual.ComplianceRegime, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "compliance_regime"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.BillingAccount, actual.BillingAccount, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{RequiresRecreate: true, FieldName: "BillingAccount"})
+		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.BillingAccount, actual.BillingAccount, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "billing_account"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, workloadDiff{
-			UpdateOp: &updateWorkloadUpdateWorkloadOperation{}, FieldName: "Labels",
+			UpdateOp: &updateWorkloadUpdateWorkloadOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.ProvisionedResourcesParent, actual.ProvisionedResourcesParent, &dcl.Info{Ignore: true, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ProvisionedResourcesParent, actual.ProvisionedResourcesParent, dcl.Info{Ignore: true, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "provisioned_resources_parent"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{RequiresRecreate: true, FieldName: "ProvisionedResourcesParent"})
+		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
-
-		diffs = append(diffs, workloadDiff{
-			UpdateOp:  &updateWorkloadUpdateWorkloadOperation{},
-			FieldName: "DisplayName",
-		})
-
+	if ds, err := dcl.Diff(desired.Organization, actual.Organization, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "organization"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.ComplianceRegime, actual.ComplianceRegime) {
-		c.Config.Logger.Infof("Detected diff in ComplianceRegime.\nDESIRED: %v\nACTUAL: %v", desired.ComplianceRegime, actual.ComplianceRegime)
-		diffs = append(diffs, workloadDiff{
-			RequiresRecreate: true,
-			FieldName:        "ComplianceRegime",
-		})
-	}
-	if !dcl.IsZeroValue(desired.BillingAccount) && !dcl.StringCanonicalize(desired.BillingAccount, actual.BillingAccount) {
-		c.Config.Logger.Infof("Detected diff in BillingAccount.\nDESIRED: %v\nACTUAL: %v", desired.BillingAccount, actual.BillingAccount)
-		diffs = append(diffs, workloadDiff{
-			RequiresRecreate: true,
-			FieldName:        "BillingAccount",
-		})
-	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
-		diffs = append(diffs, workloadDiff{
-			UpdateOp:  &updateWorkloadUpdateWorkloadOperation{},
-			FieldName: "Labels",
-		})
-
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -826,20 +781,12 @@ func compareWorkloadResources(c *Client, desired, actual *WorkloadResources) boo
 	if actual == nil {
 		return true
 	}
-	if actual.ResourceId == nil && desired.ResourceId != nil && !dcl.IsEmptyValueIndirect(desired.ResourceId) {
-		c.Config.Logger.Infof("desired ResourceId %s - but actually nil", dcl.SprintResource(desired.ResourceId))
-		return true
-	}
 	if !reflect.DeepEqual(desired.ResourceId, actual.ResourceId) && !dcl.IsZeroValue(desired.ResourceId) {
-		c.Config.Logger.Infof("Diff in ResourceId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceId), dcl.SprintResource(actual.ResourceId))
-		return true
-	}
-	if actual.ResourceType == nil && desired.ResourceType != nil && !dcl.IsEmptyValueIndirect(desired.ResourceType) {
-		c.Config.Logger.Infof("desired ResourceType %s - but actually nil", dcl.SprintResource(desired.ResourceType))
+		c.Config.Logger.Infof("Diff in ResourceId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceId), dcl.SprintResource(actual.ResourceId))
 		return true
 	}
 	if !reflect.DeepEqual(desired.ResourceType, actual.ResourceType) && !dcl.IsZeroValue(desired.ResourceType) {
-		c.Config.Logger.Infof("Diff in ResourceType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceType), dcl.SprintResource(actual.ResourceType))
+		c.Config.Logger.Infof("Diff in ResourceType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceType), dcl.SprintResource(actual.ResourceType))
 		return true
 	}
 	return false
@@ -852,7 +799,7 @@ func compareWorkloadResourcesSlice(c *Client, desired, actual []WorkloadResource
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareWorkloadResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkloadResources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in WorkloadResources, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -871,7 +818,7 @@ func compareWorkloadResourcesMap(c *Client, desired, actual map[string]WorkloadR
 			return true
 		}
 		if compareWorkloadResources(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in WorkloadResources, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in WorkloadResources, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -885,20 +832,12 @@ func compareWorkloadKmsSettings(c *Client, desired, actual *WorkloadKmsSettings)
 	if actual == nil {
 		return true
 	}
-	if actual.NextRotationTime == nil && desired.NextRotationTime != nil && !dcl.IsEmptyValueIndirect(desired.NextRotationTime) {
-		c.Config.Logger.Infof("desired NextRotationTime %s - but actually nil", dcl.SprintResource(desired.NextRotationTime))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NextRotationTime, actual.NextRotationTime) && !dcl.IsZeroValue(desired.NextRotationTime) {
-		c.Config.Logger.Infof("Diff in NextRotationTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NextRotationTime), dcl.SprintResource(actual.NextRotationTime))
-		return true
-	}
-	if actual.RotationPeriod == nil && desired.RotationPeriod != nil && !dcl.IsEmptyValueIndirect(desired.RotationPeriod) {
-		c.Config.Logger.Infof("desired RotationPeriod %s - but actually nil", dcl.SprintResource(desired.RotationPeriod))
+		c.Config.Logger.Infof("Diff in NextRotationTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NextRotationTime), dcl.SprintResource(actual.NextRotationTime))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.RotationPeriod, actual.RotationPeriod) && !dcl.IsZeroValue(desired.RotationPeriod) {
-		c.Config.Logger.Infof("Diff in RotationPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RotationPeriod), dcl.SprintResource(actual.RotationPeriod))
+		c.Config.Logger.Infof("Diff in RotationPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RotationPeriod), dcl.SprintResource(actual.RotationPeriod))
 		return true
 	}
 	return false
@@ -911,7 +850,7 @@ func compareWorkloadKmsSettingsSlice(c *Client, desired, actual []WorkloadKmsSet
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareWorkloadKmsSettings(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkloadKmsSettings, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in WorkloadKmsSettings, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -930,7 +869,7 @@ func compareWorkloadKmsSettingsMap(c *Client, desired, actual map[string]Workloa
 			return true
 		}
 		if compareWorkloadKmsSettings(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in WorkloadKmsSettings, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in WorkloadKmsSettings, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -944,7 +883,7 @@ func compareWorkloadResourcesResourceTypeEnumSlice(c *Client, desired, actual []
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareWorkloadResourcesResourceTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkloadResourcesResourceTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in WorkloadResourcesResourceTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -962,7 +901,7 @@ func compareWorkloadComplianceRegimeEnumSlice(c *Client, desired, actual []Workl
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareWorkloadComplianceRegimeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkloadComplianceRegimeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in WorkloadComplianceRegimeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -977,7 +916,7 @@ func compareWorkloadComplianceRegimeEnum(c *Client, desired, actual *WorkloadCom
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Workload) urlNormalized() *Workload {
-	normalized := deepcopy.Copy(*r).(Workload)
+	normalized := dcl.Copy(*r).(Workload)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.BillingAccount = dcl.SelfLinkToName(r.BillingAccount)
@@ -1047,7 +986,7 @@ func expandWorkload(c *Client, f *Workload) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("organizations/%s/locations/%s/workloads/%s", f.Name, f.Organization, f.Location, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
@@ -1055,7 +994,7 @@ func expandWorkload(c *Client, f *Workload) (map[string]interface{}, error) {
 	}
 	if v, err := expandWorkloadResourcesSlice(c, f.Resources); err != nil {
 		return nil, fmt.Errorf("error expanding Resources into resources: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["resources"] = v
 	}
 	if v := f.ComplianceRegime; !dcl.IsEmptyValueIndirect(v) {
@@ -1075,17 +1014,17 @@ func expandWorkload(c *Client, f *Workload) (map[string]interface{}, error) {
 	}
 	if v, err := expandWorkloadKmsSettings(c, f.KmsSettings); err != nil {
 		return nil, fmt.Errorf("error expanding KmsSettings into kmsSettings: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["kmsSettings"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Organization into organization: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["organization"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 
@@ -1203,11 +1142,10 @@ func flattenWorkloadResourcesSlice(c *Client, i interface{}) []WorkloadResources
 // expandWorkloadResources expands an instance of WorkloadResources into a JSON
 // request object.
 func expandWorkloadResources(c *Client, f *WorkloadResources) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ResourceId; !dcl.IsEmptyValueIndirect(v) {
 		m["resourceId"] = v
 	}
@@ -1317,11 +1255,10 @@ func flattenWorkloadKmsSettingsSlice(c *Client, i interface{}) []WorkloadKmsSett
 // expandWorkloadKmsSettings expands an instance of WorkloadKmsSettings into a JSON
 // request object.
 func expandWorkloadKmsSettings(c *Client, f *WorkloadKmsSettings) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NextRotationTime; !dcl.IsEmptyValueIndirect(v) {
 		m["nextRotationTime"] = v
 	}

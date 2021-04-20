@@ -25,61 +25,207 @@ type Info struct {
 	OutputOnly      bool
 	IgnoredPrefixes []string
 	Type            string
+
+	FieldName string
+}
+
+// AddIndex adds an index to a FieldName and returns the same item.
+// Info is always pass-by-value, so the original field name still exists.
+func (i Info) AddIndex(index int) Info {
+	newInfo := i
+	newInfo.FieldName = newInfo.FieldName + fmt.Sprintf("[%v]", index)
+	return newInfo
+}
+
+// FieldDiff contains all information about a diff that exists in the resource.
+type FieldDiff struct {
+	FieldName string
+	Message   string
+	Desired   interface{}
+	Actual    interface{}
+
+	ToAdd    []interface{}
+	ToRemove []interface{}
+}
+
+func (d *FieldDiff) String() string {
+	if d.Message != "" {
+		return fmt.Sprintf("Field %s diff: %s", d.FieldName, d.Message)
+	} else if len(d.ToAdd) != 0 || len(d.ToRemove) != 0 {
+		return fmt.Sprintf("Field %s: add %v, remove %v", d.FieldName, d.ToAdd, d.ToRemove)
+	}
+	return fmt.Sprintf("Field %s: got %s, want %s", d.FieldName, stringValue(d.Actual), stringValue(d.Desired))
+}
+
+func stringValue(i interface{}) string {
+	if reflect.ValueOf(i).Kind() == reflect.Ptr {
+		ptrV := reflect.Indirect(reflect.ValueOf(i))
+		return ptrV.String()
+	}
+	return fmt.Sprintf("%v", i)
 }
 
 // Diff takes in two interfaces and diffs them according to Info.
-func Diff(desired, actual interface{}, info *Info) (bool, error) {
+func Diff(desired, actual interface{}, info Info) ([]*FieldDiff, error) {
+	var diffs []*FieldDiff
 	// All Output-only fields should not be diffed.
 	if info.OutputOnly || info.Ignore {
-		return false, nil
+		return nil, nil
 	}
 
 	// If desired is set to nil, we do not care about the field.
 	if desired == nil {
-		return false, nil
+		return nil, nil
 	}
 
-	desiredType := valueType(desired)
+	desiredType := ValueType(desired)
 
 	if desiredType == "invalid" {
-		return false, nil
+		return nil, nil
 	}
 
 	if info.Type == "ReferenceType" {
 		dStr, aStr, err := strs(desired, actual)
 		if err != nil {
-			return false, err
+			return nil, err
 		}
-		return !StringEqualsWithSelfLink(dStr, aStr), nil
+		if !StringEqualsWithSelfLink(dStr, aStr) {
+			diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Desired: dStr, Actual: aStr})
+			return diffs, nil
+		}
+		return nil, nil
+	} else if info.Type == "EnumType" {
+		if !reflect.DeepEqual(desired, actual) {
+			diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Desired: desired, Actual: actual})
+			return diffs, nil
+		}
+		return nil, nil
 	}
 
 	switch desiredType {
 	case "string":
 		dStr, aStr, err := strs(desired, actual)
 		if err != nil {
-			return false, err
+			return nil, err
 		}
-		return !StringCanonicalize(dStr, aStr), nil
+		if !StringCanonicalize(dStr, aStr) {
+			diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Desired: dStr, Actual: aStr})
+		}
 
 	case "map":
-		return !MapEquals(desired, actual, info.IgnoredPrefixes), nil
+		if !MapEquals(desired, actual, info.IgnoredPrefixes) {
+			diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Desired: desired, Actual: actual})
+		}
 
 	case "int", "float64", "int64":
-		return !reflect.DeepEqual(desired, actual), nil
+		if !reflect.DeepEqual(desired, actual) {
+			diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Desired: desired, Actual: actual})
+		}
 
 	case "bool":
 		dBool, aBool, err := bools(desired, actual)
 		if err != nil {
-			return false, err
+			return nil, err
 		}
-		return !BoolCanonicalize(dBool, aBool), nil
+		if !BoolCanonicalize(dBool, aBool) {
+			diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Desired: dBool, Actual: aBool})
+		}
 
+	case "slice":
+		dSlice, iSlice, err := slices(desired, actual)
+		if err != nil {
+			return nil, err
+		}
+
+		var arrDiffs []*FieldDiff
+		if info.Type == "Set" {
+			arrDiffs, err = setDiff(dSlice, iSlice, info)
+		} else {
+			arrDiffs, err = arrayDiff(dSlice, iSlice, info)
+		}
+
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, arrDiffs...)
 	default:
-		return false, fmt.Errorf("no diffing logic exists for type: %q", desiredType)
+		return nil, fmt.Errorf("no diffing logic exists for type: %q", desiredType)
 	}
+
+	return diffs, nil
 }
 
-func valueType(i interface{}) string {
+func arrayDiff(desired, actual []interface{}, info Info) ([]*FieldDiff, error) {
+	var diffs []*FieldDiff
+
+	// Nothing to diff against.
+	if actual == nil {
+		return diffs, nil
+	}
+
+	if len(desired) != len(actual) {
+		diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Message: fmt.Sprintf("different lengths: desired %d, actual %d", len(desired), len(actual))})
+		return diffs, nil
+	}
+
+	for i, dItem := range desired {
+		aItem := actual[i]
+		diff, err := Diff(dItem, aItem, info.AddIndex(i))
+		if err != nil {
+			return nil, err
+		}
+		if diff != nil {
+			diffs = append(diffs, diff...)
+		}
+	}
+	return diffs, nil
+}
+
+func setDiff(desired, actual []interface{}, info Info) ([]*FieldDiff, error) {
+	var diffs []*FieldDiff
+
+	// Everything should be added.
+	if actual == nil {
+		diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, ToAdd: desired})
+		return diffs, nil
+	}
+
+	var toAdd, toRemove []interface{}
+
+	for i, aItem := range actual {
+		found := false
+		for _, desItem := range desired {
+			if ds, _ := Diff(desItem, aItem, info.AddIndex(i)); len(ds) == 0 {
+				found = true
+				break
+			}
+		}
+		if !found {
+			toRemove = append(toRemove, aItem)
+		}
+	}
+
+	for i, dItem := range desired {
+		found := false
+		for _, actItem := range actual {
+			if ds, _ := Diff(dItem, actItem, info.AddIndex(i)); len(ds) == 0 {
+				found = true
+				break
+			}
+		}
+		if !found {
+			toAdd = append(toAdd, dItem)
+		}
+	}
+
+	if len(toAdd) > 0 || len(toRemove) > 0 {
+		return []*FieldDiff{&FieldDiff{FieldName: info.FieldName, ToAdd: toAdd, ToRemove: toRemove}}, nil
+	}
+	return nil, nil
+}
+
+// ValueType returns the reflect-style kind of an interface or the underlying type of a pointer.
+func ValueType(i interface{}) string {
 	if reflect.ValueOf(i).Kind() == reflect.Ptr {
 		return reflect.Indirect(reflect.ValueOf(i)).Kind().String()
 	}
@@ -140,4 +286,36 @@ func mapVal(d interface{}) (map[string]string, error) {
 		return nil, fmt.Errorf("value is not a map[string]string")
 	}
 	return dMap, nil
+}
+
+func slices(d, i interface{}) ([]interface{}, []interface{}, error) {
+	dSlice, err := slice(d)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	iSlice, err := slice(i)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return dSlice, iSlice, nil
+}
+
+func slice(slice interface{}) ([]interface{}, error) {
+	// Keep the distinction between nil and empty slice input
+	// This isn't going to be an error though.
+	if slice == nil {
+		return nil, nil
+	}
+
+	s := reflect.ValueOf(slice)
+
+	ret := make([]interface{}, s.Len())
+
+	for i := 0; i < s.Len(); i++ {
+		ret[i] = s.Index(i).Interface()
+	}
+
+	return ret, nil
 }

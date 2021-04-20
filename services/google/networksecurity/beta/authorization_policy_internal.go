@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -884,6 +883,7 @@ type authorizationPolicyDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         authorizationPolicyApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -902,79 +902,68 @@ func diffAuthorizationPolicy(c *Client, desired, actual *AuthorizationPolicy, op
 
 	var diffs []authorizationPolicyDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, authorizationPolicyDiff{
-			UpdateOp: &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{}, FieldName: "Description",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, FieldName: "CreateTime"})
-	}
-
-	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
-	}
-
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, authorizationPolicyDiff{
-			UpdateOp: &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{}, FieldName: "Labels",
+			UpdateOp: &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, authorizationPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
+			UpdateOp: &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{}, Diffs: ds,
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "action"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, authorizationPolicyDiff{
-			UpdateOp:  &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{},
-			FieldName: "Description",
+			UpdateOp: &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
-		diffs = append(diffs, authorizationPolicyDiff{
-			UpdateOp:  &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{},
-			FieldName: "Labels",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.Action, actual.Action) {
-		c.Config.Logger.Infof("Detected diff in Action.\nDESIRED: %v\nACTUAL: %v", desired.Action, actual.Action)
 
-		diffs = append(diffs, authorizationPolicyDiff{
-			UpdateOp:  &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{},
-			FieldName: "Action",
-		})
-
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
 	if compareAuthorizationPolicyRulesSlice(c, desired.Rules, actual.Rules) {
 		c.Config.Logger.Infof("Detected diff in Rules.\nDESIRED: %v\nACTUAL: %v", desired.Rules, actual.Rules)
 
@@ -1015,20 +1004,12 @@ func compareAuthorizationPolicyRules(c *Client, desired, actual *AuthorizationPo
 	if actual == nil {
 		return true
 	}
-	if actual.Sources == nil && desired.Sources != nil && !dcl.IsEmptyValueIndirect(desired.Sources) {
-		c.Config.Logger.Infof("desired Sources %s - but actually nil", dcl.SprintResource(desired.Sources))
-		return true
-	}
 	if compareAuthorizationPolicyRulesSourcesSlice(c, desired.Sources, actual.Sources) && !dcl.IsZeroValue(desired.Sources) {
-		c.Config.Logger.Infof("Diff in Sources. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sources), dcl.SprintResource(actual.Sources))
-		return true
-	}
-	if actual.Destinations == nil && desired.Destinations != nil && !dcl.IsEmptyValueIndirect(desired.Destinations) {
-		c.Config.Logger.Infof("desired Destinations %s - but actually nil", dcl.SprintResource(desired.Destinations))
+		c.Config.Logger.Infof("Diff in Sources.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sources), dcl.SprintResource(actual.Sources))
 		return true
 	}
 	if compareAuthorizationPolicyRulesDestinationsSlice(c, desired.Destinations, actual.Destinations) && !dcl.IsZeroValue(desired.Destinations) {
-		c.Config.Logger.Infof("Diff in Destinations. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destinations), dcl.SprintResource(actual.Destinations))
+		c.Config.Logger.Infof("Diff in Destinations.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destinations), dcl.SprintResource(actual.Destinations))
 		return true
 	}
 	return false
@@ -1041,7 +1022,7 @@ func compareAuthorizationPolicyRulesSlice(c *Client, desired, actual []Authoriza
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareAuthorizationPolicyRules(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AuthorizationPolicyRules, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in AuthorizationPolicyRules, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1060,7 +1041,7 @@ func compareAuthorizationPolicyRulesMap(c *Client, desired, actual map[string]Au
 			return true
 		}
 		if compareAuthorizationPolicyRules(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AuthorizationPolicyRules, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in AuthorizationPolicyRules, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1074,20 +1055,12 @@ func compareAuthorizationPolicyRulesSources(c *Client, desired, actual *Authoriz
 	if actual == nil {
 		return true
 	}
-	if actual.Principals == nil && desired.Principals != nil && !dcl.IsEmptyValueIndirect(desired.Principals) {
-		c.Config.Logger.Infof("desired Principals %s - but actually nil", dcl.SprintResource(desired.Principals))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.Principals, actual.Principals) && !dcl.IsZeroValue(desired.Principals) {
-		c.Config.Logger.Infof("Diff in Principals. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Principals), dcl.SprintResource(actual.Principals))
-		return true
-	}
-	if actual.IPBlocks == nil && desired.IPBlocks != nil && !dcl.IsEmptyValueIndirect(desired.IPBlocks) {
-		c.Config.Logger.Infof("desired IPBlocks %s - but actually nil", dcl.SprintResource(desired.IPBlocks))
+		c.Config.Logger.Infof("Diff in Principals.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Principals), dcl.SprintResource(actual.Principals))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.IPBlocks, actual.IPBlocks) && !dcl.IsZeroValue(desired.IPBlocks) {
-		c.Config.Logger.Infof("Diff in IPBlocks. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPBlocks), dcl.SprintResource(actual.IPBlocks))
+		c.Config.Logger.Infof("Diff in IPBlocks.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPBlocks), dcl.SprintResource(actual.IPBlocks))
 		return true
 	}
 	return false
@@ -1100,7 +1073,7 @@ func compareAuthorizationPolicyRulesSourcesSlice(c *Client, desired, actual []Au
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareAuthorizationPolicyRulesSources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AuthorizationPolicyRulesSources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in AuthorizationPolicyRulesSources, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1119,7 +1092,7 @@ func compareAuthorizationPolicyRulesSourcesMap(c *Client, desired, actual map[st
 			return true
 		}
 		if compareAuthorizationPolicyRulesSources(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AuthorizationPolicyRulesSources, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in AuthorizationPolicyRulesSources, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1133,44 +1106,24 @@ func compareAuthorizationPolicyRulesDestinations(c *Client, desired, actual *Aut
 	if actual == nil {
 		return true
 	}
-	if actual.Hosts == nil && desired.Hosts != nil && !dcl.IsEmptyValueIndirect(desired.Hosts) {
-		c.Config.Logger.Infof("desired Hosts %s - but actually nil", dcl.SprintResource(desired.Hosts))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.Hosts, actual.Hosts) && !dcl.IsZeroValue(desired.Hosts) {
-		c.Config.Logger.Infof("Diff in Hosts. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Hosts), dcl.SprintResource(actual.Hosts))
-		return true
-	}
-	if actual.Ports == nil && desired.Ports != nil && !dcl.IsEmptyValueIndirect(desired.Ports) {
-		c.Config.Logger.Infof("desired Ports %s - but actually nil", dcl.SprintResource(desired.Ports))
+		c.Config.Logger.Infof("Diff in Hosts.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Hosts), dcl.SprintResource(actual.Hosts))
 		return true
 	}
 	if !dcl.IntSliceEquals(desired.Ports, actual.Ports) && !dcl.IsZeroValue(desired.Ports) {
-		c.Config.Logger.Infof("Diff in Ports. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
-		return true
-	}
-	if actual.Paths == nil && desired.Paths != nil && !dcl.IsEmptyValueIndirect(desired.Paths) {
-		c.Config.Logger.Infof("desired Paths %s - but actually nil", dcl.SprintResource(desired.Paths))
+		c.Config.Logger.Infof("Diff in Ports.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Paths, actual.Paths) && !dcl.IsZeroValue(desired.Paths) {
-		c.Config.Logger.Infof("Diff in Paths. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Paths), dcl.SprintResource(actual.Paths))
-		return true
-	}
-	if actual.Methods == nil && desired.Methods != nil && !dcl.IsEmptyValueIndirect(desired.Methods) {
-		c.Config.Logger.Infof("desired Methods %s - but actually nil", dcl.SprintResource(desired.Methods))
+		c.Config.Logger.Infof("Diff in Paths.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Paths), dcl.SprintResource(actual.Paths))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Methods, actual.Methods) && !dcl.IsZeroValue(desired.Methods) {
-		c.Config.Logger.Infof("Diff in Methods. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Methods), dcl.SprintResource(actual.Methods))
-		return true
-	}
-	if actual.HttpHeaderMatch == nil && desired.HttpHeaderMatch != nil && !dcl.IsEmptyValueIndirect(desired.HttpHeaderMatch) {
-		c.Config.Logger.Infof("desired HttpHeaderMatch %s - but actually nil", dcl.SprintResource(desired.HttpHeaderMatch))
+		c.Config.Logger.Infof("Diff in Methods.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Methods), dcl.SprintResource(actual.Methods))
 		return true
 	}
 	if compareAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, desired.HttpHeaderMatch, actual.HttpHeaderMatch) && !dcl.IsZeroValue(desired.HttpHeaderMatch) {
-		c.Config.Logger.Infof("Diff in HttpHeaderMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpHeaderMatch), dcl.SprintResource(actual.HttpHeaderMatch))
+		c.Config.Logger.Infof("Diff in HttpHeaderMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpHeaderMatch), dcl.SprintResource(actual.HttpHeaderMatch))
 		return true
 	}
 	return false
@@ -1183,7 +1136,7 @@ func compareAuthorizationPolicyRulesDestinationsSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareAuthorizationPolicyRulesDestinations(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AuthorizationPolicyRulesDestinations, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in AuthorizationPolicyRulesDestinations, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1202,7 +1155,7 @@ func compareAuthorizationPolicyRulesDestinationsMap(c *Client, desired, actual m
 			return true
 		}
 		if compareAuthorizationPolicyRulesDestinations(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AuthorizationPolicyRulesDestinations, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in AuthorizationPolicyRulesDestinations, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1216,20 +1169,12 @@ func compareAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Client, desir
 	if actual == nil {
 		return true
 	}
-	if actual.HeaderName == nil && desired.HeaderName != nil && !dcl.IsEmptyValueIndirect(desired.HeaderName) {
-		c.Config.Logger.Infof("desired HeaderName %s - but actually nil", dcl.SprintResource(desired.HeaderName))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.HeaderName, actual.HeaderName) && !dcl.IsZeroValue(desired.HeaderName) {
-		c.Config.Logger.Infof("Diff in HeaderName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderName), dcl.SprintResource(actual.HeaderName))
-		return true
-	}
-	if actual.RegexMatch == nil && desired.RegexMatch != nil && !dcl.IsEmptyValueIndirect(desired.RegexMatch) {
-		c.Config.Logger.Infof("desired RegexMatch %s - but actually nil", dcl.SprintResource(desired.RegexMatch))
+		c.Config.Logger.Infof("Diff in HeaderName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderName), dcl.SprintResource(actual.HeaderName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.RegexMatch, actual.RegexMatch) && !dcl.IsZeroValue(desired.RegexMatch) {
-		c.Config.Logger.Infof("Diff in RegexMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RegexMatch), dcl.SprintResource(actual.RegexMatch))
+		c.Config.Logger.Infof("Diff in RegexMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RegexMatch), dcl.SprintResource(actual.RegexMatch))
 		return true
 	}
 	return false
@@ -1242,7 +1187,7 @@ func compareAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice(c *Client, 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AuthorizationPolicyRulesDestinationsHttpHeaderMatch, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in AuthorizationPolicyRulesDestinationsHttpHeaderMatch, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1261,7 +1206,7 @@ func compareAuthorizationPolicyRulesDestinationsHttpHeaderMatchMap(c *Client, de
 			return true
 		}
 		if compareAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AuthorizationPolicyRulesDestinationsHttpHeaderMatch, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in AuthorizationPolicyRulesDestinationsHttpHeaderMatch, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1275,7 +1220,7 @@ func compareAuthorizationPolicyActionEnumSlice(c *Client, desired, actual []Auth
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareAuthorizationPolicyActionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AuthorizationPolicyActionEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in AuthorizationPolicyActionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1290,7 +1235,7 @@ func compareAuthorizationPolicyActionEnum(c *Client, desired, actual *Authorizat
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *AuthorizationPolicy) urlNormalized() *AuthorizationPolicy {
-	normalized := deepcopy.Copy(*r).(AuthorizationPolicy)
+	normalized := dcl.Copy(*r).(AuthorizationPolicy)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
@@ -1358,7 +1303,7 @@ func expandAuthorizationPolicy(c *Client, f *AuthorizationPolicy) (map[string]in
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/*/locations/%s/authorizationPolicies/%s", f.Name, f.Location, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
@@ -1378,17 +1323,17 @@ func expandAuthorizationPolicy(c *Client, f *AuthorizationPolicy) (map[string]in
 	}
 	if v, err := expandAuthorizationPolicyRulesSlice(c, f.Rules); err != nil {
 		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["rules"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 
@@ -1504,11 +1449,10 @@ func flattenAuthorizationPolicyRulesSlice(c *Client, i interface{}) []Authorizat
 // expandAuthorizationPolicyRules expands an instance of AuthorizationPolicyRules into a JSON
 // request object.
 func expandAuthorizationPolicyRules(c *Client, f *AuthorizationPolicyRules) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandAuthorizationPolicyRulesSourcesSlice(c, f.Sources); err != nil {
 		return nil, fmt.Errorf("error expanding Sources into sources: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1622,11 +1566,10 @@ func flattenAuthorizationPolicyRulesSourcesSlice(c *Client, i interface{}) []Aut
 // expandAuthorizationPolicyRulesSources expands an instance of AuthorizationPolicyRulesSources into a JSON
 // request object.
 func expandAuthorizationPolicyRulesSources(c *Client, f *AuthorizationPolicyRulesSources) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Principals; !dcl.IsEmptyValueIndirect(v) {
 		m["principals"] = v
 	}
@@ -1736,11 +1679,10 @@ func flattenAuthorizationPolicyRulesDestinationsSlice(c *Client, i interface{}) 
 // expandAuthorizationPolicyRulesDestinations expands an instance of AuthorizationPolicyRulesDestinations into a JSON
 // request object.
 func expandAuthorizationPolicyRulesDestinations(c *Client, f *AuthorizationPolicyRulesDestinations) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Hosts; !dcl.IsEmptyValueIndirect(v) {
 		m["hosts"] = v
 	}
@@ -1864,11 +1806,10 @@ func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatchSlice(c *Client, 
 // expandAuthorizationPolicyRulesDestinationsHttpHeaderMatch expands an instance of AuthorizationPolicyRulesDestinationsHttpHeaderMatch into a JSON
 // request object.
 func expandAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Client, f *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HeaderName; !dcl.IsEmptyValueIndirect(v) {
 		m["headerName"] = v
 	}

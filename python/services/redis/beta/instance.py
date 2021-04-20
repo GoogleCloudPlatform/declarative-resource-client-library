@@ -47,7 +47,6 @@ class Instance(object):
         maintenance_schedule: dict = None,
         project: str = None,
         location: str = None,
-        region: str = None,
         service_account_file: str = "",
     ):
 
@@ -69,7 +68,6 @@ class Instance(object):
         self.maintenance_policy = maintenance_policy
         self.project = project
         self.location = location
-        self.region = region
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -139,9 +137,6 @@ class Instance(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
-        if Primitive.to_proto(self.region):
-            request.resource.region = Primitive.to_proto(self.region)
-
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyRedisBetaInstance(request)
@@ -183,7 +178,6 @@ class Instance(object):
         )
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
-        self.region = Primitive.from_proto(response.region)
 
     def delete(self):
         stub = instance_pb2_grpc.RedisBetaInstanceServiceStub(channel.Channel())
@@ -253,9 +247,6 @@ class Instance(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
-        if Primitive.to_proto(self.region):
-            request.resource.region = Primitive.to_proto(self.region)
-
         response = stub.DeleteRedisBetaInstance(request)
 
     @classmethod
@@ -314,7 +305,6 @@ class Instance(object):
         )
         res.project = Primitive.from_proto(res_proto.project)
         res.location = Primitive.from_proto(res_proto.location)
-        res.region = Primitive.from_proto(res_proto.region)
         return res
 
     def to_proto(self):
@@ -361,8 +351,6 @@ class Instance(object):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
-        if Primitive.to_proto(self.region):
-            resource.region = Primitive.to_proto(self.region)
         return resource
 
 
@@ -611,11 +599,16 @@ class InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeArray(object):
 
 class InstanceMaintenanceSchedule(object):
     def __init__(
-        self, start_time: str = None, end_time: str = None, can_reschedule: bool = None
+        self,
+        start_time: str = None,
+        end_time: str = None,
+        can_reschedule: bool = None,
+        schedule_deadline_time: str = None,
     ):
         self.start_time = start_time
         self.end_time = end_time
         self.can_reschedule = can_reschedule
+        self.schedule_deadline_time = schedule_deadline_time
 
     @classmethod
     def to_proto(self, resource):
@@ -629,6 +622,10 @@ class InstanceMaintenanceSchedule(object):
             res.end_time = Primitive.to_proto(resource.end_time)
         if Primitive.to_proto(resource.can_reschedule):
             res.can_reschedule = Primitive.to_proto(resource.can_reschedule)
+        if Primitive.to_proto(resource.schedule_deadline_time):
+            res.schedule_deadline_time = Primitive.to_proto(
+                resource.schedule_deadline_time
+            )
         return res
 
     @classmethod
@@ -640,6 +637,7 @@ class InstanceMaintenanceSchedule(object):
             start_time=resource.start_time,
             end_time=resource.end_time,
             can_reschedule=resource.can_reschedule,
+            schedule_deadline_time=resource.schedule_deadline_time,
         )
 
 

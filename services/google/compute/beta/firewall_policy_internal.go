@@ -21,9 +21,7 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *FirewallPolicy) validate() error {
@@ -79,12 +77,6 @@ func newUpdateFirewallPolicyPatchRequest(ctx context.Context, f *FirewallPolicy,
 	if v := f.Fingerprint; !dcl.IsEmptyValueIndirect(v) {
 		req["fingerprint"] = v
 	}
-	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
-		req["selfLink"] = v
-	}
-	if v := f.SelfLinkWithId; !dcl.IsEmptyValueIndirect(v) {
-		req["selfLinkWithId"] = v
-	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
@@ -125,45 +117,6 @@ type updateFirewallPolicyPatchOperation struct {
 // do creates a request and sends it to the appropriate URL. In most operations,
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
-
-func (op *updateFirewallPolicyPatchOperation) do(ctx context.Context, r *FirewallPolicy, c *Client) error {
-	_, err := c.GetFirewallPolicy(ctx, r.urlNormalized())
-	if err != nil {
-		return err
-	}
-
-	u, err := r.updateURL(c.Config.BasePath, "Patch")
-	if err != nil {
-		return err
-	}
-
-	req, err := newUpdateFirewallPolicyPatchRequest(ctx, r, c)
-	if err != nil {
-		return err
-	}
-
-	c.Config.Logger.Infof("Created update: %#v", req)
-	body, err := marshalUpdateFirewallPolicyPatchRequest(c, req)
-	if err != nil {
-		return err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-
-	var o operations.ComputeOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	err = o.Wait(ctx, c.Config, "https://www.googleapis.com/compute/beta/", "GET")
-
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
 
 func (c *Client) listFirewallPolicyRaw(ctx context.Context, parent, pageToken string, pageSize int32) ([]byte, error) {
 	u, err := firewallPolicyListURL(c.Config.BasePath, parent)
@@ -440,6 +393,7 @@ type firewallPolicyDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         firewallPolicyApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -458,124 +412,61 @@ func diffFirewallPolicy(c *Client, desired, actual *FirewallPolicy, opts ...dcl.
 
 	var diffs []firewallPolicyDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, firewallPolicyDiff{
-			UpdateOp: &updateFirewallPolicyPatchOperation{}, FieldName: "Description",
+			UpdateOp: &updateFirewallPolicyPatchOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "fingerprint"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, firewallPolicyDiff{
-			UpdateOp: &updateFirewallPolicyPatchOperation{}, FieldName: "Fingerprint",
+			UpdateOp: &updateFirewallPolicyPatchOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLinkWithId, actual.SelfLinkWithId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link_with_id"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.RuleTupleCount, actual.RuleTupleCount, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "rule_tuple_count"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, firewallPolicyDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, firewallPolicyDiff{
-			UpdateOp: &updateFirewallPolicyPatchOperation{}, FieldName: "SelfLink",
+			UpdateOp: &updateFirewallPolicyPatchOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLinkWithId, actual.SelfLinkWithId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "parent"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyDiff{
-			UpdateOp: &updateFirewallPolicyPatchOperation{}, FieldName: "SelfLinkWithId",
-		})
+		diffs = append(diffs, firewallPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.RuleTupleCount, actual.RuleTupleCount, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, firewallPolicyDiff{RequiresRecreate: true, FieldName: "RuleTupleCount"})
-	}
-
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, firewallPolicyDiff{
-			UpdateOp: &updateFirewallPolicyPatchOperation{}, FieldName: "DisplayName",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.Parent, actual.Parent, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, firewallPolicyDiff{RequiresRecreate: true, FieldName: "Parent"})
-	}
-
-	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, firewallPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-
-		diffs = append(diffs, firewallPolicyDiff{
-			UpdateOp:  &updateFirewallPolicyPatchOperation{},
-			FieldName: "Description",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Fingerprint) && !dcl.StringCanonicalize(desired.Fingerprint, actual.Fingerprint) {
-		c.Config.Logger.Infof("Detected diff in Fingerprint.\nDESIRED: %v\nACTUAL: %v", desired.Fingerprint, actual.Fingerprint)
-
-		diffs = append(diffs, firewallPolicyDiff{
-			UpdateOp:  &updateFirewallPolicyPatchOperation{},
-			FieldName: "Fingerprint",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.SelfLink) && !dcl.StringCanonicalize(desired.SelfLink, actual.SelfLink) {
-		c.Config.Logger.Infof("Detected diff in SelfLink.\nDESIRED: %v\nACTUAL: %v", desired.SelfLink, actual.SelfLink)
-
-		diffs = append(diffs, firewallPolicyDiff{
-			UpdateOp:  &updateFirewallPolicyPatchOperation{},
-			FieldName: "SelfLink",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.SelfLinkWithId) && !dcl.StringCanonicalize(desired.SelfLinkWithId, actual.SelfLinkWithId) {
-		c.Config.Logger.Infof("Detected diff in SelfLinkWithId.\nDESIRED: %v\nACTUAL: %v", desired.SelfLinkWithId, actual.SelfLinkWithId)
-
-		diffs = append(diffs, firewallPolicyDiff{
-			UpdateOp:  &updateFirewallPolicyPatchOperation{},
-			FieldName: "SelfLinkWithId",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
-
-		diffs = append(diffs, firewallPolicyDiff{
-			UpdateOp:  &updateFirewallPolicyPatchOperation{},
-			FieldName: "DisplayName",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Parent) && !dcl.StringCanonicalize(desired.Parent, actual.Parent) {
-		c.Config.Logger.Infof("Detected diff in Parent.\nDESIRED: %v\nACTUAL: %v", desired.Parent, actual.Parent)
-		diffs = append(diffs, firewallPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Parent",
-		})
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -605,7 +496,7 @@ func diffFirewallPolicy(c *Client, desired, actual *FirewallPolicy, opts ...dcl.
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *FirewallPolicy) urlNormalized() *FirewallPolicy {
-	normalized := deepcopy.Copy(*r).(FirewallPolicy)
+	normalized := dcl.Copy(*r).(FirewallPolicy)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Fingerprint = dcl.SelfLinkToName(r.Fingerprint)

@@ -179,7 +179,7 @@ components:
                 x-dcl-go-type: LogMetricMetricDescriptorLabels
               type: array
               x-dcl-go-name: Labels
-              x-dcl-list-type: list
+              x-dcl-list-type: set
             launchStage:
               description: 'Optional. The launch stage of the metric definition. Possible
                 values: LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS,
@@ -297,6 +297,7 @@ components:
               x-dcl-list-type: list
             name:
               description: 'The resource name of the metric descriptor. '
+              readOnly: true
               type: string
               x-dcl-go-name: Name
             type:

@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -592,6 +591,7 @@ type tenantDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         tenantApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -610,127 +610,73 @@ func diffTenant(c *Client, desired, actual *Tenant, opts ...dcl.ApplyOption) ([]
 
 	var diffs []tenantDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, tenantDiff{
-			UpdateOp: &updateTenantUpdateTenantOperation{}, FieldName: "DisplayName",
+			UpdateOp: &updateTenantUpdateTenantOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.AllowPasswordSignup, actual.AllowPasswordSignup, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.AllowPasswordSignup, actual.AllowPasswordSignup, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "allow_password_signup"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, tenantDiff{
-			UpdateOp: &updateTenantUpdateTenantOperation{}, FieldName: "AllowPasswordSignup",
+			UpdateOp: &updateTenantUpdateTenantOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.EnableEmailLinkSignin, actual.EnableEmailLinkSignin, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.EnableEmailLinkSignin, actual.EnableEmailLinkSignin, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enable_email_link_signin"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, tenantDiff{
-			UpdateOp: &updateTenantUpdateTenantOperation{}, FieldName: "EnableEmailLinkSignin",
+			UpdateOp: &updateTenantUpdateTenantOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.DisableAuth, actual.DisableAuth, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DisableAuth, actual.DisableAuth, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "disable_auth"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, tenantDiff{
-			UpdateOp: &updateTenantUpdateTenantOperation{}, FieldName: "DisableAuth",
+			UpdateOp: &updateTenantUpdateTenantOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.EnableAnonymousUser, actual.EnableAnonymousUser, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.EnableAnonymousUser, actual.EnableAnonymousUser, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enable_anonymous_user"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, tenantDiff{
-			UpdateOp: &updateTenantUpdateTenantOperation{}, FieldName: "EnableAnonymousUser",
+			UpdateOp: &updateTenantUpdateTenantOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.TestPhoneNumbers, actual.TestPhoneNumbers, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.TestPhoneNumbers, actual.TestPhoneNumbers, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "test_phone_numbers"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, tenantDiff{
-			UpdateOp: &updateTenantUpdateTenantOperation{}, FieldName: "TestPhoneNumbers",
+			UpdateOp: &updateTenantUpdateTenantOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, tenantDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, tenantDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
-		diffs = append(diffs, tenantDiff{
-			UpdateOp:  &updateTenantUpdateTenantOperation{},
-			FieldName: "DisplayName",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.AllowPasswordSignup) && !dcl.BoolCanonicalize(desired.AllowPasswordSignup, actual.AllowPasswordSignup) {
-		c.Config.Logger.Infof("Detected diff in AllowPasswordSignup.\nDESIRED: %v\nACTUAL: %v", desired.AllowPasswordSignup, actual.AllowPasswordSignup)
-
-		diffs = append(diffs, tenantDiff{
-			UpdateOp:  &updateTenantUpdateTenantOperation{},
-			FieldName: "AllowPasswordSignup",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.EnableEmailLinkSignin) && !dcl.BoolCanonicalize(desired.EnableEmailLinkSignin, actual.EnableEmailLinkSignin) {
-		c.Config.Logger.Infof("Detected diff in EnableEmailLinkSignin.\nDESIRED: %v\nACTUAL: %v", desired.EnableEmailLinkSignin, actual.EnableEmailLinkSignin)
-
-		diffs = append(diffs, tenantDiff{
-			UpdateOp:  &updateTenantUpdateTenantOperation{},
-			FieldName: "EnableEmailLinkSignin",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.DisableAuth) && !dcl.BoolCanonicalize(desired.DisableAuth, actual.DisableAuth) {
-		c.Config.Logger.Infof("Detected diff in DisableAuth.\nDESIRED: %v\nACTUAL: %v", desired.DisableAuth, actual.DisableAuth)
-
-		diffs = append(diffs, tenantDiff{
-			UpdateOp:  &updateTenantUpdateTenantOperation{},
-			FieldName: "DisableAuth",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.EnableAnonymousUser) && !dcl.BoolCanonicalize(desired.EnableAnonymousUser, actual.EnableAnonymousUser) {
-		c.Config.Logger.Infof("Detected diff in EnableAnonymousUser.\nDESIRED: %v\nACTUAL: %v", desired.EnableAnonymousUser, actual.EnableAnonymousUser)
-
-		diffs = append(diffs, tenantDiff{
-			UpdateOp:  &updateTenantUpdateTenantOperation{},
-			FieldName: "EnableAnonymousUser",
-		})
-
-	}
 	if compareTenantMfaConfig(c, desired.MfaConfig, actual.MfaConfig) {
 		c.Config.Logger.Infof("Detected diff in MfaConfig.\nDESIRED: %v\nACTUAL: %v", desired.MfaConfig, actual.MfaConfig)
 
 		diffs = append(diffs, tenantDiff{
 			UpdateOp:  &updateTenantUpdateTenantOperation{},
 			FieldName: "MfaConfig",
-		})
-
-	}
-	if !dcl.MapEquals(desired.TestPhoneNumbers, actual.TestPhoneNumbers, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in TestPhoneNumbers.\nDESIRED: %v\nACTUAL: %v", desired.TestPhoneNumbers, actual.TestPhoneNumbers)
-
-		diffs = append(diffs, tenantDiff{
-			UpdateOp:  &updateTenantUpdateTenantOperation{},
-			FieldName: "TestPhoneNumbers",
 		})
 
 	}
@@ -765,20 +711,12 @@ func compareTenantMfaConfig(c *Client, desired, actual *TenantMfaConfig) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.State == nil && desired.State != nil && !dcl.IsEmptyValueIndirect(desired.State) {
-		c.Config.Logger.Infof("desired State %s - but actually nil", dcl.SprintResource(desired.State))
-		return true
-	}
 	if !reflect.DeepEqual(desired.State, actual.State) && !dcl.IsZeroValue(desired.State) {
-		c.Config.Logger.Infof("Diff in State. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.State), dcl.SprintResource(actual.State))
-		return true
-	}
-	if actual.EnabledProviders == nil && desired.EnabledProviders != nil && !dcl.IsEmptyValueIndirect(desired.EnabledProviders) {
-		c.Config.Logger.Infof("desired EnabledProviders %s - but actually nil", dcl.SprintResource(desired.EnabledProviders))
+		c.Config.Logger.Infof("Diff in State.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.State), dcl.SprintResource(actual.State))
 		return true
 	}
 	if compareTenantMfaConfigEnabledProvidersEnumSlice(c, desired.EnabledProviders, actual.EnabledProviders) && !dcl.IsZeroValue(desired.EnabledProviders) {
-		c.Config.Logger.Infof("Diff in EnabledProviders. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnabledProviders), dcl.SprintResource(actual.EnabledProviders))
+		c.Config.Logger.Infof("Diff in EnabledProviders.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnabledProviders), dcl.SprintResource(actual.EnabledProviders))
 		return true
 	}
 	return false
@@ -791,7 +729,7 @@ func compareTenantMfaConfigSlice(c *Client, desired, actual []TenantMfaConfig) b
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareTenantMfaConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TenantMfaConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in TenantMfaConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -810,7 +748,7 @@ func compareTenantMfaConfigMap(c *Client, desired, actual map[string]TenantMfaCo
 			return true
 		}
 		if compareTenantMfaConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in TenantMfaConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in TenantMfaConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -824,7 +762,7 @@ func compareTenantMfaConfigStateEnumSlice(c *Client, desired, actual []TenantMfa
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareTenantMfaConfigStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TenantMfaConfigStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in TenantMfaConfigStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -842,7 +780,7 @@ func compareTenantMfaConfigEnabledProvidersEnumSlice(c *Client, desired, actual 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareTenantMfaConfigEnabledProvidersEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TenantMfaConfigEnabledProvidersEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in TenantMfaConfigEnabledProvidersEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -857,7 +795,7 @@ func compareTenantMfaConfigEnabledProvidersEnum(c *Client, desired, actual *Tena
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Tenant) urlNormalized() *Tenant {
-	normalized := deepcopy.Copy(*r).(Tenant)
+	normalized := dcl.Copy(*r).(Tenant)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
@@ -923,7 +861,7 @@ func expandTenant(c *Client, f *Tenant) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/tenants/%s", f.Name, f.Project, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
@@ -943,7 +881,7 @@ func expandTenant(c *Client, f *Tenant) (map[string]interface{}, error) {
 	}
 	if v, err := expandTenantMfaConfig(c, f.MfaConfig); err != nil {
 		return nil, fmt.Errorf("error expanding MfaConfig into mfaConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["mfaConfig"] = v
 	}
 	if v := f.TestPhoneNumbers; !dcl.IsEmptyValueIndirect(v) {
@@ -951,7 +889,7 @@ func expandTenant(c *Client, f *Tenant) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -1067,11 +1005,10 @@ func flattenTenantMfaConfigSlice(c *Client, i interface{}) []TenantMfaConfig {
 // expandTenantMfaConfig expands an instance of TenantMfaConfig into a JSON
 // request object.
 func expandTenantMfaConfig(c *Client, f *TenantMfaConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
 		m["state"] = v
 	}

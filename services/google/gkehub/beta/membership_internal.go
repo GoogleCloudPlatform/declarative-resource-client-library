@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -1362,6 +1361,7 @@ type membershipDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         membershipApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -1380,73 +1380,96 @@ func diffMembership(c *Client, desired, actual *Membership, opts ...dcl.ApplyOpt
 
 	var diffs []membershipDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, membershipDiff{
-			UpdateOp: &updateMembershipUpdateMembershipOperation{}, FieldName: "Labels",
+			UpdateOp: &updateMembershipUpdateMembershipOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, membershipDiff{
-			UpdateOp: &updateMembershipUpdateMembershipOperation{}, FieldName: "Description",
+			UpdateOp: &updateMembershipUpdateMembershipOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "delete_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, FieldName: "DeleteTime"})
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.ExternalId, actual.ExternalId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ExternalId, actual.ExternalId, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "external_id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, membershipDiff{
-			UpdateOp: &updateMembershipUpdateMembershipOperation{}, FieldName: "ExternalId",
+			UpdateOp: &updateMembershipUpdateMembershipOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.LastConnectionTime, actual.LastConnectionTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.LastConnectionTime, actual.LastConnectionTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "last_connection_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, FieldName: "LastConnectionTime"})
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.UniqueId, actual.UniqueId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.UniqueId, actual.UniqueId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "unique_id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, FieldName: "UniqueId"})
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.InfrastructureType, actual.InfrastructureType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "infrastructure_type"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, membershipDiff{
+			UpdateOp: &updateMembershipUpdateMembershipOperation{}, Diffs: ds,
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
 	if compareMembershipEndpoint(c, desired.Endpoint, actual.Endpoint) {
@@ -1458,55 +1481,12 @@ func diffMembership(c *Client, desired, actual *Membership, opts ...dcl.ApplyOpt
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, membershipDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
-
-		diffs = append(diffs, membershipDiff{
-			UpdateOp:  &updateMembershipUpdateMembershipOperation{},
-			FieldName: "Labels",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-
-		diffs = append(diffs, membershipDiff{
-			UpdateOp:  &updateMembershipUpdateMembershipOperation{},
-			FieldName: "Description",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.ExternalId) && !dcl.StringCanonicalize(desired.ExternalId, actual.ExternalId) {
-		c.Config.Logger.Infof("Detected diff in ExternalId.\nDESIRED: %v\nACTUAL: %v", desired.ExternalId, actual.ExternalId)
-
-		diffs = append(diffs, membershipDiff{
-			UpdateOp:  &updateMembershipUpdateMembershipOperation{},
-			FieldName: "ExternalId",
-		})
-
-	}
 	if compareMembershipAuthority(c, desired.Authority, actual.Authority) {
 		c.Config.Logger.Infof("Detected diff in Authority.\nDESIRED: %v\nACTUAL: %v", desired.Authority, actual.Authority)
 
 		diffs = append(diffs, membershipDiff{
 			UpdateOp:  &updateMembershipUpdateMembershipOperation{},
 			FieldName: "Authority",
-		})
-
-	}
-	if !reflect.DeepEqual(desired.InfrastructureType, actual.InfrastructureType) {
-		c.Config.Logger.Infof("Detected diff in InfrastructureType.\nDESIRED: %v\nACTUAL: %v", desired.InfrastructureType, actual.InfrastructureType)
-
-		diffs = append(diffs, membershipDiff{
-			UpdateOp:  &updateMembershipUpdateMembershipOperation{},
-			FieldName: "InfrastructureType",
 		})
 
 	}
@@ -1541,20 +1521,12 @@ func compareMembershipEndpoint(c *Client, desired, actual *MembershipEndpoint) b
 	if actual == nil {
 		return true
 	}
-	if actual.GkeCluster == nil && desired.GkeCluster != nil && !dcl.IsEmptyValueIndirect(desired.GkeCluster) {
-		c.Config.Logger.Infof("desired GkeCluster %s - but actually nil", dcl.SprintResource(desired.GkeCluster))
-		return true
-	}
 	if compareMembershipEndpointGkeCluster(c, desired.GkeCluster, actual.GkeCluster) && !dcl.IsZeroValue(desired.GkeCluster) {
-		c.Config.Logger.Infof("Diff in GkeCluster. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GkeCluster), dcl.SprintResource(actual.GkeCluster))
-		return true
-	}
-	if actual.KubernetesResource == nil && desired.KubernetesResource != nil && !dcl.IsEmptyValueIndirect(desired.KubernetesResource) {
-		c.Config.Logger.Infof("desired KubernetesResource %s - but actually nil", dcl.SprintResource(desired.KubernetesResource))
+		c.Config.Logger.Infof("Diff in GkeCluster.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GkeCluster), dcl.SprintResource(actual.GkeCluster))
 		return true
 	}
 	if compareMembershipEndpointKubernetesResource(c, desired.KubernetesResource, actual.KubernetesResource) && !dcl.IsZeroValue(desired.KubernetesResource) {
-		c.Config.Logger.Infof("Diff in KubernetesResource. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KubernetesResource), dcl.SprintResource(actual.KubernetesResource))
+		c.Config.Logger.Infof("Diff in KubernetesResource.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KubernetesResource), dcl.SprintResource(actual.KubernetesResource))
 		return true
 	}
 	return false
@@ -1567,7 +1539,7 @@ func compareMembershipEndpointSlice(c *Client, desired, actual []MembershipEndpo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareMembershipEndpoint(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpoint, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in MembershipEndpoint, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1586,7 +1558,7 @@ func compareMembershipEndpointMap(c *Client, desired, actual map[string]Membersh
 			return true
 		}
 		if compareMembershipEndpoint(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpoint, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in MembershipEndpoint, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1600,12 +1572,8 @@ func compareMembershipEndpointGkeCluster(c *Client, desired, actual *MembershipE
 	if actual == nil {
 		return true
 	}
-	if actual.ResourceLink == nil && desired.ResourceLink != nil && !dcl.IsEmptyValueIndirect(desired.ResourceLink) {
-		c.Config.Logger.Infof("desired ResourceLink %s - but actually nil", dcl.SprintResource(desired.ResourceLink))
-		return true
-	}
 	if !dcl.NameToSelfLink(desired.ResourceLink, actual.ResourceLink) && !dcl.IsZeroValue(desired.ResourceLink) {
-		c.Config.Logger.Infof("Diff in ResourceLink. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceLink), dcl.SprintResource(actual.ResourceLink))
+		c.Config.Logger.Infof("Diff in ResourceLink.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceLink), dcl.SprintResource(actual.ResourceLink))
 		return true
 	}
 	return false
@@ -1618,7 +1586,7 @@ func compareMembershipEndpointGkeClusterSlice(c *Client, desired, actual []Membe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareMembershipEndpointGkeCluster(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointGkeCluster, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in MembershipEndpointGkeCluster, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1637,7 +1605,7 @@ func compareMembershipEndpointGkeClusterMap(c *Client, desired, actual map[strin
 			return true
 		}
 		if compareMembershipEndpointGkeCluster(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointGkeCluster, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in MembershipEndpointGkeCluster, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1661,7 +1629,7 @@ func compareMembershipEndpointKubernetesMetadataSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareMembershipEndpointKubernetesMetadata(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesMetadata, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesMetadata, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1680,7 +1648,7 @@ func compareMembershipEndpointKubernetesMetadataMap(c *Client, desired, actual m
 			return true
 		}
 		if compareMembershipEndpointKubernetesMetadata(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesMetadata, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesMetadata, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1694,12 +1662,8 @@ func compareMembershipEndpointKubernetesResource(c *Client, desired, actual *Mem
 	if actual == nil {
 		return true
 	}
-	if actual.ResourceOptions == nil && desired.ResourceOptions != nil && !dcl.IsEmptyValueIndirect(desired.ResourceOptions) {
-		c.Config.Logger.Infof("desired ResourceOptions %s - but actually nil", dcl.SprintResource(desired.ResourceOptions))
-		return true
-	}
 	if compareMembershipEndpointKubernetesResourceResourceOptions(c, desired.ResourceOptions, actual.ResourceOptions) && !dcl.IsZeroValue(desired.ResourceOptions) {
-		c.Config.Logger.Infof("Diff in ResourceOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceOptions), dcl.SprintResource(actual.ResourceOptions))
+		c.Config.Logger.Infof("Diff in ResourceOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceOptions), dcl.SprintResource(actual.ResourceOptions))
 		return true
 	}
 	return false
@@ -1712,7 +1676,7 @@ func compareMembershipEndpointKubernetesResourceSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareMembershipEndpointKubernetesResource(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResource, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResource, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1731,7 +1695,7 @@ func compareMembershipEndpointKubernetesResourceMap(c *Client, desired, actual m
 			return true
 		}
 		if compareMembershipEndpointKubernetesResource(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResource, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResource, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1745,20 +1709,12 @@ func compareMembershipEndpointKubernetesResourceMembershipResources(c *Client, d
 	if actual == nil {
 		return true
 	}
-	if actual.Manifest == nil && desired.Manifest != nil && !dcl.IsEmptyValueIndirect(desired.Manifest) {
-		c.Config.Logger.Infof("desired Manifest %s - but actually nil", dcl.SprintResource(desired.Manifest))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Manifest, actual.Manifest) && !dcl.IsZeroValue(desired.Manifest) {
-		c.Config.Logger.Infof("Diff in Manifest. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Manifest), dcl.SprintResource(actual.Manifest))
-		return true
-	}
-	if actual.ClusterScoped == nil && desired.ClusterScoped != nil && !dcl.IsEmptyValueIndirect(desired.ClusterScoped) {
-		c.Config.Logger.Infof("desired ClusterScoped %s - but actually nil", dcl.SprintResource(desired.ClusterScoped))
+		c.Config.Logger.Infof("Diff in Manifest.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Manifest), dcl.SprintResource(actual.Manifest))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.ClusterScoped, actual.ClusterScoped) && !dcl.IsZeroValue(desired.ClusterScoped) {
-		c.Config.Logger.Infof("Diff in ClusterScoped. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterScoped), dcl.SprintResource(actual.ClusterScoped))
+		c.Config.Logger.Infof("Diff in ClusterScoped.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterScoped), dcl.SprintResource(actual.ClusterScoped))
 		return true
 	}
 	return false
@@ -1771,7 +1727,7 @@ func compareMembershipEndpointKubernetesResourceMembershipResourcesSlice(c *Clie
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareMembershipEndpointKubernetesResourceMembershipResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceMembershipResources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceMembershipResources, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1790,7 +1746,7 @@ func compareMembershipEndpointKubernetesResourceMembershipResourcesMap(c *Client
 			return true
 		}
 		if compareMembershipEndpointKubernetesResourceMembershipResources(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceMembershipResources, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceMembershipResources, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1804,20 +1760,12 @@ func compareMembershipEndpointKubernetesResourceConnectResources(c *Client, desi
 	if actual == nil {
 		return true
 	}
-	if actual.Manifest == nil && desired.Manifest != nil && !dcl.IsEmptyValueIndirect(desired.Manifest) {
-		c.Config.Logger.Infof("desired Manifest %s - but actually nil", dcl.SprintResource(desired.Manifest))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Manifest, actual.Manifest) && !dcl.IsZeroValue(desired.Manifest) {
-		c.Config.Logger.Infof("Diff in Manifest. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Manifest), dcl.SprintResource(actual.Manifest))
-		return true
-	}
-	if actual.ClusterScoped == nil && desired.ClusterScoped != nil && !dcl.IsEmptyValueIndirect(desired.ClusterScoped) {
-		c.Config.Logger.Infof("desired ClusterScoped %s - but actually nil", dcl.SprintResource(desired.ClusterScoped))
+		c.Config.Logger.Infof("Diff in Manifest.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Manifest), dcl.SprintResource(actual.Manifest))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.ClusterScoped, actual.ClusterScoped) && !dcl.IsZeroValue(desired.ClusterScoped) {
-		c.Config.Logger.Infof("Diff in ClusterScoped. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterScoped), dcl.SprintResource(actual.ClusterScoped))
+		c.Config.Logger.Infof("Diff in ClusterScoped.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterScoped), dcl.SprintResource(actual.ClusterScoped))
 		return true
 	}
 	return false
@@ -1830,7 +1778,7 @@ func compareMembershipEndpointKubernetesResourceConnectResourcesSlice(c *Client,
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareMembershipEndpointKubernetesResourceConnectResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceConnectResources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceConnectResources, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1849,7 +1797,7 @@ func compareMembershipEndpointKubernetesResourceConnectResourcesMap(c *Client, d
 			return true
 		}
 		if compareMembershipEndpointKubernetesResourceConnectResources(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceConnectResources, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceConnectResources, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1863,20 +1811,12 @@ func compareMembershipEndpointKubernetesResourceResourceOptions(c *Client, desir
 	if actual == nil {
 		return true
 	}
-	if actual.ConnectVersion == nil && desired.ConnectVersion != nil && !dcl.IsEmptyValueIndirect(desired.ConnectVersion) {
-		c.Config.Logger.Infof("desired ConnectVersion %s - but actually nil", dcl.SprintResource(desired.ConnectVersion))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ConnectVersion, actual.ConnectVersion) && !dcl.IsZeroValue(desired.ConnectVersion) {
-		c.Config.Logger.Infof("Diff in ConnectVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConnectVersion), dcl.SprintResource(actual.ConnectVersion))
-		return true
-	}
-	if actual.V1Beta1Crd == nil && desired.V1Beta1Crd != nil && !dcl.IsEmptyValueIndirect(desired.V1Beta1Crd) {
-		c.Config.Logger.Infof("desired V1Beta1Crd %s - but actually nil", dcl.SprintResource(desired.V1Beta1Crd))
+		c.Config.Logger.Infof("Diff in ConnectVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConnectVersion), dcl.SprintResource(actual.ConnectVersion))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.V1Beta1Crd, actual.V1Beta1Crd) && !dcl.IsZeroValue(desired.V1Beta1Crd) {
-		c.Config.Logger.Infof("Diff in V1Beta1Crd. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.V1Beta1Crd), dcl.SprintResource(actual.V1Beta1Crd))
+		c.Config.Logger.Infof("Diff in V1Beta1Crd.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.V1Beta1Crd), dcl.SprintResource(actual.V1Beta1Crd))
 		return true
 	}
 	return false
@@ -1889,7 +1829,7 @@ func compareMembershipEndpointKubernetesResourceResourceOptionsSlice(c *Client, 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareMembershipEndpointKubernetesResourceResourceOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceResourceOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceResourceOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1908,7 +1848,7 @@ func compareMembershipEndpointKubernetesResourceResourceOptionsMap(c *Client, de
 			return true
 		}
 		if compareMembershipEndpointKubernetesResourceResourceOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceResourceOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceResourceOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1932,7 +1872,7 @@ func compareMembershipStateSlice(c *Client, desired, actual []MembershipState) b
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareMembershipState(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipState, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in MembershipState, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1951,7 +1891,7 @@ func compareMembershipStateMap(c *Client, desired, actual map[string]MembershipS
 			return true
 		}
 		if compareMembershipState(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipState, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in MembershipState, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1965,12 +1905,8 @@ func compareMembershipAuthority(c *Client, desired, actual *MembershipAuthority)
 	if actual == nil {
 		return true
 	}
-	if actual.Issuer == nil && desired.Issuer != nil && !dcl.IsEmptyValueIndirect(desired.Issuer) {
-		c.Config.Logger.Infof("desired Issuer %s - but actually nil", dcl.SprintResource(desired.Issuer))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Issuer, actual.Issuer) && !dcl.IsZeroValue(desired.Issuer) {
-		c.Config.Logger.Infof("Diff in Issuer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Issuer), dcl.SprintResource(actual.Issuer))
+		c.Config.Logger.Infof("Diff in Issuer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Issuer), dcl.SprintResource(actual.Issuer))
 		return true
 	}
 	return false
@@ -1983,7 +1919,7 @@ func compareMembershipAuthoritySlice(c *Client, desired, actual []MembershipAuth
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareMembershipAuthority(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipAuthority, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in MembershipAuthority, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2002,7 +1938,7 @@ func compareMembershipAuthorityMap(c *Client, desired, actual map[string]Members
 			return true
 		}
 		if compareMembershipAuthority(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipAuthority, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in MembershipAuthority, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2016,7 +1952,7 @@ func compareMembershipStateCodeEnumSlice(c *Client, desired, actual []Membership
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareMembershipStateCodeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipStateCodeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in MembershipStateCodeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2034,7 +1970,7 @@ func compareMembershipInfrastructureTypeEnumSlice(c *Client, desired, actual []M
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareMembershipInfrastructureTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipInfrastructureTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in MembershipInfrastructureTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2049,7 +1985,7 @@ func compareMembershipInfrastructureTypeEnum(c *Client, desired, actual *Members
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Membership) urlNormalized() *Membership {
-	normalized := deepcopy.Copy(*r).(Membership)
+	normalized := dcl.Copy(*r).(Membership)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.ExternalId = dcl.SelfLinkToName(r.ExternalId)
@@ -2119,12 +2055,12 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 	m := make(map[string]interface{})
 	if v, err := expandMembershipEndpoint(c, f.Endpoint); err != nil {
 		return nil, fmt.Errorf("error expanding Endpoint into endpoint: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["endpoint"] = v
 	}
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/memberships/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
@@ -2135,7 +2071,7 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 	}
 	if v, err := expandMembershipState(c, f.State); err != nil {
 		return nil, fmt.Errorf("error expanding State into state: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["state"] = v
 	}
 	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
@@ -2158,7 +2094,7 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 	}
 	if v, err := expandMembershipAuthority(c, f.Authority); err != nil {
 		return nil, fmt.Errorf("error expanding Authority into authority: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["authority"] = v
 	}
 	if v := f.InfrastructureType; !dcl.IsEmptyValueIndirect(v) {
@@ -2166,12 +2102,12 @@ func expandMembership(c *Client, f *Membership) (map[string]interface{}, error) 
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 
@@ -2293,11 +2229,10 @@ func flattenMembershipEndpointSlice(c *Client, i interface{}) []MembershipEndpoi
 // expandMembershipEndpoint expands an instance of MembershipEndpoint into a JSON
 // request object.
 func expandMembershipEndpoint(c *Client, f *MembershipEndpoint) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandMembershipEndpointGkeCluster(c, f.GkeCluster); err != nil {
 		return nil, fmt.Errorf("error expanding GkeCluster into gkeCluster: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2417,11 +2352,10 @@ func flattenMembershipEndpointGkeClusterSlice(c *Client, i interface{}) []Member
 // expandMembershipEndpointGkeCluster expands an instance of MembershipEndpointGkeCluster into a JSON
 // request object.
 func expandMembershipEndpointGkeCluster(c *Client, f *MembershipEndpointGkeCluster) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandHubReferenceLink(f, f.ResourceLink); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceLink into resourceLink: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2529,11 +2463,10 @@ func flattenMembershipEndpointKubernetesMetadataSlice(c *Client, i interface{}) 
 // expandMembershipEndpointKubernetesMetadata expands an instance of MembershipEndpointKubernetesMetadata into a JSON
 // request object.
 func expandMembershipEndpointKubernetesMetadata(c *Client, f *MembershipEndpointKubernetesMetadata) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.KubernetesApiServerVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["kubernetesApiServerVersion"] = v
 	}
@@ -2659,11 +2592,10 @@ func flattenMembershipEndpointKubernetesResourceSlice(c *Client, i interface{}) 
 // expandMembershipEndpointKubernetesResource expands an instance of MembershipEndpointKubernetesResource into a JSON
 // request object.
 func expandMembershipEndpointKubernetesResource(c *Client, f *MembershipEndpointKubernetesResource) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MembershipCrManifest; !dcl.IsEmptyValueIndirect(v) {
 		m["membershipCrManifest"] = v
 	}
@@ -2787,11 +2719,10 @@ func flattenMembershipEndpointKubernetesResourceMembershipResourcesSlice(c *Clie
 // expandMembershipEndpointKubernetesResourceMembershipResources expands an instance of MembershipEndpointKubernetesResourceMembershipResources into a JSON
 // request object.
 func expandMembershipEndpointKubernetesResourceMembershipResources(c *Client, f *MembershipEndpointKubernetesResourceMembershipResources) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Manifest; !dcl.IsEmptyValueIndirect(v) {
 		m["manifest"] = v
 	}
@@ -2901,11 +2832,10 @@ func flattenMembershipEndpointKubernetesResourceConnectResourcesSlice(c *Client,
 // expandMembershipEndpointKubernetesResourceConnectResources expands an instance of MembershipEndpointKubernetesResourceConnectResources into a JSON
 // request object.
 func expandMembershipEndpointKubernetesResourceConnectResources(c *Client, f *MembershipEndpointKubernetesResourceConnectResources) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Manifest; !dcl.IsEmptyValueIndirect(v) {
 		m["manifest"] = v
 	}
@@ -3015,11 +2945,10 @@ func flattenMembershipEndpointKubernetesResourceResourceOptionsSlice(c *Client, 
 // expandMembershipEndpointKubernetesResourceResourceOptions expands an instance of MembershipEndpointKubernetesResourceResourceOptions into a JSON
 // request object.
 func expandMembershipEndpointKubernetesResourceResourceOptions(c *Client, f *MembershipEndpointKubernetesResourceResourceOptions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ConnectVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["connectVersion"] = v
 	}
@@ -3129,11 +3058,10 @@ func flattenMembershipStateSlice(c *Client, i interface{}) []MembershipState {
 // expandMembershipState expands an instance of MembershipState into a JSON
 // request object.
 func expandMembershipState(c *Client, f *MembershipState) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Code; !dcl.IsEmptyValueIndirect(v) {
 		m["code"] = v
 	}
@@ -3239,11 +3167,10 @@ func flattenMembershipAuthoritySlice(c *Client, i interface{}) []MembershipAutho
 // expandMembershipAuthority expands an instance of MembershipAuthority into a JSON
 // request object.
 func expandMembershipAuthority(c *Client, f *MembershipAuthority) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Issuer; !dcl.IsEmptyValueIndirect(v) {
 		m["issuer"] = v
 	}

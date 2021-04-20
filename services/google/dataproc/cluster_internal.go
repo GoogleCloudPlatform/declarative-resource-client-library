@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -2343,6 +2342,7 @@ type clusterDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         clusterApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -2361,65 +2361,49 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	var diffs []clusterDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Project, actual.Project, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "Project"})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string{"goog-dataproc-"}, Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string{"goog-dataproc-"}, Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, clusterDiff{
-			UpdateOp: &updateClusterUpdateClusterOperation{}, FieldName: "Labels",
+			UpdateOp: &updateClusterUpdateClusterOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.ClusterUuid, actual.ClusterUuid, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterUuid, actual.ClusterUuid, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "cluster_uuid"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, FieldName: "ClusterUuid"})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Project) && !dcl.StringCanonicalize(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %v\nACTUAL: %v", desired.Project, actual.Project)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
+
 	if compareClusterClusterConfig(c, desired.Config, actual.Config) {
 		c.Config.Logger.Infof("Detected diff in Config.\nDESIRED: %v\nACTUAL: %v", desired.Config, actual.Config)
 		diffs = append(diffs, clusterDiff{
 			RequiresRecreate: true,
 			FieldName:        "Config",
 		})
-	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string{"goog-dataproc-"}) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
-
-		diffs = append(diffs, clusterDiff{
-			UpdateOp:  &updateClusterUpdateClusterOperation{},
-			FieldName: "Labels",
-		})
-
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -2452,108 +2436,56 @@ func compareClusterClusterConfig(c *Client, desired, actual *ClusterClusterConfi
 	if actual == nil {
 		return true
 	}
-	if actual.StagingBucket == nil && desired.StagingBucket != nil && !dcl.IsEmptyValueIndirect(desired.StagingBucket) {
-		c.Config.Logger.Infof("desired StagingBucket %s - but actually nil", dcl.SprintResource(desired.StagingBucket))
-		return true
-	}
 	if !dcl.NameToSelfLink(desired.StagingBucket, actual.StagingBucket) && !dcl.IsZeroValue(desired.StagingBucket) {
-		c.Config.Logger.Infof("Diff in StagingBucket. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StagingBucket), dcl.SprintResource(actual.StagingBucket))
-		return true
-	}
-	if actual.TempBucket == nil && desired.TempBucket != nil && !dcl.IsEmptyValueIndirect(desired.TempBucket) {
-		c.Config.Logger.Infof("desired TempBucket %s - but actually nil", dcl.SprintResource(desired.TempBucket))
+		c.Config.Logger.Infof("Diff in StagingBucket.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StagingBucket), dcl.SprintResource(actual.StagingBucket))
 		return true
 	}
 	if !dcl.NameToSelfLink(desired.TempBucket, actual.TempBucket) && !dcl.IsZeroValue(desired.TempBucket) {
-		c.Config.Logger.Infof("Diff in TempBucket. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TempBucket), dcl.SprintResource(actual.TempBucket))
-		return true
-	}
-	if actual.GceClusterConfig == nil && desired.GceClusterConfig != nil && !dcl.IsEmptyValueIndirect(desired.GceClusterConfig) {
-		c.Config.Logger.Infof("desired GceClusterConfig %s - but actually nil", dcl.SprintResource(desired.GceClusterConfig))
+		c.Config.Logger.Infof("Diff in TempBucket.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TempBucket), dcl.SprintResource(actual.TempBucket))
 		return true
 	}
 	if compareClusterClusterConfigGceClusterConfig(c, desired.GceClusterConfig, actual.GceClusterConfig) && !dcl.IsZeroValue(desired.GceClusterConfig) {
-		c.Config.Logger.Infof("Diff in GceClusterConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GceClusterConfig), dcl.SprintResource(actual.GceClusterConfig))
-		return true
-	}
-	if actual.MasterConfig == nil && desired.MasterConfig != nil && !dcl.IsEmptyValueIndirect(desired.MasterConfig) {
-		c.Config.Logger.Infof("desired MasterConfig %s - but actually nil", dcl.SprintResource(desired.MasterConfig))
+		c.Config.Logger.Infof("Diff in GceClusterConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GceClusterConfig), dcl.SprintResource(actual.GceClusterConfig))
 		return true
 	}
 	if compareClusterInstanceGroupConfig(c, desired.MasterConfig, actual.MasterConfig) && !dcl.IsZeroValue(desired.MasterConfig) {
-		c.Config.Logger.Infof("Diff in MasterConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MasterConfig), dcl.SprintResource(actual.MasterConfig))
-		return true
-	}
-	if actual.WorkerConfig == nil && desired.WorkerConfig != nil && !dcl.IsEmptyValueIndirect(desired.WorkerConfig) {
-		c.Config.Logger.Infof("desired WorkerConfig %s - but actually nil", dcl.SprintResource(desired.WorkerConfig))
+		c.Config.Logger.Infof("Diff in MasterConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MasterConfig), dcl.SprintResource(actual.MasterConfig))
 		return true
 	}
 	if compareClusterInstanceGroupConfig(c, desired.WorkerConfig, actual.WorkerConfig) && !dcl.IsZeroValue(desired.WorkerConfig) {
-		c.Config.Logger.Infof("Diff in WorkerConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WorkerConfig), dcl.SprintResource(actual.WorkerConfig))
-		return true
-	}
-	if actual.SecondaryWorkerConfig == nil && desired.SecondaryWorkerConfig != nil && !dcl.IsEmptyValueIndirect(desired.SecondaryWorkerConfig) {
-		c.Config.Logger.Infof("desired SecondaryWorkerConfig %s - but actually nil", dcl.SprintResource(desired.SecondaryWorkerConfig))
+		c.Config.Logger.Infof("Diff in WorkerConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WorkerConfig), dcl.SprintResource(actual.WorkerConfig))
 		return true
 	}
 	if compareClusterInstanceGroupConfig(c, desired.SecondaryWorkerConfig, actual.SecondaryWorkerConfig) && !dcl.IsZeroValue(desired.SecondaryWorkerConfig) {
-		c.Config.Logger.Infof("Diff in SecondaryWorkerConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecondaryWorkerConfig), dcl.SprintResource(actual.SecondaryWorkerConfig))
-		return true
-	}
-	if actual.SoftwareConfig == nil && desired.SoftwareConfig != nil && !dcl.IsEmptyValueIndirect(desired.SoftwareConfig) {
-		c.Config.Logger.Infof("desired SoftwareConfig %s - but actually nil", dcl.SprintResource(desired.SoftwareConfig))
+		c.Config.Logger.Infof("Diff in SecondaryWorkerConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecondaryWorkerConfig), dcl.SprintResource(actual.SecondaryWorkerConfig))
 		return true
 	}
 	if compareClusterClusterConfigSoftwareConfig(c, desired.SoftwareConfig, actual.SoftwareConfig) && !dcl.IsZeroValue(desired.SoftwareConfig) {
-		c.Config.Logger.Infof("Diff in SoftwareConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SoftwareConfig), dcl.SprintResource(actual.SoftwareConfig))
-		return true
-	}
-	if actual.InitializationActions == nil && desired.InitializationActions != nil && !dcl.IsEmptyValueIndirect(desired.InitializationActions) {
-		c.Config.Logger.Infof("desired InitializationActions %s - but actually nil", dcl.SprintResource(desired.InitializationActions))
+		c.Config.Logger.Infof("Diff in SoftwareConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SoftwareConfig), dcl.SprintResource(actual.SoftwareConfig))
 		return true
 	}
 	if compareClusterClusterConfigInitializationActionsSlice(c, desired.InitializationActions, actual.InitializationActions) && !dcl.IsZeroValue(desired.InitializationActions) {
-		c.Config.Logger.Infof("Diff in InitializationActions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitializationActions), dcl.SprintResource(actual.InitializationActions))
-		return true
-	}
-	if actual.EncryptionConfig == nil && desired.EncryptionConfig != nil && !dcl.IsEmptyValueIndirect(desired.EncryptionConfig) {
-		c.Config.Logger.Infof("desired EncryptionConfig %s - but actually nil", dcl.SprintResource(desired.EncryptionConfig))
+		c.Config.Logger.Infof("Diff in InitializationActions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitializationActions), dcl.SprintResource(actual.InitializationActions))
 		return true
 	}
 	if compareClusterClusterConfigEncryptionConfig(c, desired.EncryptionConfig, actual.EncryptionConfig) && !dcl.IsZeroValue(desired.EncryptionConfig) {
-		c.Config.Logger.Infof("Diff in EncryptionConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EncryptionConfig), dcl.SprintResource(actual.EncryptionConfig))
-		return true
-	}
-	if actual.AutoscalingConfig == nil && desired.AutoscalingConfig != nil && !dcl.IsEmptyValueIndirect(desired.AutoscalingConfig) {
-		c.Config.Logger.Infof("desired AutoscalingConfig %s - but actually nil", dcl.SprintResource(desired.AutoscalingConfig))
+		c.Config.Logger.Infof("Diff in EncryptionConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EncryptionConfig), dcl.SprintResource(actual.EncryptionConfig))
 		return true
 	}
 	if compareClusterClusterConfigAutoscalingConfig(c, desired.AutoscalingConfig, actual.AutoscalingConfig) && !dcl.IsZeroValue(desired.AutoscalingConfig) {
-		c.Config.Logger.Infof("Diff in AutoscalingConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoscalingConfig), dcl.SprintResource(actual.AutoscalingConfig))
-		return true
-	}
-	if actual.SecurityConfig == nil && desired.SecurityConfig != nil && !dcl.IsEmptyValueIndirect(desired.SecurityConfig) {
-		c.Config.Logger.Infof("desired SecurityConfig %s - but actually nil", dcl.SprintResource(desired.SecurityConfig))
+		c.Config.Logger.Infof("Diff in AutoscalingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoscalingConfig), dcl.SprintResource(actual.AutoscalingConfig))
 		return true
 	}
 	if compareClusterClusterConfigSecurityConfig(c, desired.SecurityConfig, actual.SecurityConfig) && !dcl.IsZeroValue(desired.SecurityConfig) {
-		c.Config.Logger.Infof("Diff in SecurityConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecurityConfig), dcl.SprintResource(actual.SecurityConfig))
-		return true
-	}
-	if actual.LifecycleConfig == nil && desired.LifecycleConfig != nil && !dcl.IsEmptyValueIndirect(desired.LifecycleConfig) {
-		c.Config.Logger.Infof("desired LifecycleConfig %s - but actually nil", dcl.SprintResource(desired.LifecycleConfig))
+		c.Config.Logger.Infof("Diff in SecurityConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecurityConfig), dcl.SprintResource(actual.SecurityConfig))
 		return true
 	}
 	if compareClusterClusterConfigLifecycleConfig(c, desired.LifecycleConfig, actual.LifecycleConfig) && !dcl.IsZeroValue(desired.LifecycleConfig) {
-		c.Config.Logger.Infof("Diff in LifecycleConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LifecycleConfig), dcl.SprintResource(actual.LifecycleConfig))
-		return true
-	}
-	if actual.EndpointConfig == nil && desired.EndpointConfig != nil && !dcl.IsEmptyValueIndirect(desired.EndpointConfig) {
-		c.Config.Logger.Infof("desired EndpointConfig %s - but actually nil", dcl.SprintResource(desired.EndpointConfig))
+		c.Config.Logger.Infof("Diff in LifecycleConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LifecycleConfig), dcl.SprintResource(actual.LifecycleConfig))
 		return true
 	}
 	if compareClusterClusterConfigEndpointConfig(c, desired.EndpointConfig, actual.EndpointConfig) && !dcl.IsZeroValue(desired.EndpointConfig) {
-		c.Config.Logger.Infof("Diff in EndpointConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EndpointConfig), dcl.SprintResource(actual.EndpointConfig))
+		c.Config.Logger.Infof("Diff in EndpointConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EndpointConfig), dcl.SprintResource(actual.EndpointConfig))
 		return true
 	}
 	return false
@@ -2566,7 +2498,7 @@ func compareClusterClusterConfigSlice(c *Client, desired, actual []ClusterCluste
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2585,7 +2517,7 @@ func compareClusterClusterConfigMap(c *Client, desired, actual map[string]Cluste
 			return true
 		}
 		if compareClusterClusterConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2599,92 +2531,48 @@ func compareClusterClusterConfigGceClusterConfig(c *Client, desired, actual *Clu
 	if actual == nil {
 		return true
 	}
-	if actual.Zone == nil && desired.Zone != nil && !dcl.IsEmptyValueIndirect(desired.Zone) {
-		c.Config.Logger.Infof("desired Zone %s - but actually nil", dcl.SprintResource(desired.Zone))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Zone, actual.Zone) && !dcl.IsZeroValue(desired.Zone) {
-		c.Config.Logger.Infof("Diff in Zone. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zone), dcl.SprintResource(actual.Zone))
-		return true
-	}
-	if actual.Network == nil && desired.Network != nil && !dcl.IsEmptyValueIndirect(desired.Network) {
-		c.Config.Logger.Infof("desired Network %s - but actually nil", dcl.SprintResource(desired.Network))
+		c.Config.Logger.Infof("Diff in Zone.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zone), dcl.SprintResource(actual.Zone))
 		return true
 	}
 	if !dcl.NameToSelfLink(desired.Network, actual.Network) && !dcl.IsZeroValue(desired.Network) {
-		c.Config.Logger.Infof("Diff in Network. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Network), dcl.SprintResource(actual.Network))
-		return true
-	}
-	if actual.Subnetwork == nil && desired.Subnetwork != nil && !dcl.IsEmptyValueIndirect(desired.Subnetwork) {
-		c.Config.Logger.Infof("desired Subnetwork %s - but actually nil", dcl.SprintResource(desired.Subnetwork))
+		c.Config.Logger.Infof("Diff in Network.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Network), dcl.SprintResource(actual.Network))
 		return true
 	}
 	if !dcl.NameToSelfLink(desired.Subnetwork, actual.Subnetwork) && !dcl.IsZeroValue(desired.Subnetwork) {
-		c.Config.Logger.Infof("Diff in Subnetwork. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Subnetwork), dcl.SprintResource(actual.Subnetwork))
-		return true
-	}
-	if actual.InternalIPOnly == nil && desired.InternalIPOnly != nil && !dcl.IsEmptyValueIndirect(desired.InternalIPOnly) {
-		c.Config.Logger.Infof("desired InternalIPOnly %s - but actually nil", dcl.SprintResource(desired.InternalIPOnly))
+		c.Config.Logger.Infof("Diff in Subnetwork.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Subnetwork), dcl.SprintResource(actual.Subnetwork))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.InternalIPOnly, actual.InternalIPOnly) && !dcl.IsZeroValue(desired.InternalIPOnly) {
-		c.Config.Logger.Infof("Diff in InternalIPOnly. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InternalIPOnly), dcl.SprintResource(actual.InternalIPOnly))
-		return true
-	}
-	if actual.PrivateIPv6GoogleAccess == nil && desired.PrivateIPv6GoogleAccess != nil && !dcl.IsEmptyValueIndirect(desired.PrivateIPv6GoogleAccess) {
-		c.Config.Logger.Infof("desired PrivateIPv6GoogleAccess %s - but actually nil", dcl.SprintResource(desired.PrivateIPv6GoogleAccess))
+		c.Config.Logger.Infof("Diff in InternalIPOnly.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InternalIPOnly), dcl.SprintResource(actual.InternalIPOnly))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PrivateIPv6GoogleAccess, actual.PrivateIPv6GoogleAccess) && !dcl.IsZeroValue(desired.PrivateIPv6GoogleAccess) {
-		c.Config.Logger.Infof("Diff in PrivateIPv6GoogleAccess. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrivateIPv6GoogleAccess), dcl.SprintResource(actual.PrivateIPv6GoogleAccess))
-		return true
-	}
-	if actual.ServiceAccount == nil && desired.ServiceAccount != nil && !dcl.IsEmptyValueIndirect(desired.ServiceAccount) {
-		c.Config.Logger.Infof("desired ServiceAccount %s - but actually nil", dcl.SprintResource(desired.ServiceAccount))
+		c.Config.Logger.Infof("Diff in PrivateIPv6GoogleAccess.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrivateIPv6GoogleAccess), dcl.SprintResource(actual.PrivateIPv6GoogleAccess))
 		return true
 	}
 	if !dcl.NameToSelfLink(desired.ServiceAccount, actual.ServiceAccount) && !dcl.IsZeroValue(desired.ServiceAccount) {
-		c.Config.Logger.Infof("Diff in ServiceAccount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccount), dcl.SprintResource(actual.ServiceAccount))
-		return true
-	}
-	if actual.ServiceAccountScopes == nil && desired.ServiceAccountScopes != nil && !dcl.IsEmptyValueIndirect(desired.ServiceAccountScopes) {
-		c.Config.Logger.Infof("desired ServiceAccountScopes %s - but actually nil", dcl.SprintResource(desired.ServiceAccountScopes))
+		c.Config.Logger.Infof("Diff in ServiceAccount.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccount), dcl.SprintResource(actual.ServiceAccount))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.ServiceAccountScopes, actual.ServiceAccountScopes) && !dcl.IsZeroValue(desired.ServiceAccountScopes) {
-		c.Config.Logger.Infof("Diff in ServiceAccountScopes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountScopes), dcl.SprintResource(actual.ServiceAccountScopes))
-		return true
-	}
-	if actual.Tags == nil && desired.Tags != nil && !dcl.IsEmptyValueIndirect(desired.Tags) {
-		c.Config.Logger.Infof("desired Tags %s - but actually nil", dcl.SprintResource(desired.Tags))
+		c.Config.Logger.Infof("Diff in ServiceAccountScopes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountScopes), dcl.SprintResource(actual.ServiceAccountScopes))
 		return true
 	}
 	if toAdd, toRemove := dcl.CompareStringSets(desired.Tags, actual.Tags); len(toAdd)+len(toRemove) > 0 {
-		c.Config.Logger.Infof("Diff in Tags. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tags), dcl.SprintResource(actual.Tags))
-		return true
-	}
-	if actual.Metadata == nil && desired.Metadata != nil && !dcl.IsEmptyValueIndirect(desired.Metadata) {
-		c.Config.Logger.Infof("desired Metadata %s - but actually nil", dcl.SprintResource(desired.Metadata))
+		c.Config.Logger.Infof("Diff in Tags.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tags), dcl.SprintResource(actual.Tags))
 		return true
 	}
 	if !dcl.MapEquals(desired.Metadata, actual.Metadata, []string(nil)) && !dcl.IsZeroValue(desired.Metadata) {
-		c.Config.Logger.Infof("Diff in Metadata. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Metadata), dcl.SprintResource(actual.Metadata))
-		return true
-	}
-	if actual.ReservationAffinity == nil && desired.ReservationAffinity != nil && !dcl.IsEmptyValueIndirect(desired.ReservationAffinity) {
-		c.Config.Logger.Infof("desired ReservationAffinity %s - but actually nil", dcl.SprintResource(desired.ReservationAffinity))
+		c.Config.Logger.Infof("Diff in Metadata.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Metadata), dcl.SprintResource(actual.Metadata))
 		return true
 	}
 	if compareClusterClusterConfigGceClusterConfigReservationAffinity(c, desired.ReservationAffinity, actual.ReservationAffinity) && !dcl.IsZeroValue(desired.ReservationAffinity) {
-		c.Config.Logger.Infof("Diff in ReservationAffinity. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReservationAffinity), dcl.SprintResource(actual.ReservationAffinity))
-		return true
-	}
-	if actual.NodeGroupAffinity == nil && desired.NodeGroupAffinity != nil && !dcl.IsEmptyValueIndirect(desired.NodeGroupAffinity) {
-		c.Config.Logger.Infof("desired NodeGroupAffinity %s - but actually nil", dcl.SprintResource(desired.NodeGroupAffinity))
+		c.Config.Logger.Infof("Diff in ReservationAffinity.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReservationAffinity), dcl.SprintResource(actual.ReservationAffinity))
 		return true
 	}
 	if compareClusterClusterConfigGceClusterConfigNodeGroupAffinity(c, desired.NodeGroupAffinity, actual.NodeGroupAffinity) && !dcl.IsZeroValue(desired.NodeGroupAffinity) {
-		c.Config.Logger.Infof("Diff in NodeGroupAffinity. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NodeGroupAffinity), dcl.SprintResource(actual.NodeGroupAffinity))
+		c.Config.Logger.Infof("Diff in NodeGroupAffinity.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NodeGroupAffinity), dcl.SprintResource(actual.NodeGroupAffinity))
 		return true
 	}
 	return false
@@ -2697,7 +2585,7 @@ func compareClusterClusterConfigGceClusterConfigSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigGceClusterConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2716,7 +2604,7 @@ func compareClusterClusterConfigGceClusterConfigMap(c *Client, desired, actual m
 			return true
 		}
 		if compareClusterClusterConfigGceClusterConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2730,28 +2618,16 @@ func compareClusterClusterConfigGceClusterConfigReservationAffinity(c *Client, d
 	if actual == nil {
 		return true
 	}
-	if actual.ConsumeReservationType == nil && desired.ConsumeReservationType != nil && !dcl.IsEmptyValueIndirect(desired.ConsumeReservationType) {
-		c.Config.Logger.Infof("desired ConsumeReservationType %s - but actually nil", dcl.SprintResource(desired.ConsumeReservationType))
-		return true
-	}
 	if !reflect.DeepEqual(desired.ConsumeReservationType, actual.ConsumeReservationType) && !dcl.IsZeroValue(desired.ConsumeReservationType) {
-		c.Config.Logger.Infof("Diff in ConsumeReservationType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConsumeReservationType), dcl.SprintResource(actual.ConsumeReservationType))
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
+		c.Config.Logger.Infof("Diff in ConsumeReservationType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConsumeReservationType), dcl.SprintResource(actual.ConsumeReservationType))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Values == nil && desired.Values != nil && !dcl.IsEmptyValueIndirect(desired.Values) {
-		c.Config.Logger.Infof("desired Values %s - but actually nil", dcl.SprintResource(desired.Values))
+		c.Config.Logger.Infof("Diff in Key.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Values, actual.Values) && !dcl.IsZeroValue(desired.Values) {
-		c.Config.Logger.Infof("Diff in Values. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Values), dcl.SprintResource(actual.Values))
+		c.Config.Logger.Infof("Diff in Values.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Values), dcl.SprintResource(actual.Values))
 		return true
 	}
 	return false
@@ -2764,7 +2640,7 @@ func compareClusterClusterConfigGceClusterConfigReservationAffinitySlice(c *Clie
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigGceClusterConfigReservationAffinity(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfigReservationAffinity, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfigReservationAffinity, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2783,7 +2659,7 @@ func compareClusterClusterConfigGceClusterConfigReservationAffinityMap(c *Client
 			return true
 		}
 		if compareClusterClusterConfigGceClusterConfigReservationAffinity(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfigReservationAffinity, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfigReservationAffinity, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2797,12 +2673,8 @@ func compareClusterClusterConfigGceClusterConfigNodeGroupAffinity(c *Client, des
 	if actual == nil {
 		return true
 	}
-	if actual.NodeGroup == nil && desired.NodeGroup != nil && !dcl.IsEmptyValueIndirect(desired.NodeGroup) {
-		c.Config.Logger.Infof("desired NodeGroup %s - but actually nil", dcl.SprintResource(desired.NodeGroup))
-		return true
-	}
 	if !dcl.NameToSelfLink(desired.NodeGroup, actual.NodeGroup) && !dcl.IsZeroValue(desired.NodeGroup) {
-		c.Config.Logger.Infof("Diff in NodeGroup. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NodeGroup), dcl.SprintResource(actual.NodeGroup))
+		c.Config.Logger.Infof("Diff in NodeGroup.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NodeGroup), dcl.SprintResource(actual.NodeGroup))
 		return true
 	}
 	return false
@@ -2815,7 +2687,7 @@ func compareClusterClusterConfigGceClusterConfigNodeGroupAffinitySlice(c *Client
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigGceClusterConfigNodeGroupAffinity(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfigNodeGroupAffinity, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfigNodeGroupAffinity, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2834,7 +2706,7 @@ func compareClusterClusterConfigGceClusterConfigNodeGroupAffinityMap(c *Client, 
 			return true
 		}
 		if compareClusterClusterConfigGceClusterConfigNodeGroupAffinity(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfigNodeGroupAffinity, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfigNodeGroupAffinity, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2848,60 +2720,32 @@ func compareClusterInstanceGroupConfig(c *Client, desired, actual *ClusterInstan
 	if actual == nil {
 		return true
 	}
-	if actual.NumInstances == nil && desired.NumInstances != nil && !dcl.IsEmptyValueIndirect(desired.NumInstances) {
-		c.Config.Logger.Infof("desired NumInstances %s - but actually nil", dcl.SprintResource(desired.NumInstances))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumInstances, actual.NumInstances) && !dcl.IsZeroValue(desired.NumInstances) {
-		c.Config.Logger.Infof("Diff in NumInstances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumInstances), dcl.SprintResource(actual.NumInstances))
-		return true
-	}
-	if actual.Image == nil && desired.Image != nil && !dcl.IsEmptyValueIndirect(desired.Image) {
-		c.Config.Logger.Infof("desired Image %s - but actually nil", dcl.SprintResource(desired.Image))
+		c.Config.Logger.Infof("Diff in NumInstances.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumInstances), dcl.SprintResource(actual.NumInstances))
 		return true
 	}
 	if !dcl.NameToSelfLink(desired.Image, actual.Image) && !dcl.IsZeroValue(desired.Image) {
-		c.Config.Logger.Infof("Diff in Image. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Image), dcl.SprintResource(actual.Image))
-		return true
-	}
-	if actual.MachineType == nil && desired.MachineType != nil && !dcl.IsEmptyValueIndirect(desired.MachineType) {
-		c.Config.Logger.Infof("desired MachineType %s - but actually nil", dcl.SprintResource(desired.MachineType))
+		c.Config.Logger.Infof("Diff in Image.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Image), dcl.SprintResource(actual.Image))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.MachineType, actual.MachineType) && !dcl.IsZeroValue(desired.MachineType) {
-		c.Config.Logger.Infof("Diff in MachineType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MachineType), dcl.SprintResource(actual.MachineType))
-		return true
-	}
-	if actual.DiskConfig == nil && desired.DiskConfig != nil && !dcl.IsEmptyValueIndirect(desired.DiskConfig) {
-		c.Config.Logger.Infof("desired DiskConfig %s - but actually nil", dcl.SprintResource(desired.DiskConfig))
+		c.Config.Logger.Infof("Diff in MachineType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MachineType), dcl.SprintResource(actual.MachineType))
 		return true
 	}
 	if compareClusterInstanceGroupConfigDiskConfig(c, desired.DiskConfig, actual.DiskConfig) && !dcl.IsZeroValue(desired.DiskConfig) {
-		c.Config.Logger.Infof("Diff in DiskConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DiskConfig), dcl.SprintResource(actual.DiskConfig))
-		return true
-	}
-	if actual.Preemptibility == nil && desired.Preemptibility != nil && !dcl.IsEmptyValueIndirect(desired.Preemptibility) {
-		c.Config.Logger.Infof("desired Preemptibility %s - but actually nil", dcl.SprintResource(desired.Preemptibility))
+		c.Config.Logger.Infof("Diff in DiskConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DiskConfig), dcl.SprintResource(actual.DiskConfig))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Preemptibility, actual.Preemptibility) && !dcl.IsZeroValue(desired.Preemptibility) {
-		c.Config.Logger.Infof("Diff in Preemptibility. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Preemptibility), dcl.SprintResource(actual.Preemptibility))
-		return true
-	}
-	if actual.Accelerators == nil && desired.Accelerators != nil && !dcl.IsEmptyValueIndirect(desired.Accelerators) {
-		c.Config.Logger.Infof("desired Accelerators %s - but actually nil", dcl.SprintResource(desired.Accelerators))
+		c.Config.Logger.Infof("Diff in Preemptibility.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Preemptibility), dcl.SprintResource(actual.Preemptibility))
 		return true
 	}
 	if compareClusterInstanceGroupConfigAcceleratorsSlice(c, desired.Accelerators, actual.Accelerators) && !dcl.IsZeroValue(desired.Accelerators) {
-		c.Config.Logger.Infof("Diff in Accelerators. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Accelerators), dcl.SprintResource(actual.Accelerators))
-		return true
-	}
-	if actual.MinCpuPlatform == nil && desired.MinCpuPlatform != nil && !dcl.IsEmptyValueIndirect(desired.MinCpuPlatform) {
-		c.Config.Logger.Infof("desired MinCpuPlatform %s - but actually nil", dcl.SprintResource(desired.MinCpuPlatform))
+		c.Config.Logger.Infof("Diff in Accelerators.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Accelerators), dcl.SprintResource(actual.Accelerators))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.MinCpuPlatform, actual.MinCpuPlatform) && !dcl.IsZeroValue(desired.MinCpuPlatform) {
-		c.Config.Logger.Infof("Diff in MinCpuPlatform. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinCpuPlatform), dcl.SprintResource(actual.MinCpuPlatform))
+		c.Config.Logger.Infof("Diff in MinCpuPlatform.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinCpuPlatform), dcl.SprintResource(actual.MinCpuPlatform))
 		return true
 	}
 	return false
@@ -2914,7 +2758,7 @@ func compareClusterInstanceGroupConfigSlice(c *Client, desired, actual []Cluster
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterInstanceGroupConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2933,7 +2777,7 @@ func compareClusterInstanceGroupConfigMap(c *Client, desired, actual map[string]
 			return true
 		}
 		if compareClusterInstanceGroupConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2947,28 +2791,16 @@ func compareClusterInstanceGroupConfigDiskConfig(c *Client, desired, actual *Clu
 	if actual == nil {
 		return true
 	}
-	if actual.BootDiskType == nil && desired.BootDiskType != nil && !dcl.IsEmptyValueIndirect(desired.BootDiskType) {
-		c.Config.Logger.Infof("desired BootDiskType %s - but actually nil", dcl.SprintResource(desired.BootDiskType))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.BootDiskType, actual.BootDiskType) && !dcl.IsZeroValue(desired.BootDiskType) {
-		c.Config.Logger.Infof("Diff in BootDiskType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BootDiskType), dcl.SprintResource(actual.BootDiskType))
-		return true
-	}
-	if actual.BootDiskSizeGb == nil && desired.BootDiskSizeGb != nil && !dcl.IsEmptyValueIndirect(desired.BootDiskSizeGb) {
-		c.Config.Logger.Infof("desired BootDiskSizeGb %s - but actually nil", dcl.SprintResource(desired.BootDiskSizeGb))
+		c.Config.Logger.Infof("Diff in BootDiskType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BootDiskType), dcl.SprintResource(actual.BootDiskType))
 		return true
 	}
 	if !reflect.DeepEqual(desired.BootDiskSizeGb, actual.BootDiskSizeGb) && !dcl.IsZeroValue(desired.BootDiskSizeGb) {
-		c.Config.Logger.Infof("Diff in BootDiskSizeGb. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BootDiskSizeGb), dcl.SprintResource(actual.BootDiskSizeGb))
-		return true
-	}
-	if actual.NumLocalSsds == nil && desired.NumLocalSsds != nil && !dcl.IsEmptyValueIndirect(desired.NumLocalSsds) {
-		c.Config.Logger.Infof("desired NumLocalSsds %s - but actually nil", dcl.SprintResource(desired.NumLocalSsds))
+		c.Config.Logger.Infof("Diff in BootDiskSizeGb.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BootDiskSizeGb), dcl.SprintResource(actual.BootDiskSizeGb))
 		return true
 	}
 	if !reflect.DeepEqual(desired.NumLocalSsds, actual.NumLocalSsds) && !dcl.IsZeroValue(desired.NumLocalSsds) {
-		c.Config.Logger.Infof("Diff in NumLocalSsds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumLocalSsds), dcl.SprintResource(actual.NumLocalSsds))
+		c.Config.Logger.Infof("Diff in NumLocalSsds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumLocalSsds), dcl.SprintResource(actual.NumLocalSsds))
 		return true
 	}
 	return false
@@ -2981,7 +2813,7 @@ func compareClusterInstanceGroupConfigDiskConfigSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterInstanceGroupConfigDiskConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigDiskConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigDiskConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3000,7 +2832,7 @@ func compareClusterInstanceGroupConfigDiskConfigMap(c *Client, desired, actual m
 			return true
 		}
 		if compareClusterInstanceGroupConfigDiskConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigDiskConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigDiskConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3024,7 +2856,7 @@ func compareClusterInstanceGroupConfigManagedGroupConfigSlice(c *Client, desired
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterInstanceGroupConfigManagedGroupConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigManagedGroupConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigManagedGroupConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3043,7 +2875,7 @@ func compareClusterInstanceGroupConfigManagedGroupConfigMap(c *Client, desired, 
 			return true
 		}
 		if compareClusterInstanceGroupConfigManagedGroupConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigManagedGroupConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigManagedGroupConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3057,20 +2889,12 @@ func compareClusterInstanceGroupConfigAccelerators(c *Client, desired, actual *C
 	if actual == nil {
 		return true
 	}
-	if actual.AcceleratorType == nil && desired.AcceleratorType != nil && !dcl.IsEmptyValueIndirect(desired.AcceleratorType) {
-		c.Config.Logger.Infof("desired AcceleratorType %s - but actually nil", dcl.SprintResource(desired.AcceleratorType))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.AcceleratorType, actual.AcceleratorType) && !dcl.IsZeroValue(desired.AcceleratorType) {
-		c.Config.Logger.Infof("Diff in AcceleratorType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AcceleratorType), dcl.SprintResource(actual.AcceleratorType))
-		return true
-	}
-	if actual.AcceleratorCount == nil && desired.AcceleratorCount != nil && !dcl.IsEmptyValueIndirect(desired.AcceleratorCount) {
-		c.Config.Logger.Infof("desired AcceleratorCount %s - but actually nil", dcl.SprintResource(desired.AcceleratorCount))
+		c.Config.Logger.Infof("Diff in AcceleratorType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AcceleratorType), dcl.SprintResource(actual.AcceleratorType))
 		return true
 	}
 	if !reflect.DeepEqual(desired.AcceleratorCount, actual.AcceleratorCount) && !dcl.IsZeroValue(desired.AcceleratorCount) {
-		c.Config.Logger.Infof("Diff in AcceleratorCount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AcceleratorCount), dcl.SprintResource(actual.AcceleratorCount))
+		c.Config.Logger.Infof("Diff in AcceleratorCount.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AcceleratorCount), dcl.SprintResource(actual.AcceleratorCount))
 		return true
 	}
 	return false
@@ -3083,7 +2907,7 @@ func compareClusterInstanceGroupConfigAcceleratorsSlice(c *Client, desired, actu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterInstanceGroupConfigAccelerators(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigAccelerators, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigAccelerators, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3102,7 +2926,7 @@ func compareClusterInstanceGroupConfigAcceleratorsMap(c *Client, desired, actual
 			return true
 		}
 		if compareClusterInstanceGroupConfigAccelerators(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigAccelerators, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigAccelerators, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3116,28 +2940,16 @@ func compareClusterClusterConfigSoftwareConfig(c *Client, desired, actual *Clust
 	if actual == nil {
 		return true
 	}
-	if actual.ImageVersion == nil && desired.ImageVersion != nil && !dcl.IsEmptyValueIndirect(desired.ImageVersion) {
-		c.Config.Logger.Infof("desired ImageVersion %s - but actually nil", dcl.SprintResource(desired.ImageVersion))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ImageVersion, actual.ImageVersion) && !dcl.IsZeroValue(desired.ImageVersion) {
-		c.Config.Logger.Infof("Diff in ImageVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ImageVersion), dcl.SprintResource(actual.ImageVersion))
-		return true
-	}
-	if actual.Properties == nil && desired.Properties != nil && !dcl.IsEmptyValueIndirect(desired.Properties) {
-		c.Config.Logger.Infof("desired Properties %s - but actually nil", dcl.SprintResource(desired.Properties))
+		c.Config.Logger.Infof("Diff in ImageVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ImageVersion), dcl.SprintResource(actual.ImageVersion))
 		return true
 	}
 	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if actual.OptionalComponents == nil && desired.OptionalComponents != nil && !dcl.IsEmptyValueIndirect(desired.OptionalComponents) {
-		c.Config.Logger.Infof("desired OptionalComponents %s - but actually nil", dcl.SprintResource(desired.OptionalComponents))
+		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
 		return true
 	}
 	if compareClusterClusterConfigSoftwareConfigOptionalComponentsEnumSlice(c, desired.OptionalComponents, actual.OptionalComponents) && !dcl.IsZeroValue(desired.OptionalComponents) {
-		c.Config.Logger.Infof("Diff in OptionalComponents. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OptionalComponents), dcl.SprintResource(actual.OptionalComponents))
+		c.Config.Logger.Infof("Diff in OptionalComponents.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OptionalComponents), dcl.SprintResource(actual.OptionalComponents))
 		return true
 	}
 	return false
@@ -3150,7 +2962,7 @@ func compareClusterClusterConfigSoftwareConfigSlice(c *Client, desired, actual [
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigSoftwareConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigSoftwareConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigSoftwareConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3169,7 +2981,7 @@ func compareClusterClusterConfigSoftwareConfigMap(c *Client, desired, actual map
 			return true
 		}
 		if compareClusterClusterConfigSoftwareConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigSoftwareConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigSoftwareConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3183,20 +2995,12 @@ func compareClusterClusterConfigInitializationActions(c *Client, desired, actual
 	if actual == nil {
 		return true
 	}
-	if actual.ExecutableFile == nil && desired.ExecutableFile != nil && !dcl.IsEmptyValueIndirect(desired.ExecutableFile) {
-		c.Config.Logger.Infof("desired ExecutableFile %s - but actually nil", dcl.SprintResource(desired.ExecutableFile))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ExecutableFile, actual.ExecutableFile) && !dcl.IsZeroValue(desired.ExecutableFile) {
-		c.Config.Logger.Infof("Diff in ExecutableFile. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExecutableFile), dcl.SprintResource(actual.ExecutableFile))
-		return true
-	}
-	if actual.ExecutionTimeout == nil && desired.ExecutionTimeout != nil && !dcl.IsEmptyValueIndirect(desired.ExecutionTimeout) {
-		c.Config.Logger.Infof("desired ExecutionTimeout %s - but actually nil", dcl.SprintResource(desired.ExecutionTimeout))
+		c.Config.Logger.Infof("Diff in ExecutableFile.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExecutableFile), dcl.SprintResource(actual.ExecutableFile))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.ExecutionTimeout, actual.ExecutionTimeout) && !dcl.IsZeroValue(desired.ExecutionTimeout) {
-		c.Config.Logger.Infof("Diff in ExecutionTimeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExecutionTimeout), dcl.SprintResource(actual.ExecutionTimeout))
+		c.Config.Logger.Infof("Diff in ExecutionTimeout.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExecutionTimeout), dcl.SprintResource(actual.ExecutionTimeout))
 		return true
 	}
 	return false
@@ -3209,7 +3013,7 @@ func compareClusterClusterConfigInitializationActionsSlice(c *Client, desired, a
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigInitializationActions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigInitializationActions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigInitializationActions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3228,7 +3032,7 @@ func compareClusterClusterConfigInitializationActionsMap(c *Client, desired, act
 			return true
 		}
 		if compareClusterClusterConfigInitializationActions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigInitializationActions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigInitializationActions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3242,12 +3046,8 @@ func compareClusterClusterConfigEncryptionConfig(c *Client, desired, actual *Clu
 	if actual == nil {
 		return true
 	}
-	if actual.GcePdKmsKeyName == nil && desired.GcePdKmsKeyName != nil && !dcl.IsEmptyValueIndirect(desired.GcePdKmsKeyName) {
-		c.Config.Logger.Infof("desired GcePdKmsKeyName %s - but actually nil", dcl.SprintResource(desired.GcePdKmsKeyName))
-		return true
-	}
 	if !dcl.NameToSelfLink(desired.GcePdKmsKeyName, actual.GcePdKmsKeyName) && !dcl.IsZeroValue(desired.GcePdKmsKeyName) {
-		c.Config.Logger.Infof("Diff in GcePdKmsKeyName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GcePdKmsKeyName), dcl.SprintResource(actual.GcePdKmsKeyName))
+		c.Config.Logger.Infof("Diff in GcePdKmsKeyName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GcePdKmsKeyName), dcl.SprintResource(actual.GcePdKmsKeyName))
 		return true
 	}
 	return false
@@ -3260,7 +3060,7 @@ func compareClusterClusterConfigEncryptionConfigSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigEncryptionConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigEncryptionConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigEncryptionConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3279,7 +3079,7 @@ func compareClusterClusterConfigEncryptionConfigMap(c *Client, desired, actual m
 			return true
 		}
 		if compareClusterClusterConfigEncryptionConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigEncryptionConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigEncryptionConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3293,12 +3093,8 @@ func compareClusterClusterConfigAutoscalingConfig(c *Client, desired, actual *Cl
 	if actual == nil {
 		return true
 	}
-	if actual.Policy == nil && desired.Policy != nil && !dcl.IsEmptyValueIndirect(desired.Policy) {
-		c.Config.Logger.Infof("desired Policy %s - but actually nil", dcl.SprintResource(desired.Policy))
-		return true
-	}
 	if !dcl.NameToSelfLink(desired.Policy, actual.Policy) && !dcl.IsZeroValue(desired.Policy) {
-		c.Config.Logger.Infof("Diff in Policy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Policy), dcl.SprintResource(actual.Policy))
+		c.Config.Logger.Infof("Diff in Policy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Policy), dcl.SprintResource(actual.Policy))
 		return true
 	}
 	return false
@@ -3311,7 +3107,7 @@ func compareClusterClusterConfigAutoscalingConfigSlice(c *Client, desired, actua
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigAutoscalingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigAutoscalingConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigAutoscalingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3330,7 +3126,7 @@ func compareClusterClusterConfigAutoscalingConfigMap(c *Client, desired, actual 
 			return true
 		}
 		if compareClusterClusterConfigAutoscalingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigAutoscalingConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigAutoscalingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3344,12 +3140,8 @@ func compareClusterClusterConfigSecurityConfig(c *Client, desired, actual *Clust
 	if actual == nil {
 		return true
 	}
-	if actual.KerberosConfig == nil && desired.KerberosConfig != nil && !dcl.IsEmptyValueIndirect(desired.KerberosConfig) {
-		c.Config.Logger.Infof("desired KerberosConfig %s - but actually nil", dcl.SprintResource(desired.KerberosConfig))
-		return true
-	}
 	if compareClusterClusterConfigSecurityConfigKerberosConfig(c, desired.KerberosConfig, actual.KerberosConfig) && !dcl.IsZeroValue(desired.KerberosConfig) {
-		c.Config.Logger.Infof("Diff in KerberosConfig. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KerberosConfig), dcl.SprintResource(actual.KerberosConfig))
+		c.Config.Logger.Infof("Diff in KerberosConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KerberosConfig), dcl.SprintResource(actual.KerberosConfig))
 		return true
 	}
 	return false
@@ -3362,7 +3154,7 @@ func compareClusterClusterConfigSecurityConfigSlice(c *Client, desired, actual [
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigSecurityConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigSecurityConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigSecurityConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3381,7 +3173,7 @@ func compareClusterClusterConfigSecurityConfigMap(c *Client, desired, actual map
 			return true
 		}
 		if compareClusterClusterConfigSecurityConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigSecurityConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigSecurityConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3395,124 +3187,64 @@ func compareClusterClusterConfigSecurityConfigKerberosConfig(c *Client, desired,
 	if actual == nil {
 		return true
 	}
-	if actual.EnableKerberos == nil && desired.EnableKerberos != nil && !dcl.IsEmptyValueIndirect(desired.EnableKerberos) {
-		c.Config.Logger.Infof("desired EnableKerberos %s - but actually nil", dcl.SprintResource(desired.EnableKerberos))
-		return true
-	}
 	if !dcl.BoolCanonicalize(desired.EnableKerberos, actual.EnableKerberos) && !dcl.IsZeroValue(desired.EnableKerberos) {
-		c.Config.Logger.Infof("Diff in EnableKerberos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableKerberos), dcl.SprintResource(actual.EnableKerberos))
-		return true
-	}
-	if actual.RootPrincipalPassword == nil && desired.RootPrincipalPassword != nil && !dcl.IsEmptyValueIndirect(desired.RootPrincipalPassword) {
-		c.Config.Logger.Infof("desired RootPrincipalPassword %s - but actually nil", dcl.SprintResource(desired.RootPrincipalPassword))
+		c.Config.Logger.Infof("Diff in EnableKerberos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableKerberos), dcl.SprintResource(actual.EnableKerberos))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.RootPrincipalPassword, actual.RootPrincipalPassword) && !dcl.IsZeroValue(desired.RootPrincipalPassword) {
-		c.Config.Logger.Infof("Diff in RootPrincipalPassword. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RootPrincipalPassword), dcl.SprintResource(actual.RootPrincipalPassword))
-		return true
-	}
-	if actual.KmsKey == nil && desired.KmsKey != nil && !dcl.IsEmptyValueIndirect(desired.KmsKey) {
-		c.Config.Logger.Infof("desired KmsKey %s - but actually nil", dcl.SprintResource(desired.KmsKey))
+		c.Config.Logger.Infof("Diff in RootPrincipalPassword.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RootPrincipalPassword), dcl.SprintResource(actual.RootPrincipalPassword))
 		return true
 	}
 	if !dcl.NameToSelfLink(desired.KmsKey, actual.KmsKey) && !dcl.IsZeroValue(desired.KmsKey) {
-		c.Config.Logger.Infof("Diff in KmsKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKey), dcl.SprintResource(actual.KmsKey))
-		return true
-	}
-	if actual.Keystore == nil && desired.Keystore != nil && !dcl.IsEmptyValueIndirect(desired.Keystore) {
-		c.Config.Logger.Infof("desired Keystore %s - but actually nil", dcl.SprintResource(desired.Keystore))
+		c.Config.Logger.Infof("Diff in KmsKey.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKey), dcl.SprintResource(actual.KmsKey))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Keystore, actual.Keystore) && !dcl.IsZeroValue(desired.Keystore) {
-		c.Config.Logger.Infof("Diff in Keystore. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Keystore), dcl.SprintResource(actual.Keystore))
-		return true
-	}
-	if actual.Truststore == nil && desired.Truststore != nil && !dcl.IsEmptyValueIndirect(desired.Truststore) {
-		c.Config.Logger.Infof("desired Truststore %s - but actually nil", dcl.SprintResource(desired.Truststore))
+		c.Config.Logger.Infof("Diff in Keystore.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Keystore), dcl.SprintResource(actual.Keystore))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Truststore, actual.Truststore) && !dcl.IsZeroValue(desired.Truststore) {
-		c.Config.Logger.Infof("Diff in Truststore. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Truststore), dcl.SprintResource(actual.Truststore))
-		return true
-	}
-	if actual.KeystorePassword == nil && desired.KeystorePassword != nil && !dcl.IsEmptyValueIndirect(desired.KeystorePassword) {
-		c.Config.Logger.Infof("desired KeystorePassword %s - but actually nil", dcl.SprintResource(desired.KeystorePassword))
+		c.Config.Logger.Infof("Diff in Truststore.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Truststore), dcl.SprintResource(actual.Truststore))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.KeystorePassword, actual.KeystorePassword) && !dcl.IsZeroValue(desired.KeystorePassword) {
-		c.Config.Logger.Infof("Diff in KeystorePassword. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KeystorePassword), dcl.SprintResource(actual.KeystorePassword))
-		return true
-	}
-	if actual.KeyPassword == nil && desired.KeyPassword != nil && !dcl.IsEmptyValueIndirect(desired.KeyPassword) {
-		c.Config.Logger.Infof("desired KeyPassword %s - but actually nil", dcl.SprintResource(desired.KeyPassword))
+		c.Config.Logger.Infof("Diff in KeystorePassword.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KeystorePassword), dcl.SprintResource(actual.KeystorePassword))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.KeyPassword, actual.KeyPassword) && !dcl.IsZeroValue(desired.KeyPassword) {
-		c.Config.Logger.Infof("Diff in KeyPassword. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KeyPassword), dcl.SprintResource(actual.KeyPassword))
-		return true
-	}
-	if actual.TruststorePassword == nil && desired.TruststorePassword != nil && !dcl.IsEmptyValueIndirect(desired.TruststorePassword) {
-		c.Config.Logger.Infof("desired TruststorePassword %s - but actually nil", dcl.SprintResource(desired.TruststorePassword))
+		c.Config.Logger.Infof("Diff in KeyPassword.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KeyPassword), dcl.SprintResource(actual.KeyPassword))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.TruststorePassword, actual.TruststorePassword) && !dcl.IsZeroValue(desired.TruststorePassword) {
-		c.Config.Logger.Infof("Diff in TruststorePassword. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TruststorePassword), dcl.SprintResource(actual.TruststorePassword))
-		return true
-	}
-	if actual.CrossRealmTrustRealm == nil && desired.CrossRealmTrustRealm != nil && !dcl.IsEmptyValueIndirect(desired.CrossRealmTrustRealm) {
-		c.Config.Logger.Infof("desired CrossRealmTrustRealm %s - but actually nil", dcl.SprintResource(desired.CrossRealmTrustRealm))
+		c.Config.Logger.Infof("Diff in TruststorePassword.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TruststorePassword), dcl.SprintResource(actual.TruststorePassword))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.CrossRealmTrustRealm, actual.CrossRealmTrustRealm) && !dcl.IsZeroValue(desired.CrossRealmTrustRealm) {
-		c.Config.Logger.Infof("Diff in CrossRealmTrustRealm. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossRealmTrustRealm), dcl.SprintResource(actual.CrossRealmTrustRealm))
-		return true
-	}
-	if actual.CrossRealmTrustKdc == nil && desired.CrossRealmTrustKdc != nil && !dcl.IsEmptyValueIndirect(desired.CrossRealmTrustKdc) {
-		c.Config.Logger.Infof("desired CrossRealmTrustKdc %s - but actually nil", dcl.SprintResource(desired.CrossRealmTrustKdc))
+		c.Config.Logger.Infof("Diff in CrossRealmTrustRealm.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossRealmTrustRealm), dcl.SprintResource(actual.CrossRealmTrustRealm))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.CrossRealmTrustKdc, actual.CrossRealmTrustKdc) && !dcl.IsZeroValue(desired.CrossRealmTrustKdc) {
-		c.Config.Logger.Infof("Diff in CrossRealmTrustKdc. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossRealmTrustKdc), dcl.SprintResource(actual.CrossRealmTrustKdc))
-		return true
-	}
-	if actual.CrossRealmTrustAdminServer == nil && desired.CrossRealmTrustAdminServer != nil && !dcl.IsEmptyValueIndirect(desired.CrossRealmTrustAdminServer) {
-		c.Config.Logger.Infof("desired CrossRealmTrustAdminServer %s - but actually nil", dcl.SprintResource(desired.CrossRealmTrustAdminServer))
+		c.Config.Logger.Infof("Diff in CrossRealmTrustKdc.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossRealmTrustKdc), dcl.SprintResource(actual.CrossRealmTrustKdc))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.CrossRealmTrustAdminServer, actual.CrossRealmTrustAdminServer) && !dcl.IsZeroValue(desired.CrossRealmTrustAdminServer) {
-		c.Config.Logger.Infof("Diff in CrossRealmTrustAdminServer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossRealmTrustAdminServer), dcl.SprintResource(actual.CrossRealmTrustAdminServer))
-		return true
-	}
-	if actual.CrossRealmTrustSharedPassword == nil && desired.CrossRealmTrustSharedPassword != nil && !dcl.IsEmptyValueIndirect(desired.CrossRealmTrustSharedPassword) {
-		c.Config.Logger.Infof("desired CrossRealmTrustSharedPassword %s - but actually nil", dcl.SprintResource(desired.CrossRealmTrustSharedPassword))
+		c.Config.Logger.Infof("Diff in CrossRealmTrustAdminServer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossRealmTrustAdminServer), dcl.SprintResource(actual.CrossRealmTrustAdminServer))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.CrossRealmTrustSharedPassword, actual.CrossRealmTrustSharedPassword) && !dcl.IsZeroValue(desired.CrossRealmTrustSharedPassword) {
-		c.Config.Logger.Infof("Diff in CrossRealmTrustSharedPassword. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossRealmTrustSharedPassword), dcl.SprintResource(actual.CrossRealmTrustSharedPassword))
-		return true
-	}
-	if actual.KdcDbKey == nil && desired.KdcDbKey != nil && !dcl.IsEmptyValueIndirect(desired.KdcDbKey) {
-		c.Config.Logger.Infof("desired KdcDbKey %s - but actually nil", dcl.SprintResource(desired.KdcDbKey))
+		c.Config.Logger.Infof("Diff in CrossRealmTrustSharedPassword.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossRealmTrustSharedPassword), dcl.SprintResource(actual.CrossRealmTrustSharedPassword))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.KdcDbKey, actual.KdcDbKey) && !dcl.IsZeroValue(desired.KdcDbKey) {
-		c.Config.Logger.Infof("Diff in KdcDbKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KdcDbKey), dcl.SprintResource(actual.KdcDbKey))
-		return true
-	}
-	if actual.TgtLifetimeHours == nil && desired.TgtLifetimeHours != nil && !dcl.IsEmptyValueIndirect(desired.TgtLifetimeHours) {
-		c.Config.Logger.Infof("desired TgtLifetimeHours %s - but actually nil", dcl.SprintResource(desired.TgtLifetimeHours))
+		c.Config.Logger.Infof("Diff in KdcDbKey.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KdcDbKey), dcl.SprintResource(actual.KdcDbKey))
 		return true
 	}
 	if !reflect.DeepEqual(desired.TgtLifetimeHours, actual.TgtLifetimeHours) && !dcl.IsZeroValue(desired.TgtLifetimeHours) {
-		c.Config.Logger.Infof("Diff in TgtLifetimeHours. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TgtLifetimeHours), dcl.SprintResource(actual.TgtLifetimeHours))
-		return true
-	}
-	if actual.Realm == nil && desired.Realm != nil && !dcl.IsEmptyValueIndirect(desired.Realm) {
-		c.Config.Logger.Infof("desired Realm %s - but actually nil", dcl.SprintResource(desired.Realm))
+		c.Config.Logger.Infof("Diff in TgtLifetimeHours.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TgtLifetimeHours), dcl.SprintResource(actual.TgtLifetimeHours))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Realm, actual.Realm) && !dcl.IsZeroValue(desired.Realm) {
-		c.Config.Logger.Infof("Diff in Realm. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Realm), dcl.SprintResource(actual.Realm))
+		c.Config.Logger.Infof("Diff in Realm.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Realm), dcl.SprintResource(actual.Realm))
 		return true
 	}
 	return false
@@ -3525,7 +3257,7 @@ func compareClusterClusterConfigSecurityConfigKerberosConfigSlice(c *Client, des
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigSecurityConfigKerberosConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigSecurityConfigKerberosConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigSecurityConfigKerberosConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3544,7 +3276,7 @@ func compareClusterClusterConfigSecurityConfigKerberosConfigMap(c *Client, desir
 			return true
 		}
 		if compareClusterClusterConfigSecurityConfigKerberosConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigSecurityConfigKerberosConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigSecurityConfigKerberosConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3558,28 +3290,16 @@ func compareClusterClusterConfigLifecycleConfig(c *Client, desired, actual *Clus
 	if actual == nil {
 		return true
 	}
-	if actual.IdleDeleteTtl == nil && desired.IdleDeleteTtl != nil && !dcl.IsEmptyValueIndirect(desired.IdleDeleteTtl) {
-		c.Config.Logger.Infof("desired IdleDeleteTtl %s - but actually nil", dcl.SprintResource(desired.IdleDeleteTtl))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.IdleDeleteTtl, actual.IdleDeleteTtl) && !dcl.IsZeroValue(desired.IdleDeleteTtl) {
-		c.Config.Logger.Infof("Diff in IdleDeleteTtl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IdleDeleteTtl), dcl.SprintResource(actual.IdleDeleteTtl))
-		return true
-	}
-	if actual.AutoDeleteTime == nil && desired.AutoDeleteTime != nil && !dcl.IsEmptyValueIndirect(desired.AutoDeleteTime) {
-		c.Config.Logger.Infof("desired AutoDeleteTime %s - but actually nil", dcl.SprintResource(desired.AutoDeleteTime))
+		c.Config.Logger.Infof("Diff in IdleDeleteTtl.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IdleDeleteTtl), dcl.SprintResource(actual.IdleDeleteTtl))
 		return true
 	}
 	if !reflect.DeepEqual(desired.AutoDeleteTime, actual.AutoDeleteTime) && !dcl.IsZeroValue(desired.AutoDeleteTime) {
-		c.Config.Logger.Infof("Diff in AutoDeleteTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoDeleteTime), dcl.SprintResource(actual.AutoDeleteTime))
-		return true
-	}
-	if actual.AutoDeleteTtl == nil && desired.AutoDeleteTtl != nil && !dcl.IsEmptyValueIndirect(desired.AutoDeleteTtl) {
-		c.Config.Logger.Infof("desired AutoDeleteTtl %s - but actually nil", dcl.SprintResource(desired.AutoDeleteTtl))
+		c.Config.Logger.Infof("Diff in AutoDeleteTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoDeleteTime), dcl.SprintResource(actual.AutoDeleteTime))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.AutoDeleteTtl, actual.AutoDeleteTtl) && !dcl.IsZeroValue(desired.AutoDeleteTtl) {
-		c.Config.Logger.Infof("Diff in AutoDeleteTtl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoDeleteTtl), dcl.SprintResource(actual.AutoDeleteTtl))
+		c.Config.Logger.Infof("Diff in AutoDeleteTtl.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AutoDeleteTtl), dcl.SprintResource(actual.AutoDeleteTtl))
 		return true
 	}
 	return false
@@ -3592,7 +3312,7 @@ func compareClusterClusterConfigLifecycleConfigSlice(c *Client, desired, actual 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigLifecycleConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigLifecycleConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigLifecycleConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3611,7 +3331,7 @@ func compareClusterClusterConfigLifecycleConfigMap(c *Client, desired, actual ma
 			return true
 		}
 		if compareClusterClusterConfigLifecycleConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigLifecycleConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigLifecycleConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3625,12 +3345,8 @@ func compareClusterClusterConfigEndpointConfig(c *Client, desired, actual *Clust
 	if actual == nil {
 		return true
 	}
-	if actual.EnableHttpPortAccess == nil && desired.EnableHttpPortAccess != nil && !dcl.IsEmptyValueIndirect(desired.EnableHttpPortAccess) {
-		c.Config.Logger.Infof("desired EnableHttpPortAccess %s - but actually nil", dcl.SprintResource(desired.EnableHttpPortAccess))
-		return true
-	}
 	if !dcl.BoolCanonicalize(desired.EnableHttpPortAccess, actual.EnableHttpPortAccess) && !dcl.IsZeroValue(desired.EnableHttpPortAccess) {
-		c.Config.Logger.Infof("Diff in EnableHttpPortAccess. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableHttpPortAccess), dcl.SprintResource(actual.EnableHttpPortAccess))
+		c.Config.Logger.Infof("Diff in EnableHttpPortAccess.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableHttpPortAccess), dcl.SprintResource(actual.EnableHttpPortAccess))
 		return true
 	}
 	return false
@@ -3643,7 +3359,7 @@ func compareClusterClusterConfigEndpointConfigSlice(c *Client, desired, actual [
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigEndpointConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigEndpointConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigEndpointConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3662,7 +3378,7 @@ func compareClusterClusterConfigEndpointConfigMap(c *Client, desired, actual map
 			return true
 		}
 		if compareClusterClusterConfigEndpointConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigEndpointConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigEndpointConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3686,7 +3402,7 @@ func compareClusterStatusSlice(c *Client, desired, actual []ClusterStatus) bool 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterStatus(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterStatus, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterStatus, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3705,7 +3421,7 @@ func compareClusterStatusMap(c *Client, desired, actual map[string]ClusterStatus
 			return true
 		}
 		if compareClusterStatus(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterStatus, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterStatus, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3729,7 +3445,7 @@ func compareClusterStatusHistorySlice(c *Client, desired, actual []ClusterStatus
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterStatusHistory(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterStatusHistory, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterStatusHistory, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3748,7 +3464,7 @@ func compareClusterStatusHistoryMap(c *Client, desired, actual map[string]Cluste
 			return true
 		}
 		if compareClusterStatusHistory(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterStatusHistory, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterStatusHistory, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3762,20 +3478,12 @@ func compareClusterMetrics(c *Client, desired, actual *ClusterMetrics) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.HdfsMetrics == nil && desired.HdfsMetrics != nil && !dcl.IsEmptyValueIndirect(desired.HdfsMetrics) {
-		c.Config.Logger.Infof("desired HdfsMetrics %s - but actually nil", dcl.SprintResource(desired.HdfsMetrics))
-		return true
-	}
 	if !dcl.MapEquals(desired.HdfsMetrics, actual.HdfsMetrics, []string(nil)) && !dcl.IsZeroValue(desired.HdfsMetrics) {
-		c.Config.Logger.Infof("Diff in HdfsMetrics. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HdfsMetrics), dcl.SprintResource(actual.HdfsMetrics))
-		return true
-	}
-	if actual.YarnMetrics == nil && desired.YarnMetrics != nil && !dcl.IsEmptyValueIndirect(desired.YarnMetrics) {
-		c.Config.Logger.Infof("desired YarnMetrics %s - but actually nil", dcl.SprintResource(desired.YarnMetrics))
+		c.Config.Logger.Infof("Diff in HdfsMetrics.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HdfsMetrics), dcl.SprintResource(actual.HdfsMetrics))
 		return true
 	}
 	if !dcl.MapEquals(desired.YarnMetrics, actual.YarnMetrics, []string(nil)) && !dcl.IsZeroValue(desired.YarnMetrics) {
-		c.Config.Logger.Infof("Diff in YarnMetrics. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YarnMetrics), dcl.SprintResource(actual.YarnMetrics))
+		c.Config.Logger.Infof("Diff in YarnMetrics.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YarnMetrics), dcl.SprintResource(actual.YarnMetrics))
 		return true
 	}
 	return false
@@ -3788,7 +3496,7 @@ func compareClusterMetricsSlice(c *Client, desired, actual []ClusterMetrics) boo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterMetrics(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterMetrics, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterMetrics, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3807,7 +3515,7 @@ func compareClusterMetricsMap(c *Client, desired, actual map[string]ClusterMetri
 			return true
 		}
 		if compareClusterMetrics(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ClusterMetrics, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ClusterMetrics, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3821,7 +3529,7 @@ func compareClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumSlice
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3839,7 +3547,7 @@ func compareClusterClusterConfigGceClusterConfigReservationAffinityConsumeReserv
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3857,7 +3565,7 @@ func compareClusterInstanceGroupConfigPreemptibilityEnumSlice(c *Client, desired
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterInstanceGroupConfigPreemptibilityEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigPreemptibilityEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterInstanceGroupConfigPreemptibilityEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3875,7 +3583,7 @@ func compareClusterClusterConfigSoftwareConfigOptionalComponentsEnumSlice(c *Cli
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterClusterConfigSoftwareConfigOptionalComponentsEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterClusterConfigSoftwareConfigOptionalComponentsEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterClusterConfigSoftwareConfigOptionalComponentsEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3893,7 +3601,7 @@ func compareClusterStatusStateEnumSlice(c *Client, desired, actual []ClusterStat
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterStatusStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterStatusStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterStatusStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3911,7 +3619,7 @@ func compareClusterStatusSubstateEnumSlice(c *Client, desired, actual []ClusterS
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterStatusSubstateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterStatusSubstateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterStatusSubstateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3929,7 +3637,7 @@ func compareClusterStatusHistoryStateEnumSlice(c *Client, desired, actual []Clus
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterStatusHistoryStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterStatusHistoryStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterStatusHistoryStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3947,7 +3655,7 @@ func compareClusterStatusHistorySubstateEnumSlice(c *Client, desired, actual []C
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareClusterStatusHistorySubstateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ClusterStatusHistorySubstateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ClusterStatusHistorySubstateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3962,7 +3670,7 @@ func compareClusterStatusHistorySubstateEnum(c *Client, desired, actual *Cluster
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Cluster) urlNormalized() *Cluster {
-	normalized := deepcopy.Copy(*r).(Cluster)
+	normalized := dcl.Copy(*r).(Cluster)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.ClusterUuid = dcl.SelfLinkToName(r.ClusterUuid)
@@ -4036,7 +3744,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	}
 	if v, err := expandClusterClusterConfig(c, f.Config); err != nil {
 		return nil, fmt.Errorf("error expanding Config into config: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["config"] = v
 	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
@@ -4044,12 +3752,12 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	}
 	if v, err := expandClusterStatus(c, f.Status); err != nil {
 		return nil, fmt.Errorf("error expanding Status into status: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["status"] = v
 	}
 	if v, err := expandClusterStatusHistorySlice(c, f.StatusHistory); err != nil {
 		return nil, fmt.Errorf("error expanding StatusHistory into statusHistory: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["statusHistory"] = v
 	}
 	if v := f.ClusterUuid; !dcl.IsEmptyValueIndirect(v) {
@@ -4057,12 +3765,12 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	}
 	if v, err := expandClusterMetrics(c, f.Metrics); err != nil {
 		return nil, fmt.Errorf("error expanding Metrics into metrics: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["metrics"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 
@@ -4178,11 +3886,10 @@ func flattenClusterClusterConfigSlice(c *Client, i interface{}) []ClusterCluster
 // expandClusterClusterConfig expands an instance of ClusterClusterConfig into a JSON
 // request object.
 func expandClusterClusterConfig(c *Client, f *ClusterClusterConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.StagingBucket; !dcl.IsEmptyValueIndirect(v) {
 		m["configBucket"] = v
 	}
@@ -4358,11 +4065,10 @@ func flattenClusterClusterConfigGceClusterConfigSlice(c *Client, i interface{}) 
 // expandClusterClusterConfigGceClusterConfig expands an instance of ClusterClusterConfigGceClusterConfig into a JSON
 // request object.
 func expandClusterClusterConfigGceClusterConfig(c *Client, f *ClusterClusterConfigGceClusterConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Zone; !dcl.IsEmptyValueIndirect(v) {
 		m["zoneUri"] = v
 	}
@@ -4512,11 +4218,10 @@ func flattenClusterClusterConfigGceClusterConfigReservationAffinitySlice(c *Clie
 // expandClusterClusterConfigGceClusterConfigReservationAffinity expands an instance of ClusterClusterConfigGceClusterConfigReservationAffinity into a JSON
 // request object.
 func expandClusterClusterConfigGceClusterConfigReservationAffinity(c *Client, f *ClusterClusterConfigGceClusterConfigReservationAffinity) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ConsumeReservationType; !dcl.IsEmptyValueIndirect(v) {
 		m["consumeReservationType"] = v
 	}
@@ -4630,11 +4335,10 @@ func flattenClusterClusterConfigGceClusterConfigNodeGroupAffinitySlice(c *Client
 // expandClusterClusterConfigGceClusterConfigNodeGroupAffinity expands an instance of ClusterClusterConfigGceClusterConfigNodeGroupAffinity into a JSON
 // request object.
 func expandClusterClusterConfigGceClusterConfigNodeGroupAffinity(c *Client, f *ClusterClusterConfigGceClusterConfigNodeGroupAffinity) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NodeGroup; !dcl.IsEmptyValueIndirect(v) {
 		m["nodeGroupUri"] = v
 	}
@@ -4740,11 +4444,10 @@ func flattenClusterInstanceGroupConfigSlice(c *Client, i interface{}) []ClusterI
 // expandClusterInstanceGroupConfig expands an instance of ClusterInstanceGroupConfig into a JSON
 // request object.
 func expandClusterInstanceGroupConfig(c *Client, f *ClusterInstanceGroupConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumInstances; !dcl.IsEmptyValueIndirect(v) {
 		m["numInstances"] = v
 	}
@@ -4892,11 +4595,10 @@ func flattenClusterInstanceGroupConfigDiskConfigSlice(c *Client, i interface{}) 
 // expandClusterInstanceGroupConfigDiskConfig expands an instance of ClusterInstanceGroupConfigDiskConfig into a JSON
 // request object.
 func expandClusterInstanceGroupConfigDiskConfig(c *Client, f *ClusterInstanceGroupConfigDiskConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.BootDiskType; !dcl.IsEmptyValueIndirect(v) {
 		m["bootDiskType"] = v
 	}
@@ -5010,11 +4712,10 @@ func flattenClusterInstanceGroupConfigManagedGroupConfigSlice(c *Client, i inter
 // expandClusterInstanceGroupConfigManagedGroupConfig expands an instance of ClusterInstanceGroupConfigManagedGroupConfig into a JSON
 // request object.
 func expandClusterInstanceGroupConfigManagedGroupConfig(c *Client, f *ClusterInstanceGroupConfigManagedGroupConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.InstanceTemplateName; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceTemplateName"] = v
 	}
@@ -5124,11 +4825,10 @@ func flattenClusterInstanceGroupConfigAcceleratorsSlice(c *Client, i interface{}
 // expandClusterInstanceGroupConfigAccelerators expands an instance of ClusterInstanceGroupConfigAccelerators into a JSON
 // request object.
 func expandClusterInstanceGroupConfigAccelerators(c *Client, f *ClusterInstanceGroupConfigAccelerators) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AcceleratorType; !dcl.IsEmptyValueIndirect(v) {
 		m["acceleratorTypeUri"] = v
 	}
@@ -5238,11 +4938,10 @@ func flattenClusterClusterConfigSoftwareConfigSlice(c *Client, i interface{}) []
 // expandClusterClusterConfigSoftwareConfig expands an instance of ClusterClusterConfigSoftwareConfig into a JSON
 // request object.
 func expandClusterClusterConfigSoftwareConfig(c *Client, f *ClusterClusterConfigSoftwareConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ImageVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["imageVersion"] = v
 	}
@@ -5356,11 +5055,10 @@ func flattenClusterClusterConfigInitializationActionsSlice(c *Client, i interfac
 // expandClusterClusterConfigInitializationActions expands an instance of ClusterClusterConfigInitializationActions into a JSON
 // request object.
 func expandClusterClusterConfigInitializationActions(c *Client, f *ClusterClusterConfigInitializationActions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ExecutableFile; !dcl.IsEmptyValueIndirect(v) {
 		m["executableFile"] = v
 	}
@@ -5470,11 +5168,10 @@ func flattenClusterClusterConfigEncryptionConfigSlice(c *Client, i interface{}) 
 // expandClusterClusterConfigEncryptionConfig expands an instance of ClusterClusterConfigEncryptionConfig into a JSON
 // request object.
 func expandClusterClusterConfigEncryptionConfig(c *Client, f *ClusterClusterConfigEncryptionConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.GcePdKmsKeyName; !dcl.IsEmptyValueIndirect(v) {
 		m["gcePdKmsKeyName"] = v
 	}
@@ -5580,11 +5277,10 @@ func flattenClusterClusterConfigAutoscalingConfigSlice(c *Client, i interface{})
 // expandClusterClusterConfigAutoscalingConfig expands an instance of ClusterClusterConfigAutoscalingConfig into a JSON
 // request object.
 func expandClusterClusterConfigAutoscalingConfig(c *Client, f *ClusterClusterConfigAutoscalingConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Policy; !dcl.IsEmptyValueIndirect(v) {
 		m["policyUri"] = v
 	}
@@ -5690,11 +5386,10 @@ func flattenClusterClusterConfigSecurityConfigSlice(c *Client, i interface{}) []
 // expandClusterClusterConfigSecurityConfig expands an instance of ClusterClusterConfigSecurityConfig into a JSON
 // request object.
 func expandClusterClusterConfigSecurityConfig(c *Client, f *ClusterClusterConfigSecurityConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandClusterClusterConfigSecurityConfigKerberosConfig(c, f.KerberosConfig); err != nil {
 		return nil, fmt.Errorf("error expanding KerberosConfig into kerberosConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -5802,11 +5497,10 @@ func flattenClusterClusterConfigSecurityConfigKerberosConfigSlice(c *Client, i i
 // expandClusterClusterConfigSecurityConfigKerberosConfig expands an instance of ClusterClusterConfigSecurityConfigKerberosConfig into a JSON
 // request object.
 func expandClusterClusterConfigSecurityConfigKerberosConfig(c *Client, f *ClusterClusterConfigSecurityConfigKerberosConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.EnableKerberos; !dcl.IsEmptyValueIndirect(v) {
 		m["enableKerberos"] = v
 	}
@@ -5968,11 +5662,10 @@ func flattenClusterClusterConfigLifecycleConfigSlice(c *Client, i interface{}) [
 // expandClusterClusterConfigLifecycleConfig expands an instance of ClusterClusterConfigLifecycleConfig into a JSON
 // request object.
 func expandClusterClusterConfigLifecycleConfig(c *Client, f *ClusterClusterConfigLifecycleConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.IdleDeleteTtl; !dcl.IsEmptyValueIndirect(v) {
 		m["idleDeleteTtl"] = v
 	}
@@ -6090,11 +5783,10 @@ func flattenClusterClusterConfigEndpointConfigSlice(c *Client, i interface{}) []
 // expandClusterClusterConfigEndpointConfig expands an instance of ClusterClusterConfigEndpointConfig into a JSON
 // request object.
 func expandClusterClusterConfigEndpointConfig(c *Client, f *ClusterClusterConfigEndpointConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HttpPorts; !dcl.IsEmptyValueIndirect(v) {
 		m["httpPorts"] = v
 	}
@@ -6204,11 +5896,10 @@ func flattenClusterStatusSlice(c *Client, i interface{}) []ClusterStatus {
 // expandClusterStatus expands an instance of ClusterStatus into a JSON
 // request object.
 func expandClusterStatus(c *Client, f *ClusterStatus) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
 		m["state"] = v
 	}
@@ -6326,11 +6017,10 @@ func flattenClusterStatusHistorySlice(c *Client, i interface{}) []ClusterStatusH
 // expandClusterStatusHistory expands an instance of ClusterStatusHistory into a JSON
 // request object.
 func expandClusterStatusHistory(c *Client, f *ClusterStatusHistory) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
 		m["state"] = v
 	}
@@ -6448,11 +6138,10 @@ func flattenClusterMetricsSlice(c *Client, i interface{}) []ClusterMetrics {
 // expandClusterMetrics expands an instance of ClusterMetrics into a JSON
 // request object.
 func expandClusterMetrics(c *Client, f *ClusterMetrics) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HdfsMetrics; !dcl.IsEmptyValueIndirect(v) {
 		m["hdfsMetrics"] = v
 	}

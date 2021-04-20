@@ -1,6 +1,20 @@
 {
-  "project": "{{project}}",
   "type": "custom.googleapis.com/{{suffix}}",
+  "project": "{{project}}",
   "metricKind": "CUMULATIVE",
-  "valueType": "DOUBLE"
+  "valueType": "DISTRIBUTION",
+  "unit": "1",
+  "descriptorLabels": [
+    {
+      "key": "mass",
+      "valueType": "STRING",
+      "description": "amount of matter"
+    },
+    {
+      "key": "sku",
+      "valueType": "INT64",
+      "description": "Identifying number for item"
+    }
+  ],
+  "displayName": "Sample metric"
 }

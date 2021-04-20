@@ -19,11 +19,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -595,6 +593,7 @@ type httpsHealthCheckDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         httpsHealthCheckApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -613,178 +612,106 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 
 	var diffs []httpsHealthCheckDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.CheckIntervalSec, actual.CheckIntervalSec, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CheckIntervalSec, actual.CheckIntervalSec, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "check_interval_sec"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "CheckIntervalSec",
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "Description",
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.HealthyThreshold, actual.HealthyThreshold, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.HealthyThreshold, actual.HealthyThreshold, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "healthy_threshold"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "HealthyThreshold",
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Host, actual.Host, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "host"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "Host",
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpsHealthCheckDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, httpsHealthCheckDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Port, actual.Port, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "Port",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.RequestPath, actual.RequestPath, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "port"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "RequestPath",
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.TimeoutSec, actual.TimeoutSec, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.RequestPath, actual.RequestPath, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "request_path"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "TimeoutSec",
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.UnhealthyThreshold, actual.UnhealthyThreshold, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.TimeoutSec, actual.TimeoutSec, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "timeout_sec"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, FieldName: "UnhealthyThreshold",
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.UnhealthyThreshold, actual.UnhealthyThreshold, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "unhealthy_threshold"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpsHealthCheckDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, httpsHealthCheckDiff{
+			UpdateOp: &updateHttpsHealthCheckUpdateOperation{}, Diffs: ds,
+		})
 	}
 
-	if d, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpsHealthCheckDiff{RequiresRecreate: true, FieldName: "CreationTimestamp"})
+		diffs = append(diffs, httpsHealthCheckDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !reflect.DeepEqual(desired.CheckIntervalSec, actual.CheckIntervalSec) {
-		c.Config.Logger.Infof("Detected diff in CheckIntervalSec.\nDESIRED: %v\nACTUAL: %v", desired.CheckIntervalSec, actual.CheckIntervalSec)
-
-		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
-			FieldName: "CheckIntervalSec",
-		})
-
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpsHealthCheckDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
-		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
-			FieldName: "Description",
-		})
-
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "creation_timestamp"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, httpsHealthCheckDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.HealthyThreshold, actual.HealthyThreshold) {
-		c.Config.Logger.Infof("Detected diff in HealthyThreshold.\nDESIRED: %v\nACTUAL: %v", desired.HealthyThreshold, actual.HealthyThreshold)
 
-		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
-			FieldName: "HealthyThreshold",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Host) && !dcl.StringCanonicalize(desired.Host, actual.Host) {
-		c.Config.Logger.Infof("Detected diff in Host.\nDESIRED: %v\nACTUAL: %v", desired.Host, actual.Host)
-
-		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
-			FieldName: "Host",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, httpsHealthCheckDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) {
-		c.Config.Logger.Infof("Detected diff in Port.\nDESIRED: %v\nACTUAL: %v", desired.Port, actual.Port)
-
-		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
-			FieldName: "Port",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.RequestPath) && !dcl.StringCanonicalize(desired.RequestPath, actual.RequestPath) {
-		c.Config.Logger.Infof("Detected diff in RequestPath.\nDESIRED: %v\nACTUAL: %v", desired.RequestPath, actual.RequestPath)
-
-		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
-			FieldName: "RequestPath",
-		})
-
-	}
-	if !reflect.DeepEqual(desired.TimeoutSec, actual.TimeoutSec) {
-		c.Config.Logger.Infof("Detected diff in TimeoutSec.\nDESIRED: %v\nACTUAL: %v", desired.TimeoutSec, actual.TimeoutSec)
-
-		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
-			FieldName: "TimeoutSec",
-		})
-
-	}
-	if !reflect.DeepEqual(desired.UnhealthyThreshold, actual.UnhealthyThreshold) {
-		c.Config.Logger.Infof("Detected diff in UnhealthyThreshold.\nDESIRED: %v\nACTUAL: %v", desired.UnhealthyThreshold, actual.UnhealthyThreshold)
-
-		diffs = append(diffs, httpsHealthCheckDiff{
-			UpdateOp:  &updateHttpsHealthCheckUpdateOperation{},
-			FieldName: "UnhealthyThreshold",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -814,7 +741,7 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *HttpsHealthCheck) urlNormalized() *HttpsHealthCheck {
-	normalized := deepcopy.Copy(*r).(HttpsHealthCheck)
+	normalized := dcl.Copy(*r).(HttpsHealthCheck)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Host = dcl.SelfLinkToName(r.Host)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
@@ -911,7 +838,7 @@ func expandHttpsHealthCheck(c *Client, f *HttpsHealthCheck) (map[string]interfac
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {

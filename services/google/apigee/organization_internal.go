@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -592,7 +591,7 @@ func canonicalizeNewOrganizationProperties(c *Client, des, nw *OrganizationPrope
 		return nw
 	}
 
-	nw.Property = canonicalizeNewOrganizationPropertiesPropertySlice(c, des.Property, nw.Property)
+	nw.Property = canonicalizeNewOrganizationPropertiesPropertySet(c, des.Property, nw.Property)
 
 	return nw
 }
@@ -724,6 +723,7 @@ type organizationDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         organizationApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -742,105 +742,122 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 
 	var diffs []organizationDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, organizationDiff{
-			UpdateOp: &updateOrganizationUpdateOrganizationOperation{}, FieldName: "DisplayName",
+			UpdateOp: &updateOrganizationUpdateOrganizationOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, organizationDiff{
-			UpdateOp: &updateOrganizationUpdateOrganizationOperation{}, FieldName: "Description",
+			UpdateOp: &updateOrganizationUpdateOrganizationOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.CreatedAt, actual.CreatedAt, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreatedAt, actual.CreatedAt, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "created_at"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "CreatedAt"})
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.LastModifiedAt, actual.LastModifiedAt, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.LastModifiedAt, actual.LastModifiedAt, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "last_modified_at"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "LastModifiedAt"})
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.ExpiresAt, actual.ExpiresAt, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ExpiresAt, actual.ExpiresAt, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "expires_at"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "ExpiresAt"})
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.AnalyticsRegion, actual.AnalyticsRegion, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Environments, actual.Environments, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "environments"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "AnalyticsRegion"})
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.AuthorizedNetwork, actual.AuthorizedNetwork, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.AnalyticsRegion, actual.AnalyticsRegion, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "analytics_region"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "AuthorizedNetwork"})
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.CaCertificate, actual.CaCertificate, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.AuthorizedNetwork, actual.AuthorizedNetwork, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "authorized_network"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "CaCertificate"})
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.RuntimeDatabaseEncryptionKeyName, actual.RuntimeDatabaseEncryptionKeyName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.RuntimeType, actual.RuntimeType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "runtime_type"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "RuntimeDatabaseEncryptionKeyName"})
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.ProjectId, actual.ProjectId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SubscriptionType, actual.SubscriptionType, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "subscription_type"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, FieldName: "ProjectId"})
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, organizationDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
+	if ds, err := dcl.Diff(desired.BillingType, actual.BillingType, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "billing_type"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
-		diffs = append(diffs, organizationDiff{
-			UpdateOp:  &updateOrganizationUpdateOrganizationOperation{},
-			FieldName: "DisplayName",
-		})
-
+	if ds, err := dcl.Diff(desired.CaCertificate, actual.CaCertificate, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ca_certificate"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
-		diffs = append(diffs, organizationDiff{
-			UpdateOp:  &updateOrganizationUpdateOrganizationOperation{},
-			FieldName: "Description",
-		})
-
+	if ds, err := dcl.Diff(desired.RuntimeDatabaseEncryptionKeyName, actual.RuntimeDatabaseEncryptionKeyName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "runtime_database_encryption_key_name"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
+	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project_id"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "parent"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareOrganizationProperties(c, desired.Properties, actual.Properties) {
 		c.Config.Logger.Infof("Detected diff in Properties.\nDESIRED: %v\nACTUAL: %v", desired.Properties, actual.Properties)
 
@@ -849,34 +866,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			FieldName: "Properties",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.AnalyticsRegion) && !dcl.StringCanonicalize(desired.AnalyticsRegion, actual.AnalyticsRegion) {
-		c.Config.Logger.Infof("Detected diff in AnalyticsRegion.\nDESIRED: %v\nACTUAL: %v", desired.AnalyticsRegion, actual.AnalyticsRegion)
-		diffs = append(diffs, organizationDiff{
-			RequiresRecreate: true,
-			FieldName:        "AnalyticsRegion",
-		})
-	}
-	if !dcl.IsZeroValue(desired.AuthorizedNetwork) && !dcl.StringCanonicalize(desired.AuthorizedNetwork, actual.AuthorizedNetwork) {
-		c.Config.Logger.Infof("Detected diff in AuthorizedNetwork.\nDESIRED: %v\nACTUAL: %v", desired.AuthorizedNetwork, actual.AuthorizedNetwork)
-		diffs = append(diffs, organizationDiff{
-			RequiresRecreate: true,
-			FieldName:        "AuthorizedNetwork",
-		})
-	}
-	if !reflect.DeepEqual(desired.RuntimeType, actual.RuntimeType) {
-		c.Config.Logger.Infof("Detected diff in RuntimeType.\nDESIRED: %v\nACTUAL: %v", desired.RuntimeType, actual.RuntimeType)
-		diffs = append(diffs, organizationDiff{
-			RequiresRecreate: true,
-			FieldName:        "RuntimeType",
-		})
-	}
-	if !dcl.IsZeroValue(desired.RuntimeDatabaseEncryptionKeyName) && !dcl.StringCanonicalize(desired.RuntimeDatabaseEncryptionKeyName, actual.RuntimeDatabaseEncryptionKeyName) {
-		c.Config.Logger.Infof("Detected diff in RuntimeDatabaseEncryptionKeyName.\nDESIRED: %v\nACTUAL: %v", desired.RuntimeDatabaseEncryptionKeyName, actual.RuntimeDatabaseEncryptionKeyName)
-		diffs = append(diffs, organizationDiff{
-			RequiresRecreate: true,
-			FieldName:        "RuntimeDatabaseEncryptionKeyName",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -909,15 +898,47 @@ func compareOrganizationProperties(c *Client, desired, actual *OrganizationPrope
 	if actual == nil {
 		return true
 	}
-	if actual.Property == nil && desired.Property != nil && !dcl.IsEmptyValueIndirect(desired.Property) {
-		c.Config.Logger.Infof("desired Property %s - but actually nil", dcl.SprintResource(desired.Property))
-		return true
-	}
-	if compareOrganizationPropertiesPropertySlice(c, desired.Property, actual.Property) && !dcl.IsZeroValue(desired.Property) {
-		c.Config.Logger.Infof("Diff in Property. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Property), dcl.SprintResource(actual.Property))
+	if toAdd, toRemove := compareOrganizationPropertiesPropertySets(c, desired.Property, actual.Property); len(toAdd)+len(toRemove) > 0 {
+		c.Config.Logger.Infof("Diff in Property.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Property), dcl.SprintResource(actual.Property))
 		return true
 	}
 	return false
+}
+
+func compareOrganizationPropertiesPropertySets(c *Client, desired, actual []OrganizationPropertiesProperty) (toAdd, toRemove []OrganizationPropertiesProperty) {
+	if actual == nil {
+		return desired, nil
+	}
+	toAdd = make([]OrganizationPropertiesProperty, 0)
+	toRemove = make([]OrganizationPropertiesProperty, 0)
+
+	for _, act := range actual {
+		found := false
+		for _, des := range desired {
+			if !compareOrganizationPropertiesProperty(c, &des, &act) {
+				found = true
+				break
+			}
+		}
+		if !found {
+			toRemove = append(toRemove, act)
+		}
+	}
+
+	for _, des := range desired {
+		found := false
+		for _, act := range actual {
+			if !compareOrganizationPropertiesProperty(c, &des, &act) {
+				found = true
+				break
+			}
+		}
+		if !found {
+			toAdd = append(toAdd, des)
+		}
+	}
+
+	return toAdd, toRemove
 }
 
 func compareOrganizationPropertiesSlice(c *Client, desired, actual []OrganizationProperties) bool {
@@ -927,7 +948,7 @@ func compareOrganizationPropertiesSlice(c *Client, desired, actual []Organizatio
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareOrganizationProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in OrganizationProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in OrganizationProperties, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -946,7 +967,7 @@ func compareOrganizationPropertiesMap(c *Client, desired, actual map[string]Orga
 			return true
 		}
 		if compareOrganizationProperties(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in OrganizationProperties, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in OrganizationProperties, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -960,20 +981,12 @@ func compareOrganizationPropertiesProperty(c *Client, desired, actual *Organizat
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
+		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -986,7 +999,7 @@ func compareOrganizationPropertiesPropertySlice(c *Client, desired, actual []Org
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareOrganizationPropertiesProperty(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in OrganizationPropertiesProperty, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in OrganizationPropertiesProperty, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1005,7 +1018,7 @@ func compareOrganizationPropertiesPropertyMap(c *Client, desired, actual map[str
 			return true
 		}
 		if compareOrganizationPropertiesProperty(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in OrganizationPropertiesProperty, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in OrganizationPropertiesProperty, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1019,7 +1032,7 @@ func compareOrganizationRuntimeTypeEnumSlice(c *Client, desired, actual []Organi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareOrganizationRuntimeTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in OrganizationRuntimeTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in OrganizationRuntimeTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1037,7 +1050,7 @@ func compareOrganizationSubscriptionTypeEnumSlice(c *Client, desired, actual []O
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareOrganizationSubscriptionTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in OrganizationSubscriptionTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in OrganizationSubscriptionTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1055,7 +1068,7 @@ func compareOrganizationBillingTypeEnumSlice(c *Client, desired, actual []Organi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareOrganizationBillingTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in OrganizationBillingTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in OrganizationBillingTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1073,7 +1086,7 @@ func compareOrganizationStateEnumSlice(c *Client, desired, actual []Organization
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareOrganizationStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in OrganizationStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in OrganizationStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1088,7 +1101,7 @@ func compareOrganizationStateEnum(c *Client, desired, actual *OrganizationStateE
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Organization) urlNormalized() *Organization {
-	normalized := deepcopy.Copy(*r).(Organization)
+	normalized := dcl.Copy(*r).(Organization)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
@@ -1159,7 +1172,7 @@ func expandOrganization(c *Client, f *Organization) (map[string]interface{}, err
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("organizations/%s", f.Name, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
@@ -1182,7 +1195,7 @@ func expandOrganization(c *Client, f *Organization) (map[string]interface{}, err
 	}
 	if v, err := expandOrganizationProperties(c, f.Properties); err != nil {
 		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["properties"] = v
 	}
 	if v := f.AnalyticsRegion; !dcl.IsEmptyValueIndirect(v) {
@@ -1214,7 +1227,7 @@ func expandOrganization(c *Client, f *Organization) (map[string]interface{}, err
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["parent"] = v
 	}
 
@@ -1339,11 +1352,10 @@ func flattenOrganizationPropertiesSlice(c *Client, i interface{}) []Organization
 // expandOrganizationProperties expands an instance of OrganizationProperties into a JSON
 // request object.
 func expandOrganizationProperties(c *Client, f *OrganizationProperties) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandOrganizationPropertiesPropertySlice(c, f.Property); err != nil {
 		return nil, fmt.Errorf("error expanding Property into property: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1451,11 +1463,10 @@ func flattenOrganizationPropertiesPropertySlice(c *Client, i interface{}) []Orga
 // expandOrganizationPropertiesProperty expands an instance of OrganizationPropertiesProperty into a JSON
 // request object.
 func expandOrganizationPropertiesProperty(c *Client, f *OrganizationPropertiesProperty) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}

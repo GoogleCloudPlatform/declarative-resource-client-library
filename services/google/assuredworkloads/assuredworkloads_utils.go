@@ -56,3 +56,36 @@ func workloadResourceDeleteURL(userBasePath string, r *Workload, index int) (str
 	}
 	return dcl.URL("projects/{{project}}", "https://cloudresourcemanager.googleapis.com/v1/", userBasePath, params), nil
 }
+
+func (op *updateWorkloadUpdateWorkloadOperation) do(ctx context.Context, r *Workload, c *Client) error {
+	_, err := c.GetWorkload(ctx, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "UpdateWorkload")
+	if err != nil {
+		return err
+	}
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": "workload.displayName,workload.labels"})
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateWorkloadUpdateWorkloadRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.Infof("Created update: %#v", req)
+	body, err := marshalUpdateWorkloadUpdateWorkloadRequest(c, req)
+	if err != nil {
+		return err
+	}
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

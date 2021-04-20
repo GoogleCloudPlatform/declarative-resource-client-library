@@ -133,7 +133,7 @@ components:
                 x-dcl-go-type: OrganizationPropertiesProperty
               type: array
               x-dcl-go-name: Property
-              x-dcl-list-type: list
+              x-dcl-list-type: set
           type: object
           x-dcl-go-name: Properties
           x-dcl-go-type: OrganizationProperties

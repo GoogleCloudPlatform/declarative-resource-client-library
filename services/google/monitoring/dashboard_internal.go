@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -12670,6 +12669,7 @@ type dashboardDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         dashboardApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -12688,24 +12688,29 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 
 	var diffs []dashboardDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dashboardDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, dashboardDiff{
-			UpdateOp: &updateDashboardUpdateOperation{}, FieldName: "DisplayName",
+			UpdateOp: &updateDashboardUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
-
-		diffs = append(diffs, dashboardDiff{
-			UpdateOp:  &updateDashboardUpdateOperation{},
-			FieldName: "DisplayName",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dashboardDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
 	if compareDashboardGridLayout(c, desired.GridLayout, actual.GridLayout) {
 		c.Config.Logger.Infof("Detected diff in GridLayout.\nDESIRED: %v\nACTUAL: %v", desired.GridLayout, actual.GridLayout)
 
@@ -12771,20 +12776,12 @@ func compareDashboardGridLayout(c *Client, desired, actual *DashboardGridLayout)
 	if actual == nil {
 		return true
 	}
-	if actual.Columns == nil && desired.Columns != nil && !dcl.IsEmptyValueIndirect(desired.Columns) {
-		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
-		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
-		return true
-	}
-	if actual.Widgets == nil && desired.Widgets != nil && !dcl.IsEmptyValueIndirect(desired.Widgets) {
-		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
+		c.Config.Logger.Infof("Diff in Columns.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
 		return true
 	}
 	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
-		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
+		c.Config.Logger.Infof("Diff in Widgets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
 		return true
 	}
 	return false
@@ -12797,7 +12794,7 @@ func compareDashboardGridLayoutSlice(c *Client, desired, actual []DashboardGridL
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardGridLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardGridLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardGridLayout, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -12816,7 +12813,7 @@ func compareDashboardGridLayoutMap(c *Client, desired, actual map[string]Dashboa
 			return true
 		}
 		if compareDashboardGridLayout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardGridLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardGridLayout, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12830,20 +12827,12 @@ func compareDashboardMosaicLayout(c *Client, desired, actual *DashboardMosaicLay
 	if actual == nil {
 		return true
 	}
-	if actual.Columns == nil && desired.Columns != nil && !dcl.IsEmptyValueIndirect(desired.Columns) {
-		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
-		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
-		return true
-	}
-	if actual.Tiles == nil && desired.Tiles != nil && !dcl.IsEmptyValueIndirect(desired.Tiles) {
-		c.Config.Logger.Infof("desired Tiles %s - but actually nil", dcl.SprintResource(desired.Tiles))
+		c.Config.Logger.Infof("Diff in Columns.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
 		return true
 	}
 	if compareDashboardMosaicLayoutTilesSlice(c, desired.Tiles, actual.Tiles) && !dcl.IsZeroValue(desired.Tiles) {
-		c.Config.Logger.Infof("Diff in Tiles. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tiles), dcl.SprintResource(actual.Tiles))
+		c.Config.Logger.Infof("Diff in Tiles.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tiles), dcl.SprintResource(actual.Tiles))
 		return true
 	}
 	return false
@@ -12856,7 +12845,7 @@ func compareDashboardMosaicLayoutSlice(c *Client, desired, actual []DashboardMos
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardMosaicLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -12875,7 +12864,7 @@ func compareDashboardMosaicLayoutMap(c *Client, desired, actual map[string]Dashb
 			return true
 		}
 		if compareDashboardMosaicLayout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayout, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12889,44 +12878,24 @@ func compareDashboardMosaicLayoutTiles(c *Client, desired, actual *DashboardMosa
 	if actual == nil {
 		return true
 	}
-	if actual.XPos == nil && desired.XPos != nil && !dcl.IsEmptyValueIndirect(desired.XPos) {
-		c.Config.Logger.Infof("desired XPos %s - but actually nil", dcl.SprintResource(desired.XPos))
-		return true
-	}
 	if !reflect.DeepEqual(desired.XPos, actual.XPos) && !dcl.IsZeroValue(desired.XPos) {
-		c.Config.Logger.Infof("Diff in XPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.XPos), dcl.SprintResource(actual.XPos))
-		return true
-	}
-	if actual.YPos == nil && desired.YPos != nil && !dcl.IsEmptyValueIndirect(desired.YPos) {
-		c.Config.Logger.Infof("desired YPos %s - but actually nil", dcl.SprintResource(desired.YPos))
+		c.Config.Logger.Infof("Diff in XPos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.XPos), dcl.SprintResource(actual.XPos))
 		return true
 	}
 	if !reflect.DeepEqual(desired.YPos, actual.YPos) && !dcl.IsZeroValue(desired.YPos) {
-		c.Config.Logger.Infof("Diff in YPos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YPos), dcl.SprintResource(actual.YPos))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
+		c.Config.Logger.Infof("Diff in YPos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YPos), dcl.SprintResource(actual.YPos))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Height == nil && desired.Height != nil && !dcl.IsEmptyValueIndirect(desired.Height) {
-		c.Config.Logger.Infof("desired Height %s - but actually nil", dcl.SprintResource(desired.Height))
+		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Height, actual.Height) && !dcl.IsZeroValue(desired.Height) {
-		c.Config.Logger.Infof("Diff in Height. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Height), dcl.SprintResource(actual.Height))
-		return true
-	}
-	if actual.Widget == nil && desired.Widget != nil && !dcl.IsEmptyValueIndirect(desired.Widget) {
-		c.Config.Logger.Infof("desired Widget %s - but actually nil", dcl.SprintResource(desired.Widget))
+		c.Config.Logger.Infof("Diff in Height.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Height), dcl.SprintResource(actual.Height))
 		return true
 	}
 	if compareDashboardWidget(c, desired.Widget, actual.Widget) && !dcl.IsZeroValue(desired.Widget) {
-		c.Config.Logger.Infof("Diff in Widget. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widget), dcl.SprintResource(actual.Widget))
+		c.Config.Logger.Infof("Diff in Widget.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widget), dcl.SprintResource(actual.Widget))
 		return true
 	}
 	return false
@@ -12939,7 +12908,7 @@ func compareDashboardMosaicLayoutTilesSlice(c *Client, desired, actual []Dashboa
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardMosaicLayoutTiles(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -12958,7 +12927,7 @@ func compareDashboardMosaicLayoutTilesMap(c *Client, desired, actual map[string]
 			return true
 		}
 		if compareDashboardMosaicLayoutTiles(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardMosaicLayoutTiles, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -12972,12 +12941,8 @@ func compareDashboardRowLayout(c *Client, desired, actual *DashboardRowLayout) b
 	if actual == nil {
 		return true
 	}
-	if actual.Rows == nil && desired.Rows != nil && !dcl.IsEmptyValueIndirect(desired.Rows) {
-		c.Config.Logger.Infof("desired Rows %s - but actually nil", dcl.SprintResource(desired.Rows))
-		return true
-	}
 	if compareDashboardRowLayoutRowsSlice(c, desired.Rows, actual.Rows) && !dcl.IsZeroValue(desired.Rows) {
-		c.Config.Logger.Infof("Diff in Rows. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Rows), dcl.SprintResource(actual.Rows))
+		c.Config.Logger.Infof("Diff in Rows.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Rows), dcl.SprintResource(actual.Rows))
 		return true
 	}
 	return false
@@ -12990,7 +12955,7 @@ func compareDashboardRowLayoutSlice(c *Client, desired, actual []DashboardRowLay
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardRowLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardRowLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardRowLayout, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13009,7 +12974,7 @@ func compareDashboardRowLayoutMap(c *Client, desired, actual map[string]Dashboar
 			return true
 		}
 		if compareDashboardRowLayout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardRowLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardRowLayout, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13023,20 +12988,12 @@ func compareDashboardRowLayoutRows(c *Client, desired, actual *DashboardRowLayou
 	if actual == nil {
 		return true
 	}
-	if actual.Weight == nil && desired.Weight != nil && !dcl.IsEmptyValueIndirect(desired.Weight) {
-		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
-		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
-		return true
-	}
-	if actual.Widgets == nil && desired.Widgets != nil && !dcl.IsEmptyValueIndirect(desired.Widgets) {
-		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
+		c.Config.Logger.Infof("Diff in Weight.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
 		return true
 	}
 	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
-		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
+		c.Config.Logger.Infof("Diff in Widgets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
 		return true
 	}
 	return false
@@ -13049,7 +13006,7 @@ func compareDashboardRowLayoutRowsSlice(c *Client, desired, actual []DashboardRo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardRowLayoutRows(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13068,7 +13025,7 @@ func compareDashboardRowLayoutRowsMap(c *Client, desired, actual map[string]Dash
 			return true
 		}
 		if compareDashboardRowLayoutRows(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardRowLayoutRows, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13082,12 +13039,8 @@ func compareDashboardColumnLayout(c *Client, desired, actual *DashboardColumnLay
 	if actual == nil {
 		return true
 	}
-	if actual.Columns == nil && desired.Columns != nil && !dcl.IsEmptyValueIndirect(desired.Columns) {
-		c.Config.Logger.Infof("desired Columns %s - but actually nil", dcl.SprintResource(desired.Columns))
-		return true
-	}
 	if compareDashboardColumnLayoutColumnsSlice(c, desired.Columns, actual.Columns) && !dcl.IsZeroValue(desired.Columns) {
-		c.Config.Logger.Infof("Diff in Columns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
+		c.Config.Logger.Infof("Diff in Columns.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Columns), dcl.SprintResource(actual.Columns))
 		return true
 	}
 	return false
@@ -13100,7 +13053,7 @@ func compareDashboardColumnLayoutSlice(c *Client, desired, actual []DashboardCol
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardColumnLayout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardColumnLayout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardColumnLayout, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13119,7 +13072,7 @@ func compareDashboardColumnLayoutMap(c *Client, desired, actual map[string]Dashb
 			return true
 		}
 		if compareDashboardColumnLayout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardColumnLayout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardColumnLayout, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13133,20 +13086,12 @@ func compareDashboardColumnLayoutColumns(c *Client, desired, actual *DashboardCo
 	if actual == nil {
 		return true
 	}
-	if actual.Weight == nil && desired.Weight != nil && !dcl.IsEmptyValueIndirect(desired.Weight) {
-		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
-		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
-		return true
-	}
-	if actual.Widgets == nil && desired.Widgets != nil && !dcl.IsEmptyValueIndirect(desired.Widgets) {
-		c.Config.Logger.Infof("desired Widgets %s - but actually nil", dcl.SprintResource(desired.Widgets))
+		c.Config.Logger.Infof("Diff in Weight.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
 		return true
 	}
 	if compareDashboardWidgetSlice(c, desired.Widgets, actual.Widgets) && !dcl.IsZeroValue(desired.Widgets) {
-		c.Config.Logger.Infof("Diff in Widgets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
+		c.Config.Logger.Infof("Diff in Widgets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Widgets), dcl.SprintResource(actual.Widgets))
 		return true
 	}
 	return false
@@ -13159,7 +13104,7 @@ func compareDashboardColumnLayoutColumnsSlice(c *Client, desired, actual []Dashb
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardColumnLayoutColumns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardColumnLayoutColumns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardColumnLayoutColumns, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13178,7 +13123,7 @@ func compareDashboardColumnLayoutColumnsMap(c *Client, desired, actual map[strin
 			return true
 		}
 		if compareDashboardColumnLayoutColumns(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardColumnLayoutColumns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardColumnLayoutColumns, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13192,44 +13137,24 @@ func compareDashboardWidget(c *Client, desired, actual *DashboardWidget) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.Title == nil && desired.Title != nil && !dcl.IsEmptyValueIndirect(desired.Title) {
-		c.Config.Logger.Infof("desired Title %s - but actually nil", dcl.SprintResource(desired.Title))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Title, actual.Title) && !dcl.IsZeroValue(desired.Title) {
-		c.Config.Logger.Infof("Diff in Title. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Title), dcl.SprintResource(actual.Title))
-		return true
-	}
-	if actual.XyChart == nil && desired.XyChart != nil && !dcl.IsEmptyValueIndirect(desired.XyChart) {
-		c.Config.Logger.Infof("desired XyChart %s - but actually nil", dcl.SprintResource(desired.XyChart))
+		c.Config.Logger.Infof("Diff in Title.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Title), dcl.SprintResource(actual.Title))
 		return true
 	}
 	if compareDashboardWidgetXyChart(c, desired.XyChart, actual.XyChart) && !dcl.IsZeroValue(desired.XyChart) {
-		c.Config.Logger.Infof("Diff in XyChart. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.XyChart), dcl.SprintResource(actual.XyChart))
-		return true
-	}
-	if actual.Scorecard == nil && desired.Scorecard != nil && !dcl.IsEmptyValueIndirect(desired.Scorecard) {
-		c.Config.Logger.Infof("desired Scorecard %s - but actually nil", dcl.SprintResource(desired.Scorecard))
+		c.Config.Logger.Infof("Diff in XyChart.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.XyChart), dcl.SprintResource(actual.XyChart))
 		return true
 	}
 	if compareDashboardWidgetScorecard(c, desired.Scorecard, actual.Scorecard) && !dcl.IsZeroValue(desired.Scorecard) {
-		c.Config.Logger.Infof("Diff in Scorecard. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scorecard), dcl.SprintResource(actual.Scorecard))
-		return true
-	}
-	if actual.Text == nil && desired.Text != nil && !dcl.IsEmptyValueIndirect(desired.Text) {
-		c.Config.Logger.Infof("desired Text %s - but actually nil", dcl.SprintResource(desired.Text))
+		c.Config.Logger.Infof("Diff in Scorecard.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scorecard), dcl.SprintResource(actual.Scorecard))
 		return true
 	}
 	if compareDashboardWidgetText(c, desired.Text, actual.Text) && !dcl.IsZeroValue(desired.Text) {
-		c.Config.Logger.Infof("Diff in Text. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Text), dcl.SprintResource(actual.Text))
-		return true
-	}
-	if actual.Blank == nil && desired.Blank != nil && !dcl.IsEmptyValueIndirect(desired.Blank) {
-		c.Config.Logger.Infof("desired Blank %s - but actually nil", dcl.SprintResource(desired.Blank))
+		c.Config.Logger.Infof("Diff in Text.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Text), dcl.SprintResource(actual.Text))
 		return true
 	}
 	if compareDashboardWidgetBlank(c, desired.Blank, actual.Blank) && !dcl.IsZeroValue(desired.Blank) {
-		c.Config.Logger.Infof("Diff in Blank. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Blank), dcl.SprintResource(actual.Blank))
+		c.Config.Logger.Infof("Diff in Blank.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Blank), dcl.SprintResource(actual.Blank))
 		return true
 	}
 	return false
@@ -13242,7 +13167,7 @@ func compareDashboardWidgetSlice(c *Client, desired, actual []DashboardWidget) b
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidget(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidget, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidget, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13261,7 +13186,7 @@ func compareDashboardWidgetMap(c *Client, desired, actual map[string]DashboardWi
 			return true
 		}
 		if compareDashboardWidget(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidget, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidget, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13275,68 +13200,36 @@ func compareDashboardWidgetXyChart(c *Client, desired, actual *DashboardWidgetXy
 	if actual == nil {
 		return true
 	}
-	if actual.DataSets == nil && desired.DataSets != nil && !dcl.IsEmptyValueIndirect(desired.DataSets) {
-		c.Config.Logger.Infof("desired DataSets %s - but actually nil", dcl.SprintResource(desired.DataSets))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsSlice(c, desired.DataSets, actual.DataSets) && !dcl.IsZeroValue(desired.DataSets) {
-		c.Config.Logger.Infof("Diff in DataSets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DataSets), dcl.SprintResource(actual.DataSets))
-		return true
-	}
-	if actual.SourceDrilldown == nil && desired.SourceDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.SourceDrilldown) {
-		c.Config.Logger.Infof("desired SourceDrilldown %s - but actually nil", dcl.SprintResource(desired.SourceDrilldown))
+		c.Config.Logger.Infof("Diff in DataSets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DataSets), dcl.SprintResource(actual.DataSets))
 		return true
 	}
 	if compareDashboardWidgetXyChartSourceDrilldown(c, desired.SourceDrilldown, actual.SourceDrilldown) && !dcl.IsZeroValue(desired.SourceDrilldown) {
-		c.Config.Logger.Infof("Diff in SourceDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceDrilldown), dcl.SprintResource(actual.SourceDrilldown))
-		return true
-	}
-	if actual.MetricDrilldown == nil && desired.MetricDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.MetricDrilldown) {
-		c.Config.Logger.Infof("desired MetricDrilldown %s - but actually nil", dcl.SprintResource(desired.MetricDrilldown))
+		c.Config.Logger.Infof("Diff in SourceDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceDrilldown), dcl.SprintResource(actual.SourceDrilldown))
 		return true
 	}
 	if compareDashboardWidgetXyChartMetricDrilldown(c, desired.MetricDrilldown, actual.MetricDrilldown) && !dcl.IsZeroValue(desired.MetricDrilldown) {
-		c.Config.Logger.Infof("Diff in MetricDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricDrilldown), dcl.SprintResource(actual.MetricDrilldown))
-		return true
-	}
-	if actual.TimeshiftDuration == nil && desired.TimeshiftDuration != nil && !dcl.IsEmptyValueIndirect(desired.TimeshiftDuration) {
-		c.Config.Logger.Infof("desired TimeshiftDuration %s - but actually nil", dcl.SprintResource(desired.TimeshiftDuration))
+		c.Config.Logger.Infof("Diff in MetricDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricDrilldown), dcl.SprintResource(actual.MetricDrilldown))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.TimeshiftDuration, actual.TimeshiftDuration) && !dcl.IsZeroValue(desired.TimeshiftDuration) {
-		c.Config.Logger.Infof("Diff in TimeshiftDuration. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeshiftDuration), dcl.SprintResource(actual.TimeshiftDuration))
-		return true
-	}
-	if actual.Thresholds == nil && desired.Thresholds != nil && !dcl.IsEmptyValueIndirect(desired.Thresholds) {
-		c.Config.Logger.Infof("desired Thresholds %s - but actually nil", dcl.SprintResource(desired.Thresholds))
+		c.Config.Logger.Infof("Diff in TimeshiftDuration.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeshiftDuration), dcl.SprintResource(actual.TimeshiftDuration))
 		return true
 	}
 	if compareDashboardWidgetXyChartThresholdsSlice(c, desired.Thresholds, actual.Thresholds) && !dcl.IsZeroValue(desired.Thresholds) {
-		c.Config.Logger.Infof("Diff in Thresholds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Thresholds), dcl.SprintResource(actual.Thresholds))
-		return true
-	}
-	if actual.XAxis == nil && desired.XAxis != nil && !dcl.IsEmptyValueIndirect(desired.XAxis) {
-		c.Config.Logger.Infof("desired XAxis %s - but actually nil", dcl.SprintResource(desired.XAxis))
+		c.Config.Logger.Infof("Diff in Thresholds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Thresholds), dcl.SprintResource(actual.Thresholds))
 		return true
 	}
 	if compareDashboardWidgetXyChartXAxis(c, desired.XAxis, actual.XAxis) && !dcl.IsZeroValue(desired.XAxis) {
-		c.Config.Logger.Infof("Diff in XAxis. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.XAxis), dcl.SprintResource(actual.XAxis))
-		return true
-	}
-	if actual.YAxis == nil && desired.YAxis != nil && !dcl.IsEmptyValueIndirect(desired.YAxis) {
-		c.Config.Logger.Infof("desired YAxis %s - but actually nil", dcl.SprintResource(desired.YAxis))
+		c.Config.Logger.Infof("Diff in XAxis.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.XAxis), dcl.SprintResource(actual.XAxis))
 		return true
 	}
 	if compareDashboardWidgetXyChartYAxis(c, desired.YAxis, actual.YAxis) && !dcl.IsZeroValue(desired.YAxis) {
-		c.Config.Logger.Infof("Diff in YAxis. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YAxis), dcl.SprintResource(actual.YAxis))
-		return true
-	}
-	if actual.ChartOptions == nil && desired.ChartOptions != nil && !dcl.IsEmptyValueIndirect(desired.ChartOptions) {
-		c.Config.Logger.Infof("desired ChartOptions %s - but actually nil", dcl.SprintResource(desired.ChartOptions))
+		c.Config.Logger.Infof("Diff in YAxis.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YAxis), dcl.SprintResource(actual.YAxis))
 		return true
 	}
 	if compareDashboardWidgetXyChartChartOptions(c, desired.ChartOptions, actual.ChartOptions) && !dcl.IsZeroValue(desired.ChartOptions) {
-		c.Config.Logger.Infof("Diff in ChartOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ChartOptions), dcl.SprintResource(actual.ChartOptions))
+		c.Config.Logger.Infof("Diff in ChartOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ChartOptions), dcl.SprintResource(actual.ChartOptions))
 		return true
 	}
 	return false
@@ -13349,7 +13242,7 @@ func compareDashboardWidgetXyChartSlice(c *Client, desired, actual []DashboardWi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChart(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChart, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChart, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13368,7 +13261,7 @@ func compareDashboardWidgetXyChartMap(c *Client, desired, actual map[string]Dash
 			return true
 		}
 		if compareDashboardWidgetXyChart(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChart, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChart, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13382,36 +13275,20 @@ func compareDashboardWidgetXyChartDataSets(c *Client, desired, actual *Dashboard
 	if actual == nil {
 		return true
 	}
-	if actual.TimeSeriesQuery == nil && desired.TimeSeriesQuery != nil && !dcl.IsEmptyValueIndirect(desired.TimeSeriesQuery) {
-		c.Config.Logger.Infof("desired TimeSeriesQuery %s - but actually nil", dcl.SprintResource(desired.TimeSeriesQuery))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, desired.TimeSeriesQuery, actual.TimeSeriesQuery) && !dcl.IsZeroValue(desired.TimeSeriesQuery) {
-		c.Config.Logger.Infof("Diff in TimeSeriesQuery. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesQuery), dcl.SprintResource(actual.TimeSeriesQuery))
-		return true
-	}
-	if actual.PlotType == nil && desired.PlotType != nil && !dcl.IsEmptyValueIndirect(desired.PlotType) {
-		c.Config.Logger.Infof("desired PlotType %s - but actually nil", dcl.SprintResource(desired.PlotType))
+		c.Config.Logger.Infof("Diff in TimeSeriesQuery.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesQuery), dcl.SprintResource(actual.TimeSeriesQuery))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PlotType, actual.PlotType) && !dcl.IsZeroValue(desired.PlotType) {
-		c.Config.Logger.Infof("Diff in PlotType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PlotType), dcl.SprintResource(actual.PlotType))
-		return true
-	}
-	if actual.LegendTemplate == nil && desired.LegendTemplate != nil && !dcl.IsEmptyValueIndirect(desired.LegendTemplate) {
-		c.Config.Logger.Infof("desired LegendTemplate %s - but actually nil", dcl.SprintResource(desired.LegendTemplate))
+		c.Config.Logger.Infof("Diff in PlotType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PlotType), dcl.SprintResource(actual.PlotType))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.LegendTemplate, actual.LegendTemplate) && !dcl.IsZeroValue(desired.LegendTemplate) {
-		c.Config.Logger.Infof("Diff in LegendTemplate. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LegendTemplate), dcl.SprintResource(actual.LegendTemplate))
-		return true
-	}
-	if actual.MinAlignmentPeriod == nil && desired.MinAlignmentPeriod != nil && !dcl.IsEmptyValueIndirect(desired.MinAlignmentPeriod) {
-		c.Config.Logger.Infof("desired MinAlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.MinAlignmentPeriod))
+		c.Config.Logger.Infof("Diff in LegendTemplate.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LegendTemplate), dcl.SprintResource(actual.LegendTemplate))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod) && !dcl.IsZeroValue(desired.MinAlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in MinAlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinAlignmentPeriod), dcl.SprintResource(actual.MinAlignmentPeriod))
+		c.Config.Logger.Infof("Diff in MinAlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinAlignmentPeriod), dcl.SprintResource(actual.MinAlignmentPeriod))
 		return true
 	}
 	return false
@@ -13424,7 +13301,7 @@ func compareDashboardWidgetXyChartDataSetsSlice(c *Client, desired, actual []Das
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13443,7 +13320,7 @@ func compareDashboardWidgetXyChartDataSetsMap(c *Client, desired, actual map[str
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13457,44 +13334,24 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, desired, ac
 	if actual == nil {
 		return true
 	}
-	if actual.TimeSeriesFilter == nil && desired.TimeSeriesFilter != nil && !dcl.IsEmptyValueIndirect(desired.TimeSeriesFilter) {
-		c.Config.Logger.Infof("desired TimeSeriesFilter %s - but actually nil", dcl.SprintResource(desired.TimeSeriesFilter))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, desired.TimeSeriesFilter, actual.TimeSeriesFilter) && !dcl.IsZeroValue(desired.TimeSeriesFilter) {
-		c.Config.Logger.Infof("Diff in TimeSeriesFilter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesFilter), dcl.SprintResource(actual.TimeSeriesFilter))
-		return true
-	}
-	if actual.TimeSeriesFilterRatio == nil && desired.TimeSeriesFilterRatio != nil && !dcl.IsEmptyValueIndirect(desired.TimeSeriesFilterRatio) {
-		c.Config.Logger.Infof("desired TimeSeriesFilterRatio %s - but actually nil", dcl.SprintResource(desired.TimeSeriesFilterRatio))
+		c.Config.Logger.Infof("Diff in TimeSeriesFilter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesFilter), dcl.SprintResource(actual.TimeSeriesFilter))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio) && !dcl.IsZeroValue(desired.TimeSeriesFilterRatio) {
-		c.Config.Logger.Infof("Diff in TimeSeriesFilterRatio. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesFilterRatio), dcl.SprintResource(actual.TimeSeriesFilterRatio))
-		return true
-	}
-	if actual.TimeSeriesQueryLanguage == nil && desired.TimeSeriesQueryLanguage != nil && !dcl.IsEmptyValueIndirect(desired.TimeSeriesQueryLanguage) {
-		c.Config.Logger.Infof("desired TimeSeriesQueryLanguage %s - but actually nil", dcl.SprintResource(desired.TimeSeriesQueryLanguage))
+		c.Config.Logger.Infof("Diff in TimeSeriesFilterRatio.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesFilterRatio), dcl.SprintResource(actual.TimeSeriesFilterRatio))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage) && !dcl.IsZeroValue(desired.TimeSeriesQueryLanguage) {
-		c.Config.Logger.Infof("Diff in TimeSeriesQueryLanguage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesQueryLanguage), dcl.SprintResource(actual.TimeSeriesQueryLanguage))
-		return true
-	}
-	if actual.ApiSource == nil && desired.ApiSource != nil && !dcl.IsEmptyValueIndirect(desired.ApiSource) {
-		c.Config.Logger.Infof("desired ApiSource %s - but actually nil", dcl.SprintResource(desired.ApiSource))
+		c.Config.Logger.Infof("Diff in TimeSeriesQueryLanguage.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesQueryLanguage), dcl.SprintResource(actual.TimeSeriesQueryLanguage))
 		return true
 	}
 	if !reflect.DeepEqual(desired.ApiSource, actual.ApiSource) && !dcl.IsZeroValue(desired.ApiSource) {
-		c.Config.Logger.Infof("Diff in ApiSource. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiSource), dcl.SprintResource(actual.ApiSource))
-		return true
-	}
-	if actual.UnitOverride == nil && desired.UnitOverride != nil && !dcl.IsEmptyValueIndirect(desired.UnitOverride) {
-		c.Config.Logger.Infof("desired UnitOverride %s - but actually nil", dcl.SprintResource(desired.UnitOverride))
+		c.Config.Logger.Infof("Diff in ApiSource.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiSource), dcl.SprintResource(actual.ApiSource))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.UnitOverride, actual.UnitOverride) && !dcl.IsZeroValue(desired.UnitOverride) {
-		c.Config.Logger.Infof("Diff in UnitOverride. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UnitOverride), dcl.SprintResource(actual.UnitOverride))
+		c.Config.Logger.Infof("Diff in UnitOverride.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UnitOverride), dcl.SprintResource(actual.UnitOverride))
 		return true
 	}
 	return false
@@ -13507,7 +13364,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(c *Client, desire
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQuery, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQuery, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13526,7 +13383,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryMap(c *Client, desired,
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQuery, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQuery, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13540,36 +13397,20 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Cli
 	if actual == nil {
 		return true
 	}
-	if actual.Filter == nil && desired.Filter != nil && !dcl.IsEmptyValueIndirect(desired.Filter) {
-		c.Config.Logger.Infof("desired Filter %s - but actually nil", dcl.SprintResource(desired.Filter))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	if actual.Aggregation == nil && desired.Aggregation != nil && !dcl.IsEmptyValueIndirect(desired.Aggregation) {
-		c.Config.Logger.Infof("desired Aggregation %s - but actually nil", dcl.SprintResource(desired.Aggregation))
+		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, desired.Aggregation, actual.Aggregation) && !dcl.IsZeroValue(desired.Aggregation) {
-		c.Config.Logger.Infof("Diff in Aggregation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregation), dcl.SprintResource(actual.Aggregation))
-		return true
-	}
-	if actual.SecondaryAggregation == nil && desired.SecondaryAggregation != nil && !dcl.IsEmptyValueIndirect(desired.SecondaryAggregation) {
-		c.Config.Logger.Infof("desired SecondaryAggregation %s - but actually nil", dcl.SprintResource(desired.SecondaryAggregation))
+		c.Config.Logger.Infof("Diff in Aggregation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregation), dcl.SprintResource(actual.Aggregation))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, desired.SecondaryAggregation, actual.SecondaryAggregation) && !dcl.IsZeroValue(desired.SecondaryAggregation) {
-		c.Config.Logger.Infof("Diff in SecondaryAggregation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecondaryAggregation), dcl.SprintResource(actual.SecondaryAggregation))
-		return true
-	}
-	if actual.PickTimeSeriesFilter == nil && desired.PickTimeSeriesFilter != nil && !dcl.IsEmptyValueIndirect(desired.PickTimeSeriesFilter) {
-		c.Config.Logger.Infof("desired PickTimeSeriesFilter %s - but actually nil", dcl.SprintResource(desired.PickTimeSeriesFilter))
+		c.Config.Logger.Infof("Diff in SecondaryAggregation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecondaryAggregation), dcl.SprintResource(actual.SecondaryAggregation))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter) && !dcl.IsZeroValue(desired.PickTimeSeriesFilter) {
-		c.Config.Logger.Infof("Diff in PickTimeSeriesFilter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PickTimeSeriesFilter), dcl.SprintResource(actual.PickTimeSeriesFilter))
+		c.Config.Logger.Infof("Diff in PickTimeSeriesFilter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PickTimeSeriesFilter), dcl.SprintResource(actual.PickTimeSeriesFilter))
 		return true
 	}
 	return false
@@ -13582,7 +13423,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(c
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13601,7 +13442,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterMap(c *
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13615,52 +13456,28 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	if actual == nil {
 		return true
 	}
-	if actual.AlignmentPeriod == nil && desired.AlignmentPeriod != nil && !dcl.IsEmptyValueIndirect(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if actual.PerSeriesAligner == nil && desired.PerSeriesAligner != nil && !dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
+		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if actual.CrossSeriesReducer == nil && desired.CrossSeriesReducer != nil && !dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
+		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
 	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if actual.GroupByFields == nil && desired.GroupByFields != nil && !dcl.IsEmptyValueIndirect(desired.GroupByFields) {
-		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
+		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if actual.ReduceFractionLessThanParams == nil && desired.ReduceFractionLessThanParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("desired ReduceFractionLessThanParams %s - but actually nil", dcl.SprintResource(desired.ReduceFractionLessThanParams))
+		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if actual.ReduceMakeDistributionParams == nil && desired.ReduceMakeDistributionParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("desired ReduceMakeDistributionParams %s - but actually nil", dcl.SprintResource(desired.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
 		return true
 	}
 	return false
@@ -13673,7 +13490,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13692,7 +13509,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13706,12 +13523,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	if actual == nil {
 		return true
 	}
-	if actual.Threshold == nil && desired.Threshold != nil && !dcl.IsEmptyValueIndirect(desired.Threshold) {
-		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
+		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
@@ -13724,7 +13537,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13743,7 +13556,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13757,20 +13570,12 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	if actual == nil {
 		return true
 	}
-	if actual.BucketOptions == nil && desired.BucketOptions != nil && !dcl.IsEmptyValueIndirect(desired.BucketOptions) {
-		c.Config.Logger.Infof("desired BucketOptions %s - but actually nil", dcl.SprintResource(desired.BucketOptions))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if actual.ExemplarSampling == nil && desired.ExemplarSampling != nil && !dcl.IsEmptyValueIndirect(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("desired ExemplarSampling %s - but actually nil", dcl.SprintResource(desired.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
 		return true
 	}
 	return false
@@ -13783,7 +13588,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13802,7 +13607,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13816,28 +13621,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	if actual == nil {
 		return true
 	}
-	if actual.LinearBuckets == nil && desired.LinearBuckets != nil && !dcl.IsEmptyValueIndirect(desired.LinearBuckets) {
-		c.Config.Logger.Infof("desired LinearBuckets %s - but actually nil", dcl.SprintResource(desired.LinearBuckets))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if actual.ExponentialBuckets == nil && desired.ExponentialBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("desired ExponentialBuckets %s - but actually nil", dcl.SprintResource(desired.ExponentialBuckets))
+		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if actual.ExplicitBuckets == nil && desired.ExplicitBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("desired ExplicitBuckets %s - but actually nil", dcl.SprintResource(desired.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
 		return true
 	}
 	return false
@@ -13850,7 +13643,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13869,7 +13662,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13883,28 +13676,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Offset == nil && desired.Offset != nil && !dcl.IsEmptyValueIndirect(desired.Offset) {
-		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
+		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
+		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
@@ -13917,7 +13698,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -13936,7 +13717,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -13950,28 +13731,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.GrowthFactor == nil && desired.GrowthFactor != nil && !dcl.IsEmptyValueIndirect(desired.GrowthFactor) {
-		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if actual.Scale == nil && desired.Scale != nil && !dcl.IsEmptyValueIndirect(desired.Scale) {
-		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
+		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
+		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
@@ -13984,7 +13753,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14003,7 +13772,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14017,12 +13786,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	if actual == nil {
 		return true
 	}
-	if actual.Bounds == nil && desired.Bounds != nil && !dcl.IsEmptyValueIndirect(desired.Bounds) {
-		c.Config.Logger.Infof("desired Bounds %s - but actually nil", dcl.SprintResource(desired.Bounds))
-		return true
-	}
 	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
+		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
 		return true
 	}
 	return false
@@ -14035,7 +13800,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14054,7 +13819,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14068,12 +13833,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	if actual == nil {
 		return true
 	}
-	if actual.MinimumValue == nil && desired.MinimumValue != nil && !dcl.IsEmptyValueIndirect(desired.MinimumValue) {
-		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
-		return true
-	}
 	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
+		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
@@ -14086,7 +13847,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14105,7 +13866,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14119,52 +13880,28 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	if actual == nil {
 		return true
 	}
-	if actual.AlignmentPeriod == nil && desired.AlignmentPeriod != nil && !dcl.IsEmptyValueIndirect(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if actual.PerSeriesAligner == nil && desired.PerSeriesAligner != nil && !dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
+		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if actual.CrossSeriesReducer == nil && desired.CrossSeriesReducer != nil && !dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
+		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
 	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if actual.GroupByFields == nil && desired.GroupByFields != nil && !dcl.IsEmptyValueIndirect(desired.GroupByFields) {
-		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
+		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if actual.ReduceFractionLessThanParams == nil && desired.ReduceFractionLessThanParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("desired ReduceFractionLessThanParams %s - but actually nil", dcl.SprintResource(desired.ReduceFractionLessThanParams))
+		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if actual.ReduceMakeDistributionParams == nil && desired.ReduceMakeDistributionParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("desired ReduceMakeDistributionParams %s - but actually nil", dcl.SprintResource(desired.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
 		return true
 	}
 	return false
@@ -14177,7 +13914,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14196,7 +13933,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14210,12 +13947,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	if actual == nil {
 		return true
 	}
-	if actual.Threshold == nil && desired.Threshold != nil && !dcl.IsEmptyValueIndirect(desired.Threshold) {
-		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
+		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
@@ -14228,7 +13961,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14247,7 +13980,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14261,20 +13994,12 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	if actual == nil {
 		return true
 	}
-	if actual.BucketOptions == nil && desired.BucketOptions != nil && !dcl.IsEmptyValueIndirect(desired.BucketOptions) {
-		c.Config.Logger.Infof("desired BucketOptions %s - but actually nil", dcl.SprintResource(desired.BucketOptions))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if actual.ExemplarSampling == nil && desired.ExemplarSampling != nil && !dcl.IsEmptyValueIndirect(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("desired ExemplarSampling %s - but actually nil", dcl.SprintResource(desired.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
 		return true
 	}
 	return false
@@ -14287,7 +14012,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14306,7 +14031,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14320,28 +14045,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	if actual == nil {
 		return true
 	}
-	if actual.LinearBuckets == nil && desired.LinearBuckets != nil && !dcl.IsEmptyValueIndirect(desired.LinearBuckets) {
-		c.Config.Logger.Infof("desired LinearBuckets %s - but actually nil", dcl.SprintResource(desired.LinearBuckets))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if actual.ExponentialBuckets == nil && desired.ExponentialBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("desired ExponentialBuckets %s - but actually nil", dcl.SprintResource(desired.ExponentialBuckets))
+		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if actual.ExplicitBuckets == nil && desired.ExplicitBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("desired ExplicitBuckets %s - but actually nil", dcl.SprintResource(desired.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
 		return true
 	}
 	return false
@@ -14354,7 +14067,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14373,7 +14086,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14387,28 +14100,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Offset == nil && desired.Offset != nil && !dcl.IsEmptyValueIndirect(desired.Offset) {
-		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
+		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
+		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
@@ -14421,7 +14122,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14440,7 +14141,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14454,28 +14155,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.GrowthFactor == nil && desired.GrowthFactor != nil && !dcl.IsEmptyValueIndirect(desired.GrowthFactor) {
-		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if actual.Scale == nil && desired.Scale != nil && !dcl.IsEmptyValueIndirect(desired.Scale) {
-		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
+		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
+		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
@@ -14488,7 +14177,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14507,7 +14196,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14521,12 +14210,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	if actual == nil {
 		return true
 	}
-	if actual.Bounds == nil && desired.Bounds != nil && !dcl.IsEmptyValueIndirect(desired.Bounds) {
-		c.Config.Logger.Infof("desired Bounds %s - but actually nil", dcl.SprintResource(desired.Bounds))
-		return true
-	}
 	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
+		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
 		return true
 	}
 	return false
@@ -14539,7 +14224,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14558,7 +14243,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14572,12 +14257,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	if actual == nil {
 		return true
 	}
-	if actual.MinimumValue == nil && desired.MinimumValue != nil && !dcl.IsEmptyValueIndirect(desired.MinimumValue) {
-		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
-		return true
-	}
 	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
+		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
@@ -14590,7 +14271,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14609,7 +14290,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14623,28 +14304,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 	if actual == nil {
 		return true
 	}
-	if actual.RankingMethod == nil && desired.RankingMethod != nil && !dcl.IsEmptyValueIndirect(desired.RankingMethod) {
-		c.Config.Logger.Infof("desired RankingMethod %s - but actually nil", dcl.SprintResource(desired.RankingMethod))
-		return true
-	}
 	if !reflect.DeepEqual(desired.RankingMethod, actual.RankingMethod) && !dcl.IsZeroValue(desired.RankingMethod) {
-		c.Config.Logger.Infof("Diff in RankingMethod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RankingMethod), dcl.SprintResource(actual.RankingMethod))
-		return true
-	}
-	if actual.NumTimeSeries == nil && desired.NumTimeSeries != nil && !dcl.IsEmptyValueIndirect(desired.NumTimeSeries) {
-		c.Config.Logger.Infof("desired NumTimeSeries %s - but actually nil", dcl.SprintResource(desired.NumTimeSeries))
+		c.Config.Logger.Infof("Diff in RankingMethod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RankingMethod), dcl.SprintResource(actual.RankingMethod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.NumTimeSeries, actual.NumTimeSeries) && !dcl.IsZeroValue(desired.NumTimeSeries) {
-		c.Config.Logger.Infof("Diff in NumTimeSeries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumTimeSeries), dcl.SprintResource(actual.NumTimeSeries))
-		return true
-	}
-	if actual.Direction == nil && desired.Direction != nil && !dcl.IsEmptyValueIndirect(desired.Direction) {
-		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
+		c.Config.Logger.Infof("Diff in NumTimeSeries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumTimeSeries), dcl.SprintResource(actual.NumTimeSeries))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
-		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
+		c.Config.Logger.Infof("Diff in Direction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
 		return true
 	}
 	return false
@@ -14657,7 +14326,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14676,7 +14345,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14690,36 +14359,20 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c
 	if actual == nil {
 		return true
 	}
-	if actual.Numerator == nil && desired.Numerator != nil && !dcl.IsEmptyValueIndirect(desired.Numerator) {
-		c.Config.Logger.Infof("desired Numerator %s - but actually nil", dcl.SprintResource(desired.Numerator))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, desired.Numerator, actual.Numerator) && !dcl.IsZeroValue(desired.Numerator) {
-		c.Config.Logger.Infof("Diff in Numerator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Numerator), dcl.SprintResource(actual.Numerator))
-		return true
-	}
-	if actual.Denominator == nil && desired.Denominator != nil && !dcl.IsEmptyValueIndirect(desired.Denominator) {
-		c.Config.Logger.Infof("desired Denominator %s - but actually nil", dcl.SprintResource(desired.Denominator))
+		c.Config.Logger.Infof("Diff in Numerator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Numerator), dcl.SprintResource(actual.Numerator))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, desired.Denominator, actual.Denominator) && !dcl.IsZeroValue(desired.Denominator) {
-		c.Config.Logger.Infof("Diff in Denominator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Denominator), dcl.SprintResource(actual.Denominator))
-		return true
-	}
-	if actual.SecondaryAggregation == nil && desired.SecondaryAggregation != nil && !dcl.IsEmptyValueIndirect(desired.SecondaryAggregation) {
-		c.Config.Logger.Infof("desired SecondaryAggregation %s - but actually nil", dcl.SprintResource(desired.SecondaryAggregation))
+		c.Config.Logger.Infof("Diff in Denominator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Denominator), dcl.SprintResource(actual.Denominator))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, desired.SecondaryAggregation, actual.SecondaryAggregation) && !dcl.IsZeroValue(desired.SecondaryAggregation) {
-		c.Config.Logger.Infof("Diff in SecondaryAggregation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecondaryAggregation), dcl.SprintResource(actual.SecondaryAggregation))
-		return true
-	}
-	if actual.PickTimeSeriesFilter == nil && desired.PickTimeSeriesFilter != nil && !dcl.IsEmptyValueIndirect(desired.PickTimeSeriesFilter) {
-		c.Config.Logger.Infof("desired PickTimeSeriesFilter %s - but actually nil", dcl.SprintResource(desired.PickTimeSeriesFilter))
+		c.Config.Logger.Infof("Diff in SecondaryAggregation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecondaryAggregation), dcl.SprintResource(actual.SecondaryAggregation))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter) && !dcl.IsZeroValue(desired.PickTimeSeriesFilter) {
-		c.Config.Logger.Infof("Diff in PickTimeSeriesFilter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PickTimeSeriesFilter), dcl.SprintResource(actual.PickTimeSeriesFilter))
+		c.Config.Logger.Infof("Diff in PickTimeSeriesFilter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PickTimeSeriesFilter), dcl.SprintResource(actual.PickTimeSeriesFilter))
 		return true
 	}
 	return false
@@ -14732,7 +14385,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSl
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14751,7 +14404,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioMa
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14765,20 +14418,12 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	if actual == nil {
 		return true
 	}
-	if actual.Filter == nil && desired.Filter != nil && !dcl.IsEmptyValueIndirect(desired.Filter) {
-		c.Config.Logger.Infof("desired Filter %s - but actually nil", dcl.SprintResource(desired.Filter))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	if actual.Aggregation == nil && desired.Aggregation != nil && !dcl.IsEmptyValueIndirect(desired.Aggregation) {
-		c.Config.Logger.Infof("desired Aggregation %s - but actually nil", dcl.SprintResource(desired.Aggregation))
+		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, desired.Aggregation, actual.Aggregation) && !dcl.IsZeroValue(desired.Aggregation) {
-		c.Config.Logger.Infof("Diff in Aggregation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregation), dcl.SprintResource(actual.Aggregation))
+		c.Config.Logger.Infof("Diff in Aggregation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregation), dcl.SprintResource(actual.Aggregation))
 		return true
 	}
 	return false
@@ -14791,7 +14436,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14810,7 +14455,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14824,52 +14469,28 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	if actual == nil {
 		return true
 	}
-	if actual.AlignmentPeriod == nil && desired.AlignmentPeriod != nil && !dcl.IsEmptyValueIndirect(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if actual.PerSeriesAligner == nil && desired.PerSeriesAligner != nil && !dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
+		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if actual.CrossSeriesReducer == nil && desired.CrossSeriesReducer != nil && !dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
+		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
 	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if actual.GroupByFields == nil && desired.GroupByFields != nil && !dcl.IsEmptyValueIndirect(desired.GroupByFields) {
-		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
+		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if actual.ReduceFractionLessThanParams == nil && desired.ReduceFractionLessThanParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("desired ReduceFractionLessThanParams %s - but actually nil", dcl.SprintResource(desired.ReduceFractionLessThanParams))
+		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if actual.ReduceMakeDistributionParams == nil && desired.ReduceMakeDistributionParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("desired ReduceMakeDistributionParams %s - but actually nil", dcl.SprintResource(desired.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
 		return true
 	}
 	return false
@@ -14882,7 +14503,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14901,7 +14522,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14915,12 +14536,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	if actual == nil {
 		return true
 	}
-	if actual.Threshold == nil && desired.Threshold != nil && !dcl.IsEmptyValueIndirect(desired.Threshold) {
-		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
+		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
@@ -14933,7 +14550,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -14952,7 +14569,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -14966,20 +14583,12 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	if actual == nil {
 		return true
 	}
-	if actual.BucketOptions == nil && desired.BucketOptions != nil && !dcl.IsEmptyValueIndirect(desired.BucketOptions) {
-		c.Config.Logger.Infof("desired BucketOptions %s - but actually nil", dcl.SprintResource(desired.BucketOptions))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if actual.ExemplarSampling == nil && desired.ExemplarSampling != nil && !dcl.IsEmptyValueIndirect(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("desired ExemplarSampling %s - but actually nil", dcl.SprintResource(desired.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
 		return true
 	}
 	return false
@@ -14992,7 +14601,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15011,7 +14620,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15025,28 +14634,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	if actual == nil {
 		return true
 	}
-	if actual.LinearBuckets == nil && desired.LinearBuckets != nil && !dcl.IsEmptyValueIndirect(desired.LinearBuckets) {
-		c.Config.Logger.Infof("desired LinearBuckets %s - but actually nil", dcl.SprintResource(desired.LinearBuckets))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if actual.ExponentialBuckets == nil && desired.ExponentialBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("desired ExponentialBuckets %s - but actually nil", dcl.SprintResource(desired.ExponentialBuckets))
+		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if actual.ExplicitBuckets == nil && desired.ExplicitBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("desired ExplicitBuckets %s - but actually nil", dcl.SprintResource(desired.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
 		return true
 	}
 	return false
@@ -15059,7 +14656,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15078,7 +14675,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15092,28 +14689,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Offset == nil && desired.Offset != nil && !dcl.IsEmptyValueIndirect(desired.Offset) {
-		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
+		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
+		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
@@ -15126,7 +14711,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15145,7 +14730,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15159,28 +14744,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.GrowthFactor == nil && desired.GrowthFactor != nil && !dcl.IsEmptyValueIndirect(desired.GrowthFactor) {
-		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if actual.Scale == nil && desired.Scale != nil && !dcl.IsEmptyValueIndirect(desired.Scale) {
-		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
+		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
+		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
@@ -15193,7 +14766,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15212,7 +14785,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15226,12 +14799,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	if actual == nil {
 		return true
 	}
-	if actual.Bounds == nil && desired.Bounds != nil && !dcl.IsEmptyValueIndirect(desired.Bounds) {
-		c.Config.Logger.Infof("desired Bounds %s - but actually nil", dcl.SprintResource(desired.Bounds))
-		return true
-	}
 	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
+		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
 		return true
 	}
 	return false
@@ -15244,7 +14813,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15263,7 +14832,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15277,12 +14846,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	if actual == nil {
 		return true
 	}
-	if actual.MinimumValue == nil && desired.MinimumValue != nil && !dcl.IsEmptyValueIndirect(desired.MinimumValue) {
-		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
-		return true
-	}
 	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
+		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
@@ -15295,7 +14860,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15314,7 +14879,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15328,20 +14893,12 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	if actual == nil {
 		return true
 	}
-	if actual.Filter == nil && desired.Filter != nil && !dcl.IsEmptyValueIndirect(desired.Filter) {
-		c.Config.Logger.Infof("desired Filter %s - but actually nil", dcl.SprintResource(desired.Filter))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	if actual.Aggregation == nil && desired.Aggregation != nil && !dcl.IsEmptyValueIndirect(desired.Aggregation) {
-		c.Config.Logger.Infof("desired Aggregation %s - but actually nil", dcl.SprintResource(desired.Aggregation))
+		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, desired.Aggregation, actual.Aggregation) && !dcl.IsZeroValue(desired.Aggregation) {
-		c.Config.Logger.Infof("Diff in Aggregation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregation), dcl.SprintResource(actual.Aggregation))
+		c.Config.Logger.Infof("Diff in Aggregation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregation), dcl.SprintResource(actual.Aggregation))
 		return true
 	}
 	return false
@@ -15354,7 +14911,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15373,7 +14930,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15387,52 +14944,28 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	if actual == nil {
 		return true
 	}
-	if actual.AlignmentPeriod == nil && desired.AlignmentPeriod != nil && !dcl.IsEmptyValueIndirect(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if actual.PerSeriesAligner == nil && desired.PerSeriesAligner != nil && !dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
+		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if actual.CrossSeriesReducer == nil && desired.CrossSeriesReducer != nil && !dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
+		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
 	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if actual.GroupByFields == nil && desired.GroupByFields != nil && !dcl.IsEmptyValueIndirect(desired.GroupByFields) {
-		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
+		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if actual.ReduceFractionLessThanParams == nil && desired.ReduceFractionLessThanParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("desired ReduceFractionLessThanParams %s - but actually nil", dcl.SprintResource(desired.ReduceFractionLessThanParams))
+		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if actual.ReduceMakeDistributionParams == nil && desired.ReduceMakeDistributionParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("desired ReduceMakeDistributionParams %s - but actually nil", dcl.SprintResource(desired.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
 		return true
 	}
 	return false
@@ -15445,7 +14978,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15464,7 +14997,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15478,12 +15011,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	if actual == nil {
 		return true
 	}
-	if actual.Threshold == nil && desired.Threshold != nil && !dcl.IsEmptyValueIndirect(desired.Threshold) {
-		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
+		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
@@ -15496,7 +15025,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15515,7 +15044,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15529,20 +15058,12 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	if actual == nil {
 		return true
 	}
-	if actual.BucketOptions == nil && desired.BucketOptions != nil && !dcl.IsEmptyValueIndirect(desired.BucketOptions) {
-		c.Config.Logger.Infof("desired BucketOptions %s - but actually nil", dcl.SprintResource(desired.BucketOptions))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if actual.ExemplarSampling == nil && desired.ExemplarSampling != nil && !dcl.IsEmptyValueIndirect(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("desired ExemplarSampling %s - but actually nil", dcl.SprintResource(desired.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
 		return true
 	}
 	return false
@@ -15555,7 +15076,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15574,7 +15095,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15588,28 +15109,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	if actual == nil {
 		return true
 	}
-	if actual.LinearBuckets == nil && desired.LinearBuckets != nil && !dcl.IsEmptyValueIndirect(desired.LinearBuckets) {
-		c.Config.Logger.Infof("desired LinearBuckets %s - but actually nil", dcl.SprintResource(desired.LinearBuckets))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if actual.ExponentialBuckets == nil && desired.ExponentialBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("desired ExponentialBuckets %s - but actually nil", dcl.SprintResource(desired.ExponentialBuckets))
+		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if actual.ExplicitBuckets == nil && desired.ExplicitBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("desired ExplicitBuckets %s - but actually nil", dcl.SprintResource(desired.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
 		return true
 	}
 	return false
@@ -15622,7 +15131,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15641,7 +15150,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15655,28 +15164,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Offset == nil && desired.Offset != nil && !dcl.IsEmptyValueIndirect(desired.Offset) {
-		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
+		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
+		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
@@ -15689,7 +15186,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15708,7 +15205,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15722,28 +15219,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.GrowthFactor == nil && desired.GrowthFactor != nil && !dcl.IsEmptyValueIndirect(desired.GrowthFactor) {
-		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if actual.Scale == nil && desired.Scale != nil && !dcl.IsEmptyValueIndirect(desired.Scale) {
-		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
+		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
+		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
@@ -15756,7 +15241,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15775,7 +15260,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15789,12 +15274,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	if actual == nil {
 		return true
 	}
-	if actual.Bounds == nil && desired.Bounds != nil && !dcl.IsEmptyValueIndirect(desired.Bounds) {
-		c.Config.Logger.Infof("desired Bounds %s - but actually nil", dcl.SprintResource(desired.Bounds))
-		return true
-	}
 	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
+		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
 		return true
 	}
 	return false
@@ -15807,7 +15288,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15826,7 +15307,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15840,12 +15321,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	if actual == nil {
 		return true
 	}
-	if actual.MinimumValue == nil && desired.MinimumValue != nil && !dcl.IsEmptyValueIndirect(desired.MinimumValue) {
-		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
-		return true
-	}
 	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
+		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
@@ -15858,7 +15335,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15877,7 +15354,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15891,52 +15368,28 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	if actual == nil {
 		return true
 	}
-	if actual.AlignmentPeriod == nil && desired.AlignmentPeriod != nil && !dcl.IsEmptyValueIndirect(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if actual.PerSeriesAligner == nil && desired.PerSeriesAligner != nil && !dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
+		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if actual.CrossSeriesReducer == nil && desired.CrossSeriesReducer != nil && !dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
+		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
 	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if actual.GroupByFields == nil && desired.GroupByFields != nil && !dcl.IsEmptyValueIndirect(desired.GroupByFields) {
-		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
+		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if actual.ReduceFractionLessThanParams == nil && desired.ReduceFractionLessThanParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("desired ReduceFractionLessThanParams %s - but actually nil", dcl.SprintResource(desired.ReduceFractionLessThanParams))
+		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if actual.ReduceMakeDistributionParams == nil && desired.ReduceMakeDistributionParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("desired ReduceMakeDistributionParams %s - but actually nil", dcl.SprintResource(desired.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
 		return true
 	}
 	return false
@@ -15949,7 +15402,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -15968,7 +15421,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -15982,12 +15435,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	if actual == nil {
 		return true
 	}
-	if actual.Threshold == nil && desired.Threshold != nil && !dcl.IsEmptyValueIndirect(desired.Threshold) {
-		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
+		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
@@ -16000,7 +15449,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16019,7 +15468,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16033,20 +15482,12 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	if actual == nil {
 		return true
 	}
-	if actual.BucketOptions == nil && desired.BucketOptions != nil && !dcl.IsEmptyValueIndirect(desired.BucketOptions) {
-		c.Config.Logger.Infof("desired BucketOptions %s - but actually nil", dcl.SprintResource(desired.BucketOptions))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if actual.ExemplarSampling == nil && desired.ExemplarSampling != nil && !dcl.IsEmptyValueIndirect(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("desired ExemplarSampling %s - but actually nil", dcl.SprintResource(desired.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
 		return true
 	}
 	return false
@@ -16059,7 +15500,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16078,7 +15519,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16092,28 +15533,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	if actual == nil {
 		return true
 	}
-	if actual.LinearBuckets == nil && desired.LinearBuckets != nil && !dcl.IsEmptyValueIndirect(desired.LinearBuckets) {
-		c.Config.Logger.Infof("desired LinearBuckets %s - but actually nil", dcl.SprintResource(desired.LinearBuckets))
-		return true
-	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if actual.ExponentialBuckets == nil && desired.ExponentialBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("desired ExponentialBuckets %s - but actually nil", dcl.SprintResource(desired.ExponentialBuckets))
+		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if actual.ExplicitBuckets == nil && desired.ExplicitBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("desired ExplicitBuckets %s - but actually nil", dcl.SprintResource(desired.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
 		return true
 	}
 	if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
 		return true
 	}
 	return false
@@ -16126,7 +15555,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16145,7 +15574,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16159,28 +15588,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Offset == nil && desired.Offset != nil && !dcl.IsEmptyValueIndirect(desired.Offset) {
-		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
+		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
+		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
@@ -16193,7 +15610,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16212,7 +15629,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16226,28 +15643,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.GrowthFactor == nil && desired.GrowthFactor != nil && !dcl.IsEmptyValueIndirect(desired.GrowthFactor) {
-		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if actual.Scale == nil && desired.Scale != nil && !dcl.IsEmptyValueIndirect(desired.Scale) {
-		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
+		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
+		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
@@ -16260,7 +15665,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16279,7 +15684,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16293,12 +15698,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	if actual == nil {
 		return true
 	}
-	if actual.Bounds == nil && desired.Bounds != nil && !dcl.IsEmptyValueIndirect(desired.Bounds) {
-		c.Config.Logger.Infof("desired Bounds %s - but actually nil", dcl.SprintResource(desired.Bounds))
-		return true
-	}
 	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
+		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
 		return true
 	}
 	return false
@@ -16311,7 +15712,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16330,7 +15731,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16344,12 +15745,8 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	if actual == nil {
 		return true
 	}
-	if actual.MinimumValue == nil && desired.MinimumValue != nil && !dcl.IsEmptyValueIndirect(desired.MinimumValue) {
-		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
-		return true
-	}
 	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
+		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
@@ -16362,7 +15759,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16381,7 +15778,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16395,28 +15792,16 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 	if actual == nil {
 		return true
 	}
-	if actual.RankingMethod == nil && desired.RankingMethod != nil && !dcl.IsEmptyValueIndirect(desired.RankingMethod) {
-		c.Config.Logger.Infof("desired RankingMethod %s - but actually nil", dcl.SprintResource(desired.RankingMethod))
-		return true
-	}
 	if !reflect.DeepEqual(desired.RankingMethod, actual.RankingMethod) && !dcl.IsZeroValue(desired.RankingMethod) {
-		c.Config.Logger.Infof("Diff in RankingMethod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RankingMethod), dcl.SprintResource(actual.RankingMethod))
-		return true
-	}
-	if actual.NumTimeSeries == nil && desired.NumTimeSeries != nil && !dcl.IsEmptyValueIndirect(desired.NumTimeSeries) {
-		c.Config.Logger.Infof("desired NumTimeSeries %s - but actually nil", dcl.SprintResource(desired.NumTimeSeries))
+		c.Config.Logger.Infof("Diff in RankingMethod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RankingMethod), dcl.SprintResource(actual.RankingMethod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.NumTimeSeries, actual.NumTimeSeries) && !dcl.IsZeroValue(desired.NumTimeSeries) {
-		c.Config.Logger.Infof("Diff in NumTimeSeries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumTimeSeries), dcl.SprintResource(actual.NumTimeSeries))
-		return true
-	}
-	if actual.Direction == nil && desired.Direction != nil && !dcl.IsEmptyValueIndirect(desired.Direction) {
-		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
+		c.Config.Logger.Infof("Diff in NumTimeSeries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumTimeSeries), dcl.SprintResource(actual.NumTimeSeries))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
-		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
+		c.Config.Logger.Infof("Diff in Direction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
 		return true
 	}
 	return false
@@ -16429,7 +15814,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16448,7 +15833,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 			return true
 		}
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16462,60 +15847,32 @@ func compareDashboardWidgetXyChartSourceDrilldown(c *Client, desired, actual *Da
 	if actual == nil {
 		return true
 	}
-	if actual.ResourceTypeDrilldown == nil && desired.ResourceTypeDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.ResourceTypeDrilldown) {
-		c.Config.Logger.Infof("desired ResourceTypeDrilldown %s - but actually nil", dcl.SprintResource(desired.ResourceTypeDrilldown))
-		return true
-	}
 	if compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c, desired.ResourceTypeDrilldown, actual.ResourceTypeDrilldown) && !dcl.IsZeroValue(desired.ResourceTypeDrilldown) {
-		c.Config.Logger.Infof("Diff in ResourceTypeDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceTypeDrilldown), dcl.SprintResource(actual.ResourceTypeDrilldown))
-		return true
-	}
-	if actual.ResourceLabelDrilldowns == nil && desired.ResourceLabelDrilldowns != nil && !dcl.IsEmptyValueIndirect(desired.ResourceLabelDrilldowns) {
-		c.Config.Logger.Infof("desired ResourceLabelDrilldowns %s - but actually nil", dcl.SprintResource(desired.ResourceLabelDrilldowns))
+		c.Config.Logger.Infof("Diff in ResourceTypeDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceTypeDrilldown), dcl.SprintResource(actual.ResourceTypeDrilldown))
 		return true
 	}
 	if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsSlice(c, desired.ResourceLabelDrilldowns, actual.ResourceLabelDrilldowns) && !dcl.IsZeroValue(desired.ResourceLabelDrilldowns) {
-		c.Config.Logger.Infof("Diff in ResourceLabelDrilldowns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceLabelDrilldowns), dcl.SprintResource(actual.ResourceLabelDrilldowns))
-		return true
-	}
-	if actual.MetadataSystemLabelDrilldowns == nil && desired.MetadataSystemLabelDrilldowns != nil && !dcl.IsEmptyValueIndirect(desired.MetadataSystemLabelDrilldowns) {
-		c.Config.Logger.Infof("desired MetadataSystemLabelDrilldowns %s - but actually nil", dcl.SprintResource(desired.MetadataSystemLabelDrilldowns))
+		c.Config.Logger.Infof("Diff in ResourceLabelDrilldowns.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceLabelDrilldowns), dcl.SprintResource(actual.ResourceLabelDrilldowns))
 		return true
 	}
 	if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsSlice(c, desired.MetadataSystemLabelDrilldowns, actual.MetadataSystemLabelDrilldowns) && !dcl.IsZeroValue(desired.MetadataSystemLabelDrilldowns) {
-		c.Config.Logger.Infof("Diff in MetadataSystemLabelDrilldowns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataSystemLabelDrilldowns), dcl.SprintResource(actual.MetadataSystemLabelDrilldowns))
-		return true
-	}
-	if actual.MetadataUserLabelDrilldowns == nil && desired.MetadataUserLabelDrilldowns != nil && !dcl.IsEmptyValueIndirect(desired.MetadataUserLabelDrilldowns) {
-		c.Config.Logger.Infof("desired MetadataUserLabelDrilldowns %s - but actually nil", dcl.SprintResource(desired.MetadataUserLabelDrilldowns))
+		c.Config.Logger.Infof("Diff in MetadataSystemLabelDrilldowns.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataSystemLabelDrilldowns), dcl.SprintResource(actual.MetadataSystemLabelDrilldowns))
 		return true
 	}
 	if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsSlice(c, desired.MetadataUserLabelDrilldowns, actual.MetadataUserLabelDrilldowns) && !dcl.IsZeroValue(desired.MetadataUserLabelDrilldowns) {
-		c.Config.Logger.Infof("Diff in MetadataUserLabelDrilldowns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataUserLabelDrilldowns), dcl.SprintResource(actual.MetadataUserLabelDrilldowns))
-		return true
-	}
-	if actual.GroupNameDrilldown == nil && desired.GroupNameDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.GroupNameDrilldown) {
-		c.Config.Logger.Infof("desired GroupNameDrilldown %s - but actually nil", dcl.SprintResource(desired.GroupNameDrilldown))
+		c.Config.Logger.Infof("Diff in MetadataUserLabelDrilldowns.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataUserLabelDrilldowns), dcl.SprintResource(actual.MetadataUserLabelDrilldowns))
 		return true
 	}
 	if compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(c, desired.GroupNameDrilldown, actual.GroupNameDrilldown) && !dcl.IsZeroValue(desired.GroupNameDrilldown) {
-		c.Config.Logger.Infof("Diff in GroupNameDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupNameDrilldown), dcl.SprintResource(actual.GroupNameDrilldown))
-		return true
-	}
-	if actual.ServiceNameDrilldown == nil && desired.ServiceNameDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.ServiceNameDrilldown) {
-		c.Config.Logger.Infof("desired ServiceNameDrilldown %s - but actually nil", dcl.SprintResource(desired.ServiceNameDrilldown))
+		c.Config.Logger.Infof("Diff in GroupNameDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupNameDrilldown), dcl.SprintResource(actual.GroupNameDrilldown))
 		return true
 	}
 	if compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(c, desired.ServiceNameDrilldown, actual.ServiceNameDrilldown) && !dcl.IsZeroValue(desired.ServiceNameDrilldown) {
-		c.Config.Logger.Infof("Diff in ServiceNameDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceNameDrilldown), dcl.SprintResource(actual.ServiceNameDrilldown))
-		return true
-	}
-	if actual.ServiceTypeDrilldown == nil && desired.ServiceTypeDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.ServiceTypeDrilldown) {
-		c.Config.Logger.Infof("desired ServiceTypeDrilldown %s - but actually nil", dcl.SprintResource(desired.ServiceTypeDrilldown))
+		c.Config.Logger.Infof("Diff in ServiceNameDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceNameDrilldown), dcl.SprintResource(actual.ServiceNameDrilldown))
 		return true
 	}
 	if compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(c, desired.ServiceTypeDrilldown, actual.ServiceTypeDrilldown) && !dcl.IsZeroValue(desired.ServiceTypeDrilldown) {
-		c.Config.Logger.Infof("Diff in ServiceTypeDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceTypeDrilldown), dcl.SprintResource(actual.ServiceTypeDrilldown))
+		c.Config.Logger.Infof("Diff in ServiceTypeDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceTypeDrilldown), dcl.SprintResource(actual.ServiceTypeDrilldown))
 		return true
 	}
 	return false
@@ -16528,7 +15885,7 @@ func compareDashboardWidgetXyChartSourceDrilldownSlice(c *Client, desired, actua
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16547,7 +15904,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMap(c *Client, desired, actual 
 			return true
 		}
 		if compareDashboardWidgetXyChartSourceDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16561,12 +15918,8 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c *Client
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValues == nil && desired.TargetValues != nil && !dcl.IsEmptyValueIndirect(desired.TargetValues) {
-		c.Config.Logger.Infof("desired TargetValues %s - but actually nil", dcl.SprintResource(desired.TargetValues))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
-		c.Config.Logger.Infof("Diff in TargetValues. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
+		c.Config.Logger.Infof("Diff in TargetValues.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
 		return true
 	}
 	return false
@@ -16579,7 +15932,7 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldownSlice(c *C
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16598,7 +15951,7 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldownMap(c *Cli
 			return true
 		}
 		if compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16612,28 +15965,16 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c *Clie
 	if actual == nil {
 		return true
 	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	if actual.LogicalOperator == nil && desired.LogicalOperator != nil && !dcl.IsEmptyValueIndirect(desired.LogicalOperator) {
-		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
+		c.Config.Logger.Infof("Diff in Label.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
 	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
-		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
-		return true
-	}
-	if actual.ValueRestrictions == nil && desired.ValueRestrictions != nil && !dcl.IsEmptyValueIndirect(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("desired ValueRestrictions %s - but actually nil", dcl.SprintResource(desired.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in LogicalOperator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
 	if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsSlice(c, desired.ValueRestrictions, actual.ValueRestrictions) && !dcl.IsZeroValue(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("Diff in ValueRestrictions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in ValueRestrictions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
 		return true
 	}
 	return false
@@ -16646,7 +15987,7 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsSlice(c 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16665,7 +16006,7 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsMap(c *C
 			return true
 		}
 		if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16679,20 +16020,12 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRes
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValue == nil && desired.TargetValue != nil && !dcl.IsEmptyValueIndirect(desired.TargetValue) {
-		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
-		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
-		return true
-	}
-	if actual.Comparator == nil && desired.Comparator != nil && !dcl.IsEmptyValueIndirect(desired.Comparator) {
-		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
+		c.Config.Logger.Infof("Diff in TargetValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
-		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
+		c.Config.Logger.Infof("Diff in Comparator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
@@ -16705,7 +16038,7 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRes
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16724,7 +16057,7 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRes
 			return true
 		}
 		if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16738,28 +16071,16 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c
 	if actual == nil {
 		return true
 	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	if actual.LogicalOperator == nil && desired.LogicalOperator != nil && !dcl.IsEmptyValueIndirect(desired.LogicalOperator) {
-		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
+		c.Config.Logger.Infof("Diff in Label.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
 	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
-		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
-		return true
-	}
-	if actual.ValueRestrictions == nil && desired.ValueRestrictions != nil && !dcl.IsEmptyValueIndirect(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("desired ValueRestrictions %s - but actually nil", dcl.SprintResource(desired.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in LogicalOperator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
 	if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsSlice(c, desired.ValueRestrictions, actual.ValueRestrictions) && !dcl.IsZeroValue(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("Diff in ValueRestrictions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in ValueRestrictions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
 		return true
 	}
 	return false
@@ -16772,7 +16093,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsSl
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16791,7 +16112,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsMa
 			return true
 		}
 		if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16805,20 +16126,12 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsVa
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValue == nil && desired.TargetValue != nil && !dcl.IsEmptyValueIndirect(desired.TargetValue) {
-		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
-		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
-		return true
-	}
-	if actual.Comparator == nil && desired.Comparator != nil && !dcl.IsEmptyValueIndirect(desired.Comparator) {
-		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
+		c.Config.Logger.Infof("Diff in TargetValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
-		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
+		c.Config.Logger.Infof("Diff in Comparator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
@@ -16831,7 +16144,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsVa
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16850,7 +16163,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsVa
 			return true
 		}
 		if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16864,28 +16177,16 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c *
 	if actual == nil {
 		return true
 	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	if actual.LogicalOperator == nil && desired.LogicalOperator != nil && !dcl.IsEmptyValueIndirect(desired.LogicalOperator) {
-		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
+		c.Config.Logger.Infof("Diff in Label.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
 	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
-		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
-		return true
-	}
-	if actual.ValueRestrictions == nil && desired.ValueRestrictions != nil && !dcl.IsEmptyValueIndirect(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("desired ValueRestrictions %s - but actually nil", dcl.SprintResource(desired.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in LogicalOperator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
 	if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsSlice(c, desired.ValueRestrictions, actual.ValueRestrictions) && !dcl.IsZeroValue(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("Diff in ValueRestrictions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in ValueRestrictions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
 		return true
 	}
 	return false
@@ -16898,7 +16199,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsSlic
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16917,7 +16218,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsMap(
 			return true
 		}
 		if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16931,20 +16232,12 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValu
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValue == nil && desired.TargetValue != nil && !dcl.IsEmptyValueIndirect(desired.TargetValue) {
-		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
-		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
-		return true
-	}
-	if actual.Comparator == nil && desired.Comparator != nil && !dcl.IsEmptyValueIndirect(desired.Comparator) {
-		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
+		c.Config.Logger.Infof("Diff in TargetValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
-		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
+		c.Config.Logger.Infof("Diff in Comparator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
@@ -16957,7 +16250,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -16976,7 +16269,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValu
 			return true
 		}
 		if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -16990,12 +16283,8 @@ func compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(c *Client, d
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValues == nil && desired.TargetValues != nil && !dcl.IsEmptyValueIndirect(desired.TargetValues) {
-		c.Config.Logger.Infof("desired TargetValues %s - but actually nil", dcl.SprintResource(desired.TargetValues))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
-		c.Config.Logger.Infof("Diff in TargetValues. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
+		c.Config.Logger.Infof("Diff in TargetValues.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
 		return true
 	}
 	return false
@@ -17008,7 +16297,7 @@ func compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldownSlice(c *Clie
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17027,7 +16316,7 @@ func compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldownMap(c *Client
 			return true
 		}
 		if compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17041,12 +16330,8 @@ func compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(c *Client,
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValues == nil && desired.TargetValues != nil && !dcl.IsEmptyValueIndirect(desired.TargetValues) {
-		c.Config.Logger.Infof("desired TargetValues %s - but actually nil", dcl.SprintResource(desired.TargetValues))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
-		c.Config.Logger.Infof("Diff in TargetValues. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
+		c.Config.Logger.Infof("Diff in TargetValues.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
 		return true
 	}
 	return false
@@ -17059,7 +16344,7 @@ func compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldownSlice(c *Cl
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17078,7 +16363,7 @@ func compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldownMap(c *Clie
 			return true
 		}
 		if compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17092,12 +16377,8 @@ func compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(c *Client,
 	if actual == nil {
 		return true
 	}
-	if actual.Types == nil && desired.Types != nil && !dcl.IsEmptyValueIndirect(desired.Types) {
-		c.Config.Logger.Infof("desired Types %s - but actually nil", dcl.SprintResource(desired.Types))
-		return true
-	}
 	if compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownTypesEnumSlice(c, desired.Types, actual.Types) && !dcl.IsZeroValue(desired.Types) {
-		c.Config.Logger.Infof("Diff in Types. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Types), dcl.SprintResource(actual.Types))
+		c.Config.Logger.Infof("Diff in Types.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Types), dcl.SprintResource(actual.Types))
 		return true
 	}
 	return false
@@ -17110,7 +16391,7 @@ func compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownSlice(c *Cl
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17129,7 +16410,7 @@ func compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownMap(c *Clie
 			return true
 		}
 		if compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17143,28 +16424,16 @@ func compareDashboardWidgetXyChartMetricDrilldown(c *Client, desired, actual *Da
 	if actual == nil {
 		return true
 	}
-	if actual.MetricTypeDrilldown == nil && desired.MetricTypeDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.MetricTypeDrilldown) {
-		c.Config.Logger.Infof("desired MetricTypeDrilldown %s - but actually nil", dcl.SprintResource(desired.MetricTypeDrilldown))
-		return true
-	}
 	if compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c, desired.MetricTypeDrilldown, actual.MetricTypeDrilldown) && !dcl.IsZeroValue(desired.MetricTypeDrilldown) {
-		c.Config.Logger.Infof("Diff in MetricTypeDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricTypeDrilldown), dcl.SprintResource(actual.MetricTypeDrilldown))
-		return true
-	}
-	if actual.MetricLabelDrilldowns == nil && desired.MetricLabelDrilldowns != nil && !dcl.IsEmptyValueIndirect(desired.MetricLabelDrilldowns) {
-		c.Config.Logger.Infof("desired MetricLabelDrilldowns %s - but actually nil", dcl.SprintResource(desired.MetricLabelDrilldowns))
+		c.Config.Logger.Infof("Diff in MetricTypeDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricTypeDrilldown), dcl.SprintResource(actual.MetricTypeDrilldown))
 		return true
 	}
 	if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsSlice(c, desired.MetricLabelDrilldowns, actual.MetricLabelDrilldowns) && !dcl.IsZeroValue(desired.MetricLabelDrilldowns) {
-		c.Config.Logger.Infof("Diff in MetricLabelDrilldowns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricLabelDrilldowns), dcl.SprintResource(actual.MetricLabelDrilldowns))
-		return true
-	}
-	if actual.MetricGroupByDrilldown == nil && desired.MetricGroupByDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.MetricGroupByDrilldown) {
-		c.Config.Logger.Infof("desired MetricGroupByDrilldown %s - but actually nil", dcl.SprintResource(desired.MetricGroupByDrilldown))
+		c.Config.Logger.Infof("Diff in MetricLabelDrilldowns.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricLabelDrilldowns), dcl.SprintResource(actual.MetricLabelDrilldowns))
 		return true
 	}
 	if compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c, desired.MetricGroupByDrilldown, actual.MetricGroupByDrilldown) && !dcl.IsZeroValue(desired.MetricGroupByDrilldown) {
-		c.Config.Logger.Infof("Diff in MetricGroupByDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricGroupByDrilldown), dcl.SprintResource(actual.MetricGroupByDrilldown))
+		c.Config.Logger.Infof("Diff in MetricGroupByDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricGroupByDrilldown), dcl.SprintResource(actual.MetricGroupByDrilldown))
 		return true
 	}
 	return false
@@ -17177,7 +16446,7 @@ func compareDashboardWidgetXyChartMetricDrilldownSlice(c *Client, desired, actua
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartMetricDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17196,7 +16465,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMap(c *Client, desired, actual 
 			return true
 		}
 		if compareDashboardWidgetXyChartMetricDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17210,12 +16479,8 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c *Client, 
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValue == nil && desired.TargetValue != nil && !dcl.IsEmptyValueIndirect(desired.TargetValue) {
-		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
-		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
+		c.Config.Logger.Infof("Diff in TargetValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
 	return false
@@ -17228,7 +16493,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldownSlice(c *Cli
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17247,7 +16512,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldownMap(c *Clien
 			return true
 		}
 		if compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17261,28 +16526,16 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c *Client
 	if actual == nil {
 		return true
 	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	if actual.LogicalOperator == nil && desired.LogicalOperator != nil && !dcl.IsEmptyValueIndirect(desired.LogicalOperator) {
-		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
+		c.Config.Logger.Infof("Diff in Label.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
 	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
-		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
-		return true
-	}
-	if actual.ValueRestrictions == nil && desired.ValueRestrictions != nil && !dcl.IsEmptyValueIndirect(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("desired ValueRestrictions %s - but actually nil", dcl.SprintResource(desired.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in LogicalOperator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
 	if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsSlice(c, desired.ValueRestrictions, actual.ValueRestrictions) && !dcl.IsZeroValue(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("Diff in ValueRestrictions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in ValueRestrictions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
 		return true
 	}
 	return false
@@ -17295,7 +16548,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsSlice(c *C
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17314,7 +16567,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsMap(c *Cli
 			return true
 		}
 		if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17328,20 +16581,12 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestr
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValue == nil && desired.TargetValue != nil && !dcl.IsEmptyValueIndirect(desired.TargetValue) {
-		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
-		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
-		return true
-	}
-	if actual.Comparator == nil && desired.Comparator != nil && !dcl.IsEmptyValueIndirect(desired.Comparator) {
-		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
+		c.Config.Logger.Infof("Diff in TargetValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
-		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
+		c.Config.Logger.Infof("Diff in Comparator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
@@ -17354,7 +16599,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17373,7 +16618,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestr
 			return true
 		}
 		if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17387,44 +16632,24 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c *Clien
 	if actual == nil {
 		return true
 	}
-	if actual.ResourceLabels == nil && desired.ResourceLabels != nil && !dcl.IsEmptyValueIndirect(desired.ResourceLabels) {
-		c.Config.Logger.Infof("desired ResourceLabels %s - but actually nil", dcl.SprintResource(desired.ResourceLabels))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.ResourceLabels, actual.ResourceLabels) && !dcl.IsZeroValue(desired.ResourceLabels) {
-		c.Config.Logger.Infof("Diff in ResourceLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceLabels), dcl.SprintResource(actual.ResourceLabels))
-		return true
-	}
-	if actual.MetricLabels == nil && desired.MetricLabels != nil && !dcl.IsEmptyValueIndirect(desired.MetricLabels) {
-		c.Config.Logger.Infof("desired MetricLabels %s - but actually nil", dcl.SprintResource(desired.MetricLabels))
+		c.Config.Logger.Infof("Diff in ResourceLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceLabels), dcl.SprintResource(actual.ResourceLabels))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.MetricLabels, actual.MetricLabels) && !dcl.IsZeroValue(desired.MetricLabels) {
-		c.Config.Logger.Infof("Diff in MetricLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricLabels), dcl.SprintResource(actual.MetricLabels))
-		return true
-	}
-	if actual.MetadataSystemLabels == nil && desired.MetadataSystemLabels != nil && !dcl.IsEmptyValueIndirect(desired.MetadataSystemLabels) {
-		c.Config.Logger.Infof("desired MetadataSystemLabels %s - but actually nil", dcl.SprintResource(desired.MetadataSystemLabels))
+		c.Config.Logger.Infof("Diff in MetricLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricLabels), dcl.SprintResource(actual.MetricLabels))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.MetadataSystemLabels, actual.MetadataSystemLabels) && !dcl.IsZeroValue(desired.MetadataSystemLabels) {
-		c.Config.Logger.Infof("Diff in MetadataSystemLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataSystemLabels), dcl.SprintResource(actual.MetadataSystemLabels))
-		return true
-	}
-	if actual.MetadataUserLabels == nil && desired.MetadataUserLabels != nil && !dcl.IsEmptyValueIndirect(desired.MetadataUserLabels) {
-		c.Config.Logger.Infof("desired MetadataUserLabels %s - but actually nil", dcl.SprintResource(desired.MetadataUserLabels))
+		c.Config.Logger.Infof("Diff in MetadataSystemLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataSystemLabels), dcl.SprintResource(actual.MetadataSystemLabels))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.MetadataUserLabels, actual.MetadataUserLabels) && !dcl.IsZeroValue(desired.MetadataUserLabels) {
-		c.Config.Logger.Infof("Diff in MetadataUserLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataUserLabels), dcl.SprintResource(actual.MetadataUserLabels))
-		return true
-	}
-	if actual.Reducer == nil && desired.Reducer != nil && !dcl.IsEmptyValueIndirect(desired.Reducer) {
-		c.Config.Logger.Infof("desired Reducer %s - but actually nil", dcl.SprintResource(desired.Reducer))
+		c.Config.Logger.Infof("Diff in MetadataUserLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataUserLabels), dcl.SprintResource(actual.MetadataUserLabels))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Reducer, actual.Reducer) && !dcl.IsZeroValue(desired.Reducer) {
-		c.Config.Logger.Infof("Diff in Reducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Reducer), dcl.SprintResource(actual.Reducer))
+		c.Config.Logger.Infof("Diff in Reducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Reducer), dcl.SprintResource(actual.Reducer))
 		return true
 	}
 	return false
@@ -17437,7 +16662,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownSlice(c *
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17456,7 +16681,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownMap(c *Cl
 			return true
 		}
 		if compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17470,36 +16695,20 @@ func compareDashboardWidgetXyChartThresholds(c *Client, desired, actual *Dashboa
 	if actual == nil {
 		return true
 	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
+		c.Config.Logger.Infof("Diff in Label.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	if actual.Color == nil && desired.Color != nil && !dcl.IsEmptyValueIndirect(desired.Color) {
-		c.Config.Logger.Infof("desired Color %s - but actually nil", dcl.SprintResource(desired.Color))
+		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Color, actual.Color) && !dcl.IsZeroValue(desired.Color) {
-		c.Config.Logger.Infof("Diff in Color. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Color), dcl.SprintResource(actual.Color))
-		return true
-	}
-	if actual.Direction == nil && desired.Direction != nil && !dcl.IsEmptyValueIndirect(desired.Direction) {
-		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
+		c.Config.Logger.Infof("Diff in Color.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Color), dcl.SprintResource(actual.Color))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
-		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
+		c.Config.Logger.Infof("Diff in Direction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
 		return true
 	}
 	return false
@@ -17512,7 +16721,7 @@ func compareDashboardWidgetXyChartThresholdsSlice(c *Client, desired, actual []D
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartThresholds(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartThresholds, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartThresholds, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17531,7 +16740,7 @@ func compareDashboardWidgetXyChartThresholdsMap(c *Client, desired, actual map[s
 			return true
 		}
 		if compareDashboardWidgetXyChartThresholds(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartThresholds, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartThresholds, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17545,20 +16754,12 @@ func compareDashboardWidgetXyChartXAxis(c *Client, desired, actual *DashboardWid
 	if actual == nil {
 		return true
 	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	if actual.Scale == nil && desired.Scale != nil && !dcl.IsEmptyValueIndirect(desired.Scale) {
-		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
+		c.Config.Logger.Infof("Diff in Label.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
+		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
@@ -17571,7 +16772,7 @@ func compareDashboardWidgetXyChartXAxisSlice(c *Client, desired, actual []Dashbo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartXAxis(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartXAxis, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartXAxis, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17590,7 +16791,7 @@ func compareDashboardWidgetXyChartXAxisMap(c *Client, desired, actual map[string
 			return true
 		}
 		if compareDashboardWidgetXyChartXAxis(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartXAxis, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartXAxis, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17604,20 +16805,12 @@ func compareDashboardWidgetXyChartYAxis(c *Client, desired, actual *DashboardWid
 	if actual == nil {
 		return true
 	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	if actual.Scale == nil && desired.Scale != nil && !dcl.IsEmptyValueIndirect(desired.Scale) {
-		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
+		c.Config.Logger.Infof("Diff in Label.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
+		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
@@ -17630,7 +16823,7 @@ func compareDashboardWidgetXyChartYAxisSlice(c *Client, desired, actual []Dashbo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartYAxis(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartYAxis, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartYAxis, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17649,7 +16842,7 @@ func compareDashboardWidgetXyChartYAxisMap(c *Client, desired, actual map[string
 			return true
 		}
 		if compareDashboardWidgetXyChartYAxis(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartYAxis, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartYAxis, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17663,20 +16856,12 @@ func compareDashboardWidgetXyChartChartOptions(c *Client, desired, actual *Dashb
 	if actual == nil {
 		return true
 	}
-	if actual.Mode == nil && desired.Mode != nil && !dcl.IsEmptyValueIndirect(desired.Mode) {
-		c.Config.Logger.Infof("desired Mode %s - but actually nil", dcl.SprintResource(desired.Mode))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Mode, actual.Mode) && !dcl.IsZeroValue(desired.Mode) {
-		c.Config.Logger.Infof("Diff in Mode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Mode), dcl.SprintResource(actual.Mode))
-		return true
-	}
-	if actual.ShowLegend == nil && desired.ShowLegend != nil && !dcl.IsEmptyValueIndirect(desired.ShowLegend) {
-		c.Config.Logger.Infof("desired ShowLegend %s - but actually nil", dcl.SprintResource(desired.ShowLegend))
+		c.Config.Logger.Infof("Diff in Mode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Mode), dcl.SprintResource(actual.Mode))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.ShowLegend, actual.ShowLegend) && !dcl.IsZeroValue(desired.ShowLegend) {
-		c.Config.Logger.Infof("Diff in ShowLegend. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ShowLegend), dcl.SprintResource(actual.ShowLegend))
+		c.Config.Logger.Infof("Diff in ShowLegend.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ShowLegend), dcl.SprintResource(actual.ShowLegend))
 		return true
 	}
 	return false
@@ -17689,7 +16874,7 @@ func compareDashboardWidgetXyChartChartOptionsSlice(c *Client, desired, actual [
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartChartOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartChartOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartChartOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17708,7 +16893,7 @@ func compareDashboardWidgetXyChartChartOptionsMap(c *Client, desired, actual map
 			return true
 		}
 		if compareDashboardWidgetXyChartChartOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartChartOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartChartOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17722,52 +16907,28 @@ func compareDashboardWidgetScorecard(c *Client, desired, actual *DashboardWidget
 	if actual == nil {
 		return true
 	}
-	if actual.TimeSeriesQuery == nil && desired.TimeSeriesQuery != nil && !dcl.IsEmptyValueIndirect(desired.TimeSeriesQuery) {
-		c.Config.Logger.Infof("desired TimeSeriesQuery %s - but actually nil", dcl.SprintResource(desired.TimeSeriesQuery))
-		return true
-	}
 	if compareDashboardWidgetScorecardTimeSeriesQuery(c, desired.TimeSeriesQuery, actual.TimeSeriesQuery) && !dcl.IsZeroValue(desired.TimeSeriesQuery) {
-		c.Config.Logger.Infof("Diff in TimeSeriesQuery. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesQuery), dcl.SprintResource(actual.TimeSeriesQuery))
-		return true
-	}
-	if actual.SourceDrilldown == nil && desired.SourceDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.SourceDrilldown) {
-		c.Config.Logger.Infof("desired SourceDrilldown %s - but actually nil", dcl.SprintResource(desired.SourceDrilldown))
+		c.Config.Logger.Infof("Diff in TimeSeriesQuery.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesQuery), dcl.SprintResource(actual.TimeSeriesQuery))
 		return true
 	}
 	if compareDashboardWidgetScorecardSourceDrilldown(c, desired.SourceDrilldown, actual.SourceDrilldown) && !dcl.IsZeroValue(desired.SourceDrilldown) {
-		c.Config.Logger.Infof("Diff in SourceDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceDrilldown), dcl.SprintResource(actual.SourceDrilldown))
-		return true
-	}
-	if actual.MetricDrilldown == nil && desired.MetricDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.MetricDrilldown) {
-		c.Config.Logger.Infof("desired MetricDrilldown %s - but actually nil", dcl.SprintResource(desired.MetricDrilldown))
+		c.Config.Logger.Infof("Diff in SourceDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceDrilldown), dcl.SprintResource(actual.SourceDrilldown))
 		return true
 	}
 	if compareDashboardWidgetScorecardMetricDrilldown(c, desired.MetricDrilldown, actual.MetricDrilldown) && !dcl.IsZeroValue(desired.MetricDrilldown) {
-		c.Config.Logger.Infof("Diff in MetricDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricDrilldown), dcl.SprintResource(actual.MetricDrilldown))
-		return true
-	}
-	if actual.GaugeView == nil && desired.GaugeView != nil && !dcl.IsEmptyValueIndirect(desired.GaugeView) {
-		c.Config.Logger.Infof("desired GaugeView %s - but actually nil", dcl.SprintResource(desired.GaugeView))
+		c.Config.Logger.Infof("Diff in MetricDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricDrilldown), dcl.SprintResource(actual.MetricDrilldown))
 		return true
 	}
 	if compareDashboardWidgetScorecardGaugeView(c, desired.GaugeView, actual.GaugeView) && !dcl.IsZeroValue(desired.GaugeView) {
-		c.Config.Logger.Infof("Diff in GaugeView. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GaugeView), dcl.SprintResource(actual.GaugeView))
-		return true
-	}
-	if actual.SparkChartView == nil && desired.SparkChartView != nil && !dcl.IsEmptyValueIndirect(desired.SparkChartView) {
-		c.Config.Logger.Infof("desired SparkChartView %s - but actually nil", dcl.SprintResource(desired.SparkChartView))
+		c.Config.Logger.Infof("Diff in GaugeView.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GaugeView), dcl.SprintResource(actual.GaugeView))
 		return true
 	}
 	if compareDashboardWidgetScorecardSparkChartView(c, desired.SparkChartView, actual.SparkChartView) && !dcl.IsZeroValue(desired.SparkChartView) {
-		c.Config.Logger.Infof("Diff in SparkChartView. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SparkChartView), dcl.SprintResource(actual.SparkChartView))
-		return true
-	}
-	if actual.Thresholds == nil && desired.Thresholds != nil && !dcl.IsEmptyValueIndirect(desired.Thresholds) {
-		c.Config.Logger.Infof("desired Thresholds %s - but actually nil", dcl.SprintResource(desired.Thresholds))
+		c.Config.Logger.Infof("Diff in SparkChartView.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SparkChartView), dcl.SprintResource(actual.SparkChartView))
 		return true
 	}
 	if compareDashboardWidgetScorecardThresholdsSlice(c, desired.Thresholds, actual.Thresholds) && !dcl.IsZeroValue(desired.Thresholds) {
-		c.Config.Logger.Infof("Diff in Thresholds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Thresholds), dcl.SprintResource(actual.Thresholds))
+		c.Config.Logger.Infof("Diff in Thresholds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Thresholds), dcl.SprintResource(actual.Thresholds))
 		return true
 	}
 	return false
@@ -17780,7 +16941,7 @@ func compareDashboardWidgetScorecardSlice(c *Client, desired, actual []Dashboard
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecard(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecard, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecard, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17799,7 +16960,7 @@ func compareDashboardWidgetScorecardMap(c *Client, desired, actual map[string]Da
 			return true
 		}
 		if compareDashboardWidgetScorecard(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecard, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecard, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17813,44 +16974,24 @@ func compareDashboardWidgetScorecardTimeSeriesQuery(c *Client, desired, actual *
 	if actual == nil {
 		return true
 	}
-	if actual.TimeSeriesFilter == nil && desired.TimeSeriesFilter != nil && !dcl.IsEmptyValueIndirect(desired.TimeSeriesFilter) {
-		c.Config.Logger.Infof("desired TimeSeriesFilter %s - but actually nil", dcl.SprintResource(desired.TimeSeriesFilter))
-		return true
-	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, desired.TimeSeriesFilter, actual.TimeSeriesFilter) && !dcl.IsZeroValue(desired.TimeSeriesFilter) {
-		c.Config.Logger.Infof("Diff in TimeSeriesFilter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesFilter), dcl.SprintResource(actual.TimeSeriesFilter))
-		return true
-	}
-	if actual.TimeSeriesFilterRatio == nil && desired.TimeSeriesFilterRatio != nil && !dcl.IsEmptyValueIndirect(desired.TimeSeriesFilterRatio) {
-		c.Config.Logger.Infof("desired TimeSeriesFilterRatio %s - but actually nil", dcl.SprintResource(desired.TimeSeriesFilterRatio))
+		c.Config.Logger.Infof("Diff in TimeSeriesFilter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesFilter), dcl.SprintResource(actual.TimeSeriesFilter))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio) && !dcl.IsZeroValue(desired.TimeSeriesFilterRatio) {
-		c.Config.Logger.Infof("Diff in TimeSeriesFilterRatio. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesFilterRatio), dcl.SprintResource(actual.TimeSeriesFilterRatio))
-		return true
-	}
-	if actual.TimeSeriesQueryLanguage == nil && desired.TimeSeriesQueryLanguage != nil && !dcl.IsEmptyValueIndirect(desired.TimeSeriesQueryLanguage) {
-		c.Config.Logger.Infof("desired TimeSeriesQueryLanguage %s - but actually nil", dcl.SprintResource(desired.TimeSeriesQueryLanguage))
+		c.Config.Logger.Infof("Diff in TimeSeriesFilterRatio.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesFilterRatio), dcl.SprintResource(actual.TimeSeriesFilterRatio))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage) && !dcl.IsZeroValue(desired.TimeSeriesQueryLanguage) {
-		c.Config.Logger.Infof("Diff in TimeSeriesQueryLanguage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesQueryLanguage), dcl.SprintResource(actual.TimeSeriesQueryLanguage))
-		return true
-	}
-	if actual.ApiSource == nil && desired.ApiSource != nil && !dcl.IsEmptyValueIndirect(desired.ApiSource) {
-		c.Config.Logger.Infof("desired ApiSource %s - but actually nil", dcl.SprintResource(desired.ApiSource))
+		c.Config.Logger.Infof("Diff in TimeSeriesQueryLanguage.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeSeriesQueryLanguage), dcl.SprintResource(actual.TimeSeriesQueryLanguage))
 		return true
 	}
 	if !reflect.DeepEqual(desired.ApiSource, actual.ApiSource) && !dcl.IsZeroValue(desired.ApiSource) {
-		c.Config.Logger.Infof("Diff in ApiSource. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiSource), dcl.SprintResource(actual.ApiSource))
-		return true
-	}
-	if actual.UnitOverride == nil && desired.UnitOverride != nil && !dcl.IsEmptyValueIndirect(desired.UnitOverride) {
-		c.Config.Logger.Infof("desired UnitOverride %s - but actually nil", dcl.SprintResource(desired.UnitOverride))
+		c.Config.Logger.Infof("Diff in ApiSource.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiSource), dcl.SprintResource(actual.ApiSource))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.UnitOverride, actual.UnitOverride) && !dcl.IsZeroValue(desired.UnitOverride) {
-		c.Config.Logger.Infof("Diff in UnitOverride. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UnitOverride), dcl.SprintResource(actual.UnitOverride))
+		c.Config.Logger.Infof("Diff in UnitOverride.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UnitOverride), dcl.SprintResource(actual.UnitOverride))
 		return true
 	}
 	return false
@@ -17863,7 +17004,7 @@ func compareDashboardWidgetScorecardTimeSeriesQuerySlice(c *Client, desired, act
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQuery(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQuery, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQuery, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17882,7 +17023,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryMap(c *Client, desired, actua
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQuery(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQuery, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQuery, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17896,36 +17037,20 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, d
 	if actual == nil {
 		return true
 	}
-	if actual.Filter == nil && desired.Filter != nil && !dcl.IsEmptyValueIndirect(desired.Filter) {
-		c.Config.Logger.Infof("desired Filter %s - but actually nil", dcl.SprintResource(desired.Filter))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	if actual.Aggregation == nil && desired.Aggregation != nil && !dcl.IsEmptyValueIndirect(desired.Aggregation) {
-		c.Config.Logger.Infof("desired Aggregation %s - but actually nil", dcl.SprintResource(desired.Aggregation))
+		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, desired.Aggregation, actual.Aggregation) && !dcl.IsZeroValue(desired.Aggregation) {
-		c.Config.Logger.Infof("Diff in Aggregation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregation), dcl.SprintResource(actual.Aggregation))
-		return true
-	}
-	if actual.SecondaryAggregation == nil && desired.SecondaryAggregation != nil && !dcl.IsEmptyValueIndirect(desired.SecondaryAggregation) {
-		c.Config.Logger.Infof("desired SecondaryAggregation %s - but actually nil", dcl.SprintResource(desired.SecondaryAggregation))
+		c.Config.Logger.Infof("Diff in Aggregation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregation), dcl.SprintResource(actual.Aggregation))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, desired.SecondaryAggregation, actual.SecondaryAggregation) && !dcl.IsZeroValue(desired.SecondaryAggregation) {
-		c.Config.Logger.Infof("Diff in SecondaryAggregation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecondaryAggregation), dcl.SprintResource(actual.SecondaryAggregation))
-		return true
-	}
-	if actual.PickTimeSeriesFilter == nil && desired.PickTimeSeriesFilter != nil && !dcl.IsEmptyValueIndirect(desired.PickTimeSeriesFilter) {
-		c.Config.Logger.Infof("desired PickTimeSeriesFilter %s - but actually nil", dcl.SprintResource(desired.PickTimeSeriesFilter))
+		c.Config.Logger.Infof("Diff in SecondaryAggregation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecondaryAggregation), dcl.SprintResource(actual.SecondaryAggregation))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter) && !dcl.IsZeroValue(desired.PickTimeSeriesFilter) {
-		c.Config.Logger.Infof("Diff in PickTimeSeriesFilter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PickTimeSeriesFilter), dcl.SprintResource(actual.PickTimeSeriesFilter))
+		c.Config.Logger.Infof("Diff in PickTimeSeriesFilter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PickTimeSeriesFilter), dcl.SprintResource(actual.PickTimeSeriesFilter))
 		return true
 	}
 	return false
@@ -17938,7 +17063,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(c *Clie
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -17957,7 +17082,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterMap(c *Client
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -17971,52 +17096,28 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c
 	if actual == nil {
 		return true
 	}
-	if actual.AlignmentPeriod == nil && desired.AlignmentPeriod != nil && !dcl.IsEmptyValueIndirect(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if actual.PerSeriesAligner == nil && desired.PerSeriesAligner != nil && !dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
+		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if actual.CrossSeriesReducer == nil && desired.CrossSeriesReducer != nil && !dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
+		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
 	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if actual.GroupByFields == nil && desired.GroupByFields != nil && !dcl.IsEmptyValueIndirect(desired.GroupByFields) {
-		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
+		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if actual.ReduceFractionLessThanParams == nil && desired.ReduceFractionLessThanParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("desired ReduceFractionLessThanParams %s - but actually nil", dcl.SprintResource(desired.ReduceFractionLessThanParams))
+		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if actual.ReduceMakeDistributionParams == nil && desired.ReduceMakeDistributionParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("desired ReduceMakeDistributionParams %s - but actually nil", dcl.SprintResource(desired.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
 		return true
 	}
 	return false
@@ -18029,7 +17130,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSl
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18048,7 +17149,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationMa
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18062,12 +17163,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	if actual == nil {
 		return true
 	}
-	if actual.Threshold == nil && desired.Threshold != nil && !dcl.IsEmptyValueIndirect(desired.Threshold) {
-		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
+		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
@@ -18080,7 +17177,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18099,7 +17196,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18113,20 +17210,12 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	if actual == nil {
 		return true
 	}
-	if actual.BucketOptions == nil && desired.BucketOptions != nil && !dcl.IsEmptyValueIndirect(desired.BucketOptions) {
-		c.Config.Logger.Infof("desired BucketOptions %s - but actually nil", dcl.SprintResource(desired.BucketOptions))
-		return true
-	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if actual.ExemplarSampling == nil && desired.ExemplarSampling != nil && !dcl.IsEmptyValueIndirect(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("desired ExemplarSampling %s - but actually nil", dcl.SprintResource(desired.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
 		return true
 	}
 	return false
@@ -18139,7 +17228,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18158,7 +17247,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18172,28 +17261,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	if actual == nil {
 		return true
 	}
-	if actual.LinearBuckets == nil && desired.LinearBuckets != nil && !dcl.IsEmptyValueIndirect(desired.LinearBuckets) {
-		c.Config.Logger.Infof("desired LinearBuckets %s - but actually nil", dcl.SprintResource(desired.LinearBuckets))
-		return true
-	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if actual.ExponentialBuckets == nil && desired.ExponentialBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("desired ExponentialBuckets %s - but actually nil", dcl.SprintResource(desired.ExponentialBuckets))
+		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if actual.ExplicitBuckets == nil && desired.ExplicitBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("desired ExplicitBuckets %s - but actually nil", dcl.SprintResource(desired.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
 		return true
 	}
 	return false
@@ -18206,7 +17283,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18225,7 +17302,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18239,28 +17316,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Offset == nil && desired.Offset != nil && !dcl.IsEmptyValueIndirect(desired.Offset) {
-		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
+		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
+		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
@@ -18273,7 +17338,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18292,7 +17357,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18306,28 +17371,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.GrowthFactor == nil && desired.GrowthFactor != nil && !dcl.IsEmptyValueIndirect(desired.GrowthFactor) {
-		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if actual.Scale == nil && desired.Scale != nil && !dcl.IsEmptyValueIndirect(desired.Scale) {
-		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
+		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
+		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
@@ -18340,7 +17393,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18359,7 +17412,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18373,12 +17426,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	if actual == nil {
 		return true
 	}
-	if actual.Bounds == nil && desired.Bounds != nil && !dcl.IsEmptyValueIndirect(desired.Bounds) {
-		c.Config.Logger.Infof("desired Bounds %s - but actually nil", dcl.SprintResource(desired.Bounds))
-		return true
-	}
 	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
+		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
 		return true
 	}
 	return false
@@ -18391,7 +17440,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18410,7 +17459,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18424,12 +17473,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	if actual == nil {
 		return true
 	}
-	if actual.MinimumValue == nil && desired.MinimumValue != nil && !dcl.IsEmptyValueIndirect(desired.MinimumValue) {
-		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
-		return true
-	}
 	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
+		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
@@ -18442,7 +17487,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18461,7 +17506,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18475,52 +17520,28 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	if actual == nil {
 		return true
 	}
-	if actual.AlignmentPeriod == nil && desired.AlignmentPeriod != nil && !dcl.IsEmptyValueIndirect(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if actual.PerSeriesAligner == nil && desired.PerSeriesAligner != nil && !dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
+		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if actual.CrossSeriesReducer == nil && desired.CrossSeriesReducer != nil && !dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
+		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
 	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if actual.GroupByFields == nil && desired.GroupByFields != nil && !dcl.IsEmptyValueIndirect(desired.GroupByFields) {
-		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
+		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if actual.ReduceFractionLessThanParams == nil && desired.ReduceFractionLessThanParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("desired ReduceFractionLessThanParams %s - but actually nil", dcl.SprintResource(desired.ReduceFractionLessThanParams))
+		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if actual.ReduceMakeDistributionParams == nil && desired.ReduceMakeDistributionParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("desired ReduceMakeDistributionParams %s - but actually nil", dcl.SprintResource(desired.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
 		return true
 	}
 	return false
@@ -18533,7 +17554,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18552,7 +17573,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18566,12 +17587,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	if actual == nil {
 		return true
 	}
-	if actual.Threshold == nil && desired.Threshold != nil && !dcl.IsEmptyValueIndirect(desired.Threshold) {
-		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
+		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
@@ -18584,7 +17601,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18603,7 +17620,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18617,20 +17634,12 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	if actual == nil {
 		return true
 	}
-	if actual.BucketOptions == nil && desired.BucketOptions != nil && !dcl.IsEmptyValueIndirect(desired.BucketOptions) {
-		c.Config.Logger.Infof("desired BucketOptions %s - but actually nil", dcl.SprintResource(desired.BucketOptions))
-		return true
-	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if actual.ExemplarSampling == nil && desired.ExemplarSampling != nil && !dcl.IsEmptyValueIndirect(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("desired ExemplarSampling %s - but actually nil", dcl.SprintResource(desired.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
 		return true
 	}
 	return false
@@ -18643,7 +17652,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18662,7 +17671,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18676,28 +17685,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	if actual == nil {
 		return true
 	}
-	if actual.LinearBuckets == nil && desired.LinearBuckets != nil && !dcl.IsEmptyValueIndirect(desired.LinearBuckets) {
-		c.Config.Logger.Infof("desired LinearBuckets %s - but actually nil", dcl.SprintResource(desired.LinearBuckets))
-		return true
-	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if actual.ExponentialBuckets == nil && desired.ExponentialBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("desired ExponentialBuckets %s - but actually nil", dcl.SprintResource(desired.ExponentialBuckets))
+		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if actual.ExplicitBuckets == nil && desired.ExplicitBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("desired ExplicitBuckets %s - but actually nil", dcl.SprintResource(desired.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
 		return true
 	}
 	return false
@@ -18710,7 +17707,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18729,7 +17726,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18743,28 +17740,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Offset == nil && desired.Offset != nil && !dcl.IsEmptyValueIndirect(desired.Offset) {
-		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
+		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
+		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
@@ -18777,7 +17762,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18796,7 +17781,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18810,28 +17795,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.GrowthFactor == nil && desired.GrowthFactor != nil && !dcl.IsEmptyValueIndirect(desired.GrowthFactor) {
-		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if actual.Scale == nil && desired.Scale != nil && !dcl.IsEmptyValueIndirect(desired.Scale) {
-		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
+		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
+		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
@@ -18844,7 +17817,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18863,7 +17836,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18877,12 +17850,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	if actual == nil {
 		return true
 	}
-	if actual.Bounds == nil && desired.Bounds != nil && !dcl.IsEmptyValueIndirect(desired.Bounds) {
-		c.Config.Logger.Infof("desired Bounds %s - but actually nil", dcl.SprintResource(desired.Bounds))
-		return true
-	}
 	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
+		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
 		return true
 	}
 	return false
@@ -18895,7 +17864,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18914,7 +17883,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18928,12 +17897,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	if actual == nil {
 		return true
 	}
-	if actual.MinimumValue == nil && desired.MinimumValue != nil && !dcl.IsEmptyValueIndirect(desired.MinimumValue) {
-		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
-		return true
-	}
 	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
+		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
@@ -18946,7 +17911,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -18965,7 +17930,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -18979,28 +17944,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 	if actual == nil {
 		return true
 	}
-	if actual.RankingMethod == nil && desired.RankingMethod != nil && !dcl.IsEmptyValueIndirect(desired.RankingMethod) {
-		c.Config.Logger.Infof("desired RankingMethod %s - but actually nil", dcl.SprintResource(desired.RankingMethod))
-		return true
-	}
 	if !reflect.DeepEqual(desired.RankingMethod, actual.RankingMethod) && !dcl.IsZeroValue(desired.RankingMethod) {
-		c.Config.Logger.Infof("Diff in RankingMethod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RankingMethod), dcl.SprintResource(actual.RankingMethod))
-		return true
-	}
-	if actual.NumTimeSeries == nil && desired.NumTimeSeries != nil && !dcl.IsEmptyValueIndirect(desired.NumTimeSeries) {
-		c.Config.Logger.Infof("desired NumTimeSeries %s - but actually nil", dcl.SprintResource(desired.NumTimeSeries))
+		c.Config.Logger.Infof("Diff in RankingMethod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RankingMethod), dcl.SprintResource(actual.RankingMethod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.NumTimeSeries, actual.NumTimeSeries) && !dcl.IsZeroValue(desired.NumTimeSeries) {
-		c.Config.Logger.Infof("Diff in NumTimeSeries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumTimeSeries), dcl.SprintResource(actual.NumTimeSeries))
-		return true
-	}
-	if actual.Direction == nil && desired.Direction != nil && !dcl.IsEmptyValueIndirect(desired.Direction) {
-		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
+		c.Config.Logger.Infof("Diff in NumTimeSeries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumTimeSeries), dcl.SprintResource(actual.NumTimeSeries))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
-		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
+		c.Config.Logger.Infof("Diff in Direction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
 		return true
 	}
 	return false
@@ -19013,7 +17966,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19032,7 +17985,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19046,36 +17999,20 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Clie
 	if actual == nil {
 		return true
 	}
-	if actual.Numerator == nil && desired.Numerator != nil && !dcl.IsEmptyValueIndirect(desired.Numerator) {
-		c.Config.Logger.Infof("desired Numerator %s - but actually nil", dcl.SprintResource(desired.Numerator))
-		return true
-	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, desired.Numerator, actual.Numerator) && !dcl.IsZeroValue(desired.Numerator) {
-		c.Config.Logger.Infof("Diff in Numerator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Numerator), dcl.SprintResource(actual.Numerator))
-		return true
-	}
-	if actual.Denominator == nil && desired.Denominator != nil && !dcl.IsEmptyValueIndirect(desired.Denominator) {
-		c.Config.Logger.Infof("desired Denominator %s - but actually nil", dcl.SprintResource(desired.Denominator))
+		c.Config.Logger.Infof("Diff in Numerator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Numerator), dcl.SprintResource(actual.Numerator))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, desired.Denominator, actual.Denominator) && !dcl.IsZeroValue(desired.Denominator) {
-		c.Config.Logger.Infof("Diff in Denominator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Denominator), dcl.SprintResource(actual.Denominator))
-		return true
-	}
-	if actual.SecondaryAggregation == nil && desired.SecondaryAggregation != nil && !dcl.IsEmptyValueIndirect(desired.SecondaryAggregation) {
-		c.Config.Logger.Infof("desired SecondaryAggregation %s - but actually nil", dcl.SprintResource(desired.SecondaryAggregation))
+		c.Config.Logger.Infof("Diff in Denominator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Denominator), dcl.SprintResource(actual.Denominator))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, desired.SecondaryAggregation, actual.SecondaryAggregation) && !dcl.IsZeroValue(desired.SecondaryAggregation) {
-		c.Config.Logger.Infof("Diff in SecondaryAggregation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecondaryAggregation), dcl.SprintResource(actual.SecondaryAggregation))
-		return true
-	}
-	if actual.PickTimeSeriesFilter == nil && desired.PickTimeSeriesFilter != nil && !dcl.IsEmptyValueIndirect(desired.PickTimeSeriesFilter) {
-		c.Config.Logger.Infof("desired PickTimeSeriesFilter %s - but actually nil", dcl.SprintResource(desired.PickTimeSeriesFilter))
+		c.Config.Logger.Infof("Diff in SecondaryAggregation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecondaryAggregation), dcl.SprintResource(actual.SecondaryAggregation))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter) && !dcl.IsZeroValue(desired.PickTimeSeriesFilter) {
-		c.Config.Logger.Infof("Diff in PickTimeSeriesFilter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PickTimeSeriesFilter), dcl.SprintResource(actual.PickTimeSeriesFilter))
+		c.Config.Logger.Infof("Diff in PickTimeSeriesFilter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PickTimeSeriesFilter), dcl.SprintResource(actual.PickTimeSeriesFilter))
 		return true
 	}
 	return false
@@ -19088,7 +18025,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(c 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19107,7 +18044,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioMap(c *C
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19121,20 +18058,12 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	if actual == nil {
 		return true
 	}
-	if actual.Filter == nil && desired.Filter != nil && !dcl.IsEmptyValueIndirect(desired.Filter) {
-		c.Config.Logger.Infof("desired Filter %s - but actually nil", dcl.SprintResource(desired.Filter))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	if actual.Aggregation == nil && desired.Aggregation != nil && !dcl.IsEmptyValueIndirect(desired.Aggregation) {
-		c.Config.Logger.Infof("desired Aggregation %s - but actually nil", dcl.SprintResource(desired.Aggregation))
+		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, desired.Aggregation, actual.Aggregation) && !dcl.IsZeroValue(desired.Aggregation) {
-		c.Config.Logger.Infof("Diff in Aggregation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregation), dcl.SprintResource(actual.Aggregation))
+		c.Config.Logger.Infof("Diff in Aggregation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregation), dcl.SprintResource(actual.Aggregation))
 		return true
 	}
 	return false
@@ -19147,7 +18076,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19166,7 +18095,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19180,52 +18109,28 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	if actual == nil {
 		return true
 	}
-	if actual.AlignmentPeriod == nil && desired.AlignmentPeriod != nil && !dcl.IsEmptyValueIndirect(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if actual.PerSeriesAligner == nil && desired.PerSeriesAligner != nil && !dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
+		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if actual.CrossSeriesReducer == nil && desired.CrossSeriesReducer != nil && !dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
+		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
 	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if actual.GroupByFields == nil && desired.GroupByFields != nil && !dcl.IsEmptyValueIndirect(desired.GroupByFields) {
-		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
+		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if actual.ReduceFractionLessThanParams == nil && desired.ReduceFractionLessThanParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("desired ReduceFractionLessThanParams %s - but actually nil", dcl.SprintResource(desired.ReduceFractionLessThanParams))
+		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if actual.ReduceMakeDistributionParams == nil && desired.ReduceMakeDistributionParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("desired ReduceMakeDistributionParams %s - but actually nil", dcl.SprintResource(desired.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
 		return true
 	}
 	return false
@@ -19238,7 +18143,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19257,7 +18162,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19271,12 +18176,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	if actual == nil {
 		return true
 	}
-	if actual.Threshold == nil && desired.Threshold != nil && !dcl.IsEmptyValueIndirect(desired.Threshold) {
-		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
+		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
@@ -19289,7 +18190,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19308,7 +18209,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19322,20 +18223,12 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	if actual == nil {
 		return true
 	}
-	if actual.BucketOptions == nil && desired.BucketOptions != nil && !dcl.IsEmptyValueIndirect(desired.BucketOptions) {
-		c.Config.Logger.Infof("desired BucketOptions %s - but actually nil", dcl.SprintResource(desired.BucketOptions))
-		return true
-	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if actual.ExemplarSampling == nil && desired.ExemplarSampling != nil && !dcl.IsEmptyValueIndirect(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("desired ExemplarSampling %s - but actually nil", dcl.SprintResource(desired.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
 		return true
 	}
 	return false
@@ -19348,7 +18241,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19367,7 +18260,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19381,28 +18274,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	if actual == nil {
 		return true
 	}
-	if actual.LinearBuckets == nil && desired.LinearBuckets != nil && !dcl.IsEmptyValueIndirect(desired.LinearBuckets) {
-		c.Config.Logger.Infof("desired LinearBuckets %s - but actually nil", dcl.SprintResource(desired.LinearBuckets))
-		return true
-	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if actual.ExponentialBuckets == nil && desired.ExponentialBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("desired ExponentialBuckets %s - but actually nil", dcl.SprintResource(desired.ExponentialBuckets))
+		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if actual.ExplicitBuckets == nil && desired.ExplicitBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("desired ExplicitBuckets %s - but actually nil", dcl.SprintResource(desired.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
 		return true
 	}
 	return false
@@ -19415,7 +18296,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19434,7 +18315,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19448,28 +18329,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Offset == nil && desired.Offset != nil && !dcl.IsEmptyValueIndirect(desired.Offset) {
-		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
+		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
+		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
@@ -19482,7 +18351,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19501,7 +18370,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19515,28 +18384,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.GrowthFactor == nil && desired.GrowthFactor != nil && !dcl.IsEmptyValueIndirect(desired.GrowthFactor) {
-		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if actual.Scale == nil && desired.Scale != nil && !dcl.IsEmptyValueIndirect(desired.Scale) {
-		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
+		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
+		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
@@ -19549,7 +18406,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19568,7 +18425,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19582,12 +18439,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	if actual == nil {
 		return true
 	}
-	if actual.Bounds == nil && desired.Bounds != nil && !dcl.IsEmptyValueIndirect(desired.Bounds) {
-		c.Config.Logger.Infof("desired Bounds %s - but actually nil", dcl.SprintResource(desired.Bounds))
-		return true
-	}
 	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
+		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
 		return true
 	}
 	return false
@@ -19600,7 +18453,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19619,7 +18472,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19633,12 +18486,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	if actual == nil {
 		return true
 	}
-	if actual.MinimumValue == nil && desired.MinimumValue != nil && !dcl.IsEmptyValueIndirect(desired.MinimumValue) {
-		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
-		return true
-	}
 	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
+		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
@@ -19651,7 +18500,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19670,7 +18519,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19684,20 +18533,12 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	if actual == nil {
 		return true
 	}
-	if actual.Filter == nil && desired.Filter != nil && !dcl.IsEmptyValueIndirect(desired.Filter) {
-		c.Config.Logger.Infof("desired Filter %s - but actually nil", dcl.SprintResource(desired.Filter))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	if actual.Aggregation == nil && desired.Aggregation != nil && !dcl.IsEmptyValueIndirect(desired.Aggregation) {
-		c.Config.Logger.Infof("desired Aggregation %s - but actually nil", dcl.SprintResource(desired.Aggregation))
+		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, desired.Aggregation, actual.Aggregation) && !dcl.IsZeroValue(desired.Aggregation) {
-		c.Config.Logger.Infof("Diff in Aggregation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregation), dcl.SprintResource(actual.Aggregation))
+		c.Config.Logger.Infof("Diff in Aggregation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregation), dcl.SprintResource(actual.Aggregation))
 		return true
 	}
 	return false
@@ -19710,7 +18551,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19729,7 +18570,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19743,52 +18584,28 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	if actual == nil {
 		return true
 	}
-	if actual.AlignmentPeriod == nil && desired.AlignmentPeriod != nil && !dcl.IsEmptyValueIndirect(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if actual.PerSeriesAligner == nil && desired.PerSeriesAligner != nil && !dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
+		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if actual.CrossSeriesReducer == nil && desired.CrossSeriesReducer != nil && !dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
+		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
 	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if actual.GroupByFields == nil && desired.GroupByFields != nil && !dcl.IsEmptyValueIndirect(desired.GroupByFields) {
-		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
+		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if actual.ReduceFractionLessThanParams == nil && desired.ReduceFractionLessThanParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("desired ReduceFractionLessThanParams %s - but actually nil", dcl.SprintResource(desired.ReduceFractionLessThanParams))
+		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if actual.ReduceMakeDistributionParams == nil && desired.ReduceMakeDistributionParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("desired ReduceMakeDistributionParams %s - but actually nil", dcl.SprintResource(desired.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
 		return true
 	}
 	return false
@@ -19801,7 +18618,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19820,7 +18637,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19834,12 +18651,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	if actual == nil {
 		return true
 	}
-	if actual.Threshold == nil && desired.Threshold != nil && !dcl.IsEmptyValueIndirect(desired.Threshold) {
-		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
+		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
@@ -19852,7 +18665,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19871,7 +18684,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19885,20 +18698,12 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	if actual == nil {
 		return true
 	}
-	if actual.BucketOptions == nil && desired.BucketOptions != nil && !dcl.IsEmptyValueIndirect(desired.BucketOptions) {
-		c.Config.Logger.Infof("desired BucketOptions %s - but actually nil", dcl.SprintResource(desired.BucketOptions))
-		return true
-	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if actual.ExemplarSampling == nil && desired.ExemplarSampling != nil && !dcl.IsEmptyValueIndirect(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("desired ExemplarSampling %s - but actually nil", dcl.SprintResource(desired.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
 		return true
 	}
 	return false
@@ -19911,7 +18716,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19930,7 +18735,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -19944,28 +18749,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	if actual == nil {
 		return true
 	}
-	if actual.LinearBuckets == nil && desired.LinearBuckets != nil && !dcl.IsEmptyValueIndirect(desired.LinearBuckets) {
-		c.Config.Logger.Infof("desired LinearBuckets %s - but actually nil", dcl.SprintResource(desired.LinearBuckets))
-		return true
-	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if actual.ExponentialBuckets == nil && desired.ExponentialBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("desired ExponentialBuckets %s - but actually nil", dcl.SprintResource(desired.ExponentialBuckets))
+		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if actual.ExplicitBuckets == nil && desired.ExplicitBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("desired ExplicitBuckets %s - but actually nil", dcl.SprintResource(desired.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
 		return true
 	}
 	return false
@@ -19978,7 +18771,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -19997,7 +18790,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20011,28 +18804,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Offset == nil && desired.Offset != nil && !dcl.IsEmptyValueIndirect(desired.Offset) {
-		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
+		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
+		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
@@ -20045,7 +18826,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20064,7 +18845,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20078,28 +18859,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.GrowthFactor == nil && desired.GrowthFactor != nil && !dcl.IsEmptyValueIndirect(desired.GrowthFactor) {
-		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if actual.Scale == nil && desired.Scale != nil && !dcl.IsEmptyValueIndirect(desired.Scale) {
-		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
+		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
+		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
@@ -20112,7 +18881,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20131,7 +18900,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20145,12 +18914,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	if actual == nil {
 		return true
 	}
-	if actual.Bounds == nil && desired.Bounds != nil && !dcl.IsEmptyValueIndirect(desired.Bounds) {
-		c.Config.Logger.Infof("desired Bounds %s - but actually nil", dcl.SprintResource(desired.Bounds))
-		return true
-	}
 	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
+		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
 		return true
 	}
 	return false
@@ -20163,7 +18928,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20182,7 +18947,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20196,12 +18961,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	if actual == nil {
 		return true
 	}
-	if actual.MinimumValue == nil && desired.MinimumValue != nil && !dcl.IsEmptyValueIndirect(desired.MinimumValue) {
-		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
-		return true
-	}
 	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
+		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
@@ -20214,7 +18975,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20233,7 +18994,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20247,52 +19008,28 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	if actual == nil {
 		return true
 	}
-	if actual.AlignmentPeriod == nil && desired.AlignmentPeriod != nil && !dcl.IsEmptyValueIndirect(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("desired AlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.AlignmentPeriod))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if actual.PerSeriesAligner == nil && desired.PerSeriesAligner != nil && !dcl.IsEmptyValueIndirect(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("desired PerSeriesAligner %s - but actually nil", dcl.SprintResource(desired.PerSeriesAligner))
+		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if actual.CrossSeriesReducer == nil && desired.CrossSeriesReducer != nil && !dcl.IsEmptyValueIndirect(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("desired CrossSeriesReducer %s - but actually nil", dcl.SprintResource(desired.CrossSeriesReducer))
+		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
 		return true
 	}
 	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if actual.GroupByFields == nil && desired.GroupByFields != nil && !dcl.IsEmptyValueIndirect(desired.GroupByFields) {
-		c.Config.Logger.Infof("desired GroupByFields %s - but actually nil", dcl.SprintResource(desired.GroupByFields))
+		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if actual.ReduceFractionLessThanParams == nil && desired.ReduceFractionLessThanParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("desired ReduceFractionLessThanParams %s - but actually nil", dcl.SprintResource(desired.ReduceFractionLessThanParams))
+		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if actual.ReduceMakeDistributionParams == nil && desired.ReduceMakeDistributionParams != nil && !dcl.IsEmptyValueIndirect(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("desired ReduceMakeDistributionParams %s - but actually nil", dcl.SprintResource(desired.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
+		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
 		return true
 	}
 	return false
@@ -20305,7 +19042,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20324,7 +19061,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20338,12 +19075,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	if actual == nil {
 		return true
 	}
-	if actual.Threshold == nil && desired.Threshold != nil && !dcl.IsEmptyValueIndirect(desired.Threshold) {
-		c.Config.Logger.Infof("desired Threshold %s - but actually nil", dcl.SprintResource(desired.Threshold))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
+		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
 		return true
 	}
 	return false
@@ -20356,7 +19089,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20375,7 +19108,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20389,20 +19122,12 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	if actual == nil {
 		return true
 	}
-	if actual.BucketOptions == nil && desired.BucketOptions != nil && !dcl.IsEmptyValueIndirect(desired.BucketOptions) {
-		c.Config.Logger.Infof("desired BucketOptions %s - but actually nil", dcl.SprintResource(desired.BucketOptions))
-		return true
-	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if actual.ExemplarSampling == nil && desired.ExemplarSampling != nil && !dcl.IsEmptyValueIndirect(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("desired ExemplarSampling %s - but actually nil", dcl.SprintResource(desired.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
+		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
 		return true
 	}
 	return false
@@ -20415,7 +19140,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20434,7 +19159,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20448,28 +19173,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	if actual == nil {
 		return true
 	}
-	if actual.LinearBuckets == nil && desired.LinearBuckets != nil && !dcl.IsEmptyValueIndirect(desired.LinearBuckets) {
-		c.Config.Logger.Infof("desired LinearBuckets %s - but actually nil", dcl.SprintResource(desired.LinearBuckets))
-		return true
-	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if actual.ExponentialBuckets == nil && desired.ExponentialBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("desired ExponentialBuckets %s - but actually nil", dcl.SprintResource(desired.ExponentialBuckets))
+		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if actual.ExplicitBuckets == nil && desired.ExplicitBuckets != nil && !dcl.IsEmptyValueIndirect(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("desired ExplicitBuckets %s - but actually nil", dcl.SprintResource(desired.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
 		return true
 	}
 	if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
+		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
 		return true
 	}
 	return false
@@ -20482,7 +19195,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20501,7 +19214,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20515,28 +19228,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.Width == nil && desired.Width != nil && !dcl.IsEmptyValueIndirect(desired.Width) {
-		c.Config.Logger.Infof("desired Width %s - but actually nil", dcl.SprintResource(desired.Width))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if actual.Offset == nil && desired.Offset != nil && !dcl.IsEmptyValueIndirect(desired.Offset) {
-		c.Config.Logger.Infof("desired Offset %s - but actually nil", dcl.SprintResource(desired.Offset))
+		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
+		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
 		return true
 	}
 	return false
@@ -20549,7 +19250,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20568,7 +19269,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20582,28 +19283,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	if actual == nil {
 		return true
 	}
-	if actual.NumFiniteBuckets == nil && desired.NumFiniteBuckets != nil && !dcl.IsEmptyValueIndirect(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("desired NumFiniteBuckets %s - but actually nil", dcl.SprintResource(desired.NumFiniteBuckets))
-		return true
-	}
 	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if actual.GrowthFactor == nil && desired.GrowthFactor != nil && !dcl.IsEmptyValueIndirect(desired.GrowthFactor) {
-		c.Config.Logger.Infof("desired GrowthFactor %s - but actually nil", dcl.SprintResource(desired.GrowthFactor))
+		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
 		return true
 	}
 	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if actual.Scale == nil && desired.Scale != nil && !dcl.IsEmptyValueIndirect(desired.Scale) {
-		c.Config.Logger.Infof("desired Scale %s - but actually nil", dcl.SprintResource(desired.Scale))
+		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
+		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
 		return true
 	}
 	return false
@@ -20616,7 +19305,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20635,7 +19324,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20649,12 +19338,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	if actual == nil {
 		return true
 	}
-	if actual.Bounds == nil && desired.Bounds != nil && !dcl.IsEmptyValueIndirect(desired.Bounds) {
-		c.Config.Logger.Infof("desired Bounds %s - but actually nil", dcl.SprintResource(desired.Bounds))
-		return true
-	}
 	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
+		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
 		return true
 	}
 	return false
@@ -20667,7 +19352,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20686,7 +19371,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20700,12 +19385,8 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	if actual == nil {
 		return true
 	}
-	if actual.MinimumValue == nil && desired.MinimumValue != nil && !dcl.IsEmptyValueIndirect(desired.MinimumValue) {
-		c.Config.Logger.Infof("desired MinimumValue %s - but actually nil", dcl.SprintResource(desired.MinimumValue))
-		return true
-	}
 	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
+		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
 		return true
 	}
 	return false
@@ -20718,7 +19399,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20737,7 +19418,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20751,28 +19432,16 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 	if actual == nil {
 		return true
 	}
-	if actual.RankingMethod == nil && desired.RankingMethod != nil && !dcl.IsEmptyValueIndirect(desired.RankingMethod) {
-		c.Config.Logger.Infof("desired RankingMethod %s - but actually nil", dcl.SprintResource(desired.RankingMethod))
-		return true
-	}
 	if !reflect.DeepEqual(desired.RankingMethod, actual.RankingMethod) && !dcl.IsZeroValue(desired.RankingMethod) {
-		c.Config.Logger.Infof("Diff in RankingMethod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RankingMethod), dcl.SprintResource(actual.RankingMethod))
-		return true
-	}
-	if actual.NumTimeSeries == nil && desired.NumTimeSeries != nil && !dcl.IsEmptyValueIndirect(desired.NumTimeSeries) {
-		c.Config.Logger.Infof("desired NumTimeSeries %s - but actually nil", dcl.SprintResource(desired.NumTimeSeries))
+		c.Config.Logger.Infof("Diff in RankingMethod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RankingMethod), dcl.SprintResource(actual.RankingMethod))
 		return true
 	}
 	if !reflect.DeepEqual(desired.NumTimeSeries, actual.NumTimeSeries) && !dcl.IsZeroValue(desired.NumTimeSeries) {
-		c.Config.Logger.Infof("Diff in NumTimeSeries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumTimeSeries), dcl.SprintResource(actual.NumTimeSeries))
-		return true
-	}
-	if actual.Direction == nil && desired.Direction != nil && !dcl.IsEmptyValueIndirect(desired.Direction) {
-		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
+		c.Config.Logger.Infof("Diff in NumTimeSeries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumTimeSeries), dcl.SprintResource(actual.NumTimeSeries))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
-		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
+		c.Config.Logger.Infof("Diff in Direction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
 		return true
 	}
 	return false
@@ -20785,7 +19454,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20804,7 +19473,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 			return true
 		}
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20818,60 +19487,32 @@ func compareDashboardWidgetScorecardSourceDrilldown(c *Client, desired, actual *
 	if actual == nil {
 		return true
 	}
-	if actual.ResourceTypeDrilldown == nil && desired.ResourceTypeDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.ResourceTypeDrilldown) {
-		c.Config.Logger.Infof("desired ResourceTypeDrilldown %s - but actually nil", dcl.SprintResource(desired.ResourceTypeDrilldown))
-		return true
-	}
 	if compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c, desired.ResourceTypeDrilldown, actual.ResourceTypeDrilldown) && !dcl.IsZeroValue(desired.ResourceTypeDrilldown) {
-		c.Config.Logger.Infof("Diff in ResourceTypeDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceTypeDrilldown), dcl.SprintResource(actual.ResourceTypeDrilldown))
-		return true
-	}
-	if actual.ResourceLabelDrilldowns == nil && desired.ResourceLabelDrilldowns != nil && !dcl.IsEmptyValueIndirect(desired.ResourceLabelDrilldowns) {
-		c.Config.Logger.Infof("desired ResourceLabelDrilldowns %s - but actually nil", dcl.SprintResource(desired.ResourceLabelDrilldowns))
+		c.Config.Logger.Infof("Diff in ResourceTypeDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceTypeDrilldown), dcl.SprintResource(actual.ResourceTypeDrilldown))
 		return true
 	}
 	if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsSlice(c, desired.ResourceLabelDrilldowns, actual.ResourceLabelDrilldowns) && !dcl.IsZeroValue(desired.ResourceLabelDrilldowns) {
-		c.Config.Logger.Infof("Diff in ResourceLabelDrilldowns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceLabelDrilldowns), dcl.SprintResource(actual.ResourceLabelDrilldowns))
-		return true
-	}
-	if actual.MetadataSystemLabelDrilldowns == nil && desired.MetadataSystemLabelDrilldowns != nil && !dcl.IsEmptyValueIndirect(desired.MetadataSystemLabelDrilldowns) {
-		c.Config.Logger.Infof("desired MetadataSystemLabelDrilldowns %s - but actually nil", dcl.SprintResource(desired.MetadataSystemLabelDrilldowns))
+		c.Config.Logger.Infof("Diff in ResourceLabelDrilldowns.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceLabelDrilldowns), dcl.SprintResource(actual.ResourceLabelDrilldowns))
 		return true
 	}
 	if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsSlice(c, desired.MetadataSystemLabelDrilldowns, actual.MetadataSystemLabelDrilldowns) && !dcl.IsZeroValue(desired.MetadataSystemLabelDrilldowns) {
-		c.Config.Logger.Infof("Diff in MetadataSystemLabelDrilldowns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataSystemLabelDrilldowns), dcl.SprintResource(actual.MetadataSystemLabelDrilldowns))
-		return true
-	}
-	if actual.MetadataUserLabelDrilldowns == nil && desired.MetadataUserLabelDrilldowns != nil && !dcl.IsEmptyValueIndirect(desired.MetadataUserLabelDrilldowns) {
-		c.Config.Logger.Infof("desired MetadataUserLabelDrilldowns %s - but actually nil", dcl.SprintResource(desired.MetadataUserLabelDrilldowns))
+		c.Config.Logger.Infof("Diff in MetadataSystemLabelDrilldowns.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataSystemLabelDrilldowns), dcl.SprintResource(actual.MetadataSystemLabelDrilldowns))
 		return true
 	}
 	if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsSlice(c, desired.MetadataUserLabelDrilldowns, actual.MetadataUserLabelDrilldowns) && !dcl.IsZeroValue(desired.MetadataUserLabelDrilldowns) {
-		c.Config.Logger.Infof("Diff in MetadataUserLabelDrilldowns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataUserLabelDrilldowns), dcl.SprintResource(actual.MetadataUserLabelDrilldowns))
-		return true
-	}
-	if actual.GroupNameDrilldown == nil && desired.GroupNameDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.GroupNameDrilldown) {
-		c.Config.Logger.Infof("desired GroupNameDrilldown %s - but actually nil", dcl.SprintResource(desired.GroupNameDrilldown))
+		c.Config.Logger.Infof("Diff in MetadataUserLabelDrilldowns.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataUserLabelDrilldowns), dcl.SprintResource(actual.MetadataUserLabelDrilldowns))
 		return true
 	}
 	if compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(c, desired.GroupNameDrilldown, actual.GroupNameDrilldown) && !dcl.IsZeroValue(desired.GroupNameDrilldown) {
-		c.Config.Logger.Infof("Diff in GroupNameDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupNameDrilldown), dcl.SprintResource(actual.GroupNameDrilldown))
-		return true
-	}
-	if actual.ServiceNameDrilldown == nil && desired.ServiceNameDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.ServiceNameDrilldown) {
-		c.Config.Logger.Infof("desired ServiceNameDrilldown %s - but actually nil", dcl.SprintResource(desired.ServiceNameDrilldown))
+		c.Config.Logger.Infof("Diff in GroupNameDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupNameDrilldown), dcl.SprintResource(actual.GroupNameDrilldown))
 		return true
 	}
 	if compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(c, desired.ServiceNameDrilldown, actual.ServiceNameDrilldown) && !dcl.IsZeroValue(desired.ServiceNameDrilldown) {
-		c.Config.Logger.Infof("Diff in ServiceNameDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceNameDrilldown), dcl.SprintResource(actual.ServiceNameDrilldown))
-		return true
-	}
-	if actual.ServiceTypeDrilldown == nil && desired.ServiceTypeDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.ServiceTypeDrilldown) {
-		c.Config.Logger.Infof("desired ServiceTypeDrilldown %s - but actually nil", dcl.SprintResource(desired.ServiceTypeDrilldown))
+		c.Config.Logger.Infof("Diff in ServiceNameDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceNameDrilldown), dcl.SprintResource(actual.ServiceNameDrilldown))
 		return true
 	}
 	if compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(c, desired.ServiceTypeDrilldown, actual.ServiceTypeDrilldown) && !dcl.IsZeroValue(desired.ServiceTypeDrilldown) {
-		c.Config.Logger.Infof("Diff in ServiceTypeDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceTypeDrilldown), dcl.SprintResource(actual.ServiceTypeDrilldown))
+		c.Config.Logger.Infof("Diff in ServiceTypeDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceTypeDrilldown), dcl.SprintResource(actual.ServiceTypeDrilldown))
 		return true
 	}
 	return false
@@ -20884,7 +19525,7 @@ func compareDashboardWidgetScorecardSourceDrilldownSlice(c *Client, desired, act
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20903,7 +19544,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMap(c *Client, desired, actua
 			return true
 		}
 		if compareDashboardWidgetScorecardSourceDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20917,12 +19558,8 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c *Clie
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValues == nil && desired.TargetValues != nil && !dcl.IsEmptyValueIndirect(desired.TargetValues) {
-		c.Config.Logger.Infof("desired TargetValues %s - but actually nil", dcl.SprintResource(desired.TargetValues))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
-		c.Config.Logger.Infof("Diff in TargetValues. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
+		c.Config.Logger.Infof("Diff in TargetValues.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
 		return true
 	}
 	return false
@@ -20935,7 +19572,7 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldownSlice(c 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -20954,7 +19591,7 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldownMap(c *C
 			return true
 		}
 		if compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -20968,28 +19605,16 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c *Cl
 	if actual == nil {
 		return true
 	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	if actual.LogicalOperator == nil && desired.LogicalOperator != nil && !dcl.IsEmptyValueIndirect(desired.LogicalOperator) {
-		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
+		c.Config.Logger.Infof("Diff in Label.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
 	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
-		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
-		return true
-	}
-	if actual.ValueRestrictions == nil && desired.ValueRestrictions != nil && !dcl.IsEmptyValueIndirect(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("desired ValueRestrictions %s - but actually nil", dcl.SprintResource(desired.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in LogicalOperator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
 	if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsSlice(c, desired.ValueRestrictions, actual.ValueRestrictions) && !dcl.IsZeroValue(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("Diff in ValueRestrictions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in ValueRestrictions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
 		return true
 	}
 	return false
@@ -21002,7 +19627,7 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsSlice(
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21021,7 +19646,7 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsMap(c 
 			return true
 		}
 		if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21035,20 +19660,12 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueR
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValue == nil && desired.TargetValue != nil && !dcl.IsEmptyValueIndirect(desired.TargetValue) {
-		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
-		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
-		return true
-	}
-	if actual.Comparator == nil && desired.Comparator != nil && !dcl.IsEmptyValueIndirect(desired.Comparator) {
-		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
+		c.Config.Logger.Infof("Diff in TargetValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
-		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
+		c.Config.Logger.Infof("Diff in Comparator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
@@ -21061,7 +19678,7 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueR
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21080,7 +19697,7 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueR
 			return true
 		}
 		if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21094,28 +19711,16 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 	if actual == nil {
 		return true
 	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	if actual.LogicalOperator == nil && desired.LogicalOperator != nil && !dcl.IsEmptyValueIndirect(desired.LogicalOperator) {
-		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
+		c.Config.Logger.Infof("Diff in Label.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
 	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
-		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
-		return true
-	}
-	if actual.ValueRestrictions == nil && desired.ValueRestrictions != nil && !dcl.IsEmptyValueIndirect(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("desired ValueRestrictions %s - but actually nil", dcl.SprintResource(desired.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in LogicalOperator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
 	if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsSlice(c, desired.ValueRestrictions, actual.ValueRestrictions) && !dcl.IsZeroValue(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("Diff in ValueRestrictions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in ValueRestrictions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
 		return true
 	}
 	return false
@@ -21128,7 +19733,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21147,7 +19752,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 			return true
 		}
 		if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21161,20 +19766,12 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValue == nil && desired.TargetValue != nil && !dcl.IsEmptyValueIndirect(desired.TargetValue) {
-		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
-		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
-		return true
-	}
-	if actual.Comparator == nil && desired.Comparator != nil && !dcl.IsEmptyValueIndirect(desired.Comparator) {
-		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
+		c.Config.Logger.Infof("Diff in TargetValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
-		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
+		c.Config.Logger.Infof("Diff in Comparator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
@@ -21187,7 +19784,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21206,7 +19803,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 			return true
 		}
 		if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21220,28 +19817,16 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c
 	if actual == nil {
 		return true
 	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	if actual.LogicalOperator == nil && desired.LogicalOperator != nil && !dcl.IsEmptyValueIndirect(desired.LogicalOperator) {
-		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
+		c.Config.Logger.Infof("Diff in Label.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
 	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
-		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
-		return true
-	}
-	if actual.ValueRestrictions == nil && desired.ValueRestrictions != nil && !dcl.IsEmptyValueIndirect(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("desired ValueRestrictions %s - but actually nil", dcl.SprintResource(desired.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in LogicalOperator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
 	if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsSlice(c, desired.ValueRestrictions, actual.ValueRestrictions) && !dcl.IsZeroValue(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("Diff in ValueRestrictions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in ValueRestrictions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
 		return true
 	}
 	return false
@@ -21254,7 +19839,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsSl
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21273,7 +19858,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsMa
 			return true
 		}
 		if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21287,20 +19872,12 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsVa
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValue == nil && desired.TargetValue != nil && !dcl.IsEmptyValueIndirect(desired.TargetValue) {
-		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
-		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
-		return true
-	}
-	if actual.Comparator == nil && desired.Comparator != nil && !dcl.IsEmptyValueIndirect(desired.Comparator) {
-		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
+		c.Config.Logger.Infof("Diff in TargetValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
-		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
+		c.Config.Logger.Infof("Diff in Comparator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
@@ -21313,7 +19890,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsVa
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21332,7 +19909,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsVa
 			return true
 		}
 		if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21346,12 +19923,8 @@ func compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(c *Client,
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValues == nil && desired.TargetValues != nil && !dcl.IsEmptyValueIndirect(desired.TargetValues) {
-		c.Config.Logger.Infof("desired TargetValues %s - but actually nil", dcl.SprintResource(desired.TargetValues))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
-		c.Config.Logger.Infof("Diff in TargetValues. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
+		c.Config.Logger.Infof("Diff in TargetValues.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
 		return true
 	}
 	return false
@@ -21364,7 +19937,7 @@ func compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldownSlice(c *Cl
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21383,7 +19956,7 @@ func compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldownMap(c *Clie
 			return true
 		}
 		if compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21397,12 +19970,8 @@ func compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(c *Clien
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValues == nil && desired.TargetValues != nil && !dcl.IsEmptyValueIndirect(desired.TargetValues) {
-		c.Config.Logger.Infof("desired TargetValues %s - but actually nil", dcl.SprintResource(desired.TargetValues))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.TargetValues, actual.TargetValues) && !dcl.IsZeroValue(desired.TargetValues) {
-		c.Config.Logger.Infof("Diff in TargetValues. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
+		c.Config.Logger.Infof("Diff in TargetValues.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValues), dcl.SprintResource(actual.TargetValues))
 		return true
 	}
 	return false
@@ -21415,7 +19984,7 @@ func compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldownSlice(c *
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21434,7 +20003,7 @@ func compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldownMap(c *Cl
 			return true
 		}
 		if compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21448,12 +20017,8 @@ func compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(c *Clien
 	if actual == nil {
 		return true
 	}
-	if actual.Types == nil && desired.Types != nil && !dcl.IsEmptyValueIndirect(desired.Types) {
-		c.Config.Logger.Infof("desired Types %s - but actually nil", dcl.SprintResource(desired.Types))
-		return true
-	}
 	if compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownTypesEnumSlice(c, desired.Types, actual.Types) && !dcl.IsZeroValue(desired.Types) {
-		c.Config.Logger.Infof("Diff in Types. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Types), dcl.SprintResource(actual.Types))
+		c.Config.Logger.Infof("Diff in Types.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Types), dcl.SprintResource(actual.Types))
 		return true
 	}
 	return false
@@ -21466,7 +20031,7 @@ func compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownSlice(c *
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21485,7 +20050,7 @@ func compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownMap(c *Cl
 			return true
 		}
 		if compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21499,28 +20064,16 @@ func compareDashboardWidgetScorecardMetricDrilldown(c *Client, desired, actual *
 	if actual == nil {
 		return true
 	}
-	if actual.MetricTypeDrilldown == nil && desired.MetricTypeDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.MetricTypeDrilldown) {
-		c.Config.Logger.Infof("desired MetricTypeDrilldown %s - but actually nil", dcl.SprintResource(desired.MetricTypeDrilldown))
-		return true
-	}
 	if compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c, desired.MetricTypeDrilldown, actual.MetricTypeDrilldown) && !dcl.IsZeroValue(desired.MetricTypeDrilldown) {
-		c.Config.Logger.Infof("Diff in MetricTypeDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricTypeDrilldown), dcl.SprintResource(actual.MetricTypeDrilldown))
-		return true
-	}
-	if actual.MetricLabelDrilldowns == nil && desired.MetricLabelDrilldowns != nil && !dcl.IsEmptyValueIndirect(desired.MetricLabelDrilldowns) {
-		c.Config.Logger.Infof("desired MetricLabelDrilldowns %s - but actually nil", dcl.SprintResource(desired.MetricLabelDrilldowns))
+		c.Config.Logger.Infof("Diff in MetricTypeDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricTypeDrilldown), dcl.SprintResource(actual.MetricTypeDrilldown))
 		return true
 	}
 	if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsSlice(c, desired.MetricLabelDrilldowns, actual.MetricLabelDrilldowns) && !dcl.IsZeroValue(desired.MetricLabelDrilldowns) {
-		c.Config.Logger.Infof("Diff in MetricLabelDrilldowns. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricLabelDrilldowns), dcl.SprintResource(actual.MetricLabelDrilldowns))
-		return true
-	}
-	if actual.MetricGroupByDrilldown == nil && desired.MetricGroupByDrilldown != nil && !dcl.IsEmptyValueIndirect(desired.MetricGroupByDrilldown) {
-		c.Config.Logger.Infof("desired MetricGroupByDrilldown %s - but actually nil", dcl.SprintResource(desired.MetricGroupByDrilldown))
+		c.Config.Logger.Infof("Diff in MetricLabelDrilldowns.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricLabelDrilldowns), dcl.SprintResource(actual.MetricLabelDrilldowns))
 		return true
 	}
 	if compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c, desired.MetricGroupByDrilldown, actual.MetricGroupByDrilldown) && !dcl.IsZeroValue(desired.MetricGroupByDrilldown) {
-		c.Config.Logger.Infof("Diff in MetricGroupByDrilldown. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricGroupByDrilldown), dcl.SprintResource(actual.MetricGroupByDrilldown))
+		c.Config.Logger.Infof("Diff in MetricGroupByDrilldown.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricGroupByDrilldown), dcl.SprintResource(actual.MetricGroupByDrilldown))
 		return true
 	}
 	return false
@@ -21533,7 +20086,7 @@ func compareDashboardWidgetScorecardMetricDrilldownSlice(c *Client, desired, act
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardMetricDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21552,7 +20105,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMap(c *Client, desired, actua
 			return true
 		}
 		if compareDashboardWidgetScorecardMetricDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21566,12 +20119,8 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c *Client
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValue == nil && desired.TargetValue != nil && !dcl.IsEmptyValueIndirect(desired.TargetValue) {
-		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
-		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
+		c.Config.Logger.Infof("Diff in TargetValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
 	return false
@@ -21584,7 +20133,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldownSlice(c *C
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21603,7 +20152,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldownMap(c *Cli
 			return true
 		}
 		if compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21617,28 +20166,16 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c *Clie
 	if actual == nil {
 		return true
 	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	if actual.LogicalOperator == nil && desired.LogicalOperator != nil && !dcl.IsEmptyValueIndirect(desired.LogicalOperator) {
-		c.Config.Logger.Infof("desired LogicalOperator %s - but actually nil", dcl.SprintResource(desired.LogicalOperator))
+		c.Config.Logger.Infof("Diff in Label.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
 	if !reflect.DeepEqual(desired.LogicalOperator, actual.LogicalOperator) && !dcl.IsZeroValue(desired.LogicalOperator) {
-		c.Config.Logger.Infof("Diff in LogicalOperator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
-		return true
-	}
-	if actual.ValueRestrictions == nil && desired.ValueRestrictions != nil && !dcl.IsEmptyValueIndirect(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("desired ValueRestrictions %s - but actually nil", dcl.SprintResource(desired.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in LogicalOperator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogicalOperator), dcl.SprintResource(actual.LogicalOperator))
 		return true
 	}
 	if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsSlice(c, desired.ValueRestrictions, actual.ValueRestrictions) && !dcl.IsZeroValue(desired.ValueRestrictions) {
-		c.Config.Logger.Infof("Diff in ValueRestrictions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
+		c.Config.Logger.Infof("Diff in ValueRestrictions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueRestrictions), dcl.SprintResource(actual.ValueRestrictions))
 		return true
 	}
 	return false
@@ -21651,7 +20188,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsSlice(c 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21670,7 +20207,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsMap(c *C
 			return true
 		}
 		if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21684,20 +20221,12 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRes
 	if actual == nil {
 		return true
 	}
-	if actual.TargetValue == nil && desired.TargetValue != nil && !dcl.IsEmptyValueIndirect(desired.TargetValue) {
-		c.Config.Logger.Infof("desired TargetValue %s - but actually nil", dcl.SprintResource(desired.TargetValue))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.TargetValue, actual.TargetValue) && !dcl.IsZeroValue(desired.TargetValue) {
-		c.Config.Logger.Infof("Diff in TargetValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
-		return true
-	}
-	if actual.Comparator == nil && desired.Comparator != nil && !dcl.IsEmptyValueIndirect(desired.Comparator) {
-		c.Config.Logger.Infof("desired Comparator %s - but actually nil", dcl.SprintResource(desired.Comparator))
+		c.Config.Logger.Infof("Diff in TargetValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetValue), dcl.SprintResource(actual.TargetValue))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Comparator, actual.Comparator) && !dcl.IsZeroValue(desired.Comparator) {
-		c.Config.Logger.Infof("Diff in Comparator. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
+		c.Config.Logger.Infof("Diff in Comparator.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparator), dcl.SprintResource(actual.Comparator))
 		return true
 	}
 	return false
@@ -21710,7 +20239,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRes
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21729,7 +20258,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRes
 			return true
 		}
 		if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21743,44 +20272,24 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c *Cli
 	if actual == nil {
 		return true
 	}
-	if actual.ResourceLabels == nil && desired.ResourceLabels != nil && !dcl.IsEmptyValueIndirect(desired.ResourceLabels) {
-		c.Config.Logger.Infof("desired ResourceLabels %s - but actually nil", dcl.SprintResource(desired.ResourceLabels))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.ResourceLabels, actual.ResourceLabels) && !dcl.IsZeroValue(desired.ResourceLabels) {
-		c.Config.Logger.Infof("Diff in ResourceLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceLabels), dcl.SprintResource(actual.ResourceLabels))
-		return true
-	}
-	if actual.MetricLabels == nil && desired.MetricLabels != nil && !dcl.IsEmptyValueIndirect(desired.MetricLabels) {
-		c.Config.Logger.Infof("desired MetricLabels %s - but actually nil", dcl.SprintResource(desired.MetricLabels))
+		c.Config.Logger.Infof("Diff in ResourceLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceLabels), dcl.SprintResource(actual.ResourceLabels))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.MetricLabels, actual.MetricLabels) && !dcl.IsZeroValue(desired.MetricLabels) {
-		c.Config.Logger.Infof("Diff in MetricLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricLabels), dcl.SprintResource(actual.MetricLabels))
-		return true
-	}
-	if actual.MetadataSystemLabels == nil && desired.MetadataSystemLabels != nil && !dcl.IsEmptyValueIndirect(desired.MetadataSystemLabels) {
-		c.Config.Logger.Infof("desired MetadataSystemLabels %s - but actually nil", dcl.SprintResource(desired.MetadataSystemLabels))
+		c.Config.Logger.Infof("Diff in MetricLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricLabels), dcl.SprintResource(actual.MetricLabels))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.MetadataSystemLabels, actual.MetadataSystemLabels) && !dcl.IsZeroValue(desired.MetadataSystemLabels) {
-		c.Config.Logger.Infof("Diff in MetadataSystemLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataSystemLabels), dcl.SprintResource(actual.MetadataSystemLabels))
-		return true
-	}
-	if actual.MetadataUserLabels == nil && desired.MetadataUserLabels != nil && !dcl.IsEmptyValueIndirect(desired.MetadataUserLabels) {
-		c.Config.Logger.Infof("desired MetadataUserLabels %s - but actually nil", dcl.SprintResource(desired.MetadataUserLabels))
+		c.Config.Logger.Infof("Diff in MetadataSystemLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataSystemLabels), dcl.SprintResource(actual.MetadataSystemLabels))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.MetadataUserLabels, actual.MetadataUserLabels) && !dcl.IsZeroValue(desired.MetadataUserLabels) {
-		c.Config.Logger.Infof("Diff in MetadataUserLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataUserLabels), dcl.SprintResource(actual.MetadataUserLabels))
-		return true
-	}
-	if actual.Reducer == nil && desired.Reducer != nil && !dcl.IsEmptyValueIndirect(desired.Reducer) {
-		c.Config.Logger.Infof("desired Reducer %s - but actually nil", dcl.SprintResource(desired.Reducer))
+		c.Config.Logger.Infof("Diff in MetadataUserLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataUserLabels), dcl.SprintResource(actual.MetadataUserLabels))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Reducer, actual.Reducer) && !dcl.IsZeroValue(desired.Reducer) {
-		c.Config.Logger.Infof("Diff in Reducer. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Reducer), dcl.SprintResource(actual.Reducer))
+		c.Config.Logger.Infof("Diff in Reducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Reducer), dcl.SprintResource(actual.Reducer))
 		return true
 	}
 	return false
@@ -21793,7 +20302,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownSlice(c
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21812,7 +20321,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownMap(c *
 			return true
 		}
 		if compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21826,20 +20335,12 @@ func compareDashboardWidgetScorecardGaugeView(c *Client, desired, actual *Dashbo
 	if actual == nil {
 		return true
 	}
-	if actual.LowerBound == nil && desired.LowerBound != nil && !dcl.IsEmptyValueIndirect(desired.LowerBound) {
-		c.Config.Logger.Infof("desired LowerBound %s - but actually nil", dcl.SprintResource(desired.LowerBound))
-		return true
-	}
 	if !reflect.DeepEqual(desired.LowerBound, actual.LowerBound) && !dcl.IsZeroValue(desired.LowerBound) {
-		c.Config.Logger.Infof("Diff in LowerBound. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LowerBound), dcl.SprintResource(actual.LowerBound))
-		return true
-	}
-	if actual.UpperBound == nil && desired.UpperBound != nil && !dcl.IsEmptyValueIndirect(desired.UpperBound) {
-		c.Config.Logger.Infof("desired UpperBound %s - but actually nil", dcl.SprintResource(desired.UpperBound))
+		c.Config.Logger.Infof("Diff in LowerBound.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LowerBound), dcl.SprintResource(actual.LowerBound))
 		return true
 	}
 	if !reflect.DeepEqual(desired.UpperBound, actual.UpperBound) && !dcl.IsZeroValue(desired.UpperBound) {
-		c.Config.Logger.Infof("Diff in UpperBound. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UpperBound), dcl.SprintResource(actual.UpperBound))
+		c.Config.Logger.Infof("Diff in UpperBound.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UpperBound), dcl.SprintResource(actual.UpperBound))
 		return true
 	}
 	return false
@@ -21852,7 +20353,7 @@ func compareDashboardWidgetScorecardGaugeViewSlice(c *Client, desired, actual []
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardGaugeView(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardGaugeView, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardGaugeView, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21871,7 +20372,7 @@ func compareDashboardWidgetScorecardGaugeViewMap(c *Client, desired, actual map[
 			return true
 		}
 		if compareDashboardWidgetScorecardGaugeView(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardGaugeView, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardGaugeView, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21885,20 +20386,12 @@ func compareDashboardWidgetScorecardSparkChartView(c *Client, desired, actual *D
 	if actual == nil {
 		return true
 	}
-	if actual.SparkChartType == nil && desired.SparkChartType != nil && !dcl.IsEmptyValueIndirect(desired.SparkChartType) {
-		c.Config.Logger.Infof("desired SparkChartType %s - but actually nil", dcl.SprintResource(desired.SparkChartType))
-		return true
-	}
 	if !reflect.DeepEqual(desired.SparkChartType, actual.SparkChartType) && !dcl.IsZeroValue(desired.SparkChartType) {
-		c.Config.Logger.Infof("Diff in SparkChartType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SparkChartType), dcl.SprintResource(actual.SparkChartType))
-		return true
-	}
-	if actual.MinAlignmentPeriod == nil && desired.MinAlignmentPeriod != nil && !dcl.IsEmptyValueIndirect(desired.MinAlignmentPeriod) {
-		c.Config.Logger.Infof("desired MinAlignmentPeriod %s - but actually nil", dcl.SprintResource(desired.MinAlignmentPeriod))
+		c.Config.Logger.Infof("Diff in SparkChartType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SparkChartType), dcl.SprintResource(actual.SparkChartType))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod) && !dcl.IsZeroValue(desired.MinAlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in MinAlignmentPeriod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinAlignmentPeriod), dcl.SprintResource(actual.MinAlignmentPeriod))
+		c.Config.Logger.Infof("Diff in MinAlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinAlignmentPeriod), dcl.SprintResource(actual.MinAlignmentPeriod))
 		return true
 	}
 	return false
@@ -21911,7 +20404,7 @@ func compareDashboardWidgetScorecardSparkChartViewSlice(c *Client, desired, actu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSparkChartView(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartView, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartView, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -21930,7 +20423,7 @@ func compareDashboardWidgetScorecardSparkChartViewMap(c *Client, desired, actual
 			return true
 		}
 		if compareDashboardWidgetScorecardSparkChartView(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartView, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartView, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -21944,36 +20437,20 @@ func compareDashboardWidgetScorecardThresholds(c *Client, desired, actual *Dashb
 	if actual == nil {
 		return true
 	}
-	if actual.Label == nil && desired.Label != nil && !dcl.IsEmptyValueIndirect(desired.Label) {
-		c.Config.Logger.Infof("desired Label %s - but actually nil", dcl.SprintResource(desired.Label))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Label, actual.Label) && !dcl.IsZeroValue(desired.Label) {
-		c.Config.Logger.Infof("Diff in Label. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
+		c.Config.Logger.Infof("Diff in Label.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Label), dcl.SprintResource(actual.Label))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	if actual.Color == nil && desired.Color != nil && !dcl.IsEmptyValueIndirect(desired.Color) {
-		c.Config.Logger.Infof("desired Color %s - but actually nil", dcl.SprintResource(desired.Color))
+		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Color, actual.Color) && !dcl.IsZeroValue(desired.Color) {
-		c.Config.Logger.Infof("Diff in Color. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Color), dcl.SprintResource(actual.Color))
-		return true
-	}
-	if actual.Direction == nil && desired.Direction != nil && !dcl.IsEmptyValueIndirect(desired.Direction) {
-		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
+		c.Config.Logger.Infof("Diff in Color.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Color), dcl.SprintResource(actual.Color))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
-		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
+		c.Config.Logger.Infof("Diff in Direction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
 		return true
 	}
 	return false
@@ -21986,7 +20463,7 @@ func compareDashboardWidgetScorecardThresholdsSlice(c *Client, desired, actual [
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardThresholds(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardThresholds, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardThresholds, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22005,7 +20482,7 @@ func compareDashboardWidgetScorecardThresholdsMap(c *Client, desired, actual map
 			return true
 		}
 		if compareDashboardWidgetScorecardThresholds(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardThresholds, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardThresholds, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -22019,20 +20496,12 @@ func compareDashboardWidgetText(c *Client, desired, actual *DashboardWidgetText)
 	if actual == nil {
 		return true
 	}
-	if actual.Content == nil && desired.Content != nil && !dcl.IsEmptyValueIndirect(desired.Content) {
-		c.Config.Logger.Infof("desired Content %s - but actually nil", dcl.SprintResource(desired.Content))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Content, actual.Content) && !dcl.IsZeroValue(desired.Content) {
-		c.Config.Logger.Infof("Diff in Content. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
-		return true
-	}
-	if actual.Format == nil && desired.Format != nil && !dcl.IsEmptyValueIndirect(desired.Format) {
-		c.Config.Logger.Infof("desired Format %s - but actually nil", dcl.SprintResource(desired.Format))
+		c.Config.Logger.Infof("Diff in Content.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Format, actual.Format) && !dcl.IsZeroValue(desired.Format) {
-		c.Config.Logger.Infof("Diff in Format. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Format), dcl.SprintResource(actual.Format))
+		c.Config.Logger.Infof("Diff in Format.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Format), dcl.SprintResource(actual.Format))
 		return true
 	}
 	return false
@@ -22045,7 +20514,7 @@ func compareDashboardWidgetTextSlice(c *Client, desired, actual []DashboardWidge
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetText(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetText, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetText, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22064,7 +20533,7 @@ func compareDashboardWidgetTextMap(c *Client, desired, actual map[string]Dashboa
 			return true
 		}
 		if compareDashboardWidgetText(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetText, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetText, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -22088,7 +20557,7 @@ func compareDashboardWidgetBlankSlice(c *Client, desired, actual []DashboardWidg
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetBlank(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetBlank, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetBlank, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22107,7 +20576,7 @@ func compareDashboardWidgetBlankMap(c *Client, desired, actual map[string]Dashbo
 			return true
 		}
 		if compareDashboardWidgetBlank(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetBlank, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DashboardWidgetBlank, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -22121,7 +20590,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22139,7 +20608,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22157,7 +20626,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22175,7 +20644,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22193,7 +20662,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22211,7 +20680,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22229,7 +20698,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22247,7 +20716,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22265,7 +20734,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22283,7 +20752,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22301,7 +20770,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22319,7 +20788,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22337,7 +20806,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22355,7 +20824,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22373,7 +20842,7 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnumSlice(c *C
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22391,7 +20860,7 @@ func compareDashboardWidgetXyChartDataSetsPlotTypeEnumSlice(c *Client, desired, 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartDataSetsPlotTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsPlotTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartDataSetsPlotTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22409,7 +20878,7 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsLogicalO
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22427,7 +20896,7 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRes
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22445,7 +20914,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsLo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22463,7 +20932,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsVa
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22481,7 +20950,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsLogi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22499,7 +20968,7 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22517,7 +20986,7 @@ func compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownTypesEnumSl
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownTypesEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownTypesEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownTypesEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22535,7 +21004,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsLogicalOpe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22553,7 +21022,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22571,7 +21040,7 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownReducerEn
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownReducerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22589,7 +21058,7 @@ func compareDashboardWidgetXyChartThresholdsColorEnumSlice(c *Client, desired, a
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartThresholdsColorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartThresholdsColorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartThresholdsColorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22607,7 +21076,7 @@ func compareDashboardWidgetXyChartThresholdsDirectionEnumSlice(c *Client, desire
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartThresholdsDirectionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartThresholdsDirectionEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartThresholdsDirectionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22625,7 +21094,7 @@ func compareDashboardWidgetXyChartXAxisScaleEnumSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartXAxisScaleEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartXAxisScaleEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartXAxisScaleEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22643,7 +21112,7 @@ func compareDashboardWidgetXyChartYAxisScaleEnumSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartYAxisScaleEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartYAxisScaleEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartYAxisScaleEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22661,7 +21130,7 @@ func compareDashboardWidgetXyChartChartOptionsModeEnumSlice(c *Client, desired, 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetXyChartChartOptionsModeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartChartOptionsModeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetXyChartChartOptionsModeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22679,7 +21148,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22697,7 +21166,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22715,7 +21184,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22733,7 +21202,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22751,7 +21220,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22769,7 +21238,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22787,7 +21256,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22805,7 +21274,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22823,7 +21292,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22841,7 +21310,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22859,7 +21328,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22877,7 +21346,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22895,7 +21364,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22913,7 +21382,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22931,7 +21400,7 @@ func compareDashboardWidgetScorecardTimeSeriesQueryApiSourceEnumSlice(c *Client,
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardTimeSeriesQueryApiSourceEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryApiSourceEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardTimeSeriesQueryApiSourceEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22949,7 +21418,7 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsLogica
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22967,7 +21436,7 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueR
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -22985,7 +21454,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -23003,7 +21472,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -23021,7 +21490,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsLo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -23039,7 +21508,7 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsVa
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -23057,7 +21526,7 @@ func compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownTypesEnum
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownTypesEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownTypesEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownTypesEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -23075,7 +21544,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsLogicalO
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -23093,7 +21562,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRes
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -23111,7 +21580,7 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownReducer
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownReducerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -23129,7 +21598,7 @@ func compareDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumSlice(c *Cli
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -23147,7 +21616,7 @@ func compareDashboardWidgetScorecardThresholdsColorEnumSlice(c *Client, desired,
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardThresholdsColorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardThresholdsColorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardThresholdsColorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -23165,7 +21634,7 @@ func compareDashboardWidgetScorecardThresholdsDirectionEnumSlice(c *Client, desi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetScorecardThresholdsDirectionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardThresholdsDirectionEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetScorecardThresholdsDirectionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -23183,7 +21652,7 @@ func compareDashboardWidgetTextFormatEnumSlice(c *Client, desired, actual []Dash
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDashboardWidgetTextFormatEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DashboardWidgetTextFormatEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DashboardWidgetTextFormatEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -23198,7 +21667,7 @@ func compareDashboardWidgetTextFormatEnum(c *Client, desired, actual *DashboardW
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Dashboard) urlNormalized() *Dashboard {
-	normalized := deepcopy.Copy(*r).(Dashboard)
+	normalized := dcl.Copy(*r).(Dashboard)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
@@ -23264,7 +21733,7 @@ func expandDashboard(c *Client, f *Dashboard) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
@@ -23272,27 +21741,27 @@ func expandDashboard(c *Client, f *Dashboard) (map[string]interface{}, error) {
 	}
 	if v, err := expandDashboardGridLayout(c, f.GridLayout); err != nil {
 		return nil, fmt.Errorf("error expanding GridLayout into gridLayout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["gridLayout"] = v
 	}
 	if v, err := expandDashboardMosaicLayout(c, f.MosaicLayout); err != nil {
 		return nil, fmt.Errorf("error expanding MosaicLayout into mosaicLayout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["mosaicLayout"] = v
 	}
 	if v, err := expandDashboardRowLayout(c, f.RowLayout); err != nil {
 		return nil, fmt.Errorf("error expanding RowLayout into rowLayout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["rowLayout"] = v
 	}
 	if v, err := expandDashboardColumnLayout(c, f.ColumnLayout); err != nil {
 		return nil, fmt.Errorf("error expanding ColumnLayout into columnLayout: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["columnLayout"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -23406,11 +21875,10 @@ func flattenDashboardGridLayoutSlice(c *Client, i interface{}) []DashboardGridLa
 // expandDashboardGridLayout expands an instance of DashboardGridLayout into a JSON
 // request object.
 func expandDashboardGridLayout(c *Client, f *DashboardGridLayout) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Columns; !dcl.IsEmptyValueIndirect(v) {
 		m["columns"] = v
 	}
@@ -23520,11 +21988,10 @@ func flattenDashboardMosaicLayoutSlice(c *Client, i interface{}) []DashboardMosa
 // expandDashboardMosaicLayout expands an instance of DashboardMosaicLayout into a JSON
 // request object.
 func expandDashboardMosaicLayout(c *Client, f *DashboardMosaicLayout) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Columns; !dcl.IsEmptyValueIndirect(v) {
 		m["columns"] = v
 	}
@@ -23636,11 +22103,10 @@ func flattenDashboardMosaicLayoutTilesSlice(c *Client, i interface{}) []Dashboar
 // expandDashboardMosaicLayoutTiles expands an instance of DashboardMosaicLayoutTiles into a JSON
 // request object.
 func expandDashboardMosaicLayoutTiles(c *Client, f *DashboardMosaicLayoutTiles) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.XPos; !dcl.IsEmptyValueIndirect(v) {
 		m["xPos"] = v
 	}
@@ -23764,11 +22230,10 @@ func flattenDashboardRowLayoutSlice(c *Client, i interface{}) []DashboardRowLayo
 // expandDashboardRowLayout expands an instance of DashboardRowLayout into a JSON
 // request object.
 func expandDashboardRowLayout(c *Client, f *DashboardRowLayout) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardRowLayoutRowsSlice(c, f.Rows); err != nil {
 		return nil, fmt.Errorf("error expanding Rows into rows: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -23876,11 +22341,10 @@ func flattenDashboardRowLayoutRowsSlice(c *Client, i interface{}) []DashboardRow
 // expandDashboardRowLayoutRows expands an instance of DashboardRowLayoutRows into a JSON
 // request object.
 func expandDashboardRowLayoutRows(c *Client, f *DashboardRowLayoutRows) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Weight; !dcl.IsEmptyValueIndirect(v) {
 		m["weight"] = v
 	}
@@ -23990,11 +22454,10 @@ func flattenDashboardColumnLayoutSlice(c *Client, i interface{}) []DashboardColu
 // expandDashboardColumnLayout expands an instance of DashboardColumnLayout into a JSON
 // request object.
 func expandDashboardColumnLayout(c *Client, f *DashboardColumnLayout) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardColumnLayoutColumnsSlice(c, f.Columns); err != nil {
 		return nil, fmt.Errorf("error expanding Columns into columns: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -24102,11 +22565,10 @@ func flattenDashboardColumnLayoutColumnsSlice(c *Client, i interface{}) []Dashbo
 // expandDashboardColumnLayoutColumns expands an instance of DashboardColumnLayoutColumns into a JSON
 // request object.
 func expandDashboardColumnLayoutColumns(c *Client, f *DashboardColumnLayoutColumns) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Weight; !dcl.IsEmptyValueIndirect(v) {
 		m["weight"] = v
 	}
@@ -24218,11 +22680,10 @@ func flattenDashboardWidgetSlice(c *Client, i interface{}) []DashboardWidget {
 // expandDashboardWidget expands an instance of DashboardWidget into a JSON
 // request object.
 func expandDashboardWidget(c *Client, f *DashboardWidget) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Title; !dcl.IsEmptyValueIndirect(v) {
 		m["title"] = v
 	}
@@ -24352,11 +22813,10 @@ func flattenDashboardWidgetXyChartSlice(c *Client, i interface{}) []DashboardWid
 // expandDashboardWidgetXyChart expands an instance of DashboardWidgetXyChart into a JSON
 // request object.
 func expandDashboardWidgetXyChart(c *Client, f *DashboardWidgetXyChart) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsSlice(c, f.DataSets); err != nil {
 		return nil, fmt.Errorf("error expanding DataSets into dataSets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -24504,11 +22964,10 @@ func flattenDashboardWidgetXyChartDataSetsSlice(c *Client, i interface{}) []Dash
 // expandDashboardWidgetXyChartDataSets expands an instance of DashboardWidgetXyChartDataSets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSets(c *Client, f *DashboardWidgetXyChartDataSets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, f.TimeSeriesQuery); err != nil {
 		return nil, fmt.Errorf("error expanding TimeSeriesQuery into timeSeriesQuery: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -24628,11 +23087,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQuerySlice(c *Client, i inte
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQuery expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQuery into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQuery) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, f.TimeSeriesFilter); err != nil {
 		return nil, fmt.Errorf("error expanding TimeSeriesFilter into timeSeriesFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -24758,11 +23216,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSlice(c
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
@@ -24886,11 +23343,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -25020,11 +23476,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -25130,11 +23585,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -25248,11 +23702,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -25372,11 +23825,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -25490,11 +23942,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -25608,11 +24059,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -25718,11 +24168,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -25828,11 +24277,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -25962,11 +24410,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -26072,11 +24519,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -26190,11 +24636,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -26314,11 +24759,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -26432,11 +24876,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -26550,11 +24993,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -26660,11 +25102,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -26770,11 +25211,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RankingMethod; !dcl.IsEmptyValueIndirect(v) {
 		m["rankingMethod"] = v
 	}
@@ -26888,11 +25328,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSl
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, f.Numerator); err != nil {
 		return nil, fmt.Errorf("error expanding Numerator into numerator: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -27018,11 +25457,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
@@ -27134,11 +25572,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -27268,11 +25705,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -27378,11 +25814,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -27496,11 +25931,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -27620,11 +26054,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -27738,11 +26171,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -27856,11 +26288,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -27966,11 +26397,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -28076,11 +26506,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
@@ -28192,11 +26621,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -28326,11 +26754,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -28436,11 +26863,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -28554,11 +26980,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -28678,11 +27103,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -28796,11 +27220,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -28914,11 +27337,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -29024,11 +27446,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -29134,11 +27555,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -29268,11 +27688,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -29378,11 +27797,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -29496,11 +27914,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -29620,11 +28037,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -29738,11 +28154,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -29856,11 +28271,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -29966,11 +28380,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -30076,11 +28489,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 // expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter expands an instance of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter into a JSON
 // request object.
 func expandDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, f *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RankingMethod; !dcl.IsEmptyValueIndirect(v) {
 		m["rankingMethod"] = v
 	}
@@ -30194,11 +28606,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownSlice(c *Client, i interface{})
 // expandDashboardWidgetXyChartSourceDrilldown expands an instance of DashboardWidgetXyChartSourceDrilldown into a JSON
 // request object.
 func expandDashboardWidgetXyChartSourceDrilldown(c *Client, f *DashboardWidgetXyChartSourceDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c, f.ResourceTypeDrilldown); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceTypeDrilldown into resourceTypeDrilldown: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -30342,11 +28753,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldownSlice(c *C
 // expandDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown expands an instance of DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown into a JSON
 // request object.
 func expandDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c *Client, f *DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValues; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValues"] = v
 	}
@@ -30452,11 +28862,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsSlice(c 
 // expandDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns expands an instance of DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns into a JSON
 // request object.
 func expandDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c *Client, f *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Label; !dcl.IsEmptyValueIndirect(v) {
 		m["label"] = v
 	}
@@ -30572,11 +28981,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRes
 // expandDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions expands an instance of DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions into a JSON
 // request object.
 func expandDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions(c *Client, f *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValue; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValue"] = v
 	}
@@ -30686,11 +29094,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsSl
 // expandDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns expands an instance of DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns into a JSON
 // request object.
 func expandDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c *Client, f *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Label; !dcl.IsEmptyValueIndirect(v) {
 		m["label"] = v
 	}
@@ -30806,11 +29213,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsVa
 // expandDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions expands an instance of DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions into a JSON
 // request object.
 func expandDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c *Client, f *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValue; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValue"] = v
 	}
@@ -30920,11 +29326,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsSlic
 // expandDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns expands an instance of DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns into a JSON
 // request object.
 func expandDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c *Client, f *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Label; !dcl.IsEmptyValueIndirect(v) {
 		m["label"] = v
 	}
@@ -31040,11 +29445,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValu
 // expandDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions expands an instance of DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions into a JSON
 // request object.
 func expandDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c *Client, f *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValue; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValue"] = v
 	}
@@ -31154,11 +29558,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownGroupNameDrilldownSlice(c *Clie
 // expandDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown expands an instance of DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown into a JSON
 // request object.
 func expandDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(c *Client, f *DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValues; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValues"] = v
 	}
@@ -31264,11 +29667,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownServiceNameDrilldownSlice(c *Cl
 // expandDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown expands an instance of DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown into a JSON
 // request object.
 func expandDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(c *Client, f *DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValues; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValues"] = v
 	}
@@ -31374,11 +29776,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownSlice(c *Cl
 // expandDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown expands an instance of DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown into a JSON
 // request object.
 func expandDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(c *Client, f *DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Types; !dcl.IsEmptyValueIndirect(v) {
 		m["types"] = v
 	}
@@ -31484,11 +29885,10 @@ func flattenDashboardWidgetXyChartMetricDrilldownSlice(c *Client, i interface{})
 // expandDashboardWidgetXyChartMetricDrilldown expands an instance of DashboardWidgetXyChartMetricDrilldown into a JSON
 // request object.
 func expandDashboardWidgetXyChartMetricDrilldown(c *Client, f *DashboardWidgetXyChartMetricDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c, f.MetricTypeDrilldown); err != nil {
 		return nil, fmt.Errorf("error expanding MetricTypeDrilldown into metricTypeDrilldown: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -31608,11 +30008,10 @@ func flattenDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldownSlice(c *Cli
 // expandDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown expands an instance of DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown into a JSON
 // request object.
 func expandDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c *Client, f *DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValue; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValue"] = v
 	}
@@ -31718,11 +30117,10 @@ func flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsSlice(c *C
 // expandDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns expands an instance of DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns into a JSON
 // request object.
 func expandDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c *Client, f *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Label; !dcl.IsEmptyValueIndirect(v) {
 		m["label"] = v
 	}
@@ -31838,11 +30236,10 @@ func flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestr
 // expandDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions expands an instance of DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions into a JSON
 // request object.
 func expandDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions(c *Client, f *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValue; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValue"] = v
 	}
@@ -31952,11 +30349,10 @@ func flattenDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownSlice(c *
 // expandDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown expands an instance of DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown into a JSON
 // request object.
 func expandDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c *Client, f *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ResourceLabels; !dcl.IsEmptyValueIndirect(v) {
 		m["resourceLabels"] = v
 	}
@@ -32078,11 +30474,10 @@ func flattenDashboardWidgetXyChartThresholdsSlice(c *Client, i interface{}) []Da
 // expandDashboardWidgetXyChartThresholds expands an instance of DashboardWidgetXyChartThresholds into a JSON
 // request object.
 func expandDashboardWidgetXyChartThresholds(c *Client, f *DashboardWidgetXyChartThresholds) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Label; !dcl.IsEmptyValueIndirect(v) {
 		m["label"] = v
 	}
@@ -32200,11 +30595,10 @@ func flattenDashboardWidgetXyChartXAxisSlice(c *Client, i interface{}) []Dashboa
 // expandDashboardWidgetXyChartXAxis expands an instance of DashboardWidgetXyChartXAxis into a JSON
 // request object.
 func expandDashboardWidgetXyChartXAxis(c *Client, f *DashboardWidgetXyChartXAxis) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Label; !dcl.IsEmptyValueIndirect(v) {
 		m["label"] = v
 	}
@@ -32314,11 +30708,10 @@ func flattenDashboardWidgetXyChartYAxisSlice(c *Client, i interface{}) []Dashboa
 // expandDashboardWidgetXyChartYAxis expands an instance of DashboardWidgetXyChartYAxis into a JSON
 // request object.
 func expandDashboardWidgetXyChartYAxis(c *Client, f *DashboardWidgetXyChartYAxis) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Label; !dcl.IsEmptyValueIndirect(v) {
 		m["label"] = v
 	}
@@ -32428,11 +30821,10 @@ func flattenDashboardWidgetXyChartChartOptionsSlice(c *Client, i interface{}) []
 // expandDashboardWidgetXyChartChartOptions expands an instance of DashboardWidgetXyChartChartOptions into a JSON
 // request object.
 func expandDashboardWidgetXyChartChartOptions(c *Client, f *DashboardWidgetXyChartChartOptions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Mode; !dcl.IsEmptyValueIndirect(v) {
 		m["mode"] = v
 	}
@@ -32542,11 +30934,10 @@ func flattenDashboardWidgetScorecardSlice(c *Client, i interface{}) []DashboardW
 // expandDashboardWidgetScorecard expands an instance of DashboardWidgetScorecard into a JSON
 // request object.
 func expandDashboardWidgetScorecard(c *Client, f *DashboardWidgetScorecard) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardTimeSeriesQuery(c, f.TimeSeriesQuery); err != nil {
 		return nil, fmt.Errorf("error expanding TimeSeriesQuery into timeSeriesQuery: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -32684,11 +31075,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQuerySlice(c *Client, i interface{
 // expandDashboardWidgetScorecardTimeSeriesQuery expands an instance of DashboardWidgetScorecardTimeSeriesQuery into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQuery(c *Client, f *DashboardWidgetScorecardTimeSeriesQuery) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, f.TimeSeriesFilter); err != nil {
 		return nil, fmt.Errorf("error expanding TimeSeriesFilter into timeSeriesFilter: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -32814,11 +31204,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSlice(c *Clie
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
@@ -32942,11 +31331,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationSl
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -33076,11 +31464,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -33186,11 +31573,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -33304,11 +31690,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -33428,11 +31813,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -33546,11 +31930,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -33664,11 +32047,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -33774,11 +32156,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -33884,11 +32265,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -34018,11 +32398,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -34128,11 +32507,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -34246,11 +32624,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -34370,11 +32747,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -34488,11 +32864,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -34606,11 +32981,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -34716,11 +33090,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -34826,11 +33199,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RankingMethod; !dcl.IsEmptyValueIndirect(v) {
 		m["rankingMethod"] = v
 	}
@@ -34944,11 +33316,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSlice(c 
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, f.Numerator); err != nil {
 		return nil, fmt.Errorf("error expanding Numerator into numerator: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -35074,11 +33445,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
@@ -35190,11 +33560,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -35324,11 +33693,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -35434,11 +33802,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -35552,11 +33919,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -35676,11 +34042,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -35794,11 +34159,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -35912,11 +34276,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -36022,11 +34385,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -36132,11 +34494,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
@@ -36248,11 +34609,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -36382,11 +34742,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -36492,11 +34851,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -36610,11 +34968,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -36734,11 +35091,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -36852,11 +35208,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -36970,11 +35325,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -37080,11 +35434,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -37190,11 +35543,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -37324,11 +35676,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -37434,11 +35785,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -37552,11 +35902,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -37676,11 +36025,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -37794,11 +36142,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -37912,11 +36259,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -38022,11 +36368,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -38132,11 +36477,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 // expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter expands an instance of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter into a JSON
 // request object.
 func expandDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, f *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RankingMethod; !dcl.IsEmptyValueIndirect(v) {
 		m["rankingMethod"] = v
 	}
@@ -38250,11 +36594,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownSlice(c *Client, i interface{
 // expandDashboardWidgetScorecardSourceDrilldown expands an instance of DashboardWidgetScorecardSourceDrilldown into a JSON
 // request object.
 func expandDashboardWidgetScorecardSourceDrilldown(c *Client, f *DashboardWidgetScorecardSourceDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c, f.ResourceTypeDrilldown); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceTypeDrilldown into resourceTypeDrilldown: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -38398,11 +36741,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldownSlice(c 
 // expandDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown expands an instance of DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown into a JSON
 // request object.
 func expandDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c *Client, f *DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValues; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValues"] = v
 	}
@@ -38508,11 +36850,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsSlice(
 // expandDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns expands an instance of DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns into a JSON
 // request object.
 func expandDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c *Client, f *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Label; !dcl.IsEmptyValueIndirect(v) {
 		m["label"] = v
 	}
@@ -38628,11 +36969,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueR
 // expandDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions expands an instance of DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions into a JSON
 // request object.
 func expandDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions(c *Client, f *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValue; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValue"] = v
 	}
@@ -38742,11 +37082,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 // expandDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns expands an instance of DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns into a JSON
 // request object.
 func expandDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns(c *Client, f *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Label; !dcl.IsEmptyValueIndirect(v) {
 		m["label"] = v
 	}
@@ -38862,11 +37201,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 // expandDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions expands an instance of DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions into a JSON
 // request object.
 func expandDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c *Client, f *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValue; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValue"] = v
 	}
@@ -38976,11 +37314,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsSl
 // expandDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns expands an instance of DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns into a JSON
 // request object.
 func expandDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c *Client, f *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Label; !dcl.IsEmptyValueIndirect(v) {
 		m["label"] = v
 	}
@@ -39096,11 +37433,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsVa
 // expandDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions expands an instance of DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions into a JSON
 // request object.
 func expandDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c *Client, f *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValue; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValue"] = v
 	}
@@ -39210,11 +37546,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownGroupNameDrilldownSlice(c *Cl
 // expandDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown expands an instance of DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown into a JSON
 // request object.
 func expandDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(c *Client, f *DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValues; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValues"] = v
 	}
@@ -39320,11 +37655,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownServiceNameDrilldownSlice(c *
 // expandDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown expands an instance of DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown into a JSON
 // request object.
 func expandDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(c *Client, f *DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValues; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValues"] = v
 	}
@@ -39430,11 +37764,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownSlice(c *
 // expandDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown expands an instance of DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown into a JSON
 // request object.
 func expandDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(c *Client, f *DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Types; !dcl.IsEmptyValueIndirect(v) {
 		m["types"] = v
 	}
@@ -39540,11 +37873,10 @@ func flattenDashboardWidgetScorecardMetricDrilldownSlice(c *Client, i interface{
 // expandDashboardWidgetScorecardMetricDrilldown expands an instance of DashboardWidgetScorecardMetricDrilldown into a JSON
 // request object.
 func expandDashboardWidgetScorecardMetricDrilldown(c *Client, f *DashboardWidgetScorecardMetricDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c, f.MetricTypeDrilldown); err != nil {
 		return nil, fmt.Errorf("error expanding MetricTypeDrilldown into metricTypeDrilldown: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -39664,11 +37996,10 @@ func flattenDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldownSlice(c *C
 // expandDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown expands an instance of DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown into a JSON
 // request object.
 func expandDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c *Client, f *DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValue; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValue"] = v
 	}
@@ -39774,11 +38105,10 @@ func flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsSlice(c 
 // expandDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns expands an instance of DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns into a JSON
 // request object.
 func expandDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c *Client, f *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Label; !dcl.IsEmptyValueIndirect(v) {
 		m["label"] = v
 	}
@@ -39894,11 +38224,10 @@ func flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRes
 // expandDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions expands an instance of DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions into a JSON
 // request object.
 func expandDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions(c *Client, f *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.TargetValue; !dcl.IsEmptyValueIndirect(v) {
 		m["targetValue"] = v
 	}
@@ -40008,11 +38337,10 @@ func flattenDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownSlice(c
 // expandDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown expands an instance of DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown into a JSON
 // request object.
 func expandDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c *Client, f *DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ResourceLabels; !dcl.IsEmptyValueIndirect(v) {
 		m["resourceLabels"] = v
 	}
@@ -40134,11 +38462,10 @@ func flattenDashboardWidgetScorecardGaugeViewSlice(c *Client, i interface{}) []D
 // expandDashboardWidgetScorecardGaugeView expands an instance of DashboardWidgetScorecardGaugeView into a JSON
 // request object.
 func expandDashboardWidgetScorecardGaugeView(c *Client, f *DashboardWidgetScorecardGaugeView) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.LowerBound; !dcl.IsEmptyValueIndirect(v) {
 		m["lowerBound"] = v
 	}
@@ -40248,11 +38575,10 @@ func flattenDashboardWidgetScorecardSparkChartViewSlice(c *Client, i interface{}
 // expandDashboardWidgetScorecardSparkChartView expands an instance of DashboardWidgetScorecardSparkChartView into a JSON
 // request object.
 func expandDashboardWidgetScorecardSparkChartView(c *Client, f *DashboardWidgetScorecardSparkChartView) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.SparkChartType; !dcl.IsEmptyValueIndirect(v) {
 		m["sparkChartType"] = v
 	}
@@ -40362,11 +38688,10 @@ func flattenDashboardWidgetScorecardThresholdsSlice(c *Client, i interface{}) []
 // expandDashboardWidgetScorecardThresholds expands an instance of DashboardWidgetScorecardThresholds into a JSON
 // request object.
 func expandDashboardWidgetScorecardThresholds(c *Client, f *DashboardWidgetScorecardThresholds) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Label; !dcl.IsEmptyValueIndirect(v) {
 		m["label"] = v
 	}
@@ -40484,11 +38809,10 @@ func flattenDashboardWidgetTextSlice(c *Client, i interface{}) []DashboardWidget
 // expandDashboardWidgetText expands an instance of DashboardWidgetText into a JSON
 // request object.
 func expandDashboardWidgetText(c *Client, f *DashboardWidgetText) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Content; !dcl.IsEmptyValueIndirect(v) {
 		m["content"] = v
 	}
@@ -40598,11 +38922,10 @@ func flattenDashboardWidgetBlankSlice(c *Client, i interface{}) []DashboardWidge
 // expandDashboardWidgetBlank expands an instance of DashboardWidgetBlank into a JSON
 // request object.
 func expandDashboardWidgetBlank(c *Client, f *DashboardWidgetBlank) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 
 	return m, nil
 }

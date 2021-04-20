@@ -22,7 +22,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -480,6 +479,7 @@ type groupDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         groupApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -498,85 +498,49 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 
 	var diffs []groupDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, groupDiff{
-			UpdateOp: &updateGroupUpdateOperation{}, FieldName: "DisplayName",
+			UpdateOp: &updateGroupUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Filter, actual.Filter, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "filter"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, groupDiff{
-			UpdateOp: &updateGroupUpdateOperation{}, FieldName: "Filter",
+			UpdateOp: &updateGroupUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.IsCluster, actual.IsCluster, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.IsCluster, actual.IsCluster, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "is_cluster"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, groupDiff{
-			UpdateOp: &updateGroupUpdateOperation{}, FieldName: "IsCluster",
+			UpdateOp: &updateGroupUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.ParentName, actual.ParentName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ParentName, actual.ParentName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "parent_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, groupDiff{
-			UpdateOp: &updateGroupUpdateOperation{}, FieldName: "ParentName",
+			UpdateOp: &updateGroupUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
-
-		diffs = append(diffs, groupDiff{
-			UpdateOp:  &updateGroupUpdateOperation{},
-			FieldName: "DisplayName",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, groupDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Filter) && !dcl.StringCanonicalize(desired.Filter, actual.Filter) {
-		c.Config.Logger.Infof("Detected diff in Filter.\nDESIRED: %v\nACTUAL: %v", desired.Filter, actual.Filter)
 
-		diffs = append(diffs, groupDiff{
-			UpdateOp:  &updateGroupUpdateOperation{},
-			FieldName: "Filter",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.IsCluster) && !dcl.BoolCanonicalize(desired.IsCluster, actual.IsCluster) {
-		c.Config.Logger.Infof("Detected diff in IsCluster.\nDESIRED: %v\nACTUAL: %v", desired.IsCluster, actual.IsCluster)
-
-		diffs = append(diffs, groupDiff{
-			UpdateOp:  &updateGroupUpdateOperation{},
-			FieldName: "IsCluster",
-		})
-
-	}
-	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, groupDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
-	if !dcl.IsZeroValue(desired.ParentName) && !dcl.PartialSelfLinkToSelfLink(desired.ParentName, actual.ParentName) {
-		c.Config.Logger.Infof("Detected diff in ParentName.\nDESIRED: %v\nACTUAL: %v", desired.ParentName, actual.ParentName)
-
-		diffs = append(diffs, groupDiff{
-			UpdateOp:  &updateGroupUpdateOperation{},
-			FieldName: "ParentName",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -606,7 +570,7 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Group) urlNormalized() *Group {
-	normalized := deepcopy.Copy(*r).(Group)
+	normalized := dcl.Copy(*r).(Group)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Filter = dcl.SelfLinkToName(r.Filter)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
@@ -686,12 +650,12 @@ func expandGroup(c *Client, f *Group) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.DeriveField("projects/%s/groups/%s", f.ParentName, f.Project, f.ParentName); err != nil {
 		return nil, fmt.Errorf("error expanding ParentName into parentName: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else {
 		m["parentName"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 

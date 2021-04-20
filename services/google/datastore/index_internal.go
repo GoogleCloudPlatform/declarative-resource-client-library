@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -511,6 +510,7 @@ type indexDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         indexApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -529,27 +529,34 @@ func diffIndex(c *Client, desired, actual *Index, opts ...dcl.ApplyOption) ([]in
 
 	var diffs []indexDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Kind, actual.Kind, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Ancestor, actual.Ancestor, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "ancestor"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, indexDiff{RequiresRecreate: true, FieldName: "Kind"})
+		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !reflect.DeepEqual(desired.Ancestor, actual.Ancestor) {
-		c.Config.Logger.Infof("Detected diff in Ancestor.\nDESIRED: %v\nACTUAL: %v", desired.Ancestor, actual.Ancestor)
-		diffs = append(diffs, indexDiff{
-			RequiresRecreate: true,
-			FieldName:        "Ancestor",
-		})
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "kind"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Kind) && !dcl.StringCanonicalize(desired.Kind, actual.Kind) {
-		c.Config.Logger.Infof("Detected diff in Kind.\nDESIRED: %v\nACTUAL: %v", desired.Kind, actual.Kind)
-		diffs = append(diffs, indexDiff{
-			RequiresRecreate: true,
-			FieldName:        "Kind",
-		})
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareIndexPropertiesSlice(c, desired.Properties, actual.Properties) {
 		c.Config.Logger.Infof("Detected diff in Properties.\nDESIRED: %v\nACTUAL: %v", desired.Properties, actual.Properties)
 		diffs = append(diffs, indexDiff{
@@ -588,20 +595,12 @@ func compareIndexProperties(c *Client, desired, actual *IndexProperties) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Direction == nil && desired.Direction != nil && !dcl.IsEmptyValueIndirect(desired.Direction) {
-		c.Config.Logger.Infof("desired Direction %s - but actually nil", dcl.SprintResource(desired.Direction))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
-		c.Config.Logger.Infof("Diff in Direction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
+		c.Config.Logger.Infof("Diff in Direction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
 		return true
 	}
 	return false
@@ -614,7 +613,7 @@ func compareIndexPropertiesSlice(c *Client, desired, actual []IndexProperties) b
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareIndexProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in IndexProperties, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in IndexProperties, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -633,7 +632,7 @@ func compareIndexPropertiesMap(c *Client, desired, actual map[string]IndexProper
 			return true
 		}
 		if compareIndexProperties(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in IndexProperties, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in IndexProperties, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -647,7 +646,7 @@ func compareIndexAncestorEnumSlice(c *Client, desired, actual []IndexAncestorEnu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareIndexAncestorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in IndexAncestorEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in IndexAncestorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -665,7 +664,7 @@ func compareIndexPropertiesDirectionEnumSlice(c *Client, desired, actual []Index
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareIndexPropertiesDirectionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in IndexPropertiesDirectionEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in IndexPropertiesDirectionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -683,7 +682,7 @@ func compareIndexStateEnumSlice(c *Client, desired, actual []IndexStateEnum) boo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareIndexStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in IndexStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in IndexStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -698,7 +697,7 @@ func compareIndexStateEnum(c *Client, desired, actual *IndexStateEnum) bool {
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Index) urlNormalized() *Index {
-	normalized := deepcopy.Copy(*r).(Index)
+	normalized := dcl.Copy(*r).(Index)
 	normalized.IndexId = dcl.SelfLinkToName(r.IndexId)
 	normalized.Kind = dcl.SelfLinkToName(r.Kind)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
@@ -764,12 +763,12 @@ func expandIndex(c *Client, f *Index) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := expandIndexPropertiesSlice(c, f.Properties); err != nil {
 		return nil, fmt.Errorf("error expanding Properties into properties: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["properties"] = v
 	}
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
@@ -889,11 +888,10 @@ func flattenIndexPropertiesSlice(c *Client, i interface{}) []IndexProperties {
 // expandIndexProperties expands an instance of IndexProperties into a JSON
 // request object.
 func expandIndexProperties(c *Client, f *IndexProperties) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}

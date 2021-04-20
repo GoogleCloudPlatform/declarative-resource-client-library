@@ -22,7 +22,6 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -601,6 +600,7 @@ type roleDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         roleApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -619,144 +619,95 @@ func diffRole(c *Client, desired, actual *Role, opts ...dcl.ApplyOption) ([]role
 
 	var diffs []roleDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Title, actual.Title, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "title"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, FieldName: "Title"})
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, FieldName: "Description"})
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.LifecyclePhase, actual.LifecyclePhase, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.LifecyclePhase, actual.LifecyclePhase, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "lifecycle_phase"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, FieldName: "LifecyclePhase"})
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.GroupName, actual.GroupName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.GroupName, actual.GroupName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "group_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, FieldName: "GroupName"})
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.GroupTitle, actual.GroupTitle, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.GroupTitle, actual.GroupTitle, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "group_title"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, FieldName: "GroupTitle"})
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Etag, actual.Etag, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.IncludedPermissions, actual.IncludedPermissions, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "included_permissions"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, FieldName: "Etag"})
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Deleted, actual.Deleted, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Stage, actual.Stage, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "stage"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, FieldName: "Deleted"})
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, roleDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "etag"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Title) && !dcl.StringCanonicalize(desired.Title, actual.Title) {
-		c.Config.Logger.Infof("Detected diff in Title.\nDESIRED: %v\nACTUAL: %v", desired.Title, actual.Title)
-		diffs = append(diffs, roleDiff{
-			RequiresRecreate: true,
-			FieldName:        "Title",
-		})
+
+	if ds, err := dcl.Diff(desired.Deleted, actual.Deleted, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "deleted"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-		diffs = append(diffs, roleDiff{
-			RequiresRecreate: true,
-			FieldName:        "Description",
-		})
+
+	if ds, err := dcl.Diff(desired.IncludedRoles, actual.IncludedRoles, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "included_roles"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
+	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "parent"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareRoleLocalizedValues(c, desired.LocalizedValues, actual.LocalizedValues) {
 		c.Config.Logger.Infof("Detected diff in LocalizedValues.\nDESIRED: %v\nACTUAL: %v", desired.LocalizedValues, actual.LocalizedValues)
 		diffs = append(diffs, roleDiff{
 			RequiresRecreate: true,
 			FieldName:        "LocalizedValues",
-		})
-	}
-	if !dcl.IsZeroValue(desired.LifecyclePhase) && !dcl.StringCanonicalize(desired.LifecyclePhase, actual.LifecyclePhase) {
-		c.Config.Logger.Infof("Detected diff in LifecyclePhase.\nDESIRED: %v\nACTUAL: %v", desired.LifecyclePhase, actual.LifecyclePhase)
-		diffs = append(diffs, roleDiff{
-			RequiresRecreate: true,
-			FieldName:        "LifecyclePhase",
-		})
-	}
-	if !dcl.IsZeroValue(desired.GroupName) && !dcl.StringCanonicalize(desired.GroupName, actual.GroupName) {
-		c.Config.Logger.Infof("Detected diff in GroupName.\nDESIRED: %v\nACTUAL: %v", desired.GroupName, actual.GroupName)
-		diffs = append(diffs, roleDiff{
-			RequiresRecreate: true,
-			FieldName:        "GroupName",
-		})
-	}
-	if !dcl.IsZeroValue(desired.GroupTitle) && !dcl.StringCanonicalize(desired.GroupTitle, actual.GroupTitle) {
-		c.Config.Logger.Infof("Detected diff in GroupTitle.\nDESIRED: %v\nACTUAL: %v", desired.GroupTitle, actual.GroupTitle)
-		diffs = append(diffs, roleDiff{
-			RequiresRecreate: true,
-			FieldName:        "GroupTitle",
-		})
-	}
-	if !dcl.StringSliceEquals(desired.IncludedPermissions, actual.IncludedPermissions) {
-		c.Config.Logger.Infof("Detected diff in IncludedPermissions.\nDESIRED: %v\nACTUAL: %v", desired.IncludedPermissions, actual.IncludedPermissions)
-		diffs = append(diffs, roleDiff{
-			RequiresRecreate: true,
-			FieldName:        "IncludedPermissions",
-		})
-	}
-	if !reflect.DeepEqual(desired.Stage, actual.Stage) {
-		c.Config.Logger.Infof("Detected diff in Stage.\nDESIRED: %v\nACTUAL: %v", desired.Stage, actual.Stage)
-		diffs = append(diffs, roleDiff{
-			RequiresRecreate: true,
-			FieldName:        "Stage",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Etag) && !dcl.StringCanonicalize(desired.Etag, actual.Etag) {
-		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %v\nACTUAL: %v", desired.Etag, actual.Etag)
-		diffs = append(diffs, roleDiff{
-			RequiresRecreate: true,
-			FieldName:        "Etag",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Deleted) && !dcl.BoolCanonicalize(desired.Deleted, actual.Deleted) {
-		c.Config.Logger.Infof("Detected diff in Deleted.\nDESIRED: %v\nACTUAL: %v", desired.Deleted, actual.Deleted)
-		diffs = append(diffs, roleDiff{
-			RequiresRecreate: true,
-			FieldName:        "Deleted",
-		})
-	}
-	if !dcl.StringSliceEquals(desired.IncludedRoles, actual.IncludedRoles) {
-		c.Config.Logger.Infof("Detected diff in IncludedRoles.\nDESIRED: %v\nACTUAL: %v", desired.IncludedRoles, actual.IncludedRoles)
-		diffs = append(diffs, roleDiff{
-			RequiresRecreate: true,
-			FieldName:        "IncludedRoles",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -790,20 +741,12 @@ func compareRoleLocalizedValues(c *Client, desired, actual *RoleLocalizedValues)
 	if actual == nil {
 		return true
 	}
-	if actual.LocalizedTitle == nil && desired.LocalizedTitle != nil && !dcl.IsEmptyValueIndirect(desired.LocalizedTitle) {
-		c.Config.Logger.Infof("desired LocalizedTitle %s - but actually nil", dcl.SprintResource(desired.LocalizedTitle))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.LocalizedTitle, actual.LocalizedTitle) && !dcl.IsZeroValue(desired.LocalizedTitle) {
-		c.Config.Logger.Infof("Diff in LocalizedTitle. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalizedTitle), dcl.SprintResource(actual.LocalizedTitle))
-		return true
-	}
-	if actual.LocalizedDescription == nil && desired.LocalizedDescription != nil && !dcl.IsEmptyValueIndirect(desired.LocalizedDescription) {
-		c.Config.Logger.Infof("desired LocalizedDescription %s - but actually nil", dcl.SprintResource(desired.LocalizedDescription))
+		c.Config.Logger.Infof("Diff in LocalizedTitle.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalizedTitle), dcl.SprintResource(actual.LocalizedTitle))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.LocalizedDescription, actual.LocalizedDescription) && !dcl.IsZeroValue(desired.LocalizedDescription) {
-		c.Config.Logger.Infof("Diff in LocalizedDescription. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalizedDescription), dcl.SprintResource(actual.LocalizedDescription))
+		c.Config.Logger.Infof("Diff in LocalizedDescription.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalizedDescription), dcl.SprintResource(actual.LocalizedDescription))
 		return true
 	}
 	return false
@@ -816,7 +759,7 @@ func compareRoleLocalizedValuesSlice(c *Client, desired, actual []RoleLocalizedV
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareRoleLocalizedValues(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RoleLocalizedValues, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in RoleLocalizedValues, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -835,7 +778,7 @@ func compareRoleLocalizedValuesMap(c *Client, desired, actual map[string]RoleLoc
 			return true
 		}
 		if compareRoleLocalizedValues(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RoleLocalizedValues, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in RoleLocalizedValues, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -849,7 +792,7 @@ func compareRoleStageEnumSlice(c *Client, desired, actual []RoleStageEnum) bool 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareRoleStageEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RoleStageEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in RoleStageEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -864,7 +807,7 @@ func compareRoleStageEnum(c *Client, desired, actual *RoleStageEnum) bool {
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Role) urlNormalized() *Role {
-	normalized := deepcopy.Copy(*r).(Role)
+	normalized := dcl.Copy(*r).(Role)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Title = dcl.SelfLinkToName(r.Title)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
@@ -936,7 +879,7 @@ func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("%s/roles/%s", f.Name, f.Parent, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.Title; !dcl.IsEmptyValueIndirect(v) {
@@ -947,7 +890,7 @@ func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	}
 	if v, err := expandRoleLocalizedValues(c, f.LocalizedValues); err != nil {
 		return nil, fmt.Errorf("error expanding LocalizedValues into localizedValues: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["localizedValues"] = v
 	}
 	if v := f.LifecyclePhase; !dcl.IsEmptyValueIndirect(v) {
@@ -976,7 +919,7 @@ func expandRole(c *Client, f *Role) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["parent"] = v
 	}
 
@@ -1096,11 +1039,10 @@ func flattenRoleLocalizedValuesSlice(c *Client, i interface{}) []RoleLocalizedVa
 // expandRoleLocalizedValues expands an instance of RoleLocalizedValues into a JSON
 // request object.
 func expandRoleLocalizedValues(c *Client, f *RoleLocalizedValues) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.LocalizedTitle; !dcl.IsEmptyValueIndirect(v) {
 		m["localizedTitle"] = v
 	}

@@ -22,7 +22,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -717,6 +716,7 @@ type snapshotDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         snapshotApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -735,94 +735,85 @@ func diffSnapshot(c *Client, desired, actual *Snapshot, opts ...dcl.ApplyOption)
 
 	var diffs []snapshotDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, FieldName: "Description"})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "source_disk"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, FieldName: "SourceDisk"})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "disk_size_gb"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, FieldName: "DiskSizeGb"})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.StorageBytes, actual.StorageBytes, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.StorageBytes, actual.StorageBytes, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "storage_bytes"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, FieldName: "StorageBytes"})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.License, actual.License, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "license"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, snapshotDiff{
-			UpdateOp: &updateSnapshotSetLabelsOperation{}, FieldName: "Labels",
+			UpdateOp: &updateSnapshotSetLabelsOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, FieldName: "Id"})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, snapshotDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Ignore: true, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "zone"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-		diffs = append(diffs, snapshotDiff{
-			RequiresRecreate: true,
-			FieldName:        "Description",
-		})
-	}
-	if !dcl.IsZeroValue(desired.SourceDisk) && !dcl.NameToSelfLink(desired.SourceDisk, actual.SourceDisk) {
-		c.Config.Logger.Infof("Detected diff in SourceDisk.\nDESIRED: %v\nACTUAL: %v", desired.SourceDisk, actual.SourceDisk)
-		diffs = append(diffs, snapshotDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceDisk",
-		})
-	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
-		diffs = append(diffs, snapshotDiff{
-			UpdateOp:  &updateSnapshotSetLabelsOperation{},
-			FieldName: "Labels",
-		})
-
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -864,7 +855,7 @@ func compareSnapshotSnapshotEncryptionKeySlice(c *Client, desired, actual []Snap
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSnapshotSnapshotEncryptionKey(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SnapshotSnapshotEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SnapshotSnapshotEncryptionKey, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -883,7 +874,7 @@ func compareSnapshotSnapshotEncryptionKeyMap(c *Client, desired, actual map[stri
 			return true
 		}
 		if compareSnapshotSnapshotEncryptionKey(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SnapshotSnapshotEncryptionKey, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in SnapshotSnapshotEncryptionKey, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -897,12 +888,8 @@ func compareSnapshotSourceDiskEncryptionKey(c *Client, desired, actual *Snapshot
 	if actual == nil {
 		return true
 	}
-	if actual.RawKey == nil && desired.RawKey != nil && !dcl.IsEmptyValueIndirect(desired.RawKey) {
-		c.Config.Logger.Infof("desired RawKey %s - but actually nil", dcl.SprintResource(desired.RawKey))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.RawKey, actual.RawKey) && !dcl.IsZeroValue(desired.RawKey) {
-		c.Config.Logger.Infof("Diff in RawKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
+		c.Config.Logger.Infof("Diff in RawKey.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
 		return true
 	}
 	return false
@@ -915,7 +902,7 @@ func compareSnapshotSourceDiskEncryptionKeySlice(c *Client, desired, actual []Sn
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSnapshotSourceDiskEncryptionKey(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SnapshotSourceDiskEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SnapshotSourceDiskEncryptionKey, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -934,7 +921,7 @@ func compareSnapshotSourceDiskEncryptionKeyMap(c *Client, desired, actual map[st
 			return true
 		}
 		if compareSnapshotSourceDiskEncryptionKey(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SnapshotSourceDiskEncryptionKey, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in SnapshotSourceDiskEncryptionKey, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -945,7 +932,7 @@ func compareSnapshotSourceDiskEncryptionKeyMap(c *Client, desired, actual map[st
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Snapshot) urlNormalized() *Snapshot {
-	normalized := deepcopy.Copy(*r).(Snapshot)
+	normalized := dcl.Copy(*r).(Snapshot)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.SourceDisk = dcl.SelfLinkToName(r.SourceDisk)
@@ -1032,12 +1019,12 @@ func expandSnapshot(c *Client, f *Snapshot) (map[string]interface{}, error) {
 	}
 	if v, err := expandSnapshotSnapshotEncryptionKey(c, f.SnapshotEncryptionKey); err != nil {
 		return nil, fmt.Errorf("error expanding SnapshotEncryptionKey into snapshotEncryptionKey: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["snapshotEncryptionKey"] = v
 	}
 	if v, err := expandSnapshotSourceDiskEncryptionKey(c, f.SourceDiskEncryptionKey); err != nil {
 		return nil, fmt.Errorf("error expanding SourceDiskEncryptionKey into sourceDiskEncryptionKey: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sourceDiskEncryptionKey"] = v
 	}
 	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
@@ -1048,12 +1035,12 @@ func expandSnapshot(c *Client, f *Snapshot) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Zone into zone: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["zone"] = v
 	}
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
@@ -1176,11 +1163,10 @@ func flattenSnapshotSnapshotEncryptionKeySlice(c *Client, i interface{}) []Snaps
 // expandSnapshotSnapshotEncryptionKey expands an instance of SnapshotSnapshotEncryptionKey into a JSON
 // request object.
 func expandSnapshotSnapshotEncryptionKey(c *Client, f *SnapshotSnapshotEncryptionKey) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RawKey; !dcl.IsEmptyValueIndirect(v) {
 		m["rawKey"] = v
 	}
@@ -1290,11 +1276,10 @@ func flattenSnapshotSourceDiskEncryptionKeySlice(c *Client, i interface{}) []Sna
 // expandSnapshotSourceDiskEncryptionKey expands an instance of SnapshotSourceDiskEncryptionKey into a JSON
 // request object.
 func expandSnapshotSourceDiskEncryptionKey(c *Client, f *SnapshotSourceDiskEncryptionKey) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RawKey; !dcl.IsEmptyValueIndirect(v) {
 		m["rawKey"] = v
 	}

@@ -21,7 +21,6 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -298,6 +297,7 @@ type firewallPolicyAssociationDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         firewallPolicyAssociationApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -316,55 +316,34 @@ func diffFirewallPolicyAssociation(c *Client, desired, actual *FirewallPolicyAss
 
 	var diffs []firewallPolicyAssociationDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.AttachmentTarget, actual.AttachmentTarget, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.AttachmentTarget, actual.AttachmentTarget, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "attachment_target"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, FieldName: "AttachmentTarget"})
+		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.FirewallPolicy, actual.FirewallPolicy, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.FirewallPolicy, actual.FirewallPolicy, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "firewall_policy"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, FieldName: "FirewallPolicy"})
+		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, FieldName: "DisplayName"})
+		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, firewallPolicyAssociationDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
-	if !dcl.IsZeroValue(desired.AttachmentTarget) && !dcl.NameToSelfLink(desired.AttachmentTarget, actual.AttachmentTarget) {
-		c.Config.Logger.Infof("Detected diff in AttachmentTarget.\nDESIRED: %v\nACTUAL: %v", desired.AttachmentTarget, actual.AttachmentTarget)
-		diffs = append(diffs, firewallPolicyAssociationDiff{
-			RequiresRecreate: true,
-			FieldName:        "AttachmentTarget",
-		})
-	}
-	if !dcl.IsZeroValue(desired.FirewallPolicy) && !dcl.NameToSelfLink(desired.FirewallPolicy, actual.FirewallPolicy) {
-		c.Config.Logger.Infof("Detected diff in FirewallPolicy.\nDESIRED: %v\nACTUAL: %v", desired.FirewallPolicy, actual.FirewallPolicy)
-		diffs = append(diffs, firewallPolicyAssociationDiff{
-			RequiresRecreate: true,
-			FieldName:        "FirewallPolicy",
-		})
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -394,7 +373,7 @@ func diffFirewallPolicyAssociation(c *Client, desired, actual *FirewallPolicyAss
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *FirewallPolicyAssociation) urlNormalized() *FirewallPolicyAssociation {
-	normalized := deepcopy.Copy(*r).(FirewallPolicyAssociation)
+	normalized := dcl.Copy(*r).(FirewallPolicyAssociation)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.AttachmentTarget = dcl.SelfLinkToName(r.AttachmentTarget)
 	normalized.FirewallPolicy = dcl.SelfLinkToName(r.FirewallPolicy)

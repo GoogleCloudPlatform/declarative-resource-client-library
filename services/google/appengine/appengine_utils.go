@@ -19,6 +19,7 @@ import (
 	"errors"
 )
 
-func (c *Client) listApplicationRaw(ctx context.Context, key string) ([]byte, error) {
+// ListApplication returns nil and an error because there is no list endpoint for applications.
+func (c *Client) ListApplication(ctx context.Context) (*ApplicationList, error) {
 	return nil, errors.New("appengine does not have a list endpoint")
 }

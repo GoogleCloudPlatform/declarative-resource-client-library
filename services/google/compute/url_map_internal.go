@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -5382,6 +5381,7 @@ type urlMapDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         urlMapApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -5400,38 +5400,45 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 
 	var diffs []urlMapDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.DefaultService, actual.DefaultService, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultService, actual.DefaultService, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "default_service"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, urlMapDiff{
-			UpdateOp: &updateUrlMapUpdateOperation{}, FieldName: "DefaultService",
+			UpdateOp: &updateUrlMapUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, urlMapDiff{
-			UpdateOp: &updateUrlMapUpdateOperation{}, FieldName: "Description",
+			UpdateOp: &updateUrlMapUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, urlMapDiff{
-			UpdateOp: &updateUrlMapUpdateOperation{}, FieldName: "Name",
+			UpdateOp: &updateUrlMapUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, urlMapDiff{RequiresRecreate: true, FieldName: "Region"})
+		diffs = append(diffs, urlMapDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, urlMapDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
 	if compareUrlMapDefaultRouteAction(c, desired.DefaultRouteAction, actual.DefaultRouteAction) {
@@ -5443,30 +5450,12 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.DefaultService) && !dcl.StringCanonicalize(desired.DefaultService, actual.DefaultService) {
-		c.Config.Logger.Infof("Detected diff in DefaultService.\nDESIRED: %v\nACTUAL: %v", desired.DefaultService, actual.DefaultService)
-
-		diffs = append(diffs, urlMapDiff{
-			UpdateOp:  &updateUrlMapUpdateOperation{},
-			FieldName: "DefaultService",
-		})
-
-	}
 	if compareUrlMapDefaultUrlRedirect(c, desired.DefaultUrlRedirect, actual.DefaultUrlRedirect) {
 		c.Config.Logger.Infof("Detected diff in DefaultUrlRedirect.\nDESIRED: %v\nACTUAL: %v", desired.DefaultUrlRedirect, actual.DefaultUrlRedirect)
 
 		diffs = append(diffs, urlMapDiff{
 			UpdateOp:  &updateUrlMapUpdateOperation{},
 			FieldName: "DefaultUrlRedirect",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-
-		diffs = append(diffs, urlMapDiff{
-			UpdateOp:  &updateUrlMapUpdateOperation{},
-			FieldName: "Description",
 		})
 
 	}
@@ -5483,7 +5472,7 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 		c.Config.Logger.Infof("Detected diff in HostRule.\nDESIRED: %v\nACTUAL: %v", desired.HostRule, actual.HostRule)
 
 		toAdd, toRemove := compareUrlMapHostRuleSets(c, desired.HostRule, actual.HostRule)
-		c.Config.Logger.Infof("diff in HostRule is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
+		c.Config.Logger.Infof("diff in HostRule is a set field - recomparing with set logic.\nto add: %#v\nto remove: %#v", toAdd, toRemove)
 		if len(toAdd) != 0 || len(toRemove) != 0 {
 			c.Config.Logger.Info("diff in HostRule persists after set logic analysis.")
 			diffs = append(diffs, urlMapDiff{
@@ -5493,20 +5482,11 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 		}
 
 	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-
-		diffs = append(diffs, urlMapDiff{
-			UpdateOp:  &updateUrlMapUpdateOperation{},
-			FieldName: "Name",
-		})
-
-	}
 	if compareUrlMapPathMatcherSlice(c, desired.PathMatcher, actual.PathMatcher) {
 		c.Config.Logger.Infof("Detected diff in PathMatcher.\nDESIRED: %v\nACTUAL: %v", desired.PathMatcher, actual.PathMatcher)
 
 		toAdd, toRemove := compareUrlMapPathMatcherSets(c, desired.PathMatcher, actual.PathMatcher)
-		c.Config.Logger.Infof("diff in PathMatcher is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
+		c.Config.Logger.Infof("diff in PathMatcher is a set field - recomparing with set logic.\nto add: %#v\nto remove: %#v", toAdd, toRemove)
 		if len(toAdd) != 0 || len(toRemove) != 0 {
 			c.Config.Logger.Info("diff in PathMatcher persists after set logic analysis.")
 			diffs = append(diffs, urlMapDiff{
@@ -5515,13 +5495,6 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 			})
 		}
 
-	}
-	if !dcl.IsZeroValue(desired.Region) && !dcl.StringCanonicalize(desired.Region, actual.Region) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
-		diffs = append(diffs, urlMapDiff{
-			RequiresRecreate: true,
-			FieldName:        "Region",
-		})
 	}
 	if compareUrlMapTestSlice(c, desired.Test, actual.Test) {
 		c.Config.Logger.Infof("Detected diff in Test.\nDESIRED: %v\nACTUAL: %v", desired.Test, actual.Test)
@@ -5563,60 +5536,32 @@ func compareUrlMapDefaultRouteAction(c *Client, desired, actual *UrlMapDefaultRo
 	if actual == nil {
 		return true
 	}
-	if actual.WeightedBackendService == nil && desired.WeightedBackendService != nil && !dcl.IsEmptyValueIndirect(desired.WeightedBackendService) {
-		c.Config.Logger.Infof("desired WeightedBackendService %s - but actually nil", dcl.SprintResource(desired.WeightedBackendService))
-		return true
-	}
 	if compareUrlMapDefaultRouteActionWeightedBackendServiceSlice(c, desired.WeightedBackendService, actual.WeightedBackendService) && !dcl.IsZeroValue(desired.WeightedBackendService) {
-		c.Config.Logger.Infof("Diff in WeightedBackendService. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WeightedBackendService), dcl.SprintResource(actual.WeightedBackendService))
-		return true
-	}
-	if actual.UrlRewrite == nil && desired.UrlRewrite != nil && !dcl.IsEmptyValueIndirect(desired.UrlRewrite) {
-		c.Config.Logger.Infof("desired UrlRewrite %s - but actually nil", dcl.SprintResource(desired.UrlRewrite))
+		c.Config.Logger.Infof("Diff in WeightedBackendService.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WeightedBackendService), dcl.SprintResource(actual.WeightedBackendService))
 		return true
 	}
 	if compareUrlMapDefaultRouteActionUrlRewrite(c, desired.UrlRewrite, actual.UrlRewrite) && !dcl.IsZeroValue(desired.UrlRewrite) {
-		c.Config.Logger.Infof("Diff in UrlRewrite. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlRewrite), dcl.SprintResource(actual.UrlRewrite))
-		return true
-	}
-	if actual.Timeout == nil && desired.Timeout != nil && !dcl.IsEmptyValueIndirect(desired.Timeout) {
-		c.Config.Logger.Infof("desired Timeout %s - but actually nil", dcl.SprintResource(desired.Timeout))
+		c.Config.Logger.Infof("Diff in UrlRewrite.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlRewrite), dcl.SprintResource(actual.UrlRewrite))
 		return true
 	}
 	if compareUrlMapDefaultRouteActionTimeout(c, desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
-		c.Config.Logger.Infof("Diff in Timeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
-		return true
-	}
-	if actual.RetryPolicy == nil && desired.RetryPolicy != nil && !dcl.IsEmptyValueIndirect(desired.RetryPolicy) {
-		c.Config.Logger.Infof("desired RetryPolicy %s - but actually nil", dcl.SprintResource(desired.RetryPolicy))
+		c.Config.Logger.Infof("Diff in Timeout.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
 		return true
 	}
 	if compareUrlMapDefaultRouteActionRetryPolicy(c, desired.RetryPolicy, actual.RetryPolicy) && !dcl.IsZeroValue(desired.RetryPolicy) {
-		c.Config.Logger.Infof("Diff in RetryPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RetryPolicy), dcl.SprintResource(actual.RetryPolicy))
-		return true
-	}
-	if actual.RequestMirrorPolicy == nil && desired.RequestMirrorPolicy != nil && !dcl.IsEmptyValueIndirect(desired.RequestMirrorPolicy) {
-		c.Config.Logger.Infof("desired RequestMirrorPolicy %s - but actually nil", dcl.SprintResource(desired.RequestMirrorPolicy))
+		c.Config.Logger.Infof("Diff in RetryPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RetryPolicy), dcl.SprintResource(actual.RetryPolicy))
 		return true
 	}
 	if compareUrlMapDefaultRouteActionRequestMirrorPolicy(c, desired.RequestMirrorPolicy, actual.RequestMirrorPolicy) && !dcl.IsZeroValue(desired.RequestMirrorPolicy) {
-		c.Config.Logger.Infof("Diff in RequestMirrorPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestMirrorPolicy), dcl.SprintResource(actual.RequestMirrorPolicy))
-		return true
-	}
-	if actual.CorsPolicy == nil && desired.CorsPolicy != nil && !dcl.IsEmptyValueIndirect(desired.CorsPolicy) {
-		c.Config.Logger.Infof("desired CorsPolicy %s - but actually nil", dcl.SprintResource(desired.CorsPolicy))
+		c.Config.Logger.Infof("Diff in RequestMirrorPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestMirrorPolicy), dcl.SprintResource(actual.RequestMirrorPolicy))
 		return true
 	}
 	if compareUrlMapDefaultRouteActionCorsPolicy(c, desired.CorsPolicy, actual.CorsPolicy) && !dcl.IsZeroValue(desired.CorsPolicy) {
-		c.Config.Logger.Infof("Diff in CorsPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CorsPolicy), dcl.SprintResource(actual.CorsPolicy))
-		return true
-	}
-	if actual.FaultInjectionPolicy == nil && desired.FaultInjectionPolicy != nil && !dcl.IsEmptyValueIndirect(desired.FaultInjectionPolicy) {
-		c.Config.Logger.Infof("desired FaultInjectionPolicy %s - but actually nil", dcl.SprintResource(desired.FaultInjectionPolicy))
+		c.Config.Logger.Infof("Diff in CorsPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CorsPolicy), dcl.SprintResource(actual.CorsPolicy))
 		return true
 	}
 	if compareUrlMapDefaultRouteActionFaultInjectionPolicy(c, desired.FaultInjectionPolicy, actual.FaultInjectionPolicy) && !dcl.IsZeroValue(desired.FaultInjectionPolicy) {
-		c.Config.Logger.Infof("Diff in FaultInjectionPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FaultInjectionPolicy), dcl.SprintResource(actual.FaultInjectionPolicy))
+		c.Config.Logger.Infof("Diff in FaultInjectionPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FaultInjectionPolicy), dcl.SprintResource(actual.FaultInjectionPolicy))
 		return true
 	}
 	return false
@@ -5629,7 +5574,7 @@ func compareUrlMapDefaultRouteActionSlice(c *Client, desired, actual []UrlMapDef
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultRouteAction(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteAction, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteAction, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5648,7 +5593,7 @@ func compareUrlMapDefaultRouteActionMap(c *Client, desired, actual map[string]Ur
 			return true
 		}
 		if compareUrlMapDefaultRouteAction(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteAction, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteAction, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5662,28 +5607,16 @@ func compareUrlMapDefaultRouteActionWeightedBackendService(c *Client, desired, a
 	if actual == nil {
 		return true
 	}
-	if actual.BackendService == nil && desired.BackendService != nil && !dcl.IsEmptyValueIndirect(desired.BackendService) {
-		c.Config.Logger.Infof("desired BackendService %s - but actually nil", dcl.SprintResource(desired.BackendService))
-		return true
-	}
 	if !dcl.NameToSelfLink(desired.BackendService, actual.BackendService) && !dcl.IsZeroValue(desired.BackendService) {
-		c.Config.Logger.Infof("Diff in BackendService. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
-		return true
-	}
-	if actual.Weight == nil && desired.Weight != nil && !dcl.IsEmptyValueIndirect(desired.Weight) {
-		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
+		c.Config.Logger.Infof("Diff in BackendService.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
-		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
-		return true
-	}
-	if actual.HeaderAction == nil && desired.HeaderAction != nil && !dcl.IsEmptyValueIndirect(desired.HeaderAction) {
-		c.Config.Logger.Infof("desired HeaderAction %s - but actually nil", dcl.SprintResource(desired.HeaderAction))
+		c.Config.Logger.Infof("Diff in Weight.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
 		return true
 	}
 	if compareUrlMapHeaderAction(c, desired.HeaderAction, actual.HeaderAction) && !dcl.IsZeroValue(desired.HeaderAction) {
-		c.Config.Logger.Infof("Diff in HeaderAction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderAction), dcl.SprintResource(actual.HeaderAction))
+		c.Config.Logger.Infof("Diff in HeaderAction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderAction), dcl.SprintResource(actual.HeaderAction))
 		return true
 	}
 	return false
@@ -5696,7 +5629,7 @@ func compareUrlMapDefaultRouteActionWeightedBackendServiceSlice(c *Client, desir
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultRouteActionWeightedBackendService(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionWeightedBackendService, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionWeightedBackendService, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5715,7 +5648,7 @@ func compareUrlMapDefaultRouteActionWeightedBackendServiceMap(c *Client, desired
 			return true
 		}
 		if compareUrlMapDefaultRouteActionWeightedBackendService(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionWeightedBackendService, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionWeightedBackendService, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5729,36 +5662,20 @@ func compareUrlMapHeaderAction(c *Client, desired, actual *UrlMapHeaderAction) b
 	if actual == nil {
 		return true
 	}
-	if actual.RequestHeadersToRemove == nil && desired.RequestHeadersToRemove != nil && !dcl.IsEmptyValueIndirect(desired.RequestHeadersToRemove) {
-		c.Config.Logger.Infof("desired RequestHeadersToRemove %s - but actually nil", dcl.SprintResource(desired.RequestHeadersToRemove))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.RequestHeadersToRemove, actual.RequestHeadersToRemove) && !dcl.IsZeroValue(desired.RequestHeadersToRemove) {
-		c.Config.Logger.Infof("Diff in RequestHeadersToRemove. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestHeadersToRemove), dcl.SprintResource(actual.RequestHeadersToRemove))
-		return true
-	}
-	if actual.RequestHeadersToAdd == nil && desired.RequestHeadersToAdd != nil && !dcl.IsEmptyValueIndirect(desired.RequestHeadersToAdd) {
-		c.Config.Logger.Infof("desired RequestHeadersToAdd %s - but actually nil", dcl.SprintResource(desired.RequestHeadersToAdd))
+		c.Config.Logger.Infof("Diff in RequestHeadersToRemove.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestHeadersToRemove), dcl.SprintResource(actual.RequestHeadersToRemove))
 		return true
 	}
 	if compareUrlMapHeaderActionRequestHeadersToAddSlice(c, desired.RequestHeadersToAdd, actual.RequestHeadersToAdd) && !dcl.IsZeroValue(desired.RequestHeadersToAdd) {
-		c.Config.Logger.Infof("Diff in RequestHeadersToAdd. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestHeadersToAdd), dcl.SprintResource(actual.RequestHeadersToAdd))
-		return true
-	}
-	if actual.ResponseHeadersToRemove == nil && desired.ResponseHeadersToRemove != nil && !dcl.IsEmptyValueIndirect(desired.ResponseHeadersToRemove) {
-		c.Config.Logger.Infof("desired ResponseHeadersToRemove %s - but actually nil", dcl.SprintResource(desired.ResponseHeadersToRemove))
+		c.Config.Logger.Infof("Diff in RequestHeadersToAdd.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestHeadersToAdd), dcl.SprintResource(actual.RequestHeadersToAdd))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.ResponseHeadersToRemove, actual.ResponseHeadersToRemove) && !dcl.IsZeroValue(desired.ResponseHeadersToRemove) {
-		c.Config.Logger.Infof("Diff in ResponseHeadersToRemove. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResponseHeadersToRemove), dcl.SprintResource(actual.ResponseHeadersToRemove))
-		return true
-	}
-	if actual.ResponseHeadersToAdd == nil && desired.ResponseHeadersToAdd != nil && !dcl.IsEmptyValueIndirect(desired.ResponseHeadersToAdd) {
-		c.Config.Logger.Infof("desired ResponseHeadersToAdd %s - but actually nil", dcl.SprintResource(desired.ResponseHeadersToAdd))
+		c.Config.Logger.Infof("Diff in ResponseHeadersToRemove.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResponseHeadersToRemove), dcl.SprintResource(actual.ResponseHeadersToRemove))
 		return true
 	}
 	if compareUrlMapHeaderActionResponseHeadersToAddSlice(c, desired.ResponseHeadersToAdd, actual.ResponseHeadersToAdd) && !dcl.IsZeroValue(desired.ResponseHeadersToAdd) {
-		c.Config.Logger.Infof("Diff in ResponseHeadersToAdd. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResponseHeadersToAdd), dcl.SprintResource(actual.ResponseHeadersToAdd))
+		c.Config.Logger.Infof("Diff in ResponseHeadersToAdd.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResponseHeadersToAdd), dcl.SprintResource(actual.ResponseHeadersToAdd))
 		return true
 	}
 	return false
@@ -5771,7 +5688,7 @@ func compareUrlMapHeaderActionSlice(c *Client, desired, actual []UrlMapHeaderAct
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapHeaderAction(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapHeaderAction, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapHeaderAction, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5790,7 +5707,7 @@ func compareUrlMapHeaderActionMap(c *Client, desired, actual map[string]UrlMapHe
 			return true
 		}
 		if compareUrlMapHeaderAction(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapHeaderAction, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapHeaderAction, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5804,28 +5721,16 @@ func compareUrlMapHeaderActionRequestHeadersToAdd(c *Client, desired, actual *Ur
 	if actual == nil {
 		return true
 	}
-	if actual.HeaderName == nil && desired.HeaderName != nil && !dcl.IsEmptyValueIndirect(desired.HeaderName) {
-		c.Config.Logger.Infof("desired HeaderName %s - but actually nil", dcl.SprintResource(desired.HeaderName))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.HeaderName, actual.HeaderName) && !dcl.IsZeroValue(desired.HeaderName) {
-		c.Config.Logger.Infof("Diff in HeaderName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderName), dcl.SprintResource(actual.HeaderName))
-		return true
-	}
-	if actual.HeaderValue == nil && desired.HeaderValue != nil && !dcl.IsEmptyValueIndirect(desired.HeaderValue) {
-		c.Config.Logger.Infof("desired HeaderValue %s - but actually nil", dcl.SprintResource(desired.HeaderValue))
+		c.Config.Logger.Infof("Diff in HeaderName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderName), dcl.SprintResource(actual.HeaderName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.HeaderValue, actual.HeaderValue) && !dcl.IsZeroValue(desired.HeaderValue) {
-		c.Config.Logger.Infof("Diff in HeaderValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderValue), dcl.SprintResource(actual.HeaderValue))
-		return true
-	}
-	if actual.Replace == nil && desired.Replace != nil && !dcl.IsEmptyValueIndirect(desired.Replace) {
-		c.Config.Logger.Infof("desired Replace %s - but actually nil", dcl.SprintResource(desired.Replace))
+		c.Config.Logger.Infof("Diff in HeaderValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderValue), dcl.SprintResource(actual.HeaderValue))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Replace, actual.Replace) && !dcl.IsZeroValue(desired.Replace) {
-		c.Config.Logger.Infof("Diff in Replace. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Replace), dcl.SprintResource(actual.Replace))
+		c.Config.Logger.Infof("Diff in Replace.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Replace), dcl.SprintResource(actual.Replace))
 		return true
 	}
 	return false
@@ -5838,7 +5743,7 @@ func compareUrlMapHeaderActionRequestHeadersToAddSlice(c *Client, desired, actua
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapHeaderActionRequestHeadersToAdd(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapHeaderActionRequestHeadersToAdd, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapHeaderActionRequestHeadersToAdd, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5857,7 +5762,7 @@ func compareUrlMapHeaderActionRequestHeadersToAddMap(c *Client, desired, actual 
 			return true
 		}
 		if compareUrlMapHeaderActionRequestHeadersToAdd(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapHeaderActionRequestHeadersToAdd, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapHeaderActionRequestHeadersToAdd, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5871,28 +5776,16 @@ func compareUrlMapHeaderActionResponseHeadersToAdd(c *Client, desired, actual *U
 	if actual == nil {
 		return true
 	}
-	if actual.HeaderName == nil && desired.HeaderName != nil && !dcl.IsEmptyValueIndirect(desired.HeaderName) {
-		c.Config.Logger.Infof("desired HeaderName %s - but actually nil", dcl.SprintResource(desired.HeaderName))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.HeaderName, actual.HeaderName) && !dcl.IsZeroValue(desired.HeaderName) {
-		c.Config.Logger.Infof("Diff in HeaderName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderName), dcl.SprintResource(actual.HeaderName))
-		return true
-	}
-	if actual.HeaderValue == nil && desired.HeaderValue != nil && !dcl.IsEmptyValueIndirect(desired.HeaderValue) {
-		c.Config.Logger.Infof("desired HeaderValue %s - but actually nil", dcl.SprintResource(desired.HeaderValue))
+		c.Config.Logger.Infof("Diff in HeaderName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderName), dcl.SprintResource(actual.HeaderName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.HeaderValue, actual.HeaderValue) && !dcl.IsZeroValue(desired.HeaderValue) {
-		c.Config.Logger.Infof("Diff in HeaderValue. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderValue), dcl.SprintResource(actual.HeaderValue))
-		return true
-	}
-	if actual.Replace == nil && desired.Replace != nil && !dcl.IsEmptyValueIndirect(desired.Replace) {
-		c.Config.Logger.Infof("desired Replace %s - but actually nil", dcl.SprintResource(desired.Replace))
+		c.Config.Logger.Infof("Diff in HeaderValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderValue), dcl.SprintResource(actual.HeaderValue))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Replace, actual.Replace) && !dcl.IsZeroValue(desired.Replace) {
-		c.Config.Logger.Infof("Diff in Replace. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Replace), dcl.SprintResource(actual.Replace))
+		c.Config.Logger.Infof("Diff in Replace.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Replace), dcl.SprintResource(actual.Replace))
 		return true
 	}
 	return false
@@ -5905,7 +5798,7 @@ func compareUrlMapHeaderActionResponseHeadersToAddSlice(c *Client, desired, actu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapHeaderActionResponseHeadersToAdd(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapHeaderActionResponseHeadersToAdd, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapHeaderActionResponseHeadersToAdd, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5924,7 +5817,7 @@ func compareUrlMapHeaderActionResponseHeadersToAddMap(c *Client, desired, actual
 			return true
 		}
 		if compareUrlMapHeaderActionResponseHeadersToAdd(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapHeaderActionResponseHeadersToAdd, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapHeaderActionResponseHeadersToAdd, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5938,20 +5831,12 @@ func compareUrlMapDefaultRouteActionUrlRewrite(c *Client, desired, actual *UrlMa
 	if actual == nil {
 		return true
 	}
-	if actual.PathPrefixRewrite == nil && desired.PathPrefixRewrite != nil && !dcl.IsEmptyValueIndirect(desired.PathPrefixRewrite) {
-		c.Config.Logger.Infof("desired PathPrefixRewrite %s - but actually nil", dcl.SprintResource(desired.PathPrefixRewrite))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.PathPrefixRewrite, actual.PathPrefixRewrite) && !dcl.IsZeroValue(desired.PathPrefixRewrite) {
-		c.Config.Logger.Infof("Diff in PathPrefixRewrite. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathPrefixRewrite), dcl.SprintResource(actual.PathPrefixRewrite))
-		return true
-	}
-	if actual.HostRewrite == nil && desired.HostRewrite != nil && !dcl.IsEmptyValueIndirect(desired.HostRewrite) {
-		c.Config.Logger.Infof("desired HostRewrite %s - but actually nil", dcl.SprintResource(desired.HostRewrite))
+		c.Config.Logger.Infof("Diff in PathPrefixRewrite.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathPrefixRewrite), dcl.SprintResource(actual.PathPrefixRewrite))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.HostRewrite, actual.HostRewrite) && !dcl.IsZeroValue(desired.HostRewrite) {
-		c.Config.Logger.Infof("Diff in HostRewrite. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRewrite), dcl.SprintResource(actual.HostRewrite))
+		c.Config.Logger.Infof("Diff in HostRewrite.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRewrite), dcl.SprintResource(actual.HostRewrite))
 		return true
 	}
 	return false
@@ -5964,7 +5849,7 @@ func compareUrlMapDefaultRouteActionUrlRewriteSlice(c *Client, desired, actual [
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultRouteActionUrlRewrite(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionUrlRewrite, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionUrlRewrite, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5983,7 +5868,7 @@ func compareUrlMapDefaultRouteActionUrlRewriteMap(c *Client, desired, actual map
 			return true
 		}
 		if compareUrlMapDefaultRouteActionUrlRewrite(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionUrlRewrite, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionUrlRewrite, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5997,20 +5882,12 @@ func compareUrlMapDefaultRouteActionTimeout(c *Client, desired, actual *UrlMapDe
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -6023,7 +5900,7 @@ func compareUrlMapDefaultRouteActionTimeoutSlice(c *Client, desired, actual []Ur
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultRouteActionTimeout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionTimeout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionTimeout, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6042,7 +5919,7 @@ func compareUrlMapDefaultRouteActionTimeoutMap(c *Client, desired, actual map[st
 			return true
 		}
 		if compareUrlMapDefaultRouteActionTimeout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionTimeout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionTimeout, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6056,28 +5933,16 @@ func compareUrlMapDefaultRouteActionRetryPolicy(c *Client, desired, actual *UrlM
 	if actual == nil {
 		return true
 	}
-	if actual.RetryCondition == nil && desired.RetryCondition != nil && !dcl.IsEmptyValueIndirect(desired.RetryCondition) {
-		c.Config.Logger.Infof("desired RetryCondition %s - but actually nil", dcl.SprintResource(desired.RetryCondition))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.RetryCondition, actual.RetryCondition) && !dcl.IsZeroValue(desired.RetryCondition) {
-		c.Config.Logger.Infof("Diff in RetryCondition. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RetryCondition), dcl.SprintResource(actual.RetryCondition))
-		return true
-	}
-	if actual.NumRetries == nil && desired.NumRetries != nil && !dcl.IsEmptyValueIndirect(desired.NumRetries) {
-		c.Config.Logger.Infof("desired NumRetries %s - but actually nil", dcl.SprintResource(desired.NumRetries))
+		c.Config.Logger.Infof("Diff in RetryCondition.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RetryCondition), dcl.SprintResource(actual.RetryCondition))
 		return true
 	}
 	if !reflect.DeepEqual(desired.NumRetries, actual.NumRetries) && !dcl.IsZeroValue(desired.NumRetries) {
-		c.Config.Logger.Infof("Diff in NumRetries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumRetries), dcl.SprintResource(actual.NumRetries))
-		return true
-	}
-	if actual.PerTryTimeout == nil && desired.PerTryTimeout != nil && !dcl.IsEmptyValueIndirect(desired.PerTryTimeout) {
-		c.Config.Logger.Infof("desired PerTryTimeout %s - but actually nil", dcl.SprintResource(desired.PerTryTimeout))
+		c.Config.Logger.Infof("Diff in NumRetries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumRetries), dcl.SprintResource(actual.NumRetries))
 		return true
 	}
 	if compareUrlMapDefaultRouteActionRetryPolicyPerTryTimeout(c, desired.PerTryTimeout, actual.PerTryTimeout) && !dcl.IsZeroValue(desired.PerTryTimeout) {
-		c.Config.Logger.Infof("Diff in PerTryTimeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerTryTimeout), dcl.SprintResource(actual.PerTryTimeout))
+		c.Config.Logger.Infof("Diff in PerTryTimeout.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerTryTimeout), dcl.SprintResource(actual.PerTryTimeout))
 		return true
 	}
 	return false
@@ -6090,7 +5955,7 @@ func compareUrlMapDefaultRouteActionRetryPolicySlice(c *Client, desired, actual 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultRouteActionRetryPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionRetryPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionRetryPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6109,7 +5974,7 @@ func compareUrlMapDefaultRouteActionRetryPolicyMap(c *Client, desired, actual ma
 			return true
 		}
 		if compareUrlMapDefaultRouteActionRetryPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionRetryPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionRetryPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6123,20 +5988,12 @@ func compareUrlMapDefaultRouteActionRetryPolicyPerTryTimeout(c *Client, desired,
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -6149,7 +6006,7 @@ func compareUrlMapDefaultRouteActionRetryPolicyPerTryTimeoutSlice(c *Client, des
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultRouteActionRetryPolicyPerTryTimeout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionRetryPolicyPerTryTimeout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionRetryPolicyPerTryTimeout, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6168,7 +6025,7 @@ func compareUrlMapDefaultRouteActionRetryPolicyPerTryTimeoutMap(c *Client, desir
 			return true
 		}
 		if compareUrlMapDefaultRouteActionRetryPolicyPerTryTimeout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionRetryPolicyPerTryTimeout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionRetryPolicyPerTryTimeout, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6182,12 +6039,8 @@ func compareUrlMapDefaultRouteActionRequestMirrorPolicy(c *Client, desired, actu
 	if actual == nil {
 		return true
 	}
-	if actual.BackendService == nil && desired.BackendService != nil && !dcl.IsEmptyValueIndirect(desired.BackendService) {
-		c.Config.Logger.Infof("desired BackendService %s - but actually nil", dcl.SprintResource(desired.BackendService))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.BackendService, actual.BackendService) && !dcl.IsZeroValue(desired.BackendService) {
-		c.Config.Logger.Infof("Diff in BackendService. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
+		c.Config.Logger.Infof("Diff in BackendService.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
 		return true
 	}
 	return false
@@ -6200,7 +6053,7 @@ func compareUrlMapDefaultRouteActionRequestMirrorPolicySlice(c *Client, desired,
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultRouteActionRequestMirrorPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionRequestMirrorPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionRequestMirrorPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6219,7 +6072,7 @@ func compareUrlMapDefaultRouteActionRequestMirrorPolicyMap(c *Client, desired, a
 			return true
 		}
 		if compareUrlMapDefaultRouteActionRequestMirrorPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionRequestMirrorPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionRequestMirrorPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6233,68 +6086,36 @@ func compareUrlMapDefaultRouteActionCorsPolicy(c *Client, desired, actual *UrlMa
 	if actual == nil {
 		return true
 	}
-	if actual.AllowOrigin == nil && desired.AllowOrigin != nil && !dcl.IsEmptyValueIndirect(desired.AllowOrigin) {
-		c.Config.Logger.Infof("desired AllowOrigin %s - but actually nil", dcl.SprintResource(desired.AllowOrigin))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.AllowOrigin, actual.AllowOrigin) && !dcl.IsZeroValue(desired.AllowOrigin) {
-		c.Config.Logger.Infof("Diff in AllowOrigin. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowOrigin), dcl.SprintResource(actual.AllowOrigin))
-		return true
-	}
-	if actual.AllowOriginRegex == nil && desired.AllowOriginRegex != nil && !dcl.IsEmptyValueIndirect(desired.AllowOriginRegex) {
-		c.Config.Logger.Infof("desired AllowOriginRegex %s - but actually nil", dcl.SprintResource(desired.AllowOriginRegex))
+		c.Config.Logger.Infof("Diff in AllowOrigin.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowOrigin), dcl.SprintResource(actual.AllowOrigin))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.AllowOriginRegex, actual.AllowOriginRegex) && !dcl.IsZeroValue(desired.AllowOriginRegex) {
-		c.Config.Logger.Infof("Diff in AllowOriginRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowOriginRegex), dcl.SprintResource(actual.AllowOriginRegex))
-		return true
-	}
-	if actual.AllowMethod == nil && desired.AllowMethod != nil && !dcl.IsEmptyValueIndirect(desired.AllowMethod) {
-		c.Config.Logger.Infof("desired AllowMethod %s - but actually nil", dcl.SprintResource(desired.AllowMethod))
+		c.Config.Logger.Infof("Diff in AllowOriginRegex.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowOriginRegex), dcl.SprintResource(actual.AllowOriginRegex))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.AllowMethod, actual.AllowMethod) && !dcl.IsZeroValue(desired.AllowMethod) {
-		c.Config.Logger.Infof("Diff in AllowMethod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowMethod), dcl.SprintResource(actual.AllowMethod))
-		return true
-	}
-	if actual.AllowHeader == nil && desired.AllowHeader != nil && !dcl.IsEmptyValueIndirect(desired.AllowHeader) {
-		c.Config.Logger.Infof("desired AllowHeader %s - but actually nil", dcl.SprintResource(desired.AllowHeader))
+		c.Config.Logger.Infof("Diff in AllowMethod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowMethod), dcl.SprintResource(actual.AllowMethod))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.AllowHeader, actual.AllowHeader) && !dcl.IsZeroValue(desired.AllowHeader) {
-		c.Config.Logger.Infof("Diff in AllowHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowHeader), dcl.SprintResource(actual.AllowHeader))
-		return true
-	}
-	if actual.ExposeHeader == nil && desired.ExposeHeader != nil && !dcl.IsEmptyValueIndirect(desired.ExposeHeader) {
-		c.Config.Logger.Infof("desired ExposeHeader %s - but actually nil", dcl.SprintResource(desired.ExposeHeader))
+		c.Config.Logger.Infof("Diff in AllowHeader.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowHeader), dcl.SprintResource(actual.AllowHeader))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.ExposeHeader, actual.ExposeHeader) && !dcl.IsZeroValue(desired.ExposeHeader) {
-		c.Config.Logger.Infof("Diff in ExposeHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExposeHeader), dcl.SprintResource(actual.ExposeHeader))
-		return true
-	}
-	if actual.MaxAge == nil && desired.MaxAge != nil && !dcl.IsEmptyValueIndirect(desired.MaxAge) {
-		c.Config.Logger.Infof("desired MaxAge %s - but actually nil", dcl.SprintResource(desired.MaxAge))
+		c.Config.Logger.Infof("Diff in ExposeHeader.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExposeHeader), dcl.SprintResource(actual.ExposeHeader))
 		return true
 	}
 	if !reflect.DeepEqual(desired.MaxAge, actual.MaxAge) && !dcl.IsZeroValue(desired.MaxAge) {
-		c.Config.Logger.Infof("Diff in MaxAge. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxAge), dcl.SprintResource(actual.MaxAge))
-		return true
-	}
-	if actual.AllowCredentials == nil && desired.AllowCredentials != nil && !dcl.IsEmptyValueIndirect(desired.AllowCredentials) {
-		c.Config.Logger.Infof("desired AllowCredentials %s - but actually nil", dcl.SprintResource(desired.AllowCredentials))
+		c.Config.Logger.Infof("Diff in MaxAge.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxAge), dcl.SprintResource(actual.MaxAge))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.AllowCredentials, actual.AllowCredentials) && !dcl.IsZeroValue(desired.AllowCredentials) {
-		c.Config.Logger.Infof("Diff in AllowCredentials. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowCredentials), dcl.SprintResource(actual.AllowCredentials))
-		return true
-	}
-	if actual.Disabled == nil && desired.Disabled != nil && !dcl.IsEmptyValueIndirect(desired.Disabled) {
-		c.Config.Logger.Infof("desired Disabled %s - but actually nil", dcl.SprintResource(desired.Disabled))
+		c.Config.Logger.Infof("Diff in AllowCredentials.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowCredentials), dcl.SprintResource(actual.AllowCredentials))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
-		c.Config.Logger.Infof("Diff in Disabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
+		c.Config.Logger.Infof("Diff in Disabled.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
 		return true
 	}
 	return false
@@ -6307,7 +6128,7 @@ func compareUrlMapDefaultRouteActionCorsPolicySlice(c *Client, desired, actual [
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultRouteActionCorsPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionCorsPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionCorsPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6326,7 +6147,7 @@ func compareUrlMapDefaultRouteActionCorsPolicyMap(c *Client, desired, actual map
 			return true
 		}
 		if compareUrlMapDefaultRouteActionCorsPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionCorsPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionCorsPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6340,20 +6161,12 @@ func compareUrlMapDefaultRouteActionFaultInjectionPolicy(c *Client, desired, act
 	if actual == nil {
 		return true
 	}
-	if actual.Delay == nil && desired.Delay != nil && !dcl.IsEmptyValueIndirect(desired.Delay) {
-		c.Config.Logger.Infof("desired Delay %s - but actually nil", dcl.SprintResource(desired.Delay))
-		return true
-	}
 	if compareUrlMapDefaultRouteActionFaultInjectionPolicyDelay(c, desired.Delay, actual.Delay) && !dcl.IsZeroValue(desired.Delay) {
-		c.Config.Logger.Infof("Diff in Delay. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Delay), dcl.SprintResource(actual.Delay))
-		return true
-	}
-	if actual.Abort == nil && desired.Abort != nil && !dcl.IsEmptyValueIndirect(desired.Abort) {
-		c.Config.Logger.Infof("desired Abort %s - but actually nil", dcl.SprintResource(desired.Abort))
+		c.Config.Logger.Infof("Diff in Delay.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Delay), dcl.SprintResource(actual.Delay))
 		return true
 	}
 	if compareUrlMapDefaultRouteActionFaultInjectionPolicyAbort(c, desired.Abort, actual.Abort) && !dcl.IsZeroValue(desired.Abort) {
-		c.Config.Logger.Infof("Diff in Abort. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Abort), dcl.SprintResource(actual.Abort))
+		c.Config.Logger.Infof("Diff in Abort.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Abort), dcl.SprintResource(actual.Abort))
 		return true
 	}
 	return false
@@ -6366,7 +6179,7 @@ func compareUrlMapDefaultRouteActionFaultInjectionPolicySlice(c *Client, desired
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultRouteActionFaultInjectionPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6385,7 +6198,7 @@ func compareUrlMapDefaultRouteActionFaultInjectionPolicyMap(c *Client, desired, 
 			return true
 		}
 		if compareUrlMapDefaultRouteActionFaultInjectionPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6399,20 +6212,12 @@ func compareUrlMapDefaultRouteActionFaultInjectionPolicyDelay(c *Client, desired
 	if actual == nil {
 		return true
 	}
-	if actual.FixedDelay == nil && desired.FixedDelay != nil && !dcl.IsEmptyValueIndirect(desired.FixedDelay) {
-		c.Config.Logger.Infof("desired FixedDelay %s - but actually nil", dcl.SprintResource(desired.FixedDelay))
-		return true
-	}
 	if compareUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(c, desired.FixedDelay, actual.FixedDelay) && !dcl.IsZeroValue(desired.FixedDelay) {
-		c.Config.Logger.Infof("Diff in FixedDelay. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FixedDelay), dcl.SprintResource(actual.FixedDelay))
-		return true
-	}
-	if actual.Percentage == nil && desired.Percentage != nil && !dcl.IsEmptyValueIndirect(desired.Percentage) {
-		c.Config.Logger.Infof("desired Percentage %s - but actually nil", dcl.SprintResource(desired.Percentage))
+		c.Config.Logger.Infof("Diff in FixedDelay.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FixedDelay), dcl.SprintResource(actual.FixedDelay))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Percentage, actual.Percentage) && !dcl.IsZeroValue(desired.Percentage) {
-		c.Config.Logger.Infof("Diff in Percentage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percentage), dcl.SprintResource(actual.Percentage))
+		c.Config.Logger.Infof("Diff in Percentage.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percentage), dcl.SprintResource(actual.Percentage))
 		return true
 	}
 	return false
@@ -6425,7 +6230,7 @@ func compareUrlMapDefaultRouteActionFaultInjectionPolicyDelaySlice(c *Client, de
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultRouteActionFaultInjectionPolicyDelay(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicyDelay, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicyDelay, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6444,7 +6249,7 @@ func compareUrlMapDefaultRouteActionFaultInjectionPolicyDelayMap(c *Client, desi
 			return true
 		}
 		if compareUrlMapDefaultRouteActionFaultInjectionPolicyDelay(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicyDelay, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicyDelay, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6458,20 +6263,12 @@ func compareUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(c *Clien
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -6484,7 +6281,7 @@ func compareUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelaySlice(c *
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6503,7 +6300,7 @@ func compareUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelayMap(c *Cl
 			return true
 		}
 		if compareUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6517,20 +6314,12 @@ func compareUrlMapDefaultRouteActionFaultInjectionPolicyAbort(c *Client, desired
 	if actual == nil {
 		return true
 	}
-	if actual.HttpStatus == nil && desired.HttpStatus != nil && !dcl.IsEmptyValueIndirect(desired.HttpStatus) {
-		c.Config.Logger.Infof("desired HttpStatus %s - but actually nil", dcl.SprintResource(desired.HttpStatus))
-		return true
-	}
 	if !reflect.DeepEqual(desired.HttpStatus, actual.HttpStatus) && !dcl.IsZeroValue(desired.HttpStatus) {
-		c.Config.Logger.Infof("Diff in HttpStatus. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpStatus), dcl.SprintResource(actual.HttpStatus))
-		return true
-	}
-	if actual.Percentage == nil && desired.Percentage != nil && !dcl.IsEmptyValueIndirect(desired.Percentage) {
-		c.Config.Logger.Infof("desired Percentage %s - but actually nil", dcl.SprintResource(desired.Percentage))
+		c.Config.Logger.Infof("Diff in HttpStatus.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpStatus), dcl.SprintResource(actual.HttpStatus))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Percentage, actual.Percentage) && !dcl.IsZeroValue(desired.Percentage) {
-		c.Config.Logger.Infof("Diff in Percentage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percentage), dcl.SprintResource(actual.Percentage))
+		c.Config.Logger.Infof("Diff in Percentage.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percentage), dcl.SprintResource(actual.Percentage))
 		return true
 	}
 	return false
@@ -6543,7 +6332,7 @@ func compareUrlMapDefaultRouteActionFaultInjectionPolicyAbortSlice(c *Client, de
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultRouteActionFaultInjectionPolicyAbort(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicyAbort, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicyAbort, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6562,7 +6351,7 @@ func compareUrlMapDefaultRouteActionFaultInjectionPolicyAbortMap(c *Client, desi
 			return true
 		}
 		if compareUrlMapDefaultRouteActionFaultInjectionPolicyAbort(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicyAbort, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultRouteActionFaultInjectionPolicyAbort, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6576,52 +6365,28 @@ func compareUrlMapDefaultUrlRedirect(c *Client, desired, actual *UrlMapDefaultUr
 	if actual == nil {
 		return true
 	}
-	if actual.HostRedirect == nil && desired.HostRedirect != nil && !dcl.IsEmptyValueIndirect(desired.HostRedirect) {
-		c.Config.Logger.Infof("desired HostRedirect %s - but actually nil", dcl.SprintResource(desired.HostRedirect))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.HostRedirect, actual.HostRedirect) && !dcl.IsZeroValue(desired.HostRedirect) {
-		c.Config.Logger.Infof("Diff in HostRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRedirect), dcl.SprintResource(actual.HostRedirect))
-		return true
-	}
-	if actual.PathRedirect == nil && desired.PathRedirect != nil && !dcl.IsEmptyValueIndirect(desired.PathRedirect) {
-		c.Config.Logger.Infof("desired PathRedirect %s - but actually nil", dcl.SprintResource(desired.PathRedirect))
+		c.Config.Logger.Infof("Diff in HostRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRedirect), dcl.SprintResource(actual.HostRedirect))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.PathRedirect, actual.PathRedirect) && !dcl.IsZeroValue(desired.PathRedirect) {
-		c.Config.Logger.Infof("Diff in PathRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathRedirect), dcl.SprintResource(actual.PathRedirect))
-		return true
-	}
-	if actual.PrefixRedirect == nil && desired.PrefixRedirect != nil && !dcl.IsEmptyValueIndirect(desired.PrefixRedirect) {
-		c.Config.Logger.Infof("desired PrefixRedirect %s - but actually nil", dcl.SprintResource(desired.PrefixRedirect))
+		c.Config.Logger.Infof("Diff in PathRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathRedirect), dcl.SprintResource(actual.PathRedirect))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.PrefixRedirect, actual.PrefixRedirect) && !dcl.IsZeroValue(desired.PrefixRedirect) {
-		c.Config.Logger.Infof("Diff in PrefixRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrefixRedirect), dcl.SprintResource(actual.PrefixRedirect))
-		return true
-	}
-	if actual.RedirectResponseCode == nil && desired.RedirectResponseCode != nil && !dcl.IsEmptyValueIndirect(desired.RedirectResponseCode) {
-		c.Config.Logger.Infof("desired RedirectResponseCode %s - but actually nil", dcl.SprintResource(desired.RedirectResponseCode))
+		c.Config.Logger.Infof("Diff in PrefixRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrefixRedirect), dcl.SprintResource(actual.PrefixRedirect))
 		return true
 	}
 	if !reflect.DeepEqual(desired.RedirectResponseCode, actual.RedirectResponseCode) && !dcl.IsZeroValue(desired.RedirectResponseCode) {
-		c.Config.Logger.Infof("Diff in RedirectResponseCode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RedirectResponseCode), dcl.SprintResource(actual.RedirectResponseCode))
-		return true
-	}
-	if actual.HttpsRedirect == nil && desired.HttpsRedirect != nil && !dcl.IsEmptyValueIndirect(desired.HttpsRedirect) {
-		c.Config.Logger.Infof("desired HttpsRedirect %s - but actually nil", dcl.SprintResource(desired.HttpsRedirect))
+		c.Config.Logger.Infof("Diff in RedirectResponseCode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RedirectResponseCode), dcl.SprintResource(actual.RedirectResponseCode))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.HttpsRedirect, actual.HttpsRedirect) && !dcl.IsZeroValue(desired.HttpsRedirect) {
-		c.Config.Logger.Infof("Diff in HttpsRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpsRedirect), dcl.SprintResource(actual.HttpsRedirect))
-		return true
-	}
-	if actual.StripQuery == nil && desired.StripQuery != nil && !dcl.IsEmptyValueIndirect(desired.StripQuery) {
-		c.Config.Logger.Infof("desired StripQuery %s - but actually nil", dcl.SprintResource(desired.StripQuery))
+		c.Config.Logger.Infof("Diff in HttpsRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpsRedirect), dcl.SprintResource(actual.HttpsRedirect))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.StripQuery, actual.StripQuery) && !dcl.IsZeroValue(desired.StripQuery) {
-		c.Config.Logger.Infof("Diff in StripQuery. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StripQuery), dcl.SprintResource(actual.StripQuery))
+		c.Config.Logger.Infof("Diff in StripQuery.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StripQuery), dcl.SprintResource(actual.StripQuery))
 		return true
 	}
 	return false
@@ -6634,7 +6399,7 @@ func compareUrlMapDefaultUrlRedirectSlice(c *Client, desired, actual []UrlMapDef
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultUrlRedirect(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultUrlRedirect, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultUrlRedirect, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6653,7 +6418,7 @@ func compareUrlMapDefaultUrlRedirectMap(c *Client, desired, actual map[string]Ur
 			return true
 		}
 		if compareUrlMapDefaultUrlRedirect(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultUrlRedirect, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultUrlRedirect, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6667,28 +6432,16 @@ func compareUrlMapHostRule(c *Client, desired, actual *UrlMapHostRule) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.Description == nil && desired.Description != nil && !dcl.IsEmptyValueIndirect(desired.Description) {
-		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
-		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
-		return true
-	}
-	if actual.Host == nil && desired.Host != nil && !dcl.IsEmptyValueIndirect(desired.Host) {
-		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
+		c.Config.Logger.Infof("Diff in Description.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	if actual.PathMatcher == nil && desired.PathMatcher != nil && !dcl.IsEmptyValueIndirect(desired.PathMatcher) {
-		c.Config.Logger.Infof("desired PathMatcher %s - but actually nil", dcl.SprintResource(desired.PathMatcher))
+		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.PathMatcher, actual.PathMatcher) && !dcl.IsZeroValue(desired.PathMatcher) {
-		c.Config.Logger.Infof("Diff in PathMatcher. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathMatcher), dcl.SprintResource(actual.PathMatcher))
+		c.Config.Logger.Infof("Diff in PathMatcher.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathMatcher), dcl.SprintResource(actual.PathMatcher))
 		return true
 	}
 	return false
@@ -6701,7 +6454,7 @@ func compareUrlMapHostRuleSlice(c *Client, desired, actual []UrlMapHostRule) boo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapHostRule(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapHostRule, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapHostRule, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6720,7 +6473,7 @@ func compareUrlMapHostRuleMap(c *Client, desired, actual map[string]UrlMapHostRu
 			return true
 		}
 		if compareUrlMapHostRule(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapHostRule, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapHostRule, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6783,68 +6536,36 @@ func compareUrlMapPathMatcher(c *Client, desired, actual *UrlMapPathMatcher) boo
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Description == nil && desired.Description != nil && !dcl.IsEmptyValueIndirect(desired.Description) {
-		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
-		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
-		return true
-	}
-	if actual.DefaultService == nil && desired.DefaultService != nil && !dcl.IsEmptyValueIndirect(desired.DefaultService) {
-		c.Config.Logger.Infof("desired DefaultService %s - but actually nil", dcl.SprintResource(desired.DefaultService))
+		c.Config.Logger.Infof("Diff in Description.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.DefaultService, actual.DefaultService) && !dcl.IsZeroValue(desired.DefaultService) {
-		c.Config.Logger.Infof("Diff in DefaultService. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultService), dcl.SprintResource(actual.DefaultService))
-		return true
-	}
-	if actual.DefaultRouteAction == nil && desired.DefaultRouteAction != nil && !dcl.IsEmptyValueIndirect(desired.DefaultRouteAction) {
-		c.Config.Logger.Infof("desired DefaultRouteAction %s - but actually nil", dcl.SprintResource(desired.DefaultRouteAction))
+		c.Config.Logger.Infof("Diff in DefaultService.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultService), dcl.SprintResource(actual.DefaultService))
 		return true
 	}
 	if compareUrlMapDefaultRouteAction(c, desired.DefaultRouteAction, actual.DefaultRouteAction) && !dcl.IsZeroValue(desired.DefaultRouteAction) {
-		c.Config.Logger.Infof("Diff in DefaultRouteAction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultRouteAction), dcl.SprintResource(actual.DefaultRouteAction))
-		return true
-	}
-	if actual.DefaultUrlRedirect == nil && desired.DefaultUrlRedirect != nil && !dcl.IsEmptyValueIndirect(desired.DefaultUrlRedirect) {
-		c.Config.Logger.Infof("desired DefaultUrlRedirect %s - but actually nil", dcl.SprintResource(desired.DefaultUrlRedirect))
+		c.Config.Logger.Infof("Diff in DefaultRouteAction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultRouteAction), dcl.SprintResource(actual.DefaultRouteAction))
 		return true
 	}
 	if compareUrlMapPathMatcherDefaultUrlRedirect(c, desired.DefaultUrlRedirect, actual.DefaultUrlRedirect) && !dcl.IsZeroValue(desired.DefaultUrlRedirect) {
-		c.Config.Logger.Infof("Diff in DefaultUrlRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultUrlRedirect), dcl.SprintResource(actual.DefaultUrlRedirect))
-		return true
-	}
-	if actual.PathRule == nil && desired.PathRule != nil && !dcl.IsEmptyValueIndirect(desired.PathRule) {
-		c.Config.Logger.Infof("desired PathRule %s - but actually nil", dcl.SprintResource(desired.PathRule))
+		c.Config.Logger.Infof("Diff in DefaultUrlRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultUrlRedirect), dcl.SprintResource(actual.DefaultUrlRedirect))
 		return true
 	}
 	if compareUrlMapPathMatcherPathRuleSlice(c, desired.PathRule, actual.PathRule) && !dcl.IsZeroValue(desired.PathRule) {
-		c.Config.Logger.Infof("Diff in PathRule. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathRule), dcl.SprintResource(actual.PathRule))
-		return true
-	}
-	if actual.RouteRule == nil && desired.RouteRule != nil && !dcl.IsEmptyValueIndirect(desired.RouteRule) {
-		c.Config.Logger.Infof("desired RouteRule %s - but actually nil", dcl.SprintResource(desired.RouteRule))
+		c.Config.Logger.Infof("Diff in PathRule.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathRule), dcl.SprintResource(actual.PathRule))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleSlice(c, desired.RouteRule, actual.RouteRule) && !dcl.IsZeroValue(desired.RouteRule) {
-		c.Config.Logger.Infof("Diff in RouteRule. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RouteRule), dcl.SprintResource(actual.RouteRule))
-		return true
-	}
-	if actual.HeaderAction == nil && desired.HeaderAction != nil && !dcl.IsEmptyValueIndirect(desired.HeaderAction) {
-		c.Config.Logger.Infof("desired HeaderAction %s - but actually nil", dcl.SprintResource(desired.HeaderAction))
+		c.Config.Logger.Infof("Diff in RouteRule.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RouteRule), dcl.SprintResource(actual.RouteRule))
 		return true
 	}
 	if compareUrlMapHeaderAction(c, desired.HeaderAction, actual.HeaderAction) && !dcl.IsZeroValue(desired.HeaderAction) {
-		c.Config.Logger.Infof("Diff in HeaderAction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderAction), dcl.SprintResource(actual.HeaderAction))
+		c.Config.Logger.Infof("Diff in HeaderAction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderAction), dcl.SprintResource(actual.HeaderAction))
 		return true
 	}
 	return false
@@ -6857,7 +6578,7 @@ func compareUrlMapPathMatcherSlice(c *Client, desired, actual []UrlMapPathMatche
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcher(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcher, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcher, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6876,7 +6597,7 @@ func compareUrlMapPathMatcherMap(c *Client, desired, actual map[string]UrlMapPat
 			return true
 		}
 		if compareUrlMapPathMatcher(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcher, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcher, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6939,52 +6660,28 @@ func compareUrlMapPathMatcherDefaultUrlRedirect(c *Client, desired, actual *UrlM
 	if actual == nil {
 		return true
 	}
-	if actual.HostRedirect == nil && desired.HostRedirect != nil && !dcl.IsEmptyValueIndirect(desired.HostRedirect) {
-		c.Config.Logger.Infof("desired HostRedirect %s - but actually nil", dcl.SprintResource(desired.HostRedirect))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.HostRedirect, actual.HostRedirect) && !dcl.IsZeroValue(desired.HostRedirect) {
-		c.Config.Logger.Infof("Diff in HostRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRedirect), dcl.SprintResource(actual.HostRedirect))
-		return true
-	}
-	if actual.PathRedirect == nil && desired.PathRedirect != nil && !dcl.IsEmptyValueIndirect(desired.PathRedirect) {
-		c.Config.Logger.Infof("desired PathRedirect %s - but actually nil", dcl.SprintResource(desired.PathRedirect))
+		c.Config.Logger.Infof("Diff in HostRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRedirect), dcl.SprintResource(actual.HostRedirect))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.PathRedirect, actual.PathRedirect) && !dcl.IsZeroValue(desired.PathRedirect) {
-		c.Config.Logger.Infof("Diff in PathRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathRedirect), dcl.SprintResource(actual.PathRedirect))
-		return true
-	}
-	if actual.PrefixRedirect == nil && desired.PrefixRedirect != nil && !dcl.IsEmptyValueIndirect(desired.PrefixRedirect) {
-		c.Config.Logger.Infof("desired PrefixRedirect %s - but actually nil", dcl.SprintResource(desired.PrefixRedirect))
+		c.Config.Logger.Infof("Diff in PathRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathRedirect), dcl.SprintResource(actual.PathRedirect))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.PrefixRedirect, actual.PrefixRedirect) && !dcl.IsZeroValue(desired.PrefixRedirect) {
-		c.Config.Logger.Infof("Diff in PrefixRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrefixRedirect), dcl.SprintResource(actual.PrefixRedirect))
-		return true
-	}
-	if actual.RedirectResponseCode == nil && desired.RedirectResponseCode != nil && !dcl.IsEmptyValueIndirect(desired.RedirectResponseCode) {
-		c.Config.Logger.Infof("desired RedirectResponseCode %s - but actually nil", dcl.SprintResource(desired.RedirectResponseCode))
+		c.Config.Logger.Infof("Diff in PrefixRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrefixRedirect), dcl.SprintResource(actual.PrefixRedirect))
 		return true
 	}
 	if !reflect.DeepEqual(desired.RedirectResponseCode, actual.RedirectResponseCode) && !dcl.IsZeroValue(desired.RedirectResponseCode) {
-		c.Config.Logger.Infof("Diff in RedirectResponseCode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RedirectResponseCode), dcl.SprintResource(actual.RedirectResponseCode))
-		return true
-	}
-	if actual.HttpsRedirect == nil && desired.HttpsRedirect != nil && !dcl.IsEmptyValueIndirect(desired.HttpsRedirect) {
-		c.Config.Logger.Infof("desired HttpsRedirect %s - but actually nil", dcl.SprintResource(desired.HttpsRedirect))
+		c.Config.Logger.Infof("Diff in RedirectResponseCode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RedirectResponseCode), dcl.SprintResource(actual.RedirectResponseCode))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.HttpsRedirect, actual.HttpsRedirect) && !dcl.IsZeroValue(desired.HttpsRedirect) {
-		c.Config.Logger.Infof("Diff in HttpsRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpsRedirect), dcl.SprintResource(actual.HttpsRedirect))
-		return true
-	}
-	if actual.StripQuery == nil && desired.StripQuery != nil && !dcl.IsEmptyValueIndirect(desired.StripQuery) {
-		c.Config.Logger.Infof("desired StripQuery %s - but actually nil", dcl.SprintResource(desired.StripQuery))
+		c.Config.Logger.Infof("Diff in HttpsRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpsRedirect), dcl.SprintResource(actual.HttpsRedirect))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.StripQuery, actual.StripQuery) && !dcl.IsZeroValue(desired.StripQuery) {
-		c.Config.Logger.Infof("Diff in StripQuery. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StripQuery), dcl.SprintResource(actual.StripQuery))
+		c.Config.Logger.Infof("Diff in StripQuery.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StripQuery), dcl.SprintResource(actual.StripQuery))
 		return true
 	}
 	return false
@@ -6997,7 +6694,7 @@ func compareUrlMapPathMatcherDefaultUrlRedirectSlice(c *Client, desired, actual 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherDefaultUrlRedirect(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherDefaultUrlRedirect, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherDefaultUrlRedirect, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7016,7 +6713,7 @@ func compareUrlMapPathMatcherDefaultUrlRedirectMap(c *Client, desired, actual ma
 			return true
 		}
 		if compareUrlMapPathMatcherDefaultUrlRedirect(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherDefaultUrlRedirect, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherDefaultUrlRedirect, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7030,36 +6727,20 @@ func compareUrlMapPathMatcherPathRule(c *Client, desired, actual *UrlMapPathMatc
 	if actual == nil {
 		return true
 	}
-	if actual.BackendService == nil && desired.BackendService != nil && !dcl.IsEmptyValueIndirect(desired.BackendService) {
-		c.Config.Logger.Infof("desired BackendService %s - but actually nil", dcl.SprintResource(desired.BackendService))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.BackendService, actual.BackendService) && !dcl.IsZeroValue(desired.BackendService) {
-		c.Config.Logger.Infof("Diff in BackendService. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
-		return true
-	}
-	if actual.RouteAction == nil && desired.RouteAction != nil && !dcl.IsEmptyValueIndirect(desired.RouteAction) {
-		c.Config.Logger.Infof("desired RouteAction %s - but actually nil", dcl.SprintResource(desired.RouteAction))
+		c.Config.Logger.Infof("Diff in BackendService.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
 		return true
 	}
 	if compareUrlMapPathMatcherPathRuleRouteAction(c, desired.RouteAction, actual.RouteAction) && !dcl.IsZeroValue(desired.RouteAction) {
-		c.Config.Logger.Infof("Diff in RouteAction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RouteAction), dcl.SprintResource(actual.RouteAction))
-		return true
-	}
-	if actual.UrlRedirect == nil && desired.UrlRedirect != nil && !dcl.IsEmptyValueIndirect(desired.UrlRedirect) {
-		c.Config.Logger.Infof("desired UrlRedirect %s - but actually nil", dcl.SprintResource(desired.UrlRedirect))
+		c.Config.Logger.Infof("Diff in RouteAction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RouteAction), dcl.SprintResource(actual.RouteAction))
 		return true
 	}
 	if compareUrlMapPathMatcherPathRuleUrlRedirect(c, desired.UrlRedirect, actual.UrlRedirect) && !dcl.IsZeroValue(desired.UrlRedirect) {
-		c.Config.Logger.Infof("Diff in UrlRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlRedirect), dcl.SprintResource(actual.UrlRedirect))
-		return true
-	}
-	if actual.Path == nil && desired.Path != nil && !dcl.IsEmptyValueIndirect(desired.Path) {
-		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
+		c.Config.Logger.Infof("Diff in UrlRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlRedirect), dcl.SprintResource(actual.UrlRedirect))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
+		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
 		return true
 	}
 	return false
@@ -7072,7 +6753,7 @@ func compareUrlMapPathMatcherPathRuleSlice(c *Client, desired, actual []UrlMapPa
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRule(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRule, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRule, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7091,7 +6772,7 @@ func compareUrlMapPathMatcherPathRuleMap(c *Client, desired, actual map[string]U
 			return true
 		}
 		if compareUrlMapPathMatcherPathRule(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRule, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRule, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7105,60 +6786,32 @@ func compareUrlMapPathMatcherPathRuleRouteAction(c *Client, desired, actual *Url
 	if actual == nil {
 		return true
 	}
-	if actual.WeightedBackendService == nil && desired.WeightedBackendService != nil && !dcl.IsEmptyValueIndirect(desired.WeightedBackendService) {
-		c.Config.Logger.Infof("desired WeightedBackendService %s - but actually nil", dcl.SprintResource(desired.WeightedBackendService))
-		return true
-	}
 	if compareUrlMapPathMatcherPathRuleRouteActionWeightedBackendServiceSlice(c, desired.WeightedBackendService, actual.WeightedBackendService) && !dcl.IsZeroValue(desired.WeightedBackendService) {
-		c.Config.Logger.Infof("Diff in WeightedBackendService. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WeightedBackendService), dcl.SprintResource(actual.WeightedBackendService))
-		return true
-	}
-	if actual.UrlRewrite == nil && desired.UrlRewrite != nil && !dcl.IsEmptyValueIndirect(desired.UrlRewrite) {
-		c.Config.Logger.Infof("desired UrlRewrite %s - but actually nil", dcl.SprintResource(desired.UrlRewrite))
+		c.Config.Logger.Infof("Diff in WeightedBackendService.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WeightedBackendService), dcl.SprintResource(actual.WeightedBackendService))
 		return true
 	}
 	if compareUrlMapPathMatcherPathRuleRouteActionUrlRewrite(c, desired.UrlRewrite, actual.UrlRewrite) && !dcl.IsZeroValue(desired.UrlRewrite) {
-		c.Config.Logger.Infof("Diff in UrlRewrite. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlRewrite), dcl.SprintResource(actual.UrlRewrite))
-		return true
-	}
-	if actual.Timeout == nil && desired.Timeout != nil && !dcl.IsEmptyValueIndirect(desired.Timeout) {
-		c.Config.Logger.Infof("desired Timeout %s - but actually nil", dcl.SprintResource(desired.Timeout))
+		c.Config.Logger.Infof("Diff in UrlRewrite.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlRewrite), dcl.SprintResource(actual.UrlRewrite))
 		return true
 	}
 	if compareUrlMapPathMatcherPathRuleRouteActionTimeout(c, desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
-		c.Config.Logger.Infof("Diff in Timeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
-		return true
-	}
-	if actual.RetryPolicy == nil && desired.RetryPolicy != nil && !dcl.IsEmptyValueIndirect(desired.RetryPolicy) {
-		c.Config.Logger.Infof("desired RetryPolicy %s - but actually nil", dcl.SprintResource(desired.RetryPolicy))
+		c.Config.Logger.Infof("Diff in Timeout.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
 		return true
 	}
 	if compareUrlMapPathMatcherPathRuleRouteActionRetryPolicy(c, desired.RetryPolicy, actual.RetryPolicy) && !dcl.IsZeroValue(desired.RetryPolicy) {
-		c.Config.Logger.Infof("Diff in RetryPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RetryPolicy), dcl.SprintResource(actual.RetryPolicy))
-		return true
-	}
-	if actual.RequestMirrorPolicy == nil && desired.RequestMirrorPolicy != nil && !dcl.IsEmptyValueIndirect(desired.RequestMirrorPolicy) {
-		c.Config.Logger.Infof("desired RequestMirrorPolicy %s - but actually nil", dcl.SprintResource(desired.RequestMirrorPolicy))
+		c.Config.Logger.Infof("Diff in RetryPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RetryPolicy), dcl.SprintResource(actual.RetryPolicy))
 		return true
 	}
 	if compareUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy(c, desired.RequestMirrorPolicy, actual.RequestMirrorPolicy) && !dcl.IsZeroValue(desired.RequestMirrorPolicy) {
-		c.Config.Logger.Infof("Diff in RequestMirrorPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestMirrorPolicy), dcl.SprintResource(actual.RequestMirrorPolicy))
-		return true
-	}
-	if actual.CorsPolicy == nil && desired.CorsPolicy != nil && !dcl.IsEmptyValueIndirect(desired.CorsPolicy) {
-		c.Config.Logger.Infof("desired CorsPolicy %s - but actually nil", dcl.SprintResource(desired.CorsPolicy))
+		c.Config.Logger.Infof("Diff in RequestMirrorPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestMirrorPolicy), dcl.SprintResource(actual.RequestMirrorPolicy))
 		return true
 	}
 	if compareUrlMapPathMatcherPathRuleRouteActionCorsPolicy(c, desired.CorsPolicy, actual.CorsPolicy) && !dcl.IsZeroValue(desired.CorsPolicy) {
-		c.Config.Logger.Infof("Diff in CorsPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CorsPolicy), dcl.SprintResource(actual.CorsPolicy))
-		return true
-	}
-	if actual.FaultInjectionPolicy == nil && desired.FaultInjectionPolicy != nil && !dcl.IsEmptyValueIndirect(desired.FaultInjectionPolicy) {
-		c.Config.Logger.Infof("desired FaultInjectionPolicy %s - but actually nil", dcl.SprintResource(desired.FaultInjectionPolicy))
+		c.Config.Logger.Infof("Diff in CorsPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CorsPolicy), dcl.SprintResource(actual.CorsPolicy))
 		return true
 	}
 	if compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy(c, desired.FaultInjectionPolicy, actual.FaultInjectionPolicy) && !dcl.IsZeroValue(desired.FaultInjectionPolicy) {
-		c.Config.Logger.Infof("Diff in FaultInjectionPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FaultInjectionPolicy), dcl.SprintResource(actual.FaultInjectionPolicy))
+		c.Config.Logger.Infof("Diff in FaultInjectionPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FaultInjectionPolicy), dcl.SprintResource(actual.FaultInjectionPolicy))
 		return true
 	}
 	return false
@@ -7171,7 +6824,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleRouteAction(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteAction, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteAction, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7190,7 +6843,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionMap(c *Client, desired, actual m
 			return true
 		}
 		if compareUrlMapPathMatcherPathRuleRouteAction(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteAction, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteAction, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7204,28 +6857,16 @@ func compareUrlMapPathMatcherPathRuleRouteActionWeightedBackendService(c *Client
 	if actual == nil {
 		return true
 	}
-	if actual.BackendService == nil && desired.BackendService != nil && !dcl.IsEmptyValueIndirect(desired.BackendService) {
-		c.Config.Logger.Infof("desired BackendService %s - but actually nil", dcl.SprintResource(desired.BackendService))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.BackendService, actual.BackendService) && !dcl.IsZeroValue(desired.BackendService) {
-		c.Config.Logger.Infof("Diff in BackendService. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
-		return true
-	}
-	if actual.Weight == nil && desired.Weight != nil && !dcl.IsEmptyValueIndirect(desired.Weight) {
-		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
+		c.Config.Logger.Infof("Diff in BackendService.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
-		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
-		return true
-	}
-	if actual.HeaderAction == nil && desired.HeaderAction != nil && !dcl.IsEmptyValueIndirect(desired.HeaderAction) {
-		c.Config.Logger.Infof("desired HeaderAction %s - but actually nil", dcl.SprintResource(desired.HeaderAction))
+		c.Config.Logger.Infof("Diff in Weight.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
 		return true
 	}
 	if compareUrlMapHeaderAction(c, desired.HeaderAction, actual.HeaderAction) && !dcl.IsZeroValue(desired.HeaderAction) {
-		c.Config.Logger.Infof("Diff in HeaderAction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderAction), dcl.SprintResource(actual.HeaderAction))
+		c.Config.Logger.Infof("Diff in HeaderAction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderAction), dcl.SprintResource(actual.HeaderAction))
 		return true
 	}
 	return false
@@ -7238,7 +6879,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionWeightedBackendServiceSlice(c *C
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleRouteActionWeightedBackendService(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionWeightedBackendService, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionWeightedBackendService, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7257,7 +6898,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionWeightedBackendServiceMap(c *Cli
 			return true
 		}
 		if compareUrlMapPathMatcherPathRuleRouteActionWeightedBackendService(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionWeightedBackendService, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionWeightedBackendService, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7271,20 +6912,12 @@ func compareUrlMapPathMatcherPathRuleRouteActionUrlRewrite(c *Client, desired, a
 	if actual == nil {
 		return true
 	}
-	if actual.PathPrefixRewrite == nil && desired.PathPrefixRewrite != nil && !dcl.IsEmptyValueIndirect(desired.PathPrefixRewrite) {
-		c.Config.Logger.Infof("desired PathPrefixRewrite %s - but actually nil", dcl.SprintResource(desired.PathPrefixRewrite))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.PathPrefixRewrite, actual.PathPrefixRewrite) && !dcl.IsZeroValue(desired.PathPrefixRewrite) {
-		c.Config.Logger.Infof("Diff in PathPrefixRewrite. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathPrefixRewrite), dcl.SprintResource(actual.PathPrefixRewrite))
-		return true
-	}
-	if actual.HostRewrite == nil && desired.HostRewrite != nil && !dcl.IsEmptyValueIndirect(desired.HostRewrite) {
-		c.Config.Logger.Infof("desired HostRewrite %s - but actually nil", dcl.SprintResource(desired.HostRewrite))
+		c.Config.Logger.Infof("Diff in PathPrefixRewrite.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathPrefixRewrite), dcl.SprintResource(actual.PathPrefixRewrite))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.HostRewrite, actual.HostRewrite) && !dcl.IsZeroValue(desired.HostRewrite) {
-		c.Config.Logger.Infof("Diff in HostRewrite. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRewrite), dcl.SprintResource(actual.HostRewrite))
+		c.Config.Logger.Infof("Diff in HostRewrite.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRewrite), dcl.SprintResource(actual.HostRewrite))
 		return true
 	}
 	return false
@@ -7297,7 +6930,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionUrlRewriteSlice(c *Client, desir
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleRouteActionUrlRewrite(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionUrlRewrite, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionUrlRewrite, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7316,7 +6949,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionUrlRewriteMap(c *Client, desired
 			return true
 		}
 		if compareUrlMapPathMatcherPathRuleRouteActionUrlRewrite(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionUrlRewrite, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionUrlRewrite, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7330,20 +6963,12 @@ func compareUrlMapPathMatcherPathRuleRouteActionTimeout(c *Client, desired, actu
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -7356,7 +6981,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionTimeoutSlice(c *Client, desired,
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleRouteActionTimeout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionTimeout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionTimeout, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7375,7 +7000,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionTimeoutMap(c *Client, desired, a
 			return true
 		}
 		if compareUrlMapPathMatcherPathRuleRouteActionTimeout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionTimeout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionTimeout, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7389,28 +7014,16 @@ func compareUrlMapPathMatcherPathRuleRouteActionRetryPolicy(c *Client, desired, 
 	if actual == nil {
 		return true
 	}
-	if actual.RetryCondition == nil && desired.RetryCondition != nil && !dcl.IsEmptyValueIndirect(desired.RetryCondition) {
-		c.Config.Logger.Infof("desired RetryCondition %s - but actually nil", dcl.SprintResource(desired.RetryCondition))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.RetryCondition, actual.RetryCondition) && !dcl.IsZeroValue(desired.RetryCondition) {
-		c.Config.Logger.Infof("Diff in RetryCondition. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RetryCondition), dcl.SprintResource(actual.RetryCondition))
-		return true
-	}
-	if actual.NumRetries == nil && desired.NumRetries != nil && !dcl.IsEmptyValueIndirect(desired.NumRetries) {
-		c.Config.Logger.Infof("desired NumRetries %s - but actually nil", dcl.SprintResource(desired.NumRetries))
+		c.Config.Logger.Infof("Diff in RetryCondition.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RetryCondition), dcl.SprintResource(actual.RetryCondition))
 		return true
 	}
 	if !reflect.DeepEqual(desired.NumRetries, actual.NumRetries) && !dcl.IsZeroValue(desired.NumRetries) {
-		c.Config.Logger.Infof("Diff in NumRetries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumRetries), dcl.SprintResource(actual.NumRetries))
-		return true
-	}
-	if actual.PerTryTimeout == nil && desired.PerTryTimeout != nil && !dcl.IsEmptyValueIndirect(desired.PerTryTimeout) {
-		c.Config.Logger.Infof("desired PerTryTimeout %s - but actually nil", dcl.SprintResource(desired.PerTryTimeout))
+		c.Config.Logger.Infof("Diff in NumRetries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumRetries), dcl.SprintResource(actual.NumRetries))
 		return true
 	}
 	if compareUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(c, desired.PerTryTimeout, actual.PerTryTimeout) && !dcl.IsZeroValue(desired.PerTryTimeout) {
-		c.Config.Logger.Infof("Diff in PerTryTimeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerTryTimeout), dcl.SprintResource(actual.PerTryTimeout))
+		c.Config.Logger.Infof("Diff in PerTryTimeout.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerTryTimeout), dcl.SprintResource(actual.PerTryTimeout))
 		return true
 	}
 	return false
@@ -7423,7 +7036,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionRetryPolicySlice(c *Client, desi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleRouteActionRetryPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionRetryPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionRetryPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7442,7 +7055,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionRetryPolicyMap(c *Client, desire
 			return true
 		}
 		if compareUrlMapPathMatcherPathRuleRouteActionRetryPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionRetryPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionRetryPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7456,20 +7069,12 @@ func compareUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(c *Clie
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -7482,7 +7087,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeoutSlice(c 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7501,7 +7106,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeoutMap(c *C
 			return true
 		}
 		if compareUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7515,12 +7120,8 @@ func compareUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy(c *Client, d
 	if actual == nil {
 		return true
 	}
-	if actual.BackendService == nil && desired.BackendService != nil && !dcl.IsEmptyValueIndirect(desired.BackendService) {
-		c.Config.Logger.Infof("desired BackendService %s - but actually nil", dcl.SprintResource(desired.BackendService))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.BackendService, actual.BackendService) && !dcl.IsZeroValue(desired.BackendService) {
-		c.Config.Logger.Infof("Diff in BackendService. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
+		c.Config.Logger.Infof("Diff in BackendService.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
 		return true
 	}
 	return false
@@ -7533,7 +7134,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicySlice(c *Clie
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7552,7 +7153,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicyMap(c *Client
 			return true
 		}
 		if compareUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7566,68 +7167,36 @@ func compareUrlMapPathMatcherPathRuleRouteActionCorsPolicy(c *Client, desired, a
 	if actual == nil {
 		return true
 	}
-	if actual.AllowOrigin == nil && desired.AllowOrigin != nil && !dcl.IsEmptyValueIndirect(desired.AllowOrigin) {
-		c.Config.Logger.Infof("desired AllowOrigin %s - but actually nil", dcl.SprintResource(desired.AllowOrigin))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.AllowOrigin, actual.AllowOrigin) && !dcl.IsZeroValue(desired.AllowOrigin) {
-		c.Config.Logger.Infof("Diff in AllowOrigin. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowOrigin), dcl.SprintResource(actual.AllowOrigin))
-		return true
-	}
-	if actual.AllowOriginRegex == nil && desired.AllowOriginRegex != nil && !dcl.IsEmptyValueIndirect(desired.AllowOriginRegex) {
-		c.Config.Logger.Infof("desired AllowOriginRegex %s - but actually nil", dcl.SprintResource(desired.AllowOriginRegex))
+		c.Config.Logger.Infof("Diff in AllowOrigin.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowOrigin), dcl.SprintResource(actual.AllowOrigin))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.AllowOriginRegex, actual.AllowOriginRegex) && !dcl.IsZeroValue(desired.AllowOriginRegex) {
-		c.Config.Logger.Infof("Diff in AllowOriginRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowOriginRegex), dcl.SprintResource(actual.AllowOriginRegex))
-		return true
-	}
-	if actual.AllowMethod == nil && desired.AllowMethod != nil && !dcl.IsEmptyValueIndirect(desired.AllowMethod) {
-		c.Config.Logger.Infof("desired AllowMethod %s - but actually nil", dcl.SprintResource(desired.AllowMethod))
+		c.Config.Logger.Infof("Diff in AllowOriginRegex.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowOriginRegex), dcl.SprintResource(actual.AllowOriginRegex))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.AllowMethod, actual.AllowMethod) && !dcl.IsZeroValue(desired.AllowMethod) {
-		c.Config.Logger.Infof("Diff in AllowMethod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowMethod), dcl.SprintResource(actual.AllowMethod))
-		return true
-	}
-	if actual.AllowHeader == nil && desired.AllowHeader != nil && !dcl.IsEmptyValueIndirect(desired.AllowHeader) {
-		c.Config.Logger.Infof("desired AllowHeader %s - but actually nil", dcl.SprintResource(desired.AllowHeader))
+		c.Config.Logger.Infof("Diff in AllowMethod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowMethod), dcl.SprintResource(actual.AllowMethod))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.AllowHeader, actual.AllowHeader) && !dcl.IsZeroValue(desired.AllowHeader) {
-		c.Config.Logger.Infof("Diff in AllowHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowHeader), dcl.SprintResource(actual.AllowHeader))
-		return true
-	}
-	if actual.ExposeHeader == nil && desired.ExposeHeader != nil && !dcl.IsEmptyValueIndirect(desired.ExposeHeader) {
-		c.Config.Logger.Infof("desired ExposeHeader %s - but actually nil", dcl.SprintResource(desired.ExposeHeader))
+		c.Config.Logger.Infof("Diff in AllowHeader.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowHeader), dcl.SprintResource(actual.AllowHeader))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.ExposeHeader, actual.ExposeHeader) && !dcl.IsZeroValue(desired.ExposeHeader) {
-		c.Config.Logger.Infof("Diff in ExposeHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExposeHeader), dcl.SprintResource(actual.ExposeHeader))
-		return true
-	}
-	if actual.MaxAge == nil && desired.MaxAge != nil && !dcl.IsEmptyValueIndirect(desired.MaxAge) {
-		c.Config.Logger.Infof("desired MaxAge %s - but actually nil", dcl.SprintResource(desired.MaxAge))
+		c.Config.Logger.Infof("Diff in ExposeHeader.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExposeHeader), dcl.SprintResource(actual.ExposeHeader))
 		return true
 	}
 	if !reflect.DeepEqual(desired.MaxAge, actual.MaxAge) && !dcl.IsZeroValue(desired.MaxAge) {
-		c.Config.Logger.Infof("Diff in MaxAge. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxAge), dcl.SprintResource(actual.MaxAge))
-		return true
-	}
-	if actual.AllowCredentials == nil && desired.AllowCredentials != nil && !dcl.IsEmptyValueIndirect(desired.AllowCredentials) {
-		c.Config.Logger.Infof("desired AllowCredentials %s - but actually nil", dcl.SprintResource(desired.AllowCredentials))
+		c.Config.Logger.Infof("Diff in MaxAge.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxAge), dcl.SprintResource(actual.MaxAge))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.AllowCredentials, actual.AllowCredentials) && !dcl.IsZeroValue(desired.AllowCredentials) {
-		c.Config.Logger.Infof("Diff in AllowCredentials. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowCredentials), dcl.SprintResource(actual.AllowCredentials))
-		return true
-	}
-	if actual.Disabled == nil && desired.Disabled != nil && !dcl.IsEmptyValueIndirect(desired.Disabled) {
-		c.Config.Logger.Infof("desired Disabled %s - but actually nil", dcl.SprintResource(desired.Disabled))
+		c.Config.Logger.Infof("Diff in AllowCredentials.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowCredentials), dcl.SprintResource(actual.AllowCredentials))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
-		c.Config.Logger.Infof("Diff in Disabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
+		c.Config.Logger.Infof("Diff in Disabled.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
 		return true
 	}
 	return false
@@ -7640,7 +7209,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionCorsPolicySlice(c *Client, desir
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleRouteActionCorsPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionCorsPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionCorsPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7659,7 +7228,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionCorsPolicyMap(c *Client, desired
 			return true
 		}
 		if compareUrlMapPathMatcherPathRuleRouteActionCorsPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionCorsPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionCorsPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7673,20 +7242,12 @@ func compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy(c *Client, 
 	if actual == nil {
 		return true
 	}
-	if actual.Delay == nil && desired.Delay != nil && !dcl.IsEmptyValueIndirect(desired.Delay) {
-		c.Config.Logger.Infof("desired Delay %s - but actually nil", dcl.SprintResource(desired.Delay))
-		return true
-	}
 	if compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay(c, desired.Delay, actual.Delay) && !dcl.IsZeroValue(desired.Delay) {
-		c.Config.Logger.Infof("Diff in Delay. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Delay), dcl.SprintResource(actual.Delay))
-		return true
-	}
-	if actual.Abort == nil && desired.Abort != nil && !dcl.IsEmptyValueIndirect(desired.Abort) {
-		c.Config.Logger.Infof("desired Abort %s - but actually nil", dcl.SprintResource(desired.Abort))
+		c.Config.Logger.Infof("Diff in Delay.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Delay), dcl.SprintResource(actual.Delay))
 		return true
 	}
 	if compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort(c, desired.Abort, actual.Abort) && !dcl.IsZeroValue(desired.Abort) {
-		c.Config.Logger.Infof("Diff in Abort. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Abort), dcl.SprintResource(actual.Abort))
+		c.Config.Logger.Infof("Diff in Abort.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Abort), dcl.SprintResource(actual.Abort))
 		return true
 	}
 	return false
@@ -7699,7 +7260,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicySlice(c *Cli
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7718,7 +7279,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyMap(c *Clien
 			return true
 		}
 		if compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7732,20 +7293,12 @@ func compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay(c *Cli
 	if actual == nil {
 		return true
 	}
-	if actual.FixedDelay == nil && desired.FixedDelay != nil && !dcl.IsEmptyValueIndirect(desired.FixedDelay) {
-		c.Config.Logger.Infof("desired FixedDelay %s - but actually nil", dcl.SprintResource(desired.FixedDelay))
-		return true
-	}
 	if compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, desired.FixedDelay, actual.FixedDelay) && !dcl.IsZeroValue(desired.FixedDelay) {
-		c.Config.Logger.Infof("Diff in FixedDelay. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FixedDelay), dcl.SprintResource(actual.FixedDelay))
-		return true
-	}
-	if actual.Percentage == nil && desired.Percentage != nil && !dcl.IsEmptyValueIndirect(desired.Percentage) {
-		c.Config.Logger.Infof("desired Percentage %s - but actually nil", dcl.SprintResource(desired.Percentage))
+		c.Config.Logger.Infof("Diff in FixedDelay.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FixedDelay), dcl.SprintResource(actual.FixedDelay))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Percentage, actual.Percentage) && !dcl.IsZeroValue(desired.Percentage) {
-		c.Config.Logger.Infof("Diff in Percentage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percentage), dcl.SprintResource(actual.Percentage))
+		c.Config.Logger.Infof("Diff in Percentage.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percentage), dcl.SprintResource(actual.Percentage))
 		return true
 	}
 	return false
@@ -7758,7 +7311,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelaySlice(c
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7777,7 +7330,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayMap(c *
 			return true
 		}
 		if compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7791,20 +7344,12 @@ func compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDe
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -7817,7 +7362,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7836,7 +7381,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDe
 			return true
 		}
 		if compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7850,20 +7395,12 @@ func compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort(c *Cli
 	if actual == nil {
 		return true
 	}
-	if actual.HttpStatus == nil && desired.HttpStatus != nil && !dcl.IsEmptyValueIndirect(desired.HttpStatus) {
-		c.Config.Logger.Infof("desired HttpStatus %s - but actually nil", dcl.SprintResource(desired.HttpStatus))
-		return true
-	}
 	if !reflect.DeepEqual(desired.HttpStatus, actual.HttpStatus) && !dcl.IsZeroValue(desired.HttpStatus) {
-		c.Config.Logger.Infof("Diff in HttpStatus. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpStatus), dcl.SprintResource(actual.HttpStatus))
-		return true
-	}
-	if actual.Percentage == nil && desired.Percentage != nil && !dcl.IsEmptyValueIndirect(desired.Percentage) {
-		c.Config.Logger.Infof("desired Percentage %s - but actually nil", dcl.SprintResource(desired.Percentage))
+		c.Config.Logger.Infof("Diff in HttpStatus.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpStatus), dcl.SprintResource(actual.HttpStatus))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Percentage, actual.Percentage) && !dcl.IsZeroValue(desired.Percentage) {
-		c.Config.Logger.Infof("Diff in Percentage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percentage), dcl.SprintResource(actual.Percentage))
+		c.Config.Logger.Infof("Diff in Percentage.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percentage), dcl.SprintResource(actual.Percentage))
 		return true
 	}
 	return false
@@ -7876,7 +7413,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbortSlice(c
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7895,7 +7432,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbortMap(c *
 			return true
 		}
 		if compareUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7909,52 +7446,28 @@ func compareUrlMapPathMatcherPathRuleUrlRedirect(c *Client, desired, actual *Url
 	if actual == nil {
 		return true
 	}
-	if actual.HostRedirect == nil && desired.HostRedirect != nil && !dcl.IsEmptyValueIndirect(desired.HostRedirect) {
-		c.Config.Logger.Infof("desired HostRedirect %s - but actually nil", dcl.SprintResource(desired.HostRedirect))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.HostRedirect, actual.HostRedirect) && !dcl.IsZeroValue(desired.HostRedirect) {
-		c.Config.Logger.Infof("Diff in HostRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRedirect), dcl.SprintResource(actual.HostRedirect))
-		return true
-	}
-	if actual.PathRedirect == nil && desired.PathRedirect != nil && !dcl.IsEmptyValueIndirect(desired.PathRedirect) {
-		c.Config.Logger.Infof("desired PathRedirect %s - but actually nil", dcl.SprintResource(desired.PathRedirect))
+		c.Config.Logger.Infof("Diff in HostRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRedirect), dcl.SprintResource(actual.HostRedirect))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.PathRedirect, actual.PathRedirect) && !dcl.IsZeroValue(desired.PathRedirect) {
-		c.Config.Logger.Infof("Diff in PathRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathRedirect), dcl.SprintResource(actual.PathRedirect))
-		return true
-	}
-	if actual.PrefixRedirect == nil && desired.PrefixRedirect != nil && !dcl.IsEmptyValueIndirect(desired.PrefixRedirect) {
-		c.Config.Logger.Infof("desired PrefixRedirect %s - but actually nil", dcl.SprintResource(desired.PrefixRedirect))
+		c.Config.Logger.Infof("Diff in PathRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathRedirect), dcl.SprintResource(actual.PathRedirect))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.PrefixRedirect, actual.PrefixRedirect) && !dcl.IsZeroValue(desired.PrefixRedirect) {
-		c.Config.Logger.Infof("Diff in PrefixRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrefixRedirect), dcl.SprintResource(actual.PrefixRedirect))
-		return true
-	}
-	if actual.RedirectResponseCode == nil && desired.RedirectResponseCode != nil && !dcl.IsEmptyValueIndirect(desired.RedirectResponseCode) {
-		c.Config.Logger.Infof("desired RedirectResponseCode %s - but actually nil", dcl.SprintResource(desired.RedirectResponseCode))
+		c.Config.Logger.Infof("Diff in PrefixRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrefixRedirect), dcl.SprintResource(actual.PrefixRedirect))
 		return true
 	}
 	if !reflect.DeepEqual(desired.RedirectResponseCode, actual.RedirectResponseCode) && !dcl.IsZeroValue(desired.RedirectResponseCode) {
-		c.Config.Logger.Infof("Diff in RedirectResponseCode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RedirectResponseCode), dcl.SprintResource(actual.RedirectResponseCode))
-		return true
-	}
-	if actual.HttpsRedirect == nil && desired.HttpsRedirect != nil && !dcl.IsEmptyValueIndirect(desired.HttpsRedirect) {
-		c.Config.Logger.Infof("desired HttpsRedirect %s - but actually nil", dcl.SprintResource(desired.HttpsRedirect))
+		c.Config.Logger.Infof("Diff in RedirectResponseCode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RedirectResponseCode), dcl.SprintResource(actual.RedirectResponseCode))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.HttpsRedirect, actual.HttpsRedirect) && !dcl.IsZeroValue(desired.HttpsRedirect) {
-		c.Config.Logger.Infof("Diff in HttpsRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpsRedirect), dcl.SprintResource(actual.HttpsRedirect))
-		return true
-	}
-	if actual.StripQuery == nil && desired.StripQuery != nil && !dcl.IsEmptyValueIndirect(desired.StripQuery) {
-		c.Config.Logger.Infof("desired StripQuery %s - but actually nil", dcl.SprintResource(desired.StripQuery))
+		c.Config.Logger.Infof("Diff in HttpsRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpsRedirect), dcl.SprintResource(actual.HttpsRedirect))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.StripQuery, actual.StripQuery) && !dcl.IsZeroValue(desired.StripQuery) {
-		c.Config.Logger.Infof("Diff in StripQuery. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StripQuery), dcl.SprintResource(actual.StripQuery))
+		c.Config.Logger.Infof("Diff in StripQuery.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StripQuery), dcl.SprintResource(actual.StripQuery))
 		return true
 	}
 	return false
@@ -7967,7 +7480,7 @@ func compareUrlMapPathMatcherPathRuleUrlRedirectSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleUrlRedirect(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleUrlRedirect, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleUrlRedirect, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7986,7 +7499,7 @@ func compareUrlMapPathMatcherPathRuleUrlRedirectMap(c *Client, desired, actual m
 			return true
 		}
 		if compareUrlMapPathMatcherPathRuleUrlRedirect(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleUrlRedirect, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleUrlRedirect, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8000,60 +7513,32 @@ func compareUrlMapPathMatcherRouteRule(c *Client, desired, actual *UrlMapPathMat
 	if actual == nil {
 		return true
 	}
-	if actual.Priority == nil && desired.Priority != nil && !dcl.IsEmptyValueIndirect(desired.Priority) {
-		c.Config.Logger.Infof("desired Priority %s - but actually nil", dcl.SprintResource(desired.Priority))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Priority, actual.Priority) && !dcl.IsZeroValue(desired.Priority) {
-		c.Config.Logger.Infof("Diff in Priority. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Priority), dcl.SprintResource(actual.Priority))
-		return true
-	}
-	if actual.Description == nil && desired.Description != nil && !dcl.IsEmptyValueIndirect(desired.Description) {
-		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
+		c.Config.Logger.Infof("Diff in Priority.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Priority), dcl.SprintResource(actual.Priority))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
-		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
-		return true
-	}
-	if actual.MatchRule == nil && desired.MatchRule != nil && !dcl.IsEmptyValueIndirect(desired.MatchRule) {
-		c.Config.Logger.Infof("desired MatchRule %s - but actually nil", dcl.SprintResource(desired.MatchRule))
+		c.Config.Logger.Infof("Diff in Description.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleMatchRuleSlice(c, desired.MatchRule, actual.MatchRule) && !dcl.IsZeroValue(desired.MatchRule) {
-		c.Config.Logger.Infof("Diff in MatchRule. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MatchRule), dcl.SprintResource(actual.MatchRule))
-		return true
-	}
-	if actual.BackendService == nil && desired.BackendService != nil && !dcl.IsEmptyValueIndirect(desired.BackendService) {
-		c.Config.Logger.Infof("desired BackendService %s - but actually nil", dcl.SprintResource(desired.BackendService))
+		c.Config.Logger.Infof("Diff in MatchRule.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MatchRule), dcl.SprintResource(actual.MatchRule))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.BackendService, actual.BackendService) && !dcl.IsZeroValue(desired.BackendService) {
-		c.Config.Logger.Infof("Diff in BackendService. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
-		return true
-	}
-	if actual.RouteAction == nil && desired.RouteAction != nil && !dcl.IsEmptyValueIndirect(desired.RouteAction) {
-		c.Config.Logger.Infof("desired RouteAction %s - but actually nil", dcl.SprintResource(desired.RouteAction))
+		c.Config.Logger.Infof("Diff in BackendService.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleRouteAction(c, desired.RouteAction, actual.RouteAction) && !dcl.IsZeroValue(desired.RouteAction) {
-		c.Config.Logger.Infof("Diff in RouteAction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RouteAction), dcl.SprintResource(actual.RouteAction))
-		return true
-	}
-	if actual.UrlRedirect == nil && desired.UrlRedirect != nil && !dcl.IsEmptyValueIndirect(desired.UrlRedirect) {
-		c.Config.Logger.Infof("desired UrlRedirect %s - but actually nil", dcl.SprintResource(desired.UrlRedirect))
+		c.Config.Logger.Infof("Diff in RouteAction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RouteAction), dcl.SprintResource(actual.RouteAction))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleUrlRedirect(c, desired.UrlRedirect, actual.UrlRedirect) && !dcl.IsZeroValue(desired.UrlRedirect) {
-		c.Config.Logger.Infof("Diff in UrlRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlRedirect), dcl.SprintResource(actual.UrlRedirect))
-		return true
-	}
-	if actual.HeaderAction == nil && desired.HeaderAction != nil && !dcl.IsEmptyValueIndirect(desired.HeaderAction) {
-		c.Config.Logger.Infof("desired HeaderAction %s - but actually nil", dcl.SprintResource(desired.HeaderAction))
+		c.Config.Logger.Infof("Diff in UrlRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlRedirect), dcl.SprintResource(actual.UrlRedirect))
 		return true
 	}
 	if compareUrlMapHeaderAction(c, desired.HeaderAction, actual.HeaderAction) && !dcl.IsZeroValue(desired.HeaderAction) {
-		c.Config.Logger.Infof("Diff in HeaderAction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderAction), dcl.SprintResource(actual.HeaderAction))
+		c.Config.Logger.Infof("Diff in HeaderAction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderAction), dcl.SprintResource(actual.HeaderAction))
 		return true
 	}
 	return false
@@ -8066,7 +7551,7 @@ func compareUrlMapPathMatcherRouteRuleSlice(c *Client, desired, actual []UrlMapP
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRule(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRule, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRule, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8085,7 +7570,7 @@ func compareUrlMapPathMatcherRouteRuleMap(c *Client, desired, actual map[string]
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRule(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRule, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRule, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8099,60 +7584,32 @@ func compareUrlMapPathMatcherRouteRuleMatchRule(c *Client, desired, actual *UrlM
 	if actual == nil {
 		return true
 	}
-	if actual.PrefixMatch == nil && desired.PrefixMatch != nil && !dcl.IsEmptyValueIndirect(desired.PrefixMatch) {
-		c.Config.Logger.Infof("desired PrefixMatch %s - but actually nil", dcl.SprintResource(desired.PrefixMatch))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.PrefixMatch, actual.PrefixMatch) && !dcl.IsZeroValue(desired.PrefixMatch) {
-		c.Config.Logger.Infof("Diff in PrefixMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrefixMatch), dcl.SprintResource(actual.PrefixMatch))
-		return true
-	}
-	if actual.FullPathMatch == nil && desired.FullPathMatch != nil && !dcl.IsEmptyValueIndirect(desired.FullPathMatch) {
-		c.Config.Logger.Infof("desired FullPathMatch %s - but actually nil", dcl.SprintResource(desired.FullPathMatch))
+		c.Config.Logger.Infof("Diff in PrefixMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrefixMatch), dcl.SprintResource(actual.PrefixMatch))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.FullPathMatch, actual.FullPathMatch) && !dcl.IsZeroValue(desired.FullPathMatch) {
-		c.Config.Logger.Infof("Diff in FullPathMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FullPathMatch), dcl.SprintResource(actual.FullPathMatch))
-		return true
-	}
-	if actual.RegexMatch == nil && desired.RegexMatch != nil && !dcl.IsEmptyValueIndirect(desired.RegexMatch) {
-		c.Config.Logger.Infof("desired RegexMatch %s - but actually nil", dcl.SprintResource(desired.RegexMatch))
+		c.Config.Logger.Infof("Diff in FullPathMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FullPathMatch), dcl.SprintResource(actual.FullPathMatch))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.RegexMatch, actual.RegexMatch) && !dcl.IsZeroValue(desired.RegexMatch) {
-		c.Config.Logger.Infof("Diff in RegexMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RegexMatch), dcl.SprintResource(actual.RegexMatch))
-		return true
-	}
-	if actual.IgnoreCase == nil && desired.IgnoreCase != nil && !dcl.IsEmptyValueIndirect(desired.IgnoreCase) {
-		c.Config.Logger.Infof("desired IgnoreCase %s - but actually nil", dcl.SprintResource(desired.IgnoreCase))
+		c.Config.Logger.Infof("Diff in RegexMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RegexMatch), dcl.SprintResource(actual.RegexMatch))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.IgnoreCase, actual.IgnoreCase) && !dcl.IsZeroValue(desired.IgnoreCase) {
-		c.Config.Logger.Infof("Diff in IgnoreCase. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IgnoreCase), dcl.SprintResource(actual.IgnoreCase))
-		return true
-	}
-	if actual.HeaderMatch == nil && desired.HeaderMatch != nil && !dcl.IsEmptyValueIndirect(desired.HeaderMatch) {
-		c.Config.Logger.Infof("desired HeaderMatch %s - but actually nil", dcl.SprintResource(desired.HeaderMatch))
+		c.Config.Logger.Infof("Diff in IgnoreCase.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IgnoreCase), dcl.SprintResource(actual.IgnoreCase))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchSlice(c, desired.HeaderMatch, actual.HeaderMatch) && !dcl.IsZeroValue(desired.HeaderMatch) {
-		c.Config.Logger.Infof("Diff in HeaderMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderMatch), dcl.SprintResource(actual.HeaderMatch))
-		return true
-	}
-	if actual.QueryParameterMatch == nil && desired.QueryParameterMatch != nil && !dcl.IsEmptyValueIndirect(desired.QueryParameterMatch) {
-		c.Config.Logger.Infof("desired QueryParameterMatch %s - but actually nil", dcl.SprintResource(desired.QueryParameterMatch))
+		c.Config.Logger.Infof("Diff in HeaderMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderMatch), dcl.SprintResource(actual.HeaderMatch))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatchSlice(c, desired.QueryParameterMatch, actual.QueryParameterMatch) && !dcl.IsZeroValue(desired.QueryParameterMatch) {
-		c.Config.Logger.Infof("Diff in QueryParameterMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryParameterMatch), dcl.SprintResource(actual.QueryParameterMatch))
-		return true
-	}
-	if actual.MetadataFilter == nil && desired.MetadataFilter != nil && !dcl.IsEmptyValueIndirect(desired.MetadataFilter) {
-		c.Config.Logger.Infof("desired MetadataFilter %s - but actually nil", dcl.SprintResource(desired.MetadataFilter))
+		c.Config.Logger.Infof("Diff in QueryParameterMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryParameterMatch), dcl.SprintResource(actual.QueryParameterMatch))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterSlice(c, desired.MetadataFilter, actual.MetadataFilter) && !dcl.IsZeroValue(desired.MetadataFilter) {
-		c.Config.Logger.Infof("Diff in MetadataFilter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataFilter), dcl.SprintResource(actual.MetadataFilter))
+		c.Config.Logger.Infof("Diff in MetadataFilter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetadataFilter), dcl.SprintResource(actual.MetadataFilter))
 		return true
 	}
 	return false
@@ -8165,7 +7622,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleSlice(c *Client, desired, actual 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleMatchRule(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRule, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRule, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8184,7 +7641,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleMap(c *Client, desired, actual ma
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleMatchRule(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRule, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRule, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8198,68 +7655,36 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(c *Client, desired, a
 	if actual == nil {
 		return true
 	}
-	if actual.HeaderName == nil && desired.HeaderName != nil && !dcl.IsEmptyValueIndirect(desired.HeaderName) {
-		c.Config.Logger.Infof("desired HeaderName %s - but actually nil", dcl.SprintResource(desired.HeaderName))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.HeaderName, actual.HeaderName) && !dcl.IsZeroValue(desired.HeaderName) {
-		c.Config.Logger.Infof("Diff in HeaderName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderName), dcl.SprintResource(actual.HeaderName))
-		return true
-	}
-	if actual.ExactMatch == nil && desired.ExactMatch != nil && !dcl.IsEmptyValueIndirect(desired.ExactMatch) {
-		c.Config.Logger.Infof("desired ExactMatch %s - but actually nil", dcl.SprintResource(desired.ExactMatch))
+		c.Config.Logger.Infof("Diff in HeaderName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderName), dcl.SprintResource(actual.HeaderName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.ExactMatch, actual.ExactMatch) && !dcl.IsZeroValue(desired.ExactMatch) {
-		c.Config.Logger.Infof("Diff in ExactMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExactMatch), dcl.SprintResource(actual.ExactMatch))
-		return true
-	}
-	if actual.RegexMatch == nil && desired.RegexMatch != nil && !dcl.IsEmptyValueIndirect(desired.RegexMatch) {
-		c.Config.Logger.Infof("desired RegexMatch %s - but actually nil", dcl.SprintResource(desired.RegexMatch))
+		c.Config.Logger.Infof("Diff in ExactMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExactMatch), dcl.SprintResource(actual.ExactMatch))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.RegexMatch, actual.RegexMatch) && !dcl.IsZeroValue(desired.RegexMatch) {
-		c.Config.Logger.Infof("Diff in RegexMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RegexMatch), dcl.SprintResource(actual.RegexMatch))
-		return true
-	}
-	if actual.RangeMatch == nil && desired.RangeMatch != nil && !dcl.IsEmptyValueIndirect(desired.RangeMatch) {
-		c.Config.Logger.Infof("desired RangeMatch %s - but actually nil", dcl.SprintResource(desired.RangeMatch))
+		c.Config.Logger.Infof("Diff in RegexMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RegexMatch), dcl.SprintResource(actual.RegexMatch))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(c, desired.RangeMatch, actual.RangeMatch) && !dcl.IsZeroValue(desired.RangeMatch) {
-		c.Config.Logger.Infof("Diff in RangeMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RangeMatch), dcl.SprintResource(actual.RangeMatch))
-		return true
-	}
-	if actual.PresentMatch == nil && desired.PresentMatch != nil && !dcl.IsEmptyValueIndirect(desired.PresentMatch) {
-		c.Config.Logger.Infof("desired PresentMatch %s - but actually nil", dcl.SprintResource(desired.PresentMatch))
+		c.Config.Logger.Infof("Diff in RangeMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RangeMatch), dcl.SprintResource(actual.RangeMatch))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.PresentMatch, actual.PresentMatch) && !dcl.IsZeroValue(desired.PresentMatch) {
-		c.Config.Logger.Infof("Diff in PresentMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PresentMatch), dcl.SprintResource(actual.PresentMatch))
-		return true
-	}
-	if actual.PrefixMatch == nil && desired.PrefixMatch != nil && !dcl.IsEmptyValueIndirect(desired.PrefixMatch) {
-		c.Config.Logger.Infof("desired PrefixMatch %s - but actually nil", dcl.SprintResource(desired.PrefixMatch))
+		c.Config.Logger.Infof("Diff in PresentMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PresentMatch), dcl.SprintResource(actual.PresentMatch))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.PrefixMatch, actual.PrefixMatch) && !dcl.IsZeroValue(desired.PrefixMatch) {
-		c.Config.Logger.Infof("Diff in PrefixMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrefixMatch), dcl.SprintResource(actual.PrefixMatch))
-		return true
-	}
-	if actual.SuffixMatch == nil && desired.SuffixMatch != nil && !dcl.IsEmptyValueIndirect(desired.SuffixMatch) {
-		c.Config.Logger.Infof("desired SuffixMatch %s - but actually nil", dcl.SprintResource(desired.SuffixMatch))
+		c.Config.Logger.Infof("Diff in PrefixMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrefixMatch), dcl.SprintResource(actual.PrefixMatch))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.SuffixMatch, actual.SuffixMatch) && !dcl.IsZeroValue(desired.SuffixMatch) {
-		c.Config.Logger.Infof("Diff in SuffixMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuffixMatch), dcl.SprintResource(actual.SuffixMatch))
-		return true
-	}
-	if actual.InvertMatch == nil && desired.InvertMatch != nil && !dcl.IsEmptyValueIndirect(desired.InvertMatch) {
-		c.Config.Logger.Infof("desired InvertMatch %s - but actually nil", dcl.SprintResource(desired.InvertMatch))
+		c.Config.Logger.Infof("Diff in SuffixMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuffixMatch), dcl.SprintResource(actual.SuffixMatch))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.InvertMatch, actual.InvertMatch) && !dcl.IsZeroValue(desired.InvertMatch) {
-		c.Config.Logger.Infof("Diff in InvertMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InvertMatch), dcl.SprintResource(actual.InvertMatch))
+		c.Config.Logger.Infof("Diff in InvertMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InvertMatch), dcl.SprintResource(actual.InvertMatch))
 		return true
 	}
 	return false
@@ -8272,7 +7697,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchSlice(c *Client, desir
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8291,7 +7716,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchMap(c *Client, desired
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8305,20 +7730,12 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(c *Client, 
 	if actual == nil {
 		return true
 	}
-	if actual.RangeStart == nil && desired.RangeStart != nil && !dcl.IsEmptyValueIndirect(desired.RangeStart) {
-		c.Config.Logger.Infof("desired RangeStart %s - but actually nil", dcl.SprintResource(desired.RangeStart))
-		return true
-	}
 	if !reflect.DeepEqual(desired.RangeStart, actual.RangeStart) && !dcl.IsZeroValue(desired.RangeStart) {
-		c.Config.Logger.Infof("Diff in RangeStart. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RangeStart), dcl.SprintResource(actual.RangeStart))
-		return true
-	}
-	if actual.RangeEnd == nil && desired.RangeEnd != nil && !dcl.IsEmptyValueIndirect(desired.RangeEnd) {
-		c.Config.Logger.Infof("desired RangeEnd %s - but actually nil", dcl.SprintResource(desired.RangeEnd))
+		c.Config.Logger.Infof("Diff in RangeStart.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RangeStart), dcl.SprintResource(actual.RangeStart))
 		return true
 	}
 	if !reflect.DeepEqual(desired.RangeEnd, actual.RangeEnd) && !dcl.IsZeroValue(desired.RangeEnd) {
-		c.Config.Logger.Infof("Diff in RangeEnd. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RangeEnd), dcl.SprintResource(actual.RangeEnd))
+		c.Config.Logger.Infof("Diff in RangeEnd.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RangeEnd), dcl.SprintResource(actual.RangeEnd))
 		return true
 	}
 	return false
@@ -8331,7 +7748,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatchSlice(c *Cli
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8350,7 +7767,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatchMap(c *Clien
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8364,36 +7781,20 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch(c *Client, de
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.PresentMatch == nil && desired.PresentMatch != nil && !dcl.IsEmptyValueIndirect(desired.PresentMatch) {
-		c.Config.Logger.Infof("desired PresentMatch %s - but actually nil", dcl.SprintResource(desired.PresentMatch))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.PresentMatch, actual.PresentMatch) && !dcl.IsZeroValue(desired.PresentMatch) {
-		c.Config.Logger.Infof("Diff in PresentMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PresentMatch), dcl.SprintResource(actual.PresentMatch))
-		return true
-	}
-	if actual.ExactMatch == nil && desired.ExactMatch != nil && !dcl.IsEmptyValueIndirect(desired.ExactMatch) {
-		c.Config.Logger.Infof("desired ExactMatch %s - but actually nil", dcl.SprintResource(desired.ExactMatch))
+		c.Config.Logger.Infof("Diff in PresentMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PresentMatch), dcl.SprintResource(actual.PresentMatch))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.ExactMatch, actual.ExactMatch) && !dcl.IsZeroValue(desired.ExactMatch) {
-		c.Config.Logger.Infof("Diff in ExactMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExactMatch), dcl.SprintResource(actual.ExactMatch))
-		return true
-	}
-	if actual.RegexMatch == nil && desired.RegexMatch != nil && !dcl.IsEmptyValueIndirect(desired.RegexMatch) {
-		c.Config.Logger.Infof("desired RegexMatch %s - but actually nil", dcl.SprintResource(desired.RegexMatch))
+		c.Config.Logger.Infof("Diff in ExactMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExactMatch), dcl.SprintResource(actual.ExactMatch))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.RegexMatch, actual.RegexMatch) && !dcl.IsZeroValue(desired.RegexMatch) {
-		c.Config.Logger.Infof("Diff in RegexMatch. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RegexMatch), dcl.SprintResource(actual.RegexMatch))
+		c.Config.Logger.Infof("Diff in RegexMatch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RegexMatch), dcl.SprintResource(actual.RegexMatch))
 		return true
 	}
 	return false
@@ -8406,7 +7807,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatchSlice(c *Clien
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8425,7 +7826,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatchMap(c *Client,
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8439,20 +7840,12 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter(c *Client, desired
 	if actual == nil {
 		return true
 	}
-	if actual.FilterMatchCriteria == nil && desired.FilterMatchCriteria != nil && !dcl.IsEmptyValueIndirect(desired.FilterMatchCriteria) {
-		c.Config.Logger.Infof("desired FilterMatchCriteria %s - but actually nil", dcl.SprintResource(desired.FilterMatchCriteria))
-		return true
-	}
 	if !reflect.DeepEqual(desired.FilterMatchCriteria, actual.FilterMatchCriteria) && !dcl.IsZeroValue(desired.FilterMatchCriteria) {
-		c.Config.Logger.Infof("Diff in FilterMatchCriteria. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterMatchCriteria), dcl.SprintResource(actual.FilterMatchCriteria))
-		return true
-	}
-	if actual.FilterLabel == nil && desired.FilterLabel != nil && !dcl.IsEmptyValueIndirect(desired.FilterLabel) {
-		c.Config.Logger.Infof("desired FilterLabel %s - but actually nil", dcl.SprintResource(desired.FilterLabel))
+		c.Config.Logger.Infof("Diff in FilterMatchCriteria.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterMatchCriteria), dcl.SprintResource(actual.FilterMatchCriteria))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabelSlice(c, desired.FilterLabel, actual.FilterLabel) && !dcl.IsZeroValue(desired.FilterLabel) {
-		c.Config.Logger.Infof("Diff in FilterLabel. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterLabel), dcl.SprintResource(actual.FilterLabel))
+		c.Config.Logger.Infof("Diff in FilterLabel.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterLabel), dcl.SprintResource(actual.FilterLabel))
 		return true
 	}
 	return false
@@ -8465,7 +7858,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterSlice(c *Client, de
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8484,7 +7877,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterMap(c *Client, desi
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8498,20 +7891,12 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel(c *Clie
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
+		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -8524,7 +7909,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabelSlice(c 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8543,7 +7928,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabelMap(c *C
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8557,60 +7942,32 @@ func compareUrlMapPathMatcherRouteRuleRouteAction(c *Client, desired, actual *Ur
 	if actual == nil {
 		return true
 	}
-	if actual.WeightedBackendService == nil && desired.WeightedBackendService != nil && !dcl.IsEmptyValueIndirect(desired.WeightedBackendService) {
-		c.Config.Logger.Infof("desired WeightedBackendService %s - but actually nil", dcl.SprintResource(desired.WeightedBackendService))
-		return true
-	}
 	if compareUrlMapPathMatcherRouteRuleRouteActionWeightedBackendServiceSlice(c, desired.WeightedBackendService, actual.WeightedBackendService) && !dcl.IsZeroValue(desired.WeightedBackendService) {
-		c.Config.Logger.Infof("Diff in WeightedBackendService. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WeightedBackendService), dcl.SprintResource(actual.WeightedBackendService))
-		return true
-	}
-	if actual.UrlRewrite == nil && desired.UrlRewrite != nil && !dcl.IsEmptyValueIndirect(desired.UrlRewrite) {
-		c.Config.Logger.Infof("desired UrlRewrite %s - but actually nil", dcl.SprintResource(desired.UrlRewrite))
+		c.Config.Logger.Infof("Diff in WeightedBackendService.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WeightedBackendService), dcl.SprintResource(actual.WeightedBackendService))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleRouteActionUrlRewrite(c, desired.UrlRewrite, actual.UrlRewrite) && !dcl.IsZeroValue(desired.UrlRewrite) {
-		c.Config.Logger.Infof("Diff in UrlRewrite. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlRewrite), dcl.SprintResource(actual.UrlRewrite))
-		return true
-	}
-	if actual.Timeout == nil && desired.Timeout != nil && !dcl.IsEmptyValueIndirect(desired.Timeout) {
-		c.Config.Logger.Infof("desired Timeout %s - but actually nil", dcl.SprintResource(desired.Timeout))
+		c.Config.Logger.Infof("Diff in UrlRewrite.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlRewrite), dcl.SprintResource(actual.UrlRewrite))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleRouteActionTimeout(c, desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
-		c.Config.Logger.Infof("Diff in Timeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
-		return true
-	}
-	if actual.RetryPolicy == nil && desired.RetryPolicy != nil && !dcl.IsEmptyValueIndirect(desired.RetryPolicy) {
-		c.Config.Logger.Infof("desired RetryPolicy %s - but actually nil", dcl.SprintResource(desired.RetryPolicy))
+		c.Config.Logger.Infof("Diff in Timeout.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleRouteActionRetryPolicy(c, desired.RetryPolicy, actual.RetryPolicy) && !dcl.IsZeroValue(desired.RetryPolicy) {
-		c.Config.Logger.Infof("Diff in RetryPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RetryPolicy), dcl.SprintResource(actual.RetryPolicy))
-		return true
-	}
-	if actual.RequestMirrorPolicy == nil && desired.RequestMirrorPolicy != nil && !dcl.IsEmptyValueIndirect(desired.RequestMirrorPolicy) {
-		c.Config.Logger.Infof("desired RequestMirrorPolicy %s - but actually nil", dcl.SprintResource(desired.RequestMirrorPolicy))
+		c.Config.Logger.Infof("Diff in RetryPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RetryPolicy), dcl.SprintResource(actual.RetryPolicy))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy(c, desired.RequestMirrorPolicy, actual.RequestMirrorPolicy) && !dcl.IsZeroValue(desired.RequestMirrorPolicy) {
-		c.Config.Logger.Infof("Diff in RequestMirrorPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestMirrorPolicy), dcl.SprintResource(actual.RequestMirrorPolicy))
-		return true
-	}
-	if actual.CorsPolicy == nil && desired.CorsPolicy != nil && !dcl.IsEmptyValueIndirect(desired.CorsPolicy) {
-		c.Config.Logger.Infof("desired CorsPolicy %s - but actually nil", dcl.SprintResource(desired.CorsPolicy))
+		c.Config.Logger.Infof("Diff in RequestMirrorPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestMirrorPolicy), dcl.SprintResource(actual.RequestMirrorPolicy))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(c, desired.CorsPolicy, actual.CorsPolicy) && !dcl.IsZeroValue(desired.CorsPolicy) {
-		c.Config.Logger.Infof("Diff in CorsPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CorsPolicy), dcl.SprintResource(actual.CorsPolicy))
-		return true
-	}
-	if actual.FaultInjectionPolicy == nil && desired.FaultInjectionPolicy != nil && !dcl.IsEmptyValueIndirect(desired.FaultInjectionPolicy) {
-		c.Config.Logger.Infof("desired FaultInjectionPolicy %s - but actually nil", dcl.SprintResource(desired.FaultInjectionPolicy))
+		c.Config.Logger.Infof("Diff in CorsPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CorsPolicy), dcl.SprintResource(actual.CorsPolicy))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy(c, desired.FaultInjectionPolicy, actual.FaultInjectionPolicy) && !dcl.IsZeroValue(desired.FaultInjectionPolicy) {
-		c.Config.Logger.Infof("Diff in FaultInjectionPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FaultInjectionPolicy), dcl.SprintResource(actual.FaultInjectionPolicy))
+		c.Config.Logger.Infof("Diff in FaultInjectionPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FaultInjectionPolicy), dcl.SprintResource(actual.FaultInjectionPolicy))
 		return true
 	}
 	return false
@@ -8623,7 +7980,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionSlice(c *Client, desired, actua
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleRouteAction(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteAction, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteAction, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8642,7 +7999,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionMap(c *Client, desired, actual 
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleRouteAction(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteAction, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteAction, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8656,28 +8013,16 @@ func compareUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService(c *Clien
 	if actual == nil {
 		return true
 	}
-	if actual.BackendService == nil && desired.BackendService != nil && !dcl.IsEmptyValueIndirect(desired.BackendService) {
-		c.Config.Logger.Infof("desired BackendService %s - but actually nil", dcl.SprintResource(desired.BackendService))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.BackendService, actual.BackendService) && !dcl.IsZeroValue(desired.BackendService) {
-		c.Config.Logger.Infof("Diff in BackendService. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
-		return true
-	}
-	if actual.Weight == nil && desired.Weight != nil && !dcl.IsEmptyValueIndirect(desired.Weight) {
-		c.Config.Logger.Infof("desired Weight %s - but actually nil", dcl.SprintResource(desired.Weight))
+		c.Config.Logger.Infof("Diff in BackendService.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Weight, actual.Weight) && !dcl.IsZeroValue(desired.Weight) {
-		c.Config.Logger.Infof("Diff in Weight. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
-		return true
-	}
-	if actual.HeaderAction == nil && desired.HeaderAction != nil && !dcl.IsEmptyValueIndirect(desired.HeaderAction) {
-		c.Config.Logger.Infof("desired HeaderAction %s - but actually nil", dcl.SprintResource(desired.HeaderAction))
+		c.Config.Logger.Infof("Diff in Weight.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Weight), dcl.SprintResource(actual.Weight))
 		return true
 	}
 	if compareUrlMapHeaderAction(c, desired.HeaderAction, actual.HeaderAction) && !dcl.IsZeroValue(desired.HeaderAction) {
-		c.Config.Logger.Infof("Diff in HeaderAction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderAction), dcl.SprintResource(actual.HeaderAction))
+		c.Config.Logger.Infof("Diff in HeaderAction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HeaderAction), dcl.SprintResource(actual.HeaderAction))
 		return true
 	}
 	return false
@@ -8690,7 +8035,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionWeightedBackendServiceSlice(c *
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8709,7 +8054,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionWeightedBackendServiceMap(c *Cl
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8723,20 +8068,12 @@ func compareUrlMapPathMatcherRouteRuleRouteActionUrlRewrite(c *Client, desired, 
 	if actual == nil {
 		return true
 	}
-	if actual.PathPrefixRewrite == nil && desired.PathPrefixRewrite != nil && !dcl.IsEmptyValueIndirect(desired.PathPrefixRewrite) {
-		c.Config.Logger.Infof("desired PathPrefixRewrite %s - but actually nil", dcl.SprintResource(desired.PathPrefixRewrite))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.PathPrefixRewrite, actual.PathPrefixRewrite) && !dcl.IsZeroValue(desired.PathPrefixRewrite) {
-		c.Config.Logger.Infof("Diff in PathPrefixRewrite. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathPrefixRewrite), dcl.SprintResource(actual.PathPrefixRewrite))
-		return true
-	}
-	if actual.HostRewrite == nil && desired.HostRewrite != nil && !dcl.IsEmptyValueIndirect(desired.HostRewrite) {
-		c.Config.Logger.Infof("desired HostRewrite %s - but actually nil", dcl.SprintResource(desired.HostRewrite))
+		c.Config.Logger.Infof("Diff in PathPrefixRewrite.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathPrefixRewrite), dcl.SprintResource(actual.PathPrefixRewrite))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.HostRewrite, actual.HostRewrite) && !dcl.IsZeroValue(desired.HostRewrite) {
-		c.Config.Logger.Infof("Diff in HostRewrite. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRewrite), dcl.SprintResource(actual.HostRewrite))
+		c.Config.Logger.Infof("Diff in HostRewrite.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRewrite), dcl.SprintResource(actual.HostRewrite))
 		return true
 	}
 	return false
@@ -8749,7 +8086,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionUrlRewriteSlice(c *Client, desi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleRouteActionUrlRewrite(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionUrlRewrite, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionUrlRewrite, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8768,7 +8105,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionUrlRewriteMap(c *Client, desire
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleRouteActionUrlRewrite(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionUrlRewrite, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionUrlRewrite, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8782,20 +8119,12 @@ func compareUrlMapPathMatcherRouteRuleRouteActionTimeout(c *Client, desired, act
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -8808,7 +8137,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionTimeoutSlice(c *Client, desired
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleRouteActionTimeout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionTimeout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionTimeout, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8827,7 +8156,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionTimeoutMap(c *Client, desired, 
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleRouteActionTimeout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionTimeout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionTimeout, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8841,28 +8170,16 @@ func compareUrlMapPathMatcherRouteRuleRouteActionRetryPolicy(c *Client, desired,
 	if actual == nil {
 		return true
 	}
-	if actual.RetryCondition == nil && desired.RetryCondition != nil && !dcl.IsEmptyValueIndirect(desired.RetryCondition) {
-		c.Config.Logger.Infof("desired RetryCondition %s - but actually nil", dcl.SprintResource(desired.RetryCondition))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.RetryCondition, actual.RetryCondition) && !dcl.IsZeroValue(desired.RetryCondition) {
-		c.Config.Logger.Infof("Diff in RetryCondition. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RetryCondition), dcl.SprintResource(actual.RetryCondition))
-		return true
-	}
-	if actual.NumRetries == nil && desired.NumRetries != nil && !dcl.IsEmptyValueIndirect(desired.NumRetries) {
-		c.Config.Logger.Infof("desired NumRetries %s - but actually nil", dcl.SprintResource(desired.NumRetries))
+		c.Config.Logger.Infof("Diff in RetryCondition.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RetryCondition), dcl.SprintResource(actual.RetryCondition))
 		return true
 	}
 	if !reflect.DeepEqual(desired.NumRetries, actual.NumRetries) && !dcl.IsZeroValue(desired.NumRetries) {
-		c.Config.Logger.Infof("Diff in NumRetries. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumRetries), dcl.SprintResource(actual.NumRetries))
-		return true
-	}
-	if actual.PerTryTimeout == nil && desired.PerTryTimeout != nil && !dcl.IsEmptyValueIndirect(desired.PerTryTimeout) {
-		c.Config.Logger.Infof("desired PerTryTimeout %s - but actually nil", dcl.SprintResource(desired.PerTryTimeout))
+		c.Config.Logger.Infof("Diff in NumRetries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumRetries), dcl.SprintResource(actual.NumRetries))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(c, desired.PerTryTimeout, actual.PerTryTimeout) && !dcl.IsZeroValue(desired.PerTryTimeout) {
-		c.Config.Logger.Infof("Diff in PerTryTimeout. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerTryTimeout), dcl.SprintResource(actual.PerTryTimeout))
+		c.Config.Logger.Infof("Diff in PerTryTimeout.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerTryTimeout), dcl.SprintResource(actual.PerTryTimeout))
 		return true
 	}
 	return false
@@ -8875,7 +8192,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionRetryPolicySlice(c *Client, des
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleRouteActionRetryPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionRetryPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionRetryPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8894,7 +8211,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionRetryPolicyMap(c *Client, desir
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleRouteActionRetryPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionRetryPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionRetryPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8908,20 +8225,12 @@ func compareUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(c *Cli
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -8934,7 +8243,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeoutSlice(c
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8953,7 +8262,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeoutMap(c *
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8967,12 +8276,8 @@ func compareUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy(c *Client, 
 	if actual == nil {
 		return true
 	}
-	if actual.BackendService == nil && desired.BackendService != nil && !dcl.IsEmptyValueIndirect(desired.BackendService) {
-		c.Config.Logger.Infof("desired BackendService %s - but actually nil", dcl.SprintResource(desired.BackendService))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.BackendService, actual.BackendService) && !dcl.IsZeroValue(desired.BackendService) {
-		c.Config.Logger.Infof("Diff in BackendService. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
+		c.Config.Logger.Infof("Diff in BackendService.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BackendService), dcl.SprintResource(actual.BackendService))
 		return true
 	}
 	return false
@@ -8985,7 +8290,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicySlice(c *Cli
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -9004,7 +8309,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicyMap(c *Clien
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -9018,68 +8323,36 @@ func compareUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(c *Client, desired, 
 	if actual == nil {
 		return true
 	}
-	if actual.AllowOrigin == nil && desired.AllowOrigin != nil && !dcl.IsEmptyValueIndirect(desired.AllowOrigin) {
-		c.Config.Logger.Infof("desired AllowOrigin %s - but actually nil", dcl.SprintResource(desired.AllowOrigin))
-		return true
-	}
 	if !dcl.StringSliceEquals(desired.AllowOrigin, actual.AllowOrigin) && !dcl.IsZeroValue(desired.AllowOrigin) {
-		c.Config.Logger.Infof("Diff in AllowOrigin. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowOrigin), dcl.SprintResource(actual.AllowOrigin))
-		return true
-	}
-	if actual.AllowOriginRegex == nil && desired.AllowOriginRegex != nil && !dcl.IsEmptyValueIndirect(desired.AllowOriginRegex) {
-		c.Config.Logger.Infof("desired AllowOriginRegex %s - but actually nil", dcl.SprintResource(desired.AllowOriginRegex))
+		c.Config.Logger.Infof("Diff in AllowOrigin.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowOrigin), dcl.SprintResource(actual.AllowOrigin))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.AllowOriginRegex, actual.AllowOriginRegex) && !dcl.IsZeroValue(desired.AllowOriginRegex) {
-		c.Config.Logger.Infof("Diff in AllowOriginRegex. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowOriginRegex), dcl.SprintResource(actual.AllowOriginRegex))
-		return true
-	}
-	if actual.AllowMethod == nil && desired.AllowMethod != nil && !dcl.IsEmptyValueIndirect(desired.AllowMethod) {
-		c.Config.Logger.Infof("desired AllowMethod %s - but actually nil", dcl.SprintResource(desired.AllowMethod))
+		c.Config.Logger.Infof("Diff in AllowOriginRegex.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowOriginRegex), dcl.SprintResource(actual.AllowOriginRegex))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.AllowMethod, actual.AllowMethod) && !dcl.IsZeroValue(desired.AllowMethod) {
-		c.Config.Logger.Infof("Diff in AllowMethod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowMethod), dcl.SprintResource(actual.AllowMethod))
-		return true
-	}
-	if actual.AllowHeader == nil && desired.AllowHeader != nil && !dcl.IsEmptyValueIndirect(desired.AllowHeader) {
-		c.Config.Logger.Infof("desired AllowHeader %s - but actually nil", dcl.SprintResource(desired.AllowHeader))
+		c.Config.Logger.Infof("Diff in AllowMethod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowMethod), dcl.SprintResource(actual.AllowMethod))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.AllowHeader, actual.AllowHeader) && !dcl.IsZeroValue(desired.AllowHeader) {
-		c.Config.Logger.Infof("Diff in AllowHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowHeader), dcl.SprintResource(actual.AllowHeader))
-		return true
-	}
-	if actual.ExposeHeader == nil && desired.ExposeHeader != nil && !dcl.IsEmptyValueIndirect(desired.ExposeHeader) {
-		c.Config.Logger.Infof("desired ExposeHeader %s - but actually nil", dcl.SprintResource(desired.ExposeHeader))
+		c.Config.Logger.Infof("Diff in AllowHeader.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowHeader), dcl.SprintResource(actual.AllowHeader))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.ExposeHeader, actual.ExposeHeader) && !dcl.IsZeroValue(desired.ExposeHeader) {
-		c.Config.Logger.Infof("Diff in ExposeHeader. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExposeHeader), dcl.SprintResource(actual.ExposeHeader))
-		return true
-	}
-	if actual.MaxAge == nil && desired.MaxAge != nil && !dcl.IsEmptyValueIndirect(desired.MaxAge) {
-		c.Config.Logger.Infof("desired MaxAge %s - but actually nil", dcl.SprintResource(desired.MaxAge))
+		c.Config.Logger.Infof("Diff in ExposeHeader.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExposeHeader), dcl.SprintResource(actual.ExposeHeader))
 		return true
 	}
 	if !reflect.DeepEqual(desired.MaxAge, actual.MaxAge) && !dcl.IsZeroValue(desired.MaxAge) {
-		c.Config.Logger.Infof("Diff in MaxAge. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxAge), dcl.SprintResource(actual.MaxAge))
-		return true
-	}
-	if actual.AllowCredentials == nil && desired.AllowCredentials != nil && !dcl.IsEmptyValueIndirect(desired.AllowCredentials) {
-		c.Config.Logger.Infof("desired AllowCredentials %s - but actually nil", dcl.SprintResource(desired.AllowCredentials))
+		c.Config.Logger.Infof("Diff in MaxAge.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxAge), dcl.SprintResource(actual.MaxAge))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.AllowCredentials, actual.AllowCredentials) && !dcl.IsZeroValue(desired.AllowCredentials) {
-		c.Config.Logger.Infof("Diff in AllowCredentials. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowCredentials), dcl.SprintResource(actual.AllowCredentials))
-		return true
-	}
-	if actual.Disabled == nil && desired.Disabled != nil && !dcl.IsEmptyValueIndirect(desired.Disabled) {
-		c.Config.Logger.Infof("desired Disabled %s - but actually nil", dcl.SprintResource(desired.Disabled))
+		c.Config.Logger.Infof("Diff in AllowCredentials.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowCredentials), dcl.SprintResource(actual.AllowCredentials))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
-		c.Config.Logger.Infof("Diff in Disabled. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
+		c.Config.Logger.Infof("Diff in Disabled.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
 		return true
 	}
 	return false
@@ -9092,7 +8365,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionCorsPolicySlice(c *Client, desi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionCorsPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionCorsPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -9111,7 +8384,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionCorsPolicyMap(c *Client, desire
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionCorsPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionCorsPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -9125,20 +8398,12 @@ func compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy(c *Client,
 	if actual == nil {
 		return true
 	}
-	if actual.Delay == nil && desired.Delay != nil && !dcl.IsEmptyValueIndirect(desired.Delay) {
-		c.Config.Logger.Infof("desired Delay %s - but actually nil", dcl.SprintResource(desired.Delay))
-		return true
-	}
 	if compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay(c, desired.Delay, actual.Delay) && !dcl.IsZeroValue(desired.Delay) {
-		c.Config.Logger.Infof("Diff in Delay. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Delay), dcl.SprintResource(actual.Delay))
-		return true
-	}
-	if actual.Abort == nil && desired.Abort != nil && !dcl.IsEmptyValueIndirect(desired.Abort) {
-		c.Config.Logger.Infof("desired Abort %s - but actually nil", dcl.SprintResource(desired.Abort))
+		c.Config.Logger.Infof("Diff in Delay.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Delay), dcl.SprintResource(actual.Delay))
 		return true
 	}
 	if compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort(c, desired.Abort, actual.Abort) && !dcl.IsZeroValue(desired.Abort) {
-		c.Config.Logger.Infof("Diff in Abort. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Abort), dcl.SprintResource(actual.Abort))
+		c.Config.Logger.Infof("Diff in Abort.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Abort), dcl.SprintResource(actual.Abort))
 		return true
 	}
 	return false
@@ -9151,7 +8416,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicySlice(c *Cl
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -9170,7 +8435,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyMap(c *Clie
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -9184,20 +8449,12 @@ func compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay(c *Cl
 	if actual == nil {
 		return true
 	}
-	if actual.FixedDelay == nil && desired.FixedDelay != nil && !dcl.IsEmptyValueIndirect(desired.FixedDelay) {
-		c.Config.Logger.Infof("desired FixedDelay %s - but actually nil", dcl.SprintResource(desired.FixedDelay))
-		return true
-	}
 	if compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, desired.FixedDelay, actual.FixedDelay) && !dcl.IsZeroValue(desired.FixedDelay) {
-		c.Config.Logger.Infof("Diff in FixedDelay. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FixedDelay), dcl.SprintResource(actual.FixedDelay))
-		return true
-	}
-	if actual.Percentage == nil && desired.Percentage != nil && !dcl.IsEmptyValueIndirect(desired.Percentage) {
-		c.Config.Logger.Infof("desired Percentage %s - but actually nil", dcl.SprintResource(desired.Percentage))
+		c.Config.Logger.Infof("Diff in FixedDelay.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FixedDelay), dcl.SprintResource(actual.FixedDelay))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Percentage, actual.Percentage) && !dcl.IsZeroValue(desired.Percentage) {
-		c.Config.Logger.Infof("Diff in Percentage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percentage), dcl.SprintResource(actual.Percentage))
+		c.Config.Logger.Infof("Diff in Percentage.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percentage), dcl.SprintResource(actual.Percentage))
 		return true
 	}
 	return false
@@ -9210,7 +8467,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelaySlice(
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -9229,7 +8486,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayMap(c 
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -9243,20 +8500,12 @@ func compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedD
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -9269,7 +8518,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedD
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -9288,7 +8537,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedD
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -9302,20 +8551,12 @@ func compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort(c *Cl
 	if actual == nil {
 		return true
 	}
-	if actual.HttpStatus == nil && desired.HttpStatus != nil && !dcl.IsEmptyValueIndirect(desired.HttpStatus) {
-		c.Config.Logger.Infof("desired HttpStatus %s - but actually nil", dcl.SprintResource(desired.HttpStatus))
-		return true
-	}
 	if !reflect.DeepEqual(desired.HttpStatus, actual.HttpStatus) && !dcl.IsZeroValue(desired.HttpStatus) {
-		c.Config.Logger.Infof("Diff in HttpStatus. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpStatus), dcl.SprintResource(actual.HttpStatus))
-		return true
-	}
-	if actual.Percentage == nil && desired.Percentage != nil && !dcl.IsEmptyValueIndirect(desired.Percentage) {
-		c.Config.Logger.Infof("desired Percentage %s - but actually nil", dcl.SprintResource(desired.Percentage))
+		c.Config.Logger.Infof("Diff in HttpStatus.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpStatus), dcl.SprintResource(actual.HttpStatus))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Percentage, actual.Percentage) && !dcl.IsZeroValue(desired.Percentage) {
-		c.Config.Logger.Infof("Diff in Percentage. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percentage), dcl.SprintResource(actual.Percentage))
+		c.Config.Logger.Infof("Diff in Percentage.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percentage), dcl.SprintResource(actual.Percentage))
 		return true
 	}
 	return false
@@ -9328,7 +8569,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbortSlice(
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -9347,7 +8588,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbortMap(c 
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -9361,52 +8602,28 @@ func compareUrlMapPathMatcherRouteRuleUrlRedirect(c *Client, desired, actual *Ur
 	if actual == nil {
 		return true
 	}
-	if actual.HostRedirect == nil && desired.HostRedirect != nil && !dcl.IsEmptyValueIndirect(desired.HostRedirect) {
-		c.Config.Logger.Infof("desired HostRedirect %s - but actually nil", dcl.SprintResource(desired.HostRedirect))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.HostRedirect, actual.HostRedirect) && !dcl.IsZeroValue(desired.HostRedirect) {
-		c.Config.Logger.Infof("Diff in HostRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRedirect), dcl.SprintResource(actual.HostRedirect))
-		return true
-	}
-	if actual.PathRedirect == nil && desired.PathRedirect != nil && !dcl.IsEmptyValueIndirect(desired.PathRedirect) {
-		c.Config.Logger.Infof("desired PathRedirect %s - but actually nil", dcl.SprintResource(desired.PathRedirect))
+		c.Config.Logger.Infof("Diff in HostRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HostRedirect), dcl.SprintResource(actual.HostRedirect))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.PathRedirect, actual.PathRedirect) && !dcl.IsZeroValue(desired.PathRedirect) {
-		c.Config.Logger.Infof("Diff in PathRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathRedirect), dcl.SprintResource(actual.PathRedirect))
-		return true
-	}
-	if actual.PrefixRedirect == nil && desired.PrefixRedirect != nil && !dcl.IsEmptyValueIndirect(desired.PrefixRedirect) {
-		c.Config.Logger.Infof("desired PrefixRedirect %s - but actually nil", dcl.SprintResource(desired.PrefixRedirect))
+		c.Config.Logger.Infof("Diff in PathRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PathRedirect), dcl.SprintResource(actual.PathRedirect))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.PrefixRedirect, actual.PrefixRedirect) && !dcl.IsZeroValue(desired.PrefixRedirect) {
-		c.Config.Logger.Infof("Diff in PrefixRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrefixRedirect), dcl.SprintResource(actual.PrefixRedirect))
-		return true
-	}
-	if actual.RedirectResponseCode == nil && desired.RedirectResponseCode != nil && !dcl.IsEmptyValueIndirect(desired.RedirectResponseCode) {
-		c.Config.Logger.Infof("desired RedirectResponseCode %s - but actually nil", dcl.SprintResource(desired.RedirectResponseCode))
+		c.Config.Logger.Infof("Diff in PrefixRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PrefixRedirect), dcl.SprintResource(actual.PrefixRedirect))
 		return true
 	}
 	if !reflect.DeepEqual(desired.RedirectResponseCode, actual.RedirectResponseCode) && !dcl.IsZeroValue(desired.RedirectResponseCode) {
-		c.Config.Logger.Infof("Diff in RedirectResponseCode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RedirectResponseCode), dcl.SprintResource(actual.RedirectResponseCode))
-		return true
-	}
-	if actual.HttpsRedirect == nil && desired.HttpsRedirect != nil && !dcl.IsEmptyValueIndirect(desired.HttpsRedirect) {
-		c.Config.Logger.Infof("desired HttpsRedirect %s - but actually nil", dcl.SprintResource(desired.HttpsRedirect))
+		c.Config.Logger.Infof("Diff in RedirectResponseCode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RedirectResponseCode), dcl.SprintResource(actual.RedirectResponseCode))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.HttpsRedirect, actual.HttpsRedirect) && !dcl.IsZeroValue(desired.HttpsRedirect) {
-		c.Config.Logger.Infof("Diff in HttpsRedirect. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpsRedirect), dcl.SprintResource(actual.HttpsRedirect))
-		return true
-	}
-	if actual.StripQuery == nil && desired.StripQuery != nil && !dcl.IsEmptyValueIndirect(desired.StripQuery) {
-		c.Config.Logger.Infof("desired StripQuery %s - but actually nil", dcl.SprintResource(desired.StripQuery))
+		c.Config.Logger.Infof("Diff in HttpsRedirect.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpsRedirect), dcl.SprintResource(actual.HttpsRedirect))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.StripQuery, actual.StripQuery) && !dcl.IsZeroValue(desired.StripQuery) {
-		c.Config.Logger.Infof("Diff in StripQuery. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StripQuery), dcl.SprintResource(actual.StripQuery))
+		c.Config.Logger.Infof("Diff in StripQuery.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StripQuery), dcl.SprintResource(actual.StripQuery))
 		return true
 	}
 	return false
@@ -9419,7 +8636,7 @@ func compareUrlMapPathMatcherRouteRuleUrlRedirectSlice(c *Client, desired, actua
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleUrlRedirect(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleUrlRedirect, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleUrlRedirect, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -9438,7 +8655,7 @@ func compareUrlMapPathMatcherRouteRuleUrlRedirectMap(c *Client, desired, actual 
 			return true
 		}
 		if compareUrlMapPathMatcherRouteRuleUrlRedirect(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleUrlRedirect, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleUrlRedirect, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -9452,36 +8669,20 @@ func compareUrlMapTest(c *Client, desired, actual *UrlMapTest) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.Description == nil && desired.Description != nil && !dcl.IsEmptyValueIndirect(desired.Description) {
-		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
-		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
-		return true
-	}
-	if actual.Host == nil && desired.Host != nil && !dcl.IsEmptyValueIndirect(desired.Host) {
-		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
+		c.Config.Logger.Infof("Diff in Description.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	if actual.Path == nil && desired.Path != nil && !dcl.IsEmptyValueIndirect(desired.Path) {
-		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
+		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
-		return true
-	}
-	if actual.ExpectedBackendService == nil && desired.ExpectedBackendService != nil && !dcl.IsEmptyValueIndirect(desired.ExpectedBackendService) {
-		c.Config.Logger.Infof("desired ExpectedBackendService %s - but actually nil", dcl.SprintResource(desired.ExpectedBackendService))
+		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.ExpectedBackendService, actual.ExpectedBackendService) && !dcl.IsZeroValue(desired.ExpectedBackendService) {
-		c.Config.Logger.Infof("Diff in ExpectedBackendService. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExpectedBackendService), dcl.SprintResource(actual.ExpectedBackendService))
+		c.Config.Logger.Infof("Diff in ExpectedBackendService.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExpectedBackendService), dcl.SprintResource(actual.ExpectedBackendService))
 		return true
 	}
 	return false
@@ -9494,7 +8695,7 @@ func compareUrlMapTestSlice(c *Client, desired, actual []UrlMapTest) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapTest(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapTest, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapTest, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -9513,7 +8714,7 @@ func compareUrlMapTestMap(c *Client, desired, actual map[string]UrlMapTest) bool
 			return true
 		}
 		if compareUrlMapTest(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UrlMapTest, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UrlMapTest, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -9527,7 +8728,7 @@ func compareUrlMapDefaultUrlRedirectRedirectResponseCodeEnumSlice(c *Client, des
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapDefaultUrlRedirectRedirectResponseCodeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapDefaultUrlRedirectRedirectResponseCodeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapDefaultUrlRedirectRedirectResponseCodeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -9545,7 +8746,7 @@ func compareUrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnumSlice(c *
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -9563,7 +8764,7 @@ func compareUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnumSlice(c 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -9581,7 +8782,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteria
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -9599,7 +8800,7 @@ func compareUrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnumSlice(c
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -9614,7 +8815,7 @@ func compareUrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum(c *Cli
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *UrlMap) urlNormalized() *UrlMap {
-	normalized := deepcopy.Copy(*r).(UrlMap)
+	normalized := dcl.Copy(*r).(UrlMap)
 	normalized.DefaultService = dcl.SelfLinkToName(r.DefaultService)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
@@ -9682,7 +8883,7 @@ func expandUrlMap(c *Client, f *UrlMap) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := expandUrlMapDefaultRouteAction(c, f.DefaultRouteAction); err != nil {
 		return nil, fmt.Errorf("error expanding DefaultRouteAction into defaultRouteAction: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["defaultRouteAction"] = v
 	}
 	if v := f.DefaultService; !dcl.IsEmptyValueIndirect(v) {
@@ -9690,7 +8891,7 @@ func expandUrlMap(c *Client, f *UrlMap) (map[string]interface{}, error) {
 	}
 	if v, err := expandUrlMapDefaultUrlRedirect(c, f.DefaultUrlRedirect); err != nil {
 		return nil, fmt.Errorf("error expanding DefaultUrlRedirect into defaultUrlRedirect: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["defaultUrlRedirect"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
@@ -9698,12 +8899,12 @@ func expandUrlMap(c *Client, f *UrlMap) (map[string]interface{}, error) {
 	}
 	if v, err := expandUrlMapHeaderAction(c, f.HeaderAction); err != nil {
 		return nil, fmt.Errorf("error expanding HeaderAction into headerAction: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["headerAction"] = v
 	}
 	if v, err := expandUrlMapHostRuleSlice(c, f.HostRule); err != nil {
 		return nil, fmt.Errorf("error expanding HostRule into hostRules: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["hostRules"] = v
 	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
@@ -9711,7 +8912,7 @@ func expandUrlMap(c *Client, f *UrlMap) (map[string]interface{}, error) {
 	}
 	if v, err := expandUrlMapPathMatcherSlice(c, f.PathMatcher); err != nil {
 		return nil, fmt.Errorf("error expanding PathMatcher into pathMatchers: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["pathMatchers"] = v
 	}
 	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
@@ -9719,12 +8920,12 @@ func expandUrlMap(c *Client, f *UrlMap) (map[string]interface{}, error) {
 	}
 	if v, err := expandUrlMapTestSlice(c, f.Test); err != nil {
 		return nil, fmt.Errorf("error expanding Test into tests: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["tests"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -9842,11 +9043,10 @@ func flattenUrlMapDefaultRouteActionSlice(c *Client, i interface{}) []UrlMapDefa
 // expandUrlMapDefaultRouteAction expands an instance of UrlMapDefaultRouteAction into a JSON
 // request object.
 func expandUrlMapDefaultRouteAction(c *Client, f *UrlMapDefaultRouteAction) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandUrlMapDefaultRouteActionWeightedBackendServiceSlice(c, f.WeightedBackendService); err != nil {
 		return nil, fmt.Errorf("error expanding WeightedBackendService into weightedBackendServices: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -9990,11 +9190,10 @@ func flattenUrlMapDefaultRouteActionWeightedBackendServiceSlice(c *Client, i int
 // expandUrlMapDefaultRouteActionWeightedBackendService expands an instance of UrlMapDefaultRouteActionWeightedBackendService into a JSON
 // request object.
 func expandUrlMapDefaultRouteActionWeightedBackendService(c *Client, f *UrlMapDefaultRouteActionWeightedBackendService) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.BackendService; !dcl.IsEmptyValueIndirect(v) {
 		m["backendService"] = v
 	}
@@ -10110,11 +9309,10 @@ func flattenUrlMapHeaderActionSlice(c *Client, i interface{}) []UrlMapHeaderActi
 // expandUrlMapHeaderAction expands an instance of UrlMapHeaderAction into a JSON
 // request object.
 func expandUrlMapHeaderAction(c *Client, f *UrlMapHeaderAction) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RequestHeadersToRemove; !dcl.IsEmptyValueIndirect(v) {
 		m["requestHeadersToRemove"] = v
 	}
@@ -10236,11 +9434,10 @@ func flattenUrlMapHeaderActionRequestHeadersToAddSlice(c *Client, i interface{})
 // expandUrlMapHeaderActionRequestHeadersToAdd expands an instance of UrlMapHeaderActionRequestHeadersToAdd into a JSON
 // request object.
 func expandUrlMapHeaderActionRequestHeadersToAdd(c *Client, f *UrlMapHeaderActionRequestHeadersToAdd) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HeaderName; !dcl.IsEmptyValueIndirect(v) {
 		m["headerName"] = v
 	}
@@ -10354,11 +9551,10 @@ func flattenUrlMapHeaderActionResponseHeadersToAddSlice(c *Client, i interface{}
 // expandUrlMapHeaderActionResponseHeadersToAdd expands an instance of UrlMapHeaderActionResponseHeadersToAdd into a JSON
 // request object.
 func expandUrlMapHeaderActionResponseHeadersToAdd(c *Client, f *UrlMapHeaderActionResponseHeadersToAdd) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HeaderName; !dcl.IsEmptyValueIndirect(v) {
 		m["headerName"] = v
 	}
@@ -10472,11 +9668,10 @@ func flattenUrlMapDefaultRouteActionUrlRewriteSlice(c *Client, i interface{}) []
 // expandUrlMapDefaultRouteActionUrlRewrite expands an instance of UrlMapDefaultRouteActionUrlRewrite into a JSON
 // request object.
 func expandUrlMapDefaultRouteActionUrlRewrite(c *Client, f *UrlMapDefaultRouteActionUrlRewrite) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.PathPrefixRewrite; !dcl.IsEmptyValueIndirect(v) {
 		m["pathPrefixRewrite"] = v
 	}
@@ -10586,11 +9781,10 @@ func flattenUrlMapDefaultRouteActionTimeoutSlice(c *Client, i interface{}) []Url
 // expandUrlMapDefaultRouteActionTimeout expands an instance of UrlMapDefaultRouteActionTimeout into a JSON
 // request object.
 func expandUrlMapDefaultRouteActionTimeout(c *Client, f *UrlMapDefaultRouteActionTimeout) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -10700,11 +9894,10 @@ func flattenUrlMapDefaultRouteActionRetryPolicySlice(c *Client, i interface{}) [
 // expandUrlMapDefaultRouteActionRetryPolicy expands an instance of UrlMapDefaultRouteActionRetryPolicy into a JSON
 // request object.
 func expandUrlMapDefaultRouteActionRetryPolicy(c *Client, f *UrlMapDefaultRouteActionRetryPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RetryCondition; !dcl.IsEmptyValueIndirect(v) {
 		m["retryConditions"] = v
 	}
@@ -10820,11 +10013,10 @@ func flattenUrlMapDefaultRouteActionRetryPolicyPerTryTimeoutSlice(c *Client, i i
 // expandUrlMapDefaultRouteActionRetryPolicyPerTryTimeout expands an instance of UrlMapDefaultRouteActionRetryPolicyPerTryTimeout into a JSON
 // request object.
 func expandUrlMapDefaultRouteActionRetryPolicyPerTryTimeout(c *Client, f *UrlMapDefaultRouteActionRetryPolicyPerTryTimeout) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -10934,11 +10126,10 @@ func flattenUrlMapDefaultRouteActionRequestMirrorPolicySlice(c *Client, i interf
 // expandUrlMapDefaultRouteActionRequestMirrorPolicy expands an instance of UrlMapDefaultRouteActionRequestMirrorPolicy into a JSON
 // request object.
 func expandUrlMapDefaultRouteActionRequestMirrorPolicy(c *Client, f *UrlMapDefaultRouteActionRequestMirrorPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.BackendService; !dcl.IsEmptyValueIndirect(v) {
 		m["backendService"] = v
 	}
@@ -11044,11 +10235,10 @@ func flattenUrlMapDefaultRouteActionCorsPolicySlice(c *Client, i interface{}) []
 // expandUrlMapDefaultRouteActionCorsPolicy expands an instance of UrlMapDefaultRouteActionCorsPolicy into a JSON
 // request object.
 func expandUrlMapDefaultRouteActionCorsPolicy(c *Client, f *UrlMapDefaultRouteActionCorsPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AllowOrigin; !dcl.IsEmptyValueIndirect(v) {
 		m["allowOrigins"] = v
 	}
@@ -11182,11 +10372,10 @@ func flattenUrlMapDefaultRouteActionFaultInjectionPolicySlice(c *Client, i inter
 // expandUrlMapDefaultRouteActionFaultInjectionPolicy expands an instance of UrlMapDefaultRouteActionFaultInjectionPolicy into a JSON
 // request object.
 func expandUrlMapDefaultRouteActionFaultInjectionPolicy(c *Client, f *UrlMapDefaultRouteActionFaultInjectionPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandUrlMapDefaultRouteActionFaultInjectionPolicyDelay(c, f.Delay); err != nil {
 		return nil, fmt.Errorf("error expanding Delay into delay: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -11300,11 +10489,10 @@ func flattenUrlMapDefaultRouteActionFaultInjectionPolicyDelaySlice(c *Client, i 
 // expandUrlMapDefaultRouteActionFaultInjectionPolicyDelay expands an instance of UrlMapDefaultRouteActionFaultInjectionPolicyDelay into a JSON
 // request object.
 func expandUrlMapDefaultRouteActionFaultInjectionPolicyDelay(c *Client, f *UrlMapDefaultRouteActionFaultInjectionPolicyDelay) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(c, f.FixedDelay); err != nil {
 		return nil, fmt.Errorf("error expanding FixedDelay into fixedDelay: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -11416,11 +10604,10 @@ func flattenUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelaySlice(c *
 // expandUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay expands an instance of UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay into a JSON
 // request object.
 func expandUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(c *Client, f *UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -11530,11 +10717,10 @@ func flattenUrlMapDefaultRouteActionFaultInjectionPolicyAbortSlice(c *Client, i 
 // expandUrlMapDefaultRouteActionFaultInjectionPolicyAbort expands an instance of UrlMapDefaultRouteActionFaultInjectionPolicyAbort into a JSON
 // request object.
 func expandUrlMapDefaultRouteActionFaultInjectionPolicyAbort(c *Client, f *UrlMapDefaultRouteActionFaultInjectionPolicyAbort) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HttpStatus; !dcl.IsEmptyValueIndirect(v) {
 		m["httpStatus"] = v
 	}
@@ -11644,11 +10830,10 @@ func flattenUrlMapDefaultUrlRedirectSlice(c *Client, i interface{}) []UrlMapDefa
 // expandUrlMapDefaultUrlRedirect expands an instance of UrlMapDefaultUrlRedirect into a JSON
 // request object.
 func expandUrlMapDefaultUrlRedirect(c *Client, f *UrlMapDefaultUrlRedirect) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HostRedirect; !dcl.IsEmptyValueIndirect(v) {
 		m["hostRedirect"] = v
 	}
@@ -11774,11 +10959,10 @@ func flattenUrlMapHostRuleSlice(c *Client, i interface{}) []UrlMapHostRule {
 // expandUrlMapHostRule expands an instance of UrlMapHostRule into a JSON
 // request object.
 func expandUrlMapHostRule(c *Client, f *UrlMapHostRule) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
@@ -11892,11 +11076,10 @@ func flattenUrlMapPathMatcherSlice(c *Client, i interface{}) []UrlMapPathMatcher
 // expandUrlMapPathMatcher expands an instance of UrlMapPathMatcher into a JSON
 // request object.
 func expandUrlMapPathMatcher(c *Client, f *UrlMapPathMatcher) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -12040,11 +11223,10 @@ func flattenUrlMapPathMatcherDefaultUrlRedirectSlice(c *Client, i interface{}) [
 // expandUrlMapPathMatcherDefaultUrlRedirect expands an instance of UrlMapPathMatcherDefaultUrlRedirect into a JSON
 // request object.
 func expandUrlMapPathMatcherDefaultUrlRedirect(c *Client, f *UrlMapPathMatcherDefaultUrlRedirect) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HostRedirect; !dcl.IsEmptyValueIndirect(v) {
 		m["hostRedirect"] = v
 	}
@@ -12170,11 +11352,10 @@ func flattenUrlMapPathMatcherPathRuleSlice(c *Client, i interface{}) []UrlMapPat
 // expandUrlMapPathMatcherPathRule expands an instance of UrlMapPathMatcherPathRule into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRule(c *Client, f *UrlMapPathMatcherPathRule) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.BackendService; !dcl.IsEmptyValueIndirect(v) {
 		m["service"] = v
 	}
@@ -12296,11 +11477,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionSlice(c *Client, i interface{}) 
 // expandUrlMapPathMatcherPathRuleRouteAction expands an instance of UrlMapPathMatcherPathRuleRouteAction into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRuleRouteAction(c *Client, f *UrlMapPathMatcherPathRuleRouteAction) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandUrlMapPathMatcherPathRuleRouteActionWeightedBackendServiceSlice(c, f.WeightedBackendService); err != nil {
 		return nil, fmt.Errorf("error expanding WeightedBackendService into weightedBackendServices: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -12444,11 +11624,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionWeightedBackendServiceSlice(c *C
 // expandUrlMapPathMatcherPathRuleRouteActionWeightedBackendService expands an instance of UrlMapPathMatcherPathRuleRouteActionWeightedBackendService into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRuleRouteActionWeightedBackendService(c *Client, f *UrlMapPathMatcherPathRuleRouteActionWeightedBackendService) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.BackendService; !dcl.IsEmptyValueIndirect(v) {
 		m["backendService"] = v
 	}
@@ -12564,11 +11743,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionUrlRewriteSlice(c *Client, i int
 // expandUrlMapPathMatcherPathRuleRouteActionUrlRewrite expands an instance of UrlMapPathMatcherPathRuleRouteActionUrlRewrite into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRuleRouteActionUrlRewrite(c *Client, f *UrlMapPathMatcherPathRuleRouteActionUrlRewrite) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.PathPrefixRewrite; !dcl.IsEmptyValueIndirect(v) {
 		m["pathPrefixRewrite"] = v
 	}
@@ -12678,11 +11856,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionTimeoutSlice(c *Client, i interf
 // expandUrlMapPathMatcherPathRuleRouteActionTimeout expands an instance of UrlMapPathMatcherPathRuleRouteActionTimeout into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRuleRouteActionTimeout(c *Client, f *UrlMapPathMatcherPathRuleRouteActionTimeout) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -12792,11 +11969,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionRetryPolicySlice(c *Client, i in
 // expandUrlMapPathMatcherPathRuleRouteActionRetryPolicy expands an instance of UrlMapPathMatcherPathRuleRouteActionRetryPolicy into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRuleRouteActionRetryPolicy(c *Client, f *UrlMapPathMatcherPathRuleRouteActionRetryPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RetryCondition; !dcl.IsEmptyValueIndirect(v) {
 		m["retryConditions"] = v
 	}
@@ -12912,11 +12088,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeoutSlice(c 
 // expandUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout expands an instance of UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(c *Client, f *UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -13026,11 +12201,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicySlice(c *Clie
 // expandUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy expands an instance of UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy(c *Client, f *UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.BackendService; !dcl.IsEmptyValueIndirect(v) {
 		m["backendService"] = v
 	}
@@ -13136,11 +12310,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionCorsPolicySlice(c *Client, i int
 // expandUrlMapPathMatcherPathRuleRouteActionCorsPolicy expands an instance of UrlMapPathMatcherPathRuleRouteActionCorsPolicy into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRuleRouteActionCorsPolicy(c *Client, f *UrlMapPathMatcherPathRuleRouteActionCorsPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AllowOrigin; !dcl.IsEmptyValueIndirect(v) {
 		m["allowOrigins"] = v
 	}
@@ -13274,11 +12447,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicySlice(c *Cli
 // expandUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy expands an instance of UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy(c *Client, f *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay(c, f.Delay); err != nil {
 		return nil, fmt.Errorf("error expanding Delay into delay: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -13392,11 +12564,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelaySlice(c
 // expandUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay expands an instance of UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay(c *Client, f *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, f.FixedDelay); err != nil {
 		return nil, fmt.Errorf("error expanding FixedDelay into fixedDelay: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -13508,11 +12679,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDe
 // expandUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay expands an instance of UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c *Client, f *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -13622,11 +12792,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbortSlice(c
 // expandUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort expands an instance of UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort(c *Client, f *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HttpStatus; !dcl.IsEmptyValueIndirect(v) {
 		m["httpStatus"] = v
 	}
@@ -13736,11 +12905,10 @@ func flattenUrlMapPathMatcherPathRuleUrlRedirectSlice(c *Client, i interface{}) 
 // expandUrlMapPathMatcherPathRuleUrlRedirect expands an instance of UrlMapPathMatcherPathRuleUrlRedirect into a JSON
 // request object.
 func expandUrlMapPathMatcherPathRuleUrlRedirect(c *Client, f *UrlMapPathMatcherPathRuleUrlRedirect) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HostRedirect; !dcl.IsEmptyValueIndirect(v) {
 		m["hostRedirect"] = v
 	}
@@ -13866,11 +13034,10 @@ func flattenUrlMapPathMatcherRouteRuleSlice(c *Client, i interface{}) []UrlMapPa
 // expandUrlMapPathMatcherRouteRule expands an instance of UrlMapPathMatcherRouteRule into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRule(c *Client, f *UrlMapPathMatcherRouteRule) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Priority; !dcl.IsEmptyValueIndirect(v) {
 		m["priority"] = v
 	}
@@ -14008,11 +13175,10 @@ func flattenUrlMapPathMatcherRouteRuleMatchRuleSlice(c *Client, i interface{}) [
 // expandUrlMapPathMatcherRouteRuleMatchRule expands an instance of UrlMapPathMatcherRouteRuleMatchRule into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleMatchRule(c *Client, f *UrlMapPathMatcherRouteRuleMatchRule) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.PrefixMatch; !dcl.IsEmptyValueIndirect(v) {
 		m["prefixMatch"] = v
 	}
@@ -14148,11 +13314,10 @@ func flattenUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchSlice(c *Client, i int
 // expandUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch expands an instance of UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(c *Client, f *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HeaderName; !dcl.IsEmptyValueIndirect(v) {
 		m["headerName"] = v
 	}
@@ -14288,11 +13453,10 @@ func flattenUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatchSlice(c *Cli
 // expandUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch expands an instance of UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(c *Client, f *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RangeStart; !dcl.IsEmptyValueIndirect(v) {
 		m["rangeStart"] = v
 	}
@@ -14402,11 +13566,10 @@ func flattenUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatchSlice(c *Clien
 // expandUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch expands an instance of UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch(c *Client, f *UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -14524,11 +13687,10 @@ func flattenUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterSlice(c *Client, i 
 // expandUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter expands an instance of UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter(c *Client, f *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.FilterMatchCriteria; !dcl.IsEmptyValueIndirect(v) {
 		m["filterMatchCriteria"] = v
 	}
@@ -14640,11 +13802,10 @@ func flattenUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabelSlice(c 
 // expandUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel expands an instance of UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel(c *Client, f *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -14754,11 +13915,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionSlice(c *Client, i interface{})
 // expandUrlMapPathMatcherRouteRuleRouteAction expands an instance of UrlMapPathMatcherRouteRuleRouteAction into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleRouteAction(c *Client, f *UrlMapPathMatcherRouteRuleRouteAction) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandUrlMapPathMatcherRouteRuleRouteActionWeightedBackendServiceSlice(c, f.WeightedBackendService); err != nil {
 		return nil, fmt.Errorf("error expanding WeightedBackendService into weightedBackendServices: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -14902,11 +14062,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionWeightedBackendServiceSlice(c *
 // expandUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService expands an instance of UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService(c *Client, f *UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.BackendService; !dcl.IsEmptyValueIndirect(v) {
 		m["backendService"] = v
 	}
@@ -15022,11 +14181,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionUrlRewriteSlice(c *Client, i in
 // expandUrlMapPathMatcherRouteRuleRouteActionUrlRewrite expands an instance of UrlMapPathMatcherRouteRuleRouteActionUrlRewrite into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleRouteActionUrlRewrite(c *Client, f *UrlMapPathMatcherRouteRuleRouteActionUrlRewrite) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.PathPrefixRewrite; !dcl.IsEmptyValueIndirect(v) {
 		m["pathPrefixRewrite"] = v
 	}
@@ -15136,11 +14294,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionTimeoutSlice(c *Client, i inter
 // expandUrlMapPathMatcherRouteRuleRouteActionTimeout expands an instance of UrlMapPathMatcherRouteRuleRouteActionTimeout into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleRouteActionTimeout(c *Client, f *UrlMapPathMatcherRouteRuleRouteActionTimeout) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -15250,11 +14407,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionRetryPolicySlice(c *Client, i i
 // expandUrlMapPathMatcherRouteRuleRouteActionRetryPolicy expands an instance of UrlMapPathMatcherRouteRuleRouteActionRetryPolicy into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleRouteActionRetryPolicy(c *Client, f *UrlMapPathMatcherRouteRuleRouteActionRetryPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RetryCondition; !dcl.IsEmptyValueIndirect(v) {
 		m["retryConditions"] = v
 	}
@@ -15370,11 +14526,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeoutSlice(c
 // expandUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout expands an instance of UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(c *Client, f *UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -15484,11 +14639,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicySlice(c *Cli
 // expandUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy expands an instance of UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy(c *Client, f *UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.BackendService; !dcl.IsEmptyValueIndirect(v) {
 		m["backendService"] = v
 	}
@@ -15594,11 +14748,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionCorsPolicySlice(c *Client, i in
 // expandUrlMapPathMatcherRouteRuleRouteActionCorsPolicy expands an instance of UrlMapPathMatcherRouteRuleRouteActionCorsPolicy into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(c *Client, f *UrlMapPathMatcherRouteRuleRouteActionCorsPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AllowOrigin; !dcl.IsEmptyValueIndirect(v) {
 		m["allowOrigins"] = v
 	}
@@ -15732,11 +14885,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicySlice(c *Cl
 // expandUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy expands an instance of UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy(c *Client, f *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay(c, f.Delay); err != nil {
 		return nil, fmt.Errorf("error expanding Delay into delay: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -15850,11 +15002,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelaySlice(
 // expandUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay expands an instance of UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay(c *Client, f *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, f.FixedDelay); err != nil {
 		return nil, fmt.Errorf("error expanding FixedDelay into fixedDelay: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -15966,11 +15117,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedD
 // expandUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay expands an instance of UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c *Client, f *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -16080,11 +15230,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbortSlice(
 // expandUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort expands an instance of UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort(c *Client, f *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HttpStatus; !dcl.IsEmptyValueIndirect(v) {
 		m["httpStatus"] = v
 	}
@@ -16194,11 +15343,10 @@ func flattenUrlMapPathMatcherRouteRuleUrlRedirectSlice(c *Client, i interface{})
 // expandUrlMapPathMatcherRouteRuleUrlRedirect expands an instance of UrlMapPathMatcherRouteRuleUrlRedirect into a JSON
 // request object.
 func expandUrlMapPathMatcherRouteRuleUrlRedirect(c *Client, f *UrlMapPathMatcherRouteRuleUrlRedirect) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.HostRedirect; !dcl.IsEmptyValueIndirect(v) {
 		m["hostRedirect"] = v
 	}
@@ -16324,11 +15472,10 @@ func flattenUrlMapTestSlice(c *Client, i interface{}) []UrlMapTest {
 // expandUrlMapTest expands an instance of UrlMapTest into a JSON
 // request object.
 func expandUrlMapTest(c *Client, f *UrlMapTest) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}

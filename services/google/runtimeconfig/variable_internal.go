@@ -22,7 +22,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -494,6 +493,7 @@ type variableDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         variableApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -512,63 +512,52 @@ func diffVariable(c *Client, desired, actual *Variable, opts ...dcl.ApplyOption)
 
 	var diffs []variableDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, variableDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Text, actual.Text, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.RuntimeConfig, actual.RuntimeConfig, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "runtime_config"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "text"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, variableDiff{
-			UpdateOp: &updateVariableUpdateOperation{}, FieldName: "Text",
+			UpdateOp: &updateVariableUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Value, actual.Value, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "value"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, variableDiff{
-			UpdateOp: &updateVariableUpdateOperation{}, FieldName: "Value",
+			UpdateOp: &updateVariableUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, variableDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, variableDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Text) && !dcl.StringCanonicalize(desired.Text, actual.Text) {
-		c.Config.Logger.Infof("Detected diff in Text.\nDESIRED: %v\nACTUAL: %v", desired.Text, actual.Text)
 
-		diffs = append(diffs, variableDiff{
-			UpdateOp:  &updateVariableUpdateOperation{},
-			FieldName: "Text",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Value) && !dcl.StringCanonicalize(desired.Value, actual.Value) {
-		c.Config.Logger.Infof("Detected diff in Value.\nDESIRED: %v\nACTUAL: %v", desired.Value, actual.Value)
-
-		diffs = append(diffs, variableDiff{
-			UpdateOp:  &updateVariableUpdateOperation{},
-			FieldName: "Value",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -598,7 +587,7 @@ func diffVariable(c *Client, desired, actual *Variable, opts ...dcl.ApplyOption)
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Variable) urlNormalized() *Variable {
-	normalized := deepcopy.Copy(*r).(Variable)
+	normalized := dcl.Copy(*r).(Variable)
 	normalized.Name = dcl.SelfLinkToNameWithPattern(r.Name, "projects/%s/configs/%s/variables/%s")
 	normalized.RuntimeConfig = dcl.SelfLinkToName(r.RuntimeConfig)
 	normalized.Text = dcl.SelfLinkToName(r.Text)
@@ -668,12 +657,12 @@ func expandVariable(c *Client, f *Variable) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveFromPattern("projects/%s/configs/%s/variables/%s", f.Name, f.Project, f.RuntimeConfig, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding RuntimeConfig into runtimeConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["runtimeConfig"] = v
 	}
 	if v := f.Text; !dcl.IsEmptyValueIndirect(v) {
@@ -687,7 +676,7 @@ func expandVariable(c *Client, f *Variable) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 

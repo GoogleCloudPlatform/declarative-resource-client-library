@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -706,6 +705,7 @@ type connectionDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         connectionApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -724,81 +724,68 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 
 	var diffs []connectionDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, connectionDiff{
-			UpdateOp: &updateConnectionUpdateConnectionOperation{}, FieldName: "Name",
+			UpdateOp: &updateConnectionUpdateConnectionOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.FriendlyName, actual.FriendlyName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.FriendlyName, actual.FriendlyName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "friendly_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, connectionDiff{
-			UpdateOp: &updateConnectionUpdateConnectionOperation{}, FieldName: "FriendlyName",
+			UpdateOp: &updateConnectionUpdateConnectionOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, connectionDiff{
-			UpdateOp: &updateConnectionUpdateConnectionOperation{}, FieldName: "Description",
+			UpdateOp: &updateConnectionUpdateConnectionOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.CreationTime, actual.CreationTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTime, actual.CreationTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "creation_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{RequiresRecreate: true, FieldName: "CreationTime"})
+		diffs = append(diffs, connectionDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.LastModifiedTime, actual.LastModifiedTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.LastModifiedTime, actual.LastModifiedTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "last_modified_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{RequiresRecreate: true, FieldName: "LastModifiedTime"})
+		diffs = append(diffs, connectionDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.HasCredential, actual.HasCredential, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.HasCredential, actual.HasCredential, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "has_credential"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{RequiresRecreate: true, FieldName: "HasCredential"})
+		diffs = append(diffs, connectionDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-
-		diffs = append(diffs, connectionDiff{
-			UpdateOp:  &updateConnectionUpdateConnectionOperation{},
-			FieldName: "Name",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectionDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.FriendlyName) && !dcl.StringCanonicalize(desired.FriendlyName, actual.FriendlyName) {
-		c.Config.Logger.Infof("Detected diff in FriendlyName.\nDESIRED: %v\nACTUAL: %v", desired.FriendlyName, actual.FriendlyName)
 
-		diffs = append(diffs, connectionDiff{
-			UpdateOp:  &updateConnectionUpdateConnectionOperation{},
-			FieldName: "FriendlyName",
-		})
-
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectionDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
-		diffs = append(diffs, connectionDiff{
-			UpdateOp:  &updateConnectionUpdateConnectionOperation{},
-			FieldName: "Description",
-		})
-
-	}
 	if compareConnectionCloudSql(c, desired.CloudSql, actual.CloudSql) {
 		c.Config.Logger.Infof("Detected diff in CloudSql.\nDESIRED: %v\nACTUAL: %v", desired.CloudSql, actual.CloudSql)
 
@@ -839,28 +826,16 @@ func compareConnectionCloudSql(c *Client, desired, actual *ConnectionCloudSql) b
 	if actual == nil {
 		return true
 	}
-	if actual.InstanceId == nil && desired.InstanceId != nil && !dcl.IsEmptyValueIndirect(desired.InstanceId) {
-		c.Config.Logger.Infof("desired InstanceId %s - but actually nil", dcl.SprintResource(desired.InstanceId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.InstanceId, actual.InstanceId) && !dcl.IsZeroValue(desired.InstanceId) {
-		c.Config.Logger.Infof("Diff in InstanceId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceId), dcl.SprintResource(actual.InstanceId))
-		return true
-	}
-	if actual.Database == nil && desired.Database != nil && !dcl.IsEmptyValueIndirect(desired.Database) {
-		c.Config.Logger.Infof("desired Database %s - but actually nil", dcl.SprintResource(desired.Database))
+		c.Config.Logger.Infof("Diff in InstanceId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceId), dcl.SprintResource(actual.InstanceId))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Database, actual.Database) && !dcl.IsZeroValue(desired.Database) {
-		c.Config.Logger.Infof("Diff in Database. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Database), dcl.SprintResource(actual.Database))
-		return true
-	}
-	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
-		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
+		c.Config.Logger.Infof("Diff in Database.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Database), dcl.SprintResource(actual.Database))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
+		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	return false
@@ -873,7 +848,7 @@ func compareConnectionCloudSqlSlice(c *Client, desired, actual []ConnectionCloud
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareConnectionCloudSql(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ConnectionCloudSql, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ConnectionCloudSql, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -892,7 +867,7 @@ func compareConnectionCloudSqlMap(c *Client, desired, actual map[string]Connecti
 			return true
 		}
 		if compareConnectionCloudSql(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ConnectionCloudSql, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ConnectionCloudSql, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -906,20 +881,12 @@ func compareConnectionCloudSqlCredential(c *Client, desired, actual *ConnectionC
 	if actual == nil {
 		return true
 	}
-	if actual.Username == nil && desired.Username != nil && !dcl.IsEmptyValueIndirect(desired.Username) {
-		c.Config.Logger.Infof("desired Username %s - but actually nil", dcl.SprintResource(desired.Username))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Username, actual.Username) && !dcl.IsZeroValue(desired.Username) {
-		c.Config.Logger.Infof("Diff in Username. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Username), dcl.SprintResource(actual.Username))
-		return true
-	}
-	if actual.Password == nil && desired.Password != nil && !dcl.IsEmptyValueIndirect(desired.Password) {
-		c.Config.Logger.Infof("desired Password %s - but actually nil", dcl.SprintResource(desired.Password))
+		c.Config.Logger.Infof("Diff in Username.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Username), dcl.SprintResource(actual.Username))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Password, actual.Password) && !dcl.IsZeroValue(desired.Password) {
-		c.Config.Logger.Infof("Diff in Password. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Password), dcl.SprintResource(actual.Password))
+		c.Config.Logger.Infof("Diff in Password.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Password), dcl.SprintResource(actual.Password))
 		return true
 	}
 	return false
@@ -932,7 +899,7 @@ func compareConnectionCloudSqlCredentialSlice(c *Client, desired, actual []Conne
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareConnectionCloudSqlCredential(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ConnectionCloudSqlCredential, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ConnectionCloudSqlCredential, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -951,7 +918,7 @@ func compareConnectionCloudSqlCredentialMap(c *Client, desired, actual map[strin
 			return true
 		}
 		if compareConnectionCloudSqlCredential(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ConnectionCloudSqlCredential, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ConnectionCloudSqlCredential, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -965,7 +932,7 @@ func compareConnectionCloudSqlTypeEnumSlice(c *Client, desired, actual []Connect
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareConnectionCloudSqlTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ConnectionCloudSqlTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ConnectionCloudSqlTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -980,7 +947,7 @@ func compareConnectionCloudSqlTypeEnum(c *Client, desired, actual *ConnectionClo
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Connection) urlNormalized() *Connection {
-	normalized := deepcopy.Copy(*r).(Connection)
+	normalized := dcl.Copy(*r).(Connection)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.FriendlyName = dcl.SelfLinkToName(r.FriendlyName)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
@@ -1049,7 +1016,7 @@ func expandConnection(c *Client, f *Connection) (map[string]interface{}, error) 
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/connections/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.FriendlyName; !dcl.IsEmptyValueIndirect(v) {
@@ -1060,7 +1027,7 @@ func expandConnection(c *Client, f *Connection) (map[string]interface{}, error) 
 	}
 	if v, err := expandConnectionCloudSql(c, f.CloudSql); err != nil {
 		return nil, fmt.Errorf("error expanding CloudSql into cloudSql: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["cloudSql"] = v
 	}
 	if v := f.CreationTime; !dcl.IsEmptyValueIndirect(v) {
@@ -1074,12 +1041,12 @@ func expandConnection(c *Client, f *Connection) (map[string]interface{}, error) 
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 
@@ -1195,11 +1162,10 @@ func flattenConnectionCloudSqlSlice(c *Client, i interface{}) []ConnectionCloudS
 // expandConnectionCloudSql expands an instance of ConnectionCloudSql into a JSON
 // request object.
 func expandConnectionCloudSql(c *Client, f *ConnectionCloudSql) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.InstanceId; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceId"] = v
 	}
@@ -1319,11 +1285,10 @@ func flattenConnectionCloudSqlCredentialSlice(c *Client, i interface{}) []Connec
 // expandConnectionCloudSqlCredential expands an instance of ConnectionCloudSqlCredential into a JSON
 // request object.
 func expandConnectionCloudSqlCredential(c *Client, f *ConnectionCloudSqlCredential) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Username; !dcl.IsEmptyValueIndirect(v) {
 		m["username"] = v
 	}

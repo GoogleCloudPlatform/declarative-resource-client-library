@@ -21,7 +21,6 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -454,6 +453,7 @@ type connectionDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         connectionApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -472,51 +472,40 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 
 	var diffs []connectionDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Network, actual.Network, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "network"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, connectionDiff{
-			UpdateOp: &updateConnectionPatchOperation{}, FieldName: "Network",
+			UpdateOp: &updateConnectionPatchOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Service, actual.Service, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, connectionDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.ReservedPeeringRanges, actual.ReservedPeeringRanges, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "reserved_peering_ranges"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, connectionDiff{
-			UpdateOp: &updateConnectionPatchOperation{}, FieldName: "Service",
+			UpdateOp: &updateConnectionPatchOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.Network) && !dcl.PartialSelfLinkToSelfLink(desired.Network, actual.Network) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
-
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "service"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, connectionDiff{
-			UpdateOp:  &updateConnectionPatchOperation{},
-			FieldName: "Network",
+			UpdateOp: &updateConnectionPatchOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.StringSliceEqualsWithSelfLink(desired.ReservedPeeringRanges, actual.ReservedPeeringRanges) {
-		c.Config.Logger.Infof("Detected diff in ReservedPeeringRanges.\nDESIRED: %v\nACTUAL: %v", desired.ReservedPeeringRanges, actual.ReservedPeeringRanges)
 
-		diffs = append(diffs, connectionDiff{
-			UpdateOp:  &updateConnectionPatchOperation{},
-			FieldName: "ReservedPeeringRanges",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Service) && !dcl.PartialSelfLinkToSelfLink(desired.Service, actual.Service) {
-		c.Config.Logger.Infof("Detected diff in Service.\nDESIRED: %v\nACTUAL: %v", desired.Service, actual.Service)
-
-		diffs = append(diffs, connectionDiff{
-			UpdateOp:  &updateConnectionPatchOperation{},
-			FieldName: "Service",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -546,7 +535,7 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Connection) urlNormalized() *Connection {
-	normalized := deepcopy.Copy(*r).(Connection)
+	normalized := dcl.Copy(*r).(Connection)
 	normalized.Network = dcl.SelfLinkToName(r.Network)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
@@ -612,12 +601,12 @@ func expandConnection(c *Client, f *Connection) (map[string]interface{}, error) 
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/global/networks/%s", f.Network, f.Project, f.Network); err != nil {
 		return nil, fmt.Errorf("error expanding Network into network: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["network"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
@@ -628,7 +617,7 @@ func expandConnection(c *Client, f *Connection) (map[string]interface{}, error) 
 	}
 	if v, err := dcl.DeriveField("services/%s", f.Service, f.Service); err != nil {
 		return nil, fmt.Errorf("error expanding Service into service: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["service"] = v
 	}
 

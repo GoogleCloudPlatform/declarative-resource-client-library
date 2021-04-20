@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -1826,6 +1825,7 @@ type imageDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         imageApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -1844,120 +1844,134 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 
 	var diffs []imageDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.ArchiveSizeBytes, actual.ArchiveSizeBytes, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ArchiveSizeBytes, actual.ArchiveSizeBytes, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "archive_size_bytes"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "ArchiveSizeBytes"})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "Description"})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "disk_size_gb"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "DiskSizeGb"})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Family, actual.Family, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Family, actual.Family, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "family"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "Family"})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, imageDiff{
-			UpdateOp: &updateImageSetLabelsOperation{}, FieldName: "Labels",
+			UpdateOp: &updateImageSetLabelsOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.License, actual.License, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "license"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SourceDisk"})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SourceDiskId, actual.SourceDiskId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_disk"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SourceDiskId"})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SourceImage, actual.SourceImage, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SourceDiskId, actual.SourceDiskId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_disk_id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SourceImage"})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SourceImageId, actual.SourceImageId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SourceImage, actual.SourceImage, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_image"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SourceImageId"})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SourceSnapshot, actual.SourceSnapshot, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SourceImageId, actual.SourceImageId, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_image_id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SourceSnapshot"})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SourceSnapshotId, actual.SourceSnapshotId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SourceSnapshot, actual.SourceSnapshot, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_snapshot"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, FieldName: "SourceSnapshotId"})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "Description",
-		})
+	if ds, err := dcl.Diff(desired.SourceSnapshotId, actual.SourceSnapshotId, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_snapshot_id"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.DiskSizeGb, actual.DiskSizeGb) {
-		c.Config.Logger.Infof("Detected diff in DiskSizeGb.\nDESIRED: %v\nACTUAL: %v", desired.DiskSizeGb, actual.DiskSizeGb)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "DiskSizeGb",
-		})
+
+	if ds, err := dcl.Diff(desired.SourceType, actual.SourceType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "source_type"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Family) && !dcl.StringCanonicalize(desired.Family, actual.Family) {
-		c.Config.Logger.Infof("Detected diff in Family.\nDESIRED: %v\nACTUAL: %v", desired.Family, actual.Family)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "Family",
-		})
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "status"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
+	if ds, err := dcl.Diff(desired.StorageLocation, actual.StorageLocation, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "storage_location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareImageGuestOsFeatureSlice(c, desired.GuestOsFeature, actual.GuestOsFeature) {
 		c.Config.Logger.Infof("Detected diff in GuestOsFeature.\nDESIRED: %v\nACTUAL: %v", desired.GuestOsFeature, actual.GuestOsFeature)
 		toAdd, toRemove := compareImageGuestOsFeatureSets(c, desired.GuestOsFeature, actual.GuestOsFeature)
@@ -1981,41 +1995,11 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			FieldName:        "ImageEncryptionKey",
 		})
 	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
-
-		diffs = append(diffs, imageDiff{
-			UpdateOp:  &updateImageSetLabelsOperation{},
-			FieldName: "Labels",
-		})
-
-	}
-	if !dcl.StringSliceEquals(desired.License, actual.License) {
-		c.Config.Logger.Infof("Detected diff in License.\nDESIRED: %v\nACTUAL: %v", desired.License, actual.License)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "License",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
 	if compareImageShieldedInstanceInitialState(c, desired.ShieldedInstanceInitialState, actual.ShieldedInstanceInitialState) {
 		c.Config.Logger.Infof("Detected diff in ShieldedInstanceInitialState.\nDESIRED: %v\nACTUAL: %v", desired.ShieldedInstanceInitialState, actual.ShieldedInstanceInitialState)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "ShieldedInstanceInitialState",
-		})
-	}
-	if !dcl.IsZeroValue(desired.SourceDisk) && !dcl.StringCanonicalize(desired.SourceDisk, actual.SourceDisk) {
-		c.Config.Logger.Infof("Detected diff in SourceDisk.\nDESIRED: %v\nACTUAL: %v", desired.SourceDisk, actual.SourceDisk)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceDisk",
 		})
 	}
 	if compareImageSourceDiskEncryptionKey(c, desired.SourceDiskEncryptionKey, actual.SourceDiskEncryptionKey) {
@@ -2025,13 +2009,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			FieldName:        "SourceDiskEncryptionKey",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SourceImage) && !dcl.StringCanonicalize(desired.SourceImage, actual.SourceImage) {
-		c.Config.Logger.Infof("Detected diff in SourceImage.\nDESIRED: %v\nACTUAL: %v", desired.SourceImage, actual.SourceImage)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceImage",
-		})
-	}
 	if compareImageSourceImageEncryptionKey(c, desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey) {
 		c.Config.Logger.Infof("Detected diff in SourceImageEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey)
 		diffs = append(diffs, imageDiff{
@@ -2039,46 +2016,11 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			FieldName:        "SourceImageEncryptionKey",
 		})
 	}
-	if !dcl.IsZeroValue(desired.SourceImageId) && !dcl.StringCanonicalize(desired.SourceImageId, actual.SourceImageId) {
-		c.Config.Logger.Infof("Detected diff in SourceImageId.\nDESIRED: %v\nACTUAL: %v", desired.SourceImageId, actual.SourceImageId)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceImageId",
-		})
-	}
-	if !dcl.IsZeroValue(desired.SourceSnapshot) && !dcl.StringCanonicalize(desired.SourceSnapshot, actual.SourceSnapshot) {
-		c.Config.Logger.Infof("Detected diff in SourceSnapshot.\nDESIRED: %v\nACTUAL: %v", desired.SourceSnapshot, actual.SourceSnapshot)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceSnapshot",
-		})
-	}
 	if compareImageSourceSnapshotEncryptionKey(c, desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey) {
 		c.Config.Logger.Infof("Detected diff in SourceSnapshotEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey)
 		diffs = append(diffs, imageDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceSnapshotEncryptionKey",
-		})
-	}
-	if !dcl.IsZeroValue(desired.SourceSnapshotId) && !dcl.StringCanonicalize(desired.SourceSnapshotId, actual.SourceSnapshotId) {
-		c.Config.Logger.Infof("Detected diff in SourceSnapshotId.\nDESIRED: %v\nACTUAL: %v", desired.SourceSnapshotId, actual.SourceSnapshotId)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceSnapshotId",
-		})
-	}
-	if !reflect.DeepEqual(desired.SourceType, actual.SourceType) {
-		c.Config.Logger.Infof("Detected diff in SourceType.\nDESIRED: %v\nACTUAL: %v", desired.SourceType, actual.SourceType)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceType",
-		})
-	}
-	if !dcl.StringSliceEquals(desired.StorageLocation, actual.StorageLocation) {
-		c.Config.Logger.Infof("Detected diff in StorageLocation.\nDESIRED: %v\nACTUAL: %v", desired.StorageLocation, actual.StorageLocation)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "StorageLocation",
 		})
 	}
 	if compareImageDeprecated(c, desired.Deprecated, actual.Deprecated) {
@@ -2121,12 +2063,8 @@ func compareImageGuestOsFeature(c *Client, desired, actual *ImageGuestOsFeature)
 	if actual == nil {
 		return true
 	}
-	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
-		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
+		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	return false
@@ -2139,7 +2077,7 @@ func compareImageGuestOsFeatureSlice(c *Client, desired, actual []ImageGuestOsFe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageGuestOsFeature(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageGuestOsFeature, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageGuestOsFeature, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2158,7 +2096,7 @@ func compareImageGuestOsFeatureMap(c *Client, desired, actual map[string]ImageGu
 			return true
 		}
 		if compareImageGuestOsFeature(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ImageGuestOsFeature, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ImageGuestOsFeature, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2221,36 +2159,20 @@ func compareImageImageEncryptionKey(c *Client, desired, actual *ImageImageEncryp
 	if actual == nil {
 		return true
 	}
-	if actual.RawKey == nil && desired.RawKey != nil && !dcl.IsEmptyValueIndirect(desired.RawKey) {
-		c.Config.Logger.Infof("desired RawKey %s - but actually nil", dcl.SprintResource(desired.RawKey))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.RawKey, actual.RawKey) && !dcl.IsZeroValue(desired.RawKey) {
-		c.Config.Logger.Infof("Diff in RawKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
-		return true
-	}
-	if actual.KmsKeyName == nil && desired.KmsKeyName != nil && !dcl.IsEmptyValueIndirect(desired.KmsKeyName) {
-		c.Config.Logger.Infof("desired KmsKeyName %s - but actually nil", dcl.SprintResource(desired.KmsKeyName))
+		c.Config.Logger.Infof("Diff in RawKey.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.KmsKeyName, actual.KmsKeyName) && !dcl.IsZeroValue(desired.KmsKeyName) {
-		c.Config.Logger.Infof("Diff in KmsKeyName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
-		return true
-	}
-	if actual.Sha256 == nil && desired.Sha256 != nil && !dcl.IsEmptyValueIndirect(desired.Sha256) {
-		c.Config.Logger.Infof("desired Sha256 %s - but actually nil", dcl.SprintResource(desired.Sha256))
+		c.Config.Logger.Infof("Diff in KmsKeyName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Sha256, actual.Sha256) && !dcl.IsZeroValue(desired.Sha256) {
-		c.Config.Logger.Infof("Diff in Sha256. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha256), dcl.SprintResource(actual.Sha256))
-		return true
-	}
-	if actual.KmsKeyServiceAccount == nil && desired.KmsKeyServiceAccount != nil && !dcl.IsEmptyValueIndirect(desired.KmsKeyServiceAccount) {
-		c.Config.Logger.Infof("desired KmsKeyServiceAccount %s - but actually nil", dcl.SprintResource(desired.KmsKeyServiceAccount))
+		c.Config.Logger.Infof("Diff in Sha256.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha256), dcl.SprintResource(actual.Sha256))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.KmsKeyServiceAccount, actual.KmsKeyServiceAccount) && !dcl.IsZeroValue(desired.KmsKeyServiceAccount) {
-		c.Config.Logger.Infof("Diff in KmsKeyServiceAccount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyServiceAccount), dcl.SprintResource(actual.KmsKeyServiceAccount))
+		c.Config.Logger.Infof("Diff in KmsKeyServiceAccount.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyServiceAccount), dcl.SprintResource(actual.KmsKeyServiceAccount))
 		return true
 	}
 	return false
@@ -2263,7 +2185,7 @@ func compareImageImageEncryptionKeySlice(c *Client, desired, actual []ImageImage
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageImageEncryptionKey(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageImageEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageImageEncryptionKey, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2282,7 +2204,7 @@ func compareImageImageEncryptionKeyMap(c *Client, desired, actual map[string]Ima
 			return true
 		}
 		if compareImageImageEncryptionKey(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ImageImageEncryptionKey, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ImageImageEncryptionKey, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2296,28 +2218,16 @@ func compareImageRawDisk(c *Client, desired, actual *ImageRawDisk) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.Source == nil && desired.Source != nil && !dcl.IsEmptyValueIndirect(desired.Source) {
-		c.Config.Logger.Infof("desired Source %s - but actually nil", dcl.SprintResource(desired.Source))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Source, actual.Source) && !dcl.IsZeroValue(desired.Source) {
-		c.Config.Logger.Infof("Diff in Source. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Source), dcl.SprintResource(actual.Source))
-		return true
-	}
-	if actual.Sha1Checksum == nil && desired.Sha1Checksum != nil && !dcl.IsEmptyValueIndirect(desired.Sha1Checksum) {
-		c.Config.Logger.Infof("desired Sha1Checksum %s - but actually nil", dcl.SprintResource(desired.Sha1Checksum))
+		c.Config.Logger.Infof("Diff in Source.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Source), dcl.SprintResource(actual.Source))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Sha1Checksum, actual.Sha1Checksum) && !dcl.IsZeroValue(desired.Sha1Checksum) {
-		c.Config.Logger.Infof("Diff in Sha1Checksum. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha1Checksum), dcl.SprintResource(actual.Sha1Checksum))
-		return true
-	}
-	if actual.ContainerType == nil && desired.ContainerType != nil && !dcl.IsEmptyValueIndirect(desired.ContainerType) {
-		c.Config.Logger.Infof("desired ContainerType %s - but actually nil", dcl.SprintResource(desired.ContainerType))
+		c.Config.Logger.Infof("Diff in Sha1Checksum.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha1Checksum), dcl.SprintResource(actual.Sha1Checksum))
 		return true
 	}
 	if !reflect.DeepEqual(desired.ContainerType, actual.ContainerType) && !dcl.IsZeroValue(desired.ContainerType) {
-		c.Config.Logger.Infof("Diff in ContainerType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContainerType), dcl.SprintResource(actual.ContainerType))
+		c.Config.Logger.Infof("Diff in ContainerType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContainerType), dcl.SprintResource(actual.ContainerType))
 		return true
 	}
 	return false
@@ -2330,7 +2240,7 @@ func compareImageRawDiskSlice(c *Client, desired, actual []ImageRawDisk) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageRawDisk(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageRawDisk, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageRawDisk, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2349,7 +2259,7 @@ func compareImageRawDiskMap(c *Client, desired, actual map[string]ImageRawDisk) 
 			return true
 		}
 		if compareImageRawDisk(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ImageRawDisk, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ImageRawDisk, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2363,36 +2273,20 @@ func compareImageShieldedInstanceInitialState(c *Client, desired, actual *ImageS
 	if actual == nil {
 		return true
 	}
-	if actual.Pk == nil && desired.Pk != nil && !dcl.IsEmptyValueIndirect(desired.Pk) {
-		c.Config.Logger.Infof("desired Pk %s - but actually nil", dcl.SprintResource(desired.Pk))
-		return true
-	}
 	if compareImageShieldedInstanceInitialStatePk(c, desired.Pk, actual.Pk) && !dcl.IsZeroValue(desired.Pk) {
-		c.Config.Logger.Infof("Diff in Pk. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Pk), dcl.SprintResource(actual.Pk))
-		return true
-	}
-	if actual.Kek == nil && desired.Kek != nil && !dcl.IsEmptyValueIndirect(desired.Kek) {
-		c.Config.Logger.Infof("desired Kek %s - but actually nil", dcl.SprintResource(desired.Kek))
+		c.Config.Logger.Infof("Diff in Pk.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Pk), dcl.SprintResource(actual.Pk))
 		return true
 	}
 	if compareImageShieldedInstanceInitialStateKekSlice(c, desired.Kek, actual.Kek) && !dcl.IsZeroValue(desired.Kek) {
-		c.Config.Logger.Infof("Diff in Kek. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kek), dcl.SprintResource(actual.Kek))
-		return true
-	}
-	if actual.Db == nil && desired.Db != nil && !dcl.IsEmptyValueIndirect(desired.Db) {
-		c.Config.Logger.Infof("desired Db %s - but actually nil", dcl.SprintResource(desired.Db))
+		c.Config.Logger.Infof("Diff in Kek.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kek), dcl.SprintResource(actual.Kek))
 		return true
 	}
 	if compareImageShieldedInstanceInitialStateDbSlice(c, desired.Db, actual.Db) && !dcl.IsZeroValue(desired.Db) {
-		c.Config.Logger.Infof("Diff in Db. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Db), dcl.SprintResource(actual.Db))
-		return true
-	}
-	if actual.Dbx == nil && desired.Dbx != nil && !dcl.IsEmptyValueIndirect(desired.Dbx) {
-		c.Config.Logger.Infof("desired Dbx %s - but actually nil", dcl.SprintResource(desired.Dbx))
+		c.Config.Logger.Infof("Diff in Db.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Db), dcl.SprintResource(actual.Db))
 		return true
 	}
 	if compareImageShieldedInstanceInitialStateDbxSlice(c, desired.Dbx, actual.Dbx) && !dcl.IsZeroValue(desired.Dbx) {
-		c.Config.Logger.Infof("Diff in Dbx. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Dbx), dcl.SprintResource(actual.Dbx))
+		c.Config.Logger.Infof("Diff in Dbx.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Dbx), dcl.SprintResource(actual.Dbx))
 		return true
 	}
 	return false
@@ -2405,7 +2299,7 @@ func compareImageShieldedInstanceInitialStateSlice(c *Client, desired, actual []
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageShieldedInstanceInitialState(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialState, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialState, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2424,7 +2318,7 @@ func compareImageShieldedInstanceInitialStateMap(c *Client, desired, actual map[
 			return true
 		}
 		if compareImageShieldedInstanceInitialState(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialState, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialState, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2438,20 +2332,12 @@ func compareImageShieldedInstanceInitialStatePk(c *Client, desired, actual *Imag
 	if actual == nil {
 		return true
 	}
-	if actual.Content == nil && desired.Content != nil && !dcl.IsEmptyValueIndirect(desired.Content) {
-		c.Config.Logger.Infof("desired Content %s - but actually nil", dcl.SprintResource(desired.Content))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Content, actual.Content) && !dcl.IsZeroValue(desired.Content) {
-		c.Config.Logger.Infof("Diff in Content. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
-		return true
-	}
-	if actual.FileType == nil && desired.FileType != nil && !dcl.IsEmptyValueIndirect(desired.FileType) {
-		c.Config.Logger.Infof("desired FileType %s - but actually nil", dcl.SprintResource(desired.FileType))
+		c.Config.Logger.Infof("Diff in Content.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
 		return true
 	}
 	if !reflect.DeepEqual(desired.FileType, actual.FileType) && !dcl.IsZeroValue(desired.FileType) {
-		c.Config.Logger.Infof("Diff in FileType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileType), dcl.SprintResource(actual.FileType))
+		c.Config.Logger.Infof("Diff in FileType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileType), dcl.SprintResource(actual.FileType))
 		return true
 	}
 	return false
@@ -2464,7 +2350,7 @@ func compareImageShieldedInstanceInitialStatePkSlice(c *Client, desired, actual 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageShieldedInstanceInitialStatePk(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStatePk, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStatePk, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2483,7 +2369,7 @@ func compareImageShieldedInstanceInitialStatePkMap(c *Client, desired, actual ma
 			return true
 		}
 		if compareImageShieldedInstanceInitialStatePk(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStatePk, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStatePk, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2497,20 +2383,12 @@ func compareImageShieldedInstanceInitialStateKek(c *Client, desired, actual *Ima
 	if actual == nil {
 		return true
 	}
-	if actual.Content == nil && desired.Content != nil && !dcl.IsEmptyValueIndirect(desired.Content) {
-		c.Config.Logger.Infof("desired Content %s - but actually nil", dcl.SprintResource(desired.Content))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Content, actual.Content) && !dcl.IsZeroValue(desired.Content) {
-		c.Config.Logger.Infof("Diff in Content. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
-		return true
-	}
-	if actual.FileType == nil && desired.FileType != nil && !dcl.IsEmptyValueIndirect(desired.FileType) {
-		c.Config.Logger.Infof("desired FileType %s - but actually nil", dcl.SprintResource(desired.FileType))
+		c.Config.Logger.Infof("Diff in Content.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
 		return true
 	}
 	if !reflect.DeepEqual(desired.FileType, actual.FileType) && !dcl.IsZeroValue(desired.FileType) {
-		c.Config.Logger.Infof("Diff in FileType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileType), dcl.SprintResource(actual.FileType))
+		c.Config.Logger.Infof("Diff in FileType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileType), dcl.SprintResource(actual.FileType))
 		return true
 	}
 	return false
@@ -2523,7 +2401,7 @@ func compareImageShieldedInstanceInitialStateKekSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageShieldedInstanceInitialStateKek(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateKek, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateKek, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2542,7 +2420,7 @@ func compareImageShieldedInstanceInitialStateKekMap(c *Client, desired, actual m
 			return true
 		}
 		if compareImageShieldedInstanceInitialStateKek(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateKek, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateKek, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2556,20 +2434,12 @@ func compareImageShieldedInstanceInitialStateDb(c *Client, desired, actual *Imag
 	if actual == nil {
 		return true
 	}
-	if actual.Content == nil && desired.Content != nil && !dcl.IsEmptyValueIndirect(desired.Content) {
-		c.Config.Logger.Infof("desired Content %s - but actually nil", dcl.SprintResource(desired.Content))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Content, actual.Content) && !dcl.IsZeroValue(desired.Content) {
-		c.Config.Logger.Infof("Diff in Content. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
-		return true
-	}
-	if actual.FileType == nil && desired.FileType != nil && !dcl.IsEmptyValueIndirect(desired.FileType) {
-		c.Config.Logger.Infof("desired FileType %s - but actually nil", dcl.SprintResource(desired.FileType))
+		c.Config.Logger.Infof("Diff in Content.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
 		return true
 	}
 	if !reflect.DeepEqual(desired.FileType, actual.FileType) && !dcl.IsZeroValue(desired.FileType) {
-		c.Config.Logger.Infof("Diff in FileType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileType), dcl.SprintResource(actual.FileType))
+		c.Config.Logger.Infof("Diff in FileType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileType), dcl.SprintResource(actual.FileType))
 		return true
 	}
 	return false
@@ -2582,7 +2452,7 @@ func compareImageShieldedInstanceInitialStateDbSlice(c *Client, desired, actual 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageShieldedInstanceInitialStateDb(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateDb, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateDb, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2601,7 +2471,7 @@ func compareImageShieldedInstanceInitialStateDbMap(c *Client, desired, actual ma
 			return true
 		}
 		if compareImageShieldedInstanceInitialStateDb(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateDb, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateDb, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2615,20 +2485,12 @@ func compareImageShieldedInstanceInitialStateDbx(c *Client, desired, actual *Ima
 	if actual == nil {
 		return true
 	}
-	if actual.Content == nil && desired.Content != nil && !dcl.IsEmptyValueIndirect(desired.Content) {
-		c.Config.Logger.Infof("desired Content %s - but actually nil", dcl.SprintResource(desired.Content))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Content, actual.Content) && !dcl.IsZeroValue(desired.Content) {
-		c.Config.Logger.Infof("Diff in Content. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
-		return true
-	}
-	if actual.FileType == nil && desired.FileType != nil && !dcl.IsEmptyValueIndirect(desired.FileType) {
-		c.Config.Logger.Infof("desired FileType %s - but actually nil", dcl.SprintResource(desired.FileType))
+		c.Config.Logger.Infof("Diff in Content.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
 		return true
 	}
 	if !reflect.DeepEqual(desired.FileType, actual.FileType) && !dcl.IsZeroValue(desired.FileType) {
-		c.Config.Logger.Infof("Diff in FileType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileType), dcl.SprintResource(actual.FileType))
+		c.Config.Logger.Infof("Diff in FileType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileType), dcl.SprintResource(actual.FileType))
 		return true
 	}
 	return false
@@ -2641,7 +2503,7 @@ func compareImageShieldedInstanceInitialStateDbxSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageShieldedInstanceInitialStateDbx(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateDbx, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateDbx, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2660,7 +2522,7 @@ func compareImageShieldedInstanceInitialStateDbxMap(c *Client, desired, actual m
 			return true
 		}
 		if compareImageShieldedInstanceInitialStateDbx(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateDbx, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateDbx, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2674,36 +2536,20 @@ func compareImageSourceDiskEncryptionKey(c *Client, desired, actual *ImageSource
 	if actual == nil {
 		return true
 	}
-	if actual.RawKey == nil && desired.RawKey != nil && !dcl.IsEmptyValueIndirect(desired.RawKey) {
-		c.Config.Logger.Infof("desired RawKey %s - but actually nil", dcl.SprintResource(desired.RawKey))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.RawKey, actual.RawKey) && !dcl.IsZeroValue(desired.RawKey) {
-		c.Config.Logger.Infof("Diff in RawKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
-		return true
-	}
-	if actual.KmsKeyName == nil && desired.KmsKeyName != nil && !dcl.IsEmptyValueIndirect(desired.KmsKeyName) {
-		c.Config.Logger.Infof("desired KmsKeyName %s - but actually nil", dcl.SprintResource(desired.KmsKeyName))
+		c.Config.Logger.Infof("Diff in RawKey.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.KmsKeyName, actual.KmsKeyName) && !dcl.IsZeroValue(desired.KmsKeyName) {
-		c.Config.Logger.Infof("Diff in KmsKeyName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
-		return true
-	}
-	if actual.Sha256 == nil && desired.Sha256 != nil && !dcl.IsEmptyValueIndirect(desired.Sha256) {
-		c.Config.Logger.Infof("desired Sha256 %s - but actually nil", dcl.SprintResource(desired.Sha256))
+		c.Config.Logger.Infof("Diff in KmsKeyName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Sha256, actual.Sha256) && !dcl.IsZeroValue(desired.Sha256) {
-		c.Config.Logger.Infof("Diff in Sha256. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha256), dcl.SprintResource(actual.Sha256))
-		return true
-	}
-	if actual.KmsKeyServiceAccount == nil && desired.KmsKeyServiceAccount != nil && !dcl.IsEmptyValueIndirect(desired.KmsKeyServiceAccount) {
-		c.Config.Logger.Infof("desired KmsKeyServiceAccount %s - but actually nil", dcl.SprintResource(desired.KmsKeyServiceAccount))
+		c.Config.Logger.Infof("Diff in Sha256.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha256), dcl.SprintResource(actual.Sha256))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.KmsKeyServiceAccount, actual.KmsKeyServiceAccount) && !dcl.IsZeroValue(desired.KmsKeyServiceAccount) {
-		c.Config.Logger.Infof("Diff in KmsKeyServiceAccount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyServiceAccount), dcl.SprintResource(actual.KmsKeyServiceAccount))
+		c.Config.Logger.Infof("Diff in KmsKeyServiceAccount.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyServiceAccount), dcl.SprintResource(actual.KmsKeyServiceAccount))
 		return true
 	}
 	return false
@@ -2716,7 +2562,7 @@ func compareImageSourceDiskEncryptionKeySlice(c *Client, desired, actual []Image
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageSourceDiskEncryptionKey(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageSourceDiskEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageSourceDiskEncryptionKey, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2735,7 +2581,7 @@ func compareImageSourceDiskEncryptionKeyMap(c *Client, desired, actual map[strin
 			return true
 		}
 		if compareImageSourceDiskEncryptionKey(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ImageSourceDiskEncryptionKey, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ImageSourceDiskEncryptionKey, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2749,36 +2595,20 @@ func compareImageSourceImageEncryptionKey(c *Client, desired, actual *ImageSourc
 	if actual == nil {
 		return true
 	}
-	if actual.RawKey == nil && desired.RawKey != nil && !dcl.IsEmptyValueIndirect(desired.RawKey) {
-		c.Config.Logger.Infof("desired RawKey %s - but actually nil", dcl.SprintResource(desired.RawKey))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.RawKey, actual.RawKey) && !dcl.IsZeroValue(desired.RawKey) {
-		c.Config.Logger.Infof("Diff in RawKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
-		return true
-	}
-	if actual.KmsKeyName == nil && desired.KmsKeyName != nil && !dcl.IsEmptyValueIndirect(desired.KmsKeyName) {
-		c.Config.Logger.Infof("desired KmsKeyName %s - but actually nil", dcl.SprintResource(desired.KmsKeyName))
+		c.Config.Logger.Infof("Diff in RawKey.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.KmsKeyName, actual.KmsKeyName) && !dcl.IsZeroValue(desired.KmsKeyName) {
-		c.Config.Logger.Infof("Diff in KmsKeyName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
-		return true
-	}
-	if actual.Sha256 == nil && desired.Sha256 != nil && !dcl.IsEmptyValueIndirect(desired.Sha256) {
-		c.Config.Logger.Infof("desired Sha256 %s - but actually nil", dcl.SprintResource(desired.Sha256))
+		c.Config.Logger.Infof("Diff in KmsKeyName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Sha256, actual.Sha256) && !dcl.IsZeroValue(desired.Sha256) {
-		c.Config.Logger.Infof("Diff in Sha256. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha256), dcl.SprintResource(actual.Sha256))
-		return true
-	}
-	if actual.KmsKeyServiceAccount == nil && desired.KmsKeyServiceAccount != nil && !dcl.IsEmptyValueIndirect(desired.KmsKeyServiceAccount) {
-		c.Config.Logger.Infof("desired KmsKeyServiceAccount %s - but actually nil", dcl.SprintResource(desired.KmsKeyServiceAccount))
+		c.Config.Logger.Infof("Diff in Sha256.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha256), dcl.SprintResource(actual.Sha256))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.KmsKeyServiceAccount, actual.KmsKeyServiceAccount) && !dcl.IsZeroValue(desired.KmsKeyServiceAccount) {
-		c.Config.Logger.Infof("Diff in KmsKeyServiceAccount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyServiceAccount), dcl.SprintResource(actual.KmsKeyServiceAccount))
+		c.Config.Logger.Infof("Diff in KmsKeyServiceAccount.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyServiceAccount), dcl.SprintResource(actual.KmsKeyServiceAccount))
 		return true
 	}
 	return false
@@ -2791,7 +2621,7 @@ func compareImageSourceImageEncryptionKeySlice(c *Client, desired, actual []Imag
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageSourceImageEncryptionKey(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageSourceImageEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageSourceImageEncryptionKey, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2810,7 +2640,7 @@ func compareImageSourceImageEncryptionKeyMap(c *Client, desired, actual map[stri
 			return true
 		}
 		if compareImageSourceImageEncryptionKey(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ImageSourceImageEncryptionKey, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ImageSourceImageEncryptionKey, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2824,36 +2654,20 @@ func compareImageSourceSnapshotEncryptionKey(c *Client, desired, actual *ImageSo
 	if actual == nil {
 		return true
 	}
-	if actual.RawKey == nil && desired.RawKey != nil && !dcl.IsEmptyValueIndirect(desired.RawKey) {
-		c.Config.Logger.Infof("desired RawKey %s - but actually nil", dcl.SprintResource(desired.RawKey))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.RawKey, actual.RawKey) && !dcl.IsZeroValue(desired.RawKey) {
-		c.Config.Logger.Infof("Diff in RawKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
-		return true
-	}
-	if actual.KmsKeyName == nil && desired.KmsKeyName != nil && !dcl.IsEmptyValueIndirect(desired.KmsKeyName) {
-		c.Config.Logger.Infof("desired KmsKeyName %s - but actually nil", dcl.SprintResource(desired.KmsKeyName))
+		c.Config.Logger.Infof("Diff in RawKey.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RawKey), dcl.SprintResource(actual.RawKey))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.KmsKeyName, actual.KmsKeyName) && !dcl.IsZeroValue(desired.KmsKeyName) {
-		c.Config.Logger.Infof("Diff in KmsKeyName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
-		return true
-	}
-	if actual.Sha256 == nil && desired.Sha256 != nil && !dcl.IsEmptyValueIndirect(desired.Sha256) {
-		c.Config.Logger.Infof("desired Sha256 %s - but actually nil", dcl.SprintResource(desired.Sha256))
+		c.Config.Logger.Infof("Diff in KmsKeyName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Sha256, actual.Sha256) && !dcl.IsZeroValue(desired.Sha256) {
-		c.Config.Logger.Infof("Diff in Sha256. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha256), dcl.SprintResource(actual.Sha256))
-		return true
-	}
-	if actual.KmsKeyServiceAccount == nil && desired.KmsKeyServiceAccount != nil && !dcl.IsEmptyValueIndirect(desired.KmsKeyServiceAccount) {
-		c.Config.Logger.Infof("desired KmsKeyServiceAccount %s - but actually nil", dcl.SprintResource(desired.KmsKeyServiceAccount))
+		c.Config.Logger.Infof("Diff in Sha256.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha256), dcl.SprintResource(actual.Sha256))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.KmsKeyServiceAccount, actual.KmsKeyServiceAccount) && !dcl.IsZeroValue(desired.KmsKeyServiceAccount) {
-		c.Config.Logger.Infof("Diff in KmsKeyServiceAccount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyServiceAccount), dcl.SprintResource(actual.KmsKeyServiceAccount))
+		c.Config.Logger.Infof("Diff in KmsKeyServiceAccount.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyServiceAccount), dcl.SprintResource(actual.KmsKeyServiceAccount))
 		return true
 	}
 	return false
@@ -2866,7 +2680,7 @@ func compareImageSourceSnapshotEncryptionKeySlice(c *Client, desired, actual []I
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageSourceSnapshotEncryptionKey(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageSourceSnapshotEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageSourceSnapshotEncryptionKey, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2885,7 +2699,7 @@ func compareImageSourceSnapshotEncryptionKeyMap(c *Client, desired, actual map[s
 			return true
 		}
 		if compareImageSourceSnapshotEncryptionKey(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ImageSourceSnapshotEncryptionKey, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ImageSourceSnapshotEncryptionKey, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2899,44 +2713,24 @@ func compareImageDeprecated(c *Client, desired, actual *ImageDeprecated) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.State == nil && desired.State != nil && !dcl.IsEmptyValueIndirect(desired.State) {
-		c.Config.Logger.Infof("desired State %s - but actually nil", dcl.SprintResource(desired.State))
-		return true
-	}
 	if !reflect.DeepEqual(desired.State, actual.State) && !dcl.IsZeroValue(desired.State) {
-		c.Config.Logger.Infof("Diff in State. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.State), dcl.SprintResource(actual.State))
-		return true
-	}
-	if actual.Replacement == nil && desired.Replacement != nil && !dcl.IsEmptyValueIndirect(desired.Replacement) {
-		c.Config.Logger.Infof("desired Replacement %s - but actually nil", dcl.SprintResource(desired.Replacement))
+		c.Config.Logger.Infof("Diff in State.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.State), dcl.SprintResource(actual.State))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Replacement, actual.Replacement) && !dcl.IsZeroValue(desired.Replacement) {
-		c.Config.Logger.Infof("Diff in Replacement. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Replacement), dcl.SprintResource(actual.Replacement))
-		return true
-	}
-	if actual.Deprecated == nil && desired.Deprecated != nil && !dcl.IsEmptyValueIndirect(desired.Deprecated) {
-		c.Config.Logger.Infof("desired Deprecated %s - but actually nil", dcl.SprintResource(desired.Deprecated))
+		c.Config.Logger.Infof("Diff in Replacement.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Replacement), dcl.SprintResource(actual.Replacement))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Deprecated, actual.Deprecated) && !dcl.IsZeroValue(desired.Deprecated) {
-		c.Config.Logger.Infof("Diff in Deprecated. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Deprecated), dcl.SprintResource(actual.Deprecated))
-		return true
-	}
-	if actual.Obsolete == nil && desired.Obsolete != nil && !dcl.IsEmptyValueIndirect(desired.Obsolete) {
-		c.Config.Logger.Infof("desired Obsolete %s - but actually nil", dcl.SprintResource(desired.Obsolete))
+		c.Config.Logger.Infof("Diff in Deprecated.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Deprecated), dcl.SprintResource(actual.Deprecated))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Obsolete, actual.Obsolete) && !dcl.IsZeroValue(desired.Obsolete) {
-		c.Config.Logger.Infof("Diff in Obsolete. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Obsolete), dcl.SprintResource(actual.Obsolete))
-		return true
-	}
-	if actual.Deleted == nil && desired.Deleted != nil && !dcl.IsEmptyValueIndirect(desired.Deleted) {
-		c.Config.Logger.Infof("desired Deleted %s - but actually nil", dcl.SprintResource(desired.Deleted))
+		c.Config.Logger.Infof("Diff in Obsolete.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Obsolete), dcl.SprintResource(actual.Obsolete))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Deleted, actual.Deleted) && !dcl.IsZeroValue(desired.Deleted) {
-		c.Config.Logger.Infof("Diff in Deleted. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Deleted), dcl.SprintResource(actual.Deleted))
+		c.Config.Logger.Infof("Diff in Deleted.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Deleted), dcl.SprintResource(actual.Deleted))
 		return true
 	}
 	return false
@@ -2949,7 +2743,7 @@ func compareImageDeprecatedSlice(c *Client, desired, actual []ImageDeprecated) b
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageDeprecated(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageDeprecated, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageDeprecated, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -2968,7 +2762,7 @@ func compareImageDeprecatedMap(c *Client, desired, actual map[string]ImageDeprec
 			return true
 		}
 		if compareImageDeprecated(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ImageDeprecated, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ImageDeprecated, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -2982,7 +2776,7 @@ func compareImageGuestOsFeatureTypeEnumSlice(c *Client, desired, actual []ImageG
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageGuestOsFeatureTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageGuestOsFeatureTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageGuestOsFeatureTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3000,7 +2794,7 @@ func compareImageRawDiskContainerTypeEnumSlice(c *Client, desired, actual []Imag
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageRawDiskContainerTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageRawDiskContainerTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageRawDiskContainerTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3018,7 +2812,7 @@ func compareImageShieldedInstanceInitialStatePkFileTypeEnumSlice(c *Client, desi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageShieldedInstanceInitialStatePkFileTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStatePkFileTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStatePkFileTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3036,7 +2830,7 @@ func compareImageShieldedInstanceInitialStateKekFileTypeEnumSlice(c *Client, des
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageShieldedInstanceInitialStateKekFileTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateKekFileTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateKekFileTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3054,7 +2848,7 @@ func compareImageShieldedInstanceInitialStateDbFileTypeEnumSlice(c *Client, desi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageShieldedInstanceInitialStateDbFileTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateDbFileTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateDbFileTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3072,7 +2866,7 @@ func compareImageShieldedInstanceInitialStateDbxFileTypeEnumSlice(c *Client, des
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageShieldedInstanceInitialStateDbxFileTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateDbxFileTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageShieldedInstanceInitialStateDbxFileTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3090,7 +2884,7 @@ func compareImageSourceTypeEnumSlice(c *Client, desired, actual []ImageSourceTyp
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageSourceTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageSourceTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageSourceTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3108,7 +2902,7 @@ func compareImageStatusEnumSlice(c *Client, desired, actual []ImageStatusEnum) b
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageStatusEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageStatusEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3126,7 +2920,7 @@ func compareImageDeprecatedStateEnumSlice(c *Client, desired, actual []ImageDepr
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareImageDeprecatedStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ImageDeprecatedStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ImageDeprecatedStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3141,7 +2935,7 @@ func compareImageDeprecatedStateEnum(c *Client, desired, actual *ImageDeprecated
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Image) urlNormalized() *Image {
-	normalized := deepcopy.Copy(*r).(Image)
+	normalized := dcl.Copy(*r).(Image)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Family = dcl.SelfLinkToName(r.Family)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
@@ -3235,12 +3029,12 @@ func expandImage(c *Client, f *Image) (map[string]interface{}, error) {
 	}
 	if v, err := expandImageGuestOsFeatureSlice(c, f.GuestOsFeature); err != nil {
 		return nil, fmt.Errorf("error expanding GuestOsFeature into guestOsFeatures: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["guestOsFeatures"] = v
 	}
 	if v, err := expandImageImageEncryptionKey(c, f.ImageEncryptionKey); err != nil {
 		return nil, fmt.Errorf("error expanding ImageEncryptionKey into imageEncryptionKey: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["imageEncryptionKey"] = v
 	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
@@ -3254,12 +3048,12 @@ func expandImage(c *Client, f *Image) (map[string]interface{}, error) {
 	}
 	if v, err := expandImageRawDisk(c, f.RawDisk); err != nil {
 		return nil, fmt.Errorf("error expanding RawDisk into rawDisk: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["rawDisk"] = v
 	}
 	if v, err := expandImageShieldedInstanceInitialState(c, f.ShieldedInstanceInitialState); err != nil {
 		return nil, fmt.Errorf("error expanding ShieldedInstanceInitialState into shieldedInstanceInitialState: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["shieldedInstanceInitialState"] = v
 	}
 	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
@@ -3270,7 +3064,7 @@ func expandImage(c *Client, f *Image) (map[string]interface{}, error) {
 	}
 	if v, err := expandImageSourceDiskEncryptionKey(c, f.SourceDiskEncryptionKey); err != nil {
 		return nil, fmt.Errorf("error expanding SourceDiskEncryptionKey into sourceDiskEncryptionKey: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sourceDiskEncryptionKey"] = v
 	}
 	if v := f.SourceDiskId; !dcl.IsEmptyValueIndirect(v) {
@@ -3281,7 +3075,7 @@ func expandImage(c *Client, f *Image) (map[string]interface{}, error) {
 	}
 	if v, err := expandImageSourceImageEncryptionKey(c, f.SourceImageEncryptionKey); err != nil {
 		return nil, fmt.Errorf("error expanding SourceImageEncryptionKey into sourceImageEncryptionKey: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sourceImageEncryptionKey"] = v
 	}
 	if v := f.SourceImageId; !dcl.IsEmptyValueIndirect(v) {
@@ -3292,7 +3086,7 @@ func expandImage(c *Client, f *Image) (map[string]interface{}, error) {
 	}
 	if v, err := expandImageSourceSnapshotEncryptionKey(c, f.SourceSnapshotEncryptionKey); err != nil {
 		return nil, fmt.Errorf("error expanding SourceSnapshotEncryptionKey into sourceSnapshotEncryptionKey: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sourceSnapshotEncryptionKey"] = v
 	}
 	if v := f.SourceSnapshotId; !dcl.IsEmptyValueIndirect(v) {
@@ -3309,12 +3103,12 @@ func expandImage(c *Client, f *Image) (map[string]interface{}, error) {
 	}
 	if v, err := expandImageDeprecated(c, f.Deprecated); err != nil {
 		return nil, fmt.Errorf("error expanding Deprecated into deprecated: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["deprecated"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -3447,11 +3241,10 @@ func flattenImageGuestOsFeatureSlice(c *Client, i interface{}) []ImageGuestOsFea
 // expandImageGuestOsFeature expands an instance of ImageGuestOsFeature into a JSON
 // request object.
 func expandImageGuestOsFeature(c *Client, f *ImageGuestOsFeature) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
@@ -3557,11 +3350,10 @@ func flattenImageImageEncryptionKeySlice(c *Client, i interface{}) []ImageImageE
 // expandImageImageEncryptionKey expands an instance of ImageImageEncryptionKey into a JSON
 // request object.
 func expandImageImageEncryptionKey(c *Client, f *ImageImageEncryptionKey) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RawKey; !dcl.IsEmptyValueIndirect(v) {
 		m["rawKey"] = v
 	}
@@ -3679,11 +3471,10 @@ func flattenImageRawDiskSlice(c *Client, i interface{}) []ImageRawDisk {
 // expandImageRawDisk expands an instance of ImageRawDisk into a JSON
 // request object.
 func expandImageRawDisk(c *Client, f *ImageRawDisk) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Source; !dcl.IsEmptyValueIndirect(v) {
 		m["source"] = v
 	}
@@ -3801,11 +3592,10 @@ func flattenImageShieldedInstanceInitialStateSlice(c *Client, i interface{}) []I
 // expandImageShieldedInstanceInitialState expands an instance of ImageShieldedInstanceInitialState into a JSON
 // request object.
 func expandImageShieldedInstanceInitialState(c *Client, f *ImageShieldedInstanceInitialState) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandImageShieldedInstanceInitialStatePk(c, f.Pk); err != nil {
 		return nil, fmt.Errorf("error expanding Pk into pk: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -3931,11 +3721,10 @@ func flattenImageShieldedInstanceInitialStatePkSlice(c *Client, i interface{}) [
 // expandImageShieldedInstanceInitialStatePk expands an instance of ImageShieldedInstanceInitialStatePk into a JSON
 // request object.
 func expandImageShieldedInstanceInitialStatePk(c *Client, f *ImageShieldedInstanceInitialStatePk) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Content; !dcl.IsEmptyValueIndirect(v) {
 		m["content"] = v
 	}
@@ -4045,11 +3834,10 @@ func flattenImageShieldedInstanceInitialStateKekSlice(c *Client, i interface{}) 
 // expandImageShieldedInstanceInitialStateKek expands an instance of ImageShieldedInstanceInitialStateKek into a JSON
 // request object.
 func expandImageShieldedInstanceInitialStateKek(c *Client, f *ImageShieldedInstanceInitialStateKek) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Content; !dcl.IsEmptyValueIndirect(v) {
 		m["content"] = v
 	}
@@ -4159,11 +3947,10 @@ func flattenImageShieldedInstanceInitialStateDbSlice(c *Client, i interface{}) [
 // expandImageShieldedInstanceInitialStateDb expands an instance of ImageShieldedInstanceInitialStateDb into a JSON
 // request object.
 func expandImageShieldedInstanceInitialStateDb(c *Client, f *ImageShieldedInstanceInitialStateDb) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Content; !dcl.IsEmptyValueIndirect(v) {
 		m["content"] = v
 	}
@@ -4273,11 +4060,10 @@ func flattenImageShieldedInstanceInitialStateDbxSlice(c *Client, i interface{}) 
 // expandImageShieldedInstanceInitialStateDbx expands an instance of ImageShieldedInstanceInitialStateDbx into a JSON
 // request object.
 func expandImageShieldedInstanceInitialStateDbx(c *Client, f *ImageShieldedInstanceInitialStateDbx) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Content; !dcl.IsEmptyValueIndirect(v) {
 		m["content"] = v
 	}
@@ -4387,11 +4173,10 @@ func flattenImageSourceDiskEncryptionKeySlice(c *Client, i interface{}) []ImageS
 // expandImageSourceDiskEncryptionKey expands an instance of ImageSourceDiskEncryptionKey into a JSON
 // request object.
 func expandImageSourceDiskEncryptionKey(c *Client, f *ImageSourceDiskEncryptionKey) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RawKey; !dcl.IsEmptyValueIndirect(v) {
 		m["rawKey"] = v
 	}
@@ -4509,11 +4294,10 @@ func flattenImageSourceImageEncryptionKeySlice(c *Client, i interface{}) []Image
 // expandImageSourceImageEncryptionKey expands an instance of ImageSourceImageEncryptionKey into a JSON
 // request object.
 func expandImageSourceImageEncryptionKey(c *Client, f *ImageSourceImageEncryptionKey) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RawKey; !dcl.IsEmptyValueIndirect(v) {
 		m["rawKey"] = v
 	}
@@ -4631,11 +4415,10 @@ func flattenImageSourceSnapshotEncryptionKeySlice(c *Client, i interface{}) []Im
 // expandImageSourceSnapshotEncryptionKey expands an instance of ImageSourceSnapshotEncryptionKey into a JSON
 // request object.
 func expandImageSourceSnapshotEncryptionKey(c *Client, f *ImageSourceSnapshotEncryptionKey) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RawKey; !dcl.IsEmptyValueIndirect(v) {
 		m["rawKey"] = v
 	}
@@ -4753,11 +4536,10 @@ func flattenImageDeprecatedSlice(c *Client, i interface{}) []ImageDeprecated {
 // expandImageDeprecated expands an instance of ImageDeprecated into a JSON
 // request object.
 func expandImageDeprecated(c *Client, f *ImageDeprecated) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
 		m["state"] = v
 	}

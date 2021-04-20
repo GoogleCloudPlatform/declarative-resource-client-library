@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -586,9 +585,6 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
 		rawDesired.Location = rawInitial.Location
 	}
-	if dcl.NameToSelfLink(rawDesired.Region, rawInitial.Region) {
-		rawDesired.Region = rawInitial.Region
-	}
 
 	return rawDesired, nil
 }
@@ -757,8 +753,6 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	rawNew.Project = rawDesired.Project
 
 	rawNew.Location = rawDesired.Location
-
-	rawNew.Region = rawDesired.Region
 
 	return rawNew, nil
 }
@@ -1118,6 +1112,9 @@ func canonicalizeInstanceMaintenanceSchedule(des, initial *InstanceMaintenanceSc
 	if dcl.BoolCanonicalize(des.CanReschedule, initial.CanReschedule) || dcl.IsZeroValue(des.CanReschedule) {
 		des.CanReschedule = initial.CanReschedule
 	}
+	if dcl.IsZeroValue(des.ScheduleDeadlineTime) {
+		des.ScheduleDeadlineTime = initial.ScheduleDeadlineTime
+	}
 
 	return des
 }
@@ -1181,6 +1178,7 @@ type instanceDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         instanceApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -1199,273 +1197,195 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	var diffs []instanceDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Name",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "DisplayName",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "Labels",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.LocationId, actual.LocationId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.LocationId, actual.LocationId, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location_id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "LocationId",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.AlternativeLocationId, actual.AlternativeLocationId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.AlternativeLocationId, actual.AlternativeLocationId, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "alternative_location_id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "AlternativeLocationId",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.RedisVersion, actual.RedisVersion, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.RedisVersion, actual.RedisVersion, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "redis_version"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "RedisVersion",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.ReservedIPRange, actual.ReservedIPRange, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ReservedIPRange, actual.ReservedIPRange, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "reserved_ip_range"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "ReservedIPRange",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Host, actual.Host, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "host"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "Host"})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Port, actual.Port, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "port"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "Port"})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.CurrentLocationId, actual.CurrentLocationId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CurrentLocationId, actual.CurrentLocationId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "current_location_id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "CurrentLocationId"})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "StatusMessage"})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.RedisConfigs, actual.RedisConfigs, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "status_message"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "RedisConfigs",
-		})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.MemorySizeGb, actual.MemorySizeGb, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "MemorySizeGb",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.AuthorizedNetwork, actual.AuthorizedNetwork, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.RedisConfigs, actual.RedisConfigs, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "redis_configs"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "AuthorizedNetwork",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.PersistenceIamIdentity, actual.PersistenceIamIdentity, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, FieldName: "PersistenceIamIdentity"})
-	}
-
-	if d, err := dcl.Diff(desired.AuthEnabled, actual.AuthEnabled, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Tier, actual.Tier, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "tier"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, FieldName: "AuthEnabled",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-
+	if ds, err := dcl.Diff(desired.MemorySizeGb, actual.MemorySizeGb, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "memory_size_gb"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "Name",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
+	if ds, err := dcl.Diff(desired.AuthorizedNetwork, actual.AuthorizedNetwork, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "authorized_network"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "DisplayName",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
 
+	if ds, err := dcl.Diff(desired.PersistenceIamIdentity, actual.PersistenceIamIdentity, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "persistence_iam_identity"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.ConnectMode, actual.ConnectMode, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "connect_mode"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "Labels",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.IsZeroValue(desired.LocationId) && !dcl.StringCanonicalize(desired.LocationId, actual.LocationId) {
-		c.Config.Logger.Infof("Detected diff in LocationId.\nDESIRED: %v\nACTUAL: %v", desired.LocationId, actual.LocationId)
 
+	if ds, err := dcl.Diff(desired.AuthEnabled, actual.AuthEnabled, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "auth_enabled"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "LocationId",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.IsZeroValue(desired.AlternativeLocationId) && !dcl.StringCanonicalize(desired.AlternativeLocationId, actual.AlternativeLocationId) {
-		c.Config.Logger.Infof("Detected diff in AlternativeLocationId.\nDESIRED: %v\nACTUAL: %v", desired.AlternativeLocationId, actual.AlternativeLocationId)
 
+	if ds, err := dcl.Diff(desired.TransitEncryptionMode, actual.TransitEncryptionMode, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "transit_encryption_mode"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "AlternativeLocationId",
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 		})
-
 	}
-	if !dcl.IsZeroValue(desired.RedisVersion) && !dcl.StringCanonicalize(desired.RedisVersion, actual.RedisVersion) {
-		c.Config.Logger.Infof("Detected diff in RedisVersion.\nDESIRED: %v\nACTUAL: %v", desired.RedisVersion, actual.RedisVersion)
 
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "RedisVersion",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.ReservedIPRange) && !dcl.StringCanonicalize(desired.ReservedIPRange, actual.ReservedIPRange) {
-		c.Config.Logger.Infof("Detected diff in ReservedIPRange.\nDESIRED: %v\nACTUAL: %v", desired.ReservedIPRange, actual.ReservedIPRange)
 
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "ReservedIPRange",
-		})
-
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.MapEquals(desired.RedisConfigs, actual.RedisConfigs, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in RedisConfigs.\nDESIRED: %v\nACTUAL: %v", desired.RedisConfigs, actual.RedisConfigs)
 
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "RedisConfigs",
-		})
-
-	}
-	if !reflect.DeepEqual(desired.Tier, actual.Tier) {
-		c.Config.Logger.Infof("Detected diff in Tier.\nDESIRED: %v\nACTUAL: %v", desired.Tier, actual.Tier)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "Tier",
-		})
-
-	}
-	if !reflect.DeepEqual(desired.MemorySizeGb, actual.MemorySizeGb) {
-		c.Config.Logger.Infof("Detected diff in MemorySizeGb.\nDESIRED: %v\nACTUAL: %v", desired.MemorySizeGb, actual.MemorySizeGb)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "MemorySizeGb",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.AuthorizedNetwork) && !dcl.StringCanonicalize(desired.AuthorizedNetwork, actual.AuthorizedNetwork) {
-		c.Config.Logger.Infof("Detected diff in AuthorizedNetwork.\nDESIRED: %v\nACTUAL: %v", desired.AuthorizedNetwork, actual.AuthorizedNetwork)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "AuthorizedNetwork",
-		})
-
-	}
-	if !reflect.DeepEqual(desired.ConnectMode, actual.ConnectMode) {
-		c.Config.Logger.Infof("Detected diff in ConnectMode.\nDESIRED: %v\nACTUAL: %v", desired.ConnectMode, actual.ConnectMode)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "ConnectMode",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.AuthEnabled) && !dcl.BoolCanonicalize(desired.AuthEnabled, actual.AuthEnabled) {
-		c.Config.Logger.Infof("Detected diff in AuthEnabled.\nDESIRED: %v\nACTUAL: %v", desired.AuthEnabled, actual.AuthEnabled)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "AuthEnabled",
-		})
-
-	}
-	if !reflect.DeepEqual(desired.TransitEncryptionMode, actual.TransitEncryptionMode) {
-		c.Config.Logger.Infof("Detected diff in TransitEncryptionMode.\nDESIRED: %v\nACTUAL: %v", desired.TransitEncryptionMode, actual.TransitEncryptionMode)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
-			FieldName: "TransitEncryptionMode",
-		})
-
-	}
 	if compareInstanceMaintenancePolicy(c, desired.MaintenancePolicy, actual.MaintenancePolicy) {
 		c.Config.Logger.Infof("Detected diff in MaintenancePolicy.\nDESIRED: %v\nACTUAL: %v", desired.MaintenancePolicy, actual.MaintenancePolicy)
 
@@ -1506,28 +1426,16 @@ func compareInstanceServerCaCerts(c *Client, desired, actual *InstanceServerCaCe
 	if actual == nil {
 		return true
 	}
-	if actual.SerialNumber == nil && desired.SerialNumber != nil && !dcl.IsEmptyValueIndirect(desired.SerialNumber) {
-		c.Config.Logger.Infof("desired SerialNumber %s - but actually nil", dcl.SprintResource(desired.SerialNumber))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.SerialNumber, actual.SerialNumber) && !dcl.IsZeroValue(desired.SerialNumber) {
-		c.Config.Logger.Infof("Diff in SerialNumber. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SerialNumber), dcl.SprintResource(actual.SerialNumber))
-		return true
-	}
-	if actual.Cert == nil && desired.Cert != nil && !dcl.IsEmptyValueIndirect(desired.Cert) {
-		c.Config.Logger.Infof("desired Cert %s - but actually nil", dcl.SprintResource(desired.Cert))
+		c.Config.Logger.Infof("Diff in SerialNumber.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SerialNumber), dcl.SprintResource(actual.SerialNumber))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Cert, actual.Cert) && !dcl.IsZeroValue(desired.Cert) {
-		c.Config.Logger.Infof("Diff in Cert. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Cert), dcl.SprintResource(actual.Cert))
-		return true
-	}
-	if actual.Sha1Fingerprint == nil && desired.Sha1Fingerprint != nil && !dcl.IsEmptyValueIndirect(desired.Sha1Fingerprint) {
-		c.Config.Logger.Infof("desired Sha1Fingerprint %s - but actually nil", dcl.SprintResource(desired.Sha1Fingerprint))
+		c.Config.Logger.Infof("Diff in Cert.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Cert), dcl.SprintResource(actual.Cert))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Sha1Fingerprint, actual.Sha1Fingerprint) && !dcl.IsZeroValue(desired.Sha1Fingerprint) {
-		c.Config.Logger.Infof("Diff in Sha1Fingerprint. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha1Fingerprint), dcl.SprintResource(actual.Sha1Fingerprint))
+		c.Config.Logger.Infof("Diff in Sha1Fingerprint.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha1Fingerprint), dcl.SprintResource(actual.Sha1Fingerprint))
 		return true
 	}
 	return false
@@ -1540,7 +1448,7 @@ func compareInstanceServerCaCertsSlice(c *Client, desired, actual []InstanceServ
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceServerCaCerts(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceServerCaCerts, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceServerCaCerts, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1559,7 +1467,7 @@ func compareInstanceServerCaCertsMap(c *Client, desired, actual map[string]Insta
 			return true
 		}
 		if compareInstanceServerCaCerts(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceServerCaCerts, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceServerCaCerts, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1573,20 +1481,12 @@ func compareInstanceMaintenancePolicy(c *Client, desired, actual *InstanceMainte
 	if actual == nil {
 		return true
 	}
-	if actual.Description == nil && desired.Description != nil && !dcl.IsEmptyValueIndirect(desired.Description) {
-		c.Config.Logger.Infof("desired Description %s - but actually nil", dcl.SprintResource(desired.Description))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
-		c.Config.Logger.Infof("Diff in Description. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
-		return true
-	}
-	if actual.WeeklyMaintenanceWindow == nil && desired.WeeklyMaintenanceWindow != nil && !dcl.IsEmptyValueIndirect(desired.WeeklyMaintenanceWindow) {
-		c.Config.Logger.Infof("desired WeeklyMaintenanceWindow %s - but actually nil", dcl.SprintResource(desired.WeeklyMaintenanceWindow))
+		c.Config.Logger.Infof("Diff in Description.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
 		return true
 	}
 	if compareInstanceMaintenancePolicyWeeklyMaintenanceWindowSlice(c, desired.WeeklyMaintenanceWindow, actual.WeeklyMaintenanceWindow) && !dcl.IsZeroValue(desired.WeeklyMaintenanceWindow) {
-		c.Config.Logger.Infof("Diff in WeeklyMaintenanceWindow. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WeeklyMaintenanceWindow), dcl.SprintResource(actual.WeeklyMaintenanceWindow))
+		c.Config.Logger.Infof("Diff in WeeklyMaintenanceWindow.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WeeklyMaintenanceWindow), dcl.SprintResource(actual.WeeklyMaintenanceWindow))
 		return true
 	}
 	return false
@@ -1599,7 +1499,7 @@ func compareInstanceMaintenancePolicySlice(c *Client, desired, actual []Instance
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceMaintenancePolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1618,7 +1518,7 @@ func compareInstanceMaintenancePolicyMap(c *Client, desired, actual map[string]I
 			return true
 		}
 		if compareInstanceMaintenancePolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1632,20 +1532,12 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindow(c *Client, desired,
 	if actual == nil {
 		return true
 	}
-	if actual.Day == nil && desired.Day != nil && !dcl.IsEmptyValueIndirect(desired.Day) {
-		c.Config.Logger.Infof("desired Day %s - but actually nil", dcl.SprintResource(desired.Day))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Day, actual.Day) && !dcl.IsZeroValue(desired.Day) {
-		c.Config.Logger.Infof("Diff in Day. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Day), dcl.SprintResource(actual.Day))
-		return true
-	}
-	if actual.StartTime == nil && desired.StartTime != nil && !dcl.IsEmptyValueIndirect(desired.StartTime) {
-		c.Config.Logger.Infof("desired StartTime %s - but actually nil", dcl.SprintResource(desired.StartTime))
+		c.Config.Logger.Infof("Diff in Day.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Day), dcl.SprintResource(actual.Day))
 		return true
 	}
 	if compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, desired.StartTime, actual.StartTime) && !dcl.IsZeroValue(desired.StartTime) {
-		c.Config.Logger.Infof("Diff in StartTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StartTime), dcl.SprintResource(actual.StartTime))
+		c.Config.Logger.Infof("Diff in StartTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StartTime), dcl.SprintResource(actual.StartTime))
 		return true
 	}
 	return false
@@ -1658,7 +1550,7 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowSlice(c *Client, des
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceMaintenancePolicyWeeklyMaintenanceWindow(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindow, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindow, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1677,7 +1569,7 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowMap(c *Client, desir
 			return true
 		}
 		if compareInstanceMaintenancePolicyWeeklyMaintenanceWindow(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindow, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindow, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1691,36 +1583,20 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c *Client,
 	if actual == nil {
 		return true
 	}
-	if actual.Hours == nil && desired.Hours != nil && !dcl.IsEmptyValueIndirect(desired.Hours) {
-		c.Config.Logger.Infof("desired Hours %s - but actually nil", dcl.SprintResource(desired.Hours))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Hours, actual.Hours) && !dcl.IsZeroValue(desired.Hours) {
-		c.Config.Logger.Infof("Diff in Hours. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Hours), dcl.SprintResource(actual.Hours))
-		return true
-	}
-	if actual.Minutes == nil && desired.Minutes != nil && !dcl.IsEmptyValueIndirect(desired.Minutes) {
-		c.Config.Logger.Infof("desired Minutes %s - but actually nil", dcl.SprintResource(desired.Minutes))
+		c.Config.Logger.Infof("Diff in Hours.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Hours), dcl.SprintResource(actual.Hours))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Minutes, actual.Minutes) && !dcl.IsZeroValue(desired.Minutes) {
-		c.Config.Logger.Infof("Diff in Minutes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Minutes), dcl.SprintResource(actual.Minutes))
-		return true
-	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
+		c.Config.Logger.Infof("Diff in Minutes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Minutes), dcl.SprintResource(actual.Minutes))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -1733,7 +1609,7 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeSlice(c *Cl
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1752,7 +1628,7 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeMap(c *Clie
 			return true
 		}
 		if compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1766,12 +1642,8 @@ func compareInstanceMaintenanceSchedule(c *Client, desired, actual *InstanceMain
 	if actual == nil {
 		return true
 	}
-	if actual.CanReschedule == nil && desired.CanReschedule != nil && !dcl.IsEmptyValueIndirect(desired.CanReschedule) {
-		c.Config.Logger.Infof("desired CanReschedule %s - but actually nil", dcl.SprintResource(desired.CanReschedule))
-		return true
-	}
 	if !dcl.BoolCanonicalize(desired.CanReschedule, actual.CanReschedule) && !dcl.IsZeroValue(desired.CanReschedule) {
-		c.Config.Logger.Infof("Diff in CanReschedule. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CanReschedule), dcl.SprintResource(actual.CanReschedule))
+		c.Config.Logger.Infof("Diff in CanReschedule.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CanReschedule), dcl.SprintResource(actual.CanReschedule))
 		return true
 	}
 	return false
@@ -1784,7 +1656,7 @@ func compareInstanceMaintenanceScheduleSlice(c *Client, desired, actual []Instan
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceMaintenanceSchedule(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenanceSchedule, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceMaintenanceSchedule, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1803,7 +1675,7 @@ func compareInstanceMaintenanceScheduleMap(c *Client, desired, actual map[string
 			return true
 		}
 		if compareInstanceMaintenanceSchedule(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenanceSchedule, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in InstanceMaintenanceSchedule, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1817,7 +1689,7 @@ func compareInstanceStateEnumSlice(c *Client, desired, actual []InstanceStateEnu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1835,7 +1707,7 @@ func compareInstanceTierEnumSlice(c *Client, desired, actual []InstanceTierEnum)
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceTierEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTierEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceTierEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1853,7 +1725,7 @@ func compareInstanceConnectModeEnumSlice(c *Client, desired, actual []InstanceCo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceConnectModeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceConnectModeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceConnectModeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1871,7 +1743,7 @@ func compareInstanceTransitEncryptionModeEnumSlice(c *Client, desired, actual []
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceTransitEncryptionModeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceTransitEncryptionModeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceTransitEncryptionModeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1889,7 +1761,7 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnumSlice(c *Clie
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1904,7 +1776,7 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(c *Client, d
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Instance) urlNormalized() *Instance {
-	normalized := deepcopy.Copy(*r).(Instance)
+	normalized := dcl.Copy(*r).(Instance)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.LocationId = dcl.SelfLinkToName(r.LocationId)
@@ -1918,7 +1790,6 @@ func (r *Instance) urlNormalized() *Instance {
 	normalized.PersistenceIamIdentity = dcl.SelfLinkToName(r.PersistenceIamIdentity)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
 	return &normalized
 }
 
@@ -1982,7 +1853,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/instances/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
@@ -2044,7 +1915,7 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceServerCaCertsSlice(c, f.ServerCaCerts); err != nil {
 		return nil, fmt.Errorf("error expanding ServerCaCerts into serverCaCerts: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["serverCaCerts"] = v
 	}
 	if v := f.TransitEncryptionMode; !dcl.IsEmptyValueIndirect(v) {
@@ -2052,28 +1923,23 @@ func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	}
 	if v, err := expandInstanceMaintenancePolicy(c, f.MaintenancePolicy); err != nil {
 		return nil, fmt.Errorf("error expanding MaintenancePolicy into maintenancePolicy: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["maintenancePolicy"] = v
 	}
 	if v, err := expandInstanceMaintenanceSchedule(c, f.MaintenanceSchedule); err != nil {
 		return nil, fmt.Errorf("error expanding MaintenanceSchedule into maintenanceSchedule: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["maintenanceSchedule"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
-	}
-	if v, err := dcl.EmptyValue(); err != nil {
-		return nil, fmt.Errorf("error expanding Region into region: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["region"] = v
 	}
 
 	return m, nil
@@ -2117,7 +1983,6 @@ func flattenInstance(c *Client, i interface{}) *Instance {
 	r.MaintenanceSchedule = flattenInstanceMaintenanceSchedule(c, m["maintenanceSchedule"])
 	r.Project = dcl.FlattenString(m["project"])
 	r.Location = dcl.FlattenString(m["location"])
-	r.Region = dcl.FlattenString(m["region"])
 
 	return r
 }
@@ -2206,11 +2071,10 @@ func flattenInstanceServerCaCertsSlice(c *Client, i interface{}) []InstanceServe
 // expandInstanceServerCaCerts expands an instance of InstanceServerCaCerts into a JSON
 // request object.
 func expandInstanceServerCaCerts(c *Client, f *InstanceServerCaCerts) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.SerialNumber; !dcl.IsEmptyValueIndirect(v) {
 		m["serialNumber"] = v
 	}
@@ -2332,11 +2196,10 @@ func flattenInstanceMaintenancePolicySlice(c *Client, i interface{}) []InstanceM
 // expandInstanceMaintenancePolicy expands an instance of InstanceMaintenancePolicy into a JSON
 // request object.
 func expandInstanceMaintenancePolicy(c *Client, f *InstanceMaintenancePolicy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["createTime"] = v
 	}
@@ -2456,11 +2319,10 @@ func flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowSlice(c *Client, i i
 // expandInstanceMaintenancePolicyWeeklyMaintenanceWindow expands an instance of InstanceMaintenancePolicyWeeklyMaintenanceWindow into a JSON
 // request object.
 func expandInstanceMaintenancePolicyWeeklyMaintenanceWindow(c *Client, f *InstanceMaintenancePolicyWeeklyMaintenanceWindow) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Day; !dcl.IsEmptyValueIndirect(v) {
 		m["day"] = v
 	}
@@ -2576,11 +2438,10 @@ func flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeSlice(c *Cl
 // expandInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime expands an instance of InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime into a JSON
 // request object.
 func expandInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c *Client, f *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Hours; !dcl.IsEmptyValueIndirect(v) {
 		m["hours"] = v
 	}
@@ -2698,11 +2559,10 @@ func flattenInstanceMaintenanceScheduleSlice(c *Client, i interface{}) []Instanc
 // expandInstanceMaintenanceSchedule expands an instance of InstanceMaintenanceSchedule into a JSON
 // request object.
 func expandInstanceMaintenanceSchedule(c *Client, f *InstanceMaintenanceSchedule) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.StartTime; !dcl.IsEmptyValueIndirect(v) {
 		m["startTime"] = v
 	}
@@ -2711,6 +2571,9 @@ func expandInstanceMaintenanceSchedule(c *Client, f *InstanceMaintenanceSchedule
 	}
 	if v := f.CanReschedule; !dcl.IsEmptyValueIndirect(v) {
 		m["canReschedule"] = v
+	}
+	if v := f.ScheduleDeadlineTime; !dcl.IsEmptyValueIndirect(v) {
+		m["scheduleDeadlineTime"] = v
 	}
 
 	return m, nil
@@ -2728,6 +2591,7 @@ func flattenInstanceMaintenanceSchedule(c *Client, i interface{}) *InstanceMaint
 	r.StartTime = dcl.FlattenString(m["startTime"])
 	r.EndTime = dcl.FlattenString(m["endTime"])
 	r.CanReschedule = dcl.FlattenBool(m["canReschedule"])
+	r.ScheduleDeadlineTime = dcl.FlattenString(m["scheduleDeadlineTime"])
 
 	return r
 }

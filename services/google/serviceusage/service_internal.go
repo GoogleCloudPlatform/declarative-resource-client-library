@@ -22,7 +22,6 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -272,6 +271,7 @@ type serviceDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         serviceApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -290,20 +290,27 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 
 	var diffs []serviceDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Project, actual.Project, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, FieldName: "Project"})
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !reflect.DeepEqual(desired.State, actual.State) {
-		c.Config.Logger.Infof("Detected diff in State.\nDESIRED: %v\nACTUAL: %v", desired.State, actual.State)
-		diffs = append(diffs, serviceDiff{
-			RequiresRecreate: true,
-			FieldName:        "State",
-		})
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -335,7 +342,7 @@ func compareServiceStateEnumSlice(c *Client, desired, actual []ServiceStateEnum)
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -350,7 +357,7 @@ func compareServiceStateEnum(c *Client, desired, actual *ServiceStateEnum) bool 
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Service) urlNormalized() *Service {
-	normalized := deepcopy.Copy(*r).(Service)
+	normalized := dcl.Copy(*r).(Service)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
@@ -406,7 +413,7 @@ func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
@@ -414,7 +421,7 @@ func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.DeriveField("projects/%s", f.Project, f.Project); err != nil {
 		return nil, fmt.Errorf("error expanding Project into parent: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["parent"] = v
 	}
 

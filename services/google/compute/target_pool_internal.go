@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -848,6 +847,7 @@ type targetPoolDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         targetPoolApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -866,80 +866,78 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 
 	var diffs []targetPoolDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.BackupPool, actual.BackupPool, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.BackupPool, actual.BackupPool, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "backup_pool"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, targetPoolDiff{
-			UpdateOp: &updateTargetPoolSetBackupOperation{}, FieldName: "BackupPool",
+			UpdateOp: &updateTargetPoolSetBackupOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, FieldName: "Description"})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.FailoverRatio, actual.FailoverRatio, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.FailoverRatio, actual.FailoverRatio, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "failover_ratio"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, FieldName: "FailoverRatio"})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "Set", FieldName: "health_check"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "Set", FieldName: "instance"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, FieldName: "Region"})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Project, actual.Project, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, FieldName: "Project"})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.BackupPool) && !dcl.StringCanonicalize(desired.BackupPool, actual.BackupPool) {
-		c.Config.Logger.Infof("Detected diff in BackupPool.\nDESIRED: %v\nACTUAL: %v", desired.BackupPool, actual.BackupPool)
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
+	}
 
-		diffs = append(diffs, targetPoolDiff{
-			UpdateOp:  &updateTargetPoolSetBackupOperation{},
-			FieldName: "BackupPool",
-		})
+	if ds, err := dcl.Diff(desired.SessionAffinity, actual.SessionAffinity, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "session_affinity"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
+	}
 
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
-		diffs = append(diffs, targetPoolDiff{
-			RequiresRecreate: true,
-			FieldName:        "Description",
-		})
-	}
-	if !reflect.DeepEqual(desired.FailoverRatio, actual.FailoverRatio) {
-		c.Config.Logger.Infof("Detected diff in FailoverRatio.\nDESIRED: %v\nACTUAL: %v", desired.FailoverRatio, actual.FailoverRatio)
-		diffs = append(diffs, targetPoolDiff{
-			RequiresRecreate: true,
-			FieldName:        "FailoverRatio",
-		})
-	}
+
 	if !dcl.IsZeroValue(desired.HealthCheck) && !dcl.PartialSelfLinkToSelfLinkArray(desired.HealthCheck, actual.HealthCheck) {
 		c.Config.Logger.Infof("Detected diff in HealthCheck.\nDESIRED: %v\nACTUAL: %v", desired.HealthCheck, actual.HealthCheck)
 		toAdd, toRemove := dcl.CompareStringSets(desired.HealthCheck, actual.HealthCheck)
@@ -972,41 +970,6 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 			})
 		}
 	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, targetPoolDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Region) && !dcl.StringCanonicalize(desired.Region, actual.Region) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
-		diffs = append(diffs, targetPoolDiff{
-			RequiresRecreate: true,
-			FieldName:        "Region",
-		})
-	}
-	if !dcl.IsZeroValue(desired.SelfLink) && !dcl.StringCanonicalize(desired.SelfLink, actual.SelfLink) {
-		c.Config.Logger.Infof("Detected diff in SelfLink.\nDESIRED: %v\nACTUAL: %v", desired.SelfLink, actual.SelfLink)
-		diffs = append(diffs, targetPoolDiff{
-			RequiresRecreate: true,
-			FieldName:        "SelfLink",
-		})
-	}
-	if !reflect.DeepEqual(desired.SessionAffinity, actual.SessionAffinity) {
-		c.Config.Logger.Infof("Detected diff in SessionAffinity.\nDESIRED: %v\nACTUAL: %v", desired.SessionAffinity, actual.SessionAffinity)
-		diffs = append(diffs, targetPoolDiff{
-			RequiresRecreate: true,
-			FieldName:        "SessionAffinity",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Project) && !dcl.StringCanonicalize(desired.Project, actual.Project) {
-		c.Config.Logger.Infof("Detected diff in Project.\nDESIRED: %v\nACTUAL: %v", desired.Project, actual.Project)
-		diffs = append(diffs, targetPoolDiff{
-			RequiresRecreate: true,
-			FieldName:        "Project",
-		})
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -1038,7 +1001,7 @@ func compareTargetPoolSessionAffinityEnumSlice(c *Client, desired, actual []Targ
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareTargetPoolSessionAffinityEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TargetPoolSessionAffinityEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in TargetPoolSessionAffinityEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1053,7 +1016,7 @@ func compareTargetPoolSessionAffinityEnum(c *Client, desired, actual *TargetPool
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *TargetPool) urlNormalized() *TargetPool {
-	normalized := deepcopy.Copy(*r).(TargetPool)
+	normalized := dcl.Copy(*r).(TargetPool)
 	normalized.BackupPool = dcl.SelfLinkToName(r.BackupPool)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.HealthCheck = dcl.SelfLinkToNameArray(r.HealthCheck)
@@ -1169,7 +1132,7 @@ func expandTargetPool(c *Client, f *TargetPool) (map[string]interface{}, error) 
 	}
 	if v, err := dcl.DeriveFieldArray("projects/%s/global/httpHealthChecks/%s", f.HealthCheck, f.Project, f.HealthCheck); err != nil {
 		return nil, fmt.Errorf("error expanding HealthCheck into healthChecks: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["healthChecks"] = v
 	}
 	if v := f.Instance; !dcl.IsEmptyValueIndirect(v) {

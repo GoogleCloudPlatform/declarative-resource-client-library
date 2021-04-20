@@ -18,14 +18,6 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum GkehubBetaFeatureResourceStateStateEnum {
-  GkehubBetaFeatureResourceStateStateEnumNO_VALUE_DO_NOT_USE = 0;
-  GkehubBetaFeatureResourceStateStateEnumDEPLOYMENT_STATE_UNSPECIFIED = 1;
-  GkehubBetaFeatureResourceStateStateEnumNOT_INSTALLED = 2;
-  GkehubBetaFeatureResourceStateStateEnumINSTALLED = 3;
-  GkehubBetaFeatureResourceStateStateEnumERROR = 4;
-}
-
 enum GkehubBetaFeatureSpecMulticlusteringressBillingEnum {
   GkehubBetaFeatureSpecMulticlusteringressBillingEnumNO_VALUE_DO_NOT_USE = 0;
   GkehubBetaFeatureSpecMulticlusteringressBillingEnumBILLING_UNSPECIFIED = 1;
@@ -33,91 +25,24 @@ enum GkehubBetaFeatureSpecMulticlusteringressBillingEnum {
   GkehubBetaFeatureSpecMulticlusteringressBillingEnumANTHOS_LICENSE = 3;
 }
 
-enum GkehubBetaFeatureSpecHelloworldFeatureTestThirdEnum {
-  GkehubBetaFeatureSpecHelloworldFeatureTestThirdEnumNO_VALUE_DO_NOT_USE = 0;
-  GkehubBetaFeatureSpecHelloworldFeatureTestThirdEnumBAR_UNSPECIFIED = 1;
-  GkehubBetaFeatureSpecHelloworldFeatureTestThirdEnumFIRST = 2;
-  GkehubBetaFeatureSpecHelloworldFeatureTestThirdEnumSECOND = 3;
-}
-
-enum GkehubBetaFeatureStateStateCodeEnum {
-  GkehubBetaFeatureStateStateCodeEnumNO_VALUE_DO_NOT_USE = 0;
-  GkehubBetaFeatureStateStateCodeEnumCODE_UNSPECIFIED = 1;
-  GkehubBetaFeatureStateStateCodeEnumCREATING = 2;
-  GkehubBetaFeatureStateStateCodeEnumREADY = 3;
-  GkehubBetaFeatureStateStateCodeEnumDELETING = 4;
-  GkehubBetaFeatureStateStateCodeEnumUPDATING = 5;
-  GkehubBetaFeatureStateStateCodeEnumSERVICE_UPDATING = 6;
-}
-
 message GkehubBetaFeature {
   string name = 1;
   map<string, string> labels = 2;
-  GkehubBetaFeatureResourceState resource_state = 3;
-  GkehubBetaFeatureSpec spec = 4;
-  map<string, string> membership_specs = 5;
-  GkehubBetaFeatureState state = 6;
-  map<string, string> membership_states = 7;
-  string create_time = 8;
-  string update_time = 9;
-  string delete_time = 10;
-  string project = 11;
-  string location = 12;
-}
-
-message GkehubBetaFeatureResourceState {
-  GkehubBetaFeatureResourceStateStateEnum state = 1;
+  GkehubBetaFeatureSpec spec = 3;
+  string create_time = 4;
+  string update_time = 5;
+  string delete_time = 6;
+  string project = 7;
+  string location = 8;
 }
 
 message GkehubBetaFeatureSpec {
   GkehubBetaFeatureSpecMulticlusteringress multiclusteringress = 1;
-  GkehubBetaFeatureSpecHelloworld helloworld = 2;
 }
 
 message GkehubBetaFeatureSpecMulticlusteringress {
   string config_membership = 1;
   GkehubBetaFeatureSpecMulticlusteringressBillingEnum billing = 2;
-}
-
-message GkehubBetaFeatureSpecHelloworld {
-  GkehubBetaFeatureSpecHelloworldFeatureTest feature_test = 1;
-  string custom_config = 2;
-}
-
-message GkehubBetaFeatureSpecHelloworldFeatureTest {
-  string first = 1;
-  int64 second = 2;
-  GkehubBetaFeatureSpecHelloworldFeatureTestThirdEnum third = 3;
-  string fourth = 4;
-  GkehubBetaFeatureSpecHelloworldFeatureTestFifth fifth = 5;
-  int64 sixth = 6;
-  string seventh = 7;
-  repeated GkehubBetaFeatureSpecHelloworldFeatureTestEighth eighth = 8;
-  map<string, string> ninth = 9;
-}
-
-message GkehubBetaFeatureSpecHelloworldFeatureTestFifth {
-  string type_url = 1;
-  string value = 2;
-}
-
-message GkehubBetaFeatureSpecHelloworldFeatureTestEighth {
-  string first = 1;
-  int64 second = 2;
-}
-
-message GkehubBetaFeatureState {
-  GkehubBetaFeatureStateState state = 1;
-  GkehubBetaFeatureStateHelloworld helloworld = 2;
-}
-
-message GkehubBetaFeatureStateState {
-  GkehubBetaFeatureStateStateCodeEnum code = 1;
-  string description = 2;
-  string update_time = 3;
-}
-
-message GkehubBetaFeatureStateHelloworld {
 }
 
 message ApplyGkehubBetaFeatureRequest {

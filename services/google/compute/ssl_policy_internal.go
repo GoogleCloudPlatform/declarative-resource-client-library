@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -715,6 +714,7 @@ type sslPolicyDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         sslPolicyApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -733,71 +733,80 @@ func diffSslPolicy(c *Client, desired, actual *SslPolicy, opts ...dcl.ApplyOptio
 
 	var diffs []sslPolicyDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, FieldName: "Id"})
+		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, FieldName: "Description"})
+		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
+	if ds, err := dcl.Diff(desired.Profile, actual.Profile, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "profile"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, sslPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
+			UpdateOp: &updateSslPolicyPatchOperation{}, Diffs: ds,
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
+
+	if ds, err := dcl.Diff(desired.MinTlsVersion, actual.MinTlsVersion, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "min_tls_version"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, sslPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Description",
+			UpdateOp: &updateSslPolicyPatchOperation{}, Diffs: ds,
 		})
 	}
-	if !reflect.DeepEqual(desired.Profile, actual.Profile) {
-		c.Config.Logger.Infof("Detected diff in Profile.\nDESIRED: %v\nACTUAL: %v", desired.Profile, actual.Profile)
 
-		diffs = append(diffs, sslPolicyDiff{
-			UpdateOp:  &updateSslPolicyPatchOperation{},
-			FieldName: "Profile",
-		})
-
+	if ds, err := dcl.Diff(desired.EnabledFeature, actual.EnabledFeature, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "Set", FieldName: "enabled_feature"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !reflect.DeepEqual(desired.MinTlsVersion, actual.MinTlsVersion) {
-		c.Config.Logger.Infof("Detected diff in MinTlsVersion.\nDESIRED: %v\nACTUAL: %v", desired.MinTlsVersion, actual.MinTlsVersion)
 
+	if ds, err := dcl.Diff(desired.CustomFeature, actual.CustomFeature, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "Set", FieldName: "custom_feature"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, sslPolicyDiff{
-			UpdateOp:  &updateSslPolicyPatchOperation{},
-			FieldName: "MinTlsVersion",
+			UpdateOp: &updateSslPolicyPatchOperation{}, Diffs: ds,
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if !dcl.StringSliceEquals(desired.CustomFeature, actual.CustomFeature) {
 		c.Config.Logger.Infof("Detected diff in CustomFeature.\nDESIRED: %v\nACTUAL: %v", desired.CustomFeature, actual.CustomFeature)
 
 		toAdd, toRemove := dcl.CompareStringSets(desired.CustomFeature, actual.CustomFeature)
-		c.Config.Logger.Infof("diff in CustomFeature is a set field - recomparing with set logic. \nto add: %#v\nto remove: %#v", toAdd, toRemove)
+		c.Config.Logger.Infof("diff in CustomFeature is a set field - recomparing with set logic.\nto add: %#v\nto remove: %#v", toAdd, toRemove)
 		if len(toAdd) != 0 || len(toRemove) != 0 {
 			c.Config.Logger.Info("diff in CustomFeature persists after set logic analysis.")
 			diffs = append(diffs, sslPolicyDiff{
@@ -838,28 +847,16 @@ func compareSslPolicyWarning(c *Client, desired, actual *SslPolicyWarning) bool 
 	if actual == nil {
 		return true
 	}
-	if actual.Code == nil && desired.Code != nil && !dcl.IsEmptyValueIndirect(desired.Code) {
-		c.Config.Logger.Infof("desired Code %s - but actually nil", dcl.SprintResource(desired.Code))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Code, actual.Code) && !dcl.IsZeroValue(desired.Code) {
-		c.Config.Logger.Infof("Diff in Code. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Code), dcl.SprintResource(actual.Code))
-		return true
-	}
-	if actual.Message == nil && desired.Message != nil && !dcl.IsEmptyValueIndirect(desired.Message) {
-		c.Config.Logger.Infof("desired Message %s - but actually nil", dcl.SprintResource(desired.Message))
+		c.Config.Logger.Infof("Diff in Code.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Code), dcl.SprintResource(actual.Code))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Message, actual.Message) && !dcl.IsZeroValue(desired.Message) {
-		c.Config.Logger.Infof("Diff in Message. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Message), dcl.SprintResource(actual.Message))
-		return true
-	}
-	if actual.Data == nil && desired.Data != nil && !dcl.IsEmptyValueIndirect(desired.Data) {
-		c.Config.Logger.Infof("desired Data %s - but actually nil", dcl.SprintResource(desired.Data))
+		c.Config.Logger.Infof("Diff in Message.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Message), dcl.SprintResource(actual.Message))
 		return true
 	}
 	if compareSslPolicyWarningDataSlice(c, desired.Data, actual.Data) && !dcl.IsZeroValue(desired.Data) {
-		c.Config.Logger.Infof("Diff in Data. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Data), dcl.SprintResource(actual.Data))
+		c.Config.Logger.Infof("Diff in Data.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Data), dcl.SprintResource(actual.Data))
 		return true
 	}
 	return false
@@ -872,7 +869,7 @@ func compareSslPolicyWarningSlice(c *Client, desired, actual []SslPolicyWarning)
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSslPolicyWarning(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SslPolicyWarning, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SslPolicyWarning, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -891,7 +888,7 @@ func compareSslPolicyWarningMap(c *Client, desired, actual map[string]SslPolicyW
 			return true
 		}
 		if compareSslPolicyWarning(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SslPolicyWarning, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in SslPolicyWarning, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -905,20 +902,12 @@ func compareSslPolicyWarningData(c *Client, desired, actual *SslPolicyWarningDat
 	if actual == nil {
 		return true
 	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
+		c.Config.Logger.Infof("Diff in Key.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
+		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -931,7 +920,7 @@ func compareSslPolicyWarningDataSlice(c *Client, desired, actual []SslPolicyWarn
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSslPolicyWarningData(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SslPolicyWarningData, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SslPolicyWarningData, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -950,7 +939,7 @@ func compareSslPolicyWarningDataMap(c *Client, desired, actual map[string]SslPol
 			return true
 		}
 		if compareSslPolicyWarningData(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SslPolicyWarningData, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in SslPolicyWarningData, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -964,7 +953,7 @@ func compareSslPolicyProfileEnumSlice(c *Client, desired, actual []SslPolicyProf
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSslPolicyProfileEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SslPolicyProfileEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SslPolicyProfileEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -982,7 +971,7 @@ func compareSslPolicyMinTlsVersionEnumSlice(c *Client, desired, actual []SslPoli
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSslPolicyMinTlsVersionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SslPolicyMinTlsVersionEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SslPolicyMinTlsVersionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -997,7 +986,7 @@ func compareSslPolicyMinTlsVersionEnum(c *Client, desired, actual *SslPolicyMinT
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *SslPolicy) urlNormalized() *SslPolicy {
-	normalized := deepcopy.Copy(*r).(SslPolicy)
+	normalized := dcl.Copy(*r).(SslPolicy)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
@@ -1088,12 +1077,12 @@ func expandSslPolicy(c *Client, f *SslPolicy) (map[string]interface{}, error) {
 	}
 	if v, err := expandSslPolicyWarningSlice(c, f.Warning); err != nil {
 		return nil, fmt.Errorf("error expanding Warning into warnings: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["warnings"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -1218,11 +1207,10 @@ func flattenSslPolicyWarningSlice(c *Client, i interface{}) []SslPolicyWarning {
 // expandSslPolicyWarning expands an instance of SslPolicyWarning into a JSON
 // request object.
 func expandSslPolicyWarning(c *Client, f *SslPolicyWarning) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Code; !dcl.IsEmptyValueIndirect(v) {
 		m["code"] = v
 	}
@@ -1338,11 +1326,10 @@ func flattenSslPolicyWarningDataSlice(c *Client, i interface{}) []SslPolicyWarni
 // expandSslPolicyWarningData expands an instance of SslPolicyWarningData into a JSON
 // request object.
 func expandSslPolicyWarningData(c *Client, f *SslPolicyWarningData) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
 		m["key"] = v
 	}

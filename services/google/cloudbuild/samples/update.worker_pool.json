@@ -1,0 +1,13 @@
+{
+ "name": "{{ref:basic.worker_pool.json:name}}",
+ "location": "{{region}}",
+ "project": "{{project}}",
+ "networkConfig": {
+ },
+ "workerConfig": {
+   "machineType": "n1-standard-1",
+   "diskSizeGb": 20,
+   "noExternalIp": false
+ }
+}
+

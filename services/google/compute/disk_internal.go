@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -1135,6 +1134,7 @@ type diskDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         diskApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -1153,159 +1153,222 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 
 	var diffs []diskDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Description"})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{
-			UpdateOp: &updateDiskSetLabelsOperation{}, FieldName: "Labels",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, diskDiff{
-			UpdateOp: &updateDiskSetLabelsOperation{}, FieldName: "LabelFingerprint",
+			UpdateOp: &updateDiskSetLabelsOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Name"})
-	}
-
-	if d, err := dcl.Diff(desired.Region, actual.Region, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Region"})
-	}
-
-	if d, err := dcl.Diff(desired.SizeGb, actual.SizeGb, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "label_fingerprint"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, diskDiff{
-			UpdateOp: &updateDiskResizeOperation{}, FieldName: "SizeGb",
+			UpdateOp: &updateDiskSetLabelsOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.SourceImage, actual.SourceImage, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.License, actual.License, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "license"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SourceImage"})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SourceImageId, actual.SourceImageId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SourceImageId"})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SourceSnapshot, actual.SourceSnapshot, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SourceSnapshot"})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.SourceSnapshotId, actual.SourceSnapshotId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ReplicaZones, actual.ReplicaZones, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "replica_zones"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SourceSnapshotId"})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Type, actual.Type, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePolicy, actual.ResourcePolicy, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "resource_policy"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Type"})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Zone, actual.Zone, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SizeGb, actual.SizeGb, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "size_gb"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Zone"})
-	}
-
-	if d, err := dcl.Diff(desired.Id, actual.Id, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Id"})
-	}
-
-	if d, err := dcl.Diff(desired.Options, actual.Options, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "Options"})
-	}
-
-	if d, err := dcl.Diff(desired.LastAttachTimestamp, actual.LastAttachTimestamp, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "LastAttachTimestamp"})
-	}
-
-	if d, err := dcl.Diff(desired.LastDetachTimestamp, actual.LastDetachTimestamp, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "LastDetachTimestamp"})
-	}
-
-	if d, err := dcl.Diff(desired.PhysicalBlockSizeBytes, actual.PhysicalBlockSizeBytes, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "PhysicalBlockSizeBytes"})
-	}
-
-	if d, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SourceDisk"})
-	}
-
-	if d, err := dcl.Diff(desired.SourceDiskId, actual.SourceDiskId, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, FieldName: "SourceDiskId"})
-	}
-
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "Description",
+			UpdateOp: &updateDiskResizeOperation{}, Diffs: ds,
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.SourceImage, actual.SourceImage, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "source_image"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceImageId, actual.SourceImageId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_image_id"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceSnapshot, actual.SourceSnapshot, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_snapshot"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceSnapshotId, actual.SourceSnapshotId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_snapshot_id"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "type"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "zone"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "status"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Options, actual.Options, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "options"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Licenses, actual.Licenses, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "licenses"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.LastAttachTimestamp, actual.LastAttachTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "last_attach_timestamp"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.LastDetachTimestamp, actual.LastDetachTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "last_detach_timestamp"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Users, actual.Users, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "users"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.LicenseCodes, actual.LicenseCodes, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "license_codes"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.PhysicalBlockSizeBytes, actual.PhysicalBlockSizeBytes, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "physical_block_size_bytes"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePolicies, actual.ResourcePolicies, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "resource_policies"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_disk"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceDiskId, actual.SourceDiskId, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_disk_id"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareDiskEncryptionKey(c, desired.DiskEncryptionKey, actual.DiskEncryptionKey) {
 		c.Config.Logger.Infof("Detected diff in DiskEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.DiskEncryptionKey, actual.DiskEncryptionKey)
 		diffs = append(diffs, diskDiff{
@@ -1320,78 +1383,11 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 			FieldName:        "GuestOsFeature",
 		})
 	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
-
-		diffs = append(diffs, diskDiff{
-			UpdateOp:  &updateDiskSetLabelsOperation{},
-			FieldName: "Labels",
-		})
-
-	}
-	if !dcl.StringSliceEquals(desired.License, actual.License) {
-		c.Config.Logger.Infof("Detected diff in License.\nDESIRED: %v\nACTUAL: %v", desired.License, actual.License)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "License",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Region) && !dcl.StringCanonicalize(desired.Region, actual.Region) {
-		c.Config.Logger.Infof("Detected diff in Region.\nDESIRED: %v\nACTUAL: %v", desired.Region, actual.Region)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "Region",
-		})
-	}
-	if !dcl.StringSliceEquals(desired.ReplicaZones, actual.ReplicaZones) {
-		c.Config.Logger.Infof("Detected diff in ReplicaZones.\nDESIRED: %v\nACTUAL: %v", desired.ReplicaZones, actual.ReplicaZones)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "ReplicaZones",
-		})
-	}
-	if !dcl.StringSliceEquals(desired.ResourcePolicy, actual.ResourcePolicy) {
-		c.Config.Logger.Infof("Detected diff in ResourcePolicy.\nDESIRED: %v\nACTUAL: %v", desired.ResourcePolicy, actual.ResourcePolicy)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "ResourcePolicy",
-		})
-	}
-	if !reflect.DeepEqual(desired.SizeGb, actual.SizeGb) {
-		c.Config.Logger.Infof("Detected diff in SizeGb.\nDESIRED: %v\nACTUAL: %v", desired.SizeGb, actual.SizeGb)
-
-		diffs = append(diffs, diskDiff{
-			UpdateOp:  &updateDiskResizeOperation{},
-			FieldName: "SizeGb",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.SourceImage) && !dcl.NameToSelfLink(desired.SourceImage, actual.SourceImage) {
-		c.Config.Logger.Infof("Detected diff in SourceImage.\nDESIRED: %v\nACTUAL: %v", desired.SourceImage, actual.SourceImage)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceImage",
-		})
-	}
 	if compareDiskEncryptionKey(c, desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey) {
 		c.Config.Logger.Infof("Detected diff in SourceImageEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "SourceImageEncryptionKey",
-		})
-	}
-	if !dcl.IsZeroValue(desired.SourceSnapshot) && !dcl.StringCanonicalize(desired.SourceSnapshot, actual.SourceSnapshot) {
-		c.Config.Logger.Infof("Detected diff in SourceSnapshot.\nDESIRED: %v\nACTUAL: %v", desired.SourceSnapshot, actual.SourceSnapshot)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceSnapshot",
 		})
 	}
 	if compareDiskEncryptionKey(c, desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey) {
@@ -1401,74 +1397,11 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 			FieldName:        "SourceSnapshotEncryptionKey",
 		})
 	}
-	if !dcl.IsZeroValue(desired.Type) && !dcl.NameToSelfLink(desired.Type, actual.Type) {
-		c.Config.Logger.Infof("Detected diff in Type.\nDESIRED: %v\nACTUAL: %v", desired.Type, actual.Type)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "Type",
-		})
-	}
-	if !reflect.DeepEqual(desired.Id, actual.Id) {
-		c.Config.Logger.Infof("Detected diff in Id.\nDESIRED: %v\nACTUAL: %v", desired.Id, actual.Id)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "Id",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Options) && !dcl.StringCanonicalize(desired.Options, actual.Options) {
-		c.Config.Logger.Infof("Detected diff in Options.\nDESIRED: %v\nACTUAL: %v", desired.Options, actual.Options)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "Options",
-		})
-	}
-	if !dcl.StringSliceEquals(desired.Licenses, actual.Licenses) {
-		c.Config.Logger.Infof("Detected diff in Licenses.\nDESIRED: %v\nACTUAL: %v", desired.Licenses, actual.Licenses)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "Licenses",
-		})
-	}
 	if compareDiskGuestOsFeaturesSlice(c, desired.GuestOsFeatures, actual.GuestOsFeatures) {
 		c.Config.Logger.Infof("Detected diff in GuestOsFeatures.\nDESIRED: %v\nACTUAL: %v", desired.GuestOsFeatures, actual.GuestOsFeatures)
 		diffs = append(diffs, diskDiff{
 			RequiresRecreate: true,
 			FieldName:        "GuestOsFeatures",
-		})
-	}
-	if !dcl.IntSliceEquals(desired.LicenseCodes, actual.LicenseCodes) {
-		c.Config.Logger.Infof("Detected diff in LicenseCodes.\nDESIRED: %v\nACTUAL: %v", desired.LicenseCodes, actual.LicenseCodes)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "LicenseCodes",
-		})
-	}
-	if !reflect.DeepEqual(desired.PhysicalBlockSizeBytes, actual.PhysicalBlockSizeBytes) {
-		c.Config.Logger.Infof("Detected diff in PhysicalBlockSizeBytes.\nDESIRED: %v\nACTUAL: %v", desired.PhysicalBlockSizeBytes, actual.PhysicalBlockSizeBytes)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "PhysicalBlockSizeBytes",
-		})
-	}
-	if !dcl.StringSliceEquals(desired.ResourcePolicies, actual.ResourcePolicies) {
-		c.Config.Logger.Infof("Detected diff in ResourcePolicies.\nDESIRED: %v\nACTUAL: %v", desired.ResourcePolicies, actual.ResourcePolicies)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "ResourcePolicies",
-		})
-	}
-	if !dcl.IsZeroValue(desired.SourceDisk) && !dcl.StringCanonicalize(desired.SourceDisk, actual.SourceDisk) {
-		c.Config.Logger.Infof("Detected diff in SourceDisk.\nDESIRED: %v\nACTUAL: %v", desired.SourceDisk, actual.SourceDisk)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceDisk",
-		})
-	}
-	if !dcl.IsZeroValue(desired.SourceDiskId) && !dcl.StringCanonicalize(desired.SourceDiskId, actual.SourceDiskId) {
-		c.Config.Logger.Infof("Detected diff in SourceDiskId.\nDESIRED: %v\nACTUAL: %v", desired.SourceDiskId, actual.SourceDiskId)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceDiskId",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1502,20 +1435,12 @@ func compareDiskGuestOsFeature(c *Client, desired, actual *DiskGuestOsFeature) b
 	if actual == nil {
 		return true
 	}
-	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
-		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	if actual.TypeAlt == nil && desired.TypeAlt != nil && !dcl.IsEmptyValueIndirect(desired.TypeAlt) {
-		c.Config.Logger.Infof("desired TypeAlt %s - but actually nil", dcl.SprintResource(desired.TypeAlt))
+		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	if compareDiskGuestOsFeatureTypeAltEnumSlice(c, desired.TypeAlt, actual.TypeAlt) && !dcl.IsZeroValue(desired.TypeAlt) {
-		c.Config.Logger.Infof("Diff in TypeAlt. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TypeAlt), dcl.SprintResource(actual.TypeAlt))
+		c.Config.Logger.Infof("Diff in TypeAlt.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TypeAlt), dcl.SprintResource(actual.TypeAlt))
 		return true
 	}
 	return false
@@ -1528,7 +1453,7 @@ func compareDiskGuestOsFeatureSlice(c *Client, desired, actual []DiskGuestOsFeat
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDiskGuestOsFeature(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DiskGuestOsFeature, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DiskGuestOsFeature, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1547,7 +1472,7 @@ func compareDiskGuestOsFeatureMap(c *Client, desired, actual map[string]DiskGues
 			return true
 		}
 		if compareDiskGuestOsFeature(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DiskGuestOsFeature, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DiskGuestOsFeature, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1561,20 +1486,12 @@ func compareDiskEncryptionKey(c *Client, desired, actual *DiskEncryptionKey) boo
 	if actual == nil {
 		return true
 	}
-	if actual.KmsKeyName == nil && desired.KmsKeyName != nil && !dcl.IsEmptyValueIndirect(desired.KmsKeyName) {
-		c.Config.Logger.Infof("desired KmsKeyName %s - but actually nil", dcl.SprintResource(desired.KmsKeyName))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.KmsKeyName, actual.KmsKeyName) && !dcl.IsZeroValue(desired.KmsKeyName) {
-		c.Config.Logger.Infof("Diff in KmsKeyName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
-		return true
-	}
-	if actual.KmsKeyServiceAccount == nil && desired.KmsKeyServiceAccount != nil && !dcl.IsEmptyValueIndirect(desired.KmsKeyServiceAccount) {
-		c.Config.Logger.Infof("desired KmsKeyServiceAccount %s - but actually nil", dcl.SprintResource(desired.KmsKeyServiceAccount))
+		c.Config.Logger.Infof("Diff in KmsKeyName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyName), dcl.SprintResource(actual.KmsKeyName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.KmsKeyServiceAccount, actual.KmsKeyServiceAccount) && !dcl.IsZeroValue(desired.KmsKeyServiceAccount) {
-		c.Config.Logger.Infof("Diff in KmsKeyServiceAccount. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyServiceAccount), dcl.SprintResource(actual.KmsKeyServiceAccount))
+		c.Config.Logger.Infof("Diff in KmsKeyServiceAccount.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KmsKeyServiceAccount), dcl.SprintResource(actual.KmsKeyServiceAccount))
 		return true
 	}
 	return false
@@ -1587,7 +1504,7 @@ func compareDiskEncryptionKeySlice(c *Client, desired, actual []DiskEncryptionKe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDiskEncryptionKey(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DiskEncryptionKey, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DiskEncryptionKey, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1606,7 +1523,7 @@ func compareDiskEncryptionKeyMap(c *Client, desired, actual map[string]DiskEncry
 			return true
 		}
 		if compareDiskEncryptionKey(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DiskEncryptionKey, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DiskEncryptionKey, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1620,20 +1537,12 @@ func compareDiskGuestOsFeatures(c *Client, desired, actual *DiskGuestOsFeatures)
 	if actual == nil {
 		return true
 	}
-	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
-		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	if actual.TypeAlts == nil && desired.TypeAlts != nil && !dcl.IsEmptyValueIndirect(desired.TypeAlts) {
-		c.Config.Logger.Infof("desired TypeAlts %s - but actually nil", dcl.SprintResource(desired.TypeAlts))
+		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	if compareDiskGuestOsFeaturesTypeAltsEnumSlice(c, desired.TypeAlts, actual.TypeAlts) && !dcl.IsZeroValue(desired.TypeAlts) {
-		c.Config.Logger.Infof("Diff in TypeAlts. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TypeAlts), dcl.SprintResource(actual.TypeAlts))
+		c.Config.Logger.Infof("Diff in TypeAlts.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TypeAlts), dcl.SprintResource(actual.TypeAlts))
 		return true
 	}
 	return false
@@ -1646,7 +1555,7 @@ func compareDiskGuestOsFeaturesSlice(c *Client, desired, actual []DiskGuestOsFea
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDiskGuestOsFeatures(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DiskGuestOsFeatures, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DiskGuestOsFeatures, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1665,7 +1574,7 @@ func compareDiskGuestOsFeaturesMap(c *Client, desired, actual map[string]DiskGue
 			return true
 		}
 		if compareDiskGuestOsFeatures(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in DiskGuestOsFeatures, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in DiskGuestOsFeatures, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1679,7 +1588,7 @@ func compareDiskGuestOsFeatureTypeEnumSlice(c *Client, desired, actual []DiskGue
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDiskGuestOsFeatureTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DiskGuestOsFeatureTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DiskGuestOsFeatureTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1697,7 +1606,7 @@ func compareDiskGuestOsFeatureTypeAltEnumSlice(c *Client, desired, actual []Disk
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDiskGuestOsFeatureTypeAltEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DiskGuestOsFeatureTypeAltEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DiskGuestOsFeatureTypeAltEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1715,7 +1624,7 @@ func compareDiskStatusEnumSlice(c *Client, desired, actual []DiskStatusEnum) boo
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDiskStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DiskStatusEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DiskStatusEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1733,7 +1642,7 @@ func compareDiskGuestOsFeaturesTypeEnumSlice(c *Client, desired, actual []DiskGu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDiskGuestOsFeaturesTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DiskGuestOsFeaturesTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DiskGuestOsFeaturesTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1751,7 +1660,7 @@ func compareDiskGuestOsFeaturesTypeAltsEnumSlice(c *Client, desired, actual []Di
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareDiskGuestOsFeaturesTypeAltsEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DiskGuestOsFeaturesTypeAltsEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in DiskGuestOsFeaturesTypeAltsEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1766,7 +1675,7 @@ func compareDiskGuestOsFeaturesTypeAltsEnum(c *Client, desired, actual *DiskGues
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Disk) urlNormalized() *Disk {
-	normalized := deepcopy.Copy(*r).(Disk)
+	normalized := dcl.Copy(*r).(Disk)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.LabelFingerprint = dcl.SelfLinkToName(r.LabelFingerprint)
@@ -1879,12 +1788,12 @@ func expandDisk(c *Client, f *Disk) (map[string]interface{}, error) {
 	}
 	if v, err := expandDiskEncryptionKey(c, f.DiskEncryptionKey); err != nil {
 		return nil, fmt.Errorf("error expanding DiskEncryptionKey into diskEncryptionKey: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["diskEncryptionKey"] = v
 	}
 	if v, err := expandDiskGuestOsFeatureSlice(c, f.GuestOsFeature); err != nil {
 		return nil, fmt.Errorf("error expanding GuestOsFeature into guestOsFeature: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["guestOsFeature"] = v
 	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
@@ -1916,7 +1825,7 @@ func expandDisk(c *Client, f *Disk) (map[string]interface{}, error) {
 	}
 	if v, err := expandDiskEncryptionKey(c, f.SourceImageEncryptionKey); err != nil {
 		return nil, fmt.Errorf("error expanding SourceImageEncryptionKey into sourceImageEncryptionKey: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sourceImageEncryptionKey"] = v
 	}
 	if v := f.SourceImageId; !dcl.IsEmptyValueIndirect(v) {
@@ -1927,7 +1836,7 @@ func expandDisk(c *Client, f *Disk) (map[string]interface{}, error) {
 	}
 	if v, err := expandDiskEncryptionKey(c, f.SourceSnapshotEncryptionKey); err != nil {
 		return nil, fmt.Errorf("error expanding SourceSnapshotEncryptionKey into sourceSnapshotEncryptionKey: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sourceSnapshotEncryptionKey"] = v
 	}
 	if v := f.SourceSnapshotId; !dcl.IsEmptyValueIndirect(v) {
@@ -1941,7 +1850,7 @@ func expandDisk(c *Client, f *Disk) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
@@ -1958,7 +1867,7 @@ func expandDisk(c *Client, f *Disk) (map[string]interface{}, error) {
 	}
 	if v, err := expandDiskGuestOsFeaturesSlice(c, f.GuestOsFeatures); err != nil {
 		return nil, fmt.Errorf("error expanding GuestOsFeatures into guestOsFeatures: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["guestOsFeatures"] = v
 	}
 	if v := f.LastAttachTimestamp; !dcl.IsEmptyValueIndirect(v) {
@@ -1987,7 +1896,7 @@ func expandDisk(c *Client, f *Disk) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 
@@ -2129,11 +2038,10 @@ func flattenDiskGuestOsFeatureSlice(c *Client, i interface{}) []DiskGuestOsFeatu
 // expandDiskGuestOsFeature expands an instance of DiskGuestOsFeature into a JSON
 // request object.
 func expandDiskGuestOsFeature(c *Client, f *DiskGuestOsFeature) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
@@ -2243,11 +2151,10 @@ func flattenDiskEncryptionKeySlice(c *Client, i interface{}) []DiskEncryptionKey
 // expandDiskEncryptionKey expands an instance of DiskEncryptionKey into a JSON
 // request object.
 func expandDiskEncryptionKey(c *Client, f *DiskEncryptionKey) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RawKey; !dcl.IsEmptyValueIndirect(v) {
 		m["rawKey"] = v
 	}
@@ -2365,11 +2272,10 @@ func flattenDiskGuestOsFeaturesSlice(c *Client, i interface{}) []DiskGuestOsFeat
 // expandDiskGuestOsFeatures expands an instance of DiskGuestOsFeatures into a JSON
 // request object.
 func expandDiskGuestOsFeatures(c *Client, f *DiskGuestOsFeatures) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}

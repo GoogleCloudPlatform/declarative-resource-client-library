@@ -1,0 +1,387 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+package beta
+
+import (
+	"context"
+	"crypto/sha256"
+	"fmt"
+
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+)
+
+type FeatureMembership struct {
+	Membership       *string                            `json:"membership"`
+	Feature          *string                            `json:"feature"`
+	Location         *string                            `json:"location"`
+	Project          *string                            `json:"project"`
+	ProjectNumber    *string                            `json:"projectNumber"`
+	Configmanagement *FeatureMembershipConfigmanagement `json:"configmanagement"`
+}
+
+func (r *FeatureMembership) String() string {
+	return dcl.SprintResource(r)
+}
+
+type FeatureMembershipConfigmanagement struct {
+	empty               bool                                                  `json:"-"`
+	ConfigSync          *FeatureMembershipConfigmanagementConfigSync          `json:"configSync"`
+	PolicyController    *FeatureMembershipConfigmanagementPolicyController    `json:"policyController"`
+	Binauthz            *FeatureMembershipConfigmanagementBinauthz            `json:"binauthz"`
+	HierarchyController *FeatureMembershipConfigmanagementHierarchyController `json:"hierarchyController"`
+	Version             *string                                               `json:"version"`
+}
+
+// This object is used to assert a desired state where this FeatureMembershipConfigmanagement is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyFeatureMembershipConfigmanagement *FeatureMembershipConfigmanagement = &FeatureMembershipConfigmanagement{empty: true}
+
+func (r *FeatureMembershipConfigmanagement) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipConfigmanagement) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipConfigmanagementConfigSync struct {
+	empty        bool                                            `json:"-"`
+	Git          *FeatureMembershipConfigmanagementConfigSyncGit `json:"git"`
+	SourceFormat *string                                         `json:"sourceFormat"`
+}
+
+// This object is used to assert a desired state where this FeatureMembershipConfigmanagementConfigSync is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyFeatureMembershipConfigmanagementConfigSync *FeatureMembershipConfigmanagementConfigSync = &FeatureMembershipConfigmanagementConfigSync{empty: true}
+
+func (r *FeatureMembershipConfigmanagementConfigSync) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipConfigmanagementConfigSync) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipConfigmanagementConfigSyncGit struct {
+	empty                  bool    `json:"-"`
+	SyncRepo               *string `json:"syncRepo"`
+	SyncBranch             *string `json:"syncBranch"`
+	PolicyDir              *string `json:"policyDir"`
+	SyncWaitSecs           *string `json:"syncWaitSecs"`
+	SyncRev                *string `json:"syncRev"`
+	SecretType             *string `json:"secretType"`
+	HttpsProxy             *string `json:"httpsProxy"`
+	GcpServiceAccountEmail *string `json:"gcpServiceAccountEmail"`
+}
+
+// This object is used to assert a desired state where this FeatureMembershipConfigmanagementConfigSyncGit is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyFeatureMembershipConfigmanagementConfigSyncGit *FeatureMembershipConfigmanagementConfigSyncGit = &FeatureMembershipConfigmanagementConfigSyncGit{empty: true}
+
+func (r *FeatureMembershipConfigmanagementConfigSyncGit) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipConfigmanagementConfigSyncGit) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipConfigmanagementPolicyController struct {
+	empty                    bool     `json:"-"`
+	Enabled                  *bool    `json:"enabled"`
+	ExemptableNamespaces     []string `json:"exemptableNamespaces"`
+	ReferentialRulesEnabled  *bool    `json:"referentialRulesEnabled"`
+	LogDeniesEnabled         *bool    `json:"logDeniesEnabled"`
+	TemplateLibraryInstalled *bool    `json:"templateLibraryInstalled"`
+	AuditIntervalSeconds     *string  `json:"auditIntervalSeconds"`
+}
+
+// This object is used to assert a desired state where this FeatureMembershipConfigmanagementPolicyController is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyFeatureMembershipConfigmanagementPolicyController *FeatureMembershipConfigmanagementPolicyController = &FeatureMembershipConfigmanagementPolicyController{empty: true}
+
+func (r *FeatureMembershipConfigmanagementPolicyController) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipConfigmanagementPolicyController) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipConfigmanagementBinauthz struct {
+	empty   bool  `json:"-"`
+	Enabled *bool `json:"enabled"`
+}
+
+// This object is used to assert a desired state where this FeatureMembershipConfigmanagementBinauthz is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyFeatureMembershipConfigmanagementBinauthz *FeatureMembershipConfigmanagementBinauthz = &FeatureMembershipConfigmanagementBinauthz{empty: true}
+
+func (r *FeatureMembershipConfigmanagementBinauthz) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipConfigmanagementBinauthz) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipConfigmanagementHierarchyController struct {
+	empty                           bool  `json:"-"`
+	Enabled                         *bool `json:"enabled"`
+	EnablePodTreeLabels             *bool `json:"enablePodTreeLabels"`
+	EnableHierarchicalResourceQuota *bool `json:"enableHierarchicalResourceQuota"`
+}
+
+// This object is used to assert a desired state where this FeatureMembershipConfigmanagementHierarchyController is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyFeatureMembershipConfigmanagementHierarchyController *FeatureMembershipConfigmanagementHierarchyController = &FeatureMembershipConfigmanagementHierarchyController{empty: true}
+
+func (r *FeatureMembershipConfigmanagementHierarchyController) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipConfigmanagementHierarchyController) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+// Describe returns a simple description of this resource to ensure that automated tools
+// can identify it.
+func (r *FeatureMembership) Describe() dcl.ServiceTypeVersion {
+	return dcl.ServiceTypeVersion{
+		Service: "gkehub",
+		Type:    "FeatureMembership",
+		Version: "beta",
+	}
+}
+
+const FeatureMembershipMaxPage = -1
+
+type FeatureMembershipList struct {
+	Items []*FeatureMembership
+
+	nextToken string
+
+	pageSize int32
+
+	project string
+
+	location string
+
+	feature string
+}
+
+func (c *Client) DeleteFeatureMembership(ctx context.Context, r *FeatureMembership) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
+	if r == nil {
+		return fmt.Errorf("FeatureMembership resource is nil")
+	}
+	c.Config.Logger.Info("Deleting FeatureMembership...")
+	deleteOp := deleteFeatureMembershipOperation{}
+	return deleteOp.do(ctx, r, c)
+}
+
+// DeleteAllFeatureMembership deletes all resources that the filter functions returns true on.
+func (c *Client) DeleteAllFeatureMembership(ctx context.Context, project, location, feature string, filter func(*FeatureMembership) bool) error {
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
+	listObj, err := c.ListFeatureMembership(ctx, project, location, feature)
+	if err != nil {
+		return err
+	}
+
+	err = c.deleteAllFeatureMembership(ctx, filter, listObj.Items)
+	if err != nil {
+		return err
+	}
+	for listObj.HasNext() {
+		err = listObj.Next(ctx, c)
+		if err != nil {
+			return nil
+		}
+		err = c.deleteAllFeatureMembership(ctx, filter, listObj.Items)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (c *Client) ApplyFeatureMembership(ctx context.Context, rawDesired *FeatureMembership, opts ...dcl.ApplyOption) (*FeatureMembership, error) {
+	c.Config.Logger.Info("Beginning ApplyFeatureMembership...")
+	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
+
+	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	defer cancel()
+
+	// 1.1: Validation of user-specified fields in desired state.
+	if err := rawDesired.validate(); err != nil {
+		return nil, err
+	}
+
+	initial, desired, diffs, err := c.featureMembershipDiffsForRawDesired(ctx, rawDesired, opts...)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create a diff: %w", err)
+	}
+
+	// TODO(magic-modules-eng): 2.2 Feasibility check (all updates are feasible so far).
+
+	// 2.3: Lifecycle Directive Check
+	var create bool
+	var recreate bool
+	lp := dcl.FetchLifecycleParams(opts)
+	if initial == nil {
+		if dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
+			return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Creation blocked by lifecycle params: %#v.", desired)}
+		}
+		create = true
+	} else if dcl.HasLifecycleParam(lp, dcl.BlockAcquire) {
+		return nil, dcl.ApplyInfeasibleError{
+			Message: fmt.Sprintf("Resource already exists - apply blocked by lifecycle params: %#v.", initial),
+		}
+	} else {
+		for _, d := range diffs {
+			if d.RequiresRecreate {
+				if dcl.HasLifecycleParam(lp, dcl.BlockDestruction) || dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
+					return nil, dcl.ApplyInfeasibleError{
+						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
+					}
+				}
+				recreate = true
+			}
+			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
+				return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Modification blocked, diff (%v) unresolvable.", d)}
+			}
+		}
+	}
+
+	// 2.4 Imperative Request Planning
+	var ops []featureMembershipApiOperation
+	if create {
+		ops = append(ops, &createFeatureMembershipOperation{})
+	} else if recreate {
+
+		ops = append(ops, &deleteFeatureMembershipOperation{})
+
+		ops = append(ops, &createFeatureMembershipOperation{})
+		// We should re-canonicalize based on a nil existing resource.
+		desired, err = canonicalizeFeatureMembershipDesiredState(rawDesired, nil)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		for _, d := range diffs {
+			ops = append(ops, d.UpdateOp)
+		}
+	}
+	c.Config.Logger.Infof("Created plan: %#v", ops)
+
+	// 2.5 Request Actuation
+	for _, op := range ops {
+		c.Config.Logger.Infof("Performing operation %#v", op)
+		if err := op.do(ctx, desired, c); err != nil {
+			c.Config.Logger.Infof("Failed operation %#v: %v", op, err)
+			return nil, err
+		}
+		c.Config.Logger.Infof("Finished operation %#v", op)
+	}
+
+	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
+	c.Config.Logger.Info("Retrieving raw new state...")
+	rawNew, err := c.GetFeatureMembership(ctx, desired.urlNormalized())
+	if err != nil {
+		return nil, err
+	}
+
+	// Get additional values from the first response.
+	// These values should be merged into the newState above.
+	if len(ops) > 0 {
+		lastOp := ops[len(ops)-1]
+		if o, ok := lastOp.(*createFeatureMembershipOperation); ok {
+			if r, hasR := o.FirstResponse(); hasR {
+
+				c.Config.Logger.Info("Retrieving raw new state from operation...")
+
+				fullResp, err := unmarshalMapFeatureMembership(r, c)
+				if err != nil {
+					return nil, err
+				}
+
+				rawNew, err = canonicalizeFeatureMembershipNewState(c, rawNew, fullResp)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
+	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
+	// 3.2b Canonicalization of raw new state using raw desired state
+	newState, err := canonicalizeFeatureMembershipNewState(c, rawNew, rawDesired)
+	if err != nil {
+		return nil, err
+	}
+
+	c.Config.Logger.Infof("Created canonical new state: %v", newState)
+	// 3.3 Comparison of the new state and raw desired state.
+	// TODO(magic-modules-eng): EVENTUALLY_CONSISTENT_UPDATE
+	newDesired, err := canonicalizeFeatureMembershipDesiredState(rawDesired, newState)
+	if err != nil {
+		return nil, err
+	}
+	c.Config.Logger.Infof("Diffing using canonicalized desired state: %v", newDesired)
+	newDiffs, err := diffFeatureMembership(c, newDesired, newState)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(newDiffs) == 0 {
+		c.Config.Logger.Info("No diffs found. Apply was successful.")
+	} else {
+		c.Config.Logger.Infof("Found diffs: %v", newDiffs)
+		diffMessages := make([]string, len(newDiffs))
+		for i, d := range newDiffs {
+			diffMessages[i] = fmt.Sprintf("%v", d)
+		}
+		return newState, dcl.DiffAfterApplyError{Diffs: diffMessages}
+	}
+	c.Config.Logger.Info("Done Apply.")
+	return newState, nil
+}

@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -1127,6 +1126,7 @@ type uptimeCheckConfigDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         uptimeCheckConfigApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -1145,47 +1145,56 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 
 	var diffs []uptimeCheckConfigDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.DisplayName, actual.DisplayName, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, uptimeCheckConfigDiff{
-			UpdateOp: &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{}, FieldName: "DisplayName",
+			UpdateOp: &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Period, actual.Period, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Period, actual.Period, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "period"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, uptimeCheckConfigDiff{RequiresRecreate: true, FieldName: "Period"})
+		diffs = append(diffs, uptimeCheckConfigDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Timeout, actual.Timeout, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Timeout, actual.Timeout, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "timeout"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, uptimeCheckConfigDiff{
-			UpdateOp: &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{}, FieldName: "Timeout",
+			UpdateOp: &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.StringEqualsWithSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
+	if ds, err := dcl.Diff(desired.PrivateCheckers, actual.PrivateCheckers, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "private_checkers"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, uptimeCheckConfigDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
+			UpdateOp: &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{}, Diffs: ds,
 		})
 	}
-	if !dcl.IsZeroValue(desired.DisplayName) && !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) {
-		c.Config.Logger.Infof("Detected diff in DisplayName.\nDESIRED: %v\nACTUAL: %v", desired.DisplayName, actual.DisplayName)
 
+	if ds, err := dcl.Diff(desired.SelectedRegions, actual.SelectedRegions, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "selected_regions"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, uptimeCheckConfigDiff{
-			UpdateOp:  &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{},
-			FieldName: "DisplayName",
+			UpdateOp: &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{}, Diffs: ds,
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, uptimeCheckConfigDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareUptimeCheckConfigMonitoredResource(c, desired.MonitoredResource, actual.MonitoredResource) {
 		c.Config.Logger.Infof("Detected diff in MonitoredResource.\nDESIRED: %v\nACTUAL: %v", desired.MonitoredResource, actual.MonitoredResource)
 		diffs = append(diffs, uptimeCheckConfigDiff{
@@ -1218,46 +1227,12 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Period) && !dcl.StringCanonicalize(desired.Period, actual.Period) {
-		c.Config.Logger.Infof("Detected diff in Period.\nDESIRED: %v\nACTUAL: %v", desired.Period, actual.Period)
-		diffs = append(diffs, uptimeCheckConfigDiff{
-			RequiresRecreate: true,
-			FieldName:        "Period",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Timeout) && !dcl.StringCanonicalize(desired.Timeout, actual.Timeout) {
-		c.Config.Logger.Infof("Detected diff in Timeout.\nDESIRED: %v\nACTUAL: %v", desired.Timeout, actual.Timeout)
-
-		diffs = append(diffs, uptimeCheckConfigDiff{
-			UpdateOp:  &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{},
-			FieldName: "Timeout",
-		})
-
-	}
 	if compareUptimeCheckConfigContentMatchersSlice(c, desired.ContentMatchers, actual.ContentMatchers) {
 		c.Config.Logger.Infof("Detected diff in ContentMatchers.\nDESIRED: %v\nACTUAL: %v", desired.ContentMatchers, actual.ContentMatchers)
 
 		diffs = append(diffs, uptimeCheckConfigDiff{
 			UpdateOp:  &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{},
 			FieldName: "ContentMatchers",
-		})
-
-	}
-	if !dcl.StringSliceEquals(desired.PrivateCheckers, actual.PrivateCheckers) {
-		c.Config.Logger.Infof("Detected diff in PrivateCheckers.\nDESIRED: %v\nACTUAL: %v", desired.PrivateCheckers, actual.PrivateCheckers)
-
-		diffs = append(diffs, uptimeCheckConfigDiff{
-			UpdateOp:  &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{},
-			FieldName: "PrivateCheckers",
-		})
-
-	}
-	if !dcl.StringSliceEquals(desired.SelectedRegions, actual.SelectedRegions) {
-		c.Config.Logger.Infof("Detected diff in SelectedRegions.\nDESIRED: %v\nACTUAL: %v", desired.SelectedRegions, actual.SelectedRegions)
-
-		diffs = append(diffs, uptimeCheckConfigDiff{
-			UpdateOp:  &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{},
-			FieldName: "SelectedRegions",
 		})
 
 	}
@@ -1292,20 +1267,12 @@ func compareUptimeCheckConfigMonitoredResource(c *Client, desired, actual *Uptim
 	if actual == nil {
 		return true
 	}
-	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
-		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	if actual.FilterLabels == nil && desired.FilterLabels != nil && !dcl.IsEmptyValueIndirect(desired.FilterLabels) {
-		c.Config.Logger.Infof("desired FilterLabels %s - but actually nil", dcl.SprintResource(desired.FilterLabels))
+		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	if !dcl.MapEquals(desired.FilterLabels, actual.FilterLabels, []string(nil)) && !dcl.IsZeroValue(desired.FilterLabels) {
-		c.Config.Logger.Infof("Diff in FilterLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterLabels), dcl.SprintResource(actual.FilterLabels))
+		c.Config.Logger.Infof("Diff in FilterLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterLabels), dcl.SprintResource(actual.FilterLabels))
 		return true
 	}
 	return false
@@ -1318,7 +1285,7 @@ func compareUptimeCheckConfigMonitoredResourceSlice(c *Client, desired, actual [
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUptimeCheckConfigMonitoredResource(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigMonitoredResource, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigMonitoredResource, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1337,7 +1304,7 @@ func compareUptimeCheckConfigMonitoredResourceMap(c *Client, desired, actual map
 			return true
 		}
 		if compareUptimeCheckConfigMonitoredResource(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigMonitoredResource, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigMonitoredResource, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1351,12 +1318,8 @@ func compareUptimeCheckConfigResourceGroup(c *Client, desired, actual *UptimeChe
 	if actual == nil {
 		return true
 	}
-	if actual.ResourceType == nil && desired.ResourceType != nil && !dcl.IsEmptyValueIndirect(desired.ResourceType) {
-		c.Config.Logger.Infof("desired ResourceType %s - but actually nil", dcl.SprintResource(desired.ResourceType))
-		return true
-	}
 	if !reflect.DeepEqual(desired.ResourceType, actual.ResourceType) && !dcl.IsZeroValue(desired.ResourceType) {
-		c.Config.Logger.Infof("Diff in ResourceType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceType), dcl.SprintResource(actual.ResourceType))
+		c.Config.Logger.Infof("Diff in ResourceType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceType), dcl.SprintResource(actual.ResourceType))
 		return true
 	}
 	return false
@@ -1369,7 +1332,7 @@ func compareUptimeCheckConfigResourceGroupSlice(c *Client, desired, actual []Upt
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUptimeCheckConfigResourceGroup(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigResourceGroup, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigResourceGroup, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1388,7 +1351,7 @@ func compareUptimeCheckConfigResourceGroupMap(c *Client, desired, actual map[str
 			return true
 		}
 		if compareUptimeCheckConfigResourceGroup(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigResourceGroup, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigResourceGroup, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1402,84 +1365,44 @@ func compareUptimeCheckConfigHttpCheck(c *Client, desired, actual *UptimeCheckCo
 	if actual == nil {
 		return true
 	}
-	if actual.RequestMethod == nil && desired.RequestMethod != nil && !dcl.IsEmptyValueIndirect(desired.RequestMethod) {
-		c.Config.Logger.Infof("desired RequestMethod %s - but actually nil", dcl.SprintResource(desired.RequestMethod))
-		return true
-	}
 	if !reflect.DeepEqual(desired.RequestMethod, actual.RequestMethod) && !dcl.IsZeroValue(desired.RequestMethod) {
-		c.Config.Logger.Infof("Diff in RequestMethod. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestMethod), dcl.SprintResource(actual.RequestMethod))
-		return true
-	}
-	if actual.UseSsl == nil && desired.UseSsl != nil && !dcl.IsEmptyValueIndirect(desired.UseSsl) {
-		c.Config.Logger.Infof("desired UseSsl %s - but actually nil", dcl.SprintResource(desired.UseSsl))
+		c.Config.Logger.Infof("Diff in RequestMethod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestMethod), dcl.SprintResource(actual.RequestMethod))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.UseSsl, actual.UseSsl) && !dcl.IsZeroValue(desired.UseSsl) {
-		c.Config.Logger.Infof("Diff in UseSsl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UseSsl), dcl.SprintResource(actual.UseSsl))
-		return true
-	}
-	if actual.Path == nil && desired.Path != nil && !dcl.IsEmptyValueIndirect(desired.Path) {
-		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
+		c.Config.Logger.Infof("Diff in UseSsl.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UseSsl), dcl.SprintResource(actual.UseSsl))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
-		return true
-	}
-	if actual.Port == nil && desired.Port != nil && !dcl.IsEmptyValueIndirect(desired.Port) {
-		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
+		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
-		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
-		return true
-	}
-	if actual.AuthInfo == nil && desired.AuthInfo != nil && !dcl.IsEmptyValueIndirect(desired.AuthInfo) {
-		c.Config.Logger.Infof("desired AuthInfo %s - but actually nil", dcl.SprintResource(desired.AuthInfo))
+		c.Config.Logger.Infof("Diff in Port.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
 		return true
 	}
 	if compareUptimeCheckConfigHttpCheckAuthInfo(c, desired.AuthInfo, actual.AuthInfo) && !dcl.IsZeroValue(desired.AuthInfo) {
-		c.Config.Logger.Infof("Diff in AuthInfo. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AuthInfo), dcl.SprintResource(actual.AuthInfo))
-		return true
-	}
-	if actual.MaskHeaders == nil && desired.MaskHeaders != nil && !dcl.IsEmptyValueIndirect(desired.MaskHeaders) {
-		c.Config.Logger.Infof("desired MaskHeaders %s - but actually nil", dcl.SprintResource(desired.MaskHeaders))
+		c.Config.Logger.Infof("Diff in AuthInfo.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AuthInfo), dcl.SprintResource(actual.AuthInfo))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.MaskHeaders, actual.MaskHeaders) && !dcl.IsZeroValue(desired.MaskHeaders) {
-		c.Config.Logger.Infof("Diff in MaskHeaders. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaskHeaders), dcl.SprintResource(actual.MaskHeaders))
-		return true
-	}
-	if actual.Headers == nil && desired.Headers != nil && !dcl.IsEmptyValueIndirect(desired.Headers) {
-		c.Config.Logger.Infof("desired Headers %s - but actually nil", dcl.SprintResource(desired.Headers))
+		c.Config.Logger.Infof("Diff in MaskHeaders.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaskHeaders), dcl.SprintResource(actual.MaskHeaders))
 		return true
 	}
 	if !dcl.MapEquals(desired.Headers, actual.Headers, []string(nil)) && !dcl.IsZeroValue(desired.Headers) {
-		c.Config.Logger.Infof("Diff in Headers. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Headers), dcl.SprintResource(actual.Headers))
-		return true
-	}
-	if actual.ContentType == nil && desired.ContentType != nil && !dcl.IsEmptyValueIndirect(desired.ContentType) {
-		c.Config.Logger.Infof("desired ContentType %s - but actually nil", dcl.SprintResource(desired.ContentType))
+		c.Config.Logger.Infof("Diff in Headers.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Headers), dcl.SprintResource(actual.Headers))
 		return true
 	}
 	if !reflect.DeepEqual(desired.ContentType, actual.ContentType) && !dcl.IsZeroValue(desired.ContentType) {
-		c.Config.Logger.Infof("Diff in ContentType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContentType), dcl.SprintResource(actual.ContentType))
-		return true
-	}
-	if actual.ValidateSsl == nil && desired.ValidateSsl != nil && !dcl.IsEmptyValueIndirect(desired.ValidateSsl) {
-		c.Config.Logger.Infof("desired ValidateSsl %s - but actually nil", dcl.SprintResource(desired.ValidateSsl))
+		c.Config.Logger.Infof("Diff in ContentType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContentType), dcl.SprintResource(actual.ContentType))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.ValidateSsl, actual.ValidateSsl) && !dcl.IsZeroValue(desired.ValidateSsl) {
-		c.Config.Logger.Infof("Diff in ValidateSsl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValidateSsl), dcl.SprintResource(actual.ValidateSsl))
-		return true
-	}
-	if actual.Body == nil && desired.Body != nil && !dcl.IsEmptyValueIndirect(desired.Body) {
-		c.Config.Logger.Infof("desired Body %s - but actually nil", dcl.SprintResource(desired.Body))
+		c.Config.Logger.Infof("Diff in ValidateSsl.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValidateSsl), dcl.SprintResource(actual.ValidateSsl))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Body, actual.Body) && !dcl.IsZeroValue(desired.Body) {
-		c.Config.Logger.Infof("Diff in Body. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Body), dcl.SprintResource(actual.Body))
+		c.Config.Logger.Infof("Diff in Body.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Body), dcl.SprintResource(actual.Body))
 		return true
 	}
 	return false
@@ -1492,7 +1415,7 @@ func compareUptimeCheckConfigHttpCheckSlice(c *Client, desired, actual []UptimeC
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUptimeCheckConfigHttpCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheck, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1511,7 +1434,7 @@ func compareUptimeCheckConfigHttpCheckMap(c *Client, desired, actual map[string]
 			return true
 		}
 		if compareUptimeCheckConfigHttpCheck(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheck, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheck, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1525,20 +1448,12 @@ func compareUptimeCheckConfigHttpCheckAuthInfo(c *Client, desired, actual *Uptim
 	if actual == nil {
 		return true
 	}
-	if actual.Username == nil && desired.Username != nil && !dcl.IsEmptyValueIndirect(desired.Username) {
-		c.Config.Logger.Infof("desired Username %s - but actually nil", dcl.SprintResource(desired.Username))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Username, actual.Username) && !dcl.IsZeroValue(desired.Username) {
-		c.Config.Logger.Infof("Diff in Username. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Username), dcl.SprintResource(actual.Username))
-		return true
-	}
-	if actual.Password == nil && desired.Password != nil && !dcl.IsEmptyValueIndirect(desired.Password) {
-		c.Config.Logger.Infof("desired Password %s - but actually nil", dcl.SprintResource(desired.Password))
+		c.Config.Logger.Infof("Diff in Username.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Username), dcl.SprintResource(actual.Username))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Password, actual.Password) && !dcl.IsZeroValue(desired.Password) {
-		c.Config.Logger.Infof("Diff in Password. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Password), dcl.SprintResource(actual.Password))
+		c.Config.Logger.Infof("Diff in Password.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Password), dcl.SprintResource(actual.Password))
 		return true
 	}
 	return false
@@ -1551,7 +1466,7 @@ func compareUptimeCheckConfigHttpCheckAuthInfoSlice(c *Client, desired, actual [
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUptimeCheckConfigHttpCheckAuthInfo(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheckAuthInfo, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheckAuthInfo, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1570,7 +1485,7 @@ func compareUptimeCheckConfigHttpCheckAuthInfoMap(c *Client, desired, actual map
 			return true
 		}
 		if compareUptimeCheckConfigHttpCheckAuthInfo(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheckAuthInfo, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheckAuthInfo, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1584,12 +1499,8 @@ func compareUptimeCheckConfigTcpCheck(c *Client, desired, actual *UptimeCheckCon
 	if actual == nil {
 		return true
 	}
-	if actual.Port == nil && desired.Port != nil && !dcl.IsEmptyValueIndirect(desired.Port) {
-		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
-		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
+		c.Config.Logger.Infof("Diff in Port.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
 		return true
 	}
 	return false
@@ -1602,7 +1513,7 @@ func compareUptimeCheckConfigTcpCheckSlice(c *Client, desired, actual []UptimeCh
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUptimeCheckConfigTcpCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigTcpCheck, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigTcpCheck, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1621,7 +1532,7 @@ func compareUptimeCheckConfigTcpCheckMap(c *Client, desired, actual map[string]U
 			return true
 		}
 		if compareUptimeCheckConfigTcpCheck(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigTcpCheck, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigTcpCheck, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1635,20 +1546,12 @@ func compareUptimeCheckConfigContentMatchers(c *Client, desired, actual *UptimeC
 	if actual == nil {
 		return true
 	}
-	if actual.Content == nil && desired.Content != nil && !dcl.IsEmptyValueIndirect(desired.Content) {
-		c.Config.Logger.Infof("desired Content %s - but actually nil", dcl.SprintResource(desired.Content))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Content, actual.Content) && !dcl.IsZeroValue(desired.Content) {
-		c.Config.Logger.Infof("Diff in Content. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
-		return true
-	}
-	if actual.Matcher == nil && desired.Matcher != nil && !dcl.IsEmptyValueIndirect(desired.Matcher) {
-		c.Config.Logger.Infof("desired Matcher %s - but actually nil", dcl.SprintResource(desired.Matcher))
+		c.Config.Logger.Infof("Diff in Content.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Matcher, actual.Matcher) && !dcl.IsZeroValue(desired.Matcher) {
-		c.Config.Logger.Infof("Diff in Matcher. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Matcher), dcl.SprintResource(actual.Matcher))
+		c.Config.Logger.Infof("Diff in Matcher.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Matcher), dcl.SprintResource(actual.Matcher))
 		return true
 	}
 	return false
@@ -1661,7 +1564,7 @@ func compareUptimeCheckConfigContentMatchersSlice(c *Client, desired, actual []U
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUptimeCheckConfigContentMatchers(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigContentMatchers, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigContentMatchers, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1680,7 +1583,7 @@ func compareUptimeCheckConfigContentMatchersMap(c *Client, desired, actual map[s
 			return true
 		}
 		if compareUptimeCheckConfigContentMatchers(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigContentMatchers, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigContentMatchers, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1694,7 +1597,7 @@ func compareUptimeCheckConfigResourceGroupResourceTypeEnumSlice(c *Client, desir
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUptimeCheckConfigResourceGroupResourceTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigResourceGroupResourceTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigResourceGroupResourceTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1712,7 +1615,7 @@ func compareUptimeCheckConfigHttpCheckRequestMethodEnumSlice(c *Client, desired,
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUptimeCheckConfigHttpCheckRequestMethodEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheckRequestMethodEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheckRequestMethodEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1730,7 +1633,7 @@ func compareUptimeCheckConfigHttpCheckContentTypeEnumSlice(c *Client, desired, a
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUptimeCheckConfigHttpCheckContentTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheckContentTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigHttpCheckContentTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1748,7 +1651,7 @@ func compareUptimeCheckConfigContentMatchersMatcherEnumSlice(c *Client, desired,
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareUptimeCheckConfigContentMatchersMatcherEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UptimeCheckConfigContentMatchersMatcherEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in UptimeCheckConfigContentMatchersMatcherEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1763,7 +1666,7 @@ func compareUptimeCheckConfigContentMatchersMatcherEnum(c *Client, desired, actu
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *UptimeCheckConfig) urlNormalized() *UptimeCheckConfig {
-	normalized := deepcopy.Copy(*r).(UptimeCheckConfig)
+	normalized := dcl.Copy(*r).(UptimeCheckConfig)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Period = dcl.SelfLinkToName(r.Period)
@@ -1837,22 +1740,22 @@ func expandUptimeCheckConfig(c *Client, f *UptimeCheckConfig) (map[string]interf
 	}
 	if v, err := expandUptimeCheckConfigMonitoredResource(c, f.MonitoredResource); err != nil {
 		return nil, fmt.Errorf("error expanding MonitoredResource into monitoredResource: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["monitoredResource"] = v
 	}
 	if v, err := expandUptimeCheckConfigResourceGroup(c, f.ResourceGroup); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceGroup into resourceGroup: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["resourceGroup"] = v
 	}
 	if v, err := expandUptimeCheckConfigHttpCheck(c, f.HttpCheck); err != nil {
 		return nil, fmt.Errorf("error expanding HttpCheck into httpCheck: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["httpCheck"] = v
 	}
 	if v, err := expandUptimeCheckConfigTcpCheck(c, f.TcpCheck); err != nil {
 		return nil, fmt.Errorf("error expanding TcpCheck into tcpCheck: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["tcpCheck"] = v
 	}
 	if v := f.Period; !dcl.IsEmptyValueIndirect(v) {
@@ -1863,7 +1766,7 @@ func expandUptimeCheckConfig(c *Client, f *UptimeCheckConfig) (map[string]interf
 	}
 	if v, err := expandUptimeCheckConfigContentMatchersSlice(c, f.ContentMatchers); err != nil {
 		return nil, fmt.Errorf("error expanding ContentMatchers into contentMatchers: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["contentMatchers"] = v
 	}
 	if v := f.PrivateCheckers; !dcl.IsEmptyValueIndirect(v) {
@@ -1874,7 +1777,7 @@ func expandUptimeCheckConfig(c *Client, f *UptimeCheckConfig) (map[string]interf
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -1997,11 +1900,10 @@ func flattenUptimeCheckConfigMonitoredResourceSlice(c *Client, i interface{}) []
 // expandUptimeCheckConfigMonitoredResource expands an instance of UptimeCheckConfigMonitoredResource into a JSON
 // request object.
 func expandUptimeCheckConfigMonitoredResource(c *Client, f *UptimeCheckConfigMonitoredResource) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
@@ -2111,11 +2013,10 @@ func flattenUptimeCheckConfigResourceGroupSlice(c *Client, i interface{}) []Upti
 // expandUptimeCheckConfigResourceGroup expands an instance of UptimeCheckConfigResourceGroup into a JSON
 // request object.
 func expandUptimeCheckConfigResourceGroup(c *Client, f *UptimeCheckConfigResourceGroup) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding GroupId into groupId: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2227,11 +2128,10 @@ func flattenUptimeCheckConfigHttpCheckSlice(c *Client, i interface{}) []UptimeCh
 // expandUptimeCheckConfigHttpCheck expands an instance of UptimeCheckConfigHttpCheck into a JSON
 // request object.
 func expandUptimeCheckConfigHttpCheck(c *Client, f *UptimeCheckConfigHttpCheck) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RequestMethod; !dcl.IsEmptyValueIndirect(v) {
 		m["requestMethod"] = v
 	}
@@ -2383,11 +2283,10 @@ func flattenUptimeCheckConfigHttpCheckAuthInfoSlice(c *Client, i interface{}) []
 // expandUptimeCheckConfigHttpCheckAuthInfo expands an instance of UptimeCheckConfigHttpCheckAuthInfo into a JSON
 // request object.
 func expandUptimeCheckConfigHttpCheckAuthInfo(c *Client, f *UptimeCheckConfigHttpCheckAuthInfo) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Username; !dcl.IsEmptyValueIndirect(v) {
 		m["username"] = v
 	}
@@ -2497,11 +2396,10 @@ func flattenUptimeCheckConfigTcpCheckSlice(c *Client, i interface{}) []UptimeChe
 // expandUptimeCheckConfigTcpCheck expands an instance of UptimeCheckConfigTcpCheck into a JSON
 // request object.
 func expandUptimeCheckConfigTcpCheck(c *Client, f *UptimeCheckConfigTcpCheck) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
 		m["port"] = v
 	}
@@ -2607,11 +2505,10 @@ func flattenUptimeCheckConfigContentMatchersSlice(c *Client, i interface{}) []Up
 // expandUptimeCheckConfigContentMatchers expands an instance of UptimeCheckConfigContentMatchers into a JSON
 // request object.
 func expandUptimeCheckConfigContentMatchers(c *Client, f *UptimeCheckConfigContentMatchers) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Content; !dcl.IsEmptyValueIndirect(v) {
 		m["content"] = v
 	}

@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -3136,6 +3135,7 @@ type guestPolicyDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         guestPolicyApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -3154,65 +3154,54 @@ func diffGuestPolicy(c *Client, desired, actual *GuestPolicy, opts ...dcl.ApplyO
 
 	var diffs []guestPolicyDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, FieldName: "Name",
+			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, FieldName: "Description",
+			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.CreateTime, actual.CreateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, FieldName: "CreateTime"})
+		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
+		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Etag, actual.Etag, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "etag"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, FieldName: "Etag",
+			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
 		})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-
-		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp:  &updateGuestPolicyUpdateGuestPolicyOperation{},
-			FieldName: "Name",
-		})
-
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
-		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp:  &updateGuestPolicyUpdateGuestPolicyOperation{},
-			FieldName: "Description",
-		})
-
-	}
 	if compareGuestPolicyAssignment(c, desired.Assignment, actual.Assignment) {
 		c.Config.Logger.Infof("Detected diff in Assignment.\nDESIRED: %v\nACTUAL: %v", desired.Assignment, actual.Assignment)
 
@@ -3249,15 +3238,6 @@ func diffGuestPolicy(c *Client, desired, actual *GuestPolicy, opts ...dcl.ApplyO
 		})
 
 	}
-	if !dcl.IsZeroValue(desired.Etag) && !dcl.StringCanonicalize(desired.Etag, actual.Etag) {
-		c.Config.Logger.Infof("Detected diff in Etag.\nDESIRED: %v\nACTUAL: %v", desired.Etag, actual.Etag)
-
-		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp:  &updateGuestPolicyUpdateGuestPolicyOperation{},
-			FieldName: "Etag",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -3289,44 +3269,24 @@ func compareGuestPolicyAssignment(c *Client, desired, actual *GuestPolicyAssignm
 	if actual == nil {
 		return true
 	}
-	if actual.GroupLabels == nil && desired.GroupLabels != nil && !dcl.IsEmptyValueIndirect(desired.GroupLabels) {
-		c.Config.Logger.Infof("desired GroupLabels %s - but actually nil", dcl.SprintResource(desired.GroupLabels))
-		return true
-	}
 	if compareGuestPolicyAssignmentGroupLabelsSlice(c, desired.GroupLabels, actual.GroupLabels) && !dcl.IsZeroValue(desired.GroupLabels) {
-		c.Config.Logger.Infof("Diff in GroupLabels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupLabels), dcl.SprintResource(actual.GroupLabels))
-		return true
-	}
-	if actual.Zones == nil && desired.Zones != nil && !dcl.IsEmptyValueIndirect(desired.Zones) {
-		c.Config.Logger.Infof("desired Zones %s - but actually nil", dcl.SprintResource(desired.Zones))
+		c.Config.Logger.Infof("Diff in GroupLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupLabels), dcl.SprintResource(actual.GroupLabels))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Zones, actual.Zones) && !dcl.IsZeroValue(desired.Zones) {
-		c.Config.Logger.Infof("Diff in Zones. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zones), dcl.SprintResource(actual.Zones))
-		return true
-	}
-	if actual.Instances == nil && desired.Instances != nil && !dcl.IsEmptyValueIndirect(desired.Instances) {
-		c.Config.Logger.Infof("desired Instances %s - but actually nil", dcl.SprintResource(desired.Instances))
+		c.Config.Logger.Infof("Diff in Zones.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zones), dcl.SprintResource(actual.Zones))
 		return true
 	}
 	if !dcl.StringSliceEqualsWithSelfLink(desired.Instances, actual.Instances) && !dcl.IsZeroValue(desired.Instances) {
-		c.Config.Logger.Infof("Diff in Instances. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Instances), dcl.SprintResource(actual.Instances))
-		return true
-	}
-	if actual.InstanceNamePrefixes == nil && desired.InstanceNamePrefixes != nil && !dcl.IsEmptyValueIndirect(desired.InstanceNamePrefixes) {
-		c.Config.Logger.Infof("desired InstanceNamePrefixes %s - but actually nil", dcl.SprintResource(desired.InstanceNamePrefixes))
+		c.Config.Logger.Infof("Diff in Instances.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Instances), dcl.SprintResource(actual.Instances))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.InstanceNamePrefixes, actual.InstanceNamePrefixes) && !dcl.IsZeroValue(desired.InstanceNamePrefixes) {
-		c.Config.Logger.Infof("Diff in InstanceNamePrefixes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceNamePrefixes), dcl.SprintResource(actual.InstanceNamePrefixes))
-		return true
-	}
-	if actual.OsTypes == nil && desired.OsTypes != nil && !dcl.IsEmptyValueIndirect(desired.OsTypes) {
-		c.Config.Logger.Infof("desired OsTypes %s - but actually nil", dcl.SprintResource(desired.OsTypes))
+		c.Config.Logger.Infof("Diff in InstanceNamePrefixes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceNamePrefixes), dcl.SprintResource(actual.InstanceNamePrefixes))
 		return true
 	}
 	if compareGuestPolicyAssignmentOsTypesSlice(c, desired.OsTypes, actual.OsTypes) && !dcl.IsZeroValue(desired.OsTypes) {
-		c.Config.Logger.Infof("Diff in OsTypes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OsTypes), dcl.SprintResource(actual.OsTypes))
+		c.Config.Logger.Infof("Diff in OsTypes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OsTypes), dcl.SprintResource(actual.OsTypes))
 		return true
 	}
 	return false
@@ -3339,7 +3299,7 @@ func compareGuestPolicyAssignmentSlice(c *Client, desired, actual []GuestPolicyA
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyAssignment(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignment, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyAssignment, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3358,7 +3318,7 @@ func compareGuestPolicyAssignmentMap(c *Client, desired, actual map[string]Guest
 			return true
 		}
 		if compareGuestPolicyAssignment(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignment, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyAssignment, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3372,12 +3332,8 @@ func compareGuestPolicyAssignmentGroupLabels(c *Client, desired, actual *GuestPo
 	if actual == nil {
 		return true
 	}
-	if actual.Labels == nil && desired.Labels != nil && !dcl.IsEmptyValueIndirect(desired.Labels) {
-		c.Config.Logger.Infof("desired Labels %s - but actually nil", dcl.SprintResource(desired.Labels))
-		return true
-	}
 	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) && !dcl.IsZeroValue(desired.Labels) {
-		c.Config.Logger.Infof("Diff in Labels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
+		c.Config.Logger.Infof("Diff in Labels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
 		return true
 	}
 	return false
@@ -3390,7 +3346,7 @@ func compareGuestPolicyAssignmentGroupLabelsSlice(c *Client, desired, actual []G
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyAssignmentGroupLabels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentGroupLabels, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentGroupLabels, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3409,7 +3365,7 @@ func compareGuestPolicyAssignmentGroupLabelsMap(c *Client, desired, actual map[s
 			return true
 		}
 		if compareGuestPolicyAssignmentGroupLabels(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentGroupLabels, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentGroupLabels, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3423,28 +3379,16 @@ func compareGuestPolicyAssignmentOsTypes(c *Client, desired, actual *GuestPolicy
 	if actual == nil {
 		return true
 	}
-	if actual.OsShortName == nil && desired.OsShortName != nil && !dcl.IsEmptyValueIndirect(desired.OsShortName) {
-		c.Config.Logger.Infof("desired OsShortName %s - but actually nil", dcl.SprintResource(desired.OsShortName))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.OsShortName, actual.OsShortName) && !dcl.IsZeroValue(desired.OsShortName) {
-		c.Config.Logger.Infof("Diff in OsShortName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OsShortName), dcl.SprintResource(actual.OsShortName))
-		return true
-	}
-	if actual.OsVersion == nil && desired.OsVersion != nil && !dcl.IsEmptyValueIndirect(desired.OsVersion) {
-		c.Config.Logger.Infof("desired OsVersion %s - but actually nil", dcl.SprintResource(desired.OsVersion))
+		c.Config.Logger.Infof("Diff in OsShortName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OsShortName), dcl.SprintResource(actual.OsShortName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.OsVersion, actual.OsVersion) && !dcl.IsZeroValue(desired.OsVersion) {
-		c.Config.Logger.Infof("Diff in OsVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OsVersion), dcl.SprintResource(actual.OsVersion))
-		return true
-	}
-	if actual.OsArchitecture == nil && desired.OsArchitecture != nil && !dcl.IsEmptyValueIndirect(desired.OsArchitecture) {
-		c.Config.Logger.Infof("desired OsArchitecture %s - but actually nil", dcl.SprintResource(desired.OsArchitecture))
+		c.Config.Logger.Infof("Diff in OsVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OsVersion), dcl.SprintResource(actual.OsVersion))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.OsArchitecture, actual.OsArchitecture) && !dcl.IsZeroValue(desired.OsArchitecture) {
-		c.Config.Logger.Infof("Diff in OsArchitecture. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OsArchitecture), dcl.SprintResource(actual.OsArchitecture))
+		c.Config.Logger.Infof("Diff in OsArchitecture.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OsArchitecture), dcl.SprintResource(actual.OsArchitecture))
 		return true
 	}
 	return false
@@ -3457,7 +3401,7 @@ func compareGuestPolicyAssignmentOsTypesSlice(c *Client, desired, actual []Guest
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyAssignmentOsTypes(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentOsTypes, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentOsTypes, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3476,7 +3420,7 @@ func compareGuestPolicyAssignmentOsTypesMap(c *Client, desired, actual map[strin
 			return true
 		}
 		if compareGuestPolicyAssignmentOsTypes(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentOsTypes, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentOsTypes, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3490,28 +3434,16 @@ func compareGuestPolicyPackages(c *Client, desired, actual *GuestPolicyPackages)
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.DesiredState == nil && desired.DesiredState != nil && !dcl.IsEmptyValueIndirect(desired.DesiredState) {
-		c.Config.Logger.Infof("desired DesiredState %s - but actually nil", dcl.SprintResource(desired.DesiredState))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !reflect.DeepEqual(desired.DesiredState, actual.DesiredState) && !dcl.IsZeroValue(desired.DesiredState) {
-		c.Config.Logger.Infof("Diff in DesiredState. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DesiredState), dcl.SprintResource(actual.DesiredState))
-		return true
-	}
-	if actual.Manager == nil && desired.Manager != nil && !dcl.IsEmptyValueIndirect(desired.Manager) {
-		c.Config.Logger.Infof("desired Manager %s - but actually nil", dcl.SprintResource(desired.Manager))
+		c.Config.Logger.Infof("Diff in DesiredState.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DesiredState), dcl.SprintResource(actual.DesiredState))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Manager, actual.Manager) && !dcl.IsZeroValue(desired.Manager) {
-		c.Config.Logger.Infof("Diff in Manager. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Manager), dcl.SprintResource(actual.Manager))
+		c.Config.Logger.Infof("Diff in Manager.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Manager), dcl.SprintResource(actual.Manager))
 		return true
 	}
 	return false
@@ -3524,7 +3456,7 @@ func compareGuestPolicyPackagesSlice(c *Client, desired, actual []GuestPolicyPac
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyPackages(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackages, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackages, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3543,7 +3475,7 @@ func compareGuestPolicyPackagesMap(c *Client, desired, actual map[string]GuestPo
 			return true
 		}
 		if compareGuestPolicyPackages(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackages, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackages, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3557,36 +3489,20 @@ func compareGuestPolicyPackageRepositories(c *Client, desired, actual *GuestPoli
 	if actual == nil {
 		return true
 	}
-	if actual.Apt == nil && desired.Apt != nil && !dcl.IsEmptyValueIndirect(desired.Apt) {
-		c.Config.Logger.Infof("desired Apt %s - but actually nil", dcl.SprintResource(desired.Apt))
-		return true
-	}
 	if compareGuestPolicyPackageRepositoriesApt(c, desired.Apt, actual.Apt) && !dcl.IsZeroValue(desired.Apt) {
-		c.Config.Logger.Infof("Diff in Apt. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Apt), dcl.SprintResource(actual.Apt))
-		return true
-	}
-	if actual.Yum == nil && desired.Yum != nil && !dcl.IsEmptyValueIndirect(desired.Yum) {
-		c.Config.Logger.Infof("desired Yum %s - but actually nil", dcl.SprintResource(desired.Yum))
+		c.Config.Logger.Infof("Diff in Apt.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Apt), dcl.SprintResource(actual.Apt))
 		return true
 	}
 	if compareGuestPolicyPackageRepositoriesYum(c, desired.Yum, actual.Yum) && !dcl.IsZeroValue(desired.Yum) {
-		c.Config.Logger.Infof("Diff in Yum. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Yum), dcl.SprintResource(actual.Yum))
-		return true
-	}
-	if actual.Zypper == nil && desired.Zypper != nil && !dcl.IsEmptyValueIndirect(desired.Zypper) {
-		c.Config.Logger.Infof("desired Zypper %s - but actually nil", dcl.SprintResource(desired.Zypper))
+		c.Config.Logger.Infof("Diff in Yum.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Yum), dcl.SprintResource(actual.Yum))
 		return true
 	}
 	if compareGuestPolicyPackageRepositoriesZypper(c, desired.Zypper, actual.Zypper) && !dcl.IsZeroValue(desired.Zypper) {
-		c.Config.Logger.Infof("Diff in Zypper. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zypper), dcl.SprintResource(actual.Zypper))
-		return true
-	}
-	if actual.Goo == nil && desired.Goo != nil && !dcl.IsEmptyValueIndirect(desired.Goo) {
-		c.Config.Logger.Infof("desired Goo %s - but actually nil", dcl.SprintResource(desired.Goo))
+		c.Config.Logger.Infof("Diff in Zypper.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zypper), dcl.SprintResource(actual.Zypper))
 		return true
 	}
 	if compareGuestPolicyPackageRepositoriesGoo(c, desired.Goo, actual.Goo) && !dcl.IsZeroValue(desired.Goo) {
-		c.Config.Logger.Infof("Diff in Goo. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Goo), dcl.SprintResource(actual.Goo))
+		c.Config.Logger.Infof("Diff in Goo.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Goo), dcl.SprintResource(actual.Goo))
 		return true
 	}
 	return false
@@ -3599,7 +3515,7 @@ func compareGuestPolicyPackageRepositoriesSlice(c *Client, desired, actual []Gue
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyPackageRepositories(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositories, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositories, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3618,7 +3534,7 @@ func compareGuestPolicyPackageRepositoriesMap(c *Client, desired, actual map[str
 			return true
 		}
 		if compareGuestPolicyPackageRepositories(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositories, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositories, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3632,44 +3548,24 @@ func compareGuestPolicyPackageRepositoriesApt(c *Client, desired, actual *GuestP
 	if actual == nil {
 		return true
 	}
-	if actual.ArchiveType == nil && desired.ArchiveType != nil && !dcl.IsEmptyValueIndirect(desired.ArchiveType) {
-		c.Config.Logger.Infof("desired ArchiveType %s - but actually nil", dcl.SprintResource(desired.ArchiveType))
-		return true
-	}
 	if !reflect.DeepEqual(desired.ArchiveType, actual.ArchiveType) && !dcl.IsZeroValue(desired.ArchiveType) {
-		c.Config.Logger.Infof("Diff in ArchiveType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveType), dcl.SprintResource(actual.ArchiveType))
-		return true
-	}
-	if actual.Uri == nil && desired.Uri != nil && !dcl.IsEmptyValueIndirect(desired.Uri) {
-		c.Config.Logger.Infof("desired Uri %s - but actually nil", dcl.SprintResource(desired.Uri))
+		c.Config.Logger.Infof("Diff in ArchiveType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveType), dcl.SprintResource(actual.ArchiveType))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Uri, actual.Uri) && !dcl.IsZeroValue(desired.Uri) {
-		c.Config.Logger.Infof("Diff in Uri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uri), dcl.SprintResource(actual.Uri))
-		return true
-	}
-	if actual.Distribution == nil && desired.Distribution != nil && !dcl.IsEmptyValueIndirect(desired.Distribution) {
-		c.Config.Logger.Infof("desired Distribution %s - but actually nil", dcl.SprintResource(desired.Distribution))
+		c.Config.Logger.Infof("Diff in Uri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uri), dcl.SprintResource(actual.Uri))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Distribution, actual.Distribution) && !dcl.IsZeroValue(desired.Distribution) {
-		c.Config.Logger.Infof("Diff in Distribution. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Distribution), dcl.SprintResource(actual.Distribution))
-		return true
-	}
-	if actual.Components == nil && desired.Components != nil && !dcl.IsEmptyValueIndirect(desired.Components) {
-		c.Config.Logger.Infof("desired Components %s - but actually nil", dcl.SprintResource(desired.Components))
+		c.Config.Logger.Infof("Diff in Distribution.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Distribution), dcl.SprintResource(actual.Distribution))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Components, actual.Components) && !dcl.IsZeroValue(desired.Components) {
-		c.Config.Logger.Infof("Diff in Components. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Components), dcl.SprintResource(actual.Components))
-		return true
-	}
-	if actual.GpgKey == nil && desired.GpgKey != nil && !dcl.IsEmptyValueIndirect(desired.GpgKey) {
-		c.Config.Logger.Infof("desired GpgKey %s - but actually nil", dcl.SprintResource(desired.GpgKey))
+		c.Config.Logger.Infof("Diff in Components.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Components), dcl.SprintResource(actual.Components))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.GpgKey, actual.GpgKey) && !dcl.IsZeroValue(desired.GpgKey) {
-		c.Config.Logger.Infof("Diff in GpgKey. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GpgKey), dcl.SprintResource(actual.GpgKey))
+		c.Config.Logger.Infof("Diff in GpgKey.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GpgKey), dcl.SprintResource(actual.GpgKey))
 		return true
 	}
 	return false
@@ -3682,7 +3578,7 @@ func compareGuestPolicyPackageRepositoriesAptSlice(c *Client, desired, actual []
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyPackageRepositoriesApt(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesApt, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesApt, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3701,7 +3597,7 @@ func compareGuestPolicyPackageRepositoriesAptMap(c *Client, desired, actual map[
 			return true
 		}
 		if compareGuestPolicyPackageRepositoriesApt(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesApt, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesApt, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3715,36 +3611,20 @@ func compareGuestPolicyPackageRepositoriesYum(c *Client, desired, actual *GuestP
 	if actual == nil {
 		return true
 	}
-	if actual.Id == nil && desired.Id != nil && !dcl.IsEmptyValueIndirect(desired.Id) {
-		c.Config.Logger.Infof("desired Id %s - but actually nil", dcl.SprintResource(desired.Id))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Id, actual.Id) && !dcl.IsZeroValue(desired.Id) {
-		c.Config.Logger.Infof("Diff in Id. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
-		return true
-	}
-	if actual.DisplayName == nil && desired.DisplayName != nil && !dcl.IsEmptyValueIndirect(desired.DisplayName) {
-		c.Config.Logger.Infof("desired DisplayName %s - but actually nil", dcl.SprintResource(desired.DisplayName))
+		c.Config.Logger.Infof("Diff in Id.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) && !dcl.IsZeroValue(desired.DisplayName) {
-		c.Config.Logger.Infof("Diff in DisplayName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DisplayName), dcl.SprintResource(actual.DisplayName))
-		return true
-	}
-	if actual.BaseUrl == nil && desired.BaseUrl != nil && !dcl.IsEmptyValueIndirect(desired.BaseUrl) {
-		c.Config.Logger.Infof("desired BaseUrl %s - but actually nil", dcl.SprintResource(desired.BaseUrl))
+		c.Config.Logger.Infof("Diff in DisplayName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DisplayName), dcl.SprintResource(actual.DisplayName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.BaseUrl, actual.BaseUrl) && !dcl.IsZeroValue(desired.BaseUrl) {
-		c.Config.Logger.Infof("Diff in BaseUrl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BaseUrl), dcl.SprintResource(actual.BaseUrl))
-		return true
-	}
-	if actual.GpgKeys == nil && desired.GpgKeys != nil && !dcl.IsEmptyValueIndirect(desired.GpgKeys) {
-		c.Config.Logger.Infof("desired GpgKeys %s - but actually nil", dcl.SprintResource(desired.GpgKeys))
+		c.Config.Logger.Infof("Diff in BaseUrl.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BaseUrl), dcl.SprintResource(actual.BaseUrl))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.GpgKeys, actual.GpgKeys) && !dcl.IsZeroValue(desired.GpgKeys) {
-		c.Config.Logger.Infof("Diff in GpgKeys. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GpgKeys), dcl.SprintResource(actual.GpgKeys))
+		c.Config.Logger.Infof("Diff in GpgKeys.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GpgKeys), dcl.SprintResource(actual.GpgKeys))
 		return true
 	}
 	return false
@@ -3757,7 +3637,7 @@ func compareGuestPolicyPackageRepositoriesYumSlice(c *Client, desired, actual []
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyPackageRepositoriesYum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesYum, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesYum, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3776,7 +3656,7 @@ func compareGuestPolicyPackageRepositoriesYumMap(c *Client, desired, actual map[
 			return true
 		}
 		if compareGuestPolicyPackageRepositoriesYum(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesYum, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesYum, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3790,36 +3670,20 @@ func compareGuestPolicyPackageRepositoriesZypper(c *Client, desired, actual *Gue
 	if actual == nil {
 		return true
 	}
-	if actual.Id == nil && desired.Id != nil && !dcl.IsEmptyValueIndirect(desired.Id) {
-		c.Config.Logger.Infof("desired Id %s - but actually nil", dcl.SprintResource(desired.Id))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Id, actual.Id) && !dcl.IsZeroValue(desired.Id) {
-		c.Config.Logger.Infof("Diff in Id. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
-		return true
-	}
-	if actual.DisplayName == nil && desired.DisplayName != nil && !dcl.IsEmptyValueIndirect(desired.DisplayName) {
-		c.Config.Logger.Infof("desired DisplayName %s - but actually nil", dcl.SprintResource(desired.DisplayName))
+		c.Config.Logger.Infof("Diff in Id.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) && !dcl.IsZeroValue(desired.DisplayName) {
-		c.Config.Logger.Infof("Diff in DisplayName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DisplayName), dcl.SprintResource(actual.DisplayName))
-		return true
-	}
-	if actual.BaseUrl == nil && desired.BaseUrl != nil && !dcl.IsEmptyValueIndirect(desired.BaseUrl) {
-		c.Config.Logger.Infof("desired BaseUrl %s - but actually nil", dcl.SprintResource(desired.BaseUrl))
+		c.Config.Logger.Infof("Diff in DisplayName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DisplayName), dcl.SprintResource(actual.DisplayName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.BaseUrl, actual.BaseUrl) && !dcl.IsZeroValue(desired.BaseUrl) {
-		c.Config.Logger.Infof("Diff in BaseUrl. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BaseUrl), dcl.SprintResource(actual.BaseUrl))
-		return true
-	}
-	if actual.GpgKeys == nil && desired.GpgKeys != nil && !dcl.IsEmptyValueIndirect(desired.GpgKeys) {
-		c.Config.Logger.Infof("desired GpgKeys %s - but actually nil", dcl.SprintResource(desired.GpgKeys))
+		c.Config.Logger.Infof("Diff in BaseUrl.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BaseUrl), dcl.SprintResource(actual.BaseUrl))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.GpgKeys, actual.GpgKeys) && !dcl.IsZeroValue(desired.GpgKeys) {
-		c.Config.Logger.Infof("Diff in GpgKeys. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GpgKeys), dcl.SprintResource(actual.GpgKeys))
+		c.Config.Logger.Infof("Diff in GpgKeys.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GpgKeys), dcl.SprintResource(actual.GpgKeys))
 		return true
 	}
 	return false
@@ -3832,7 +3696,7 @@ func compareGuestPolicyPackageRepositoriesZypperSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyPackageRepositoriesZypper(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesZypper, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesZypper, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3851,7 +3715,7 @@ func compareGuestPolicyPackageRepositoriesZypperMap(c *Client, desired, actual m
 			return true
 		}
 		if compareGuestPolicyPackageRepositoriesZypper(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesZypper, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesZypper, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3865,20 +3729,12 @@ func compareGuestPolicyPackageRepositoriesGoo(c *Client, desired, actual *GuestP
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Url == nil && desired.Url != nil && !dcl.IsEmptyValueIndirect(desired.Url) {
-		c.Config.Logger.Infof("desired Url %s - but actually nil", dcl.SprintResource(desired.Url))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) {
-		c.Config.Logger.Infof("Diff in Url. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
+		c.Config.Logger.Infof("Diff in Url.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
 		return true
 	}
 	return false
@@ -3891,7 +3747,7 @@ func compareGuestPolicyPackageRepositoriesGooSlice(c *Client, desired, actual []
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyPackageRepositoriesGoo(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesGoo, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesGoo, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -3910,7 +3766,7 @@ func compareGuestPolicyPackageRepositoriesGooMap(c *Client, desired, actual map[
 			return true
 		}
 		if compareGuestPolicyPackageRepositoriesGoo(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesGoo, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesGoo, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -3924,52 +3780,28 @@ func compareGuestPolicyRecipes(c *Client, desired, actual *GuestPolicyRecipes) b
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Version == nil && desired.Version != nil && !dcl.IsEmptyValueIndirect(desired.Version) {
-		c.Config.Logger.Infof("desired Version %s - but actually nil", dcl.SprintResource(desired.Version))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Version, actual.Version) && !dcl.IsZeroValue(desired.Version) {
-		c.Config.Logger.Infof("Diff in Version. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Version), dcl.SprintResource(actual.Version))
-		return true
-	}
-	if actual.Artifacts == nil && desired.Artifacts != nil && !dcl.IsEmptyValueIndirect(desired.Artifacts) {
-		c.Config.Logger.Infof("desired Artifacts %s - but actually nil", dcl.SprintResource(desired.Artifacts))
+		c.Config.Logger.Infof("Diff in Version.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Version), dcl.SprintResource(actual.Version))
 		return true
 	}
 	if compareGuestPolicyRecipesArtifactsSlice(c, desired.Artifacts, actual.Artifacts) && !dcl.IsZeroValue(desired.Artifacts) {
-		c.Config.Logger.Infof("Diff in Artifacts. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Artifacts), dcl.SprintResource(actual.Artifacts))
-		return true
-	}
-	if actual.InstallSteps == nil && desired.InstallSteps != nil && !dcl.IsEmptyValueIndirect(desired.InstallSteps) {
-		c.Config.Logger.Infof("desired InstallSteps %s - but actually nil", dcl.SprintResource(desired.InstallSteps))
+		c.Config.Logger.Infof("Diff in Artifacts.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Artifacts), dcl.SprintResource(actual.Artifacts))
 		return true
 	}
 	if compareGuestPolicyRecipesInstallStepsSlice(c, desired.InstallSteps, actual.InstallSteps) && !dcl.IsZeroValue(desired.InstallSteps) {
-		c.Config.Logger.Infof("Diff in InstallSteps. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstallSteps), dcl.SprintResource(actual.InstallSteps))
-		return true
-	}
-	if actual.UpdateSteps == nil && desired.UpdateSteps != nil && !dcl.IsEmptyValueIndirect(desired.UpdateSteps) {
-		c.Config.Logger.Infof("desired UpdateSteps %s - but actually nil", dcl.SprintResource(desired.UpdateSteps))
+		c.Config.Logger.Infof("Diff in InstallSteps.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstallSteps), dcl.SprintResource(actual.InstallSteps))
 		return true
 	}
 	if compareGuestPolicyRecipesUpdateStepsSlice(c, desired.UpdateSteps, actual.UpdateSteps) && !dcl.IsZeroValue(desired.UpdateSteps) {
-		c.Config.Logger.Infof("Diff in UpdateSteps. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UpdateSteps), dcl.SprintResource(actual.UpdateSteps))
-		return true
-	}
-	if actual.DesiredState == nil && desired.DesiredState != nil && !dcl.IsEmptyValueIndirect(desired.DesiredState) {
-		c.Config.Logger.Infof("desired DesiredState %s - but actually nil", dcl.SprintResource(desired.DesiredState))
+		c.Config.Logger.Infof("Diff in UpdateSteps.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UpdateSteps), dcl.SprintResource(actual.UpdateSteps))
 		return true
 	}
 	if !reflect.DeepEqual(desired.DesiredState, actual.DesiredState) && !dcl.IsZeroValue(desired.DesiredState) {
-		c.Config.Logger.Infof("Diff in DesiredState. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DesiredState), dcl.SprintResource(actual.DesiredState))
+		c.Config.Logger.Infof("Diff in DesiredState.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DesiredState), dcl.SprintResource(actual.DesiredState))
 		return true
 	}
 	return false
@@ -3982,7 +3814,7 @@ func compareGuestPolicyRecipesSlice(c *Client, desired, actual []GuestPolicyReci
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipes(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipes, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipes, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4001,7 +3833,7 @@ func compareGuestPolicyRecipesMap(c *Client, desired, actual map[string]GuestPol
 			return true
 		}
 		if compareGuestPolicyRecipes(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipes, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipes, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4015,36 +3847,20 @@ func compareGuestPolicyRecipesArtifacts(c *Client, desired, actual *GuestPolicyR
 	if actual == nil {
 		return true
 	}
-	if actual.Id == nil && desired.Id != nil && !dcl.IsEmptyValueIndirect(desired.Id) {
-		c.Config.Logger.Infof("desired Id %s - but actually nil", dcl.SprintResource(desired.Id))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Id, actual.Id) && !dcl.IsZeroValue(desired.Id) {
-		c.Config.Logger.Infof("Diff in Id. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
-		return true
-	}
-	if actual.Remote == nil && desired.Remote != nil && !dcl.IsEmptyValueIndirect(desired.Remote) {
-		c.Config.Logger.Infof("desired Remote %s - but actually nil", dcl.SprintResource(desired.Remote))
+		c.Config.Logger.Infof("Diff in Id.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
 		return true
 	}
 	if compareGuestPolicyRecipesArtifactsRemote(c, desired.Remote, actual.Remote) && !dcl.IsZeroValue(desired.Remote) {
-		c.Config.Logger.Infof("Diff in Remote. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Remote), dcl.SprintResource(actual.Remote))
-		return true
-	}
-	if actual.Gcs == nil && desired.Gcs != nil && !dcl.IsEmptyValueIndirect(desired.Gcs) {
-		c.Config.Logger.Infof("desired Gcs %s - but actually nil", dcl.SprintResource(desired.Gcs))
+		c.Config.Logger.Infof("Diff in Remote.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Remote), dcl.SprintResource(actual.Remote))
 		return true
 	}
 	if compareGuestPolicyRecipesArtifactsGcs(c, desired.Gcs, actual.Gcs) && !dcl.IsZeroValue(desired.Gcs) {
-		c.Config.Logger.Infof("Diff in Gcs. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Gcs), dcl.SprintResource(actual.Gcs))
-		return true
-	}
-	if actual.AllowInsecure == nil && desired.AllowInsecure != nil && !dcl.IsEmptyValueIndirect(desired.AllowInsecure) {
-		c.Config.Logger.Infof("desired AllowInsecure %s - but actually nil", dcl.SprintResource(desired.AllowInsecure))
+		c.Config.Logger.Infof("Diff in Gcs.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Gcs), dcl.SprintResource(actual.Gcs))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.AllowInsecure, actual.AllowInsecure) && !dcl.IsZeroValue(desired.AllowInsecure) {
-		c.Config.Logger.Infof("Diff in AllowInsecure. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowInsecure), dcl.SprintResource(actual.AllowInsecure))
+		c.Config.Logger.Infof("Diff in AllowInsecure.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowInsecure), dcl.SprintResource(actual.AllowInsecure))
 		return true
 	}
 	return false
@@ -4057,7 +3873,7 @@ func compareGuestPolicyRecipesArtifactsSlice(c *Client, desired, actual []GuestP
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesArtifacts(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifacts, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifacts, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4076,7 +3892,7 @@ func compareGuestPolicyRecipesArtifactsMap(c *Client, desired, actual map[string
 			return true
 		}
 		if compareGuestPolicyRecipesArtifacts(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifacts, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifacts, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4090,20 +3906,12 @@ func compareGuestPolicyRecipesArtifactsRemote(c *Client, desired, actual *GuestP
 	if actual == nil {
 		return true
 	}
-	if actual.Uri == nil && desired.Uri != nil && !dcl.IsEmptyValueIndirect(desired.Uri) {
-		c.Config.Logger.Infof("desired Uri %s - but actually nil", dcl.SprintResource(desired.Uri))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Uri, actual.Uri) && !dcl.IsZeroValue(desired.Uri) {
-		c.Config.Logger.Infof("Diff in Uri. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uri), dcl.SprintResource(actual.Uri))
-		return true
-	}
-	if actual.Checksum == nil && desired.Checksum != nil && !dcl.IsEmptyValueIndirect(desired.Checksum) {
-		c.Config.Logger.Infof("desired Checksum %s - but actually nil", dcl.SprintResource(desired.Checksum))
+		c.Config.Logger.Infof("Diff in Uri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uri), dcl.SprintResource(actual.Uri))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Checksum, actual.Checksum) && !dcl.IsZeroValue(desired.Checksum) {
-		c.Config.Logger.Infof("Diff in Checksum. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Checksum), dcl.SprintResource(actual.Checksum))
+		c.Config.Logger.Infof("Diff in Checksum.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Checksum), dcl.SprintResource(actual.Checksum))
 		return true
 	}
 	return false
@@ -4116,7 +3924,7 @@ func compareGuestPolicyRecipesArtifactsRemoteSlice(c *Client, desired, actual []
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesArtifactsRemote(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsRemote, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsRemote, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4135,7 +3943,7 @@ func compareGuestPolicyRecipesArtifactsRemoteMap(c *Client, desired, actual map[
 			return true
 		}
 		if compareGuestPolicyRecipesArtifactsRemote(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsRemote, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsRemote, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4149,28 +3957,16 @@ func compareGuestPolicyRecipesArtifactsGcs(c *Client, desired, actual *GuestPoli
 	if actual == nil {
 		return true
 	}
-	if actual.Bucket == nil && desired.Bucket != nil && !dcl.IsEmptyValueIndirect(desired.Bucket) {
-		c.Config.Logger.Infof("desired Bucket %s - but actually nil", dcl.SprintResource(desired.Bucket))
-		return true
-	}
 	if !dcl.NameToSelfLink(desired.Bucket, actual.Bucket) && !dcl.IsZeroValue(desired.Bucket) {
-		c.Config.Logger.Infof("Diff in Bucket. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bucket), dcl.SprintResource(actual.Bucket))
-		return true
-	}
-	if actual.Object == nil && desired.Object != nil && !dcl.IsEmptyValueIndirect(desired.Object) {
-		c.Config.Logger.Infof("desired Object %s - but actually nil", dcl.SprintResource(desired.Object))
+		c.Config.Logger.Infof("Diff in Bucket.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bucket), dcl.SprintResource(actual.Bucket))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Object, actual.Object) && !dcl.IsZeroValue(desired.Object) {
-		c.Config.Logger.Infof("Diff in Object. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Object), dcl.SprintResource(actual.Object))
-		return true
-	}
-	if actual.Generation == nil && desired.Generation != nil && !dcl.IsEmptyValueIndirect(desired.Generation) {
-		c.Config.Logger.Infof("desired Generation %s - but actually nil", dcl.SprintResource(desired.Generation))
+		c.Config.Logger.Infof("Diff in Object.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Object), dcl.SprintResource(actual.Object))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Generation, actual.Generation) && !dcl.IsZeroValue(desired.Generation) {
-		c.Config.Logger.Infof("Diff in Generation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Generation), dcl.SprintResource(actual.Generation))
+		c.Config.Logger.Infof("Diff in Generation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Generation), dcl.SprintResource(actual.Generation))
 		return true
 	}
 	return false
@@ -4183,7 +3979,7 @@ func compareGuestPolicyRecipesArtifactsGcsSlice(c *Client, desired, actual []Gue
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesArtifactsGcs(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsGcs, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsGcs, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4202,7 +3998,7 @@ func compareGuestPolicyRecipesArtifactsGcsMap(c *Client, desired, actual map[str
 			return true
 		}
 		if compareGuestPolicyRecipesArtifactsGcs(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsGcs, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsGcs, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4216,60 +4012,32 @@ func compareGuestPolicyRecipesInstallSteps(c *Client, desired, actual *GuestPoli
 	if actual == nil {
 		return true
 	}
-	if actual.FileCopy == nil && desired.FileCopy != nil && !dcl.IsEmptyValueIndirect(desired.FileCopy) {
-		c.Config.Logger.Infof("desired FileCopy %s - but actually nil", dcl.SprintResource(desired.FileCopy))
-		return true
-	}
 	if compareGuestPolicyRecipesInstallStepsFileCopy(c, desired.FileCopy, actual.FileCopy) && !dcl.IsZeroValue(desired.FileCopy) {
-		c.Config.Logger.Infof("Diff in FileCopy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileCopy), dcl.SprintResource(actual.FileCopy))
-		return true
-	}
-	if actual.ArchiveExtraction == nil && desired.ArchiveExtraction != nil && !dcl.IsEmptyValueIndirect(desired.ArchiveExtraction) {
-		c.Config.Logger.Infof("desired ArchiveExtraction %s - but actually nil", dcl.SprintResource(desired.ArchiveExtraction))
+		c.Config.Logger.Infof("Diff in FileCopy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileCopy), dcl.SprintResource(actual.FileCopy))
 		return true
 	}
 	if compareGuestPolicyRecipesInstallStepsArchiveExtraction(c, desired.ArchiveExtraction, actual.ArchiveExtraction) && !dcl.IsZeroValue(desired.ArchiveExtraction) {
-		c.Config.Logger.Infof("Diff in ArchiveExtraction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveExtraction), dcl.SprintResource(actual.ArchiveExtraction))
-		return true
-	}
-	if actual.MsiInstallation == nil && desired.MsiInstallation != nil && !dcl.IsEmptyValueIndirect(desired.MsiInstallation) {
-		c.Config.Logger.Infof("desired MsiInstallation %s - but actually nil", dcl.SprintResource(desired.MsiInstallation))
+		c.Config.Logger.Infof("Diff in ArchiveExtraction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveExtraction), dcl.SprintResource(actual.ArchiveExtraction))
 		return true
 	}
 	if compareGuestPolicyRecipesInstallStepsMsiInstallation(c, desired.MsiInstallation, actual.MsiInstallation) && !dcl.IsZeroValue(desired.MsiInstallation) {
-		c.Config.Logger.Infof("Diff in MsiInstallation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MsiInstallation), dcl.SprintResource(actual.MsiInstallation))
-		return true
-	}
-	if actual.DpkgInstallation == nil && desired.DpkgInstallation != nil && !dcl.IsEmptyValueIndirect(desired.DpkgInstallation) {
-		c.Config.Logger.Infof("desired DpkgInstallation %s - but actually nil", dcl.SprintResource(desired.DpkgInstallation))
+		c.Config.Logger.Infof("Diff in MsiInstallation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MsiInstallation), dcl.SprintResource(actual.MsiInstallation))
 		return true
 	}
 	if compareGuestPolicyRecipesInstallStepsDpkgInstallation(c, desired.DpkgInstallation, actual.DpkgInstallation) && !dcl.IsZeroValue(desired.DpkgInstallation) {
-		c.Config.Logger.Infof("Diff in DpkgInstallation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DpkgInstallation), dcl.SprintResource(actual.DpkgInstallation))
-		return true
-	}
-	if actual.RpmInstallation == nil && desired.RpmInstallation != nil && !dcl.IsEmptyValueIndirect(desired.RpmInstallation) {
-		c.Config.Logger.Infof("desired RpmInstallation %s - but actually nil", dcl.SprintResource(desired.RpmInstallation))
+		c.Config.Logger.Infof("Diff in DpkgInstallation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DpkgInstallation), dcl.SprintResource(actual.DpkgInstallation))
 		return true
 	}
 	if compareGuestPolicyRecipesInstallStepsRpmInstallation(c, desired.RpmInstallation, actual.RpmInstallation) && !dcl.IsZeroValue(desired.RpmInstallation) {
-		c.Config.Logger.Infof("Diff in RpmInstallation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RpmInstallation), dcl.SprintResource(actual.RpmInstallation))
-		return true
-	}
-	if actual.FileExec == nil && desired.FileExec != nil && !dcl.IsEmptyValueIndirect(desired.FileExec) {
-		c.Config.Logger.Infof("desired FileExec %s - but actually nil", dcl.SprintResource(desired.FileExec))
+		c.Config.Logger.Infof("Diff in RpmInstallation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RpmInstallation), dcl.SprintResource(actual.RpmInstallation))
 		return true
 	}
 	if compareGuestPolicyRecipesInstallStepsFileExec(c, desired.FileExec, actual.FileExec) && !dcl.IsZeroValue(desired.FileExec) {
-		c.Config.Logger.Infof("Diff in FileExec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileExec), dcl.SprintResource(actual.FileExec))
-		return true
-	}
-	if actual.ScriptRun == nil && desired.ScriptRun != nil && !dcl.IsEmptyValueIndirect(desired.ScriptRun) {
-		c.Config.Logger.Infof("desired ScriptRun %s - but actually nil", dcl.SprintResource(desired.ScriptRun))
+		c.Config.Logger.Infof("Diff in FileExec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileExec), dcl.SprintResource(actual.FileExec))
 		return true
 	}
 	if compareGuestPolicyRecipesInstallStepsScriptRun(c, desired.ScriptRun, actual.ScriptRun) && !dcl.IsZeroValue(desired.ScriptRun) {
-		c.Config.Logger.Infof("Diff in ScriptRun. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptRun), dcl.SprintResource(actual.ScriptRun))
+		c.Config.Logger.Infof("Diff in ScriptRun.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptRun), dcl.SprintResource(actual.ScriptRun))
 		return true
 	}
 	return false
@@ -4282,7 +4050,7 @@ func compareGuestPolicyRecipesInstallStepsSlice(c *Client, desired, actual []Gue
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesInstallSteps(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallSteps, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallSteps, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4301,7 +4069,7 @@ func compareGuestPolicyRecipesInstallStepsMap(c *Client, desired, actual map[str
 			return true
 		}
 		if compareGuestPolicyRecipesInstallSteps(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallSteps, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallSteps, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4315,36 +4083,20 @@ func compareGuestPolicyRecipesInstallStepsFileCopy(c *Client, desired, actual *G
 	if actual == nil {
 		return true
 	}
-	if actual.ArtifactId == nil && desired.ArtifactId != nil && !dcl.IsEmptyValueIndirect(desired.ArtifactId) {
-		c.Config.Logger.Infof("desired ArtifactId %s - but actually nil", dcl.SprintResource(desired.ArtifactId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if actual.Destination == nil && desired.Destination != nil && !dcl.IsEmptyValueIndirect(desired.Destination) {
-		c.Config.Logger.Infof("desired Destination %s - but actually nil", dcl.SprintResource(desired.Destination))
+		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Destination, actual.Destination) && !dcl.IsZeroValue(desired.Destination) {
-		c.Config.Logger.Infof("Diff in Destination. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destination), dcl.SprintResource(actual.Destination))
-		return true
-	}
-	if actual.Overwrite == nil && desired.Overwrite != nil && !dcl.IsEmptyValueIndirect(desired.Overwrite) {
-		c.Config.Logger.Infof("desired Overwrite %s - but actually nil", dcl.SprintResource(desired.Overwrite))
+		c.Config.Logger.Infof("Diff in Destination.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destination), dcl.SprintResource(actual.Destination))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Overwrite, actual.Overwrite) && !dcl.IsZeroValue(desired.Overwrite) {
-		c.Config.Logger.Infof("Diff in Overwrite. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Overwrite), dcl.SprintResource(actual.Overwrite))
-		return true
-	}
-	if actual.Permissions == nil && desired.Permissions != nil && !dcl.IsEmptyValueIndirect(desired.Permissions) {
-		c.Config.Logger.Infof("desired Permissions %s - but actually nil", dcl.SprintResource(desired.Permissions))
+		c.Config.Logger.Infof("Diff in Overwrite.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Overwrite), dcl.SprintResource(actual.Overwrite))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Permissions, actual.Permissions) && !dcl.IsZeroValue(desired.Permissions) {
-		c.Config.Logger.Infof("Diff in Permissions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Permissions), dcl.SprintResource(actual.Permissions))
+		c.Config.Logger.Infof("Diff in Permissions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Permissions), dcl.SprintResource(actual.Permissions))
 		return true
 	}
 	return false
@@ -4357,7 +4109,7 @@ func compareGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, desired, actu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesInstallStepsFileCopy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileCopy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileCopy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4376,7 +4128,7 @@ func compareGuestPolicyRecipesInstallStepsFileCopyMap(c *Client, desired, actual
 			return true
 		}
 		if compareGuestPolicyRecipesInstallStepsFileCopy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileCopy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileCopy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4390,28 +4142,16 @@ func compareGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, desired, 
 	if actual == nil {
 		return true
 	}
-	if actual.ArtifactId == nil && desired.ArtifactId != nil && !dcl.IsEmptyValueIndirect(desired.ArtifactId) {
-		c.Config.Logger.Infof("desired ArtifactId %s - but actually nil", dcl.SprintResource(desired.ArtifactId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if actual.Destination == nil && desired.Destination != nil && !dcl.IsEmptyValueIndirect(desired.Destination) {
-		c.Config.Logger.Infof("desired Destination %s - but actually nil", dcl.SprintResource(desired.Destination))
+		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Destination, actual.Destination) && !dcl.IsZeroValue(desired.Destination) {
-		c.Config.Logger.Infof("Diff in Destination. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destination), dcl.SprintResource(actual.Destination))
-		return true
-	}
-	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
-		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
+		c.Config.Logger.Infof("Diff in Destination.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destination), dcl.SprintResource(actual.Destination))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
+		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	return false
@@ -4424,7 +4164,7 @@ func compareGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Client, desi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesInstallStepsArchiveExtraction(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsArchiveExtraction, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsArchiveExtraction, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4443,7 +4183,7 @@ func compareGuestPolicyRecipesInstallStepsArchiveExtractionMap(c *Client, desire
 			return true
 		}
 		if compareGuestPolicyRecipesInstallStepsArchiveExtraction(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsArchiveExtraction, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsArchiveExtraction, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4457,28 +4197,16 @@ func compareGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, desired, ac
 	if actual == nil {
 		return true
 	}
-	if actual.ArtifactId == nil && desired.ArtifactId != nil && !dcl.IsEmptyValueIndirect(desired.ArtifactId) {
-		c.Config.Logger.Infof("desired ArtifactId %s - but actually nil", dcl.SprintResource(desired.ArtifactId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if actual.Flags == nil && desired.Flags != nil && !dcl.IsEmptyValueIndirect(desired.Flags) {
-		c.Config.Logger.Infof("desired Flags %s - but actually nil", dcl.SprintResource(desired.Flags))
+		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Flags, actual.Flags) && !dcl.IsZeroValue(desired.Flags) {
-		c.Config.Logger.Infof("Diff in Flags. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Flags), dcl.SprintResource(actual.Flags))
-		return true
-	}
-	if actual.AllowedExitCodes == nil && desired.AllowedExitCodes != nil && !dcl.IsEmptyValueIndirect(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("desired AllowedExitCodes %s - but actually nil", dcl.SprintResource(desired.AllowedExitCodes))
+		c.Config.Logger.Infof("Diff in Flags.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Flags), dcl.SprintResource(actual.Flags))
 		return true
 	}
 	if !dcl.IntSliceEquals(desired.AllowedExitCodes, actual.AllowedExitCodes) && !dcl.IsZeroValue(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("Diff in AllowedExitCodes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
+		c.Config.Logger.Infof("Diff in AllowedExitCodes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
 		return true
 	}
 	return false
@@ -4491,7 +4219,7 @@ func compareGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client, desire
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesInstallStepsMsiInstallation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsMsiInstallation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsMsiInstallation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4510,7 +4238,7 @@ func compareGuestPolicyRecipesInstallStepsMsiInstallationMap(c *Client, desired,
 			return true
 		}
 		if compareGuestPolicyRecipesInstallStepsMsiInstallation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsMsiInstallation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsMsiInstallation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4524,12 +4252,8 @@ func compareGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, desired, a
 	if actual == nil {
 		return true
 	}
-	if actual.ArtifactId == nil && desired.ArtifactId != nil && !dcl.IsEmptyValueIndirect(desired.ArtifactId) {
-		c.Config.Logger.Infof("desired ArtifactId %s - but actually nil", dcl.SprintResource(desired.ArtifactId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
+		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
 		return true
 	}
 	return false
@@ -4542,7 +4266,7 @@ func compareGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Client, desir
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesInstallStepsDpkgInstallation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsDpkgInstallation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsDpkgInstallation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4561,7 +4285,7 @@ func compareGuestPolicyRecipesInstallStepsDpkgInstallationMap(c *Client, desired
 			return true
 		}
 		if compareGuestPolicyRecipesInstallStepsDpkgInstallation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsDpkgInstallation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsDpkgInstallation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4575,12 +4299,8 @@ func compareGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, desired, ac
 	if actual == nil {
 		return true
 	}
-	if actual.ArtifactId == nil && desired.ArtifactId != nil && !dcl.IsEmptyValueIndirect(desired.ArtifactId) {
-		c.Config.Logger.Infof("desired ArtifactId %s - but actually nil", dcl.SprintResource(desired.ArtifactId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
+		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
 		return true
 	}
 	return false
@@ -4593,7 +4313,7 @@ func compareGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client, desire
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesInstallStepsRpmInstallation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsRpmInstallation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsRpmInstallation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4612,7 +4332,7 @@ func compareGuestPolicyRecipesInstallStepsRpmInstallationMap(c *Client, desired,
 			return true
 		}
 		if compareGuestPolicyRecipesInstallStepsRpmInstallation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsRpmInstallation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsRpmInstallation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4626,36 +4346,20 @@ func compareGuestPolicyRecipesInstallStepsFileExec(c *Client, desired, actual *G
 	if actual == nil {
 		return true
 	}
-	if actual.ArtifactId == nil && desired.ArtifactId != nil && !dcl.IsEmptyValueIndirect(desired.ArtifactId) {
-		c.Config.Logger.Infof("desired ArtifactId %s - but actually nil", dcl.SprintResource(desired.ArtifactId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if actual.LocalPath == nil && desired.LocalPath != nil && !dcl.IsEmptyValueIndirect(desired.LocalPath) {
-		c.Config.Logger.Infof("desired LocalPath %s - but actually nil", dcl.SprintResource(desired.LocalPath))
+		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.LocalPath, actual.LocalPath) && !dcl.IsZeroValue(desired.LocalPath) {
-		c.Config.Logger.Infof("Diff in LocalPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalPath), dcl.SprintResource(actual.LocalPath))
-		return true
-	}
-	if actual.Args == nil && desired.Args != nil && !dcl.IsEmptyValueIndirect(desired.Args) {
-		c.Config.Logger.Infof("desired Args %s - but actually nil", dcl.SprintResource(desired.Args))
+		c.Config.Logger.Infof("Diff in LocalPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalPath), dcl.SprintResource(actual.LocalPath))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if actual.AllowedExitCodes == nil && desired.AllowedExitCodes != nil && !dcl.IsEmptyValueIndirect(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("desired AllowedExitCodes %s - but actually nil", dcl.SprintResource(desired.AllowedExitCodes))
+		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
 		return true
 	}
 	if !dcl.IntSliceEquals(desired.AllowedExitCodes, actual.AllowedExitCodes) && !dcl.IsZeroValue(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("Diff in AllowedExitCodes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
+		c.Config.Logger.Infof("Diff in AllowedExitCodes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
 		return true
 	}
 	return false
@@ -4668,7 +4372,7 @@ func compareGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, desired, actu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesInstallStepsFileExec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileExec, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileExec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4687,7 +4391,7 @@ func compareGuestPolicyRecipesInstallStepsFileExecMap(c *Client, desired, actual
 			return true
 		}
 		if compareGuestPolicyRecipesInstallStepsFileExec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileExec, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileExec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4701,28 +4405,16 @@ func compareGuestPolicyRecipesInstallStepsScriptRun(c *Client, desired, actual *
 	if actual == nil {
 		return true
 	}
-	if actual.Script == nil && desired.Script != nil && !dcl.IsEmptyValueIndirect(desired.Script) {
-		c.Config.Logger.Infof("desired Script %s - but actually nil", dcl.SprintResource(desired.Script))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Script, actual.Script) && !dcl.IsZeroValue(desired.Script) {
-		c.Config.Logger.Infof("Diff in Script. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Script), dcl.SprintResource(actual.Script))
-		return true
-	}
-	if actual.AllowedExitCodes == nil && desired.AllowedExitCodes != nil && !dcl.IsEmptyValueIndirect(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("desired AllowedExitCodes %s - but actually nil", dcl.SprintResource(desired.AllowedExitCodes))
+		c.Config.Logger.Infof("Diff in Script.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Script), dcl.SprintResource(actual.Script))
 		return true
 	}
 	if !dcl.IntSliceEquals(desired.AllowedExitCodes, actual.AllowedExitCodes) && !dcl.IsZeroValue(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("Diff in AllowedExitCodes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
-		return true
-	}
-	if actual.Interpreter == nil && desired.Interpreter != nil && !dcl.IsEmptyValueIndirect(desired.Interpreter) {
-		c.Config.Logger.Infof("desired Interpreter %s - but actually nil", dcl.SprintResource(desired.Interpreter))
+		c.Config.Logger.Infof("Diff in AllowedExitCodes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Interpreter, actual.Interpreter) && !dcl.IsZeroValue(desired.Interpreter) {
-		c.Config.Logger.Infof("Diff in Interpreter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Interpreter), dcl.SprintResource(actual.Interpreter))
+		c.Config.Logger.Infof("Diff in Interpreter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Interpreter), dcl.SprintResource(actual.Interpreter))
 		return true
 	}
 	return false
@@ -4735,7 +4427,7 @@ func compareGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, desired, act
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesInstallStepsScriptRun(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsScriptRun, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsScriptRun, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4754,7 +4446,7 @@ func compareGuestPolicyRecipesInstallStepsScriptRunMap(c *Client, desired, actua
 			return true
 		}
 		if compareGuestPolicyRecipesInstallStepsScriptRun(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsScriptRun, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsScriptRun, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4768,60 +4460,32 @@ func compareGuestPolicyRecipesUpdateSteps(c *Client, desired, actual *GuestPolic
 	if actual == nil {
 		return true
 	}
-	if actual.FileCopy == nil && desired.FileCopy != nil && !dcl.IsEmptyValueIndirect(desired.FileCopy) {
-		c.Config.Logger.Infof("desired FileCopy %s - but actually nil", dcl.SprintResource(desired.FileCopy))
-		return true
-	}
 	if compareGuestPolicyRecipesUpdateStepsFileCopy(c, desired.FileCopy, actual.FileCopy) && !dcl.IsZeroValue(desired.FileCopy) {
-		c.Config.Logger.Infof("Diff in FileCopy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileCopy), dcl.SprintResource(actual.FileCopy))
-		return true
-	}
-	if actual.ArchiveExtraction == nil && desired.ArchiveExtraction != nil && !dcl.IsEmptyValueIndirect(desired.ArchiveExtraction) {
-		c.Config.Logger.Infof("desired ArchiveExtraction %s - but actually nil", dcl.SprintResource(desired.ArchiveExtraction))
+		c.Config.Logger.Infof("Diff in FileCopy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileCopy), dcl.SprintResource(actual.FileCopy))
 		return true
 	}
 	if compareGuestPolicyRecipesUpdateStepsArchiveExtraction(c, desired.ArchiveExtraction, actual.ArchiveExtraction) && !dcl.IsZeroValue(desired.ArchiveExtraction) {
-		c.Config.Logger.Infof("Diff in ArchiveExtraction. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveExtraction), dcl.SprintResource(actual.ArchiveExtraction))
-		return true
-	}
-	if actual.MsiInstallation == nil && desired.MsiInstallation != nil && !dcl.IsEmptyValueIndirect(desired.MsiInstallation) {
-		c.Config.Logger.Infof("desired MsiInstallation %s - but actually nil", dcl.SprintResource(desired.MsiInstallation))
+		c.Config.Logger.Infof("Diff in ArchiveExtraction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveExtraction), dcl.SprintResource(actual.ArchiveExtraction))
 		return true
 	}
 	if compareGuestPolicyRecipesUpdateStepsMsiInstallation(c, desired.MsiInstallation, actual.MsiInstallation) && !dcl.IsZeroValue(desired.MsiInstallation) {
-		c.Config.Logger.Infof("Diff in MsiInstallation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MsiInstallation), dcl.SprintResource(actual.MsiInstallation))
-		return true
-	}
-	if actual.DpkgInstallation == nil && desired.DpkgInstallation != nil && !dcl.IsEmptyValueIndirect(desired.DpkgInstallation) {
-		c.Config.Logger.Infof("desired DpkgInstallation %s - but actually nil", dcl.SprintResource(desired.DpkgInstallation))
+		c.Config.Logger.Infof("Diff in MsiInstallation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MsiInstallation), dcl.SprintResource(actual.MsiInstallation))
 		return true
 	}
 	if compareGuestPolicyRecipesUpdateStepsDpkgInstallation(c, desired.DpkgInstallation, actual.DpkgInstallation) && !dcl.IsZeroValue(desired.DpkgInstallation) {
-		c.Config.Logger.Infof("Diff in DpkgInstallation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DpkgInstallation), dcl.SprintResource(actual.DpkgInstallation))
-		return true
-	}
-	if actual.RpmInstallation == nil && desired.RpmInstallation != nil && !dcl.IsEmptyValueIndirect(desired.RpmInstallation) {
-		c.Config.Logger.Infof("desired RpmInstallation %s - but actually nil", dcl.SprintResource(desired.RpmInstallation))
+		c.Config.Logger.Infof("Diff in DpkgInstallation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DpkgInstallation), dcl.SprintResource(actual.DpkgInstallation))
 		return true
 	}
 	if compareGuestPolicyRecipesUpdateStepsRpmInstallation(c, desired.RpmInstallation, actual.RpmInstallation) && !dcl.IsZeroValue(desired.RpmInstallation) {
-		c.Config.Logger.Infof("Diff in RpmInstallation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RpmInstallation), dcl.SprintResource(actual.RpmInstallation))
-		return true
-	}
-	if actual.FileExec == nil && desired.FileExec != nil && !dcl.IsEmptyValueIndirect(desired.FileExec) {
-		c.Config.Logger.Infof("desired FileExec %s - but actually nil", dcl.SprintResource(desired.FileExec))
+		c.Config.Logger.Infof("Diff in RpmInstallation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RpmInstallation), dcl.SprintResource(actual.RpmInstallation))
 		return true
 	}
 	if compareGuestPolicyRecipesUpdateStepsFileExec(c, desired.FileExec, actual.FileExec) && !dcl.IsZeroValue(desired.FileExec) {
-		c.Config.Logger.Infof("Diff in FileExec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileExec), dcl.SprintResource(actual.FileExec))
-		return true
-	}
-	if actual.ScriptRun == nil && desired.ScriptRun != nil && !dcl.IsEmptyValueIndirect(desired.ScriptRun) {
-		c.Config.Logger.Infof("desired ScriptRun %s - but actually nil", dcl.SprintResource(desired.ScriptRun))
+		c.Config.Logger.Infof("Diff in FileExec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileExec), dcl.SprintResource(actual.FileExec))
 		return true
 	}
 	if compareGuestPolicyRecipesUpdateStepsScriptRun(c, desired.ScriptRun, actual.ScriptRun) && !dcl.IsZeroValue(desired.ScriptRun) {
-		c.Config.Logger.Infof("Diff in ScriptRun. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptRun), dcl.SprintResource(actual.ScriptRun))
+		c.Config.Logger.Infof("Diff in ScriptRun.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptRun), dcl.SprintResource(actual.ScriptRun))
 		return true
 	}
 	return false
@@ -4834,7 +4498,7 @@ func compareGuestPolicyRecipesUpdateStepsSlice(c *Client, desired, actual []Gues
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesUpdateSteps(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateSteps, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateSteps, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4853,7 +4517,7 @@ func compareGuestPolicyRecipesUpdateStepsMap(c *Client, desired, actual map[stri
 			return true
 		}
 		if compareGuestPolicyRecipesUpdateSteps(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateSteps, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateSteps, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4867,36 +4531,20 @@ func compareGuestPolicyRecipesUpdateStepsFileCopy(c *Client, desired, actual *Gu
 	if actual == nil {
 		return true
 	}
-	if actual.ArtifactId == nil && desired.ArtifactId != nil && !dcl.IsEmptyValueIndirect(desired.ArtifactId) {
-		c.Config.Logger.Infof("desired ArtifactId %s - but actually nil", dcl.SprintResource(desired.ArtifactId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if actual.Destination == nil && desired.Destination != nil && !dcl.IsEmptyValueIndirect(desired.Destination) {
-		c.Config.Logger.Infof("desired Destination %s - but actually nil", dcl.SprintResource(desired.Destination))
+		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Destination, actual.Destination) && !dcl.IsZeroValue(desired.Destination) {
-		c.Config.Logger.Infof("Diff in Destination. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destination), dcl.SprintResource(actual.Destination))
-		return true
-	}
-	if actual.Overwrite == nil && desired.Overwrite != nil && !dcl.IsEmptyValueIndirect(desired.Overwrite) {
-		c.Config.Logger.Infof("desired Overwrite %s - but actually nil", dcl.SprintResource(desired.Overwrite))
+		c.Config.Logger.Infof("Diff in Destination.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destination), dcl.SprintResource(actual.Destination))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Overwrite, actual.Overwrite) && !dcl.IsZeroValue(desired.Overwrite) {
-		c.Config.Logger.Infof("Diff in Overwrite. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Overwrite), dcl.SprintResource(actual.Overwrite))
-		return true
-	}
-	if actual.Permissions == nil && desired.Permissions != nil && !dcl.IsEmptyValueIndirect(desired.Permissions) {
-		c.Config.Logger.Infof("desired Permissions %s - but actually nil", dcl.SprintResource(desired.Permissions))
+		c.Config.Logger.Infof("Diff in Overwrite.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Overwrite), dcl.SprintResource(actual.Overwrite))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Permissions, actual.Permissions) && !dcl.IsZeroValue(desired.Permissions) {
-		c.Config.Logger.Infof("Diff in Permissions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Permissions), dcl.SprintResource(actual.Permissions))
+		c.Config.Logger.Infof("Diff in Permissions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Permissions), dcl.SprintResource(actual.Permissions))
 		return true
 	}
 	return false
@@ -4909,7 +4557,7 @@ func compareGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, desired, actua
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesUpdateStepsFileCopy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileCopy, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileCopy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4928,7 +4576,7 @@ func compareGuestPolicyRecipesUpdateStepsFileCopyMap(c *Client, desired, actual 
 			return true
 		}
 		if compareGuestPolicyRecipesUpdateStepsFileCopy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileCopy, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileCopy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -4942,28 +4590,16 @@ func compareGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, desired, a
 	if actual == nil {
 		return true
 	}
-	if actual.ArtifactId == nil && desired.ArtifactId != nil && !dcl.IsEmptyValueIndirect(desired.ArtifactId) {
-		c.Config.Logger.Infof("desired ArtifactId %s - but actually nil", dcl.SprintResource(desired.ArtifactId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if actual.Destination == nil && desired.Destination != nil && !dcl.IsEmptyValueIndirect(desired.Destination) {
-		c.Config.Logger.Infof("desired Destination %s - but actually nil", dcl.SprintResource(desired.Destination))
+		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Destination, actual.Destination) && !dcl.IsZeroValue(desired.Destination) {
-		c.Config.Logger.Infof("Diff in Destination. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destination), dcl.SprintResource(actual.Destination))
-		return true
-	}
-	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
-		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
+		c.Config.Logger.Infof("Diff in Destination.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destination), dcl.SprintResource(actual.Destination))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
+		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	return false
@@ -4976,7 +4612,7 @@ func compareGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Client, desir
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesUpdateStepsArchiveExtraction(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsArchiveExtraction, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsArchiveExtraction, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -4995,7 +4631,7 @@ func compareGuestPolicyRecipesUpdateStepsArchiveExtractionMap(c *Client, desired
 			return true
 		}
 		if compareGuestPolicyRecipesUpdateStepsArchiveExtraction(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsArchiveExtraction, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsArchiveExtraction, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5009,28 +4645,16 @@ func compareGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, desired, act
 	if actual == nil {
 		return true
 	}
-	if actual.ArtifactId == nil && desired.ArtifactId != nil && !dcl.IsEmptyValueIndirect(desired.ArtifactId) {
-		c.Config.Logger.Infof("desired ArtifactId %s - but actually nil", dcl.SprintResource(desired.ArtifactId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if actual.Flags == nil && desired.Flags != nil && !dcl.IsEmptyValueIndirect(desired.Flags) {
-		c.Config.Logger.Infof("desired Flags %s - but actually nil", dcl.SprintResource(desired.Flags))
+		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Flags, actual.Flags) && !dcl.IsZeroValue(desired.Flags) {
-		c.Config.Logger.Infof("Diff in Flags. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Flags), dcl.SprintResource(actual.Flags))
-		return true
-	}
-	if actual.AllowedExitCodes == nil && desired.AllowedExitCodes != nil && !dcl.IsEmptyValueIndirect(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("desired AllowedExitCodes %s - but actually nil", dcl.SprintResource(desired.AllowedExitCodes))
+		c.Config.Logger.Infof("Diff in Flags.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Flags), dcl.SprintResource(actual.Flags))
 		return true
 	}
 	if !dcl.IntSliceEquals(desired.AllowedExitCodes, actual.AllowedExitCodes) && !dcl.IsZeroValue(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("Diff in AllowedExitCodes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
+		c.Config.Logger.Infof("Diff in AllowedExitCodes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
 		return true
 	}
 	return false
@@ -5043,7 +4667,7 @@ func compareGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client, desired
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesUpdateStepsMsiInstallation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsMsiInstallation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsMsiInstallation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5062,7 +4686,7 @@ func compareGuestPolicyRecipesUpdateStepsMsiInstallationMap(c *Client, desired, 
 			return true
 		}
 		if compareGuestPolicyRecipesUpdateStepsMsiInstallation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsMsiInstallation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsMsiInstallation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5076,12 +4700,8 @@ func compareGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, desired, ac
 	if actual == nil {
 		return true
 	}
-	if actual.ArtifactId == nil && desired.ArtifactId != nil && !dcl.IsEmptyValueIndirect(desired.ArtifactId) {
-		c.Config.Logger.Infof("desired ArtifactId %s - but actually nil", dcl.SprintResource(desired.ArtifactId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
+		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
 		return true
 	}
 	return false
@@ -5094,7 +4714,7 @@ func compareGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client, desire
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesUpdateStepsDpkgInstallation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsDpkgInstallation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsDpkgInstallation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5113,7 +4733,7 @@ func compareGuestPolicyRecipesUpdateStepsDpkgInstallationMap(c *Client, desired,
 			return true
 		}
 		if compareGuestPolicyRecipesUpdateStepsDpkgInstallation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsDpkgInstallation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsDpkgInstallation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5127,12 +4747,8 @@ func compareGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, desired, act
 	if actual == nil {
 		return true
 	}
-	if actual.ArtifactId == nil && desired.ArtifactId != nil && !dcl.IsEmptyValueIndirect(desired.ArtifactId) {
-		c.Config.Logger.Infof("desired ArtifactId %s - but actually nil", dcl.SprintResource(desired.ArtifactId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
+		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
 		return true
 	}
 	return false
@@ -5145,7 +4761,7 @@ func compareGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client, desired
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesUpdateStepsRpmInstallation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsRpmInstallation, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsRpmInstallation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5164,7 +4780,7 @@ func compareGuestPolicyRecipesUpdateStepsRpmInstallationMap(c *Client, desired, 
 			return true
 		}
 		if compareGuestPolicyRecipesUpdateStepsRpmInstallation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsRpmInstallation, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsRpmInstallation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5178,36 +4794,20 @@ func compareGuestPolicyRecipesUpdateStepsFileExec(c *Client, desired, actual *Gu
 	if actual == nil {
 		return true
 	}
-	if actual.ArtifactId == nil && desired.ArtifactId != nil && !dcl.IsEmptyValueIndirect(desired.ArtifactId) {
-		c.Config.Logger.Infof("desired ArtifactId %s - but actually nil", dcl.SprintResource(desired.ArtifactId))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if actual.LocalPath == nil && desired.LocalPath != nil && !dcl.IsEmptyValueIndirect(desired.LocalPath) {
-		c.Config.Logger.Infof("desired LocalPath %s - but actually nil", dcl.SprintResource(desired.LocalPath))
+		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.LocalPath, actual.LocalPath) && !dcl.IsZeroValue(desired.LocalPath) {
-		c.Config.Logger.Infof("Diff in LocalPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalPath), dcl.SprintResource(actual.LocalPath))
-		return true
-	}
-	if actual.Args == nil && desired.Args != nil && !dcl.IsEmptyValueIndirect(desired.Args) {
-		c.Config.Logger.Infof("desired Args %s - but actually nil", dcl.SprintResource(desired.Args))
+		c.Config.Logger.Infof("Diff in LocalPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalPath), dcl.SprintResource(actual.LocalPath))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if actual.AllowedExitCodes == nil && desired.AllowedExitCodes != nil && !dcl.IsEmptyValueIndirect(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("desired AllowedExitCodes %s - but actually nil", dcl.SprintResource(desired.AllowedExitCodes))
+		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
 		return true
 	}
 	if !dcl.IntSliceEquals(desired.AllowedExitCodes, actual.AllowedExitCodes) && !dcl.IsZeroValue(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("Diff in AllowedExitCodes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
+		c.Config.Logger.Infof("Diff in AllowedExitCodes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
 		return true
 	}
 	return false
@@ -5220,7 +4820,7 @@ func compareGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, desired, actua
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesUpdateStepsFileExec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileExec, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileExec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5239,7 +4839,7 @@ func compareGuestPolicyRecipesUpdateStepsFileExecMap(c *Client, desired, actual 
 			return true
 		}
 		if compareGuestPolicyRecipesUpdateStepsFileExec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileExec, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileExec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5253,28 +4853,16 @@ func compareGuestPolicyRecipesUpdateStepsScriptRun(c *Client, desired, actual *G
 	if actual == nil {
 		return true
 	}
-	if actual.Script == nil && desired.Script != nil && !dcl.IsEmptyValueIndirect(desired.Script) {
-		c.Config.Logger.Infof("desired Script %s - but actually nil", dcl.SprintResource(desired.Script))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Script, actual.Script) && !dcl.IsZeroValue(desired.Script) {
-		c.Config.Logger.Infof("Diff in Script. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Script), dcl.SprintResource(actual.Script))
-		return true
-	}
-	if actual.AllowedExitCodes == nil && desired.AllowedExitCodes != nil && !dcl.IsEmptyValueIndirect(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("desired AllowedExitCodes %s - but actually nil", dcl.SprintResource(desired.AllowedExitCodes))
+		c.Config.Logger.Infof("Diff in Script.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Script), dcl.SprintResource(actual.Script))
 		return true
 	}
 	if !dcl.IntSliceEquals(desired.AllowedExitCodes, actual.AllowedExitCodes) && !dcl.IsZeroValue(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("Diff in AllowedExitCodes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
-		return true
-	}
-	if actual.Interpreter == nil && desired.Interpreter != nil && !dcl.IsEmptyValueIndirect(desired.Interpreter) {
-		c.Config.Logger.Infof("desired Interpreter %s - but actually nil", dcl.SprintResource(desired.Interpreter))
+		c.Config.Logger.Infof("Diff in AllowedExitCodes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Interpreter, actual.Interpreter) && !dcl.IsZeroValue(desired.Interpreter) {
-		c.Config.Logger.Infof("Diff in Interpreter. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Interpreter), dcl.SprintResource(actual.Interpreter))
+		c.Config.Logger.Infof("Diff in Interpreter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Interpreter), dcl.SprintResource(actual.Interpreter))
 		return true
 	}
 	return false
@@ -5287,7 +4875,7 @@ func compareGuestPolicyRecipesUpdateStepsScriptRunSlice(c *Client, desired, actu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesUpdateStepsScriptRun(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsScriptRun, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsScriptRun, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5306,7 +4894,7 @@ func compareGuestPolicyRecipesUpdateStepsScriptRunMap(c *Client, desired, actual
 			return true
 		}
 		if compareGuestPolicyRecipesUpdateStepsScriptRun(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsScriptRun, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsScriptRun, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5320,7 +4908,7 @@ func compareGuestPolicyPackagesDesiredStateEnumSlice(c *Client, desired, actual 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyPackagesDesiredStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackagesDesiredStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackagesDesiredStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5338,7 +4926,7 @@ func compareGuestPolicyPackagesManagerEnumSlice(c *Client, desired, actual []Gue
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyPackagesManagerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackagesManagerEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackagesManagerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5356,7 +4944,7 @@ func compareGuestPolicyPackageRepositoriesAptArchiveTypeEnumSlice(c *Client, des
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyPackageRepositoriesAptArchiveTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesAptArchiveTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesAptArchiveTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5374,7 +4962,7 @@ func compareGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumSlice(c *Clie
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5392,7 +4980,7 @@ func compareGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumSlice(c *Clien
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesInstallStepsScriptRunInterpreterEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5410,7 +4998,7 @@ func compareGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumSlice(c *Clien
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5428,7 +5016,7 @@ func compareGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumSlice(c *Client
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5446,7 +5034,7 @@ func compareGuestPolicyRecipesDesiredStateEnumSlice(c *Client, desired, actual [
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareGuestPolicyRecipesDesiredStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesDesiredStateEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in GuestPolicyRecipesDesiredStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5461,7 +5049,7 @@ func compareGuestPolicyRecipesDesiredStateEnum(c *Client, desired, actual *Guest
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *GuestPolicy) urlNormalized() *GuestPolicy {
-	normalized := deepcopy.Copy(*r).(GuestPolicy)
+	normalized := dcl.Copy(*r).(GuestPolicy)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Etag = dcl.SelfLinkToName(r.Etag)
@@ -5540,22 +5128,22 @@ func expandGuestPolicy(c *Client, f *GuestPolicy) (map[string]interface{}, error
 	}
 	if v, err := expandGuestPolicyAssignment(c, f.Assignment); err != nil {
 		return nil, fmt.Errorf("error expanding Assignment into assignment: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["assignment"] = v
 	}
 	if v, err := expandGuestPolicyPackagesSlice(c, f.Packages); err != nil {
 		return nil, fmt.Errorf("error expanding Packages into packages: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["packages"] = v
 	}
 	if v, err := expandGuestPolicyPackageRepositoriesSlice(c, f.PackageRepositories); err != nil {
 		return nil, fmt.Errorf("error expanding PackageRepositories into packageRepositories: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["packageRepositories"] = v
 	}
 	if v, err := expandGuestPolicyRecipesSlice(c, f.Recipes); err != nil {
 		return nil, fmt.Errorf("error expanding Recipes into recipes: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["recipes"] = v
 	}
 	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
@@ -5563,7 +5151,7 @@ func expandGuestPolicy(c *Client, f *GuestPolicy) (map[string]interface{}, error
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -5680,11 +5268,10 @@ func flattenGuestPolicyAssignmentSlice(c *Client, i interface{}) []GuestPolicyAs
 // expandGuestPolicyAssignment expands an instance of GuestPolicyAssignment into a JSON
 // request object.
 func expandGuestPolicyAssignment(c *Client, f *GuestPolicyAssignment) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandGuestPolicyAssignmentGroupLabelsSlice(c, f.GroupLabels); err != nil {
 		return nil, fmt.Errorf("error expanding GroupLabels into groupLabels: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -5812,11 +5399,10 @@ func flattenGuestPolicyAssignmentGroupLabelsSlice(c *Client, i interface{}) []Gu
 // expandGuestPolicyAssignmentGroupLabels expands an instance of GuestPolicyAssignmentGroupLabels into a JSON
 // request object.
 func expandGuestPolicyAssignmentGroupLabels(c *Client, f *GuestPolicyAssignmentGroupLabels) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
@@ -5922,11 +5508,10 @@ func flattenGuestPolicyAssignmentOsTypesSlice(c *Client, i interface{}) []GuestP
 // expandGuestPolicyAssignmentOsTypes expands an instance of GuestPolicyAssignmentOsTypes into a JSON
 // request object.
 func expandGuestPolicyAssignmentOsTypes(c *Client, f *GuestPolicyAssignmentOsTypes) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.OsShortName; !dcl.IsEmptyValueIndirect(v) {
 		m["osShortName"] = v
 	}
@@ -6040,11 +5625,10 @@ func flattenGuestPolicyPackagesSlice(c *Client, i interface{}) []GuestPolicyPack
 // expandGuestPolicyPackages expands an instance of GuestPolicyPackages into a JSON
 // request object.
 func expandGuestPolicyPackages(c *Client, f *GuestPolicyPackages) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -6158,11 +5742,10 @@ func flattenGuestPolicyPackageRepositoriesSlice(c *Client, i interface{}) []Gues
 // expandGuestPolicyPackageRepositories expands an instance of GuestPolicyPackageRepositories into a JSON
 // request object.
 func expandGuestPolicyPackageRepositories(c *Client, f *GuestPolicyPackageRepositories) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandGuestPolicyPackageRepositoriesApt(c, f.Apt); err != nil {
 		return nil, fmt.Errorf("error expanding Apt into apt: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -6288,11 +5871,10 @@ func flattenGuestPolicyPackageRepositoriesAptSlice(c *Client, i interface{}) []G
 // expandGuestPolicyPackageRepositoriesApt expands an instance of GuestPolicyPackageRepositoriesApt into a JSON
 // request object.
 func expandGuestPolicyPackageRepositoriesApt(c *Client, f *GuestPolicyPackageRepositoriesApt) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ArchiveType; !dcl.IsEmptyValueIndirect(v) {
 		m["archiveType"] = v
 	}
@@ -6414,11 +5996,10 @@ func flattenGuestPolicyPackageRepositoriesYumSlice(c *Client, i interface{}) []G
 // expandGuestPolicyPackageRepositoriesYum expands an instance of GuestPolicyPackageRepositoriesYum into a JSON
 // request object.
 func expandGuestPolicyPackageRepositoriesYum(c *Client, f *GuestPolicyPackageRepositoriesYum) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
@@ -6536,11 +6117,10 @@ func flattenGuestPolicyPackageRepositoriesZypperSlice(c *Client, i interface{}) 
 // expandGuestPolicyPackageRepositoriesZypper expands an instance of GuestPolicyPackageRepositoriesZypper into a JSON
 // request object.
 func expandGuestPolicyPackageRepositoriesZypper(c *Client, f *GuestPolicyPackageRepositoriesZypper) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
@@ -6658,11 +6238,10 @@ func flattenGuestPolicyPackageRepositoriesGooSlice(c *Client, i interface{}) []G
 // expandGuestPolicyPackageRepositoriesGoo expands an instance of GuestPolicyPackageRepositoriesGoo into a JSON
 // request object.
 func expandGuestPolicyPackageRepositoriesGoo(c *Client, f *GuestPolicyPackageRepositoriesGoo) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -6772,11 +6351,10 @@ func flattenGuestPolicyRecipesSlice(c *Client, i interface{}) []GuestPolicyRecip
 // expandGuestPolicyRecipes expands an instance of GuestPolicyRecipes into a JSON
 // request object.
 func expandGuestPolicyRecipes(c *Client, f *GuestPolicyRecipes) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -6908,11 +6486,10 @@ func flattenGuestPolicyRecipesArtifactsSlice(c *Client, i interface{}) []GuestPo
 // expandGuestPolicyRecipesArtifacts expands an instance of GuestPolicyRecipesArtifacts into a JSON
 // request object.
 func expandGuestPolicyRecipesArtifacts(c *Client, f *GuestPolicyRecipesArtifacts) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
@@ -7034,11 +6611,10 @@ func flattenGuestPolicyRecipesArtifactsRemoteSlice(c *Client, i interface{}) []G
 // expandGuestPolicyRecipesArtifactsRemote expands an instance of GuestPolicyRecipesArtifactsRemote into a JSON
 // request object.
 func expandGuestPolicyRecipesArtifactsRemote(c *Client, f *GuestPolicyRecipesArtifactsRemote) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Uri; !dcl.IsEmptyValueIndirect(v) {
 		m["uri"] = v
 	}
@@ -7148,11 +6724,10 @@ func flattenGuestPolicyRecipesArtifactsGcsSlice(c *Client, i interface{}) []Gues
 // expandGuestPolicyRecipesArtifactsGcs expands an instance of GuestPolicyRecipesArtifactsGcs into a JSON
 // request object.
 func expandGuestPolicyRecipesArtifactsGcs(c *Client, f *GuestPolicyRecipesArtifactsGcs) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Bucket; !dcl.IsEmptyValueIndirect(v) {
 		m["bucket"] = v
 	}
@@ -7266,11 +6841,10 @@ func flattenGuestPolicyRecipesInstallStepsSlice(c *Client, i interface{}) []Gues
 // expandGuestPolicyRecipesInstallSteps expands an instance of GuestPolicyRecipesInstallSteps into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallSteps(c *Client, f *GuestPolicyRecipesInstallSteps) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandGuestPolicyRecipesInstallStepsFileCopy(c, f.FileCopy); err != nil {
 		return nil, fmt.Errorf("error expanding FileCopy into fileCopy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -7414,11 +6988,10 @@ func flattenGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, i interface{}
 // expandGuestPolicyRecipesInstallStepsFileCopy expands an instance of GuestPolicyRecipesInstallStepsFileCopy into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsFileCopy(c *Client, f *GuestPolicyRecipesInstallStepsFileCopy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -7536,11 +7109,10 @@ func flattenGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Client, i in
 // expandGuestPolicyRecipesInstallStepsArchiveExtraction expands an instance of GuestPolicyRecipesInstallStepsArchiveExtraction into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, f *GuestPolicyRecipesInstallStepsArchiveExtraction) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -7654,11 +7226,10 @@ func flattenGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client, i inte
 // expandGuestPolicyRecipesInstallStepsMsiInstallation expands an instance of GuestPolicyRecipesInstallStepsMsiInstallation into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, f *GuestPolicyRecipesInstallStepsMsiInstallation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -7772,11 +7343,10 @@ func flattenGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Client, i int
 // expandGuestPolicyRecipesInstallStepsDpkgInstallation expands an instance of GuestPolicyRecipesInstallStepsDpkgInstallation into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, f *GuestPolicyRecipesInstallStepsDpkgInstallation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -7882,11 +7452,10 @@ func flattenGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client, i inte
 // expandGuestPolicyRecipesInstallStepsRpmInstallation expands an instance of GuestPolicyRecipesInstallStepsRpmInstallation into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, f *GuestPolicyRecipesInstallStepsRpmInstallation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -7992,11 +7561,10 @@ func flattenGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, i interface{}
 // expandGuestPolicyRecipesInstallStepsFileExec expands an instance of GuestPolicyRecipesInstallStepsFileExec into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsFileExec(c *Client, f *GuestPolicyRecipesInstallStepsFileExec) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -8114,11 +7682,10 @@ func flattenGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, i interface{
 // expandGuestPolicyRecipesInstallStepsScriptRun expands an instance of GuestPolicyRecipesInstallStepsScriptRun into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsScriptRun(c *Client, f *GuestPolicyRecipesInstallStepsScriptRun) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Script; !dcl.IsEmptyValueIndirect(v) {
 		m["script"] = v
 	}
@@ -8232,11 +7799,10 @@ func flattenGuestPolicyRecipesUpdateStepsSlice(c *Client, i interface{}) []Guest
 // expandGuestPolicyRecipesUpdateSteps expands an instance of GuestPolicyRecipesUpdateSteps into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateSteps(c *Client, f *GuestPolicyRecipesUpdateSteps) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandGuestPolicyRecipesUpdateStepsFileCopy(c, f.FileCopy); err != nil {
 		return nil, fmt.Errorf("error expanding FileCopy into fileCopy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -8380,11 +7946,10 @@ func flattenGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, i interface{})
 // expandGuestPolicyRecipesUpdateStepsFileCopy expands an instance of GuestPolicyRecipesUpdateStepsFileCopy into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsFileCopy(c *Client, f *GuestPolicyRecipesUpdateStepsFileCopy) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -8502,11 +8067,10 @@ func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Client, i int
 // expandGuestPolicyRecipesUpdateStepsArchiveExtraction expands an instance of GuestPolicyRecipesUpdateStepsArchiveExtraction into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, f *GuestPolicyRecipesUpdateStepsArchiveExtraction) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -8620,11 +8184,10 @@ func flattenGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client, i inter
 // expandGuestPolicyRecipesUpdateStepsMsiInstallation expands an instance of GuestPolicyRecipesUpdateStepsMsiInstallation into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, f *GuestPolicyRecipesUpdateStepsMsiInstallation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -8738,11 +8301,10 @@ func flattenGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client, i inte
 // expandGuestPolicyRecipesUpdateStepsDpkgInstallation expands an instance of GuestPolicyRecipesUpdateStepsDpkgInstallation into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, f *GuestPolicyRecipesUpdateStepsDpkgInstallation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -8848,11 +8410,10 @@ func flattenGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client, i inter
 // expandGuestPolicyRecipesUpdateStepsRpmInstallation expands an instance of GuestPolicyRecipesUpdateStepsRpmInstallation into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, f *GuestPolicyRecipesUpdateStepsRpmInstallation) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -8958,11 +8519,10 @@ func flattenGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, i interface{})
 // expandGuestPolicyRecipesUpdateStepsFileExec expands an instance of GuestPolicyRecipesUpdateStepsFileExec into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsFileExec(c *Client, f *GuestPolicyRecipesUpdateStepsFileExec) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -9080,11 +8640,10 @@ func flattenGuestPolicyRecipesUpdateStepsScriptRunSlice(c *Client, i interface{}
 // expandGuestPolicyRecipesUpdateStepsScriptRun expands an instance of GuestPolicyRecipesUpdateStepsScriptRun into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsScriptRun(c *Client, f *GuestPolicyRecipesUpdateStepsScriptRun) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Script; !dcl.IsEmptyValueIndirect(v) {
 		m["script"] = v
 	}

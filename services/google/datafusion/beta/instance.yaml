@@ -66,7 +66,7 @@ components:
           x-dcl-go-name: DataprocServiceAccount
           x-dcl-references:
           - field: email
-            resource: Iam/Serviceaccount
+            resource: Iam/ServiceAccount
         description:
           description: A description of this instance.
           type: string

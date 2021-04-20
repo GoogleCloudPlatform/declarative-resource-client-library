@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -1008,6 +1007,7 @@ type functionDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         functionApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -1026,148 +1026,164 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 
 	var diffs []functionDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, functionDiff{
-			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "Description",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.SourceArchiveUrl, actual.SourceArchiveUrl, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "SourceArchiveUrl"})
-	}
-
-	if d, err := dcl.Diff(desired.EntryPoint, actual.EntryPoint, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "EntryPoint"})
-	}
-
-	if d, err := dcl.Diff(desired.Runtime, actual.Runtime, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
-			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "Runtime",
+			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Timeout, actual.Timeout, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.SourceArchiveUrl, actual.SourceArchiveUrl, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_archive_url"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "status"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.EntryPoint, actual.EntryPoint, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "entry_point"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Runtime, actual.Runtime, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "runtime"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
-			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "Timeout",
+			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.AvailableMemoryMb, actual.AvailableMemoryMb, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Timeout, actual.Timeout, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "timeout"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
-			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "AvailableMemoryMb",
+			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "ServiceAccountEmail"})
-	}
-
-	if d, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "UpdateTime"})
-	}
-
-	if d, err := dcl.Diff(desired.VersionId, actual.VersionId, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "VersionId"})
-	}
-
-	if d, err := dcl.Diff(desired.Labels, actual.Labels, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.AvailableMemoryMb, actual.AvailableMemoryMb, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "available_memory_mb"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
-			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "Labels",
+			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.EnvironmentVariables, actual.EnvironmentVariables, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "service_account_email"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.VersionId, actual.VersionId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "version_id"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
-			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "EnvironmentVariables",
+			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.Network, actual.Network, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "Network"})
-	}
-
-	if d, err := dcl.Diff(desired.MaxInstances, actual.MaxInstances, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.EnvironmentVariables, actual.EnvironmentVariables, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "environment_variables"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
-			UpdateOp: &updateFunctionUpdateOperation{}, FieldName: "MaxInstances",
+			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.VPCConnector, actual.VPCConnector, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "network"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, FieldName: "VPCConnector"})
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
+	if ds, err := dcl.Diff(desired.MaxInstances, actual.MaxInstances, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "max_instances"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, functionDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
+			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
 		})
 	}
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
 
-		diffs = append(diffs, functionDiff{
-			UpdateOp:  &updateFunctionUpdateOperation{},
-			FieldName: "Description",
-		})
+	if ds, err := dcl.Diff(desired.VPCConnector, actual.VPCConnector, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "vpc_connector"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+	}
 
-	}
-	if !dcl.IsZeroValue(desired.SourceArchiveUrl) && !dcl.StringCanonicalize(desired.SourceArchiveUrl, actual.SourceArchiveUrl) {
-		c.Config.Logger.Infof("Detected diff in SourceArchiveUrl.\nDESIRED: %v\nACTUAL: %v", desired.SourceArchiveUrl, actual.SourceArchiveUrl)
+	if ds, err := dcl.Diff(desired.VPCConnectorEgressSettings, actual.VPCConnectorEgressSettings, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "vpc_connector_egress_settings"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, functionDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceArchiveUrl",
+			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.IngressSettings, actual.IngressSettings, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "ingress_settings"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{
+			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareFunctionSourceRepository(c, desired.SourceRepository, actual.SourceRepository) {
 		c.Config.Logger.Infof("Detected diff in SourceRepository.\nDESIRED: %v\nACTUAL: %v", desired.SourceRepository, actual.SourceRepository)
 		diffs = append(diffs, functionDiff{
@@ -1188,106 +1204,6 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 			RequiresRecreate: true,
 			FieldName:        "EventTrigger",
 		})
-	}
-	if !dcl.IsZeroValue(desired.EntryPoint) && !dcl.StringCanonicalize(desired.EntryPoint, actual.EntryPoint) {
-		c.Config.Logger.Infof("Detected diff in EntryPoint.\nDESIRED: %v\nACTUAL: %v", desired.EntryPoint, actual.EntryPoint)
-		diffs = append(diffs, functionDiff{
-			RequiresRecreate: true,
-			FieldName:        "EntryPoint",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Runtime) && !dcl.StringCanonicalize(desired.Runtime, actual.Runtime) {
-		c.Config.Logger.Infof("Detected diff in Runtime.\nDESIRED: %v\nACTUAL: %v", desired.Runtime, actual.Runtime)
-
-		diffs = append(diffs, functionDiff{
-			UpdateOp:  &updateFunctionUpdateOperation{},
-			FieldName: "Runtime",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Timeout) && !dcl.StringCanonicalize(desired.Timeout, actual.Timeout) {
-		c.Config.Logger.Infof("Detected diff in Timeout.\nDESIRED: %v\nACTUAL: %v", desired.Timeout, actual.Timeout)
-
-		diffs = append(diffs, functionDiff{
-			UpdateOp:  &updateFunctionUpdateOperation{},
-			FieldName: "Timeout",
-		})
-
-	}
-	if !reflect.DeepEqual(desired.AvailableMemoryMb, actual.AvailableMemoryMb) {
-		c.Config.Logger.Infof("Detected diff in AvailableMemoryMb.\nDESIRED: %v\nACTUAL: %v", desired.AvailableMemoryMb, actual.AvailableMemoryMb)
-
-		diffs = append(diffs, functionDiff{
-			UpdateOp:  &updateFunctionUpdateOperation{},
-			FieldName: "AvailableMemoryMb",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.ServiceAccountEmail) && !dcl.NameToSelfLink(desired.ServiceAccountEmail, actual.ServiceAccountEmail) {
-		c.Config.Logger.Infof("Detected diff in ServiceAccountEmail.\nDESIRED: %v\nACTUAL: %v", desired.ServiceAccountEmail, actual.ServiceAccountEmail)
-		diffs = append(diffs, functionDiff{
-			RequiresRecreate: true,
-			FieldName:        "ServiceAccountEmail",
-		})
-	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Labels.\nDESIRED: %v\nACTUAL: %v", desired.Labels, actual.Labels)
-
-		diffs = append(diffs, functionDiff{
-			UpdateOp:  &updateFunctionUpdateOperation{},
-			FieldName: "Labels",
-		})
-
-	}
-	if !dcl.MapEquals(desired.EnvironmentVariables, actual.EnvironmentVariables, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in EnvironmentVariables.\nDESIRED: %v\nACTUAL: %v", desired.EnvironmentVariables, actual.EnvironmentVariables)
-
-		diffs = append(diffs, functionDiff{
-			UpdateOp:  &updateFunctionUpdateOperation{},
-			FieldName: "EnvironmentVariables",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.Network) && !dcl.NameToSelfLink(desired.Network, actual.Network) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
-		diffs = append(diffs, functionDiff{
-			RequiresRecreate: true,
-			FieldName:        "Network",
-		})
-	}
-	if !reflect.DeepEqual(desired.MaxInstances, actual.MaxInstances) {
-		c.Config.Logger.Infof("Detected diff in MaxInstances.\nDESIRED: %v\nACTUAL: %v", desired.MaxInstances, actual.MaxInstances)
-
-		diffs = append(diffs, functionDiff{
-			UpdateOp:  &updateFunctionUpdateOperation{},
-			FieldName: "MaxInstances",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.VPCConnector) && !dcl.NameToSelfLink(desired.VPCConnector, actual.VPCConnector) {
-		c.Config.Logger.Infof("Detected diff in VPCConnector.\nDESIRED: %v\nACTUAL: %v", desired.VPCConnector, actual.VPCConnector)
-		diffs = append(diffs, functionDiff{
-			RequiresRecreate: true,
-			FieldName:        "VPCConnector",
-		})
-	}
-	if !reflect.DeepEqual(desired.VPCConnectorEgressSettings, actual.VPCConnectorEgressSettings) {
-		c.Config.Logger.Infof("Detected diff in VPCConnectorEgressSettings.\nDESIRED: %v\nACTUAL: %v", desired.VPCConnectorEgressSettings, actual.VPCConnectorEgressSettings)
-
-		diffs = append(diffs, functionDiff{
-			UpdateOp:  &updateFunctionUpdateOperation{},
-			FieldName: "VPCConnectorEgressSettings",
-		})
-
-	}
-	if !reflect.DeepEqual(desired.IngressSettings, actual.IngressSettings) {
-		c.Config.Logger.Infof("Detected diff in IngressSettings.\nDESIRED: %v\nACTUAL: %v", desired.IngressSettings, actual.IngressSettings)
-
-		diffs = append(diffs, functionDiff{
-			UpdateOp:  &updateFunctionUpdateOperation{},
-			FieldName: "IngressSettings",
-		})
-
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -1320,12 +1236,8 @@ func compareFunctionSourceRepository(c *Client, desired, actual *FunctionSourceR
 	if actual == nil {
 		return true
 	}
-	if actual.Url == nil && desired.Url != nil && !dcl.IsEmptyValueIndirect(desired.Url) {
-		c.Config.Logger.Infof("desired Url %s - but actually nil", dcl.SprintResource(desired.Url))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) {
-		c.Config.Logger.Infof("Diff in Url. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
+		c.Config.Logger.Infof("Diff in Url.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
 		return true
 	}
 	return false
@@ -1338,7 +1250,7 @@ func compareFunctionSourceRepositorySlice(c *Client, desired, actual []FunctionS
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareFunctionSourceRepository(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FunctionSourceRepository, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in FunctionSourceRepository, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1357,7 +1269,7 @@ func compareFunctionSourceRepositoryMap(c *Client, desired, actual map[string]Fu
 			return true
 		}
 		if compareFunctionSourceRepository(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in FunctionSourceRepository, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in FunctionSourceRepository, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1381,7 +1293,7 @@ func compareFunctionHttpsTriggerSlice(c *Client, desired, actual []FunctionHttps
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareFunctionHttpsTrigger(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FunctionHttpsTrigger, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in FunctionHttpsTrigger, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1400,7 +1312,7 @@ func compareFunctionHttpsTriggerMap(c *Client, desired, actual map[string]Functi
 			return true
 		}
 		if compareFunctionHttpsTrigger(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in FunctionHttpsTrigger, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in FunctionHttpsTrigger, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1414,36 +1326,20 @@ func compareFunctionEventTrigger(c *Client, desired, actual *FunctionEventTrigge
 	if actual == nil {
 		return true
 	}
-	if actual.EventType == nil && desired.EventType != nil && !dcl.IsEmptyValueIndirect(desired.EventType) {
-		c.Config.Logger.Infof("desired EventType %s - but actually nil", dcl.SprintResource(desired.EventType))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.EventType, actual.EventType) && !dcl.IsZeroValue(desired.EventType) {
-		c.Config.Logger.Infof("Diff in EventType. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EventType), dcl.SprintResource(actual.EventType))
-		return true
-	}
-	if actual.Resource == nil && desired.Resource != nil && !dcl.IsEmptyValueIndirect(desired.Resource) {
-		c.Config.Logger.Infof("desired Resource %s - but actually nil", dcl.SprintResource(desired.Resource))
+		c.Config.Logger.Infof("Diff in EventType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EventType), dcl.SprintResource(actual.EventType))
 		return true
 	}
 	if !dcl.NameToSelfLink(desired.Resource, actual.Resource) && !dcl.IsZeroValue(desired.Resource) {
-		c.Config.Logger.Infof("Diff in Resource. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Resource), dcl.SprintResource(actual.Resource))
-		return true
-	}
-	if actual.Service == nil && desired.Service != nil && !dcl.IsEmptyValueIndirect(desired.Service) {
-		c.Config.Logger.Infof("desired Service %s - but actually nil", dcl.SprintResource(desired.Service))
+		c.Config.Logger.Infof("Diff in Resource.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Resource), dcl.SprintResource(actual.Resource))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Service, actual.Service) && !dcl.IsZeroValue(desired.Service) {
-		c.Config.Logger.Infof("Diff in Service. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Service), dcl.SprintResource(actual.Service))
-		return true
-	}
-	if actual.FailurePolicy == nil && desired.FailurePolicy != nil && !dcl.IsEmptyValueIndirect(desired.FailurePolicy) {
-		c.Config.Logger.Infof("desired FailurePolicy %s - but actually nil", dcl.SprintResource(desired.FailurePolicy))
+		c.Config.Logger.Infof("Diff in Service.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Service), dcl.SprintResource(actual.Service))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.FailurePolicy, actual.FailurePolicy) && !dcl.IsZeroValue(desired.FailurePolicy) {
-		c.Config.Logger.Infof("Diff in FailurePolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailurePolicy), dcl.SprintResource(actual.FailurePolicy))
+		c.Config.Logger.Infof("Diff in FailurePolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailurePolicy), dcl.SprintResource(actual.FailurePolicy))
 		return true
 	}
 	return false
@@ -1456,7 +1352,7 @@ func compareFunctionEventTriggerSlice(c *Client, desired, actual []FunctionEvent
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareFunctionEventTrigger(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FunctionEventTrigger, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in FunctionEventTrigger, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1475,7 +1371,7 @@ func compareFunctionEventTriggerMap(c *Client, desired, actual map[string]Functi
 			return true
 		}
 		if compareFunctionEventTrigger(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in FunctionEventTrigger, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in FunctionEventTrigger, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1489,7 +1385,7 @@ func compareFunctionStatusEnumSlice(c *Client, desired, actual []FunctionStatusE
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareFunctionStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FunctionStatusEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in FunctionStatusEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1507,7 +1403,7 @@ func compareFunctionVPCConnectorEgressSettingsEnumSlice(c *Client, desired, actu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareFunctionVPCConnectorEgressSettingsEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FunctionVPCConnectorEgressSettingsEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in FunctionVPCConnectorEgressSettingsEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1525,7 +1421,7 @@ func compareFunctionIngressSettingsEnumSlice(c *Client, desired, actual []Functi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareFunctionIngressSettingsEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FunctionIngressSettingsEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in FunctionIngressSettingsEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1540,7 +1436,7 @@ func compareFunctionIngressSettingsEnum(c *Client, desired, actual *FunctionIngr
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Function) urlNormalized() *Function {
-	normalized := deepcopy.Copy(*r).(Function)
+	normalized := dcl.Copy(*r).(Function)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.SourceArchiveUrl = dcl.SelfLinkToName(r.SourceArchiveUrl)
@@ -1616,7 +1512,7 @@ func expandFunction(c *Client, f *Function) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/functions/%s", f.Name, f.Project, f.Region, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
@@ -1627,17 +1523,17 @@ func expandFunction(c *Client, f *Function) (map[string]interface{}, error) {
 	}
 	if v, err := expandFunctionSourceRepository(c, f.SourceRepository); err != nil {
 		return nil, fmt.Errorf("error expanding SourceRepository into sourceRepository: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["sourceRepository"] = v
 	}
 	if v, err := expandFunctionHttpsTrigger(c, f.HttpsTrigger); err != nil {
 		return nil, fmt.Errorf("error expanding HttpsTrigger into httpsTrigger: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else {
 		m["httpsTrigger"] = v
 	}
 	if v, err := expandFunctionEventTrigger(c, f.EventTrigger); err != nil {
 		return nil, fmt.Errorf("error expanding EventTrigger into eventTrigger: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["eventTrigger"] = v
 	}
 	if v := f.Status; !dcl.IsEmptyValueIndirect(v) {
@@ -1687,12 +1583,12 @@ func expandFunction(c *Client, f *Function) (map[string]interface{}, error) {
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Region into region: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["region"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 
@@ -1822,11 +1718,10 @@ func flattenFunctionSourceRepositorySlice(c *Client, i interface{}) []FunctionSo
 // expandFunctionSourceRepository expands an instance of FunctionSourceRepository into a JSON
 // request object.
 func expandFunctionSourceRepository(c *Client, f *FunctionSourceRepository) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
 		m["url"] = v
 	}
@@ -1936,11 +1831,10 @@ func flattenFunctionHttpsTriggerSlice(c *Client, i interface{}) []FunctionHttpsT
 // expandFunctionHttpsTrigger expands an instance of FunctionHttpsTrigger into a JSON
 // request object.
 func expandFunctionHttpsTrigger(c *Client, f *FunctionHttpsTrigger) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if f == nil || f.empty {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
 		m["url"] = v
 	}
@@ -2046,11 +1940,10 @@ func flattenFunctionEventTriggerSlice(c *Client, i interface{}) []FunctionEventT
 // expandFunctionEventTrigger expands an instance of FunctionEventTrigger into a JSON
 // request object.
 func expandFunctionEventTrigger(c *Client, f *FunctionEventTrigger) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.EventType; !dcl.IsEmptyValueIndirect(v) {
 		m["eventType"] = v
 	}

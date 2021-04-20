@@ -171,6 +171,7 @@ components:
             grouping. For example: "custom.googleapis.com/invoice/paid/amount" "external.googleapis.com/prometheus/up"
             "appengine.googleapis.com/http/server/response_latencies"'
           type: string
+          x-dcl-forward-slash-allowed: true
           x-dcl-go-name: Type
           x-kubernetes-immutable: true
         unit:

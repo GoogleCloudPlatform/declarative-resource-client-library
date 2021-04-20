@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -4897,6 +4896,7 @@ type serviceDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         serviceApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -4915,34 +4915,41 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 
 	var diffs []serviceDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.ApiVersion, actual.ApiVersion, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.ApiVersion, actual.ApiVersion, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "api_version"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, FieldName: "ApiVersion"})
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Kind, actual.Kind, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "kind"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, FieldName: "Kind"})
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.ApiVersion) && !dcl.StringCanonicalize(desired.ApiVersion, actual.ApiVersion) {
-		c.Config.Logger.Infof("Detected diff in ApiVersion.\nDESIRED: %v\nACTUAL: %v", desired.ApiVersion, actual.ApiVersion)
-		diffs = append(diffs, serviceDiff{
-			RequiresRecreate: true,
-			FieldName:        "ApiVersion",
-		})
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Kind) && !dcl.StringCanonicalize(desired.Kind, actual.Kind) {
-		c.Config.Logger.Infof("Detected diff in Kind.\nDESIRED: %v\nACTUAL: %v", desired.Kind, actual.Kind)
-		diffs = append(diffs, serviceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Kind",
-		})
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareServiceMetadata(c, desired.Metadata, actual.Metadata) {
 		c.Config.Logger.Infof("Detected diff in Metadata.\nDESIRED: %v\nACTUAL: %v", desired.Metadata, actual.Metadata)
 		diffs = append(diffs, serviceDiff{
@@ -4988,124 +4995,64 @@ func compareServiceMetadata(c *Client, desired, actual *ServiceMetadata) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.GenerateName == nil && desired.GenerateName != nil && !dcl.IsEmptyValueIndirect(desired.GenerateName) {
-		c.Config.Logger.Infof("desired GenerateName %s - but actually nil", dcl.SprintResource(desired.GenerateName))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.GenerateName, actual.GenerateName) && !dcl.IsZeroValue(desired.GenerateName) {
-		c.Config.Logger.Infof("Diff in GenerateName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GenerateName), dcl.SprintResource(actual.GenerateName))
-		return true
-	}
-	if actual.Namespace == nil && desired.Namespace != nil && !dcl.IsEmptyValueIndirect(desired.Namespace) {
-		c.Config.Logger.Infof("desired Namespace %s - but actually nil", dcl.SprintResource(desired.Namespace))
+		c.Config.Logger.Infof("Diff in GenerateName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GenerateName), dcl.SprintResource(actual.GenerateName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Namespace, actual.Namespace) && !dcl.IsZeroValue(desired.Namespace) {
-		c.Config.Logger.Infof("Diff in Namespace. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Namespace), dcl.SprintResource(actual.Namespace))
-		return true
-	}
-	if actual.SelfLink == nil && desired.SelfLink != nil && !dcl.IsEmptyValueIndirect(desired.SelfLink) {
-		c.Config.Logger.Infof("desired SelfLink %s - but actually nil", dcl.SprintResource(desired.SelfLink))
+		c.Config.Logger.Infof("Diff in Namespace.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Namespace), dcl.SprintResource(actual.Namespace))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.SelfLink, actual.SelfLink) && !dcl.IsZeroValue(desired.SelfLink) {
-		c.Config.Logger.Infof("Diff in SelfLink. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SelfLink), dcl.SprintResource(actual.SelfLink))
-		return true
-	}
-	if actual.Uid == nil && desired.Uid != nil && !dcl.IsEmptyValueIndirect(desired.Uid) {
-		c.Config.Logger.Infof("desired Uid %s - but actually nil", dcl.SprintResource(desired.Uid))
+		c.Config.Logger.Infof("Diff in SelfLink.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SelfLink), dcl.SprintResource(actual.SelfLink))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Uid, actual.Uid) && !dcl.IsZeroValue(desired.Uid) {
-		c.Config.Logger.Infof("Diff in Uid. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
-		return true
-	}
-	if actual.ResourceVersion == nil && desired.ResourceVersion != nil && !dcl.IsEmptyValueIndirect(desired.ResourceVersion) {
-		c.Config.Logger.Infof("desired ResourceVersion %s - but actually nil", dcl.SprintResource(desired.ResourceVersion))
+		c.Config.Logger.Infof("Diff in Uid.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.ResourceVersion, actual.ResourceVersion) && !dcl.IsZeroValue(desired.ResourceVersion) {
-		c.Config.Logger.Infof("Diff in ResourceVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceVersion), dcl.SprintResource(actual.ResourceVersion))
-		return true
-	}
-	if actual.Generation == nil && desired.Generation != nil && !dcl.IsEmptyValueIndirect(desired.Generation) {
-		c.Config.Logger.Infof("desired Generation %s - but actually nil", dcl.SprintResource(desired.Generation))
+		c.Config.Logger.Infof("Diff in ResourceVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceVersion), dcl.SprintResource(actual.ResourceVersion))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Generation, actual.Generation) && !dcl.IsZeroValue(desired.Generation) {
-		c.Config.Logger.Infof("Diff in Generation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Generation), dcl.SprintResource(actual.Generation))
-		return true
-	}
-	if actual.CreateTime == nil && desired.CreateTime != nil && !dcl.IsEmptyValueIndirect(desired.CreateTime) {
-		c.Config.Logger.Infof("desired CreateTime %s - but actually nil", dcl.SprintResource(desired.CreateTime))
+		c.Config.Logger.Infof("Diff in Generation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Generation), dcl.SprintResource(actual.Generation))
 		return true
 	}
 	if compareServiceMetadataCreateTime(c, desired.CreateTime, actual.CreateTime) && !dcl.IsZeroValue(desired.CreateTime) {
-		c.Config.Logger.Infof("Diff in CreateTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CreateTime), dcl.SprintResource(actual.CreateTime))
-		return true
-	}
-	if actual.Labels == nil && desired.Labels != nil && !dcl.IsEmptyValueIndirect(desired.Labels) {
-		c.Config.Logger.Infof("desired Labels %s - but actually nil", dcl.SprintResource(desired.Labels))
+		c.Config.Logger.Infof("Diff in CreateTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CreateTime), dcl.SprintResource(actual.CreateTime))
 		return true
 	}
 	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) && !dcl.IsZeroValue(desired.Labels) {
-		c.Config.Logger.Infof("Diff in Labels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
-		return true
-	}
-	if actual.Annotations == nil && desired.Annotations != nil && !dcl.IsEmptyValueIndirect(desired.Annotations) {
-		c.Config.Logger.Infof("desired Annotations %s - but actually nil", dcl.SprintResource(desired.Annotations))
+		c.Config.Logger.Infof("Diff in Labels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
 		return true
 	}
 	if !dcl.MapEquals(desired.Annotations, actual.Annotations, []string(nil)) && !dcl.IsZeroValue(desired.Annotations) {
-		c.Config.Logger.Infof("Diff in Annotations. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Annotations), dcl.SprintResource(actual.Annotations))
-		return true
-	}
-	if actual.OwnerReferences == nil && desired.OwnerReferences != nil && !dcl.IsEmptyValueIndirect(desired.OwnerReferences) {
-		c.Config.Logger.Infof("desired OwnerReferences %s - but actually nil", dcl.SprintResource(desired.OwnerReferences))
+		c.Config.Logger.Infof("Diff in Annotations.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Annotations), dcl.SprintResource(actual.Annotations))
 		return true
 	}
 	if compareServiceMetadataOwnerReferencesSlice(c, desired.OwnerReferences, actual.OwnerReferences) && !dcl.IsZeroValue(desired.OwnerReferences) {
-		c.Config.Logger.Infof("Diff in OwnerReferences. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OwnerReferences), dcl.SprintResource(actual.OwnerReferences))
-		return true
-	}
-	if actual.DeleteTime == nil && desired.DeleteTime != nil && !dcl.IsEmptyValueIndirect(desired.DeleteTime) {
-		c.Config.Logger.Infof("desired DeleteTime %s - but actually nil", dcl.SprintResource(desired.DeleteTime))
+		c.Config.Logger.Infof("Diff in OwnerReferences.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OwnerReferences), dcl.SprintResource(actual.OwnerReferences))
 		return true
 	}
 	if compareServiceMetadataDeleteTime(c, desired.DeleteTime, actual.DeleteTime) && !dcl.IsZeroValue(desired.DeleteTime) {
-		c.Config.Logger.Infof("Diff in DeleteTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeleteTime), dcl.SprintResource(actual.DeleteTime))
-		return true
-	}
-	if actual.DeletionGracePeriodSeconds == nil && desired.DeletionGracePeriodSeconds != nil && !dcl.IsEmptyValueIndirect(desired.DeletionGracePeriodSeconds) {
-		c.Config.Logger.Infof("desired DeletionGracePeriodSeconds %s - but actually nil", dcl.SprintResource(desired.DeletionGracePeriodSeconds))
+		c.Config.Logger.Infof("Diff in DeleteTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeleteTime), dcl.SprintResource(actual.DeleteTime))
 		return true
 	}
 	if !reflect.DeepEqual(desired.DeletionGracePeriodSeconds, actual.DeletionGracePeriodSeconds) && !dcl.IsZeroValue(desired.DeletionGracePeriodSeconds) {
-		c.Config.Logger.Infof("Diff in DeletionGracePeriodSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeletionGracePeriodSeconds), dcl.SprintResource(actual.DeletionGracePeriodSeconds))
-		return true
-	}
-	if actual.Finalizers == nil && desired.Finalizers != nil && !dcl.IsEmptyValueIndirect(desired.Finalizers) {
-		c.Config.Logger.Infof("desired Finalizers %s - but actually nil", dcl.SprintResource(desired.Finalizers))
+		c.Config.Logger.Infof("Diff in DeletionGracePeriodSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeletionGracePeriodSeconds), dcl.SprintResource(actual.DeletionGracePeriodSeconds))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Finalizers, actual.Finalizers) && !dcl.IsZeroValue(desired.Finalizers) {
-		c.Config.Logger.Infof("Diff in Finalizers. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Finalizers), dcl.SprintResource(actual.Finalizers))
-		return true
-	}
-	if actual.ClusterName == nil && desired.ClusterName != nil && !dcl.IsEmptyValueIndirect(desired.ClusterName) {
-		c.Config.Logger.Infof("desired ClusterName %s - but actually nil", dcl.SprintResource(desired.ClusterName))
+		c.Config.Logger.Infof("Diff in Finalizers.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Finalizers), dcl.SprintResource(actual.Finalizers))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.ClusterName, actual.ClusterName) && !dcl.IsZeroValue(desired.ClusterName) {
-		c.Config.Logger.Infof("Diff in ClusterName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterName), dcl.SprintResource(actual.ClusterName))
+		c.Config.Logger.Infof("Diff in ClusterName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterName), dcl.SprintResource(actual.ClusterName))
 		return true
 	}
 	return false
@@ -5118,7 +5065,7 @@ func compareServiceMetadataSlice(c *Client, desired, actual []ServiceMetadata) b
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceMetadata(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceMetadata, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceMetadata, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5137,7 +5084,7 @@ func compareServiceMetadataMap(c *Client, desired, actual map[string]ServiceMeta
 			return true
 		}
 		if compareServiceMetadata(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceMetadata, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceMetadata, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5151,20 +5098,12 @@ func compareServiceMetadataCreateTime(c *Client, desired, actual *ServiceMetadat
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -5177,7 +5116,7 @@ func compareServiceMetadataCreateTimeSlice(c *Client, desired, actual []ServiceM
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceMetadataCreateTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceMetadataCreateTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceMetadataCreateTime, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5196,7 +5135,7 @@ func compareServiceMetadataCreateTimeMap(c *Client, desired, actual map[string]S
 			return true
 		}
 		if compareServiceMetadataCreateTime(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceMetadataCreateTime, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceMetadataCreateTime, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5210,52 +5149,28 @@ func compareServiceMetadataOwnerReferences(c *Client, desired, actual *ServiceMe
 	if actual == nil {
 		return true
 	}
-	if actual.ApiVersion == nil && desired.ApiVersion != nil && !dcl.IsEmptyValueIndirect(desired.ApiVersion) {
-		c.Config.Logger.Infof("desired ApiVersion %s - but actually nil", dcl.SprintResource(desired.ApiVersion))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ApiVersion, actual.ApiVersion) && !dcl.IsZeroValue(desired.ApiVersion) {
-		c.Config.Logger.Infof("Diff in ApiVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiVersion), dcl.SprintResource(actual.ApiVersion))
-		return true
-	}
-	if actual.Kind == nil && desired.Kind != nil && !dcl.IsEmptyValueIndirect(desired.Kind) {
-		c.Config.Logger.Infof("desired Kind %s - but actually nil", dcl.SprintResource(desired.Kind))
+		c.Config.Logger.Infof("Diff in ApiVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiVersion), dcl.SprintResource(actual.ApiVersion))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) {
-		c.Config.Logger.Infof("Diff in Kind. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
-		return true
-	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		c.Config.Logger.Infof("Diff in Kind.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Uid == nil && desired.Uid != nil && !dcl.IsEmptyValueIndirect(desired.Uid) {
-		c.Config.Logger.Infof("desired Uid %s - but actually nil", dcl.SprintResource(desired.Uid))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Uid, actual.Uid) && !dcl.IsZeroValue(desired.Uid) {
-		c.Config.Logger.Infof("Diff in Uid. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
-		return true
-	}
-	if actual.Controller == nil && desired.Controller != nil && !dcl.IsEmptyValueIndirect(desired.Controller) {
-		c.Config.Logger.Infof("desired Controller %s - but actually nil", dcl.SprintResource(desired.Controller))
+		c.Config.Logger.Infof("Diff in Uid.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Controller, actual.Controller) && !dcl.IsZeroValue(desired.Controller) {
-		c.Config.Logger.Infof("Diff in Controller. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Controller), dcl.SprintResource(actual.Controller))
-		return true
-	}
-	if actual.BlockOwnerDeletion == nil && desired.BlockOwnerDeletion != nil && !dcl.IsEmptyValueIndirect(desired.BlockOwnerDeletion) {
-		c.Config.Logger.Infof("desired BlockOwnerDeletion %s - but actually nil", dcl.SprintResource(desired.BlockOwnerDeletion))
+		c.Config.Logger.Infof("Diff in Controller.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Controller), dcl.SprintResource(actual.Controller))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion) && !dcl.IsZeroValue(desired.BlockOwnerDeletion) {
-		c.Config.Logger.Infof("Diff in BlockOwnerDeletion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BlockOwnerDeletion), dcl.SprintResource(actual.BlockOwnerDeletion))
+		c.Config.Logger.Infof("Diff in BlockOwnerDeletion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BlockOwnerDeletion), dcl.SprintResource(actual.BlockOwnerDeletion))
 		return true
 	}
 	return false
@@ -5268,7 +5183,7 @@ func compareServiceMetadataOwnerReferencesSlice(c *Client, desired, actual []Ser
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceMetadataOwnerReferences(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceMetadataOwnerReferences, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceMetadataOwnerReferences, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5287,7 +5202,7 @@ func compareServiceMetadataOwnerReferencesMap(c *Client, desired, actual map[str
 			return true
 		}
 		if compareServiceMetadataOwnerReferences(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceMetadataOwnerReferences, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceMetadataOwnerReferences, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5301,20 +5216,12 @@ func compareServiceMetadataDeleteTime(c *Client, desired, actual *ServiceMetadat
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -5327,7 +5234,7 @@ func compareServiceMetadataDeleteTimeSlice(c *Client, desired, actual []ServiceM
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceMetadataDeleteTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceMetadataDeleteTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceMetadataDeleteTime, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5346,7 +5253,7 @@ func compareServiceMetadataDeleteTimeMap(c *Client, desired, actual map[string]S
 			return true
 		}
 		if compareServiceMetadataDeleteTime(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceMetadataDeleteTime, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceMetadataDeleteTime, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5360,20 +5267,12 @@ func compareServiceSpec(c *Client, desired, actual *ServiceSpec) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.Template == nil && desired.Template != nil && !dcl.IsEmptyValueIndirect(desired.Template) {
-		c.Config.Logger.Infof("desired Template %s - but actually nil", dcl.SprintResource(desired.Template))
-		return true
-	}
 	if compareServiceSpecTemplate(c, desired.Template, actual.Template) && !dcl.IsZeroValue(desired.Template) {
-		c.Config.Logger.Infof("Diff in Template. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Template), dcl.SprintResource(actual.Template))
-		return true
-	}
-	if actual.Traffic == nil && desired.Traffic != nil && !dcl.IsEmptyValueIndirect(desired.Traffic) {
-		c.Config.Logger.Infof("desired Traffic %s - but actually nil", dcl.SprintResource(desired.Traffic))
+		c.Config.Logger.Infof("Diff in Template.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Template), dcl.SprintResource(actual.Template))
 		return true
 	}
 	if compareServiceSpecTrafficSlice(c, desired.Traffic, actual.Traffic) && !dcl.IsZeroValue(desired.Traffic) {
-		c.Config.Logger.Infof("Diff in Traffic. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Traffic), dcl.SprintResource(actual.Traffic))
+		c.Config.Logger.Infof("Diff in Traffic.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Traffic), dcl.SprintResource(actual.Traffic))
 		return true
 	}
 	return false
@@ -5386,7 +5285,7 @@ func compareServiceSpecSlice(c *Client, desired, actual []ServiceSpec) bool {
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpec, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5405,7 +5304,7 @@ func compareServiceSpecMap(c *Client, desired, actual map[string]ServiceSpec) bo
 			return true
 		}
 		if compareServiceSpec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpec, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5419,20 +5318,12 @@ func compareServiceSpecTemplate(c *Client, desired, actual *ServiceSpecTemplate)
 	if actual == nil {
 		return true
 	}
-	if actual.Metadata == nil && desired.Metadata != nil && !dcl.IsEmptyValueIndirect(desired.Metadata) {
-		c.Config.Logger.Infof("desired Metadata %s - but actually nil", dcl.SprintResource(desired.Metadata))
-		return true
-	}
 	if compareServiceSpecTemplateMetadata(c, desired.Metadata, actual.Metadata) && !dcl.IsZeroValue(desired.Metadata) {
-		c.Config.Logger.Infof("Diff in Metadata. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Metadata), dcl.SprintResource(actual.Metadata))
-		return true
-	}
-	if actual.Spec == nil && desired.Spec != nil && !dcl.IsEmptyValueIndirect(desired.Spec) {
-		c.Config.Logger.Infof("desired Spec %s - but actually nil", dcl.SprintResource(desired.Spec))
+		c.Config.Logger.Infof("Diff in Metadata.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Metadata), dcl.SprintResource(actual.Metadata))
 		return true
 	}
 	if compareServiceSpecTemplateSpec(c, desired.Spec, actual.Spec) && !dcl.IsZeroValue(desired.Spec) {
-		c.Config.Logger.Infof("Diff in Spec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Spec), dcl.SprintResource(actual.Spec))
+		c.Config.Logger.Infof("Diff in Spec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Spec), dcl.SprintResource(actual.Spec))
 		return true
 	}
 	return false
@@ -5445,7 +5336,7 @@ func compareServiceSpecTemplateSlice(c *Client, desired, actual []ServiceSpecTem
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplate(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplate, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplate, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5464,7 +5355,7 @@ func compareServiceSpecTemplateMap(c *Client, desired, actual map[string]Service
 			return true
 		}
 		if compareServiceSpecTemplate(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplate, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplate, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5478,124 +5369,64 @@ func compareServiceSpecTemplateMetadata(c *Client, desired, actual *ServiceSpecT
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.GenerateName == nil && desired.GenerateName != nil && !dcl.IsEmptyValueIndirect(desired.GenerateName) {
-		c.Config.Logger.Infof("desired GenerateName %s - but actually nil", dcl.SprintResource(desired.GenerateName))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.GenerateName, actual.GenerateName) && !dcl.IsZeroValue(desired.GenerateName) {
-		c.Config.Logger.Infof("Diff in GenerateName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GenerateName), dcl.SprintResource(actual.GenerateName))
-		return true
-	}
-	if actual.Namespace == nil && desired.Namespace != nil && !dcl.IsEmptyValueIndirect(desired.Namespace) {
-		c.Config.Logger.Infof("desired Namespace %s - but actually nil", dcl.SprintResource(desired.Namespace))
+		c.Config.Logger.Infof("Diff in GenerateName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GenerateName), dcl.SprintResource(actual.GenerateName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Namespace, actual.Namespace) && !dcl.IsZeroValue(desired.Namespace) {
-		c.Config.Logger.Infof("Diff in Namespace. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Namespace), dcl.SprintResource(actual.Namespace))
-		return true
-	}
-	if actual.SelfLink == nil && desired.SelfLink != nil && !dcl.IsEmptyValueIndirect(desired.SelfLink) {
-		c.Config.Logger.Infof("desired SelfLink %s - but actually nil", dcl.SprintResource(desired.SelfLink))
+		c.Config.Logger.Infof("Diff in Namespace.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Namespace), dcl.SprintResource(actual.Namespace))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.SelfLink, actual.SelfLink) && !dcl.IsZeroValue(desired.SelfLink) {
-		c.Config.Logger.Infof("Diff in SelfLink. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SelfLink), dcl.SprintResource(actual.SelfLink))
-		return true
-	}
-	if actual.Uid == nil && desired.Uid != nil && !dcl.IsEmptyValueIndirect(desired.Uid) {
-		c.Config.Logger.Infof("desired Uid %s - but actually nil", dcl.SprintResource(desired.Uid))
+		c.Config.Logger.Infof("Diff in SelfLink.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SelfLink), dcl.SprintResource(actual.SelfLink))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Uid, actual.Uid) && !dcl.IsZeroValue(desired.Uid) {
-		c.Config.Logger.Infof("Diff in Uid. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
-		return true
-	}
-	if actual.ResourceVersion == nil && desired.ResourceVersion != nil && !dcl.IsEmptyValueIndirect(desired.ResourceVersion) {
-		c.Config.Logger.Infof("desired ResourceVersion %s - but actually nil", dcl.SprintResource(desired.ResourceVersion))
+		c.Config.Logger.Infof("Diff in Uid.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.ResourceVersion, actual.ResourceVersion) && !dcl.IsZeroValue(desired.ResourceVersion) {
-		c.Config.Logger.Infof("Diff in ResourceVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceVersion), dcl.SprintResource(actual.ResourceVersion))
-		return true
-	}
-	if actual.Generation == nil && desired.Generation != nil && !dcl.IsEmptyValueIndirect(desired.Generation) {
-		c.Config.Logger.Infof("desired Generation %s - but actually nil", dcl.SprintResource(desired.Generation))
+		c.Config.Logger.Infof("Diff in ResourceVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceVersion), dcl.SprintResource(actual.ResourceVersion))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Generation, actual.Generation) && !dcl.IsZeroValue(desired.Generation) {
-		c.Config.Logger.Infof("Diff in Generation. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Generation), dcl.SprintResource(actual.Generation))
-		return true
-	}
-	if actual.CreateTime == nil && desired.CreateTime != nil && !dcl.IsEmptyValueIndirect(desired.CreateTime) {
-		c.Config.Logger.Infof("desired CreateTime %s - but actually nil", dcl.SprintResource(desired.CreateTime))
+		c.Config.Logger.Infof("Diff in Generation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Generation), dcl.SprintResource(actual.Generation))
 		return true
 	}
 	if compareServiceSpecTemplateMetadataCreateTime(c, desired.CreateTime, actual.CreateTime) && !dcl.IsZeroValue(desired.CreateTime) {
-		c.Config.Logger.Infof("Diff in CreateTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CreateTime), dcl.SprintResource(actual.CreateTime))
-		return true
-	}
-	if actual.Labels == nil && desired.Labels != nil && !dcl.IsEmptyValueIndirect(desired.Labels) {
-		c.Config.Logger.Infof("desired Labels %s - but actually nil", dcl.SprintResource(desired.Labels))
+		c.Config.Logger.Infof("Diff in CreateTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CreateTime), dcl.SprintResource(actual.CreateTime))
 		return true
 	}
 	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) && !dcl.IsZeroValue(desired.Labels) {
-		c.Config.Logger.Infof("Diff in Labels. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
-		return true
-	}
-	if actual.Annotations == nil && desired.Annotations != nil && !dcl.IsEmptyValueIndirect(desired.Annotations) {
-		c.Config.Logger.Infof("desired Annotations %s - but actually nil", dcl.SprintResource(desired.Annotations))
+		c.Config.Logger.Infof("Diff in Labels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
 		return true
 	}
 	if !dcl.MapEquals(desired.Annotations, actual.Annotations, []string(nil)) && !dcl.IsZeroValue(desired.Annotations) {
-		c.Config.Logger.Infof("Diff in Annotations. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Annotations), dcl.SprintResource(actual.Annotations))
-		return true
-	}
-	if actual.OwnerReferences == nil && desired.OwnerReferences != nil && !dcl.IsEmptyValueIndirect(desired.OwnerReferences) {
-		c.Config.Logger.Infof("desired OwnerReferences %s - but actually nil", dcl.SprintResource(desired.OwnerReferences))
+		c.Config.Logger.Infof("Diff in Annotations.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Annotations), dcl.SprintResource(actual.Annotations))
 		return true
 	}
 	if compareServiceSpecTemplateMetadataOwnerReferencesSlice(c, desired.OwnerReferences, actual.OwnerReferences) && !dcl.IsZeroValue(desired.OwnerReferences) {
-		c.Config.Logger.Infof("Diff in OwnerReferences. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OwnerReferences), dcl.SprintResource(actual.OwnerReferences))
-		return true
-	}
-	if actual.DeleteTime == nil && desired.DeleteTime != nil && !dcl.IsEmptyValueIndirect(desired.DeleteTime) {
-		c.Config.Logger.Infof("desired DeleteTime %s - but actually nil", dcl.SprintResource(desired.DeleteTime))
+		c.Config.Logger.Infof("Diff in OwnerReferences.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OwnerReferences), dcl.SprintResource(actual.OwnerReferences))
 		return true
 	}
 	if compareServiceSpecTemplateMetadataDeleteTime(c, desired.DeleteTime, actual.DeleteTime) && !dcl.IsZeroValue(desired.DeleteTime) {
-		c.Config.Logger.Infof("Diff in DeleteTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeleteTime), dcl.SprintResource(actual.DeleteTime))
-		return true
-	}
-	if actual.DeletionGracePeriodSeconds == nil && desired.DeletionGracePeriodSeconds != nil && !dcl.IsEmptyValueIndirect(desired.DeletionGracePeriodSeconds) {
-		c.Config.Logger.Infof("desired DeletionGracePeriodSeconds %s - but actually nil", dcl.SprintResource(desired.DeletionGracePeriodSeconds))
+		c.Config.Logger.Infof("Diff in DeleteTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeleteTime), dcl.SprintResource(actual.DeleteTime))
 		return true
 	}
 	if !reflect.DeepEqual(desired.DeletionGracePeriodSeconds, actual.DeletionGracePeriodSeconds) && !dcl.IsZeroValue(desired.DeletionGracePeriodSeconds) {
-		c.Config.Logger.Infof("Diff in DeletionGracePeriodSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeletionGracePeriodSeconds), dcl.SprintResource(actual.DeletionGracePeriodSeconds))
-		return true
-	}
-	if actual.Finalizers == nil && desired.Finalizers != nil && !dcl.IsEmptyValueIndirect(desired.Finalizers) {
-		c.Config.Logger.Infof("desired Finalizers %s - but actually nil", dcl.SprintResource(desired.Finalizers))
+		c.Config.Logger.Infof("Diff in DeletionGracePeriodSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeletionGracePeriodSeconds), dcl.SprintResource(actual.DeletionGracePeriodSeconds))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Finalizers, actual.Finalizers) && !dcl.IsZeroValue(desired.Finalizers) {
-		c.Config.Logger.Infof("Diff in Finalizers. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Finalizers), dcl.SprintResource(actual.Finalizers))
-		return true
-	}
-	if actual.ClusterName == nil && desired.ClusterName != nil && !dcl.IsEmptyValueIndirect(desired.ClusterName) {
-		c.Config.Logger.Infof("desired ClusterName %s - but actually nil", dcl.SprintResource(desired.ClusterName))
+		c.Config.Logger.Infof("Diff in Finalizers.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Finalizers), dcl.SprintResource(actual.Finalizers))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.ClusterName, actual.ClusterName) && !dcl.IsZeroValue(desired.ClusterName) {
-		c.Config.Logger.Infof("Diff in ClusterName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterName), dcl.SprintResource(actual.ClusterName))
+		c.Config.Logger.Infof("Diff in ClusterName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterName), dcl.SprintResource(actual.ClusterName))
 		return true
 	}
 	return false
@@ -5608,7 +5439,7 @@ func compareServiceSpecTemplateMetadataSlice(c *Client, desired, actual []Servic
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateMetadata(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadata, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadata, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5627,7 +5458,7 @@ func compareServiceSpecTemplateMetadataMap(c *Client, desired, actual map[string
 			return true
 		}
 		if compareServiceSpecTemplateMetadata(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadata, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadata, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5641,20 +5472,12 @@ func compareServiceSpecTemplateMetadataCreateTime(c *Client, desired, actual *Se
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -5667,7 +5490,7 @@ func compareServiceSpecTemplateMetadataCreateTimeSlice(c *Client, desired, actua
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateMetadataCreateTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataCreateTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataCreateTime, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5686,7 +5509,7 @@ func compareServiceSpecTemplateMetadataCreateTimeMap(c *Client, desired, actual 
 			return true
 		}
 		if compareServiceSpecTemplateMetadataCreateTime(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataCreateTime, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataCreateTime, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5700,52 +5523,28 @@ func compareServiceSpecTemplateMetadataOwnerReferences(c *Client, desired, actua
 	if actual == nil {
 		return true
 	}
-	if actual.ApiVersion == nil && desired.ApiVersion != nil && !dcl.IsEmptyValueIndirect(desired.ApiVersion) {
-		c.Config.Logger.Infof("desired ApiVersion %s - but actually nil", dcl.SprintResource(desired.ApiVersion))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ApiVersion, actual.ApiVersion) && !dcl.IsZeroValue(desired.ApiVersion) {
-		c.Config.Logger.Infof("Diff in ApiVersion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiVersion), dcl.SprintResource(actual.ApiVersion))
-		return true
-	}
-	if actual.Kind == nil && desired.Kind != nil && !dcl.IsEmptyValueIndirect(desired.Kind) {
-		c.Config.Logger.Infof("desired Kind %s - but actually nil", dcl.SprintResource(desired.Kind))
+		c.Config.Logger.Infof("Diff in ApiVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiVersion), dcl.SprintResource(actual.ApiVersion))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) {
-		c.Config.Logger.Infof("Diff in Kind. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
-		return true
-	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		c.Config.Logger.Infof("Diff in Kind.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Uid == nil && desired.Uid != nil && !dcl.IsEmptyValueIndirect(desired.Uid) {
-		c.Config.Logger.Infof("desired Uid %s - but actually nil", dcl.SprintResource(desired.Uid))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Uid, actual.Uid) && !dcl.IsZeroValue(desired.Uid) {
-		c.Config.Logger.Infof("Diff in Uid. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
-		return true
-	}
-	if actual.Controller == nil && desired.Controller != nil && !dcl.IsEmptyValueIndirect(desired.Controller) {
-		c.Config.Logger.Infof("desired Controller %s - but actually nil", dcl.SprintResource(desired.Controller))
+		c.Config.Logger.Infof("Diff in Uid.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Controller, actual.Controller) && !dcl.IsZeroValue(desired.Controller) {
-		c.Config.Logger.Infof("Diff in Controller. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Controller), dcl.SprintResource(actual.Controller))
-		return true
-	}
-	if actual.BlockOwnerDeletion == nil && desired.BlockOwnerDeletion != nil && !dcl.IsEmptyValueIndirect(desired.BlockOwnerDeletion) {
-		c.Config.Logger.Infof("desired BlockOwnerDeletion %s - but actually nil", dcl.SprintResource(desired.BlockOwnerDeletion))
+		c.Config.Logger.Infof("Diff in Controller.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Controller), dcl.SprintResource(actual.Controller))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion) && !dcl.IsZeroValue(desired.BlockOwnerDeletion) {
-		c.Config.Logger.Infof("Diff in BlockOwnerDeletion. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BlockOwnerDeletion), dcl.SprintResource(actual.BlockOwnerDeletion))
+		c.Config.Logger.Infof("Diff in BlockOwnerDeletion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BlockOwnerDeletion), dcl.SprintResource(actual.BlockOwnerDeletion))
 		return true
 	}
 	return false
@@ -5758,7 +5557,7 @@ func compareServiceSpecTemplateMetadataOwnerReferencesSlice(c *Client, desired, 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateMetadataOwnerReferences(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataOwnerReferences, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataOwnerReferences, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5777,7 +5576,7 @@ func compareServiceSpecTemplateMetadataOwnerReferencesMap(c *Client, desired, ac
 			return true
 		}
 		if compareServiceSpecTemplateMetadataOwnerReferences(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataOwnerReferences, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataOwnerReferences, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5791,20 +5590,12 @@ func compareServiceSpecTemplateMetadataDeleteTime(c *Client, desired, actual *Se
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -5817,7 +5608,7 @@ func compareServiceSpecTemplateMetadataDeleteTimeSlice(c *Client, desired, actua
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateMetadataDeleteTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataDeleteTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataDeleteTime, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5836,7 +5627,7 @@ func compareServiceSpecTemplateMetadataDeleteTimeMap(c *Client, desired, actual 
 			return true
 		}
 		if compareServiceSpecTemplateMetadataDeleteTime(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataDeleteTime, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataDeleteTime, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5850,44 +5641,24 @@ func compareServiceSpecTemplateSpec(c *Client, desired, actual *ServiceSpecTempl
 	if actual == nil {
 		return true
 	}
-	if actual.ContainerConcurrency == nil && desired.ContainerConcurrency != nil && !dcl.IsEmptyValueIndirect(desired.ContainerConcurrency) {
-		c.Config.Logger.Infof("desired ContainerConcurrency %s - but actually nil", dcl.SprintResource(desired.ContainerConcurrency))
-		return true
-	}
 	if !reflect.DeepEqual(desired.ContainerConcurrency, actual.ContainerConcurrency) && !dcl.IsZeroValue(desired.ContainerConcurrency) {
-		c.Config.Logger.Infof("Diff in ContainerConcurrency. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContainerConcurrency), dcl.SprintResource(actual.ContainerConcurrency))
-		return true
-	}
-	if actual.TimeoutSeconds == nil && desired.TimeoutSeconds != nil && !dcl.IsEmptyValueIndirect(desired.TimeoutSeconds) {
-		c.Config.Logger.Infof("desired TimeoutSeconds %s - but actually nil", dcl.SprintResource(desired.TimeoutSeconds))
+		c.Config.Logger.Infof("Diff in ContainerConcurrency.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContainerConcurrency), dcl.SprintResource(actual.ContainerConcurrency))
 		return true
 	}
 	if !reflect.DeepEqual(desired.TimeoutSeconds, actual.TimeoutSeconds) && !dcl.IsZeroValue(desired.TimeoutSeconds) {
-		c.Config.Logger.Infof("Diff in TimeoutSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeoutSeconds), dcl.SprintResource(actual.TimeoutSeconds))
-		return true
-	}
-	if actual.ServiceAccountName == nil && desired.ServiceAccountName != nil && !dcl.IsEmptyValueIndirect(desired.ServiceAccountName) {
-		c.Config.Logger.Infof("desired ServiceAccountName %s - but actually nil", dcl.SprintResource(desired.ServiceAccountName))
+		c.Config.Logger.Infof("Diff in TimeoutSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeoutSeconds), dcl.SprintResource(actual.TimeoutSeconds))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.ServiceAccountName, actual.ServiceAccountName) && !dcl.IsZeroValue(desired.ServiceAccountName) {
-		c.Config.Logger.Infof("Diff in ServiceAccountName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountName), dcl.SprintResource(actual.ServiceAccountName))
-		return true
-	}
-	if actual.Containers == nil && desired.Containers != nil && !dcl.IsEmptyValueIndirect(desired.Containers) {
-		c.Config.Logger.Infof("desired Containers %s - but actually nil", dcl.SprintResource(desired.Containers))
+		c.Config.Logger.Infof("Diff in ServiceAccountName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountName), dcl.SprintResource(actual.ServiceAccountName))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersSlice(c, desired.Containers, actual.Containers) && !dcl.IsZeroValue(desired.Containers) {
-		c.Config.Logger.Infof("Diff in Containers. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Containers), dcl.SprintResource(actual.Containers))
-		return true
-	}
-	if actual.Volumes == nil && desired.Volumes != nil && !dcl.IsEmptyValueIndirect(desired.Volumes) {
-		c.Config.Logger.Infof("desired Volumes %s - but actually nil", dcl.SprintResource(desired.Volumes))
+		c.Config.Logger.Infof("Diff in Containers.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Containers), dcl.SprintResource(actual.Containers))
 		return true
 	}
 	if compareServiceSpecTemplateSpecVolumesSlice(c, desired.Volumes, actual.Volumes) && !dcl.IsZeroValue(desired.Volumes) {
-		c.Config.Logger.Infof("Diff in Volumes. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Volumes), dcl.SprintResource(actual.Volumes))
+		c.Config.Logger.Infof("Diff in Volumes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Volumes), dcl.SprintResource(actual.Volumes))
 		return true
 	}
 	return false
@@ -5900,7 +5671,7 @@ func compareServiceSpecTemplateSpecSlice(c *Client, desired, actual []ServiceSpe
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpec, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -5919,7 +5690,7 @@ func compareServiceSpecTemplateSpecMap(c *Client, desired, actual map[string]Ser
 			return true
 		}
 		if compareServiceSpecTemplateSpec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpec, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -5933,132 +5704,68 @@ func compareServiceSpecTemplateSpecContainers(c *Client, desired, actual *Servic
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Image == nil && desired.Image != nil && !dcl.IsEmptyValueIndirect(desired.Image) {
-		c.Config.Logger.Infof("desired Image %s - but actually nil", dcl.SprintResource(desired.Image))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Image, actual.Image) && !dcl.IsZeroValue(desired.Image) {
-		c.Config.Logger.Infof("Diff in Image. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Image), dcl.SprintResource(actual.Image))
-		return true
-	}
-	if actual.Command == nil && desired.Command != nil && !dcl.IsEmptyValueIndirect(desired.Command) {
-		c.Config.Logger.Infof("desired Command %s - but actually nil", dcl.SprintResource(desired.Command))
+		c.Config.Logger.Infof("Diff in Image.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Image), dcl.SprintResource(actual.Image))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Command, actual.Command) && !dcl.IsZeroValue(desired.Command) {
-		c.Config.Logger.Infof("Diff in Command. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Command), dcl.SprintResource(actual.Command))
-		return true
-	}
-	if actual.Args == nil && desired.Args != nil && !dcl.IsEmptyValueIndirect(desired.Args) {
-		c.Config.Logger.Infof("desired Args %s - but actually nil", dcl.SprintResource(desired.Args))
+		c.Config.Logger.Infof("Diff in Command.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Command), dcl.SprintResource(actual.Command))
 		return true
 	}
 	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if actual.Env == nil && desired.Env != nil && !dcl.IsEmptyValueIndirect(desired.Env) {
-		c.Config.Logger.Infof("desired Env %s - but actually nil", dcl.SprintResource(desired.Env))
+		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersEnvSlice(c, desired.Env, actual.Env) && !dcl.IsZeroValue(desired.Env) {
-		c.Config.Logger.Infof("Diff in Env. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Env), dcl.SprintResource(actual.Env))
-		return true
-	}
-	if actual.Resources == nil && desired.Resources != nil && !dcl.IsEmptyValueIndirect(desired.Resources) {
-		c.Config.Logger.Infof("desired Resources %s - but actually nil", dcl.SprintResource(desired.Resources))
+		c.Config.Logger.Infof("Diff in Env.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Env), dcl.SprintResource(actual.Env))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersResources(c, desired.Resources, actual.Resources) && !dcl.IsZeroValue(desired.Resources) {
-		c.Config.Logger.Infof("Diff in Resources. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Resources), dcl.SprintResource(actual.Resources))
-		return true
-	}
-	if actual.WorkingDir == nil && desired.WorkingDir != nil && !dcl.IsEmptyValueIndirect(desired.WorkingDir) {
-		c.Config.Logger.Infof("desired WorkingDir %s - but actually nil", dcl.SprintResource(desired.WorkingDir))
+		c.Config.Logger.Infof("Diff in Resources.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Resources), dcl.SprintResource(actual.Resources))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.WorkingDir, actual.WorkingDir) && !dcl.IsZeroValue(desired.WorkingDir) {
-		c.Config.Logger.Infof("Diff in WorkingDir. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WorkingDir), dcl.SprintResource(actual.WorkingDir))
-		return true
-	}
-	if actual.Ports == nil && desired.Ports != nil && !dcl.IsEmptyValueIndirect(desired.Ports) {
-		c.Config.Logger.Infof("desired Ports %s - but actually nil", dcl.SprintResource(desired.Ports))
+		c.Config.Logger.Infof("Diff in WorkingDir.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WorkingDir), dcl.SprintResource(actual.WorkingDir))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersPortsSlice(c, desired.Ports, actual.Ports) && !dcl.IsZeroValue(desired.Ports) {
-		c.Config.Logger.Infof("Diff in Ports. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
-		return true
-	}
-	if actual.EnvFrom == nil && desired.EnvFrom != nil && !dcl.IsEmptyValueIndirect(desired.EnvFrom) {
-		c.Config.Logger.Infof("desired EnvFrom %s - but actually nil", dcl.SprintResource(desired.EnvFrom))
+		c.Config.Logger.Infof("Diff in Ports.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersEnvFromSlice(c, desired.EnvFrom, actual.EnvFrom) && !dcl.IsZeroValue(desired.EnvFrom) {
-		c.Config.Logger.Infof("Diff in EnvFrom. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnvFrom), dcl.SprintResource(actual.EnvFrom))
-		return true
-	}
-	if actual.VolumeMounts == nil && desired.VolumeMounts != nil && !dcl.IsEmptyValueIndirect(desired.VolumeMounts) {
-		c.Config.Logger.Infof("desired VolumeMounts %s - but actually nil", dcl.SprintResource(desired.VolumeMounts))
+		c.Config.Logger.Infof("Diff in EnvFrom.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnvFrom), dcl.SprintResource(actual.EnvFrom))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersVolumeMountsSlice(c, desired.VolumeMounts, actual.VolumeMounts) && !dcl.IsZeroValue(desired.VolumeMounts) {
-		c.Config.Logger.Infof("Diff in VolumeMounts. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.VolumeMounts), dcl.SprintResource(actual.VolumeMounts))
-		return true
-	}
-	if actual.LivenessProbe == nil && desired.LivenessProbe != nil && !dcl.IsEmptyValueIndirect(desired.LivenessProbe) {
-		c.Config.Logger.Infof("desired LivenessProbe %s - but actually nil", dcl.SprintResource(desired.LivenessProbe))
+		c.Config.Logger.Infof("Diff in VolumeMounts.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.VolumeMounts), dcl.SprintResource(actual.VolumeMounts))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersLivenessProbe(c, desired.LivenessProbe, actual.LivenessProbe) && !dcl.IsZeroValue(desired.LivenessProbe) {
-		c.Config.Logger.Infof("Diff in LivenessProbe. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LivenessProbe), dcl.SprintResource(actual.LivenessProbe))
-		return true
-	}
-	if actual.ReadinessProbe == nil && desired.ReadinessProbe != nil && !dcl.IsEmptyValueIndirect(desired.ReadinessProbe) {
-		c.Config.Logger.Infof("desired ReadinessProbe %s - but actually nil", dcl.SprintResource(desired.ReadinessProbe))
+		c.Config.Logger.Infof("Diff in LivenessProbe.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LivenessProbe), dcl.SprintResource(actual.LivenessProbe))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersReadinessProbe(c, desired.ReadinessProbe, actual.ReadinessProbe) && !dcl.IsZeroValue(desired.ReadinessProbe) {
-		c.Config.Logger.Infof("Diff in ReadinessProbe. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReadinessProbe), dcl.SprintResource(actual.ReadinessProbe))
-		return true
-	}
-	if actual.TerminationMessagePath == nil && desired.TerminationMessagePath != nil && !dcl.IsEmptyValueIndirect(desired.TerminationMessagePath) {
-		c.Config.Logger.Infof("desired TerminationMessagePath %s - but actually nil", dcl.SprintResource(desired.TerminationMessagePath))
+		c.Config.Logger.Infof("Diff in ReadinessProbe.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReadinessProbe), dcl.SprintResource(actual.ReadinessProbe))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.TerminationMessagePath, actual.TerminationMessagePath) && !dcl.IsZeroValue(desired.TerminationMessagePath) {
-		c.Config.Logger.Infof("Diff in TerminationMessagePath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TerminationMessagePath), dcl.SprintResource(actual.TerminationMessagePath))
-		return true
-	}
-	if actual.TerminationMessagePolicy == nil && desired.TerminationMessagePolicy != nil && !dcl.IsEmptyValueIndirect(desired.TerminationMessagePolicy) {
-		c.Config.Logger.Infof("desired TerminationMessagePolicy %s - but actually nil", dcl.SprintResource(desired.TerminationMessagePolicy))
+		c.Config.Logger.Infof("Diff in TerminationMessagePath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TerminationMessagePath), dcl.SprintResource(actual.TerminationMessagePath))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.TerminationMessagePolicy, actual.TerminationMessagePolicy) && !dcl.IsZeroValue(desired.TerminationMessagePolicy) {
-		c.Config.Logger.Infof("Diff in TerminationMessagePolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TerminationMessagePolicy), dcl.SprintResource(actual.TerminationMessagePolicy))
-		return true
-	}
-	if actual.ImagePullPolicy == nil && desired.ImagePullPolicy != nil && !dcl.IsEmptyValueIndirect(desired.ImagePullPolicy) {
-		c.Config.Logger.Infof("desired ImagePullPolicy %s - but actually nil", dcl.SprintResource(desired.ImagePullPolicy))
+		c.Config.Logger.Infof("Diff in TerminationMessagePolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TerminationMessagePolicy), dcl.SprintResource(actual.TerminationMessagePolicy))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.ImagePullPolicy, actual.ImagePullPolicy) && !dcl.IsZeroValue(desired.ImagePullPolicy) {
-		c.Config.Logger.Infof("Diff in ImagePullPolicy. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ImagePullPolicy), dcl.SprintResource(actual.ImagePullPolicy))
-		return true
-	}
-	if actual.SecurityContext == nil && desired.SecurityContext != nil && !dcl.IsEmptyValueIndirect(desired.SecurityContext) {
-		c.Config.Logger.Infof("desired SecurityContext %s - but actually nil", dcl.SprintResource(desired.SecurityContext))
+		c.Config.Logger.Infof("Diff in ImagePullPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ImagePullPolicy), dcl.SprintResource(actual.ImagePullPolicy))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersSecurityContext(c, desired.SecurityContext, actual.SecurityContext) && !dcl.IsZeroValue(desired.SecurityContext) {
-		c.Config.Logger.Infof("Diff in SecurityContext. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecurityContext), dcl.SprintResource(actual.SecurityContext))
+		c.Config.Logger.Infof("Diff in SecurityContext.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecurityContext), dcl.SprintResource(actual.SecurityContext))
 		return true
 	}
 	return false
@@ -6071,7 +5778,7 @@ func compareServiceSpecTemplateSpecContainersSlice(c *Client, desired, actual []
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainers(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainers, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainers, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6090,7 +5797,7 @@ func compareServiceSpecTemplateSpecContainersMap(c *Client, desired, actual map[
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainers(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainers, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainers, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6104,28 +5811,16 @@ func compareServiceSpecTemplateSpecContainersEnv(c *Client, desired, actual *Ser
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	if actual.ValueFrom == nil && desired.ValueFrom != nil && !dcl.IsEmptyValueIndirect(desired.ValueFrom) {
-		c.Config.Logger.Infof("desired ValueFrom %s - but actually nil", dcl.SprintResource(desired.ValueFrom))
+		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersEnvValueFrom(c, desired.ValueFrom, actual.ValueFrom) && !dcl.IsZeroValue(desired.ValueFrom) {
-		c.Config.Logger.Infof("Diff in ValueFrom. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueFrom), dcl.SprintResource(actual.ValueFrom))
+		c.Config.Logger.Infof("Diff in ValueFrom.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueFrom), dcl.SprintResource(actual.ValueFrom))
 		return true
 	}
 	return false
@@ -6138,7 +5833,7 @@ func compareServiceSpecTemplateSpecContainersEnvSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersEnv(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnv, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnv, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6157,7 +5852,7 @@ func compareServiceSpecTemplateSpecContainersEnvMap(c *Client, desired, actual m
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersEnv(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnv, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnv, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6171,20 +5866,12 @@ func compareServiceSpecTemplateSpecContainersEnvValueFrom(c *Client, desired, ac
 	if actual == nil {
 		return true
 	}
-	if actual.ConfigMapKeyRef == nil && desired.ConfigMapKeyRef != nil && !dcl.IsEmptyValueIndirect(desired.ConfigMapKeyRef) {
-		c.Config.Logger.Infof("desired ConfigMapKeyRef %s - but actually nil", dcl.SprintResource(desired.ConfigMapKeyRef))
-		return true
-	}
 	if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, desired.ConfigMapKeyRef, actual.ConfigMapKeyRef) && !dcl.IsZeroValue(desired.ConfigMapKeyRef) {
-		c.Config.Logger.Infof("Diff in ConfigMapKeyRef. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigMapKeyRef), dcl.SprintResource(actual.ConfigMapKeyRef))
-		return true
-	}
-	if actual.SecretKeyRef == nil && desired.SecretKeyRef != nil && !dcl.IsEmptyValueIndirect(desired.SecretKeyRef) {
-		c.Config.Logger.Infof("desired SecretKeyRef %s - but actually nil", dcl.SprintResource(desired.SecretKeyRef))
+		c.Config.Logger.Infof("Diff in ConfigMapKeyRef.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigMapKeyRef), dcl.SprintResource(actual.ConfigMapKeyRef))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, desired.SecretKeyRef, actual.SecretKeyRef) && !dcl.IsZeroValue(desired.SecretKeyRef) {
-		c.Config.Logger.Infof("Diff in SecretKeyRef. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretKeyRef), dcl.SprintResource(actual.SecretKeyRef))
+		c.Config.Logger.Infof("Diff in SecretKeyRef.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretKeyRef), dcl.SprintResource(actual.SecretKeyRef))
 		return true
 	}
 	return false
@@ -6197,7 +5884,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromSlice(c *Client, desire
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersEnvValueFrom(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFrom, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFrom, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6216,7 +5903,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromMap(c *Client, desired,
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersEnvValueFrom(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFrom, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFrom, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6230,36 +5917,20 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c *Clie
 	if actual == nil {
 		return true
 	}
-	if actual.LocalObjectReference == nil && desired.LocalObjectReference != nil && !dcl.IsEmptyValueIndirect(desired.LocalObjectReference) {
-		c.Config.Logger.Infof("desired LocalObjectReference %s - but actually nil", dcl.SprintResource(desired.LocalObjectReference))
-		return true
-	}
 	if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, desired.LocalObjectReference, actual.LocalObjectReference) && !dcl.IsZeroValue(desired.LocalObjectReference) {
-		c.Config.Logger.Infof("Diff in LocalObjectReference. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
+		c.Config.Logger.Infof("Diff in LocalObjectReference.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Optional == nil && desired.Optional != nil && !dcl.IsEmptyValueIndirect(desired.Optional) {
-		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
+		c.Config.Logger.Infof("Diff in Key.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
-		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
-		return true
-	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		c.Config.Logger.Infof("Diff in Optional.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	return false
@@ -6272,7 +5943,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefSlice(c 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6291,7 +5962,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefMap(c *C
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6305,12 +5976,8 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObj
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	return false
@@ -6323,7 +5990,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObj
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6342,7 +6009,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObj
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6356,36 +6023,20 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c *Client,
 	if actual == nil {
 		return true
 	}
-	if actual.LocalObjectReference == nil && desired.LocalObjectReference != nil && !dcl.IsEmptyValueIndirect(desired.LocalObjectReference) {
-		c.Config.Logger.Infof("desired LocalObjectReference %s - but actually nil", dcl.SprintResource(desired.LocalObjectReference))
-		return true
-	}
 	if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, desired.LocalObjectReference, actual.LocalObjectReference) && !dcl.IsZeroValue(desired.LocalObjectReference) {
-		c.Config.Logger.Infof("Diff in LocalObjectReference. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
-		return true
-	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
+		c.Config.Logger.Infof("Diff in LocalObjectReference.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Optional == nil && desired.Optional != nil && !dcl.IsEmptyValueIndirect(desired.Optional) {
-		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
+		c.Config.Logger.Infof("Diff in Key.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
-		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
-		return true
-	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		c.Config.Logger.Infof("Diff in Optional.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	return false
@@ -6398,7 +6049,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSlice(c *Cl
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6417,7 +6068,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefMap(c *Clie
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6431,12 +6082,8 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObject
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	return false
@@ -6449,7 +6096,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObject
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6468,7 +6115,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObject
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6482,20 +6129,12 @@ func compareServiceSpecTemplateSpecContainersResources(c *Client, desired, actua
 	if actual == nil {
 		return true
 	}
-	if actual.Limits == nil && desired.Limits != nil && !dcl.IsEmptyValueIndirect(desired.Limits) {
-		c.Config.Logger.Infof("desired Limits %s - but actually nil", dcl.SprintResource(desired.Limits))
-		return true
-	}
 	if !dcl.MapEquals(desired.Limits, actual.Limits, []string(nil)) && !dcl.IsZeroValue(desired.Limits) {
-		c.Config.Logger.Infof("Diff in Limits. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Limits), dcl.SprintResource(actual.Limits))
-		return true
-	}
-	if actual.Requests == nil && desired.Requests != nil && !dcl.IsEmptyValueIndirect(desired.Requests) {
-		c.Config.Logger.Infof("desired Requests %s - but actually nil", dcl.SprintResource(desired.Requests))
+		c.Config.Logger.Infof("Diff in Limits.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Limits), dcl.SprintResource(actual.Limits))
 		return true
 	}
 	if !dcl.MapEquals(desired.Requests, actual.Requests, []string(nil)) && !dcl.IsZeroValue(desired.Requests) {
-		c.Config.Logger.Infof("Diff in Requests. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Requests), dcl.SprintResource(actual.Requests))
+		c.Config.Logger.Infof("Diff in Requests.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Requests), dcl.SprintResource(actual.Requests))
 		return true
 	}
 	return false
@@ -6508,7 +6147,7 @@ func compareServiceSpecTemplateSpecContainersResourcesSlice(c *Client, desired, 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersResources, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersResources, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6527,7 +6166,7 @@ func compareServiceSpecTemplateSpecContainersResourcesMap(c *Client, desired, ac
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersResources(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersResources, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersResources, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6541,28 +6180,16 @@ func compareServiceSpecTemplateSpecContainersPorts(c *Client, desired, actual *S
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.ContainerPort == nil && desired.ContainerPort != nil && !dcl.IsEmptyValueIndirect(desired.ContainerPort) {
-		c.Config.Logger.Infof("desired ContainerPort %s - but actually nil", dcl.SprintResource(desired.ContainerPort))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !reflect.DeepEqual(desired.ContainerPort, actual.ContainerPort) && !dcl.IsZeroValue(desired.ContainerPort) {
-		c.Config.Logger.Infof("Diff in ContainerPort. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContainerPort), dcl.SprintResource(actual.ContainerPort))
-		return true
-	}
-	if actual.Protocol == nil && desired.Protocol != nil && !dcl.IsEmptyValueIndirect(desired.Protocol) {
-		c.Config.Logger.Infof("desired Protocol %s - but actually nil", dcl.SprintResource(desired.Protocol))
+		c.Config.Logger.Infof("Diff in ContainerPort.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContainerPort), dcl.SprintResource(actual.ContainerPort))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Protocol, actual.Protocol) && !dcl.IsZeroValue(desired.Protocol) {
-		c.Config.Logger.Infof("Diff in Protocol. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Protocol), dcl.SprintResource(actual.Protocol))
+		c.Config.Logger.Infof("Diff in Protocol.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Protocol), dcl.SprintResource(actual.Protocol))
 		return true
 	}
 	return false
@@ -6575,7 +6202,7 @@ func compareServiceSpecTemplateSpecContainersPortsSlice(c *Client, desired, actu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersPorts(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersPorts, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersPorts, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6594,7 +6221,7 @@ func compareServiceSpecTemplateSpecContainersPortsMap(c *Client, desired, actual
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersPorts(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersPorts, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersPorts, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6608,28 +6235,16 @@ func compareServiceSpecTemplateSpecContainersEnvFrom(c *Client, desired, actual 
 	if actual == nil {
 		return true
 	}
-	if actual.Prefix == nil && desired.Prefix != nil && !dcl.IsEmptyValueIndirect(desired.Prefix) {
-		c.Config.Logger.Infof("desired Prefix %s - but actually nil", dcl.SprintResource(desired.Prefix))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Prefix, actual.Prefix) && !dcl.IsZeroValue(desired.Prefix) {
-		c.Config.Logger.Infof("Diff in Prefix. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Prefix), dcl.SprintResource(actual.Prefix))
-		return true
-	}
-	if actual.ConfigMapRef == nil && desired.ConfigMapRef != nil && !dcl.IsEmptyValueIndirect(desired.ConfigMapRef) {
-		c.Config.Logger.Infof("desired ConfigMapRef %s - but actually nil", dcl.SprintResource(desired.ConfigMapRef))
+		c.Config.Logger.Infof("Diff in Prefix.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Prefix), dcl.SprintResource(actual.Prefix))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, desired.ConfigMapRef, actual.ConfigMapRef) && !dcl.IsZeroValue(desired.ConfigMapRef) {
-		c.Config.Logger.Infof("Diff in ConfigMapRef. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigMapRef), dcl.SprintResource(actual.ConfigMapRef))
-		return true
-	}
-	if actual.SecretRef == nil && desired.SecretRef != nil && !dcl.IsEmptyValueIndirect(desired.SecretRef) {
-		c.Config.Logger.Infof("desired SecretRef %s - but actually nil", dcl.SprintResource(desired.SecretRef))
+		c.Config.Logger.Infof("Diff in ConfigMapRef.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigMapRef), dcl.SprintResource(actual.ConfigMapRef))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c, desired.SecretRef, actual.SecretRef) && !dcl.IsZeroValue(desired.SecretRef) {
-		c.Config.Logger.Infof("Diff in SecretRef. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretRef), dcl.SprintResource(actual.SecretRef))
+		c.Config.Logger.Infof("Diff in SecretRef.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretRef), dcl.SprintResource(actual.SecretRef))
 		return true
 	}
 	return false
@@ -6642,7 +6257,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromSlice(c *Client, desired, ac
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersEnvFrom(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFrom, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFrom, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6661,7 +6276,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromMap(c *Client, desired, actu
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersEnvFrom(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFrom, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFrom, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6675,28 +6290,16 @@ func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c *Client, desi
 	if actual == nil {
 		return true
 	}
-	if actual.LocalObjectReference == nil && desired.LocalObjectReference != nil && !dcl.IsEmptyValueIndirect(desired.LocalObjectReference) {
-		c.Config.Logger.Infof("desired LocalObjectReference %s - but actually nil", dcl.SprintResource(desired.LocalObjectReference))
-		return true
-	}
 	if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, desired.LocalObjectReference, actual.LocalObjectReference) && !dcl.IsZeroValue(desired.LocalObjectReference) {
-		c.Config.Logger.Infof("Diff in LocalObjectReference. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
-		return true
-	}
-	if actual.Optional == nil && desired.Optional != nil && !dcl.IsEmptyValueIndirect(desired.Optional) {
-		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
+		c.Config.Logger.Infof("Diff in LocalObjectReference.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
-		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
-		return true
-	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		c.Config.Logger.Infof("Diff in Optional.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	return false
@@ -6709,7 +6312,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefSlice(c *Client,
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6728,7 +6331,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefMap(c *Client, d
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6742,12 +6345,8 @@ func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectRefer
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	return false
@@ -6760,7 +6359,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectRefer
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6779,7 +6378,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectRefer
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6793,28 +6392,16 @@ func compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c *Client, desired
 	if actual == nil {
 		return true
 	}
-	if actual.LocalObjectReference == nil && desired.LocalObjectReference != nil && !dcl.IsEmptyValueIndirect(desired.LocalObjectReference) {
-		c.Config.Logger.Infof("desired LocalObjectReference %s - but actually nil", dcl.SprintResource(desired.LocalObjectReference))
-		return true
-	}
 	if compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, desired.LocalObjectReference, actual.LocalObjectReference) && !dcl.IsZeroValue(desired.LocalObjectReference) {
-		c.Config.Logger.Infof("Diff in LocalObjectReference. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
-		return true
-	}
-	if actual.Optional == nil && desired.Optional != nil && !dcl.IsEmptyValueIndirect(desired.Optional) {
-		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
+		c.Config.Logger.Infof("Diff in LocalObjectReference.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
-		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
-		return true
-	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
+		c.Config.Logger.Infof("Diff in Optional.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	return false
@@ -6827,7 +6414,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromSecretRefSlice(c *Client, de
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRef, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRef, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6846,7 +6433,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromSecretRefMap(c *Client, desi
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRef, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRef, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6860,12 +6447,8 @@ func compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenc
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	return false
@@ -6878,7 +6461,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenc
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6897,7 +6480,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenc
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6911,36 +6494,20 @@ func compareServiceSpecTemplateSpecContainersVolumeMounts(c *Client, desired, ac
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.ReadOnly == nil && desired.ReadOnly != nil && !dcl.IsEmptyValueIndirect(desired.ReadOnly) {
-		c.Config.Logger.Infof("desired ReadOnly %s - but actually nil", dcl.SprintResource(desired.ReadOnly))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.ReadOnly, actual.ReadOnly) && !dcl.IsZeroValue(desired.ReadOnly) {
-		c.Config.Logger.Infof("Diff in ReadOnly. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReadOnly), dcl.SprintResource(actual.ReadOnly))
-		return true
-	}
-	if actual.MountPath == nil && desired.MountPath != nil && !dcl.IsEmptyValueIndirect(desired.MountPath) {
-		c.Config.Logger.Infof("desired MountPath %s - but actually nil", dcl.SprintResource(desired.MountPath))
+		c.Config.Logger.Infof("Diff in ReadOnly.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReadOnly), dcl.SprintResource(actual.ReadOnly))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.MountPath, actual.MountPath) && !dcl.IsZeroValue(desired.MountPath) {
-		c.Config.Logger.Infof("Diff in MountPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MountPath), dcl.SprintResource(actual.MountPath))
-		return true
-	}
-	if actual.SubPath == nil && desired.SubPath != nil && !dcl.IsEmptyValueIndirect(desired.SubPath) {
-		c.Config.Logger.Infof("desired SubPath %s - but actually nil", dcl.SprintResource(desired.SubPath))
+		c.Config.Logger.Infof("Diff in MountPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MountPath), dcl.SprintResource(actual.MountPath))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.SubPath, actual.SubPath) && !dcl.IsZeroValue(desired.SubPath) {
-		c.Config.Logger.Infof("Diff in SubPath. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SubPath), dcl.SprintResource(actual.SubPath))
+		c.Config.Logger.Infof("Diff in SubPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SubPath), dcl.SprintResource(actual.SubPath))
 		return true
 	}
 	return false
@@ -6953,7 +6520,7 @@ func compareServiceSpecTemplateSpecContainersVolumeMountsSlice(c *Client, desire
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersVolumeMounts(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersVolumeMounts, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersVolumeMounts, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -6972,7 +6539,7 @@ func compareServiceSpecTemplateSpecContainersVolumeMountsMap(c *Client, desired,
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersVolumeMounts(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersVolumeMounts, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersVolumeMounts, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -6986,68 +6553,36 @@ func compareServiceSpecTemplateSpecContainersLivenessProbe(c *Client, desired, a
 	if actual == nil {
 		return true
 	}
-	if actual.InitialDelaySeconds == nil && desired.InitialDelaySeconds != nil && !dcl.IsEmptyValueIndirect(desired.InitialDelaySeconds) {
-		c.Config.Logger.Infof("desired InitialDelaySeconds %s - but actually nil", dcl.SprintResource(desired.InitialDelaySeconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.InitialDelaySeconds, actual.InitialDelaySeconds) && !dcl.IsZeroValue(desired.InitialDelaySeconds) {
-		c.Config.Logger.Infof("Diff in InitialDelaySeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitialDelaySeconds), dcl.SprintResource(actual.InitialDelaySeconds))
-		return true
-	}
-	if actual.TimeoutSeconds == nil && desired.TimeoutSeconds != nil && !dcl.IsEmptyValueIndirect(desired.TimeoutSeconds) {
-		c.Config.Logger.Infof("desired TimeoutSeconds %s - but actually nil", dcl.SprintResource(desired.TimeoutSeconds))
+		c.Config.Logger.Infof("Diff in InitialDelaySeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitialDelaySeconds), dcl.SprintResource(actual.InitialDelaySeconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.TimeoutSeconds, actual.TimeoutSeconds) && !dcl.IsZeroValue(desired.TimeoutSeconds) {
-		c.Config.Logger.Infof("Diff in TimeoutSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeoutSeconds), dcl.SprintResource(actual.TimeoutSeconds))
-		return true
-	}
-	if actual.PeriodSeconds == nil && desired.PeriodSeconds != nil && !dcl.IsEmptyValueIndirect(desired.PeriodSeconds) {
-		c.Config.Logger.Infof("desired PeriodSeconds %s - but actually nil", dcl.SprintResource(desired.PeriodSeconds))
+		c.Config.Logger.Infof("Diff in TimeoutSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeoutSeconds), dcl.SprintResource(actual.TimeoutSeconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PeriodSeconds, actual.PeriodSeconds) && !dcl.IsZeroValue(desired.PeriodSeconds) {
-		c.Config.Logger.Infof("Diff in PeriodSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PeriodSeconds), dcl.SprintResource(actual.PeriodSeconds))
-		return true
-	}
-	if actual.SuccessThreshold == nil && desired.SuccessThreshold != nil && !dcl.IsEmptyValueIndirect(desired.SuccessThreshold) {
-		c.Config.Logger.Infof("desired SuccessThreshold %s - but actually nil", dcl.SprintResource(desired.SuccessThreshold))
+		c.Config.Logger.Infof("Diff in PeriodSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PeriodSeconds), dcl.SprintResource(actual.PeriodSeconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.SuccessThreshold, actual.SuccessThreshold) && !dcl.IsZeroValue(desired.SuccessThreshold) {
-		c.Config.Logger.Infof("Diff in SuccessThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuccessThreshold), dcl.SprintResource(actual.SuccessThreshold))
-		return true
-	}
-	if actual.FailureThreshold == nil && desired.FailureThreshold != nil && !dcl.IsEmptyValueIndirect(desired.FailureThreshold) {
-		c.Config.Logger.Infof("desired FailureThreshold %s - but actually nil", dcl.SprintResource(desired.FailureThreshold))
+		c.Config.Logger.Infof("Diff in SuccessThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuccessThreshold), dcl.SprintResource(actual.SuccessThreshold))
 		return true
 	}
 	if !reflect.DeepEqual(desired.FailureThreshold, actual.FailureThreshold) && !dcl.IsZeroValue(desired.FailureThreshold) {
-		c.Config.Logger.Infof("Diff in FailureThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailureThreshold), dcl.SprintResource(actual.FailureThreshold))
-		return true
-	}
-	if actual.Exec == nil && desired.Exec != nil && !dcl.IsEmptyValueIndirect(desired.Exec) {
-		c.Config.Logger.Infof("desired Exec %s - but actually nil", dcl.SprintResource(desired.Exec))
+		c.Config.Logger.Infof("Diff in FailureThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailureThreshold), dcl.SprintResource(actual.FailureThreshold))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersLivenessProbeExec(c, desired.Exec, actual.Exec) && !dcl.IsZeroValue(desired.Exec) {
-		c.Config.Logger.Infof("Diff in Exec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Exec), dcl.SprintResource(actual.Exec))
-		return true
-	}
-	if actual.HttpGet == nil && desired.HttpGet != nil && !dcl.IsEmptyValueIndirect(desired.HttpGet) {
-		c.Config.Logger.Infof("desired HttpGet %s - but actually nil", dcl.SprintResource(desired.HttpGet))
+		c.Config.Logger.Infof("Diff in Exec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Exec), dcl.SprintResource(actual.Exec))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, desired.HttpGet, actual.HttpGet) && !dcl.IsZeroValue(desired.HttpGet) {
-		c.Config.Logger.Infof("Diff in HttpGet. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpGet), dcl.SprintResource(actual.HttpGet))
-		return true
-	}
-	if actual.TcpSocket == nil && desired.TcpSocket != nil && !dcl.IsEmptyValueIndirect(desired.TcpSocket) {
-		c.Config.Logger.Infof("desired TcpSocket %s - but actually nil", dcl.SprintResource(desired.TcpSocket))
+		c.Config.Logger.Infof("Diff in HttpGet.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpGet), dcl.SprintResource(actual.HttpGet))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, desired.TcpSocket, actual.TcpSocket) && !dcl.IsZeroValue(desired.TcpSocket) {
-		c.Config.Logger.Infof("Diff in TcpSocket. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TcpSocket), dcl.SprintResource(actual.TcpSocket))
+		c.Config.Logger.Infof("Diff in TcpSocket.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TcpSocket), dcl.SprintResource(actual.TcpSocket))
 		return true
 	}
 	return false
@@ -7060,7 +6595,7 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeSlice(c *Client, desir
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersLivenessProbe(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbe, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbe, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7079,7 +6614,7 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeMap(c *Client, desired
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersLivenessProbe(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbe, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbe, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7093,12 +6628,8 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeExec(c *Client, desire
 	if actual == nil {
 		return true
 	}
-	if actual.Command == nil && desired.Command != nil && !dcl.IsEmptyValueIndirect(desired.Command) {
-		c.Config.Logger.Infof("desired Command %s - but actually nil", dcl.SprintResource(desired.Command))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Command, actual.Command) && !dcl.IsZeroValue(desired.Command) {
-		c.Config.Logger.Infof("Diff in Command. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Command), dcl.SprintResource(actual.Command))
+		c.Config.Logger.Infof("Diff in Command.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Command), dcl.SprintResource(actual.Command))
 		return true
 	}
 	return false
@@ -7111,7 +6642,7 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeExecSlice(c *Client, d
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersLivenessProbeExec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeExec, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeExec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7130,7 +6661,7 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeExecMap(c *Client, des
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersLivenessProbeExec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeExec, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeExec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7144,36 +6675,20 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c *Client, des
 	if actual == nil {
 		return true
 	}
-	if actual.Path == nil && desired.Path != nil && !dcl.IsEmptyValueIndirect(desired.Path) {
-		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
-		return true
-	}
-	if actual.Host == nil && desired.Host != nil && !dcl.IsEmptyValueIndirect(desired.Host) {
-		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
+		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	if actual.Scheme == nil && desired.Scheme != nil && !dcl.IsEmptyValueIndirect(desired.Scheme) {
-		c.Config.Logger.Infof("desired Scheme %s - but actually nil", dcl.SprintResource(desired.Scheme))
+		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Scheme, actual.Scheme) && !dcl.IsZeroValue(desired.Scheme) {
-		c.Config.Logger.Infof("Diff in Scheme. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scheme), dcl.SprintResource(actual.Scheme))
-		return true
-	}
-	if actual.HttpHeaders == nil && desired.HttpHeaders != nil && !dcl.IsEmptyValueIndirect(desired.HttpHeaders) {
-		c.Config.Logger.Infof("desired HttpHeaders %s - but actually nil", dcl.SprintResource(desired.HttpHeaders))
+		c.Config.Logger.Infof("Diff in Scheme.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scheme), dcl.SprintResource(actual.Scheme))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice(c, desired.HttpHeaders, actual.HttpHeaders) && !dcl.IsZeroValue(desired.HttpHeaders) {
-		c.Config.Logger.Infof("Diff in HttpHeaders. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpHeaders), dcl.SprintResource(actual.HttpHeaders))
+		c.Config.Logger.Infof("Diff in HttpHeaders.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpHeaders), dcl.SprintResource(actual.HttpHeaders))
 		return true
 	}
 	return false
@@ -7186,7 +6701,7 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetSlice(c *Client
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7205,7 +6720,7 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetMap(c *Client, 
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7219,20 +6734,12 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c *
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
+		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -7245,7 +6752,7 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlic
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7264,7 +6771,7 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersMap(
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7278,20 +6785,12 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c *Client, d
 	if actual == nil {
 		return true
 	}
-	if actual.Port == nil && desired.Port != nil && !dcl.IsEmptyValueIndirect(desired.Port) {
-		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
-		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
-		return true
-	}
-	if actual.Host == nil && desired.Host != nil && !dcl.IsEmptyValueIndirect(desired.Host) {
-		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
+		c.Config.Logger.Infof("Diff in Port.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
+		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
 		return true
 	}
 	return false
@@ -7304,7 +6803,7 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSlice(c *Clie
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7323,7 +6822,7 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketMap(c *Client
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7337,68 +6836,36 @@ func compareServiceSpecTemplateSpecContainersReadinessProbe(c *Client, desired, 
 	if actual == nil {
 		return true
 	}
-	if actual.InitialDelaySeconds == nil && desired.InitialDelaySeconds != nil && !dcl.IsEmptyValueIndirect(desired.InitialDelaySeconds) {
-		c.Config.Logger.Infof("desired InitialDelaySeconds %s - but actually nil", dcl.SprintResource(desired.InitialDelaySeconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.InitialDelaySeconds, actual.InitialDelaySeconds) && !dcl.IsZeroValue(desired.InitialDelaySeconds) {
-		c.Config.Logger.Infof("Diff in InitialDelaySeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitialDelaySeconds), dcl.SprintResource(actual.InitialDelaySeconds))
-		return true
-	}
-	if actual.TimeoutSeconds == nil && desired.TimeoutSeconds != nil && !dcl.IsEmptyValueIndirect(desired.TimeoutSeconds) {
-		c.Config.Logger.Infof("desired TimeoutSeconds %s - but actually nil", dcl.SprintResource(desired.TimeoutSeconds))
+		c.Config.Logger.Infof("Diff in InitialDelaySeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitialDelaySeconds), dcl.SprintResource(actual.InitialDelaySeconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.TimeoutSeconds, actual.TimeoutSeconds) && !dcl.IsZeroValue(desired.TimeoutSeconds) {
-		c.Config.Logger.Infof("Diff in TimeoutSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeoutSeconds), dcl.SprintResource(actual.TimeoutSeconds))
-		return true
-	}
-	if actual.PeriodSeconds == nil && desired.PeriodSeconds != nil && !dcl.IsEmptyValueIndirect(desired.PeriodSeconds) {
-		c.Config.Logger.Infof("desired PeriodSeconds %s - but actually nil", dcl.SprintResource(desired.PeriodSeconds))
+		c.Config.Logger.Infof("Diff in TimeoutSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeoutSeconds), dcl.SprintResource(actual.TimeoutSeconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.PeriodSeconds, actual.PeriodSeconds) && !dcl.IsZeroValue(desired.PeriodSeconds) {
-		c.Config.Logger.Infof("Diff in PeriodSeconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PeriodSeconds), dcl.SprintResource(actual.PeriodSeconds))
-		return true
-	}
-	if actual.SuccessThreshold == nil && desired.SuccessThreshold != nil && !dcl.IsEmptyValueIndirect(desired.SuccessThreshold) {
-		c.Config.Logger.Infof("desired SuccessThreshold %s - but actually nil", dcl.SprintResource(desired.SuccessThreshold))
+		c.Config.Logger.Infof("Diff in PeriodSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PeriodSeconds), dcl.SprintResource(actual.PeriodSeconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.SuccessThreshold, actual.SuccessThreshold) && !dcl.IsZeroValue(desired.SuccessThreshold) {
-		c.Config.Logger.Infof("Diff in SuccessThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuccessThreshold), dcl.SprintResource(actual.SuccessThreshold))
-		return true
-	}
-	if actual.FailureThreshold == nil && desired.FailureThreshold != nil && !dcl.IsEmptyValueIndirect(desired.FailureThreshold) {
-		c.Config.Logger.Infof("desired FailureThreshold %s - but actually nil", dcl.SprintResource(desired.FailureThreshold))
+		c.Config.Logger.Infof("Diff in SuccessThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuccessThreshold), dcl.SprintResource(actual.SuccessThreshold))
 		return true
 	}
 	if !reflect.DeepEqual(desired.FailureThreshold, actual.FailureThreshold) && !dcl.IsZeroValue(desired.FailureThreshold) {
-		c.Config.Logger.Infof("Diff in FailureThreshold. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailureThreshold), dcl.SprintResource(actual.FailureThreshold))
-		return true
-	}
-	if actual.Exec == nil && desired.Exec != nil && !dcl.IsEmptyValueIndirect(desired.Exec) {
-		c.Config.Logger.Infof("desired Exec %s - but actually nil", dcl.SprintResource(desired.Exec))
+		c.Config.Logger.Infof("Diff in FailureThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailureThreshold), dcl.SprintResource(actual.FailureThreshold))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersReadinessProbeExec(c, desired.Exec, actual.Exec) && !dcl.IsZeroValue(desired.Exec) {
-		c.Config.Logger.Infof("Diff in Exec. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Exec), dcl.SprintResource(actual.Exec))
-		return true
-	}
-	if actual.HttpGet == nil && desired.HttpGet != nil && !dcl.IsEmptyValueIndirect(desired.HttpGet) {
-		c.Config.Logger.Infof("desired HttpGet %s - but actually nil", dcl.SprintResource(desired.HttpGet))
+		c.Config.Logger.Infof("Diff in Exec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Exec), dcl.SprintResource(actual.Exec))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, desired.HttpGet, actual.HttpGet) && !dcl.IsZeroValue(desired.HttpGet) {
-		c.Config.Logger.Infof("Diff in HttpGet. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpGet), dcl.SprintResource(actual.HttpGet))
-		return true
-	}
-	if actual.TcpSocket == nil && desired.TcpSocket != nil && !dcl.IsEmptyValueIndirect(desired.TcpSocket) {
-		c.Config.Logger.Infof("desired TcpSocket %s - but actually nil", dcl.SprintResource(desired.TcpSocket))
+		c.Config.Logger.Infof("Diff in HttpGet.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpGet), dcl.SprintResource(actual.HttpGet))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, desired.TcpSocket, actual.TcpSocket) && !dcl.IsZeroValue(desired.TcpSocket) {
-		c.Config.Logger.Infof("Diff in TcpSocket. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TcpSocket), dcl.SprintResource(actual.TcpSocket))
+		c.Config.Logger.Infof("Diff in TcpSocket.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TcpSocket), dcl.SprintResource(actual.TcpSocket))
 		return true
 	}
 	return false
@@ -7411,7 +6878,7 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeSlice(c *Client, desi
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersReadinessProbe(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbe, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbe, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7430,7 +6897,7 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeMap(c *Client, desire
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersReadinessProbe(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbe, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbe, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7444,12 +6911,8 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeExec(c *Client, desir
 	if actual == nil {
 		return true
 	}
-	if actual.Command == nil && desired.Command != nil && !dcl.IsEmptyValueIndirect(desired.Command) {
-		c.Config.Logger.Infof("desired Command %s - but actually nil", dcl.SprintResource(desired.Command))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Command, actual.Command) && !dcl.IsZeroValue(desired.Command) {
-		c.Config.Logger.Infof("Diff in Command. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Command), dcl.SprintResource(actual.Command))
+		c.Config.Logger.Infof("Diff in Command.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Command), dcl.SprintResource(actual.Command))
 		return true
 	}
 	return false
@@ -7462,7 +6925,7 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeExecSlice(c *Client, 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersReadinessProbeExec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeExec, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeExec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7481,7 +6944,7 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeExecMap(c *Client, de
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersReadinessProbeExec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeExec, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeExec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7495,36 +6958,20 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c *Client, de
 	if actual == nil {
 		return true
 	}
-	if actual.Path == nil && desired.Path != nil && !dcl.IsEmptyValueIndirect(desired.Path) {
-		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
-		return true
-	}
-	if actual.Host == nil && desired.Host != nil && !dcl.IsEmptyValueIndirect(desired.Host) {
-		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
+		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	if actual.Scheme == nil && desired.Scheme != nil && !dcl.IsEmptyValueIndirect(desired.Scheme) {
-		c.Config.Logger.Infof("desired Scheme %s - but actually nil", dcl.SprintResource(desired.Scheme))
+		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Scheme, actual.Scheme) && !dcl.IsZeroValue(desired.Scheme) {
-		c.Config.Logger.Infof("Diff in Scheme. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scheme), dcl.SprintResource(actual.Scheme))
-		return true
-	}
-	if actual.HttpHeaders == nil && desired.HttpHeaders != nil && !dcl.IsEmptyValueIndirect(desired.HttpHeaders) {
-		c.Config.Logger.Infof("desired HttpHeaders %s - but actually nil", dcl.SprintResource(desired.HttpHeaders))
+		c.Config.Logger.Infof("Diff in Scheme.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scheme), dcl.SprintResource(actual.Scheme))
 		return true
 	}
 	if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice(c, desired.HttpHeaders, actual.HttpHeaders) && !dcl.IsZeroValue(desired.HttpHeaders) {
-		c.Config.Logger.Infof("Diff in HttpHeaders. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpHeaders), dcl.SprintResource(actual.HttpHeaders))
+		c.Config.Logger.Infof("Diff in HttpHeaders.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpHeaders), dcl.SprintResource(actual.HttpHeaders))
 		return true
 	}
 	return false
@@ -7537,7 +6984,7 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetSlice(c *Clien
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7556,7 +7003,7 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetMap(c *Client,
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7570,20 +7017,12 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c 
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Value == nil && desired.Value != nil && !dcl.IsEmptyValueIndirect(desired.Value) {
-		c.Config.Logger.Infof("desired Value %s - but actually nil", dcl.SprintResource(desired.Value))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
+		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
 		return true
 	}
 	return false
@@ -7596,7 +7035,7 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSli
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7615,7 +7054,7 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersMap
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7629,20 +7068,12 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c *Client, 
 	if actual == nil {
 		return true
 	}
-	if actual.Port == nil && desired.Port != nil && !dcl.IsEmptyValueIndirect(desired.Port) {
-		c.Config.Logger.Infof("desired Port %s - but actually nil", dcl.SprintResource(desired.Port))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
-		c.Config.Logger.Infof("Diff in Port. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
-		return true
-	}
-	if actual.Host == nil && desired.Host != nil && !dcl.IsEmptyValueIndirect(desired.Host) {
-		c.Config.Logger.Infof("desired Host %s - but actually nil", dcl.SprintResource(desired.Host))
+		c.Config.Logger.Infof("Diff in Port.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
+		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
 		return true
 	}
 	return false
@@ -7655,7 +7086,7 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSlice(c *Cli
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7674,7 +7105,7 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketMap(c *Clien
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7688,12 +7119,8 @@ func compareServiceSpecTemplateSpecContainersSecurityContext(c *Client, desired,
 	if actual == nil {
 		return true
 	}
-	if actual.RunAsUser == nil && desired.RunAsUser != nil && !dcl.IsEmptyValueIndirect(desired.RunAsUser) {
-		c.Config.Logger.Infof("desired RunAsUser %s - but actually nil", dcl.SprintResource(desired.RunAsUser))
-		return true
-	}
 	if !reflect.DeepEqual(desired.RunAsUser, actual.RunAsUser) && !dcl.IsZeroValue(desired.RunAsUser) {
-		c.Config.Logger.Infof("Diff in RunAsUser. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RunAsUser), dcl.SprintResource(actual.RunAsUser))
+		c.Config.Logger.Infof("Diff in RunAsUser.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RunAsUser), dcl.SprintResource(actual.RunAsUser))
 		return true
 	}
 	return false
@@ -7706,7 +7133,7 @@ func compareServiceSpecTemplateSpecContainersSecurityContextSlice(c *Client, des
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecContainersSecurityContext(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersSecurityContext, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersSecurityContext, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7725,7 +7152,7 @@ func compareServiceSpecTemplateSpecContainersSecurityContextMap(c *Client, desir
 			return true
 		}
 		if compareServiceSpecTemplateSpecContainersSecurityContext(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersSecurityContext, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersSecurityContext, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7739,28 +7166,16 @@ func compareServiceSpecTemplateSpecVolumes(c *Client, desired, actual *ServiceSp
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Secret == nil && desired.Secret != nil && !dcl.IsEmptyValueIndirect(desired.Secret) {
-		c.Config.Logger.Infof("desired Secret %s - but actually nil", dcl.SprintResource(desired.Secret))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if compareServiceSpecTemplateSpecVolumesSecret(c, desired.Secret, actual.Secret) && !dcl.IsZeroValue(desired.Secret) {
-		c.Config.Logger.Infof("Diff in Secret. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Secret), dcl.SprintResource(actual.Secret))
-		return true
-	}
-	if actual.ConfigMap == nil && desired.ConfigMap != nil && !dcl.IsEmptyValueIndirect(desired.ConfigMap) {
-		c.Config.Logger.Infof("desired ConfigMap %s - but actually nil", dcl.SprintResource(desired.ConfigMap))
+		c.Config.Logger.Infof("Diff in Secret.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Secret), dcl.SprintResource(actual.Secret))
 		return true
 	}
 	if compareServiceSpecTemplateSpecVolumesConfigMap(c, desired.ConfigMap, actual.ConfigMap) && !dcl.IsZeroValue(desired.ConfigMap) {
-		c.Config.Logger.Infof("Diff in ConfigMap. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigMap), dcl.SprintResource(actual.ConfigMap))
+		c.Config.Logger.Infof("Diff in ConfigMap.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigMap), dcl.SprintResource(actual.ConfigMap))
 		return true
 	}
 	return false
@@ -7773,7 +7188,7 @@ func compareServiceSpecTemplateSpecVolumesSlice(c *Client, desired, actual []Ser
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecVolumes(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumes, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumes, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7792,7 +7207,7 @@ func compareServiceSpecTemplateSpecVolumesMap(c *Client, desired, actual map[str
 			return true
 		}
 		if compareServiceSpecTemplateSpecVolumes(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumes, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumes, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7806,36 +7221,20 @@ func compareServiceSpecTemplateSpecVolumesSecret(c *Client, desired, actual *Ser
 	if actual == nil {
 		return true
 	}
-	if actual.SecretName == nil && desired.SecretName != nil && !dcl.IsEmptyValueIndirect(desired.SecretName) {
-		c.Config.Logger.Infof("desired SecretName %s - but actually nil", dcl.SprintResource(desired.SecretName))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.SecretName, actual.SecretName) && !dcl.IsZeroValue(desired.SecretName) {
-		c.Config.Logger.Infof("Diff in SecretName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretName), dcl.SprintResource(actual.SecretName))
-		return true
-	}
-	if actual.Items == nil && desired.Items != nil && !dcl.IsEmptyValueIndirect(desired.Items) {
-		c.Config.Logger.Infof("desired Items %s - but actually nil", dcl.SprintResource(desired.Items))
+		c.Config.Logger.Infof("Diff in SecretName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretName), dcl.SprintResource(actual.SecretName))
 		return true
 	}
 	if compareServiceSpecTemplateSpecVolumesSecretItemsSlice(c, desired.Items, actual.Items) && !dcl.IsZeroValue(desired.Items) {
-		c.Config.Logger.Infof("Diff in Items. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Items), dcl.SprintResource(actual.Items))
-		return true
-	}
-	if actual.DefaultMode == nil && desired.DefaultMode != nil && !dcl.IsEmptyValueIndirect(desired.DefaultMode) {
-		c.Config.Logger.Infof("desired DefaultMode %s - but actually nil", dcl.SprintResource(desired.DefaultMode))
+		c.Config.Logger.Infof("Diff in Items.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Items), dcl.SprintResource(actual.Items))
 		return true
 	}
 	if !reflect.DeepEqual(desired.DefaultMode, actual.DefaultMode) && !dcl.IsZeroValue(desired.DefaultMode) {
-		c.Config.Logger.Infof("Diff in DefaultMode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultMode), dcl.SprintResource(actual.DefaultMode))
-		return true
-	}
-	if actual.Optional == nil && desired.Optional != nil && !dcl.IsEmptyValueIndirect(desired.Optional) {
-		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
+		c.Config.Logger.Infof("Diff in DefaultMode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultMode), dcl.SprintResource(actual.DefaultMode))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
-		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
+		c.Config.Logger.Infof("Diff in Optional.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
 		return true
 	}
 	return false
@@ -7848,7 +7247,7 @@ func compareServiceSpecTemplateSpecVolumesSecretSlice(c *Client, desired, actual
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecVolumesSecret(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecret, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecret, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7867,7 +7266,7 @@ func compareServiceSpecTemplateSpecVolumesSecretMap(c *Client, desired, actual m
 			return true
 		}
 		if compareServiceSpecTemplateSpecVolumesSecret(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecret, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecret, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7881,28 +7280,16 @@ func compareServiceSpecTemplateSpecVolumesSecretItems(c *Client, desired, actual
 	if actual == nil {
 		return true
 	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Path == nil && desired.Path != nil && !dcl.IsEmptyValueIndirect(desired.Path) {
-		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
+		c.Config.Logger.Infof("Diff in Key.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
-		return true
-	}
-	if actual.Mode == nil && desired.Mode != nil && !dcl.IsEmptyValueIndirect(desired.Mode) {
-		c.Config.Logger.Infof("desired Mode %s - but actually nil", dcl.SprintResource(desired.Mode))
+		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Mode, actual.Mode) && !dcl.IsZeroValue(desired.Mode) {
-		c.Config.Logger.Infof("Diff in Mode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Mode), dcl.SprintResource(actual.Mode))
+		c.Config.Logger.Infof("Diff in Mode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Mode), dcl.SprintResource(actual.Mode))
 		return true
 	}
 	return false
@@ -7915,7 +7302,7 @@ func compareServiceSpecTemplateSpecVolumesSecretItemsSlice(c *Client, desired, a
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecVolumesSecretItems(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecretItems, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecretItems, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -7934,7 +7321,7 @@ func compareServiceSpecTemplateSpecVolumesSecretItemsMap(c *Client, desired, act
 			return true
 		}
 		if compareServiceSpecTemplateSpecVolumesSecretItems(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecretItems, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecretItems, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -7948,36 +7335,20 @@ func compareServiceSpecTemplateSpecVolumesConfigMap(c *Client, desired, actual *
 	if actual == nil {
 		return true
 	}
-	if actual.Name == nil && desired.Name != nil && !dcl.IsEmptyValueIndirect(desired.Name) {
-		c.Config.Logger.Infof("desired Name %s - but actually nil", dcl.SprintResource(desired.Name))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if actual.Items == nil && desired.Items != nil && !dcl.IsEmptyValueIndirect(desired.Items) {
-		c.Config.Logger.Infof("desired Items %s - but actually nil", dcl.SprintResource(desired.Items))
+		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
 		return true
 	}
 	if compareServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c, desired.Items, actual.Items) && !dcl.IsZeroValue(desired.Items) {
-		c.Config.Logger.Infof("Diff in Items. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Items), dcl.SprintResource(actual.Items))
-		return true
-	}
-	if actual.DefaultMode == nil && desired.DefaultMode != nil && !dcl.IsEmptyValueIndirect(desired.DefaultMode) {
-		c.Config.Logger.Infof("desired DefaultMode %s - but actually nil", dcl.SprintResource(desired.DefaultMode))
+		c.Config.Logger.Infof("Diff in Items.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Items), dcl.SprintResource(actual.Items))
 		return true
 	}
 	if !reflect.DeepEqual(desired.DefaultMode, actual.DefaultMode) && !dcl.IsZeroValue(desired.DefaultMode) {
-		c.Config.Logger.Infof("Diff in DefaultMode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultMode), dcl.SprintResource(actual.DefaultMode))
-		return true
-	}
-	if actual.Optional == nil && desired.Optional != nil && !dcl.IsEmptyValueIndirect(desired.Optional) {
-		c.Config.Logger.Infof("desired Optional %s - but actually nil", dcl.SprintResource(desired.Optional))
+		c.Config.Logger.Infof("Diff in DefaultMode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultMode), dcl.SprintResource(actual.DefaultMode))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
-		c.Config.Logger.Infof("Diff in Optional. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
+		c.Config.Logger.Infof("Diff in Optional.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
 		return true
 	}
 	return false
@@ -7990,7 +7361,7 @@ func compareServiceSpecTemplateSpecVolumesConfigMapSlice(c *Client, desired, act
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecVolumesConfigMap(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMap, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMap, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8009,7 +7380,7 @@ func compareServiceSpecTemplateSpecVolumesConfigMapMap(c *Client, desired, actua
 			return true
 		}
 		if compareServiceSpecTemplateSpecVolumesConfigMap(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMap, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMap, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8023,28 +7394,16 @@ func compareServiceSpecTemplateSpecVolumesConfigMapItems(c *Client, desired, act
 	if actual == nil {
 		return true
 	}
-	if actual.Key == nil && desired.Key != nil && !dcl.IsEmptyValueIndirect(desired.Key) {
-		c.Config.Logger.Infof("desired Key %s - but actually nil", dcl.SprintResource(desired.Key))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
-		c.Config.Logger.Infof("Diff in Key. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if actual.Path == nil && desired.Path != nil && !dcl.IsEmptyValueIndirect(desired.Path) {
-		c.Config.Logger.Infof("desired Path %s - but actually nil", dcl.SprintResource(desired.Path))
+		c.Config.Logger.Infof("Diff in Key.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
-		return true
-	}
-	if actual.Mode == nil && desired.Mode != nil && !dcl.IsEmptyValueIndirect(desired.Mode) {
-		c.Config.Logger.Infof("desired Mode %s - but actually nil", dcl.SprintResource(desired.Mode))
+		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Mode, actual.Mode) && !dcl.IsZeroValue(desired.Mode) {
-		c.Config.Logger.Infof("Diff in Mode. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Mode), dcl.SprintResource(actual.Mode))
+		c.Config.Logger.Infof("Diff in Mode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Mode), dcl.SprintResource(actual.Mode))
 		return true
 	}
 	return false
@@ -8057,7 +7416,7 @@ func compareServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c *Client, desired
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTemplateSpecVolumesConfigMapItems(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMapItems, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMapItems, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8076,7 +7435,7 @@ func compareServiceSpecTemplateSpecVolumesConfigMapItemsMap(c *Client, desired, 
 			return true
 		}
 		if compareServiceSpecTemplateSpecVolumesConfigMapItems(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMapItems, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMapItems, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8090,44 +7449,24 @@ func compareServiceSpecTraffic(c *Client, desired, actual *ServiceSpecTraffic) b
 	if actual == nil {
 		return true
 	}
-	if actual.ConfigurationName == nil && desired.ConfigurationName != nil && !dcl.IsEmptyValueIndirect(desired.ConfigurationName) {
-		c.Config.Logger.Infof("desired ConfigurationName %s - but actually nil", dcl.SprintResource(desired.ConfigurationName))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ConfigurationName, actual.ConfigurationName) && !dcl.IsZeroValue(desired.ConfigurationName) {
-		c.Config.Logger.Infof("Diff in ConfigurationName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigurationName), dcl.SprintResource(actual.ConfigurationName))
-		return true
-	}
-	if actual.RevisionName == nil && desired.RevisionName != nil && !dcl.IsEmptyValueIndirect(desired.RevisionName) {
-		c.Config.Logger.Infof("desired RevisionName %s - but actually nil", dcl.SprintResource(desired.RevisionName))
+		c.Config.Logger.Infof("Diff in ConfigurationName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigurationName), dcl.SprintResource(actual.ConfigurationName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.RevisionName, actual.RevisionName) && !dcl.IsZeroValue(desired.RevisionName) {
-		c.Config.Logger.Infof("Diff in RevisionName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RevisionName), dcl.SprintResource(actual.RevisionName))
-		return true
-	}
-	if actual.Percent == nil && desired.Percent != nil && !dcl.IsEmptyValueIndirect(desired.Percent) {
-		c.Config.Logger.Infof("desired Percent %s - but actually nil", dcl.SprintResource(desired.Percent))
+		c.Config.Logger.Infof("Diff in RevisionName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RevisionName), dcl.SprintResource(actual.RevisionName))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
-		return true
-	}
-	if actual.Tag == nil && desired.Tag != nil && !dcl.IsEmptyValueIndirect(desired.Tag) {
-		c.Config.Logger.Infof("desired Tag %s - but actually nil", dcl.SprintResource(desired.Tag))
+		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Tag, actual.Tag) && !dcl.IsZeroValue(desired.Tag) {
-		c.Config.Logger.Infof("Diff in Tag. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tag), dcl.SprintResource(actual.Tag))
-		return true
-	}
-	if actual.LatestRevision == nil && desired.LatestRevision != nil && !dcl.IsEmptyValueIndirect(desired.LatestRevision) {
-		c.Config.Logger.Infof("desired LatestRevision %s - but actually nil", dcl.SprintResource(desired.LatestRevision))
+		c.Config.Logger.Infof("Diff in Tag.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tag), dcl.SprintResource(actual.Tag))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.LatestRevision, actual.LatestRevision) && !dcl.IsZeroValue(desired.LatestRevision) {
-		c.Config.Logger.Infof("Diff in LatestRevision. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestRevision), dcl.SprintResource(actual.LatestRevision))
+		c.Config.Logger.Infof("Diff in LatestRevision.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestRevision), dcl.SprintResource(actual.LatestRevision))
 		return true
 	}
 	return false
@@ -8140,7 +7479,7 @@ func compareServiceSpecTrafficSlice(c *Client, desired, actual []ServiceSpecTraf
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceSpecTraffic(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTraffic, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceSpecTraffic, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8159,7 +7498,7 @@ func compareServiceSpecTrafficMap(c *Client, desired, actual map[string]ServiceS
 			return true
 		}
 		if compareServiceSpecTraffic(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTraffic, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceSpecTraffic, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8173,60 +7512,32 @@ func compareServiceStatus(c *Client, desired, actual *ServiceStatus) bool {
 	if actual == nil {
 		return true
 	}
-	if actual.ObservedGeneration == nil && desired.ObservedGeneration != nil && !dcl.IsEmptyValueIndirect(desired.ObservedGeneration) {
-		c.Config.Logger.Infof("desired ObservedGeneration %s - but actually nil", dcl.SprintResource(desired.ObservedGeneration))
-		return true
-	}
 	if !reflect.DeepEqual(desired.ObservedGeneration, actual.ObservedGeneration) && !dcl.IsZeroValue(desired.ObservedGeneration) {
-		c.Config.Logger.Infof("Diff in ObservedGeneration. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ObservedGeneration), dcl.SprintResource(actual.ObservedGeneration))
-		return true
-	}
-	if actual.Conditions == nil && desired.Conditions != nil && !dcl.IsEmptyValueIndirect(desired.Conditions) {
-		c.Config.Logger.Infof("desired Conditions %s - but actually nil", dcl.SprintResource(desired.Conditions))
+		c.Config.Logger.Infof("Diff in ObservedGeneration.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ObservedGeneration), dcl.SprintResource(actual.ObservedGeneration))
 		return true
 	}
 	if compareServiceStatusConditionsSlice(c, desired.Conditions, actual.Conditions) && !dcl.IsZeroValue(desired.Conditions) {
-		c.Config.Logger.Infof("Diff in Conditions. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Conditions), dcl.SprintResource(actual.Conditions))
-		return true
-	}
-	if actual.LatestReadyRevisionName == nil && desired.LatestReadyRevisionName != nil && !dcl.IsEmptyValueIndirect(desired.LatestReadyRevisionName) {
-		c.Config.Logger.Infof("desired LatestReadyRevisionName %s - but actually nil", dcl.SprintResource(desired.LatestReadyRevisionName))
+		c.Config.Logger.Infof("Diff in Conditions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Conditions), dcl.SprintResource(actual.Conditions))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.LatestReadyRevisionName, actual.LatestReadyRevisionName) && !dcl.IsZeroValue(desired.LatestReadyRevisionName) {
-		c.Config.Logger.Infof("Diff in LatestReadyRevisionName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestReadyRevisionName), dcl.SprintResource(actual.LatestReadyRevisionName))
-		return true
-	}
-	if actual.LatestCreatedRevisionName == nil && desired.LatestCreatedRevisionName != nil && !dcl.IsEmptyValueIndirect(desired.LatestCreatedRevisionName) {
-		c.Config.Logger.Infof("desired LatestCreatedRevisionName %s - but actually nil", dcl.SprintResource(desired.LatestCreatedRevisionName))
+		c.Config.Logger.Infof("Diff in LatestReadyRevisionName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestReadyRevisionName), dcl.SprintResource(actual.LatestReadyRevisionName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.LatestCreatedRevisionName, actual.LatestCreatedRevisionName) && !dcl.IsZeroValue(desired.LatestCreatedRevisionName) {
-		c.Config.Logger.Infof("Diff in LatestCreatedRevisionName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestCreatedRevisionName), dcl.SprintResource(actual.LatestCreatedRevisionName))
-		return true
-	}
-	if actual.Traffic == nil && desired.Traffic != nil && !dcl.IsEmptyValueIndirect(desired.Traffic) {
-		c.Config.Logger.Infof("desired Traffic %s - but actually nil", dcl.SprintResource(desired.Traffic))
+		c.Config.Logger.Infof("Diff in LatestCreatedRevisionName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestCreatedRevisionName), dcl.SprintResource(actual.LatestCreatedRevisionName))
 		return true
 	}
 	if compareServiceStatusTrafficSlice(c, desired.Traffic, actual.Traffic) && !dcl.IsZeroValue(desired.Traffic) {
-		c.Config.Logger.Infof("Diff in Traffic. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Traffic), dcl.SprintResource(actual.Traffic))
-		return true
-	}
-	if actual.Url == nil && desired.Url != nil && !dcl.IsEmptyValueIndirect(desired.Url) {
-		c.Config.Logger.Infof("desired Url %s - but actually nil", dcl.SprintResource(desired.Url))
+		c.Config.Logger.Infof("Diff in Traffic.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Traffic), dcl.SprintResource(actual.Traffic))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) {
-		c.Config.Logger.Infof("Diff in Url. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
-		return true
-	}
-	if actual.Address == nil && desired.Address != nil && !dcl.IsEmptyValueIndirect(desired.Address) {
-		c.Config.Logger.Infof("desired Address %s - but actually nil", dcl.SprintResource(desired.Address))
+		c.Config.Logger.Infof("Diff in Url.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
 		return true
 	}
 	if compareServiceStatusAddress(c, desired.Address, actual.Address) && !dcl.IsZeroValue(desired.Address) {
-		c.Config.Logger.Infof("Diff in Address. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Address), dcl.SprintResource(actual.Address))
+		c.Config.Logger.Infof("Diff in Address.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Address), dcl.SprintResource(actual.Address))
 		return true
 	}
 	return false
@@ -8239,7 +7550,7 @@ func compareServiceStatusSlice(c *Client, desired, actual []ServiceStatus) bool 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceStatus(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceStatus, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceStatus, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8258,7 +7569,7 @@ func compareServiceStatusMap(c *Client, desired, actual map[string]ServiceStatus
 			return true
 		}
 		if compareServiceStatus(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceStatus, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceStatus, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8272,52 +7583,28 @@ func compareServiceStatusConditions(c *Client, desired, actual *ServiceStatusCon
 	if actual == nil {
 		return true
 	}
-	if actual.Type == nil && desired.Type != nil && !dcl.IsEmptyValueIndirect(desired.Type) {
-		c.Config.Logger.Infof("desired Type %s - but actually nil", dcl.SprintResource(desired.Type))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	if actual.Status == nil && desired.Status != nil && !dcl.IsEmptyValueIndirect(desired.Status) {
-		c.Config.Logger.Infof("desired Status %s - but actually nil", dcl.SprintResource(desired.Status))
+		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Status, actual.Status) && !dcl.IsZeroValue(desired.Status) {
-		c.Config.Logger.Infof("Diff in Status. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Status), dcl.SprintResource(actual.Status))
-		return true
-	}
-	if actual.Reason == nil && desired.Reason != nil && !dcl.IsEmptyValueIndirect(desired.Reason) {
-		c.Config.Logger.Infof("desired Reason %s - but actually nil", dcl.SprintResource(desired.Reason))
+		c.Config.Logger.Infof("Diff in Status.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Status), dcl.SprintResource(actual.Status))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Reason, actual.Reason) && !dcl.IsZeroValue(desired.Reason) {
-		c.Config.Logger.Infof("Diff in Reason. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Reason), dcl.SprintResource(actual.Reason))
-		return true
-	}
-	if actual.Message == nil && desired.Message != nil && !dcl.IsEmptyValueIndirect(desired.Message) {
-		c.Config.Logger.Infof("desired Message %s - but actually nil", dcl.SprintResource(desired.Message))
+		c.Config.Logger.Infof("Diff in Reason.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Reason), dcl.SprintResource(actual.Reason))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Message, actual.Message) && !dcl.IsZeroValue(desired.Message) {
-		c.Config.Logger.Infof("Diff in Message. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Message), dcl.SprintResource(actual.Message))
-		return true
-	}
-	if actual.LastTransitionTime == nil && desired.LastTransitionTime != nil && !dcl.IsEmptyValueIndirect(desired.LastTransitionTime) {
-		c.Config.Logger.Infof("desired LastTransitionTime %s - but actually nil", dcl.SprintResource(desired.LastTransitionTime))
+		c.Config.Logger.Infof("Diff in Message.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Message), dcl.SprintResource(actual.Message))
 		return true
 	}
 	if compareServiceStatusConditionsLastTransitionTime(c, desired.LastTransitionTime, actual.LastTransitionTime) && !dcl.IsZeroValue(desired.LastTransitionTime) {
-		c.Config.Logger.Infof("Diff in LastTransitionTime. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LastTransitionTime), dcl.SprintResource(actual.LastTransitionTime))
-		return true
-	}
-	if actual.Severity == nil && desired.Severity != nil && !dcl.IsEmptyValueIndirect(desired.Severity) {
-		c.Config.Logger.Infof("desired Severity %s - but actually nil", dcl.SprintResource(desired.Severity))
+		c.Config.Logger.Infof("Diff in LastTransitionTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LastTransitionTime), dcl.SprintResource(actual.LastTransitionTime))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Severity, actual.Severity) && !dcl.IsZeroValue(desired.Severity) {
-		c.Config.Logger.Infof("Diff in Severity. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Severity), dcl.SprintResource(actual.Severity))
+		c.Config.Logger.Infof("Diff in Severity.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Severity), dcl.SprintResource(actual.Severity))
 		return true
 	}
 	return false
@@ -8330,7 +7617,7 @@ func compareServiceStatusConditionsSlice(c *Client, desired, actual []ServiceSta
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceStatusConditions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceStatusConditions, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceStatusConditions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8349,7 +7636,7 @@ func compareServiceStatusConditionsMap(c *Client, desired, actual map[string]Ser
 			return true
 		}
 		if compareServiceStatusConditions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceStatusConditions, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceStatusConditions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8363,20 +7650,12 @@ func compareServiceStatusConditionsLastTransitionTime(c *Client, desired, actual
 	if actual == nil {
 		return true
 	}
-	if actual.Seconds == nil && desired.Seconds != nil && !dcl.IsEmptyValueIndirect(desired.Seconds) {
-		c.Config.Logger.Infof("desired Seconds %s - but actually nil", dcl.SprintResource(desired.Seconds))
-		return true
-	}
 	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if actual.Nanos == nil && desired.Nanos != nil && !dcl.IsEmptyValueIndirect(desired.Nanos) {
-		c.Config.Logger.Infof("desired Nanos %s - but actually nil", dcl.SprintResource(desired.Nanos))
+		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
+		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
 		return true
 	}
 	return false
@@ -8389,7 +7668,7 @@ func compareServiceStatusConditionsLastTransitionTimeSlice(c *Client, desired, a
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceStatusConditionsLastTransitionTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceStatusConditionsLastTransitionTime, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceStatusConditionsLastTransitionTime, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8408,7 +7687,7 @@ func compareServiceStatusConditionsLastTransitionTimeMap(c *Client, desired, act
 			return true
 		}
 		if compareServiceStatusConditionsLastTransitionTime(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceStatusConditionsLastTransitionTime, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceStatusConditionsLastTransitionTime, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8422,44 +7701,24 @@ func compareServiceStatusTraffic(c *Client, desired, actual *ServiceStatusTraffi
 	if actual == nil {
 		return true
 	}
-	if actual.ConfigurationName == nil && desired.ConfigurationName != nil && !dcl.IsEmptyValueIndirect(desired.ConfigurationName) {
-		c.Config.Logger.Infof("desired ConfigurationName %s - but actually nil", dcl.SprintResource(desired.ConfigurationName))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.ConfigurationName, actual.ConfigurationName) && !dcl.IsZeroValue(desired.ConfigurationName) {
-		c.Config.Logger.Infof("Diff in ConfigurationName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigurationName), dcl.SprintResource(actual.ConfigurationName))
-		return true
-	}
-	if actual.RevisionName == nil && desired.RevisionName != nil && !dcl.IsEmptyValueIndirect(desired.RevisionName) {
-		c.Config.Logger.Infof("desired RevisionName %s - but actually nil", dcl.SprintResource(desired.RevisionName))
+		c.Config.Logger.Infof("Diff in ConfigurationName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigurationName), dcl.SprintResource(actual.ConfigurationName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.RevisionName, actual.RevisionName) && !dcl.IsZeroValue(desired.RevisionName) {
-		c.Config.Logger.Infof("Diff in RevisionName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RevisionName), dcl.SprintResource(actual.RevisionName))
-		return true
-	}
-	if actual.Percent == nil && desired.Percent != nil && !dcl.IsEmptyValueIndirect(desired.Percent) {
-		c.Config.Logger.Infof("desired Percent %s - but actually nil", dcl.SprintResource(desired.Percent))
+		c.Config.Logger.Infof("Diff in RevisionName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RevisionName), dcl.SprintResource(actual.RevisionName))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
-		return true
-	}
-	if actual.Tag == nil && desired.Tag != nil && !dcl.IsEmptyValueIndirect(desired.Tag) {
-		c.Config.Logger.Infof("desired Tag %s - but actually nil", dcl.SprintResource(desired.Tag))
+		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.Tag, actual.Tag) && !dcl.IsZeroValue(desired.Tag) {
-		c.Config.Logger.Infof("Diff in Tag. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tag), dcl.SprintResource(actual.Tag))
-		return true
-	}
-	if actual.LatestRevision == nil && desired.LatestRevision != nil && !dcl.IsEmptyValueIndirect(desired.LatestRevision) {
-		c.Config.Logger.Infof("desired LatestRevision %s - but actually nil", dcl.SprintResource(desired.LatestRevision))
+		c.Config.Logger.Infof("Diff in Tag.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tag), dcl.SprintResource(actual.Tag))
 		return true
 	}
 	if !dcl.BoolCanonicalize(desired.LatestRevision, actual.LatestRevision) && !dcl.IsZeroValue(desired.LatestRevision) {
-		c.Config.Logger.Infof("Diff in LatestRevision. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestRevision), dcl.SprintResource(actual.LatestRevision))
+		c.Config.Logger.Infof("Diff in LatestRevision.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestRevision), dcl.SprintResource(actual.LatestRevision))
 		return true
 	}
 	return false
@@ -8472,7 +7731,7 @@ func compareServiceStatusTrafficSlice(c *Client, desired, actual []ServiceStatus
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceStatusTraffic(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceStatusTraffic, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceStatusTraffic, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8491,7 +7750,7 @@ func compareServiceStatusTrafficMap(c *Client, desired, actual map[string]Servic
 			return true
 		}
 		if compareServiceStatusTraffic(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceStatusTraffic, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceStatusTraffic, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8505,12 +7764,8 @@ func compareServiceStatusAddress(c *Client, desired, actual *ServiceStatusAddres
 	if actual == nil {
 		return true
 	}
-	if actual.Url == nil && desired.Url != nil && !dcl.IsEmptyValueIndirect(desired.Url) {
-		c.Config.Logger.Infof("desired Url %s - but actually nil", dcl.SprintResource(desired.Url))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) {
-		c.Config.Logger.Infof("Diff in Url. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
+		c.Config.Logger.Infof("Diff in Url.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
 		return true
 	}
 	return false
@@ -8523,7 +7778,7 @@ func compareServiceStatusAddressSlice(c *Client, desired, actual []ServiceStatus
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareServiceStatusAddress(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceStatusAddress, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in ServiceStatusAddress, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -8542,7 +7797,7 @@ func compareServiceStatusAddressMap(c *Client, desired, actual map[string]Servic
 			return true
 		}
 		if compareServiceStatusAddress(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceStatusAddress, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in ServiceStatusAddress, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -8553,7 +7808,7 @@ func compareServiceStatusAddressMap(c *Client, desired, actual map[string]Servic
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Service) urlNormalized() *Service {
-	normalized := deepcopy.Copy(*r).(Service)
+	normalized := dcl.Copy(*r).(Service)
 	normalized.ApiVersion = dcl.SelfLinkToName(r.ApiVersion)
 	normalized.Kind = dcl.SelfLinkToName(r.Kind)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
@@ -8628,32 +7883,32 @@ func expandService(c *Client, f *Service) (map[string]interface{}, error) {
 	}
 	if v, err := expandServiceMetadata(c, f.Metadata); err != nil {
 		return nil, fmt.Errorf("error expanding Metadata into metadata: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["metadata"] = v
 	}
 	if v, err := expandServiceSpec(c, f.Spec); err != nil {
 		return nil, fmt.Errorf("error expanding Spec into spec: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["spec"] = v
 	}
 	if v, err := expandServiceStatus(c, f.Status); err != nil {
 		return nil, fmt.Errorf("error expanding Status into status: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["status"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 
@@ -8776,11 +8031,10 @@ func flattenServiceMetadataSlice(c *Client, i interface{}) []ServiceMetadata {
 // expandServiceMetadata expands an instance of ServiceMetadata into a JSON
 // request object.
 func expandServiceMetadata(c *Client, f *ServiceMetadata) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -8948,11 +8202,10 @@ func flattenServiceMetadataCreateTimeSlice(c *Client, i interface{}) []ServiceMe
 // expandServiceMetadataCreateTime expands an instance of ServiceMetadataCreateTime into a JSON
 // request object.
 func expandServiceMetadataCreateTime(c *Client, f *ServiceMetadataCreateTime) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -9062,11 +8315,10 @@ func flattenServiceMetadataOwnerReferencesSlice(c *Client, i interface{}) []Serv
 // expandServiceMetadataOwnerReferences expands an instance of ServiceMetadataOwnerReferences into a JSON
 // request object.
 func expandServiceMetadataOwnerReferences(c *Client, f *ServiceMetadataOwnerReferences) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ApiVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["apiVersion"] = v
 	}
@@ -9192,11 +8444,10 @@ func flattenServiceMetadataDeleteTimeSlice(c *Client, i interface{}) []ServiceMe
 // expandServiceMetadataDeleteTime expands an instance of ServiceMetadataDeleteTime into a JSON
 // request object.
 func expandServiceMetadataDeleteTime(c *Client, f *ServiceMetadataDeleteTime) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -9306,11 +8557,10 @@ func flattenServiceSpecSlice(c *Client, i interface{}) []ServiceSpec {
 // expandServiceSpec expands an instance of ServiceSpec into a JSON
 // request object.
 func expandServiceSpec(c *Client, f *ServiceSpec) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplate(c, f.Template); err != nil {
 		return nil, fmt.Errorf("error expanding Template into template: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -9424,11 +8674,10 @@ func flattenServiceSpecTemplateSlice(c *Client, i interface{}) []ServiceSpecTemp
 // expandServiceSpecTemplate expands an instance of ServiceSpecTemplate into a JSON
 // request object.
 func expandServiceSpecTemplate(c *Client, f *ServiceSpecTemplate) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplateMetadata(c, f.Metadata); err != nil {
 		return nil, fmt.Errorf("error expanding Metadata into metadata: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -9542,11 +8791,10 @@ func flattenServiceSpecTemplateMetadataSlice(c *Client, i interface{}) []Service
 // expandServiceSpecTemplateMetadata expands an instance of ServiceSpecTemplateMetadata into a JSON
 // request object.
 func expandServiceSpecTemplateMetadata(c *Client, f *ServiceSpecTemplateMetadata) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -9714,11 +8962,10 @@ func flattenServiceSpecTemplateMetadataCreateTimeSlice(c *Client, i interface{})
 // expandServiceSpecTemplateMetadataCreateTime expands an instance of ServiceSpecTemplateMetadataCreateTime into a JSON
 // request object.
 func expandServiceSpecTemplateMetadataCreateTime(c *Client, f *ServiceSpecTemplateMetadataCreateTime) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -9828,11 +9075,10 @@ func flattenServiceSpecTemplateMetadataOwnerReferencesSlice(c *Client, i interfa
 // expandServiceSpecTemplateMetadataOwnerReferences expands an instance of ServiceSpecTemplateMetadataOwnerReferences into a JSON
 // request object.
 func expandServiceSpecTemplateMetadataOwnerReferences(c *Client, f *ServiceSpecTemplateMetadataOwnerReferences) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ApiVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["apiVersion"] = v
 	}
@@ -9958,11 +9204,10 @@ func flattenServiceSpecTemplateMetadataDeleteTimeSlice(c *Client, i interface{})
 // expandServiceSpecTemplateMetadataDeleteTime expands an instance of ServiceSpecTemplateMetadataDeleteTime into a JSON
 // request object.
 func expandServiceSpecTemplateMetadataDeleteTime(c *Client, f *ServiceSpecTemplateMetadataDeleteTime) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -10072,11 +9317,10 @@ func flattenServiceSpecTemplateSpecSlice(c *Client, i interface{}) []ServiceSpec
 // expandServiceSpecTemplateSpec expands an instance of ServiceSpecTemplateSpec into a JSON
 // request object.
 func expandServiceSpecTemplateSpec(c *Client, f *ServiceSpecTemplateSpec) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ContainerConcurrency; !dcl.IsEmptyValueIndirect(v) {
 		m["containerConcurrency"] = v
 	}
@@ -10202,11 +9446,10 @@ func flattenServiceSpecTemplateSpecContainersSlice(c *Client, i interface{}) []S
 // expandServiceSpecTemplateSpecContainers expands an instance of ServiceSpecTemplateSpecContainers into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainers(c *Client, f *ServiceSpecTemplateSpecContainers) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -10388,11 +9631,10 @@ func flattenServiceSpecTemplateSpecContainersEnvSlice(c *Client, i interface{}) 
 // expandServiceSpecTemplateSpecContainersEnv expands an instance of ServiceSpecTemplateSpecContainersEnv into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnv(c *Client, f *ServiceSpecTemplateSpecContainersEnv) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -10508,11 +9750,10 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromSlice(c *Client, i inte
 // expandServiceSpecTemplateSpecContainersEnvValueFrom expands an instance of ServiceSpecTemplateSpecContainersEnvValueFrom into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvValueFrom(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFrom) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, f.ConfigMapKeyRef); err != nil {
 		return nil, fmt.Errorf("error expanding ConfigMapKeyRef into configMapKeyRef: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -10626,11 +9867,10 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefSlice(c 
 // expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef expands an instance of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, f.LocalObjectReference); err != nil {
 		return nil, fmt.Errorf("error expanding LocalObjectReference into localObjectReference: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -10750,11 +9990,10 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObj
 // expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference expands an instance of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -10860,11 +10099,10 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSlice(c *Cl
 // expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef expands an instance of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, f.LocalObjectReference); err != nil {
 		return nil, fmt.Errorf("error expanding LocalObjectReference into localObjectReference: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -10984,11 +10222,10 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObject
 // expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference expands an instance of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -11094,11 +10331,10 @@ func flattenServiceSpecTemplateSpecContainersResourcesSlice(c *Client, i interfa
 // expandServiceSpecTemplateSpecContainersResources expands an instance of ServiceSpecTemplateSpecContainersResources into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersResources(c *Client, f *ServiceSpecTemplateSpecContainersResources) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Limits; !dcl.IsEmptyValueIndirect(v) {
 		m["limits"] = v
 	}
@@ -11208,11 +10444,10 @@ func flattenServiceSpecTemplateSpecContainersPortsSlice(c *Client, i interface{}
 // expandServiceSpecTemplateSpecContainersPorts expands an instance of ServiceSpecTemplateSpecContainersPorts into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersPorts(c *Client, f *ServiceSpecTemplateSpecContainersPorts) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -11326,11 +10561,10 @@ func flattenServiceSpecTemplateSpecContainersEnvFromSlice(c *Client, i interface
 // expandServiceSpecTemplateSpecContainersEnvFrom expands an instance of ServiceSpecTemplateSpecContainersEnvFrom into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvFrom(c *Client, f *ServiceSpecTemplateSpecContainersEnvFrom) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Prefix; !dcl.IsEmptyValueIndirect(v) {
 		m["prefix"] = v
 	}
@@ -11448,11 +10682,10 @@ func flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefSlice(c *Client,
 // expandServiceSpecTemplateSpecContainersEnvFromConfigMapRef expands an instance of ServiceSpecTemplateSpecContainersEnvFromConfigMapRef into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c *Client, f *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, f.LocalObjectReference); err != nil {
 		return nil, fmt.Errorf("error expanding LocalObjectReference into localObjectReference: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -11568,11 +10801,10 @@ func flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectRefer
 // expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference expands an instance of ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c *Client, f *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -11678,11 +10910,10 @@ func flattenServiceSpecTemplateSpecContainersEnvFromSecretRefSlice(c *Client, i 
 // expandServiceSpecTemplateSpecContainersEnvFromSecretRef expands an instance of ServiceSpecTemplateSpecContainersEnvFromSecretRef into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvFromSecretRef(c *Client, f *ServiceSpecTemplateSpecContainersEnvFromSecretRef) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, f.LocalObjectReference); err != nil {
 		return nil, fmt.Errorf("error expanding LocalObjectReference into localObjectReference: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -11798,11 +11029,10 @@ func flattenServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenc
 // expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference expands an instance of ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c *Client, f *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -11908,11 +11138,10 @@ func flattenServiceSpecTemplateSpecContainersVolumeMountsSlice(c *Client, i inte
 // expandServiceSpecTemplateSpecContainersVolumeMounts expands an instance of ServiceSpecTemplateSpecContainersVolumeMounts into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersVolumeMounts(c *Client, f *ServiceSpecTemplateSpecContainersVolumeMounts) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -12030,11 +11259,10 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeSlice(c *Client, i int
 // expandServiceSpecTemplateSpecContainersLivenessProbe expands an instance of ServiceSpecTemplateSpecContainersLivenessProbe into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersLivenessProbe(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbe) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.InitialDelaySeconds; !dcl.IsEmptyValueIndirect(v) {
 		m["initialDelaySeconds"] = v
 	}
@@ -12174,11 +11402,10 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeExecSlice(c *Client, i
 // expandServiceSpecTemplateSpecContainersLivenessProbeExec expands an instance of ServiceSpecTemplateSpecContainersLivenessProbeExec into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersLivenessProbeExec(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbeExec) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Command; !dcl.IsEmptyValueIndirect(v) {
 		m["command"] = v
 	}
@@ -12284,11 +11511,10 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetSlice(c *Client
 // expandServiceSpecTemplateSpecContainersLivenessProbeHttpGet expands an instance of ServiceSpecTemplateSpecContainersLivenessProbeHttpGet into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
 		m["path"] = v
 	}
@@ -12408,11 +11634,10 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlic
 // expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders expands an instance of ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -12522,11 +11747,10 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSlice(c *Clie
 // expandServiceSpecTemplateSpecContainersLivenessProbeTcpSocket expands an instance of ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
 		m["port"] = v
 	}
@@ -12636,11 +11860,10 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeSlice(c *Client, i in
 // expandServiceSpecTemplateSpecContainersReadinessProbe expands an instance of ServiceSpecTemplateSpecContainersReadinessProbe into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersReadinessProbe(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbe) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.InitialDelaySeconds; !dcl.IsEmptyValueIndirect(v) {
 		m["initialDelaySeconds"] = v
 	}
@@ -12780,11 +12003,10 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeExecSlice(c *Client, 
 // expandServiceSpecTemplateSpecContainersReadinessProbeExec expands an instance of ServiceSpecTemplateSpecContainersReadinessProbeExec into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersReadinessProbeExec(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbeExec) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Command; !dcl.IsEmptyValueIndirect(v) {
 		m["command"] = v
 	}
@@ -12890,11 +12112,10 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetSlice(c *Clien
 // expandServiceSpecTemplateSpecContainersReadinessProbeHttpGet expands an instance of ServiceSpecTemplateSpecContainersReadinessProbeHttpGet into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
 		m["path"] = v
 	}
@@ -13014,11 +12235,10 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSli
 // expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders expands an instance of ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -13128,11 +12348,10 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSlice(c *Cli
 // expandServiceSpecTemplateSpecContainersReadinessProbeTcpSocket expands an instance of ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
 		m["port"] = v
 	}
@@ -13242,11 +12461,10 @@ func flattenServiceSpecTemplateSpecContainersSecurityContextSlice(c *Client, i i
 // expandServiceSpecTemplateSpecContainersSecurityContext expands an instance of ServiceSpecTemplateSpecContainersSecurityContext into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersSecurityContext(c *Client, f *ServiceSpecTemplateSpecContainersSecurityContext) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RunAsUser; !dcl.IsEmptyValueIndirect(v) {
 		m["runAsUser"] = v
 	}
@@ -13352,11 +12570,10 @@ func flattenServiceSpecTemplateSpecVolumesSlice(c *Client, i interface{}) []Serv
 // expandServiceSpecTemplateSpecVolumes expands an instance of ServiceSpecTemplateSpecVolumes into a JSON
 // request object.
 func expandServiceSpecTemplateSpecVolumes(c *Client, f *ServiceSpecTemplateSpecVolumes) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -13474,11 +12691,10 @@ func flattenServiceSpecTemplateSpecVolumesSecretSlice(c *Client, i interface{}) 
 // expandServiceSpecTemplateSpecVolumesSecret expands an instance of ServiceSpecTemplateSpecVolumesSecret into a JSON
 // request object.
 func expandServiceSpecTemplateSpecVolumesSecret(c *Client, f *ServiceSpecTemplateSpecVolumesSecret) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.SecretName; !dcl.IsEmptyValueIndirect(v) {
 		m["secretName"] = v
 	}
@@ -13598,11 +12814,10 @@ func flattenServiceSpecTemplateSpecVolumesSecretItemsSlice(c *Client, i interfac
 // expandServiceSpecTemplateSpecVolumesSecretItems expands an instance of ServiceSpecTemplateSpecVolumesSecretItems into a JSON
 // request object.
 func expandServiceSpecTemplateSpecVolumesSecretItems(c *Client, f *ServiceSpecTemplateSpecVolumesSecretItems) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
 		m["key"] = v
 	}
@@ -13716,11 +12931,10 @@ func flattenServiceSpecTemplateSpecVolumesConfigMapSlice(c *Client, i interface{
 // expandServiceSpecTemplateSpecVolumesConfigMap expands an instance of ServiceSpecTemplateSpecVolumesConfigMap into a JSON
 // request object.
 func expandServiceSpecTemplateSpecVolumesConfigMap(c *Client, f *ServiceSpecTemplateSpecVolumesConfigMap) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -13840,11 +13054,10 @@ func flattenServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c *Client, i inter
 // expandServiceSpecTemplateSpecVolumesConfigMapItems expands an instance of ServiceSpecTemplateSpecVolumesConfigMapItems into a JSON
 // request object.
 func expandServiceSpecTemplateSpecVolumesConfigMapItems(c *Client, f *ServiceSpecTemplateSpecVolumesConfigMapItems) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
 		m["key"] = v
 	}
@@ -13958,11 +13171,10 @@ func flattenServiceSpecTrafficSlice(c *Client, i interface{}) []ServiceSpecTraff
 // expandServiceSpecTraffic expands an instance of ServiceSpecTraffic into a JSON
 // request object.
 func expandServiceSpecTraffic(c *Client, f *ServiceSpecTraffic) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ConfigurationName; !dcl.IsEmptyValueIndirect(v) {
 		m["configurationName"] = v
 	}
@@ -14088,11 +13300,10 @@ func flattenServiceStatusSlice(c *Client, i interface{}) []ServiceStatus {
 // expandServiceStatus expands an instance of ServiceStatus into a JSON
 // request object.
 func expandServiceStatus(c *Client, f *ServiceStatus) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ObservedGeneration; !dcl.IsEmptyValueIndirect(v) {
 		m["observedGeneration"] = v
 	}
@@ -14228,11 +13439,10 @@ func flattenServiceStatusConditionsSlice(c *Client, i interface{}) []ServiceStat
 // expandServiceStatusConditions expands an instance of ServiceStatusConditions into a JSON
 // request object.
 func expandServiceStatusConditions(c *Client, f *ServiceStatusConditions) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
@@ -14360,11 +13570,10 @@ func flattenServiceStatusConditionsLastTransitionTimeSlice(c *Client, i interfac
 // expandServiceStatusConditionsLastTransitionTime expands an instance of ServiceStatusConditionsLastTransitionTime into a JSON
 // request object.
 func expandServiceStatusConditionsLastTransitionTime(c *Client, f *ServiceStatusConditionsLastTransitionTime) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -14474,11 +13683,10 @@ func flattenServiceStatusTrafficSlice(c *Client, i interface{}) []ServiceStatusT
 // expandServiceStatusTraffic expands an instance of ServiceStatusTraffic into a JSON
 // request object.
 func expandServiceStatusTraffic(c *Client, f *ServiceStatusTraffic) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.ConfigurationName; !dcl.IsEmptyValueIndirect(v) {
 		m["configurationName"] = v
 	}
@@ -14604,11 +13812,10 @@ func flattenServiceStatusAddressSlice(c *Client, i interface{}) []ServiceStatusA
 // expandServiceStatusAddress expands an instance of ServiceStatusAddress into a JSON
 // request object.
 func expandServiceStatusAddress(c *Client, f *ServiceStatusAddress) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
 		m["url"] = v
 	}

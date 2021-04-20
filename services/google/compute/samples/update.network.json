@@ -1,5 +1,5 @@
 {
-  "name": "{{network}}",
+  "name": "{{ref:basic.network.json:name}}",
   "project": "{{project}}",
   "autoCreateSubnetworks": false,
   "routingConfig": {

@@ -1,0 +1,1351 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+package beta
+
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"reflect"
+	"strings"
+	"time"
+
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
+)
+
+func (r *WorkerPool) validate() error {
+
+	if err := dcl.Required(r, "name"); err != nil {
+		return err
+	}
+	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
+		return err
+	}
+	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(r.WorkerConfig) {
+		if err := r.WorkerConfig.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.NetworkConfig) {
+		if err := r.NetworkConfig.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *WorkerPoolWorkerConfig) validate() error {
+	return nil
+}
+func (r *WorkerPoolNetworkConfig) validate() error {
+	if err := dcl.Required(r, "peeredNetwork"); err != nil {
+		return err
+	}
+	return nil
+}
+
+func workerPoolGetURL(userBasePath string, r *WorkerPool) (string, error) {
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(r.Project),
+		"location": dcl.ValueOrEmptyString(r.Location),
+		"name":     dcl.ValueOrEmptyString(r.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools/{{name}}", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, params), nil
+}
+
+func workerPoolListURL(userBasePath, project, location string) (string, error) {
+	params := map[string]interface{}{
+		"project":  project,
+		"location": location,
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, params), nil
+
+}
+
+func workerPoolCreateURL(userBasePath, project, location, name string) (string, error) {
+	params := map[string]interface{}{
+		"project":  project,
+		"location": location,
+		"name":     name,
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools?workerPoolId={{name}}", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, params), nil
+
+}
+
+func workerPoolDeleteURL(userBasePath string, r *WorkerPool) (string, error) {
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(r.Project),
+		"location": dcl.ValueOrEmptyString(r.Location),
+		"name":     dcl.ValueOrEmptyString(r.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools/{{name}}", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, params), nil
+}
+
+// workerPoolApiOperation represents a mutable operation in the underlying REST
+// API such as Create, Update, or Delete.
+type workerPoolApiOperation interface {
+	do(context.Context, *WorkerPool, *Client) error
+}
+
+// newUpdateWorkerPoolUpdateWorkerPoolRequest creates a request for an
+// WorkerPool resource's UpdateWorkerPool update type by filling in the update
+// fields based on the intended state of the resource.
+func newUpdateWorkerPoolUpdateWorkerPoolRequest(ctx context.Context, f *WorkerPool, c *Client) (map[string]interface{}, error) {
+	req := map[string]interface{}{}
+
+	if v, err := expandWorkerPoolWorkerConfig(c, f.WorkerConfig); err != nil {
+		return nil, fmt.Errorf("error expanding WorkerConfig into workerConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["workerConfig"] = v
+	}
+	if v, err := expandWorkerPoolNetworkConfig(c, f.NetworkConfig); err != nil {
+		return nil, fmt.Errorf("error expanding NetworkConfig into networkConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["networkConfig"] = v
+	}
+	return req, nil
+}
+
+// marshalUpdateWorkerPoolUpdateWorkerPoolRequest converts the update into
+// the final JSON request body.
+func marshalUpdateWorkerPoolUpdateWorkerPoolRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+
+	return json.Marshal(m)
+}
+
+type updateWorkerPoolUpdateWorkerPoolOperation struct {
+	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
+	// Usually it will be nil - this is to prevent us from accidentally depending on apply
+	// options, which should usually be unnecessary.
+	ApplyOptions []dcl.ApplyOption
+}
+
+// do creates a request and sends it to the appropriate URL. In most operations,
+// do will transcribe a subset of the resource into a request object and send a
+// PUT request to a single URL.
+
+func (op *updateWorkerPoolUpdateWorkerPoolOperation) do(ctx context.Context, r *WorkerPool, c *Client) error {
+	_, err := c.GetWorkerPool(ctx, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "UpdateWorkerPool")
+	if err != nil {
+		return err
+	}
+	mask := strings.Join([]string{"workerConfig", "networkConfig"}, ",")
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateWorkerPoolUpdateWorkerPoolRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.Infof("Created update: %#v", req)
+	body, err := marshalUpdateWorkerPoolUpdateWorkerPoolRequest(c, req)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	err = o.Wait(ctx, c.Config, "https://cloudbuild.googleapis.com/v1beta1/", "GET")
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (c *Client) listWorkerPoolRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := workerPoolListURL(c.Config.BasePath, project, location)
+	if err != nil {
+		return nil, err
+	}
+
+	m := make(map[string]string)
+	if pageToken != "" {
+		m["pageToken"] = pageToken
+	}
+
+	if pageSize != WorkerPoolMaxPage {
+		m["pageSize"] = fmt.Sprintf("%v", pageSize)
+	}
+
+	u, err = dcl.AddQueryParams(u, m)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	return ioutil.ReadAll(resp.Response.Body)
+}
+
+type listWorkerPoolOperation struct {
+	WorkerPools []map[string]interface{} `json:"workerPools"`
+	Token       string                   `json:"nextPageToken"`
+}
+
+func (c *Client) listWorkerPool(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*WorkerPool, string, error) {
+	b, err := c.listWorkerPoolRaw(ctx, project, location, pageToken, pageSize)
+	if err != nil {
+		return nil, "", err
+	}
+
+	var m listWorkerPoolOperation
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, "", err
+	}
+
+	var l []*WorkerPool
+	for _, v := range m.WorkerPools {
+		res := flattenWorkerPool(c, v)
+		res.Project = &project
+		res.Location = &location
+		l = append(l, res)
+	}
+
+	return l, m.Token, nil
+}
+
+func (c *Client) deleteAllWorkerPool(ctx context.Context, f func(*WorkerPool) bool, resources []*WorkerPool) error {
+	var errors []string
+	for _, res := range resources {
+		if f(res) {
+			// We do not want deleteAll to fail on a deletion or else it will stop deleting other resources.
+			err := c.DeleteWorkerPool(ctx, res)
+			if err != nil {
+				errors = append(errors, err.Error())
+			}
+		}
+	}
+	if len(errors) > 0 {
+		return fmt.Errorf("%v", strings.Join(errors, "\n"))
+	} else {
+		return nil
+	}
+}
+
+type deleteWorkerPoolOperation struct{}
+
+func (op *deleteWorkerPoolOperation) do(ctx context.Context, r *WorkerPool, c *Client) error {
+
+	_, err := c.GetWorkerPool(ctx, r.urlNormalized())
+
+	if err != nil {
+		if dcl.IsNotFound(err) {
+			c.Config.Logger.Infof("WorkerPool not found, returning. Original error: %v", err)
+			return nil
+		}
+		c.Config.Logger.Warningf("GetWorkerPool checking for existence. error: %v", err)
+		return err
+	}
+
+	u, err := workerPoolDeleteURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	// Delete should never have a body
+	body := &bytes.Buffer{}
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	// wait for object to be deleted.
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, "https://cloudbuild.googleapis.com/v1beta1/", "GET"); err != nil {
+		return err
+	}
+
+	// we saw a race condition where for some successful delete operation, the Get calls returned resources for a short duration.
+	// this is the reason we are adding retry to handle that case.
+	maxRetry := 10
+	for i := 1; i <= maxRetry; i++ {
+		_, err = c.GetWorkerPool(ctx, r.urlNormalized())
+		if !dcl.IsNotFound(err) {
+			if i == maxRetry {
+				return dcl.NotDeletedError{ExistingResource: r}
+			}
+			time.Sleep(1000 * time.Millisecond)
+		} else {
+			break
+		}
+	}
+	return nil
+}
+
+// Create operations are similar to Update operations, although they do not have
+// specific request objects. The Create request object is the json encoding of
+// the resource, which is modified by res.marshal to form the base request body.
+type createWorkerPoolOperation struct {
+	response map[string]interface{}
+}
+
+func (op *createWorkerPoolOperation) FirstResponse() (map[string]interface{}, bool) {
+	return op.response, len(op.response) > 0
+}
+
+func (op *createWorkerPoolOperation) do(ctx context.Context, r *WorkerPool, c *Client) error {
+	c.Config.Logger.Infof("Attempting to create %v", r)
+
+	project, location, name := r.createFields()
+	u, err := workerPoolCreateURL(c.Config.BasePath, project, location, name)
+
+	if err != nil {
+		return err
+	}
+
+	req, err := r.marshal(c)
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+	// wait for object to be created.
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	if err := o.Wait(ctx, c.Config, "https://cloudbuild.googleapis.com/v1beta1/", "GET"); err != nil {
+		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
+		return err
+	}
+	c.Config.Logger.Infof("Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
+
+	if _, err := c.GetWorkerPool(ctx, r.urlNormalized()); err != nil {
+		c.Config.Logger.Warningf("get returned error: %v", err)
+		return err
+	}
+
+	return nil
+}
+
+func (c *Client) getWorkerPoolRaw(ctx context.Context, r *WorkerPool) ([]byte, error) {
+
+	u, err := workerPoolGetURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return nil, err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	b, err := ioutil.ReadAll(resp.Response.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
+}
+
+func (c *Client) workerPoolDiffsForRawDesired(ctx context.Context, rawDesired *WorkerPool, opts ...dcl.ApplyOption) (initial, desired *WorkerPool, diffs []workerPoolDiff, err error) {
+	c.Config.Logger.Info("Fetching initial state...")
+	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
+	var fetchState *WorkerPool
+	if sh := dcl.FetchStateHint(opts); sh != nil {
+		if r, ok := sh.(*WorkerPool); !ok {
+			c.Config.Logger.Warningf("Initial state hint was of the wrong type; expected WorkerPool, got %T", sh)
+		} else {
+			fetchState = r
+		}
+	}
+	if fetchState == nil {
+		fetchState = rawDesired
+	}
+
+	// 1.2: Retrieval of raw initial state from API
+	rawInitial, err := c.GetWorkerPool(ctx, fetchState.urlNormalized())
+	if rawInitial == nil {
+		if !dcl.IsNotFound(err) {
+			c.Config.Logger.Warningf("Failed to retrieve whether a WorkerPool resource already exists: %s", err)
+			return nil, nil, nil, fmt.Errorf("failed to retrieve WorkerPool resource: %v", err)
+		}
+		c.Config.Logger.Info("Found that WorkerPool resource did not exist.")
+		// Perform canonicalization to pick up defaults.
+		desired, err = canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial)
+		return nil, desired, nil, err
+	}
+
+	c.Config.Logger.Infof("Found initial state for WorkerPool: %v", rawInitial)
+	c.Config.Logger.Infof("Initial desired state for WorkerPool: %v", rawDesired)
+
+	// 1.3: Canonicalize raw initial state into initial state.
+	initial, err = canonicalizeWorkerPoolInitialState(rawInitial, rawDesired)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	c.Config.Logger.Infof("Canonicalized initial state for WorkerPool: %v", initial)
+
+	// 1.4: Canonicalize raw desired state into desired state.
+	desired, err = canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial, opts...)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	c.Config.Logger.Infof("Canonicalized desired state for WorkerPool: %v", desired)
+
+	// 2.1: Comparison of initial and desired state.
+	diffs, err = diffWorkerPool(c, desired, initial, opts...)
+	return initial, desired, diffs, err
+}
+
+func canonicalizeWorkerPoolInitialState(rawInitial, rawDesired *WorkerPool) (*WorkerPool, error) {
+	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+	return rawInitial, nil
+}
+
+/*
+* Canonicalizers
+*
+* These are responsible for converting either a user-specified config or a
+* GCP API response to a standard format that can be used for difference checking.
+* */
+
+func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts ...dcl.ApplyOption) (*WorkerPool, error) {
+
+	if rawInitial == nil {
+		// Since the initial state is empty, the desired state is all we have.
+		// We canonicalize the remaining nested objects with nil to pick up defaults.
+		rawDesired.WorkerConfig = canonicalizeWorkerPoolWorkerConfig(rawDesired.WorkerConfig, nil, opts...)
+		rawDesired.NetworkConfig = canonicalizeWorkerPoolNetworkConfig(rawDesired.NetworkConfig, nil, opts...)
+
+		return rawDesired, nil
+	}
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
+		rawDesired.Name = rawInitial.Name
+	}
+	if dcl.IsZeroValue(rawDesired.State) {
+		rawDesired.State = rawInitial.State
+	}
+	if dcl.IsZeroValue(rawDesired.CreateTime) {
+		rawDesired.CreateTime = rawInitial.CreateTime
+	}
+	if dcl.IsZeroValue(rawDesired.UpdateTime) {
+		rawDesired.UpdateTime = rawInitial.UpdateTime
+	}
+	if dcl.IsZeroValue(rawDesired.DeleteTime) {
+		rawDesired.DeleteTime = rawInitial.DeleteTime
+	}
+	rawDesired.WorkerConfig = canonicalizeWorkerPoolWorkerConfig(rawDesired.WorkerConfig, rawInitial.WorkerConfig, opts...)
+	rawDesired.NetworkConfig = canonicalizeWorkerPoolNetworkConfig(rawDesired.NetworkConfig, rawInitial.NetworkConfig, opts...)
+	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
+		rawDesired.Project = rawInitial.Project
+	}
+	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
+		rawDesired.Location = rawInitial.Location
+	}
+
+	return rawDesired, nil
+}
+
+func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (*WorkerPool, error) {
+
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+		rawNew.Name = rawDesired.Name
+	} else {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
+		rawNew.State = rawDesired.State
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
+		rawNew.CreateTime = rawDesired.CreateTime
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
+		rawNew.UpdateTime = rawDesired.UpdateTime
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.DeleteTime) && dcl.IsEmptyValueIndirect(rawDesired.DeleteTime) {
+		rawNew.DeleteTime = rawDesired.DeleteTime
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.WorkerConfig) && dcl.IsEmptyValueIndirect(rawDesired.WorkerConfig) {
+		rawNew.WorkerConfig = rawDesired.WorkerConfig
+	} else {
+		rawNew.WorkerConfig = canonicalizeNewWorkerPoolWorkerConfig(c, rawDesired.WorkerConfig, rawNew.WorkerConfig)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.NetworkConfig) && dcl.IsEmptyValueIndirect(rawDesired.NetworkConfig) {
+		rawNew.NetworkConfig = rawDesired.NetworkConfig
+	} else {
+		rawNew.NetworkConfig = canonicalizeNewWorkerPoolNetworkConfig(c, rawDesired.NetworkConfig, rawNew.NetworkConfig)
+	}
+
+	rawNew.Project = rawDesired.Project
+
+	rawNew.Location = rawDesired.Location
+
+	return rawNew, nil
+}
+
+func canonicalizeWorkerPoolWorkerConfig(des, initial *WorkerPoolWorkerConfig, opts ...dcl.ApplyOption) *WorkerPoolWorkerConfig {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.StringCanonicalize(des.MachineType, initial.MachineType) || dcl.IsZeroValue(des.MachineType) {
+		des.MachineType = initial.MachineType
+	}
+	if dcl.IsZeroValue(des.DiskSizeGb) {
+		des.DiskSizeGb = initial.DiskSizeGb
+	}
+	if dcl.BoolCanonicalize(des.NoExternalIP, initial.NoExternalIP) || dcl.IsZeroValue(des.NoExternalIP) {
+		des.NoExternalIP = initial.NoExternalIP
+	}
+
+	return des
+}
+
+func canonicalizeNewWorkerPoolWorkerConfig(c *Client, des, nw *WorkerPoolWorkerConfig) *WorkerPoolWorkerConfig {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) {
+		nw.MachineType = des.MachineType
+	}
+	if dcl.BoolCanonicalize(des.NoExternalIP, nw.NoExternalIP) {
+		nw.NoExternalIP = des.NoExternalIP
+	}
+
+	return nw
+}
+
+func canonicalizeNewWorkerPoolWorkerConfigSet(c *Client, des, nw []WorkerPoolWorkerConfig) []WorkerPoolWorkerConfig {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []WorkerPoolWorkerConfig
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareWorkerPoolWorkerConfig(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewWorkerPoolWorkerConfigSlice(c *Client, des, nw []WorkerPoolWorkerConfig) []WorkerPoolWorkerConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkerPoolWorkerConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkerPoolWorkerConfig(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeWorkerPoolNetworkConfig(des, initial *WorkerPoolNetworkConfig, opts ...dcl.ApplyOption) *WorkerPoolNetworkConfig {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.NameToSelfLink(des.PeeredNetwork, initial.PeeredNetwork) || dcl.IsZeroValue(des.PeeredNetwork) {
+		des.PeeredNetwork = initial.PeeredNetwork
+	}
+
+	return des
+}
+
+func canonicalizeNewWorkerPoolNetworkConfig(c *Client, des, nw *WorkerPoolNetworkConfig) *WorkerPoolNetworkConfig {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.NameToSelfLink(des.PeeredNetwork, nw.PeeredNetwork) {
+		nw.PeeredNetwork = des.PeeredNetwork
+	}
+
+	return nw
+}
+
+func canonicalizeNewWorkerPoolNetworkConfigSet(c *Client, des, nw []WorkerPoolNetworkConfig) []WorkerPoolNetworkConfig {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []WorkerPoolNetworkConfig
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareWorkerPoolNetworkConfig(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewWorkerPoolNetworkConfigSlice(c *Client, des, nw []WorkerPoolNetworkConfig) []WorkerPoolNetworkConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []WorkerPoolNetworkConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkerPoolNetworkConfig(c, &d, &n))
+	}
+
+	return items
+}
+
+type workerPoolDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         workerPoolApiOperation
+	Diffs            []*dcl.FieldDiff
+	// This is for reporting only.
+	FieldName string
+}
+
+// The differ returns a list of diffs, along with a list of operations that should be taken
+// to remedy them. Right now, it does not attempt to consolidate operations - if several
+// fields can be fixed with a patch update, it will perform the patch several times.
+// Diffs on some fields will be ignored if the `desired` state has an empty (nil)
+// value. This empty value indicates that the user does not care about the state for
+// the field. Empty fields on the actual object will cause diffs.
+// TODO(magic-modules-eng): for efficiency in some resources, add batching.
+func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOption) ([]workerPoolDiff, error) {
+	if desired == nil || actual == nil {
+		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
+	}
+
+	var diffs []workerPoolDiff
+	// New style diffs.
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "delete_time"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if compareWorkerPoolWorkerConfig(c, desired.WorkerConfig, actual.WorkerConfig) {
+		c.Config.Logger.Infof("Detected diff in WorkerConfig.\nDESIRED: %v\nACTUAL: %v", desired.WorkerConfig, actual.WorkerConfig)
+
+		diffs = append(diffs, workerPoolDiff{
+			UpdateOp:  &updateWorkerPoolUpdateWorkerPoolOperation{},
+			FieldName: "WorkerConfig",
+		})
+
+	}
+	if compareWorkerPoolNetworkConfig(c, desired.NetworkConfig, actual.NetworkConfig) {
+		c.Config.Logger.Infof("Detected diff in NetworkConfig.\nDESIRED: %v\nACTUAL: %v", desired.NetworkConfig, actual.NetworkConfig)
+
+		diffs = append(diffs, workerPoolDiff{
+			UpdateOp:  &updateWorkerPoolUpdateWorkerPoolOperation{},
+			FieldName: "NetworkConfig",
+		})
+
+	}
+	// We need to ensure that this list does not contain identical operations *most of the time*.
+	// There may be some cases where we will need multiple copies of the same operation - for instance,
+	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
+	// such examples and so we deduplicate unconditionally.
+
+	// The best way for us to do this is to iterate through the list
+	// and remove any copies of operations which are identical to a previous operation.
+	// This is O(n^2) in the number of operations, but n will always be very small,
+	// even 10 would be an extremely high number.
+	var opTypes []string
+	var deduped []workerPoolDiff
+	for _, d := range diffs {
+		// Two operations are considered identical if they have the same type.
+		// The type of an operation is derived from the name of the update method.
+		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
+			deduped = append(deduped, d)
+			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
+		} else {
+			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
+		}
+	}
+
+	return deduped, nil
+}
+func compareWorkerPoolWorkerConfig(c *Client, desired, actual *WorkerPoolWorkerConfig) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.MachineType, actual.MachineType) && !dcl.IsZeroValue(desired.MachineType) {
+		c.Config.Logger.Infof("Diff in MachineType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MachineType), dcl.SprintResource(actual.MachineType))
+		return true
+	}
+	if !reflect.DeepEqual(desired.DiskSizeGb, actual.DiskSizeGb) && !dcl.IsZeroValue(desired.DiskSizeGb) {
+		c.Config.Logger.Infof("Diff in DiskSizeGb.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DiskSizeGb), dcl.SprintResource(actual.DiskSizeGb))
+		return true
+	}
+	if !dcl.BoolCanonicalize(desired.NoExternalIP, actual.NoExternalIP) && !dcl.IsZeroValue(desired.NoExternalIP) {
+		c.Config.Logger.Infof("Diff in NoExternalIP.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NoExternalIP), dcl.SprintResource(actual.NoExternalIP))
+		return true
+	}
+	return false
+}
+
+func compareWorkerPoolWorkerConfigSlice(c *Client, desired, actual []WorkerPoolWorkerConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkerPoolWorkerConfig, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareWorkerPoolWorkerConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkerPoolWorkerConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkerPoolWorkerConfigMap(c *Client, desired, actual map[string]WorkerPoolWorkerConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkerPoolWorkerConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkerPoolWorkerConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkerPoolWorkerConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkerPoolWorkerConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkerPoolNetworkConfig(c *Client, desired, actual *WorkerPoolNetworkConfig) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if !dcl.NameToSelfLink(desired.PeeredNetwork, actual.PeeredNetwork) && !dcl.IsZeroValue(desired.PeeredNetwork) {
+		c.Config.Logger.Infof("Diff in PeeredNetwork.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PeeredNetwork), dcl.SprintResource(actual.PeeredNetwork))
+		return true
+	}
+	return false
+}
+
+func compareWorkerPoolNetworkConfigSlice(c *Client, desired, actual []WorkerPoolNetworkConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkerPoolNetworkConfig, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareWorkerPoolNetworkConfig(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkerPoolNetworkConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkerPoolNetworkConfigMap(c *Client, desired, actual map[string]WorkerPoolNetworkConfig) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkerPoolNetworkConfig, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in WorkerPoolNetworkConfig, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareWorkerPoolNetworkConfig(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in WorkerPoolNetworkConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkerPoolStateEnumSlice(c *Client, desired, actual []WorkerPoolStateEnum) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in WorkerPoolStateEnum, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareWorkerPoolStateEnum(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in WorkerPoolStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareWorkerPoolStateEnum(c *Client, desired, actual *WorkerPoolStateEnum) bool {
+	return !reflect.DeepEqual(desired, actual)
+}
+
+// urlNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *WorkerPool) urlNormalized() *WorkerPool {
+	normalized := dcl.Copy(*r).(WorkerPool)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
+
+func (r *WorkerPool) getFields() (string, string, string) {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+}
+
+func (r *WorkerPool) createFields() (string, string, string) {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+}
+
+func (r *WorkerPool) deleteFields() (string, string, string) {
+	n := r.urlNormalized()
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
+}
+
+func (r *WorkerPool) updateURL(userBasePath, updateName string) (string, error) {
+	n := r.urlNormalized()
+	if updateName == "UpdateWorkerPool" {
+		fields := map[string]interface{}{
+			"project":  dcl.ValueOrEmptyString(n.Project),
+			"location": dcl.ValueOrEmptyString(n.Location),
+			"name":     dcl.ValueOrEmptyString(n.Name),
+		}
+		return dcl.URL("projects/{{project}}/locations/{{location}}/workerPools/{{name}}", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, fields), nil
+
+	}
+	return "", fmt.Errorf("unknown update name: %s", updateName)
+}
+
+// marshal encodes the WorkerPool resource into JSON for a Create request, and
+// performs transformations from the resource schema to the API schema if
+// necessary.
+func (r *WorkerPool) marshal(c *Client) ([]byte, error) {
+	m, err := expandWorkerPool(c, r)
+	if err != nil {
+		return nil, fmt.Errorf("error marshalling WorkerPool: %w", err)
+	}
+
+	return json.Marshal(m)
+}
+
+// unmarshalWorkerPool decodes JSON responses into the WorkerPool resource schema.
+func unmarshalWorkerPool(b []byte, c *Client) (*WorkerPool, error) {
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+	return unmarshalMapWorkerPool(m, c)
+}
+
+func unmarshalMapWorkerPool(m map[string]interface{}, c *Client) (*WorkerPool, error) {
+
+	return flattenWorkerPool(c, m), nil
+}
+
+// expandWorkerPool expands WorkerPool into a JSON request object.
+func expandWorkerPool(c *Client, f *WorkerPool) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
+	if v, err := dcl.DeriveField("projects/%s/locations/%s/workerPools/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
+		return nil, fmt.Errorf("error expanding Name into name: %w", err)
+	} else if v != nil {
+		m["name"] = v
+	}
+	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
+		m["state"] = v
+	}
+	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
+		m["createTime"] = v
+	}
+	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
+		m["updateTime"] = v
+	}
+	if v := f.DeleteTime; !dcl.IsEmptyValueIndirect(v) {
+		m["deleteTime"] = v
+	}
+	if v, err := expandWorkerPoolWorkerConfig(c, f.WorkerConfig); err != nil {
+		return nil, fmt.Errorf("error expanding WorkerConfig into workerConfig: %w", err)
+	} else if v != nil {
+		m["workerConfig"] = v
+	}
+	if v, err := expandWorkerPoolNetworkConfig(c, f.NetworkConfig); err != nil {
+		return nil, fmt.Errorf("error expanding NetworkConfig into networkConfig: %w", err)
+	} else if v != nil {
+		m["networkConfig"] = v
+	}
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Project into project: %w", err)
+	} else if v != nil {
+		m["project"] = v
+	}
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Location into location: %w", err)
+	} else if v != nil {
+		m["location"] = v
+	}
+
+	return m, nil
+}
+
+// flattenWorkerPool flattens WorkerPool from a JSON request object into the
+// WorkerPool type.
+func flattenWorkerPool(c *Client, i interface{}) *WorkerPool {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+	if len(m) == 0 {
+		return nil
+	}
+
+	r := &WorkerPool{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.State = flattenWorkerPoolStateEnum(m["state"])
+	r.CreateTime = dcl.FlattenString(m["createTime"])
+	r.UpdateTime = dcl.FlattenString(m["updateTime"])
+	r.DeleteTime = dcl.FlattenString(m["deleteTime"])
+	r.WorkerConfig = flattenWorkerPoolWorkerConfig(c, m["workerConfig"])
+	r.NetworkConfig = flattenWorkerPoolNetworkConfig(c, m["networkConfig"])
+	r.Project = dcl.FlattenString(m["project"])
+	r.Location = dcl.FlattenString(m["location"])
+
+	return r
+}
+
+// expandWorkerPoolWorkerConfigMap expands the contents of WorkerPoolWorkerConfig into a JSON
+// request object.
+func expandWorkerPoolWorkerConfigMap(c *Client, f map[string]WorkerPoolWorkerConfig) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandWorkerPoolWorkerConfig(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandWorkerPoolWorkerConfigSlice expands the contents of WorkerPoolWorkerConfig into a JSON
+// request object.
+func expandWorkerPoolWorkerConfigSlice(c *Client, f []WorkerPoolWorkerConfig) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandWorkerPoolWorkerConfig(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenWorkerPoolWorkerConfigMap flattens the contents of WorkerPoolWorkerConfig from a JSON
+// response object.
+func flattenWorkerPoolWorkerConfigMap(c *Client, i interface{}) map[string]WorkerPoolWorkerConfig {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]WorkerPoolWorkerConfig{}
+	}
+
+	if len(a) == 0 {
+		return map[string]WorkerPoolWorkerConfig{}
+	}
+
+	items := make(map[string]WorkerPoolWorkerConfig)
+	for k, item := range a {
+		items[k] = *flattenWorkerPoolWorkerConfig(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenWorkerPoolWorkerConfigSlice flattens the contents of WorkerPoolWorkerConfig from a JSON
+// response object.
+func flattenWorkerPoolWorkerConfigSlice(c *Client, i interface{}) []WorkerPoolWorkerConfig {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []WorkerPoolWorkerConfig{}
+	}
+
+	if len(a) == 0 {
+		return []WorkerPoolWorkerConfig{}
+	}
+
+	items := make([]WorkerPoolWorkerConfig, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenWorkerPoolWorkerConfig(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandWorkerPoolWorkerConfig expands an instance of WorkerPoolWorkerConfig into a JSON
+// request object.
+func expandWorkerPoolWorkerConfig(c *Client, f *WorkerPoolWorkerConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+	if v := f.MachineType; !dcl.IsEmptyValueIndirect(v) {
+		m["machineType"] = v
+	}
+	if v := f.DiskSizeGb; !dcl.IsEmptyValueIndirect(v) {
+		m["diskSizeGb"] = v
+	}
+	if v := f.NoExternalIP; !dcl.IsEmptyValueIndirect(v) {
+		m["noExternalIp"] = v
+	}
+
+	return m, nil
+}
+
+// flattenWorkerPoolWorkerConfig flattens an instance of WorkerPoolWorkerConfig from a JSON
+// response object.
+func flattenWorkerPoolWorkerConfig(c *Client, i interface{}) *WorkerPoolWorkerConfig {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &WorkerPoolWorkerConfig{}
+	r.MachineType = dcl.FlattenString(m["machineType"])
+	r.DiskSizeGb = dcl.FlattenInteger(m["diskSizeGb"])
+	r.NoExternalIP = dcl.FlattenBool(m["noExternalIp"])
+
+	return r
+}
+
+// expandWorkerPoolNetworkConfigMap expands the contents of WorkerPoolNetworkConfig into a JSON
+// request object.
+func expandWorkerPoolNetworkConfigMap(c *Client, f map[string]WorkerPoolNetworkConfig) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandWorkerPoolNetworkConfig(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandWorkerPoolNetworkConfigSlice expands the contents of WorkerPoolNetworkConfig into a JSON
+// request object.
+func expandWorkerPoolNetworkConfigSlice(c *Client, f []WorkerPoolNetworkConfig) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandWorkerPoolNetworkConfig(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenWorkerPoolNetworkConfigMap flattens the contents of WorkerPoolNetworkConfig from a JSON
+// response object.
+func flattenWorkerPoolNetworkConfigMap(c *Client, i interface{}) map[string]WorkerPoolNetworkConfig {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]WorkerPoolNetworkConfig{}
+	}
+
+	if len(a) == 0 {
+		return map[string]WorkerPoolNetworkConfig{}
+	}
+
+	items := make(map[string]WorkerPoolNetworkConfig)
+	for k, item := range a {
+		items[k] = *flattenWorkerPoolNetworkConfig(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenWorkerPoolNetworkConfigSlice flattens the contents of WorkerPoolNetworkConfig from a JSON
+// response object.
+func flattenWorkerPoolNetworkConfigSlice(c *Client, i interface{}) []WorkerPoolNetworkConfig {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []WorkerPoolNetworkConfig{}
+	}
+
+	if len(a) == 0 {
+		return []WorkerPoolNetworkConfig{}
+	}
+
+	items := make([]WorkerPoolNetworkConfig, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenWorkerPoolNetworkConfig(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandWorkerPoolNetworkConfig expands an instance of WorkerPoolNetworkConfig into a JSON
+// request object.
+func expandWorkerPoolNetworkConfig(c *Client, f *WorkerPoolNetworkConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+	if v := f.PeeredNetwork; !dcl.IsEmptyValueIndirect(v) {
+		m["peeredNetwork"] = v
+	}
+
+	return m, nil
+}
+
+// flattenWorkerPoolNetworkConfig flattens an instance of WorkerPoolNetworkConfig from a JSON
+// response object.
+func flattenWorkerPoolNetworkConfig(c *Client, i interface{}) *WorkerPoolNetworkConfig {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &WorkerPoolNetworkConfig{}
+	r.PeeredNetwork = dcl.FlattenString(m["peeredNetwork"])
+
+	return r
+}
+
+// flattenWorkerPoolStateEnumSlice flattens the contents of WorkerPoolStateEnum from a JSON
+// response object.
+func flattenWorkerPoolStateEnumSlice(c *Client, i interface{}) []WorkerPoolStateEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []WorkerPoolStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return []WorkerPoolStateEnum{}
+	}
+
+	items := make([]WorkerPoolStateEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenWorkerPoolStateEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenWorkerPoolStateEnum asserts that an interface is a string, and returns a
+// pointer to a *WorkerPoolStateEnum with the same value as that string.
+func flattenWorkerPoolStateEnum(i interface{}) *WorkerPoolStateEnum {
+	s, ok := i.(string)
+	if !ok {
+		return WorkerPoolStateEnumRef("")
+	}
+
+	return WorkerPoolStateEnumRef(s)
+}
+
+// This function returns a matcher that checks whether a serialized resource matches this resource
+// in its parameters (as defined by the fields in a Get, which definitionally define resource
+// identity).  This is useful in extracting the element from a List call.
+func (r *WorkerPool) matcher(c *Client) func([]byte) bool {
+	return func(b []byte) bool {
+		cr, err := unmarshalWorkerPool(b, c)
+		if err != nil {
+			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
+			return false
+		}
+		nr := r.urlNormalized()
+		ncr := cr.urlNormalized()
+		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
+
+		if nr.Project == nil && ncr.Project == nil {
+			c.Config.Logger.Info("Both Project fields null - considering equal.")
+		} else if nr.Project == nil || ncr.Project == nil {
+			c.Config.Logger.Info("Only one Project field is null - considering unequal.")
+			return false
+		} else if *nr.Project != *ncr.Project {
+			return false
+		}
+		if nr.Location == nil && ncr.Location == nil {
+			c.Config.Logger.Info("Both Location fields null - considering equal.")
+		} else if nr.Location == nil || ncr.Location == nil {
+			c.Config.Logger.Info("Only one Location field is null - considering unequal.")
+			return false
+		} else if *nr.Location != *ncr.Location {
+			return false
+		}
+		if nr.Name == nil && ncr.Name == nil {
+			c.Config.Logger.Info("Both Name fields null - considering equal.")
+		} else if nr.Name == nil || ncr.Name == nil {
+			c.Config.Logger.Info("Only one Name field is null - considering unequal.")
+			return false
+		} else if *nr.Name != *ncr.Name {
+			return false
+		}
+		return true
+	}
+}

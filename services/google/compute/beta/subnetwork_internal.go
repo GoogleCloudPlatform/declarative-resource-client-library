@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -930,6 +929,7 @@ type subnetworkDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         subnetworkApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -948,143 +948,118 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 
 	var diffs []subnetworkDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "creation_timestamp"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, FieldName: "CreationTimestamp"})
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Description, actual.Description, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, FieldName: "Description"})
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.GatewayAddress, actual.GatewayAddress, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.GatewayAddress, actual.GatewayAddress, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "gateway_address"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, FieldName: "GatewayAddress"})
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, subnetworkDiff{
-			UpdateOp: &updateSubnetworkExpandIpCidrRangeOperation{}, FieldName: "IPCidrRange",
-		})
-	}
-
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, FieldName: "Name"})
-	}
-
-	if d, err := dcl.Diff(desired.Network, actual.Network, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, FieldName: "Network"})
-	}
-
-	if d, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ip_cidr_range"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, subnetworkDiff{
-			UpdateOp: &updateSubnetworkUpdateOperation{}, FieldName: "Fingerprint",
+			UpdateOp: &updateSubnetworkExpandIpCidrRangeOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.PrivateIPGoogleAccess, actual.PrivateIPGoogleAccess, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "network"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
+	if ds, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "fingerprint"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, subnetworkDiff{
-			UpdateOp: &updateSubnetworkSetPrivateIpGoogleAccessOperation{}, FieldName: "PrivateIPGoogleAccess",
+			UpdateOp: &updateSubnetworkUpdateOperation{}, Diffs: ds,
 		})
 	}
 
-	if d, err := dcl.Diff(desired.SelfLink, actual.SelfLink, &dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Purpose, actual.Purpose, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "purpose"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, FieldName: "SelfLink"})
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.EnableFlowLogs, actual.EnableFlowLogs, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Role, actual.Role, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "role"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, FieldName: "EnableFlowLogs"})
+		diffs = append(diffs, subnetworkDiff{
+			UpdateOp: &updateSubnetworkUpdateOperation{}, Diffs: ds,
+		})
 	}
 
-	if !dcl.IsZeroValue(desired.Description) && !dcl.StringCanonicalize(desired.Description, actual.Description) {
-		c.Config.Logger.Infof("Detected diff in Description.\nDESIRED: %v\nACTUAL: %v", desired.Description, actual.Description)
+	if ds, err := dcl.Diff(desired.PrivateIPGoogleAccess, actual.PrivateIPGoogleAccess, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "private_ip_google_access"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, subnetworkDiff{
-			RequiresRecreate: true,
-			FieldName:        "Description",
+			UpdateOp: &updateSubnetworkSetPrivateIpGoogleAccessOperation{}, Diffs: ds,
 		})
 	}
-	if !dcl.IsZeroValue(desired.IPCidrRange) && !dcl.StringCanonicalize(desired.IPCidrRange, actual.IPCidrRange) {
-		c.Config.Logger.Infof("Detected diff in IPCidrRange.\nDESIRED: %v\nACTUAL: %v", desired.IPCidrRange, actual.IPCidrRange)
 
-		diffs = append(diffs, subnetworkDiff{
-			UpdateOp:  &updateSubnetworkExpandIpCidrRangeOperation{},
-			FieldName: "IPCidrRange",
-		})
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
+	}
 
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Name) && !dcl.StringCanonicalize(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, subnetworkDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
-	}
-	if !dcl.IsZeroValue(desired.Network) && !dcl.NameToSelfLink(desired.Network, actual.Network) {
-		c.Config.Logger.Infof("Detected diff in Network.\nDESIRED: %v\nACTUAL: %v", desired.Network, actual.Network)
-		diffs = append(diffs, subnetworkDiff{
-			RequiresRecreate: true,
-			FieldName:        "Network",
-		})
-	}
-	if !reflect.DeepEqual(desired.Purpose, actual.Purpose) {
-		c.Config.Logger.Infof("Detected diff in Purpose.\nDESIRED: %v\nACTUAL: %v", desired.Purpose, actual.Purpose)
-		diffs = append(diffs, subnetworkDiff{
-			RequiresRecreate: true,
-			FieldName:        "Purpose",
-		})
-	}
-	if !reflect.DeepEqual(desired.Role, actual.Role) {
-		c.Config.Logger.Infof("Detected diff in Role.\nDESIRED: %v\nACTUAL: %v", desired.Role, actual.Role)
 
-		diffs = append(diffs, subnetworkDiff{
-			UpdateOp:  &updateSubnetworkUpdateOperation{},
-			FieldName: "Role",
-		})
-
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
+	if ds, err := dcl.Diff(desired.EnableFlowLogs, actual.EnableFlowLogs, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enable_flow_logs"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
+	}
+
 	if compareSubnetworkSecondaryIPRangesSlice(c, desired.SecondaryIPRanges, actual.SecondaryIPRanges) {
 		c.Config.Logger.Infof("Detected diff in SecondaryIPRanges.\nDESIRED: %v\nACTUAL: %v", desired.SecondaryIPRanges, actual.SecondaryIPRanges)
 
 		diffs = append(diffs, subnetworkDiff{
 			UpdateOp:  &updateSubnetworkUpdateOperation{},
 			FieldName: "SecondaryIPRanges",
-		})
-
-	}
-	if !dcl.IsZeroValue(desired.PrivateIPGoogleAccess) && !dcl.BoolCanonicalize(desired.PrivateIPGoogleAccess, actual.PrivateIPGoogleAccess) {
-		c.Config.Logger.Infof("Detected diff in PrivateIPGoogleAccess.\nDESIRED: %v\nACTUAL: %v", desired.PrivateIPGoogleAccess, actual.PrivateIPGoogleAccess)
-
-		diffs = append(diffs, subnetworkDiff{
-			UpdateOp:  &updateSubnetworkSetPrivateIpGoogleAccessOperation{},
-			FieldName: "PrivateIPGoogleAccess",
 		})
 
 	}
@@ -1096,13 +1071,6 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 			FieldName: "LogConfig",
 		})
 
-	}
-	if !dcl.IsZeroValue(desired.EnableFlowLogs) && !dcl.BoolCanonicalize(desired.EnableFlowLogs, actual.EnableFlowLogs) {
-		c.Config.Logger.Infof("Detected diff in EnableFlowLogs.\nDESIRED: %v\nACTUAL: %v", desired.EnableFlowLogs, actual.EnableFlowLogs)
-		diffs = append(diffs, subnetworkDiff{
-			RequiresRecreate: true,
-			FieldName:        "EnableFlowLogs",
-		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -1135,20 +1103,12 @@ func compareSubnetworkSecondaryIPRanges(c *Client, desired, actual *SubnetworkSe
 	if actual == nil {
 		return true
 	}
-	if actual.RangeName == nil && desired.RangeName != nil && !dcl.IsEmptyValueIndirect(desired.RangeName) {
-		c.Config.Logger.Infof("desired RangeName %s - but actually nil", dcl.SprintResource(desired.RangeName))
-		return true
-	}
 	if !dcl.StringCanonicalize(desired.RangeName, actual.RangeName) && !dcl.IsZeroValue(desired.RangeName) {
-		c.Config.Logger.Infof("Diff in RangeName. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RangeName), dcl.SprintResource(actual.RangeName))
-		return true
-	}
-	if actual.IPCidrRange == nil && desired.IPCidrRange != nil && !dcl.IsEmptyValueIndirect(desired.IPCidrRange) {
-		c.Config.Logger.Infof("desired IPCidrRange %s - but actually nil", dcl.SprintResource(desired.IPCidrRange))
+		c.Config.Logger.Infof("Diff in RangeName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RangeName), dcl.SprintResource(actual.RangeName))
 		return true
 	}
 	if !dcl.StringCanonicalize(desired.IPCidrRange, actual.IPCidrRange) && !dcl.IsZeroValue(desired.IPCidrRange) {
-		c.Config.Logger.Infof("Diff in IPCidrRange. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPCidrRange), dcl.SprintResource(actual.IPCidrRange))
+		c.Config.Logger.Infof("Diff in IPCidrRange.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPCidrRange), dcl.SprintResource(actual.IPCidrRange))
 		return true
 	}
 	return false
@@ -1161,7 +1121,7 @@ func compareSubnetworkSecondaryIPRangesSlice(c *Client, desired, actual []Subnet
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSubnetworkSecondaryIPRanges(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubnetworkSecondaryIPRanges, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SubnetworkSecondaryIPRanges, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1180,7 +1140,7 @@ func compareSubnetworkSecondaryIPRangesMap(c *Client, desired, actual map[string
 			return true
 		}
 		if compareSubnetworkSecondaryIPRanges(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SubnetworkSecondaryIPRanges, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in SubnetworkSecondaryIPRanges, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1194,28 +1154,16 @@ func compareSubnetworkLogConfig(c *Client, desired, actual *SubnetworkLogConfig)
 	if actual == nil {
 		return true
 	}
-	if actual.AggregationInterval == nil && desired.AggregationInterval != nil && !dcl.IsEmptyValueIndirect(desired.AggregationInterval) {
-		c.Config.Logger.Infof("desired AggregationInterval %s - but actually nil", dcl.SprintResource(desired.AggregationInterval))
-		return true
-	}
 	if !reflect.DeepEqual(desired.AggregationInterval, actual.AggregationInterval) && !dcl.IsZeroValue(desired.AggregationInterval) {
-		c.Config.Logger.Infof("Diff in AggregationInterval. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AggregationInterval), dcl.SprintResource(actual.AggregationInterval))
-		return true
-	}
-	if actual.FlowSampling == nil && desired.FlowSampling != nil && !dcl.IsEmptyValueIndirect(desired.FlowSampling) {
-		c.Config.Logger.Infof("desired FlowSampling %s - but actually nil", dcl.SprintResource(desired.FlowSampling))
+		c.Config.Logger.Infof("Diff in AggregationInterval.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AggregationInterval), dcl.SprintResource(actual.AggregationInterval))
 		return true
 	}
 	if !reflect.DeepEqual(desired.FlowSampling, actual.FlowSampling) && !dcl.IsZeroValue(desired.FlowSampling) {
-		c.Config.Logger.Infof("Diff in FlowSampling. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FlowSampling), dcl.SprintResource(actual.FlowSampling))
-		return true
-	}
-	if actual.Metadata == nil && desired.Metadata != nil && !dcl.IsEmptyValueIndirect(desired.Metadata) {
-		c.Config.Logger.Infof("desired Metadata %s - but actually nil", dcl.SprintResource(desired.Metadata))
+		c.Config.Logger.Infof("Diff in FlowSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FlowSampling), dcl.SprintResource(actual.FlowSampling))
 		return true
 	}
 	if !reflect.DeepEqual(desired.Metadata, actual.Metadata) && !dcl.IsZeroValue(desired.Metadata) {
-		c.Config.Logger.Infof("Diff in Metadata. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Metadata), dcl.SprintResource(actual.Metadata))
+		c.Config.Logger.Infof("Diff in Metadata.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Metadata), dcl.SprintResource(actual.Metadata))
 		return true
 	}
 	return false
@@ -1228,7 +1176,7 @@ func compareSubnetworkLogConfigSlice(c *Client, desired, actual []SubnetworkLogC
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSubnetworkLogConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubnetworkLogConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SubnetworkLogConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1247,7 +1195,7 @@ func compareSubnetworkLogConfigMap(c *Client, desired, actual map[string]Subnetw
 			return true
 		}
 		if compareSubnetworkLogConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SubnetworkLogConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in SubnetworkLogConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -1261,7 +1209,7 @@ func compareSubnetworkPurposeEnumSlice(c *Client, desired, actual []SubnetworkPu
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSubnetworkPurposeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubnetworkPurposeEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SubnetworkPurposeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1279,7 +1227,7 @@ func compareSubnetworkRoleEnumSlice(c *Client, desired, actual []SubnetworkRoleE
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSubnetworkRoleEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubnetworkRoleEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SubnetworkRoleEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1297,7 +1245,7 @@ func compareSubnetworkLogConfigAggregationIntervalEnumSlice(c *Client, desired, 
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSubnetworkLogConfigAggregationIntervalEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubnetworkLogConfigAggregationIntervalEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SubnetworkLogConfigAggregationIntervalEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1315,7 +1263,7 @@ func compareSubnetworkLogConfigMetadataEnumSlice(c *Client, desired, actual []Su
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSubnetworkLogConfigMetadataEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubnetworkLogConfigMetadataEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SubnetworkLogConfigMetadataEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -1330,7 +1278,7 @@ func compareSubnetworkLogConfigMetadataEnum(c *Client, desired, actual *Subnetwo
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Subnetwork) urlNormalized() *Subnetwork {
-	normalized := deepcopy.Copy(*r).(Subnetwork)
+	normalized := dcl.Copy(*r).(Subnetwork)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.GatewayAddress = dcl.SelfLinkToName(r.GatewayAddress)
 	normalized.IPCidrRange = dcl.SelfLinkToName(r.IPCidrRange)
@@ -1448,7 +1396,7 @@ func expandSubnetwork(c *Client, f *Subnetwork) (map[string]interface{}, error) 
 	}
 	if v, err := expandSubnetworkSecondaryIPRangesSlice(c, f.SecondaryIPRanges); err != nil {
 		return nil, fmt.Errorf("error expanding SecondaryIPRanges into secondaryIpRanges: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["secondaryIpRanges"] = v
 	}
 	if v := f.PrivateIPGoogleAccess; !dcl.IsEmptyValueIndirect(v) {
@@ -1456,17 +1404,17 @@ func expandSubnetwork(c *Client, f *Subnetwork) (map[string]interface{}, error) 
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Region into region: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["region"] = v
 	}
 	if v, err := expandSubnetworkLogConfig(c, f.LogConfig); err != nil {
 		return nil, fmt.Errorf("error expanding LogConfig into logConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["logConfig"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
@@ -1595,11 +1543,10 @@ func flattenSubnetworkSecondaryIPRangesSlice(c *Client, i interface{}) []Subnetw
 // expandSubnetworkSecondaryIPRanges expands an instance of SubnetworkSecondaryIPRanges into a JSON
 // request object.
 func expandSubnetworkSecondaryIPRanges(c *Client, f *SubnetworkSecondaryIPRanges) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.RangeName; !dcl.IsEmptyValueIndirect(v) {
 		m["rangeName"] = v
 	}
@@ -1709,11 +1656,10 @@ func flattenSubnetworkLogConfigSlice(c *Client, i interface{}) []SubnetworkLogCo
 // expandSubnetworkLogConfig expands an instance of SubnetworkLogConfig into a JSON
 // request object.
 func expandSubnetworkLogConfig(c *Client, f *SubnetworkLogConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.AggregationInterval; !dcl.IsEmptyValueIndirect(v) {
 		m["aggregationInterval"] = v
 	}

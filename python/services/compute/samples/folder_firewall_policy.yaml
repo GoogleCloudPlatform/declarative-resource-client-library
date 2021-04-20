@@ -23,8 +23,8 @@ name: folder_firewall_policy
 resource: samples/folder.firewall_policy_rule.json
 updates:
 - dependencies:
-  - samples/update.firewall_policy.json
-  resource: samples/update.firewall_policy_rule.json
+  - samples/update_folder.firewall_policy.json
+  resource: samples/update_folder.firewall_policy_rule.json
 versions:
 - ga
 - v1

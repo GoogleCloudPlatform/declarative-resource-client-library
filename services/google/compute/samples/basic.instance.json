@@ -1,7 +1,7 @@
 {
   "name": "{{instance}}",
   "project": "{{project}}",
-  "machineType": "zones/us-west1-a/machineTypes/e2-medium",
+  "machineType": "zones/{{zone}}/machineTypes/e2-medium",
   "disks": [
     {
       "boot": true,
@@ -15,5 +15,5 @@
       "subnetwork": "{{ref:basic.subnetwork.json:selfLink}}"
     }
   ],
-  "zone": "us-west1-a"
+  "zone": "{{zone}}"
 }

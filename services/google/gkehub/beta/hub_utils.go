@@ -17,8 +17,12 @@ package beta
 import (
 	"bytes"
 	"context"
+	"encoding/json"
+	"errors"
+	"io/ioutil"
 	"strings"
 
+	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -95,6 +99,10 @@ func (op *updateFeatureUpdateFeatureOperation) do(ctx context.Context, r *Featur
 		return err
 	}
 	u = strings.Replace(u, "v1beta1", "v1beta", 1)
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": "labels,spec"})
+	if err != nil {
+		return err
+	}
 
 	req, err := newUpdateFeatureUpdateFeatureRequest(ctx, r, c)
 	if err != nil {
@@ -122,4 +130,230 @@ func (op *updateFeatureUpdateFeatureOperation) do(ctx context.Context, r *Featur
 	}
 
 	return nil
+}
+
+// getMembershipSpecs returns a map of membership specs taken from the get response of the feature membership's feature object.
+func getMembershipSpecs(ctx context.Context, r *FeatureMembership, c *Client) (map[string]interface{}, error) {
+	u, err := featureMembershipGetURL(c.Config.BasePath, r)
+	if err != nil {
+		return nil, err
+	}
+	u = strings.Replace(u, "v1beta1", "v1beta", 1)
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	b, err := ioutil.ReadAll(resp.Response.Body)
+	if err != nil {
+		return nil, err
+	}
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+	membershipSpecs, ok := m["membershipSpecs"].(map[string]interface{})
+	if !ok {
+		return map[string]interface{}{}, nil
+	}
+	return membershipSpecs, nil
+}
+
+// Return the full key for a given FeatureMembership's entry in the membershipSpecs field.
+func membershipSpecKey(r *FeatureMembership) string {
+	params := map[string]interface{}{
+		"project_number": *r.ProjectNumber,
+		"location":       *r.Location,
+		"membership":     *r.Membership,
+	}
+
+	return dcl.Nprintf("projects/{{project_number}}/locations/{{location}}/memberships/{{membership}}", params)
+}
+
+// Find and return the key and value in membershipSpecs matching the given membership.
+func findMembershipSpec(membership string, membershipSpecs map[string]interface{}) (string, map[string]interface{}, error) {
+	for key, value := range membershipSpecs {
+		if strings.HasSuffix(key, membership) {
+			spec, ok := value.(map[string]interface{})
+			if !ok {
+				return "", nil, errors.New("membership spec was not of map type")
+			}
+			return key, spec, nil
+		}
+	}
+	return "", nil, &googleapi.Error{
+		Code:    404,
+		Message: "feature membership not found in feature membership specs",
+	}
+}
+
+func sendFeatureUpdate(ctx context.Context, req map[string]interface{}, c *Client, u string) error {
+	c.Config.Logger.Infof("Created update: %#v", req)
+	body, err := marshalUpdateFeatureUpdateFeatureRequest(c, req)
+	if err != nil {
+		return err
+	}
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": "membershipSpecs"})
+	if err != nil {
+		return err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	err = o.Wait(ctx, c.Config, "https://gkehub.googleapis.com/v1beta/", "GET")
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (op *createFeatureMembershipOperation) do(ctx context.Context, r *FeatureMembership, c *Client) error {
+	u, err := featureMembershipCreateURL(c.Config.BasePath, *r.Project, *r.Location, *r.Feature)
+	if err != nil {
+		return err
+	}
+	u = strings.Replace(u, "v1beta1", "v1beta", 1)
+
+	membershipSpecs, err := getMembershipSpecs(ctx, r, c)
+	if err != nil {
+		return err
+	}
+	m, err := expandFeatureMembership(c, r)
+	if err != nil {
+		return err
+	}
+	if err := dcl.PutMapEntry(membershipSpecs, []string{membershipSpecKey(r)}, m); err != nil {
+		return err
+	}
+	req := map[string]interface{}{
+		"membershipSpecs": membershipSpecs,
+	}
+	return sendFeatureUpdate(ctx, req, c, u)
+}
+
+// GetFeatureMembership returns a feature membership object retrieved from the membershipSpecs field of a feature.
+func (c *Client) GetFeatureMembership(ctx context.Context, r *FeatureMembership) (*FeatureMembership, error) {
+	membershipSpecs, err := getMembershipSpecs(ctx, r, c)
+	if err != nil {
+		return nil, err
+	}
+	_, spec, err := findMembershipSpec(*r.Membership, membershipSpecs)
+	if err != nil {
+		return nil, err
+	}
+	result, err := unmarshalMapFeatureMembership(spec, c)
+	if err != nil {
+		return nil, err
+	}
+	result.Project = r.Project
+	result.Location = r.Location
+	result.Feature = r.Feature
+	result.Membership = r.Membership
+
+	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
+	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
+	result, err = canonicalizeFeatureMembershipNewState(c, result, r)
+	if err != nil {
+		return nil, err
+	}
+	c.Config.Logger.Infof("Created result state: %v", result)
+
+	return result, nil
+}
+
+// HasNext always returns false because a feature membership list never has a next page.
+func (l *FeatureMembershipList) HasNext() bool {
+	return false
+}
+
+// Next returns nil because it will never be called.
+func (l *FeatureMembershipList) Next(_ context.Context, _ *Client) error {
+	return nil
+}
+
+// ListFeatureMembership returns a list of feature memberships retrieved from the membershipSpecs field of a feature.
+func (c *Client) ListFeatureMembership(ctx context.Context, project, location, feature string) (*FeatureMembershipList, error) {
+	membershipSpecs, err := getMembershipSpecs(ctx, &FeatureMembership{
+		Project:  dcl.String(project),
+		Location: dcl.String(location),
+		Feature:  dcl.String(feature),
+	}, c)
+	if err != nil {
+		return nil, err
+	}
+	var list *FeatureMembershipList
+	for key, spec := range membershipSpecs {
+		m, ok := spec.(map[string]interface{})
+		if !ok {
+			return nil, errors.New("membership spec was not of map type")
+		}
+		r, err := unmarshalMapFeatureMembership(m, c)
+		if err != nil {
+			return nil, err
+		}
+		r.Project = &project
+		r.Location = &location
+		r.Feature = &feature
+		r.Membership = dcl.SelfLinkToName(&key)
+		list.Items = append(list.Items, r)
+	}
+	return list, nil
+}
+
+func (op *updateFeatureMembershipUpdateFeatureMembershipOperation) do(ctx context.Context, r *FeatureMembership, c *Client) error {
+	u, err := r.updateURL(c.Config.BasePath, "UpdateFeatureMembership")
+	if err != nil {
+		return err
+	}
+	u = strings.Replace(u, "v1beta1", "v1beta", 1)
+
+	membershipSpecs, err := getMembershipSpecs(ctx, r, c)
+	if err != nil {
+		return err
+	}
+	key, _, err := findMembershipSpec(*r.Membership, membershipSpecs)
+	if err != nil {
+		return err
+	}
+	m, err := expandFeatureMembership(c, r)
+	if err != nil {
+		return err
+	}
+	if err := dcl.PutMapEntry(membershipSpecs, []string{key}, m); err != nil {
+		return err
+	}
+	req := map[string]interface{}{
+		"membershipSpecs": membershipSpecs,
+	}
+	return sendFeatureUpdate(ctx, req, c, u)
+}
+
+func (op *deleteFeatureMembershipOperation) do(ctx context.Context, r *FeatureMembership, c *Client) error {
+	u, err := featureMembershipDeleteURL(c.Config.BasePath, r)
+	if err != nil {
+		return err
+	}
+	u = strings.Replace(u, "v1beta1", "v1beta", 1)
+
+	membershipSpecs, err := getMembershipSpecs(ctx, r, c)
+	if err != nil {
+		return err
+	}
+	key, _, err := findMembershipSpec(*r.Membership, membershipSpecs)
+	if err != nil {
+		return err
+	}
+	delete(membershipSpecs, key)
+	req := map[string]interface{}{
+		"membershipSpecs": membershipSpecs,
+	}
+	return sendFeatureUpdate(ctx, req, c, u)
 }

@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -312,10 +311,11 @@ func (op *createSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 		return fmt.Errorf("error decoding response body into JSON: %w", err)
 	}
 	op.response = o
+
 	// Poll for the Subscription resource to be created. Subscription resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
 	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
-		u, err := subscriptionGetURL(c.Config.BasePath, r)
+		u, err := subscriptionGetURL(c.Config.BasePath, r.urlNormalized())
 		if err != nil {
 			return nil, err
 		}
@@ -324,7 +324,7 @@ func (op *createSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 			// If the error is a transient server error (e.g., 500) or not found (i.e., the resource has not yet been created),
 			// continue retrying until the transient error is resolved, the resource is created, or we time out.
 			if dcl.IsRetryableRequestError(c.Config, err, true) {
-				return nil, dcl.OperationNotDone{Err: err}
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
 			}
 			return nil, err
 		}
@@ -552,6 +552,7 @@ type subscriptionDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         subscriptionApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -570,34 +571,34 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 
 	var diffs []subscriptionDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Name, actual.Name, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, FieldName: "Name"})
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Topic, actual.Topic, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Topic, actual.Topic, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "topic"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, FieldName: "Topic"})
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !dcl.IsZeroValue(desired.Name) && !dcl.PartialSelfLinkToSelfLink(desired.Name, actual.Name) {
-		c.Config.Logger.Infof("Detected diff in Name.\nDESIRED: %v\nACTUAL: %v", desired.Name, actual.Name)
-		diffs = append(diffs, subscriptionDiff{
-			RequiresRecreate: true,
-			FieldName:        "Name",
-		})
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Topic) && !dcl.PartialSelfLinkToSelfLink(desired.Topic, actual.Topic) {
-		c.Config.Logger.Infof("Detected diff in Topic.\nDESIRED: %v\nACTUAL: %v", desired.Topic, actual.Topic)
-		diffs = append(diffs, subscriptionDiff{
-			RequiresRecreate: true,
-			FieldName:        "Topic",
-		})
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds})
 	}
+
 	if compareSubscriptionDeliveryConfig(c, desired.DeliveryConfig, actual.DeliveryConfig) {
 		c.Config.Logger.Infof("Detected diff in DeliveryConfig.\nDESIRED: %v\nACTUAL: %v", desired.DeliveryConfig, actual.DeliveryConfig)
 
@@ -638,12 +639,8 @@ func compareSubscriptionDeliveryConfig(c *Client, desired, actual *SubscriptionD
 	if actual == nil {
 		return true
 	}
-	if actual.DeliveryRequirement == nil && desired.DeliveryRequirement != nil && !dcl.IsEmptyValueIndirect(desired.DeliveryRequirement) {
-		c.Config.Logger.Infof("desired DeliveryRequirement %s - but actually nil", dcl.SprintResource(desired.DeliveryRequirement))
-		return true
-	}
 	if !reflect.DeepEqual(desired.DeliveryRequirement, actual.DeliveryRequirement) && !dcl.IsZeroValue(desired.DeliveryRequirement) {
-		c.Config.Logger.Infof("Diff in DeliveryRequirement. \nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeliveryRequirement), dcl.SprintResource(actual.DeliveryRequirement))
+		c.Config.Logger.Infof("Diff in DeliveryRequirement.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeliveryRequirement), dcl.SprintResource(actual.DeliveryRequirement))
 		return true
 	}
 	return false
@@ -656,7 +653,7 @@ func compareSubscriptionDeliveryConfigSlice(c *Client, desired, actual []Subscri
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSubscriptionDeliveryConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubscriptionDeliveryConfig, element %d. \nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SubscriptionDeliveryConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -675,7 +672,7 @@ func compareSubscriptionDeliveryConfigMap(c *Client, desired, actual map[string]
 			return true
 		}
 		if compareSubscriptionDeliveryConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SubscriptionDeliveryConfig, key %s. \nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			c.Config.Logger.Infof("Diff in SubscriptionDeliveryConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
 			return true
 		}
 	}
@@ -689,7 +686,7 @@ func compareSubscriptionDeliveryConfigDeliveryRequirementEnumSlice(c *Client, de
 	}
 	for i := 0; i < len(desired); i++ {
 		if compareSubscriptionDeliveryConfigDeliveryRequirementEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SubscriptionDeliveryConfigDeliveryRequirementEnum, element %d. \nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			c.Config.Logger.Infof("Diff in SubscriptionDeliveryConfigDeliveryRequirementEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
 			return true
 		}
 	}
@@ -704,7 +701,7 @@ func compareSubscriptionDeliveryConfigDeliveryRequirementEnum(c *Client, desired
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Subscription) urlNormalized() *Subscription {
-	normalized := deepcopy.Copy(*r).(Subscription)
+	normalized := dcl.Copy(*r).(Subscription)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Topic = dcl.SelfLinkToName(r.Topic)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
@@ -772,27 +769,27 @@ func expandSubscription(c *Client, f *Subscription) (map[string]interface{}, err
 	m := make(map[string]interface{})
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/subscriptions/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["name"] = v
 	}
 	if v, err := dcl.DeriveField("projects/%s/locations/%s/topics/%s", f.Topic, f.Project, f.Location, f.Topic); err != nil {
 		return nil, fmt.Errorf("error expanding Topic into topic: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["topic"] = v
 	}
 	if v, err := expandSubscriptionDeliveryConfig(c, f.DeliveryConfig); err != nil {
 		return nil, fmt.Errorf("error expanding DeliveryConfig into deliveryConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["deliveryConfig"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 
@@ -904,11 +901,10 @@ func flattenSubscriptionDeliveryConfigSlice(c *Client, i interface{}) []Subscrip
 // expandSubscriptionDeliveryConfig expands an instance of SubscriptionDeliveryConfig into a JSON
 // request object.
 func expandSubscriptionDeliveryConfig(c *Client, f *SubscriptionDeliveryConfig) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
-
-	m := make(map[string]interface{})
 	if v := f.DeliveryRequirement; !dcl.IsEmptyValueIndirect(v) {
 		m["deliveryRequirement"] = v
 	}

@@ -18,7 +18,6 @@ import (
 	"crypto/sha256"
 	"fmt"
 
-	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
@@ -1256,45 +1255,6 @@ func (c *Client) ListServiceWithMaxResults(ctx context.Context, project, locatio
 
 		location: location,
 	}, nil
-}
-
-func (c *Client) GetService(ctx context.Context, r *Service) (*Service, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
-	b, err := c.getServiceRaw(ctx, r)
-	if err != nil {
-		if dcl.IsNotFound(err) {
-			return nil, &googleapi.Error{
-				Code:    404,
-				Message: err.Error(),
-			}
-		}
-		return nil, err
-	}
-	result, err := unmarshalService(b, c)
-	if err != nil {
-		return nil, err
-	}
-	result.Project = r.Project
-	result.Location = r.Location
-	result.Name = r.Name
-	if dcl.IsZeroValue(result.ApiVersion) {
-		result.ApiVersion = dcl.String("serving.knative.dev/v1")
-	}
-	if dcl.IsZeroValue(result.Kind) {
-		result.Kind = dcl.String("Service")
-	}
-
-	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
-	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)
-	result, err = canonicalizeServiceNewState(c, result, r)
-	if err != nil {
-		return nil, err
-	}
-	c.Config.Logger.Infof("Created result state: %v", result)
-
-	return result, nil
 }
 
 func (c *Client) DeleteService(ctx context.Context, r *Service) error {

@@ -1,0 +1,6 @@
+{
+  "name": "{{name}}",
+  "project": "{{project}}",
+  "location": "{{region}}",
+  "labels": {}
+}

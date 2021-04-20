@@ -19,10 +19,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
-	"github.com/mohae/deepcopy"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
@@ -400,6 +398,7 @@ type networkEndpointDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         networkEndpointApiOperation
+	Diffs            []*dcl.FieldDiff
 	// This is for reporting only.
 	FieldName string
 }
@@ -418,76 +417,62 @@ func diffNetworkEndpoint(c *Client, desired, actual *NetworkEndpoint, opts ...dc
 
 	var diffs []networkEndpointDiff
 	// New style diffs.
-	if d, err := dcl.Diff(desired.Port, actual.Port, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "port"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, FieldName: "Port"})
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.IPAddress, actual.IPAddress, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ip_address"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, FieldName: "IPAddress"})
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Fqdn, actual.Fqdn, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Fqdn, actual.Fqdn, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "fqdn"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, FieldName: "Fqdn"})
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Instance, actual.Instance, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType"}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "instance"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, FieldName: "Instance"})
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if d, err := dcl.Diff(desired.Annotations, actual.Annotations, &dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: ""}); d || err != nil {
+	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "annotations"}); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, FieldName: "Annotations"})
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
 	}
 
-	if !reflect.DeepEqual(desired.Port, actual.Port) {
-		c.Config.Logger.Infof("Detected diff in Port.\nDESIRED: %v\nACTUAL: %v", desired.Port, actual.Port)
-		diffs = append(diffs, networkEndpointDiff{
-			RequiresRecreate: true,
-			FieldName:        "Port",
-		})
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.IPAddress) && !dcl.StringCanonicalize(desired.IPAddress, actual.IPAddress) {
-		c.Config.Logger.Infof("Detected diff in IPAddress.\nDESIRED: %v\nACTUAL: %v", desired.IPAddress, actual.IPAddress)
-		diffs = append(diffs, networkEndpointDiff{
-			RequiresRecreate: true,
-			FieldName:        "IPAddress",
-		})
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Fqdn) && !dcl.StringCanonicalize(desired.Fqdn, actual.Fqdn) {
-		c.Config.Logger.Infof("Detected diff in Fqdn.\nDESIRED: %v\nACTUAL: %v", desired.Fqdn, actual.Fqdn)
-		diffs = append(diffs, networkEndpointDiff{
-			RequiresRecreate: true,
-			FieldName:        "Fqdn",
-		})
+
+	if ds, err := dcl.Diff(desired.Group, actual.Group, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "group"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
 	}
-	if !dcl.IsZeroValue(desired.Instance) && !dcl.NameToSelfLink(desired.Instance, actual.Instance) {
-		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %v\nACTUAL: %v", desired.Instance, actual.Instance)
-		diffs = append(diffs, networkEndpointDiff{
-			RequiresRecreate: true,
-			FieldName:        "Instance",
-		})
-	}
-	if !dcl.MapEquals(desired.Annotations, actual.Annotations, []string(nil)) {
-		c.Config.Logger.Infof("Detected diff in Annotations.\nDESIRED: %v\nACTUAL: %v", desired.Annotations, actual.Annotations)
-		diffs = append(diffs, networkEndpointDiff{
-			RequiresRecreate: true,
-			FieldName:        "Annotations",
-		})
-	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -517,7 +502,7 @@ func diffNetworkEndpoint(c *Client, desired, actual *NetworkEndpoint, opts ...dc
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *NetworkEndpoint) urlNormalized() *NetworkEndpoint {
-	normalized := deepcopy.Copy(*r).(NetworkEndpoint)
+	normalized := dcl.Copy(*r).(NetworkEndpoint)
 	normalized.IPAddress = dcl.SelfLinkToName(r.IPAddress)
 	normalized.Fqdn = dcl.SelfLinkToName(r.Fqdn)
 	normalized.Instance = dcl.SelfLinkToName(r.Instance)
@@ -593,17 +578,17 @@ func expandNetworkEndpoint(c *Client, f *NetworkEndpoint) (map[string]interface{
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["project"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["location"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Group into group: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["group"] = v
 	}
 

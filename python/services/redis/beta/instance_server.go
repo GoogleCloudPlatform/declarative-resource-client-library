@@ -149,9 +149,10 @@ func ProtoToRedisBetaInstanceMaintenanceSchedule(p *betapb.RedisBetaInstanceMain
 		return nil
 	}
 	obj := &beta.InstanceMaintenanceSchedule{
-		StartTime:     dcl.StringOrNil(p.GetStartTime()),
-		EndTime:       dcl.StringOrNil(p.GetEndTime()),
-		CanReschedule: dcl.Bool(p.CanReschedule),
+		StartTime:            dcl.StringOrNil(p.GetStartTime()),
+		EndTime:              dcl.StringOrNil(p.GetEndTime()),
+		CanReschedule:        dcl.Bool(p.CanReschedule),
+		ScheduleDeadlineTime: dcl.StringOrNil(p.GetScheduleDeadlineTime()),
 	}
 	return obj
 }
@@ -182,7 +183,6 @@ func ProtoToInstance(p *betapb.RedisBetaInstance) *beta.Instance {
 		MaintenanceSchedule:    ProtoToRedisBetaInstanceMaintenanceSchedule(p.GetMaintenanceSchedule()),
 		Project:                dcl.StringOrNil(p.Project),
 		Location:               dcl.StringOrNil(p.Location),
-		Region:                 dcl.StringOrNil(p.Region),
 	}
 	for _, r := range p.GetServerCaCerts() {
 		obj.ServerCaCerts = append(obj.ServerCaCerts, *ProtoToRedisBetaInstanceServerCaCerts(r))
@@ -309,9 +309,10 @@ func RedisBetaInstanceMaintenanceScheduleToProto(o *beta.InstanceMaintenanceSche
 		return nil
 	}
 	p := &betapb.RedisBetaInstanceMaintenanceSchedule{
-		StartTime:     dcl.ValueOrEmptyString(o.StartTime),
-		EndTime:       dcl.ValueOrEmptyString(o.EndTime),
-		CanReschedule: dcl.ValueOrEmptyBool(o.CanReschedule),
+		StartTime:            dcl.ValueOrEmptyString(o.StartTime),
+		EndTime:              dcl.ValueOrEmptyString(o.EndTime),
+		CanReschedule:        dcl.ValueOrEmptyBool(o.CanReschedule),
+		ScheduleDeadlineTime: dcl.ValueOrEmptyString(o.ScheduleDeadlineTime),
 	}
 	return p
 }
@@ -342,7 +343,6 @@ func InstanceToProto(resource *beta.Instance) *betapb.RedisBetaInstance {
 		MaintenanceSchedule:    RedisBetaInstanceMaintenanceScheduleToProto(resource.MaintenanceSchedule),
 		Project:                dcl.ValueOrEmptyString(resource.Project),
 		Location:               dcl.ValueOrEmptyString(resource.Location),
-		Region:                 dcl.ValueOrEmptyString(resource.Region),
 	}
 	for _, r := range resource.ServerCaCerts {
 		p.ServerCaCerts = append(p.ServerCaCerts, RedisBetaInstanceServerCaCertsToProto(&r))
