@@ -162,9 +162,9 @@ func getMembershipSpecs(ctx context.Context, r *FeatureMembership, c *Client) (m
 // Return the full key for a given FeatureMembership's entry in the membershipSpecs field.
 func membershipSpecKey(r *FeatureMembership) string {
 	params := map[string]interface{}{
-		"project_number": *r.ProjectNumber,
-		"location":       *r.Location,
-		"membership":     *r.Membership,
+		"project_number": dcl.ValueOrEmptyString(r.ProjectNumber),
+		"location":       dcl.ValueOrEmptyString(r.Location),
+		"membership":     dcl.ValueOrEmptyString(r.Membership),
 	}
 
 	return dcl.Nprintf("projects/{{project_number}}/locations/{{location}}/memberships/{{membership}}", params)
@@ -245,7 +245,7 @@ func (c *Client) GetFeatureMembership(ctx context.Context, r *FeatureMembership)
 	if err != nil {
 		return nil, err
 	}
-	_, spec, err := findMembershipSpec(*r.Membership, membershipSpecs)
+	_, spec, err := findMembershipSpec(dcl.ValueOrEmptyString(r.Membership), membershipSpecs)
 	if err != nil {
 		return nil, err
 	}
@@ -319,7 +319,7 @@ func (op *updateFeatureMembershipUpdateFeatureMembershipOperation) do(ctx contex
 	if err != nil {
 		return err
 	}
-	key, _, err := findMembershipSpec(*r.Membership, membershipSpecs)
+	key, _, err := findMembershipSpec(dcl.ValueOrEmptyString(r.Membership), membershipSpecs)
 	if err != nil {
 		return err
 	}
@@ -347,7 +347,7 @@ func (op *deleteFeatureMembershipOperation) do(ctx context.Context, r *FeatureMe
 	if err != nil {
 		return err
 	}
-	key, _, err := findMembershipSpec(*r.Membership, membershipSpecs)
+	key, _, err := findMembershipSpec(dcl.ValueOrEmptyString(r.Membership), membershipSpecs)
 	if err != nil {
 		return err
 	}
