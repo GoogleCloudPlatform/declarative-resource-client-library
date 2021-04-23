@@ -901,78 +901,95 @@ func diffAuthorizationPolicy(c *Client, desired, actual *AuthorizationPolicy, op
 	}
 
 	var diffs []authorizationPolicyDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, authorizationPolicyDiff{
 			UpdateOp: &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{}, Diffs: ds,
+			FieldName: "Description",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpdateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, authorizationPolicyDiff{
 			UpdateOp: &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{}, Diffs: ds,
+			FieldName: "Labels",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "action"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, authorizationPolicyDiff{
 			UpdateOp: &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{}, Diffs: ds,
+			FieldName: "Action",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Rules, actual.Rules, dcl.Info{ObjectFunction: compareAuthorizationPolicyRulesNewStyle}, fn.AddNest("Rules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareAuthorizationPolicyRulesSlice(c, desired.Rules, actual.Rules) {
-		c.Config.Logger.Infof("Detected diff in Rules.\nDESIRED: %v\nACTUAL: %v", desired.Rules, actual.Rules)
-
 		diffs = append(diffs, authorizationPolicyDiff{
-			UpdateOp:  &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{},
+			UpdateOp: &updateAuthorizationPolicyUpdateAuthorizationPolicyOperation{}, Diffs: ds,
 			FieldName: "Rules",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, authorizationPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -997,6 +1014,42 @@ func diffAuthorizationPolicy(c *Client, desired, actual *AuthorizationPolicy, op
 
 	return deduped, nil
 }
+func compareAuthorizationPolicyRulesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AuthorizationPolicyRules)
+	if !ok {
+		desiredNotPointer, ok := d.(AuthorizationPolicyRules)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AuthorizationPolicyRules or *AuthorizationPolicyRules", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AuthorizationPolicyRules)
+	if !ok {
+		actualNotPointer, ok := a.(AuthorizationPolicyRules)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AuthorizationPolicyRules", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Sources, actual.Sources, dcl.Info{ObjectFunction: compareAuthorizationPolicyRulesSourcesNewStyle}, fn.AddNest("Sources")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Destinations, actual.Destinations, dcl.Info{ObjectFunction: compareAuthorizationPolicyRulesDestinationsNewStyle}, fn.AddNest("Destinations")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAuthorizationPolicyRules(c *Client, desired, actual *AuthorizationPolicyRules) bool {
 	if desired == nil {
 		return false
@@ -1048,6 +1101,42 @@ func compareAuthorizationPolicyRulesMap(c *Client, desired, actual map[string]Au
 	return false
 }
 
+func compareAuthorizationPolicyRulesSourcesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AuthorizationPolicyRulesSources)
+	if !ok {
+		desiredNotPointer, ok := d.(AuthorizationPolicyRulesSources)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AuthorizationPolicyRulesSources or *AuthorizationPolicyRulesSources", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AuthorizationPolicyRulesSources)
+	if !ok {
+		actualNotPointer, ok := a.(AuthorizationPolicyRulesSources)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AuthorizationPolicyRulesSources", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Principals, actual.Principals, dcl.Info{}, fn.AddNest("Principals")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IPBlocks, actual.IPBlocks, dcl.Info{}, fn.AddNest("IPBlocks")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAuthorizationPolicyRulesSources(c *Client, desired, actual *AuthorizationPolicyRulesSources) bool {
 	if desired == nil {
 		return false
@@ -1097,6 +1186,63 @@ func compareAuthorizationPolicyRulesSourcesMap(c *Client, desired, actual map[st
 		}
 	}
 	return false
+}
+
+func compareAuthorizationPolicyRulesDestinationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AuthorizationPolicyRulesDestinations)
+	if !ok {
+		desiredNotPointer, ok := d.(AuthorizationPolicyRulesDestinations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AuthorizationPolicyRulesDestinations or *AuthorizationPolicyRulesDestinations", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AuthorizationPolicyRulesDestinations)
+	if !ok {
+		actualNotPointer, ok := a.(AuthorizationPolicyRulesDestinations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AuthorizationPolicyRulesDestinations", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Hosts, actual.Hosts, dcl.Info{}, fn.AddNest("Hosts")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Paths, actual.Paths, dcl.Info{}, fn.AddNest("Paths")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Methods, actual.Methods, dcl.Info{}, fn.AddNest("Methods")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HttpHeaderMatch, actual.HttpHeaderMatch, dcl.Info{ObjectFunction: compareAuthorizationPolicyRulesDestinationsHttpHeaderMatchNewStyle}, fn.AddNest("HttpHeaderMatch")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAuthorizationPolicyRulesDestinations(c *Client, desired, actual *AuthorizationPolicyRulesDestinations) bool {
@@ -1160,6 +1306,42 @@ func compareAuthorizationPolicyRulesDestinationsMap(c *Client, desired, actual m
 		}
 	}
 	return false
+}
+
+func compareAuthorizationPolicyRulesDestinationsHttpHeaderMatchNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AuthorizationPolicyRulesDestinationsHttpHeaderMatch)
+	if !ok {
+		desiredNotPointer, ok := d.(AuthorizationPolicyRulesDestinationsHttpHeaderMatch)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AuthorizationPolicyRulesDestinationsHttpHeaderMatch or *AuthorizationPolicyRulesDestinationsHttpHeaderMatch", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AuthorizationPolicyRulesDestinationsHttpHeaderMatch)
+	if !ok {
+		actualNotPointer, ok := a.(AuthorizationPolicyRulesDestinationsHttpHeaderMatch)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AuthorizationPolicyRulesDestinationsHttpHeaderMatch", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.HeaderName, actual.HeaderName, dcl.Info{}, fn.AddNest("HeaderName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RegexMatch, actual.RegexMatch, dcl.Info{}, fn.AddNest("RegexMatch")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Client, desired, actual *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) bool {

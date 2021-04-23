@@ -734,46 +734,57 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 	}
 
 	var diffs []topicDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PartitionConfig, actual.PartitionConfig, dcl.Info{ObjectFunction: compareTopicPartitionConfigNewStyle}, fn.AddNest("PartitionConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareTopicPartitionConfig(c, desired.PartitionConfig, actual.PartitionConfig) {
-		c.Config.Logger.Infof("Detected diff in PartitionConfig.\nDESIRED: %v\nACTUAL: %v", desired.PartitionConfig, actual.PartitionConfig)
-
 		diffs = append(diffs, topicDiff{
-			UpdateOp:  &updateTopicUpdateTopicOperation{},
+			UpdateOp: &updateTopicUpdateTopicOperation{}, Diffs: ds,
 			FieldName: "PartitionConfig",
 		})
-
 	}
-	if compareTopicRetentionConfig(c, desired.RetentionConfig, actual.RetentionConfig) {
-		c.Config.Logger.Infof("Detected diff in RetentionConfig.\nDESIRED: %v\nACTUAL: %v", desired.RetentionConfig, actual.RetentionConfig)
 
+	if ds, err := dcl.Diff(desired.RetentionConfig, actual.RetentionConfig, dcl.Info{ObjectFunction: compareTopicRetentionConfigNewStyle}, fn.AddNest("RetentionConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, topicDiff{
-			UpdateOp:  &updateTopicUpdateTopicOperation{},
+			UpdateOp: &updateTopicUpdateTopicOperation{}, Diffs: ds,
 			FieldName: "RetentionConfig",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -798,6 +809,42 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 
 	return deduped, nil
 }
+func compareTopicPartitionConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TopicPartitionConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(TopicPartitionConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TopicPartitionConfig or *TopicPartitionConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TopicPartitionConfig)
+	if !ok {
+		actualNotPointer, ok := a.(TopicPartitionConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TopicPartitionConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Capacity, actual.Capacity, dcl.Info{ObjectFunction: compareTopicPartitionConfigCapacityNewStyle}, fn.AddNest("Capacity")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareTopicPartitionConfig(c *Client, desired, actual *TopicPartitionConfig) bool {
 	if desired == nil {
 		return false
@@ -849,6 +896,42 @@ func compareTopicPartitionConfigMap(c *Client, desired, actual map[string]TopicP
 	return false
 }
 
+func compareTopicPartitionConfigCapacityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TopicPartitionConfigCapacity)
+	if !ok {
+		desiredNotPointer, ok := d.(TopicPartitionConfigCapacity)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TopicPartitionConfigCapacity or *TopicPartitionConfigCapacity", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TopicPartitionConfigCapacity)
+	if !ok {
+		actualNotPointer, ok := a.(TopicPartitionConfigCapacity)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TopicPartitionConfigCapacity", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PublishMibPerSec, actual.PublishMibPerSec, dcl.Info{}, fn.AddNest("PublishMibPerSec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SubscribeMibPerSec, actual.SubscribeMibPerSec, dcl.Info{}, fn.AddNest("SubscribeMibPerSec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareTopicPartitionConfigCapacity(c *Client, desired, actual *TopicPartitionConfigCapacity) bool {
 	if desired == nil {
 		return false
@@ -898,6 +981,42 @@ func compareTopicPartitionConfigCapacityMap(c *Client, desired, actual map[strin
 		}
 	}
 	return false
+}
+
+func compareTopicRetentionConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TopicRetentionConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(TopicRetentionConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TopicRetentionConfig or *TopicRetentionConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TopicRetentionConfig)
+	if !ok {
+		actualNotPointer, ok := a.(TopicRetentionConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TopicRetentionConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PerPartitionBytes, actual.PerPartitionBytes, dcl.Info{}, fn.AddNest("PerPartitionBytes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Period, actual.Period, dcl.Info{}, fn.AddNest("Period")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareTopicRetentionConfig(c *Client, desired, actual *TopicRetentionConfig) bool {

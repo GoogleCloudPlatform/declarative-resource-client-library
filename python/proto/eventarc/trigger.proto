@@ -41,12 +41,21 @@ message EventarcTriggerEventFilters {
 message EventarcTriggerDestination {
   EventarcTriggerDestinationCloudRun cloud_run = 1;
   string cloud_function = 2;
+  EventarcTriggerDestinationGke gke = 3;
 }
 
 message EventarcTriggerDestinationCloudRun {
   string service = 1;
   string path = 2;
   string region = 3;
+}
+
+message EventarcTriggerDestinationGke {
+  string cluster = 1;
+  string location = 2;
+  string namespace = 3;
+  string service = 4;
+  string path = 5;
 }
 
 message EventarcTriggerTransport {

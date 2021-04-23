@@ -1739,137 +1739,192 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 	}
 
 	var diffs []instanceGroupManagerDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.BaseInstanceName, actual.BaseInstanceName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "base_instance_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BaseInstanceName, actual.BaseInstanceName, dcl.Info{}, fn.AddNest("BaseInstanceName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "BaseInstanceName",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "creation_timestamp"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreationTimestamp",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DistributionPolicy, actual.DistributionPolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerDistributionPolicyNewStyle}, fn.AddNest("DistributionPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DistributionPolicy",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CurrentActions, actual.CurrentActions, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerCurrentActionsNewStyle}, fn.AddNest("CurrentActions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CurrentActions",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceGroup, actual.InstanceGroup, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "instance_group"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "instance_template"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Versions, actual.Versions, dcl.Info{ObjectFunction: compareInstanceGroupManagerVersionsNewStyle}, fn.AddNest("Versions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Versions",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.InstanceGroup, actual.InstanceGroup, dcl.Info{OutputOnly: true, Type: "ReferenceType"}, fn.AddNest("InstanceGroup")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "InstanceGroup",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{Type: "ReferenceType"}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceGroupManagerDiff{
 			UpdateOp: &updateInstanceGroupManagerSetInstanceTemplateOperation{}, Diffs: ds,
+			FieldName: "InstanceTemplate",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.TargetPools, actual.TargetPools, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "target_pools"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NamedPorts, actual.NamedPorts, dcl.Info{ObjectFunction: compareInstanceGroupManagerNamedPortsNewStyle}, fn.AddNest("NamedPorts")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NamedPorts",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Status",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.TargetPools, actual.TargetPools, dcl.Info{Type: "ReferenceType"}, fn.AddNest("TargetPools")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceGroupManagerDiff{
 			UpdateOp: &updateInstanceGroupManagerSetTargetPoolsOperation{}, Diffs: ds,
+			FieldName: "TargetPools",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "target_size"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoHealingPolicies, actual.AutoHealingPolicies, dcl.Info{ObjectFunction: compareInstanceGroupManagerAutoHealingPoliciesNewStyle}, fn.AddNest("AutoHealingPolicies")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "AutoHealingPolicies",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "zone"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatePolicy, actual.UpdatePolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyNewStyle}, fn.AddNest("UpdatePolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpdatePolicy",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "TargetSize",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{OutputOnly: true}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Zone",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OutputOnly: true}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Region",
+		})
 	}
 
-	if compareInstanceGroupManagerDistributionPolicy(c, desired.DistributionPolicy, actual.DistributionPolicy) {
-		c.Config.Logger.Infof("Detected diff in DistributionPolicy.\nDESIRED: %v\nACTUAL: %v", desired.DistributionPolicy, actual.DistributionPolicy)
-		diffs = append(diffs, instanceGroupManagerDiff{
-			RequiresRecreate: true,
-			FieldName:        "DistributionPolicy",
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
 		})
 	}
-	if compareInstanceGroupManagerVersionsSlice(c, desired.Versions, actual.Versions) {
-		c.Config.Logger.Infof("Detected diff in Versions.\nDESIRED: %v\nACTUAL: %v", desired.Versions, actual.Versions)
-		diffs = append(diffs, instanceGroupManagerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Versions",
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceGroupManagerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
 		})
 	}
-	if compareInstanceGroupManagerNamedPortsSlice(c, desired.NamedPorts, actual.NamedPorts) {
-		c.Config.Logger.Infof("Detected diff in NamedPorts.\nDESIRED: %v\nACTUAL: %v", desired.NamedPorts, actual.NamedPorts)
-		diffs = append(diffs, instanceGroupManagerDiff{
-			RequiresRecreate: true,
-			FieldName:        "NamedPorts",
-		})
-	}
-	if compareInstanceGroupManagerAutoHealingPoliciesSlice(c, desired.AutoHealingPolicies, actual.AutoHealingPolicies) {
-		c.Config.Logger.Infof("Detected diff in AutoHealingPolicies.\nDESIRED: %v\nACTUAL: %v", desired.AutoHealingPolicies, actual.AutoHealingPolicies)
-		diffs = append(diffs, instanceGroupManagerDiff{
-			RequiresRecreate: true,
-			FieldName:        "AutoHealingPolicies",
-		})
-	}
-	if compareInstanceGroupManagerUpdatePolicy(c, desired.UpdatePolicy, actual.UpdatePolicy) {
-		c.Config.Logger.Infof("Detected diff in UpdatePolicy.\nDESIRED: %v\nACTUAL: %v", desired.UpdatePolicy, actual.UpdatePolicy)
-		diffs = append(diffs, instanceGroupManagerDiff{
-			RequiresRecreate: true,
-			FieldName:        "UpdatePolicy",
-		})
-	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -1894,6 +1949,35 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 
 	return deduped, nil
 }
+func compareInstanceGroupManagerDistributionPolicyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerDistributionPolicy)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerDistributionPolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerDistributionPolicy or *InstanceGroupManagerDistributionPolicy", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerDistributionPolicy)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerDistributionPolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerDistributionPolicy", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Zones, actual.Zones, dcl.Info{ObjectFunction: compareInstanceGroupManagerDistributionPolicyZonesNewStyle}, fn.AddNest("Zones")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceGroupManagerDistributionPolicy(c *Client, desired, actual *InstanceGroupManagerDistributionPolicy) bool {
 	if desired == nil {
 		return false
@@ -1939,6 +2023,35 @@ func compareInstanceGroupManagerDistributionPolicyMap(c *Client, desired, actual
 		}
 	}
 	return false
+}
+
+func compareInstanceGroupManagerDistributionPolicyZonesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerDistributionPolicyZones)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerDistributionPolicyZones)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerDistributionPolicyZones or *InstanceGroupManagerDistributionPolicyZones", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerDistributionPolicyZones)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerDistributionPolicyZones)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerDistributionPolicyZones", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceGroupManagerDistributionPolicyZones(c *Client, desired, actual *InstanceGroupManagerDistributionPolicyZones) bool {
@@ -1988,6 +2101,84 @@ func compareInstanceGroupManagerDistributionPolicyZonesMap(c *Client, desired, a
 	return false
 }
 
+func compareInstanceGroupManagerCurrentActionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerCurrentActions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerCurrentActions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerCurrentActions or *InstanceGroupManagerCurrentActions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerCurrentActions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerCurrentActions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerCurrentActions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Abandoning, actual.Abandoning, dcl.Info{OutputOnly: true}, fn.AddNest("Abandoning")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Creating, actual.Creating, dcl.Info{OutputOnly: true}, fn.AddNest("Creating")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CreatingWithoutRetries, actual.CreatingWithoutRetries, dcl.Info{OutputOnly: true}, fn.AddNest("CreatingWithoutRetries")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Deleting, actual.Deleting, dcl.Info{OutputOnly: true}, fn.AddNest("Deleting")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.None, actual.None, dcl.Info{OutputOnly: true}, fn.AddNest("None")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Recreating, actual.Recreating, dcl.Info{OutputOnly: true}, fn.AddNest("Recreating")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Refreshing, actual.Refreshing, dcl.Info{OutputOnly: true}, fn.AddNest("Refreshing")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Restarting, actual.Restarting, dcl.Info{OutputOnly: true}, fn.AddNest("Restarting")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceGroupManagerCurrentActions(c *Client, desired, actual *InstanceGroupManagerCurrentActions) bool {
 	if desired == nil {
 		return false
@@ -2029,6 +2220,49 @@ func compareInstanceGroupManagerCurrentActionsMap(c *Client, desired, actual map
 		}
 	}
 	return false
+}
+
+func compareInstanceGroupManagerVersionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerVersions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerVersions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerVersions or *InstanceGroupManagerVersions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerVersions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerVersions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerVersions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{Type: "ReferenceType"}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{ObjectFunction: compareInstanceGroupManagerVersionsTargetSizeNewStyle}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceGroupManagerVersions(c *Client, desired, actual *InstanceGroupManagerVersions) bool {
@@ -2086,6 +2320,49 @@ func compareInstanceGroupManagerVersionsMap(c *Client, desired, actual map[strin
 	return false
 }
 
+func compareInstanceGroupManagerVersionsTargetSizeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerVersionsTargetSize)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerVersionsTargetSize)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerVersionsTargetSize or *InstanceGroupManagerVersionsTargetSize", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerVersionsTargetSize)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerVersionsTargetSize)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerVersionsTargetSize", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceGroupManagerVersionsTargetSize(c *Client, desired, actual *InstanceGroupManagerVersionsTargetSize) bool {
 	if desired == nil {
 		return false
@@ -2137,6 +2414,42 @@ func compareInstanceGroupManagerVersionsTargetSizeMap(c *Client, desired, actual
 	return false
 }
 
+func compareInstanceGroupManagerNamedPortsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerNamedPorts)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerNamedPorts)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerNamedPorts or *InstanceGroupManagerNamedPorts", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerNamedPorts)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerNamedPorts)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerNamedPorts", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceGroupManagerNamedPorts(c *Client, desired, actual *InstanceGroupManagerNamedPorts) bool {
 	if desired == nil {
 		return false
@@ -2186,6 +2499,49 @@ func compareInstanceGroupManagerNamedPortsMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareInstanceGroupManagerStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatus or *InstanceGroupManagerStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.IsStable, actual.IsStable, dcl.Info{}, fn.AddNest("IsStable")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VersionTarget, actual.VersionTarget, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatusVersionTargetNewStyle}, fn.AddNest("VersionTarget")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Autoscalar, actual.Autoscalar, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Autoscalar")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceGroupManagerStatus(c *Client, desired, actual *InstanceGroupManagerStatus) bool {
@@ -2243,6 +2599,35 @@ func compareInstanceGroupManagerStatusMap(c *Client, desired, actual map[string]
 	return false
 }
 
+func compareInstanceGroupManagerStatusVersionTargetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerStatusVersionTarget)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerStatusVersionTarget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatusVersionTarget or *InstanceGroupManagerStatusVersionTarget", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerStatusVersionTarget)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerStatusVersionTarget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatusVersionTarget", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.IsReached, actual.IsReached, dcl.Info{}, fn.AddNest("IsReached")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceGroupManagerStatusVersionTarget(c *Client, desired, actual *InstanceGroupManagerStatusVersionTarget) bool {
 	if desired == nil {
 		return false
@@ -2288,6 +2673,42 @@ func compareInstanceGroupManagerStatusVersionTargetMap(c *Client, desired, actua
 		}
 	}
 	return false
+}
+
+func compareInstanceGroupManagerAutoHealingPoliciesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerAutoHealingPolicies)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerAutoHealingPolicies)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerAutoHealingPolicies or *InstanceGroupManagerAutoHealingPolicies", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerAutoHealingPolicies)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerAutoHealingPolicies)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerAutoHealingPolicies", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{Type: "ReferenceType"}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InitialDelaySec, actual.InitialDelaySec, dcl.Info{}, fn.AddNest("InitialDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceGroupManagerAutoHealingPolicies(c *Client, desired, actual *InstanceGroupManagerAutoHealingPolicies) bool {
@@ -2339,6 +2760,49 @@ func compareInstanceGroupManagerAutoHealingPoliciesMap(c *Client, desired, actua
 		}
 	}
 	return false
+}
+
+func compareInstanceGroupManagerUpdatePolicyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerUpdatePolicy)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerUpdatePolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicy or *InstanceGroupManagerUpdatePolicy", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerUpdatePolicy)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerUpdatePolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicy", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.InstanceRedistributionType, actual.InstanceRedistributionType, dcl.Info{Type: "EnumType"}, fn.AddNest("InstanceRedistributionType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinimalAction, actual.MinimalAction, dcl.Info{Type: "EnumType"}, fn.AddNest("MinimalAction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceGroupManagerUpdatePolicy(c *Client, desired, actual *InstanceGroupManagerUpdatePolicy) bool {
@@ -2396,6 +2860,56 @@ func compareInstanceGroupManagerUpdatePolicyMap(c *Client, desired, actual map[s
 	return false
 }
 
+func compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerUpdatePolicyMaxSurge)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerUpdatePolicyMaxSurge)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxSurge or *InstanceGroupManagerUpdatePolicyMaxSurge", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerUpdatePolicyMaxSurge)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerUpdatePolicyMaxSurge)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxSurge", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableNewStyle}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, desired, actual *InstanceGroupManagerUpdatePolicyMaxSurge) bool {
 	if desired == nil {
 		return false
@@ -2449,6 +2963,49 @@ func compareInstanceGroupManagerUpdatePolicyMaxSurgeMap(c *Client, desired, actu
 		}
 	}
 	return false
+}
+
+func compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable or *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c *Client, desired, actual *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) bool {

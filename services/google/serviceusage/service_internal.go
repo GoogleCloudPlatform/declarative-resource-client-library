@@ -289,26 +289,35 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []serviceDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "State",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OutputOnly: true, Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

@@ -545,70 +545,91 @@ func diffManagedSslCertificate(c *Client, desired, actual *ManagedSslCertificate
 	}
 
 	var diffs []managedSslCertificateDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "type"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SubjectAlternativeNames, actual.SubjectAlternativeNames, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "subject_alternative_names"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.ExpireTime, actual.ExpireTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "expire_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareManagedSslCertificateManaged(c, desired.Managed, actual.Managed) {
-		c.Config.Logger.Infof("Detected diff in Managed.\nDESIRED: %v\nACTUAL: %v", desired.Managed, actual.Managed)
-		diffs = append(diffs, managedSslCertificateDiff{
-			RequiresRecreate: true,
-			FieldName:        "Managed",
+		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Managed, actual.Managed, dcl.Info{ObjectFunction: compareManagedSslCertificateManagedNewStyle}, fn.AddNest("Managed")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Managed",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Type",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SubjectAlternativeNames, actual.SubjectAlternativeNames, dcl.Info{OutputOnly: true}, fn.AddNest("SubjectAlternativeNames")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SubjectAlternativeNames",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ExpireTime, actual.ExpireTime, dcl.Info{OutputOnly: true}, fn.AddNest("ExpireTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ExpireTime",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, managedSslCertificateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -633,6 +654,49 @@ func diffManagedSslCertificate(c *Client, desired, actual *ManagedSslCertificate
 
 	return deduped, nil
 }
+func compareManagedSslCertificateManagedNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ManagedSslCertificateManaged)
+	if !ok {
+		desiredNotPointer, ok := d.(ManagedSslCertificateManaged)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ManagedSslCertificateManaged or *ManagedSslCertificateManaged", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ManagedSslCertificateManaged)
+	if !ok {
+		actualNotPointer, ok := a.(ManagedSslCertificateManaged)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ManagedSslCertificateManaged", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Domains, actual.Domains, dcl.Info{}, fn.AddNest("Domains")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DomainStatus, actual.DomainStatus, dcl.Info{OutputOnly: true}, fn.AddNest("DomainStatus")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareManagedSslCertificateManaged(c *Client, desired, actual *ManagedSslCertificateManaged) bool {
 	if desired == nil {
 		return false

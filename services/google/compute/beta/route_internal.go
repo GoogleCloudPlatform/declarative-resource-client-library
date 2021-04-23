@@ -635,117 +635,161 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]ro
 	}
 
 	var diffs []routeDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "network"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Network",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "tag"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Tag",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.DestRange, actual.DestRange, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "dest_range"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DestRange, actual.DestRange, dcl.Info{}, fn.AddNest("DestRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DestRange",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Priority, actual.Priority, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "priority"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Priority, actual.Priority, dcl.Info{}, fn.AddNest("Priority")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Priority",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopInstance, actual.NextHopInstance, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_instance"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopInstance, actual.NextHopInstance, dcl.Info{}, fn.AddNest("NextHopInstance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NextHopInstance",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopIP, actual.NextHopIP, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_ip"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopIP, actual.NextHopIP, dcl.Info{}, fn.AddNest("NextHopIP")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NextHopIP",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopNetwork, actual.NextHopNetwork, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_network"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopNetwork, actual.NextHopNetwork, dcl.Info{}, fn.AddNest("NextHopNetwork")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NextHopNetwork",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopGateway, actual.NextHopGateway, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_gateway"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopGateway, actual.NextHopGateway, dcl.Info{}, fn.AddNest("NextHopGateway")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NextHopGateway",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopPeering, actual.NextHopPeering, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_peering"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopPeering, actual.NextHopPeering, dcl.Info{OutputOnly: true}, fn.AddNest("NextHopPeering")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NextHopPeering",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopIlb, actual.NextHopIlb, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_ilb"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopIlb, actual.NextHopIlb, dcl.Info{}, fn.AddNest("NextHopIlb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NextHopIlb",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopVpnTunnel, actual.NextHopVpnTunnel, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "next_hop_vpn_tunnel"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareRouteWarningNewStyle}, fn.AddNest("Warning")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Warning",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopVpnTunnel, actual.NextHopVpnTunnel, dcl.Info{}, fn.AddNest("NextHopVpnTunnel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NextHopVpnTunnel",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -772,6 +816,49 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]ro
 
 	return deduped, nil
 }
+func compareRouteWarningNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*RouteWarning)
+	if !ok {
+		desiredNotPointer, ok := d.(RouteWarning)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a RouteWarning or *RouteWarning", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*RouteWarning)
+	if !ok {
+		actualNotPointer, ok := a.(RouteWarning)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a RouteWarning", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OutputOnly: true}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Data, actual.Data, dcl.Info{OutputOnly: true}, fn.AddNest("Data")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareRouteWarning(c *Client, desired, actual *RouteWarning) bool {
 	if desired == nil {
 		return false

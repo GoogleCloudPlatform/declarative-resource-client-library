@@ -450,40 +450,53 @@ func diffFirewallRule(c *Client, desired, actual *FirewallRule, opts ...dcl.Appl
 	}
 
 	var diffs []firewallRuleDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "action"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Action",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Priority, actual.Priority, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "priority"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Priority, actual.Priority, dcl.Info{}, fn.AddNest("Priority")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Priority",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SourceRange, actual.SourceRange, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_range"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceRange, actual.SourceRange, dcl.Info{}, fn.AddNest("SourceRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceRange",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.App, actual.App, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "app"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.App, actual.App, dcl.Info{Type: "ReferenceType"}, fn.AddNest("App")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "App",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

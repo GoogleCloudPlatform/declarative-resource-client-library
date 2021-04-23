@@ -774,125 +774,146 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []routerPeerDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "creation_timestamp"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreationTimestamp",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Router, actual.Router, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "router"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Router, actual.Router, dcl.Info{}, fn.AddNest("Router")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Router",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
+			FieldName: "Name",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.InterfaceName, actual.InterfaceName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "interface_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InterfaceName, actual.InterfaceName, dcl.Info{}, fn.AddNest("InterfaceName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
+			FieldName: "InterfaceName",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ip_address"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
+			FieldName: "IPAddress",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "peer_ip_address"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{}, fn.AddNest("PeerIPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
+			FieldName: "PeerIPAddress",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.PeerAsn, actual.PeerAsn, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "peer_asn"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeerAsn, actual.PeerAsn, dcl.Info{}, fn.AddNest("PeerAsn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
+			FieldName: "PeerAsn",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "advertised_route_priority"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority, dcl.Info{}, fn.AddNest("AdvertisedRoutePriority")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
+			FieldName: "AdvertisedRoutePriority",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertiseMode, actual.AdvertiseMode, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "advertise_mode"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertiseMode, actual.AdvertiseMode, dcl.Info{}, fn.AddNest("AdvertiseMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
+			FieldName: "AdvertiseMode",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.ManagementType, actual.ManagementType, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "management_type"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManagementType, actual.ManagementType, dcl.Info{OutputOnly: true}, fn.AddNest("ManagementType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ManagementType",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertisedGroups, actual.AdvertisedGroups, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "advertised_groups"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedGroups, actual.AdvertisedGroups, dcl.Info{}, fn.AddNest("AdvertisedGroups")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
+			FieldName: "AdvertisedGroups",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "region"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterPeerAdvertisedIPRangesNewStyle}, fn.AddNest("AdvertisedIPRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, routerPeerDiff{
 			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareRouterPeerAdvertisedIPRangesSlice(c, desired.AdvertisedIPRanges, actual.AdvertisedIPRanges) {
-		c.Config.Logger.Infof("Detected diff in AdvertisedIPRanges.\nDESIRED: %v\nACTUAL: %v", desired.AdvertisedIPRanges, actual.AdvertisedIPRanges)
-
-		diffs = append(diffs, routerPeerDiff{
-			UpdateOp:  &updateRouterPeerUpdateOperation{},
 			FieldName: "AdvertisedIPRanges",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{
+			UpdateOp: &updateRouterPeerUpdateOperation{}, Diffs: ds,
+			FieldName: "Region",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, routerPeerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -917,6 +938,42 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 
 	return deduped, nil
 }
+func compareRouterPeerAdvertisedIPRangesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*RouterPeerAdvertisedIPRanges)
+	if !ok {
+		desiredNotPointer, ok := d.(RouterPeerAdvertisedIPRanges)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a RouterPeerAdvertisedIPRanges or *RouterPeerAdvertisedIPRanges", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*RouterPeerAdvertisedIPRanges)
+	if !ok {
+		actualNotPointer, ok := a.(RouterPeerAdvertisedIPRanges)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a RouterPeerAdvertisedIPRanges", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Range, actual.Range, dcl.Info{}, fn.AddNest("Range")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareRouterPeerAdvertisedIPRanges(c *Client, desired, actual *RouterPeerAdvertisedIPRanges) bool {
 	if desired == nil {
 		return false

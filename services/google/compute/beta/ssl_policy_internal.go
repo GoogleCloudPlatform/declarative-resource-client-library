@@ -732,90 +732,103 @@ func diffSslPolicy(c *Client, desired, actual *SslPolicy, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []sslPolicyDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Profile, actual.Profile, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "profile"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Profile, actual.Profile, dcl.Info{Type: "EnumType"}, fn.AddNest("Profile")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, sslPolicyDiff{
 			UpdateOp: &updateSslPolicyPatchOperation{}, Diffs: ds,
+			FieldName: "Profile",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.MinTlsVersion, actual.MinTlsVersion, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "min_tls_version"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinTlsVersion, actual.MinTlsVersion, dcl.Info{Type: "EnumType"}, fn.AddNest("MinTlsVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, sslPolicyDiff{
 			UpdateOp: &updateSslPolicyPatchOperation{}, Diffs: ds,
+			FieldName: "MinTlsVersion",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.EnabledFeature, actual.EnabledFeature, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "Set", FieldName: "enabled_feature"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnabledFeature, actual.EnabledFeature, dcl.Info{OutputOnly: true, Type: "Set"}, fn.AddNest("EnabledFeature")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "EnabledFeature",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.CustomFeature, actual.CustomFeature, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "Set", FieldName: "custom_feature"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CustomFeature, actual.CustomFeature, dcl.Info{Type: "Set"}, fn.AddNest("CustomFeature")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, sslPolicyDiff{
 			UpdateOp: &updateSslPolicyPatchOperation{}, Diffs: ds,
+			FieldName: "CustomFeature",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareSslPolicyWarningNewStyle}, fn.AddNest("Warning")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Warning",
+		})
 	}
 
-	if !dcl.StringSliceEquals(desired.CustomFeature, actual.CustomFeature) {
-		c.Config.Logger.Infof("Detected diff in CustomFeature.\nDESIRED: %v\nACTUAL: %v", desired.CustomFeature, actual.CustomFeature)
-
-		toAdd, toRemove := dcl.CompareStringSets(desired.CustomFeature, actual.CustomFeature)
-		c.Config.Logger.Infof("diff in CustomFeature is a set field - recomparing with set logic.\nto add: %#v\nto remove: %#v", toAdd, toRemove)
-		if len(toAdd) != 0 || len(toRemove) != 0 {
-			c.Config.Logger.Info("diff in CustomFeature persists after set logic analysis.")
-			diffs = append(diffs, sslPolicyDiff{
-				UpdateOp:  &updateSslPolicyPatchOperation{},
-				FieldName: "CustomFeature",
-			})
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
 		}
-
+		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -840,6 +853,49 @@ func diffSslPolicy(c *Client, desired, actual *SslPolicy, opts ...dcl.ApplyOptio
 
 	return deduped, nil
 }
+func compareSslPolicyWarningNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*SslPolicyWarning)
+	if !ok {
+		desiredNotPointer, ok := d.(SslPolicyWarning)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SslPolicyWarning or *SslPolicyWarning", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*SslPolicyWarning)
+	if !ok {
+		actualNotPointer, ok := a.(SslPolicyWarning)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SslPolicyWarning", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Data, actual.Data, dcl.Info{ObjectFunction: compareSslPolicyWarningDataNewStyle}, fn.AddNest("Data")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareSslPolicyWarning(c *Client, desired, actual *SslPolicyWarning) bool {
 	if desired == nil {
 		return false
@@ -893,6 +949,42 @@ func compareSslPolicyWarningMap(c *Client, desired, actual map[string]SslPolicyW
 		}
 	}
 	return false
+}
+
+func compareSslPolicyWarningDataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*SslPolicyWarningData)
+	if !ok {
+		desiredNotPointer, ok := d.(SslPolicyWarningData)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SslPolicyWarningData or *SslPolicyWarningData", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*SslPolicyWarningData)
+	if !ok {
+		actualNotPointer, ok := a.(SslPolicyWarningData)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SslPolicyWarningData", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareSslPolicyWarningData(c *Client, desired, actual *SslPolicyWarningData) bool {

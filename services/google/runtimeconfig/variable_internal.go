@@ -511,51 +511,64 @@ func diffVariable(c *Client, desired, actual *Variable, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []variableDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.RuntimeConfig, actual.RuntimeConfig, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "runtime_config"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RuntimeConfig, actual.RuntimeConfig, dcl.Info{}, fn.AddNest("RuntimeConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "RuntimeConfig",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "text"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.Info{}, fn.AddNest("Text")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, variableDiff{
 			UpdateOp: &updateVariableUpdateOperation{}, Diffs: ds,
+			FieldName: "Text",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "value"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, variableDiff{
 			UpdateOp: &updateVariableUpdateOperation{}, Diffs: ds,
+			FieldName: "Value",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpdateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

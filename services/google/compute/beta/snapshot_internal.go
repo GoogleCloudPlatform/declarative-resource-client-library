@@ -734,84 +734,126 @@ func diffSnapshot(c *Client, desired, actual *Snapshot, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []snapshotDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "source_disk"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, dcl.Info{Type: "ReferenceType"}, fn.AddNest("SourceDisk")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceDisk",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "disk_size_gb"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{OutputOnly: true}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DiskSizeGb",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.StorageBytes, actual.StorageBytes, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "storage_bytes"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StorageBytes, actual.StorageBytes, dcl.Info{OutputOnly: true}, fn.AddNest("StorageBytes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "StorageBytes",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.License, actual.License, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "license"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.License, actual.License, dcl.Info{OutputOnly: true}, fn.AddNest("License")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "License",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SnapshotEncryptionKey, actual.SnapshotEncryptionKey, dcl.Info{Ignore: true, ObjectFunction: compareSnapshotSnapshotEncryptionKeyNewStyle}, fn.AddNest("SnapshotEncryptionKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SnapshotEncryptionKey",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceDiskEncryptionKey, actual.SourceDiskEncryptionKey, dcl.Info{Ignore: true, ObjectFunction: compareSnapshotSourceDiskEncryptionKeyNewStyle}, fn.AddNest("SourceDiskEncryptionKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceDiskEncryptionKey",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, snapshotDiff{
 			UpdateOp: &updateSnapshotSetLabelsOperation{}, Diffs: ds,
+			FieldName: "Labels",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Ignore: true, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "zone"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Ignore: true, Type: "ReferenceType"}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Zone",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, snapshotDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -838,6 +880,42 @@ func diffSnapshot(c *Client, desired, actual *Snapshot, opts ...dcl.ApplyOption)
 
 	return deduped, nil
 }
+func compareSnapshotSnapshotEncryptionKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*SnapshotSnapshotEncryptionKey)
+	if !ok {
+		desiredNotPointer, ok := d.(SnapshotSnapshotEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SnapshotSnapshotEncryptionKey or *SnapshotSnapshotEncryptionKey", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*SnapshotSnapshotEncryptionKey)
+	if !ok {
+		actualNotPointer, ok := a.(SnapshotSnapshotEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SnapshotSnapshotEncryptionKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RawKey, actual.RawKey, dcl.Info{Ignore: true}, fn.AddNest("RawKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Sha256, actual.Sha256, dcl.Info{OutputOnly: true}, fn.AddNest("Sha256")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareSnapshotSnapshotEncryptionKey(c *Client, desired, actual *SnapshotSnapshotEncryptionKey) bool {
 	if desired == nil {
 		return false
@@ -879,6 +957,35 @@ func compareSnapshotSnapshotEncryptionKeyMap(c *Client, desired, actual map[stri
 		}
 	}
 	return false
+}
+
+func compareSnapshotSourceDiskEncryptionKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*SnapshotSourceDiskEncryptionKey)
+	if !ok {
+		desiredNotPointer, ok := d.(SnapshotSourceDiskEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SnapshotSourceDiskEncryptionKey or *SnapshotSourceDiskEncryptionKey", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*SnapshotSourceDiskEncryptionKey)
+	if !ok {
+		actualNotPointer, ok := a.(SnapshotSourceDiskEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SnapshotSourceDiskEncryptionKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RawKey, actual.RawKey, dcl.Info{}, fn.AddNest("RawKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareSnapshotSourceDiskEncryptionKey(c *Client, desired, actual *SnapshotSourceDiskEncryptionKey) bool {

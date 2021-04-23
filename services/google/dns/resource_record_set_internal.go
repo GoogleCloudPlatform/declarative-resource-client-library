@@ -386,55 +386,66 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 	}
 
 	var diffs []resourceRecordSetDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.DnsName, actual.DnsName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "dns_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DnsName, actual.DnsName, dcl.Info{}, fn.AddNest("DnsName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, resourceRecordSetDiff{
 			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, Diffs: ds,
+			FieldName: "DnsName",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.DnsType, actual.DnsType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "dns_type"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DnsType, actual.DnsType, dcl.Info{}, fn.AddNest("DnsType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, resourceRecordSetDiff{
 			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, Diffs: ds,
+			FieldName: "DnsType",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Ttl, actual.Ttl, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ttl"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Ttl, actual.Ttl, dcl.Info{}, fn.AddNest("Ttl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, resourceRecordSetDiff{
 			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, Diffs: ds,
+			FieldName: "Ttl",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "target"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, resourceRecordSetDiff{
 			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, Diffs: ds,
+			FieldName: "Target",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.ManagedZone, actual.ManagedZone, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "managed_zone"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManagedZone, actual.ManagedZone, dcl.Info{Type: "ReferenceType"}, fn.AddNest("ManagedZone")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, resourceRecordSetDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, resourceRecordSetDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ManagedZone",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, resourceRecordSetDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, resourceRecordSetDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

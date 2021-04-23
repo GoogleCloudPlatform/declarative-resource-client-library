@@ -528,42 +528,64 @@ func diffIndex(c *Client, desired, actual *Index, opts ...dcl.ApplyOption) ([]in
 	}
 
 	var diffs []indexDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Ancestor, actual.Ancestor, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "ancestor"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Ancestor, actual.Ancestor, dcl.Info{Type: "EnumType"}, fn.AddNest("Ancestor")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "kind"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareIndexPropertiesSlice(c, desired.Properties, actual.Properties) {
-		c.Config.Logger.Infof("Detected diff in Properties.\nDESIRED: %v\nACTUAL: %v", desired.Properties, actual.Properties)
-		diffs = append(diffs, indexDiff{
-			RequiresRecreate: true,
-			FieldName:        "Properties",
+		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Ancestor",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.IndexId, actual.IndexId, dcl.Info{OutputOnly: true, Type: "ReferenceType"}, fn.AddNest("IndexId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "IndexId",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Kind",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{ObjectFunction: compareIndexPropertiesNewStyle}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Properties",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "State",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -588,6 +610,42 @@ func diffIndex(c *Client, desired, actual *Index, opts ...dcl.ApplyOption) ([]in
 
 	return deduped, nil
 }
+func compareIndexPropertiesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*IndexProperties)
+	if !ok {
+		desiredNotPointer, ok := d.(IndexProperties)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a IndexProperties or *IndexProperties", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*IndexProperties)
+	if !ok {
+		actualNotPointer, ok := a.(IndexProperties)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a IndexProperties", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType"}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareIndexProperties(c *Client, desired, actual *IndexProperties) bool {
 	if desired == nil {
 		return false

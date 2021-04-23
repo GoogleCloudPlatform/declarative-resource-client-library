@@ -5837,105 +5837,145 @@ func diffAlertPolicy(c *Client, desired, actual *AlertPolicy, opts ...dcl.ApplyO
 	}
 
 	var diffs []alertPolicyDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.UserLabels, actual.UserLabels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "user_labels"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DisplayName",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Combiner, actual.Combiner, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "combiner"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Documentation, actual.Documentation, dcl.Info{ObjectFunction: compareAlertPolicyDocumentationNewStyle}, fn.AddNest("Documentation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Documentation",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "disabled"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UserLabels, actual.UserLabels, dcl.Info{}, fn.AddNest("UserLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UserLabels",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.NotificationChannels, actual.NotificationChannels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "notification_channels"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsNewStyle}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Conditions",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Combiner, actual.Combiner, dcl.Info{Type: "EnumType"}, fn.AddNest("Combiner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Combiner",
+		})
 	}
 
-	if compareAlertPolicyDocumentation(c, desired.Documentation, actual.Documentation) {
-		c.Config.Logger.Infof("Detected diff in Documentation.\nDESIRED: %v\nACTUAL: %v", desired.Documentation, actual.Documentation)
-		diffs = append(diffs, alertPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Documentation",
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Disabled",
 		})
 	}
-	if compareAlertPolicyConditionsSlice(c, desired.Conditions, actual.Conditions) {
-		c.Config.Logger.Infof("Detected diff in Conditions.\nDESIRED: %v\nACTUAL: %v", desired.Conditions, actual.Conditions)
-		diffs = append(diffs, alertPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Conditions",
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{ObjectFunction: compareAlertPolicyEnabledNewStyle}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Enabled",
 		})
 	}
-	if compareAlertPolicyEnabled(c, desired.Enabled, actual.Enabled) {
-		c.Config.Logger.Infof("Detected diff in Enabled.\nDESIRED: %v\nACTUAL: %v", desired.Enabled, actual.Enabled)
-		diffs = append(diffs, alertPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Enabled",
+
+	if ds, err := dcl.Diff(desired.Validity, actual.Validity, dcl.Info{ObjectFunction: compareAlertPolicyValidityNewStyle}, fn.AddNest("Validity")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Validity",
 		})
 	}
-	if compareAlertPolicyValidity(c, desired.Validity, actual.Validity) {
-		c.Config.Logger.Infof("Detected diff in Validity.\nDESIRED: %v\nACTUAL: %v", desired.Validity, actual.Validity)
-		diffs = append(diffs, alertPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Validity",
+
+	if ds, err := dcl.Diff(desired.NotificationChannels, actual.NotificationChannels, dcl.Info{}, fn.AddNest("NotificationChannels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NotificationChannels",
 		})
 	}
-	if compareAlertPolicyCreationRecord(c, desired.CreationRecord, actual.CreationRecord) {
-		c.Config.Logger.Infof("Detected diff in CreationRecord.\nDESIRED: %v\nACTUAL: %v", desired.CreationRecord, actual.CreationRecord)
-		diffs = append(diffs, alertPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "CreationRecord",
+
+	if ds, err := dcl.Diff(desired.CreationRecord, actual.CreationRecord, dcl.Info{ObjectFunction: compareAlertPolicyCreationRecordNewStyle}, fn.AddNest("CreationRecord")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreationRecord",
 		})
 	}
-	if compareAlertPolicyMutationRecord(c, desired.MutationRecord, actual.MutationRecord) {
-		c.Config.Logger.Infof("Detected diff in MutationRecord.\nDESIRED: %v\nACTUAL: %v", desired.MutationRecord, actual.MutationRecord)
-		diffs = append(diffs, alertPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "MutationRecord",
+
+	if ds, err := dcl.Diff(desired.MutationRecord, actual.MutationRecord, dcl.Info{ObjectFunction: compareAlertPolicyMutationRecordNewStyle}, fn.AddNest("MutationRecord")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "MutationRecord",
 		})
 	}
-	if compareAlertPolicyIncidentStrategy(c, desired.IncidentStrategy, actual.IncidentStrategy) {
-		c.Config.Logger.Infof("Detected diff in IncidentStrategy.\nDESIRED: %v\nACTUAL: %v", desired.IncidentStrategy, actual.IncidentStrategy)
-		diffs = append(diffs, alertPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "IncidentStrategy",
+
+	if ds, err := dcl.Diff(desired.IncidentStrategy, actual.IncidentStrategy, dcl.Info{ObjectFunction: compareAlertPolicyIncidentStrategyNewStyle}, fn.AddNest("IncidentStrategy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "IncidentStrategy",
 		})
 	}
-	if compareAlertPolicyMetadata(c, desired.Metadata, actual.Metadata) {
-		c.Config.Logger.Infof("Detected diff in Metadata.\nDESIRED: %v\nACTUAL: %v", desired.Metadata, actual.Metadata)
-		diffs = append(diffs, alertPolicyDiff{
-			RequiresRecreate: true,
-			FieldName:        "Metadata",
+
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareAlertPolicyMetadataNewStyle}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Metadata",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -5960,6 +6000,42 @@ func diffAlertPolicy(c *Client, desired, actual *AlertPolicy, opts ...dcl.ApplyO
 
 	return deduped, nil
 }
+func compareAlertPolicyDocumentationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyDocumentation)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyDocumentation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyDocumentation or *AlertPolicyDocumentation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyDocumentation)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyDocumentation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyDocumentation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MimeType, actual.MimeType, dcl.Info{}, fn.AddNest("MimeType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyDocumentation(c *Client, desired, actual *AlertPolicyDocumentation) bool {
 	if desired == nil {
 		return false
@@ -6009,6 +6085,112 @@ func compareAlertPolicyDocumentationMap(c *Client, desired, actual map[string]Al
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditions)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditions or *AlertPolicyConditions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditions)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceStateFilter, actual.ResourceStateFilter, dcl.Info{Type: "EnumType"}, fn.AddNest("ResourceStateFilter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConditionThreshold, actual.ConditionThreshold, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdNewStyle}, fn.AddNest("ConditionThreshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConditionAbsent, actual.ConditionAbsent, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentNewStyle}, fn.AddNest("ConditionAbsent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConditionMatchedLog, actual.ConditionMatchedLog, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMatchedLogNewStyle}, fn.AddNest("ConditionMatchedLog")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConditionClusterOutlier, actual.ConditionClusterOutlier, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionClusterOutlierNewStyle}, fn.AddNest("ConditionClusterOutlier")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConditionRate, actual.ConditionRate, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateNewStyle}, fn.AddNest("ConditionRate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConditionUpMon, actual.ConditionUpMon, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonNewStyle}, fn.AddNest("ConditionUpMon")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConditionProcessCount, actual.ConditionProcessCount, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountNewStyle}, fn.AddNest("ConditionProcessCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConditionTimeSeriesQueryLanguage, actual.ConditionTimeSeriesQueryLanguage, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionTimeSeriesQueryLanguageNewStyle}, fn.AddNest("ConditionTimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConditionMonitoringQueryLanguage, actual.ConditionMonitoringQueryLanguage, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageNewStyle}, fn.AddNest("ConditionMonitoringQueryLanguage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditions(c *Client, desired, actual *AlertPolicyConditions) bool {
@@ -6102,6 +6284,84 @@ func compareAlertPolicyConditionsMap(c *Client, desired, actual map[string]Alert
 	return false
 }
 
+func compareAlertPolicyConditionsConditionThresholdNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThreshold)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThreshold)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThreshold or *AlertPolicyConditionsConditionThreshold", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThreshold)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThreshold)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThreshold", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsNewStyle}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DenominatorFilter, actual.DenominatorFilter, dcl.Info{}, fn.AddNest("DenominatorFilter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DenominatorAggregations, actual.DenominatorAggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsNewStyle}, fn.AddNest("DenominatorAggregations")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Comparison, actual.Comparison, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparison")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ThresholdValue, actual.ThresholdValue, dcl.Info{}, fn.AddNest("ThresholdValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdTriggerNewStyle}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionThreshold(c *Client, desired, actual *AlertPolicyConditionsConditionThreshold) bool {
 	if desired == nil {
 		return false
@@ -6177,6 +6437,70 @@ func compareAlertPolicyConditionsConditionThresholdMap(c *Client, desired, actua
 	return false
 }
 
+func compareAlertPolicyConditionsConditionThresholdAggregationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdAggregations)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdAggregations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregations or *AlertPolicyConditionsConditionThresholdAggregations", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdAggregations)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdAggregations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregations", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionThresholdAggregations(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregations) bool {
 	if desired == nil {
 		return false
@@ -6244,6 +6568,35 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsMap(c *Client, de
 	return false
 }
 
+func compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams or *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -6289,6 +6642,42 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLes
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams or *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams) bool {
@@ -6340,6 +6729,49 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions or *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions) bool {
@@ -6397,6 +6829,49 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 	return false
 }
 
+func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets or *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -6450,6 +6925,49 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -6507,6 +7025,35 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 	return false
 }
 
+func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -6554,6 +7101,35 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 	return false
 }
 
+func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling or *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -6599,6 +7175,70 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdDenominatorAggregations)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdDenominatorAggregations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregations or *AlertPolicyConditionsConditionThresholdDenominatorAggregations", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdDenominatorAggregations)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdDenominatorAggregations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregations", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregations(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregations) bool {
@@ -6668,6 +7308,35 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsMap(c 
 	return false
 }
 
+func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams or *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -6713,6 +7382,42 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams or *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams) bool {
@@ -6764,6 +7469,49 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions or *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions) bool {
@@ -6821,6 +7569,49 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 	return false
 }
 
+func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets or *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -6874,6 +7665,49 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -6931,6 +7765,35 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 	return false
 }
 
+func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -6978,6 +7841,35 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 	return false
 }
 
+func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling or *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -7023,6 +7915,42 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionThresholdTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionThresholdTrigger)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionThresholdTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdTrigger or *AlertPolicyConditionsConditionThresholdTrigger", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionThresholdTrigger)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionThresholdTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionThresholdTrigger", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionThresholdTrigger(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdTrigger) bool {
@@ -7074,6 +8002,56 @@ func compareAlertPolicyConditionsConditionThresholdTriggerMap(c *Client, desired
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionAbsentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionAbsent)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionAbsent)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsent or *AlertPolicyConditionsConditionAbsent", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionAbsent)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionAbsent)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsent", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsNewStyle}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentDurationNewStyle}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentTriggerNewStyle}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionAbsent(c *Client, desired, actual *AlertPolicyConditionsConditionAbsent) bool {
@@ -7133,6 +8111,70 @@ func compareAlertPolicyConditionsConditionAbsentMap(c *Client, desired, actual m
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionAbsentAggregationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionAbsentAggregations)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionAbsentAggregations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregations or *AlertPolicyConditionsConditionAbsentAggregations", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionAbsentAggregations)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionAbsentAggregations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregations", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionAbsentAggregations(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregations) bool {
@@ -7202,6 +8244,35 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsMap(c *Client, desir
 	return false
 }
 
+func compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams or *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -7247,6 +8318,42 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessTh
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams or *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams) bool {
@@ -7298,6 +8405,49 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions or *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions) bool {
@@ -7355,6 +8505,49 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 	return false
 }
 
+func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets or *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -7408,6 +8601,49 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -7465,6 +8701,35 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 	return false
 }
 
+func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -7512,6 +8777,35 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 	return false
 }
 
+func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling or *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -7557,6 +8851,42 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionAbsentDurationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionAbsentDuration)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionAbsentDuration)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentDuration or *AlertPolicyConditionsConditionAbsentDuration", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionAbsentDuration)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionAbsentDuration)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentDuration", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionAbsentDuration(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentDuration) bool {
@@ -7610,6 +8940,42 @@ func compareAlertPolicyConditionsConditionAbsentDurationMap(c *Client, desired, 
 	return false
 }
 
+func compareAlertPolicyConditionsConditionAbsentTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionAbsentTrigger)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionAbsentTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentTrigger or *AlertPolicyConditionsConditionAbsentTrigger", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionAbsentTrigger)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionAbsentTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionAbsentTrigger", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionAbsentTrigger(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentTrigger) bool {
 	if desired == nil {
 		return false
@@ -7659,6 +9025,42 @@ func compareAlertPolicyConditionsConditionAbsentTriggerMap(c *Client, desired, a
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionMatchedLogNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionMatchedLog)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionMatchedLog)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionMatchedLog or *AlertPolicyConditionsConditionMatchedLog", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionMatchedLog)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionMatchedLog)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionMatchedLog", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LabelExtractors, actual.LabelExtractors, dcl.Info{}, fn.AddNest("LabelExtractors")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionMatchedLog(c *Client, desired, actual *AlertPolicyConditionsConditionMatchedLog) bool {
@@ -7712,6 +9114,35 @@ func compareAlertPolicyConditionsConditionMatchedLogMap(c *Client, desired, actu
 	return false
 }
 
+func compareAlertPolicyConditionsConditionClusterOutlierNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionClusterOutlier)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionClusterOutlier)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionClusterOutlier or *AlertPolicyConditionsConditionClusterOutlier", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionClusterOutlier)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionClusterOutlier)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionClusterOutlier", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionClusterOutlier(c *Client, desired, actual *AlertPolicyConditionsConditionClusterOutlier) bool {
 	if desired == nil {
 		return false
@@ -7757,6 +9188,70 @@ func compareAlertPolicyConditionsConditionClusterOutlierMap(c *Client, desired, 
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionRateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionRate)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionRate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRate or *AlertPolicyConditionsConditionRate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionRate)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionRate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsNewStyle}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Comparison, actual.Comparison, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparison")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ThresholdValue, actual.ThresholdValue, dcl.Info{}, fn.AddNest("ThresholdValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TimeWindow, actual.TimeWindow, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateTimeWindowNewStyle}, fn.AddNest("TimeWindow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateTriggerNewStyle}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionRate(c *Client, desired, actual *AlertPolicyConditionsConditionRate) bool {
@@ -7826,6 +9321,70 @@ func compareAlertPolicyConditionsConditionRateMap(c *Client, desired, actual map
 	return false
 }
 
+func compareAlertPolicyConditionsConditionRateAggregationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionRateAggregations)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionRateAggregations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregations or *AlertPolicyConditionsConditionRateAggregations", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionRateAggregations)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionRateAggregations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregations", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionRateAggregations(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregations) bool {
 	if desired == nil {
 		return false
@@ -7893,6 +9452,35 @@ func compareAlertPolicyConditionsConditionRateAggregationsMap(c *Client, desired
 	return false
 }
 
+func compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams or *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -7938,6 +9526,42 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThan
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams or *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams) bool {
@@ -7989,6 +9613,49 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions or *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions) bool {
@@ -8046,6 +9713,49 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 	return false
 }
 
+func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets or *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -8099,6 +9809,49 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -8156,6 +9909,35 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 	return false
 }
 
+func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -8203,6 +9985,35 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 	return false
 }
 
+func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling or *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -8248,6 +10059,42 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionRateTimeWindowNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionRateTimeWindow)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionRateTimeWindow)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateTimeWindow or *AlertPolicyConditionsConditionRateTimeWindow", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionRateTimeWindow)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionRateTimeWindow)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateTimeWindow", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionRateTimeWindow(c *Client, desired, actual *AlertPolicyConditionsConditionRateTimeWindow) bool {
@@ -8301,6 +10148,42 @@ func compareAlertPolicyConditionsConditionRateTimeWindowMap(c *Client, desired, 
 	return false
 }
 
+func compareAlertPolicyConditionsConditionRateTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionRateTrigger)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionRateTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateTrigger or *AlertPolicyConditionsConditionRateTrigger", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionRateTrigger)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionRateTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionRateTrigger", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionRateTrigger(c *Client, desired, actual *AlertPolicyConditionsConditionRateTrigger) bool {
 	if desired == nil {
 		return false
@@ -8350,6 +10233,63 @@ func compareAlertPolicyConditionsConditionRateTriggerMap(c *Client, desired, act
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionUpMonNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionUpMon)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionUpMon)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionUpMon or *AlertPolicyConditionsConditionUpMon", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionUpMon)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionUpMon)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionUpMon", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EndpointId, actual.EndpointId, dcl.Info{}, fn.AddNest("EndpointId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CheckId, actual.CheckId, dcl.Info{}, fn.AddNest("CheckId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonDurationNewStyle}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonTriggerNewStyle}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionUpMon(c *Client, desired, actual *AlertPolicyConditionsConditionUpMon) bool {
@@ -8415,6 +10355,42 @@ func compareAlertPolicyConditionsConditionUpMonMap(c *Client, desired, actual ma
 	return false
 }
 
+func compareAlertPolicyConditionsConditionUpMonDurationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionUpMonDuration)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionUpMonDuration)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionUpMonDuration or *AlertPolicyConditionsConditionUpMonDuration", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionUpMonDuration)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionUpMonDuration)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionUpMonDuration", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionUpMonDuration(c *Client, desired, actual *AlertPolicyConditionsConditionUpMonDuration) bool {
 	if desired == nil {
 		return false
@@ -8466,6 +10442,42 @@ func compareAlertPolicyConditionsConditionUpMonDurationMap(c *Client, desired, a
 	return false
 }
 
+func compareAlertPolicyConditionsConditionUpMonTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionUpMonTrigger)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionUpMonTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionUpMonTrigger or *AlertPolicyConditionsConditionUpMonTrigger", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionUpMonTrigger)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionUpMonTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionUpMonTrigger", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionUpMonTrigger(c *Client, desired, actual *AlertPolicyConditionsConditionUpMonTrigger) bool {
 	if desired == nil {
 		return false
@@ -8515,6 +10527,77 @@ func compareAlertPolicyConditionsConditionUpMonTriggerMap(c *Client, desired, ac
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionProcessCountNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionProcessCount)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionProcessCount)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionProcessCount or *AlertPolicyConditionsConditionProcessCount", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionProcessCount)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionProcessCount)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionProcessCount", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Process, actual.Process, dcl.Info{}, fn.AddNest("Process")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.User, actual.User, dcl.Info{}, fn.AddNest("User")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Comparison, actual.Comparison, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparison")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ProcessCountThreshold, actual.ProcessCountThreshold, dcl.Info{}, fn.AddNest("ProcessCountThreshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountTriggerNewStyle}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountDurationNewStyle}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionProcessCount(c *Client, desired, actual *AlertPolicyConditionsConditionProcessCount) bool {
@@ -8588,6 +10671,42 @@ func compareAlertPolicyConditionsConditionProcessCountMap(c *Client, desired, ac
 	return false
 }
 
+func compareAlertPolicyConditionsConditionProcessCountTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionProcessCountTrigger)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionProcessCountTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionProcessCountTrigger or *AlertPolicyConditionsConditionProcessCountTrigger", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionProcessCountTrigger)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionProcessCountTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionProcessCountTrigger", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionProcessCountTrigger(c *Client, desired, actual *AlertPolicyConditionsConditionProcessCountTrigger) bool {
 	if desired == nil {
 		return false
@@ -8637,6 +10756,42 @@ func compareAlertPolicyConditionsConditionProcessCountTriggerMap(c *Client, desi
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionProcessCountDurationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionProcessCountDuration)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionProcessCountDuration)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionProcessCountDuration or *AlertPolicyConditionsConditionProcessCountDuration", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionProcessCountDuration)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionProcessCountDuration)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionProcessCountDuration", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionProcessCountDuration(c *Client, desired, actual *AlertPolicyConditionsConditionProcessCountDuration) bool {
@@ -8690,6 +10845,42 @@ func compareAlertPolicyConditionsConditionProcessCountDurationMap(c *Client, des
 	return false
 }
 
+func compareAlertPolicyConditionsConditionTimeSeriesQueryLanguageNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionTimeSeriesQueryLanguage)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionTimeSeriesQueryLanguage)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionTimeSeriesQueryLanguage or *AlertPolicyConditionsConditionTimeSeriesQueryLanguage", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionTimeSeriesQueryLanguage)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionTimeSeriesQueryLanguage)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionTimeSeriesQueryLanguage", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Query, actual.Query, dcl.Info{}, fn.AddNest("Query")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Summary, actual.Summary, dcl.Info{}, fn.AddNest("Summary")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionTimeSeriesQueryLanguage(c *Client, desired, actual *AlertPolicyConditionsConditionTimeSeriesQueryLanguage) bool {
 	if desired == nil {
 		return false
@@ -8739,6 +10930,49 @@ func compareAlertPolicyConditionsConditionTimeSeriesQueryLanguageMap(c *Client, 
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionMonitoringQueryLanguageNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionMonitoringQueryLanguage)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionMonitoringQueryLanguage)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionMonitoringQueryLanguage or *AlertPolicyConditionsConditionMonitoringQueryLanguage", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionMonitoringQueryLanguage)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionMonitoringQueryLanguage)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionMonitoringQueryLanguage", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Query, actual.Query, dcl.Info{}, fn.AddNest("Query")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageDurationNewStyle}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerNewStyle}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionMonitoringQueryLanguage(c *Client, desired, actual *AlertPolicyConditionsConditionMonitoringQueryLanguage) bool {
@@ -8796,6 +11030,42 @@ func compareAlertPolicyConditionsConditionMonitoringQueryLanguageMap(c *Client, 
 	return false
 }
 
+func compareAlertPolicyConditionsConditionMonitoringQueryLanguageDurationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionMonitoringQueryLanguageDuration)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionMonitoringQueryLanguageDuration)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionMonitoringQueryLanguageDuration or *AlertPolicyConditionsConditionMonitoringQueryLanguageDuration", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionMonitoringQueryLanguageDuration)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionMonitoringQueryLanguageDuration)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionMonitoringQueryLanguageDuration", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(c *Client, desired, actual *AlertPolicyConditionsConditionMonitoringQueryLanguageDuration) bool {
 	if desired == nil {
 		return false
@@ -8845,6 +11115,42 @@ func compareAlertPolicyConditionsConditionMonitoringQueryLanguageDurationMap(c *
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger or *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(c *Client, desired, actual *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger) bool {
@@ -8898,6 +11204,35 @@ func compareAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerMap(c *C
 	return false
 }
 
+func compareAlertPolicyEnabledNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyEnabled)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyEnabled)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyEnabled or *AlertPolicyEnabled", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyEnabled)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyEnabled)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyEnabled", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyEnabled(c *Client, desired, actual *AlertPolicyEnabled) bool {
 	if desired == nil {
 		return false
@@ -8943,6 +11278,49 @@ func compareAlertPolicyEnabledMap(c *Client, desired, actual map[string]AlertPol
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyValidityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyValidity)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyValidity)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyValidity or *AlertPolicyValidity", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyValidity)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyValidity)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyValidity", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareAlertPolicyValidityDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyValidity(c *Client, desired, actual *AlertPolicyValidity) bool {
@@ -9000,6 +11378,42 @@ func compareAlertPolicyValidityMap(c *Client, desired, actual map[string]AlertPo
 	return false
 }
 
+func compareAlertPolicyValidityDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyValidityDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyValidityDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyValidityDetails or *AlertPolicyValidityDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyValidityDetails)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyValidityDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyValidityDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyValidityDetails(c *Client, desired, actual *AlertPolicyValidityDetails) bool {
 	if desired == nil {
 		return false
@@ -9049,6 +11463,42 @@ func compareAlertPolicyValidityDetailsMap(c *Client, desired, actual map[string]
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyCreationRecordNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyCreationRecord)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyCreationRecord)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyCreationRecord or *AlertPolicyCreationRecord", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyCreationRecord)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyCreationRecord)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyCreationRecord", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MutateTime, actual.MutateTime, dcl.Info{ObjectFunction: compareAlertPolicyCreationRecordMutateTimeNewStyle}, fn.AddNest("MutateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MutatedBy, actual.MutatedBy, dcl.Info{}, fn.AddNest("MutatedBy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyCreationRecord(c *Client, desired, actual *AlertPolicyCreationRecord) bool {
@@ -9102,6 +11552,42 @@ func compareAlertPolicyCreationRecordMap(c *Client, desired, actual map[string]A
 	return false
 }
 
+func compareAlertPolicyCreationRecordMutateTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyCreationRecordMutateTime)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyCreationRecordMutateTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyCreationRecordMutateTime or *AlertPolicyCreationRecordMutateTime", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyCreationRecordMutateTime)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyCreationRecordMutateTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyCreationRecordMutateTime", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyCreationRecordMutateTime(c *Client, desired, actual *AlertPolicyCreationRecordMutateTime) bool {
 	if desired == nil {
 		return false
@@ -9151,6 +11637,42 @@ func compareAlertPolicyCreationRecordMutateTimeMap(c *Client, desired, actual ma
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyMutationRecordNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyMutationRecord)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyMutationRecord)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyMutationRecord or *AlertPolicyMutationRecord", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyMutationRecord)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyMutationRecord)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyMutationRecord", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MutateTime, actual.MutateTime, dcl.Info{ObjectFunction: compareAlertPolicyMutationRecordMutateTimeNewStyle}, fn.AddNest("MutateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MutatedBy, actual.MutatedBy, dcl.Info{}, fn.AddNest("MutatedBy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyMutationRecord(c *Client, desired, actual *AlertPolicyMutationRecord) bool {
@@ -9204,6 +11726,42 @@ func compareAlertPolicyMutationRecordMap(c *Client, desired, actual map[string]A
 	return false
 }
 
+func compareAlertPolicyMutationRecordMutateTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyMutationRecordMutateTime)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyMutationRecordMutateTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyMutationRecordMutateTime or *AlertPolicyMutationRecordMutateTime", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyMutationRecordMutateTime)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyMutationRecordMutateTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyMutationRecordMutateTime", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyMutationRecordMutateTime(c *Client, desired, actual *AlertPolicyMutationRecordMutateTime) bool {
 	if desired == nil {
 		return false
@@ -9255,6 +11813,35 @@ func compareAlertPolicyMutationRecordMutateTimeMap(c *Client, desired, actual ma
 	return false
 }
 
+func compareAlertPolicyIncidentStrategyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyIncidentStrategy)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyIncidentStrategy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyIncidentStrategy or *AlertPolicyIncidentStrategy", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyIncidentStrategy)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyIncidentStrategy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyIncidentStrategy", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAlertPolicyIncidentStrategy(c *Client, desired, actual *AlertPolicyIncidentStrategy) bool {
 	if desired == nil {
 		return false
@@ -9300,6 +11887,35 @@ func compareAlertPolicyIncidentStrategyMap(c *Client, desired, actual map[string
 		}
 	}
 	return false
+}
+
+func compareAlertPolicyMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AlertPolicyMetadata)
+	if !ok {
+		desiredNotPointer, ok := d.(AlertPolicyMetadata)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyMetadata or *AlertPolicyMetadata", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AlertPolicyMetadata)
+	if !ok {
+		actualNotPointer, ok := a.(AlertPolicyMetadata)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AlertPolicyMetadata", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.SloNames, actual.SloNames, dcl.Info{}, fn.AddNest("SloNames")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAlertPolicyMetadata(c *Client, desired, actual *AlertPolicyMetadata) bool {

@@ -335,33 +335,53 @@ func diffBrand(c *Client, desired, actual *Brand, opts ...dcl.ApplyOption) ([]br
 	}
 
 	var diffs []brandDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.ApplicationTitle, actual.ApplicationTitle, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "application_title"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApplicationTitle, actual.ApplicationTitle, dcl.Info{}, fn.AddNest("ApplicationTitle")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ApplicationTitle",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.OrgInternalOnly, actual.OrgInternalOnly, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "org_internal_only"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SupportEmail, actual.SupportEmail, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "support_email"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OrgInternalOnly, actual.OrgInternalOnly, dcl.Info{OutputOnly: true}, fn.AddNest("OrgInternalOnly")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "OrgInternalOnly",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SupportEmail, actual.SupportEmail, dcl.Info{}, fn.AddNest("SupportEmail")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SupportEmail",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

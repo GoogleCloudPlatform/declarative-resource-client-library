@@ -5,7 +5,7 @@
   "description": "description",
   "endpoint": {
     "gkeCluster": {
-      "resourceLink": "//container.googleapis.com/projects/{{ref:basicservice.container.cluster.json:project}}/zones/{{ref:basicservice.container.cluster.json:location}}/clusters/{{ref:basicservice.container.cluster.json:name}}"
+      "resourceLink": "{{ref:basicservice.container.cluster.json:selfLink}}"
     }
   },
   "authority": {

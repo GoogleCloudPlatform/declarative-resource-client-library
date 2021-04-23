@@ -1152,258 +1152,328 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 	}
 
 	var diffs []diskDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskEncryptionKey, actual.DiskEncryptionKey, dcl.Info{ObjectFunction: compareDiskEncryptionKeyNewStyle}, fn.AddNest("DiskEncryptionKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DiskEncryptionKey",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.GuestOsFeature, actual.GuestOsFeature, dcl.Info{ObjectFunction: compareDiskGuestOsFeatureNewStyle}, fn.AddNest("GuestOsFeature")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "GuestOsFeature",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, diskDiff{
 			UpdateOp: &updateDiskSetLabelsOperation{}, Diffs: ds,
+			FieldName: "Labels",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "label_fingerprint"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, dcl.Info{OutputOnly: true}, fn.AddNest("LabelFingerprint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, diskDiff{
 			UpdateOp: &updateDiskSetLabelsOperation{}, Diffs: ds,
+			FieldName: "LabelFingerprint",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.License, actual.License, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "license"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.License, actual.License, dcl.Info{}, fn.AddNest("License")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "License",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Region",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ReplicaZones, actual.ReplicaZones, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "replica_zones"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReplicaZones, actual.ReplicaZones, dcl.Info{}, fn.AddNest("ReplicaZones")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ReplicaZones",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePolicy, actual.ResourcePolicy, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "resource_policy"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePolicy, actual.ResourcePolicy, dcl.Info{}, fn.AddNest("ResourcePolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ResourcePolicy",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SizeGb, actual.SizeGb, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "size_gb"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SizeGb, actual.SizeGb, dcl.Info{}, fn.AddNest("SizeGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, diskDiff{
 			UpdateOp: &updateDiskResizeOperation{}, Diffs: ds,
+			FieldName: "SizeGb",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.SourceImage, actual.SourceImage, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "source_image"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceImage, actual.SourceImage, dcl.Info{Type: "ReferenceType"}, fn.AddNest("SourceImage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SourceImageId, actual.SourceImageId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_image_id"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SourceSnapshot, actual.SourceSnapshot, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_snapshot"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SourceSnapshotId, actual.SourceSnapshotId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_snapshot_id"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "type"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "zone"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "status"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Options, actual.Options, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "options"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Licenses, actual.Licenses, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "licenses"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.LastAttachTimestamp, actual.LastAttachTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "last_attach_timestamp"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.LastDetachTimestamp, actual.LastDetachTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "last_detach_timestamp"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Users, actual.Users, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "users"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.LicenseCodes, actual.LicenseCodes, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "license_codes"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.PhysicalBlockSizeBytes, actual.PhysicalBlockSizeBytes, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "physical_block_size_bytes"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.ResourcePolicies, actual.ResourcePolicies, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "resource_policies"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_disk"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SourceDiskId, actual.SourceDiskId, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_disk_id"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareDiskEncryptionKey(c, desired.DiskEncryptionKey, actual.DiskEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in DiskEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.DiskEncryptionKey, actual.DiskEncryptionKey)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "DiskEncryptionKey",
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceImage",
 		})
 	}
-	if compareDiskGuestOsFeatureSlice(c, desired.GuestOsFeature, actual.GuestOsFeature) {
-		c.Config.Logger.Infof("Detected diff in GuestOsFeature.\nDESIRED: %v\nACTUAL: %v", desired.GuestOsFeature, actual.GuestOsFeature)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "GuestOsFeature",
+
+	if ds, err := dcl.Diff(desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey, dcl.Info{ObjectFunction: compareDiskEncryptionKeyNewStyle}, fn.AddNest("SourceImageEncryptionKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceImageEncryptionKey",
 		})
 	}
-	if compareDiskEncryptionKey(c, desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in SourceImageEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceImageEncryptionKey",
+
+	if ds, err := dcl.Diff(desired.SourceImageId, actual.SourceImageId, dcl.Info{OutputOnly: true}, fn.AddNest("SourceImageId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceImageId",
 		})
 	}
-	if compareDiskEncryptionKey(c, desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in SourceSnapshotEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceSnapshotEncryptionKey",
+
+	if ds, err := dcl.Diff(desired.SourceSnapshot, actual.SourceSnapshot, dcl.Info{}, fn.AddNest("SourceSnapshot")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceSnapshot",
 		})
 	}
-	if compareDiskGuestOsFeaturesSlice(c, desired.GuestOsFeatures, actual.GuestOsFeatures) {
-		c.Config.Logger.Infof("Detected diff in GuestOsFeatures.\nDESIRED: %v\nACTUAL: %v", desired.GuestOsFeatures, actual.GuestOsFeatures)
-		diffs = append(diffs, diskDiff{
-			RequiresRecreate: true,
-			FieldName:        "GuestOsFeatures",
+
+	if ds, err := dcl.Diff(desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey, dcl.Info{ObjectFunction: compareDiskEncryptionKeyNewStyle}, fn.AddNest("SourceSnapshotEncryptionKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceSnapshotEncryptionKey",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.SourceSnapshotId, actual.SourceSnapshotId, dcl.Info{OutputOnly: true}, fn.AddNest("SourceSnapshotId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceSnapshotId",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Type",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{OutputOnly: true}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Zone",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Status",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Options, actual.Options, dcl.Info{}, fn.AddNest("Options")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Options",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Licenses, actual.Licenses, dcl.Info{}, fn.AddNest("Licenses")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Licenses",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.GuestOsFeatures, actual.GuestOsFeatures, dcl.Info{ObjectFunction: compareDiskGuestOsFeaturesNewStyle}, fn.AddNest("GuestOsFeatures")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "GuestOsFeatures",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.LastAttachTimestamp, actual.LastAttachTimestamp, dcl.Info{OutputOnly: true}, fn.AddNest("LastAttachTimestamp")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "LastAttachTimestamp",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.LastDetachTimestamp, actual.LastDetachTimestamp, dcl.Info{OutputOnly: true}, fn.AddNest("LastDetachTimestamp")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "LastDetachTimestamp",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Users, actual.Users, dcl.Info{OutputOnly: true}, fn.AddNest("Users")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Users",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.LicenseCodes, actual.LicenseCodes, dcl.Info{}, fn.AddNest("LicenseCodes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "LicenseCodes",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.PhysicalBlockSizeBytes, actual.PhysicalBlockSizeBytes, dcl.Info{}, fn.AddNest("PhysicalBlockSizeBytes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "PhysicalBlockSizeBytes",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePolicies, actual.ResourcePolicies, dcl.Info{}, fn.AddNest("ResourcePolicies")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ResourcePolicies",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, dcl.Info{}, fn.AddNest("SourceDisk")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceDisk",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceDiskId, actual.SourceDiskId, dcl.Info{}, fn.AddNest("SourceDiskId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceDiskId",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, diskDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -1428,6 +1498,42 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]disk
 
 	return deduped, nil
 }
+func compareDiskGuestOsFeatureNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DiskGuestOsFeature)
+	if !ok {
+		desiredNotPointer, ok := d.(DiskGuestOsFeature)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DiskGuestOsFeature or *DiskGuestOsFeature", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DiskGuestOsFeature)
+	if !ok {
+		actualNotPointer, ok := a.(DiskGuestOsFeature)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DiskGuestOsFeature", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TypeAlt, actual.TypeAlt, dcl.Info{Type: "EnumType"}, fn.AddNest("TypeAlt")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDiskGuestOsFeature(c *Client, desired, actual *DiskGuestOsFeature) bool {
 	if desired == nil {
 		return false
@@ -1479,6 +1585,56 @@ func compareDiskGuestOsFeatureMap(c *Client, desired, actual map[string]DiskGues
 	return false
 }
 
+func compareDiskEncryptionKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DiskEncryptionKey)
+	if !ok {
+		desiredNotPointer, ok := d.(DiskEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DiskEncryptionKey or *DiskEncryptionKey", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DiskEncryptionKey)
+	if !ok {
+		actualNotPointer, ok := a.(DiskEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DiskEncryptionKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RawKey, actual.RawKey, dcl.Info{Ignore: true}, fn.AddNest("RawKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Sha256, actual.Sha256, dcl.Info{OutputOnly: true}, fn.AddNest("Sha256")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyServiceAccount, actual.KmsKeyServiceAccount, dcl.Info{}, fn.AddNest("KmsKeyServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDiskEncryptionKey(c *Client, desired, actual *DiskEncryptionKey) bool {
 	if desired == nil {
 		return false
@@ -1528,6 +1684,42 @@ func compareDiskEncryptionKeyMap(c *Client, desired, actual map[string]DiskEncry
 		}
 	}
 	return false
+}
+
+func compareDiskGuestOsFeaturesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DiskGuestOsFeatures)
+	if !ok {
+		desiredNotPointer, ok := d.(DiskGuestOsFeatures)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DiskGuestOsFeatures or *DiskGuestOsFeatures", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DiskGuestOsFeatures)
+	if !ok {
+		actualNotPointer, ok := a.(DiskGuestOsFeatures)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DiskGuestOsFeatures", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TypeAlts, actual.TypeAlts, dcl.Info{Type: "EnumType"}, fn.AddNest("TypeAlts")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDiskGuestOsFeatures(c *Client, desired, actual *DiskGuestOsFeatures) bool {

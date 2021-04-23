@@ -67,6 +67,7 @@ type TriggerDestination struct {
 	empty         bool                        `json:"-"`
 	CloudRun      *TriggerDestinationCloudRun `json:"cloudRun"`
 	CloudFunction *string                     `json:"cloudFunction"`
+	Gke           *TriggerDestinationGke      `json:"gke"`
 }
 
 // This object is used to assert a desired state where this TriggerDestination is
@@ -102,6 +103,31 @@ func (r *TriggerDestinationCloudRun) String() string {
 }
 
 func (r *TriggerDestinationCloudRun) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type TriggerDestinationGke struct {
+	empty     bool    `json:"-"`
+	Cluster   *string `json:"cluster"`
+	Location  *string `json:"location"`
+	Namespace *string `json:"namespace"`
+	Service   *string `json:"service"`
+	Path      *string `json:"path"`
+}
+
+// This object is used to assert a desired state where this TriggerDestinationGke is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyTriggerDestinationGke *TriggerDestinationGke = &TriggerDestinationGke{empty: true}
+
+func (r *TriggerDestinationGke) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *TriggerDestinationGke) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

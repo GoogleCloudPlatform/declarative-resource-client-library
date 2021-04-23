@@ -416,61 +416,80 @@ func diffNetworkEndpoint(c *Client, desired, actual *NetworkEndpoint, opts ...dc
 	}
 
 	var diffs []networkEndpointDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "port"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Port",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ip_address"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "IPAddress",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Fqdn, actual.Fqdn, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "fqdn"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fqdn, actual.Fqdn, dcl.Info{}, fn.AddNest("Fqdn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Fqdn",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "instance"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Instance",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "annotations"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Annotations",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Group, actual.Group, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "group"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Group, actual.Group, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Group")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, networkEndpointDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Group",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

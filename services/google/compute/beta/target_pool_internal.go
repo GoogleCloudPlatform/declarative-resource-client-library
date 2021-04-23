@@ -865,111 +865,101 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []targetPoolDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.BackupPool, actual.BackupPool, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "backup_pool"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BackupPool, actual.BackupPool, dcl.Info{}, fn.AddNest("BackupPool")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, targetPoolDiff{
 			UpdateOp: &updateTargetPoolSetBackupOperation{}, Diffs: ds,
+			FieldName: "BackupPool",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.FailoverRatio, actual.FailoverRatio, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "failover_ratio"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FailoverRatio, actual.FailoverRatio, dcl.Info{}, fn.AddNest("FailoverRatio")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "FailoverRatio",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "Set", FieldName: "health_check"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{Type: "Set"}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "HealthCheck",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "Set", FieldName: "instance"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Type: "Set"}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Instance",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Region",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SessionAffinity, actual.SessionAffinity, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "session_affinity"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SessionAffinity, actual.SessionAffinity, dcl.Info{Type: "EnumType"}, fn.AddNest("SessionAffinity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SessionAffinity",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
-	if !dcl.IsZeroValue(desired.HealthCheck) && !dcl.PartialSelfLinkToSelfLinkArray(desired.HealthCheck, actual.HealthCheck) {
-		c.Config.Logger.Infof("Detected diff in HealthCheck.\nDESIRED: %v\nACTUAL: %v", desired.HealthCheck, actual.HealthCheck)
-		toAdd, toRemove := dcl.CompareStringSets(desired.HealthCheck, actual.HealthCheck)
-		if len(toAdd) > 0 {
-			diffs = append(diffs, targetPoolDiff{
-				UpdateOp:  &updateTargetPoolAddHCOperation{},
-				FieldName: "HealthCheck",
-			})
-		}
-		if len(toRemove) > 0 {
-			diffs = append(diffs, targetPoolDiff{
-				UpdateOp:  &updateTargetPoolRemoveHCOperation{},
-				FieldName: "HealthCheck",
-			})
-		}
-	}
-	if !dcl.StringSliceEquals(desired.Instance, actual.Instance) {
-		c.Config.Logger.Infof("Detected diff in Instance.\nDESIRED: %v\nACTUAL: %v", desired.Instance, actual.Instance)
-		toAdd, toRemove := dcl.CompareStringSets(desired.Instance, actual.Instance)
-		if len(toAdd) > 0 {
-			diffs = append(diffs, targetPoolDiff{
-				UpdateOp:  &updateTargetPoolAddInstanceOperation{},
-				FieldName: "Instance",
-			})
-		}
-		if len(toRemove) > 0 {
-			diffs = append(diffs, targetPoolDiff{
-				UpdateOp:  &updateTargetPoolRemoveInstanceOperation{},
-				FieldName: "Instance",
-			})
-		}
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any

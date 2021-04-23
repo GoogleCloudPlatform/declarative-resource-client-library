@@ -45,6 +45,7 @@ func ProtoToEventarcTriggerDestination(p *eventarcpb.EventarcTriggerDestination)
 	obj := &eventarc.TriggerDestination{
 		CloudRun:      ProtoToEventarcTriggerDestinationCloudRun(p.GetCloudRun()),
 		CloudFunction: dcl.StringOrNil(p.CloudFunction),
+		Gke:           ProtoToEventarcTriggerDestinationGke(p.GetGke()),
 	}
 	return obj
 }
@@ -58,6 +59,21 @@ func ProtoToEventarcTriggerDestinationCloudRun(p *eventarcpb.EventarcTriggerDest
 		Service: dcl.StringOrNil(p.Service),
 		Path:    dcl.StringOrNil(p.Path),
 		Region:  dcl.StringOrNil(p.Region),
+	}
+	return obj
+}
+
+// ProtoToTriggerDestinationGke converts a TriggerDestinationGke resource from its proto representation.
+func ProtoToEventarcTriggerDestinationGke(p *eventarcpb.EventarcTriggerDestinationGke) *eventarc.TriggerDestinationGke {
+	if p == nil {
+		return nil
+	}
+	obj := &eventarc.TriggerDestinationGke{
+		Cluster:   dcl.StringOrNil(p.Cluster),
+		Location:  dcl.StringOrNil(p.Location),
+		Namespace: dcl.StringOrNil(p.Namespace),
+		Service:   dcl.StringOrNil(p.Service),
+		Path:      dcl.StringOrNil(p.Path),
 	}
 	return obj
 }
@@ -125,6 +141,7 @@ func EventarcTriggerDestinationToProto(o *eventarc.TriggerDestination) *eventarc
 	p := &eventarcpb.EventarcTriggerDestination{
 		CloudRun:      EventarcTriggerDestinationCloudRunToProto(o.CloudRun),
 		CloudFunction: dcl.ValueOrEmptyString(o.CloudFunction),
+		Gke:           EventarcTriggerDestinationGkeToProto(o.Gke),
 	}
 	return p
 }
@@ -138,6 +155,21 @@ func EventarcTriggerDestinationCloudRunToProto(o *eventarc.TriggerDestinationClo
 		Service: dcl.ValueOrEmptyString(o.Service),
 		Path:    dcl.ValueOrEmptyString(o.Path),
 		Region:  dcl.ValueOrEmptyString(o.Region),
+	}
+	return p
+}
+
+// TriggerDestinationGkeToProto converts a TriggerDestinationGke resource to its proto representation.
+func EventarcTriggerDestinationGkeToProto(o *eventarc.TriggerDestinationGke) *eventarcpb.EventarcTriggerDestinationGke {
+	if o == nil {
+		return nil
+	}
+	p := &eventarcpb.EventarcTriggerDestinationGke{
+		Cluster:   dcl.ValueOrEmptyString(o.Cluster),
+		Location:  dcl.ValueOrEmptyString(o.Location),
+		Namespace: dcl.ValueOrEmptyString(o.Namespace),
+		Service:   dcl.ValueOrEmptyString(o.Service),
+		Path:      dcl.ValueOrEmptyString(o.Path),
 	}
 	return p
 }

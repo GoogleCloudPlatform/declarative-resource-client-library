@@ -704,74 +704,93 @@ func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []workerPoolDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "State",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpdateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "delete_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DeleteTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareWorkerPoolWorkerConfigNewStyle}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareWorkerPoolWorkerConfig(c, desired.WorkerConfig, actual.WorkerConfig) {
-		c.Config.Logger.Infof("Detected diff in WorkerConfig.\nDESIRED: %v\nACTUAL: %v", desired.WorkerConfig, actual.WorkerConfig)
-
 		diffs = append(diffs, workerPoolDiff{
-			UpdateOp:  &updateWorkerPoolUpdateWorkerPoolOperation{},
+			UpdateOp: &updateWorkerPoolUpdateWorkerPoolOperation{}, Diffs: ds,
 			FieldName: "WorkerConfig",
 		})
-
 	}
-	if compareWorkerPoolNetworkConfig(c, desired.NetworkConfig, actual.NetworkConfig) {
-		c.Config.Logger.Infof("Detected diff in NetworkConfig.\nDESIRED: %v\nACTUAL: %v", desired.NetworkConfig, actual.NetworkConfig)
 
+	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareWorkerPoolNetworkConfigNewStyle}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, workerPoolDiff{
-			UpdateOp:  &updateWorkerPoolUpdateWorkerPoolOperation{},
+			UpdateOp: &updateWorkerPoolUpdateWorkerPoolOperation{}, Diffs: ds,
 			FieldName: "NetworkConfig",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -796,6 +815,49 @@ func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOpt
 
 	return deduped, nil
 }
+func compareWorkerPoolWorkerConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkerPoolWorkerConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkerPoolWorkerConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkerPoolWorkerConfig or *WorkerPoolWorkerConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkerPoolWorkerConfig)
+	if !ok {
+		actualNotPointer, ok := a.(WorkerPoolWorkerConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkerPoolWorkerConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NoExternalIP, actual.NoExternalIP, dcl.Info{}, fn.AddNest("NoExternalIP")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkerPoolWorkerConfig(c *Client, desired, actual *WorkerPoolWorkerConfig) bool {
 	if desired == nil {
 		return false
@@ -849,6 +911,35 @@ func compareWorkerPoolWorkerConfigMap(c *Client, desired, actual map[string]Work
 		}
 	}
 	return false
+}
+
+func compareWorkerPoolNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkerPoolNetworkConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkerPoolNetworkConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkerPoolNetworkConfig or *WorkerPoolNetworkConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkerPoolNetworkConfig)
+	if !ok {
+		actualNotPointer, ok := a.(WorkerPoolNetworkConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkerPoolNetworkConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PeeredNetwork, actual.PeeredNetwork, dcl.Info{Type: "ReferenceType"}, fn.AddNest("PeeredNetwork")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareWorkerPoolNetworkConfig(c *Client, desired, actual *WorkerPoolNetworkConfig) bool {

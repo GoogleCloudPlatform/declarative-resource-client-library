@@ -595,66 +595,78 @@ func diffBackendBucket(c *Client, desired, actual *BackendBucket, opts ...dcl.Ap
 	}
 
 	var diffs []backendBucketDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.BucketName, actual.BucketName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "bucket_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BucketName, actual.BucketName, dcl.Info{Type: "ReferenceType"}, fn.AddNest("BucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, backendBucketDiff{
 			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
+			FieldName: "BucketName",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CdnPolicy, actual.CdnPolicy, dcl.Info{ObjectFunction: compareBackendBucketCdnPolicyNewStyle}, fn.AddNest("CdnPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, backendBucketDiff{
 			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.EnableCdn, actual.EnableCdn, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enable_cdn"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, backendBucketDiff{
-			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, backendBucketDiff{
-			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, backendBucketDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, backendBucketDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareBackendBucketCdnPolicy(c, desired.CdnPolicy, actual.CdnPolicy) {
-		c.Config.Logger.Infof("Detected diff in CdnPolicy.\nDESIRED: %v\nACTUAL: %v", desired.CdnPolicy, actual.CdnPolicy)
-
-		diffs = append(diffs, backendBucketDiff{
-			UpdateOp:  &updateBackendBucketUpdateOperation{},
 			FieldName: "CdnPolicy",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, backendBucketDiff{
+			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
+			FieldName: "Description",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.EnableCdn, actual.EnableCdn, dcl.Info{}, fn.AddNest("EnableCdn")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, backendBucketDiff{
+			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
+			FieldName: "EnableCdn",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, backendBucketDiff{
+			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
+			FieldName: "Name",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, backendBucketDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, backendBucketDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -679,6 +691,42 @@ func diffBackendBucket(c *Client, desired, actual *BackendBucket, opts ...dcl.Ap
 
 	return deduped, nil
 }
+func compareBackendBucketCdnPolicyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BackendBucketCdnPolicy)
+	if !ok {
+		desiredNotPointer, ok := d.(BackendBucketCdnPolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BackendBucketCdnPolicy or *BackendBucketCdnPolicy", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BackendBucketCdnPolicy)
+	if !ok {
+		actualNotPointer, ok := a.(BackendBucketCdnPolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BackendBucketCdnPolicy", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.SignedUrlKeyNames, actual.SignedUrlKeyNames, dcl.Info{}, fn.AddNest("SignedUrlKeyNames")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SignedUrlCacheMaxAgeSec, actual.SignedUrlCacheMaxAgeSec, dcl.Info{}, fn.AddNest("SignedUrlCacheMaxAgeSec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareBackendBucketCdnPolicy(c *Client, desired, actual *BackendBucketCdnPolicy) bool {
 	if desired == nil {
 		return false

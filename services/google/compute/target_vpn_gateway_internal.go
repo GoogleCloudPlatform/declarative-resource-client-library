@@ -463,75 +463,98 @@ func diffTargetVpnGateway(c *Client, desired, actual *TargetVpnGateway, opts ...
 	}
 
 	var diffs []targetVpnGatewayDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Region",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "network"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Network",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Tunnel, actual.Tunnel, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "tunnel"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tunnel, actual.Tunnel, dcl.Info{OutputOnly: true}, fn.AddNest("Tunnel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Tunnel",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "status"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Status",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ForwardingRule, actual.ForwardingRule, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "forwarding_rule"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ForwardingRule, actual.ForwardingRule, dcl.Info{OutputOnly: true}, fn.AddNest("ForwardingRule")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ForwardingRule",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

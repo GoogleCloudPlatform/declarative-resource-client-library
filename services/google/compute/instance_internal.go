@@ -2311,180 +2311,232 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []instanceDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.CanIPForward, actual.CanIPForward, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "can_ip_forward"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CanIPForward, actual.CanIPForward, dcl.Info{}, fn.AddNest("CanIPForward")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CanIPForward",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.CpuPlatform, actual.CpuPlatform, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "cpu_platform"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CpuPlatform, actual.CpuPlatform, dcl.Info{OutputOnly: true}, fn.AddNest("CpuPlatform")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CpuPlatform",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "creation_timestamp"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreationTimestamp",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.DeletionProtection, actual.DeletionProtection, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "deletion_protection"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeletionProtection, actual.DeletionProtection, dcl.Info{}, fn.AddNest("DeletionProtection")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
 			UpdateOp: &updateInstanceSetDeletionProtectionOperation{}, Diffs: ds,
+			FieldName: "DeletionProtection",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Hostname, actual.Hostname, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "hostname"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Disks, actual.Disks, dcl.Info{Ignore: true, ObjectFunction: compareInstanceDisksNewStyle}, fn.AddNest("Disks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Disks",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GuestAccelerators, actual.GuestAccelerators, dcl.Info{ObjectFunction: compareInstanceGuestAcceleratorsNewStyle}, fn.AddNest("GuestAccelerators")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "GuestAccelerators",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Hostname, actual.Hostname, dcl.Info{}, fn.AddNest("Hostname")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Hostname",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
 			UpdateOp: &updateInstanceSetLabelsOperation{}, Diffs: ds,
+			FieldName: "Labels",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "metadata"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
 			UpdateOp: &updateInstanceSetMetadataOperation{}, Diffs: ds,
+			FieldName: "Metadata",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "machine_type"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{Type: "ReferenceType"}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
 			UpdateOp: &updateInstanceSetMachineTypeOperation{}, Diffs: ds,
+			FieldName: "MachineType",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "min_cpu_platform"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.Info{}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "MinCpuPlatform",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "status"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkInterfaces, actual.NetworkInterfaces, dcl.Info{ObjectFunction: compareInstanceNetworkInterfacesNewStyle}, fn.AddNest("NetworkInterfaces")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NetworkInterfaces",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "status_message"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scheduling, actual.Scheduling, dcl.Info{ObjectFunction: compareInstanceSchedulingNewStyle}, fn.AddNest("Scheduling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Scheduling",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Tags, actual.Tags, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "tags"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccounts, actual.ServiceAccounts, dcl.Info{ObjectFunction: compareInstanceServiceAccountsNewStyle}, fn.AddNest("ServiceAccounts")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ServiceAccounts",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareInstanceShieldedInstanceConfigNewStyle}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateShieldedInstanceConfigOperation{}, Diffs: ds,
+			FieldName: "ShieldedInstanceConfig",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Status",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{OutputOnly: true}, fn.AddNest("StatusMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "StatusMessage",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Tags, actual.Tags, dcl.Info{}, fn.AddNest("Tags")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
 			UpdateOp: &updateInstanceSetTagsOperation{}, Diffs: ds,
+			FieldName: "Tags",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "zone"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Zone",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
 	}
 
-	if compareInstanceGuestAcceleratorsSlice(c, desired.GuestAccelerators, actual.GuestAccelerators) {
-		c.Config.Logger.Infof("Detected diff in GuestAccelerators.\nDESIRED: %v\nACTUAL: %v", desired.GuestAccelerators, actual.GuestAccelerators)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "GuestAccelerators",
-		})
-	}
-	if compareInstanceNetworkInterfacesSlice(c, desired.NetworkInterfaces, actual.NetworkInterfaces) {
-		c.Config.Logger.Infof("Detected diff in NetworkInterfaces.\nDESIRED: %v\nACTUAL: %v", desired.NetworkInterfaces, actual.NetworkInterfaces)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "NetworkInterfaces",
-		})
-	}
-	if compareInstanceScheduling(c, desired.Scheduling, actual.Scheduling) {
-		c.Config.Logger.Infof("Detected diff in Scheduling.\nDESIRED: %v\nACTUAL: %v", desired.Scheduling, actual.Scheduling)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Scheduling",
-		})
-	}
-	if compareInstanceServiceAccountsSlice(c, desired.ServiceAccounts, actual.ServiceAccounts) {
-		c.Config.Logger.Infof("Detected diff in ServiceAccounts.\nDESIRED: %v\nACTUAL: %v", desired.ServiceAccounts, actual.ServiceAccounts)
-		diffs = append(diffs, instanceDiff{
-			RequiresRecreate: true,
-			FieldName:        "ServiceAccounts",
-		})
-	}
-	if compareInstanceShieldedInstanceConfig(c, desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig) {
-		c.Config.Logger.Infof("Detected diff in ShieldedInstanceConfig.\nDESIRED: %v\nACTUAL: %v", desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateShieldedInstanceConfigOperation{},
-			FieldName: "ShieldedInstanceConfig",
-		})
-
-	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -2509,6 +2561,98 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	return deduped, nil
 }
+func compareInstanceDisksNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDisks)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDisks)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDisks or *InstanceDisks", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDisks)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDisks)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDisks", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AutoDelete, actual.AutoDelete, dcl.Info{}, fn.AddNest("AutoDelete")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Boot, actual.Boot, dcl.Info{}, fn.AddNest("Boot")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DeviceName, actual.DeviceName, dcl.Info{}, fn.AddNest("DeviceName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskEncryptionKey, actual.DiskEncryptionKey, dcl.Info{ObjectFunction: compareInstanceDisksDiskEncryptionKeyNewStyle}, fn.AddNest("DiskEncryptionKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Index, actual.Index, dcl.Info{}, fn.AddNest("Index")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InitializeParams, actual.InitializeParams, dcl.Info{Ignore: true, ObjectFunction: compareInstanceDisksInitializeParamsNewStyle}, fn.AddNest("InitializeParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Interface, actual.Interface, dcl.Info{Type: "EnumType"}, fn.AddNest("Interface")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{Type: "EnumType"}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceDisks(c *Client, desired, actual *InstanceDisks) bool {
 	if desired == nil {
 		return false
@@ -2588,6 +2732,49 @@ func compareInstanceDisksMap(c *Client, desired, actual map[string]InstanceDisks
 	return false
 }
 
+func compareInstanceDisksDiskEncryptionKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDisksDiskEncryptionKey)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDisksDiskEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDisksDiskEncryptionKey or *InstanceDisksDiskEncryptionKey", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDisksDiskEncryptionKey)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDisksDiskEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDisksDiskEncryptionKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RawKey, actual.RawKey, dcl.Info{}, fn.AddNest("RawKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RsaEncryptedKey, actual.RsaEncryptedKey, dcl.Info{}, fn.AddNest("RsaEncryptedKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Sha256, actual.Sha256, dcl.Info{OutputOnly: true}, fn.AddNest("Sha256")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceDisksDiskEncryptionKey(c *Client, desired, actual *InstanceDisksDiskEncryptionKey) bool {
 	if desired == nil {
 		return false
@@ -2637,6 +2824,63 @@ func compareInstanceDisksDiskEncryptionKeyMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareInstanceDisksInitializeParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDisksInitializeParams)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDisksInitializeParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDisksInitializeParams or *InstanceDisksInitializeParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDisksInitializeParams)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDisksInitializeParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDisksInitializeParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DiskName, actual.DiskName, dcl.Info{}, fn.AddNest("DiskName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskType, actual.DiskType, dcl.Info{Type: "ReferenceType"}, fn.AddNest("DiskType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SourceImage, actual.SourceImage, dcl.Info{}, fn.AddNest("SourceImage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey, dcl.Info{ObjectFunction: compareInstanceDisksInitializeParamsSourceImageEncryptionKeyNewStyle}, fn.AddNest("SourceImageEncryptionKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceDisksInitializeParams(c *Client, desired, actual *InstanceDisksInitializeParams) bool {
@@ -2702,6 +2946,42 @@ func compareInstanceDisksInitializeParamsMap(c *Client, desired, actual map[stri
 	return false
 }
 
+func compareInstanceDisksInitializeParamsSourceImageEncryptionKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDisksInitializeParamsSourceImageEncryptionKey)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDisksInitializeParamsSourceImageEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDisksInitializeParamsSourceImageEncryptionKey or *InstanceDisksInitializeParamsSourceImageEncryptionKey", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDisksInitializeParamsSourceImageEncryptionKey)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDisksInitializeParamsSourceImageEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDisksInitializeParamsSourceImageEncryptionKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RawKey, actual.RawKey, dcl.Info{}, fn.AddNest("RawKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Sha256, actual.Sha256, dcl.Info{OutputOnly: true}, fn.AddNest("Sha256")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceDisksInitializeParamsSourceImageEncryptionKey(c *Client, desired, actual *InstanceDisksInitializeParamsSourceImageEncryptionKey) bool {
 	if desired == nil {
 		return false
@@ -2747,6 +3027,42 @@ func compareInstanceDisksInitializeParamsSourceImageEncryptionKeyMap(c *Client, 
 		}
 	}
 	return false
+}
+
+func compareInstanceGuestAcceleratorsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGuestAccelerators)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGuestAccelerators)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGuestAccelerators or *InstanceGuestAccelerators", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGuestAccelerators)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGuestAccelerators)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGuestAccelerators", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.Info{}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{}, fn.AddNest("AcceleratorType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceGuestAccelerators(c *Client, desired, actual *InstanceGuestAccelerators) bool {
@@ -2798,6 +3114,70 @@ func compareInstanceGuestAcceleratorsMap(c *Client, desired, actual map[string]I
 		}
 	}
 	return false
+}
+
+func compareInstanceNetworkInterfacesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceNetworkInterfaces)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceNetworkInterfaces)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceNetworkInterfaces or *InstanceNetworkInterfaces", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceNetworkInterfaces)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceNetworkInterfaces)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceNetworkInterfaces", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AccessConfigs, actual.AccessConfigs, dcl.Info{ObjectFunction: compareInstanceNetworkInterfacesAccessConfigsNewStyle}, fn.AddNest("AccessConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AliasIPRanges, actual.AliasIPRanges, dcl.Info{ObjectFunction: compareInstanceNetworkInterfacesAliasIPRangesNewStyle}, fn.AddNest("AliasIPRanges")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NetworkIP, actual.NetworkIP, dcl.Info{}, fn.AddNest("NetworkIP")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceNetworkInterfaces(c *Client, desired, actual *InstanceNetworkInterfaces) bool {
@@ -2863,6 +3243,49 @@ func compareInstanceNetworkInterfacesMap(c *Client, desired, actual map[string]I
 	return false
 }
 
+func compareInstanceNetworkInterfacesAccessConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceNetworkInterfacesAccessConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceNetworkInterfacesAccessConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceNetworkInterfacesAccessConfigs or *InstanceNetworkInterfacesAccessConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceNetworkInterfacesAccessConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceNetworkInterfacesAccessConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceNetworkInterfacesAccessConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NatIP, actual.NatIP, dcl.Info{}, fn.AddNest("NatIP")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceNetworkInterfacesAccessConfigs(c *Client, desired, actual *InstanceNetworkInterfacesAccessConfigs) bool {
 	if desired == nil {
 		return false
@@ -2918,6 +3341,42 @@ func compareInstanceNetworkInterfacesAccessConfigsMap(c *Client, desired, actual
 	return false
 }
 
+func compareInstanceNetworkInterfacesAliasIPRangesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceNetworkInterfacesAliasIPRanges)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceNetworkInterfacesAliasIPRanges)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceNetworkInterfacesAliasIPRanges or *InstanceNetworkInterfacesAliasIPRanges", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceNetworkInterfacesAliasIPRanges)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceNetworkInterfacesAliasIPRanges)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceNetworkInterfacesAliasIPRanges", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{}, fn.AddNest("IPCidrRange")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SubnetworkRangeName, actual.SubnetworkRangeName, dcl.Info{}, fn.AddNest("SubnetworkRangeName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceNetworkInterfacesAliasIPRanges(c *Client, desired, actual *InstanceNetworkInterfacesAliasIPRanges) bool {
 	if desired == nil {
 		return false
@@ -2967,6 +3426,49 @@ func compareInstanceNetworkInterfacesAliasIPRangesMap(c *Client, desired, actual
 		}
 	}
 	return false
+}
+
+func compareInstanceSchedulingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceScheduling)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceScheduling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceScheduling or *InstanceScheduling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceScheduling)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceScheduling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceScheduling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AutomaticRestart, actual.AutomaticRestart, dcl.Info{}, fn.AddNest("AutomaticRestart")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OnHostMaintenance, actual.OnHostMaintenance, dcl.Info{}, fn.AddNest("OnHostMaintenance")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Preemptible, actual.Preemptible, dcl.Info{}, fn.AddNest("Preemptible")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceScheduling(c *Client, desired, actual *InstanceScheduling) bool {
@@ -3024,6 +3526,42 @@ func compareInstanceSchedulingMap(c *Client, desired, actual map[string]Instance
 	return false
 }
 
+func compareInstanceServiceAccountsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceServiceAccounts)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceServiceAccounts)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceServiceAccounts or *InstanceServiceAccounts", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceServiceAccounts)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceServiceAccounts)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceServiceAccounts", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Email, actual.Email, dcl.Info{}, fn.AddNest("Email")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scopes, actual.Scopes, dcl.Info{}, fn.AddNest("Scopes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceServiceAccounts(c *Client, desired, actual *InstanceServiceAccounts) bool {
 	if desired == nil {
 		return false
@@ -3073,6 +3611,49 @@ func compareInstanceServiceAccountsMap(c *Client, desired, actual map[string]Ins
 		}
 	}
 	return false
+}
+
+func compareInstanceShieldedInstanceConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceShieldedInstanceConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceShieldedInstanceConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceShieldedInstanceConfig or *InstanceShieldedInstanceConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceShieldedInstanceConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceShieldedInstanceConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceShieldedInstanceConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EnableSecureBoot, actual.EnableSecureBoot, dcl.Info{}, fn.AddNest("EnableSecureBoot")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableVtpm, actual.EnableVtpm, dcl.Info{}, fn.AddNest("EnableVtpm")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring, dcl.Info{}, fn.AddNest("EnableIntegrityMonitoring")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceShieldedInstanceConfig(c *Client, desired, actual *InstanceShieldedInstanceConfig) bool {

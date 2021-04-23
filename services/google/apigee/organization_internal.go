@@ -741,132 +741,175 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 	}
 
 	var diffs []organizationDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, organizationDiff{
 			UpdateOp: &updateOrganizationUpdateOrganizationOperation{}, Diffs: ds,
+			FieldName: "DisplayName",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, organizationDiff{
 			UpdateOp: &updateOrganizationUpdateOrganizationOperation{}, Diffs: ds,
+			FieldName: "Description",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.CreatedAt, actual.CreatedAt, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "created_at"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreatedAt, actual.CreatedAt, dcl.Info{OutputOnly: true}, fn.AddNest("CreatedAt")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreatedAt",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.LastModifiedAt, actual.LastModifiedAt, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "last_modified_at"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LastModifiedAt, actual.LastModifiedAt, dcl.Info{OutputOnly: true}, fn.AddNest("LastModifiedAt")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "LastModifiedAt",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ExpiresAt, actual.ExpiresAt, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "expires_at"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExpiresAt, actual.ExpiresAt, dcl.Info{OutputOnly: true}, fn.AddNest("ExpiresAt")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ExpiresAt",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Environments, actual.Environments, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "environments"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Environments, actual.Environments, dcl.Info{OutputOnly: true}, fn.AddNest("Environments")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Environments",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.AnalyticsRegion, actual.AnalyticsRegion, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "analytics_region"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{ObjectFunction: compareOrganizationPropertiesNewStyle}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.AuthorizedNetwork, actual.AuthorizedNetwork, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "authorized_network"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.RuntimeType, actual.RuntimeType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "runtime_type"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SubscriptionType, actual.SubscriptionType, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "subscription_type"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.BillingType, actual.BillingType, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "billing_type"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.CaCertificate, actual.CaCertificate, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ca_certificate"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.RuntimeDatabaseEncryptionKeyName, actual.RuntimeDatabaseEncryptionKeyName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "runtime_database_encryption_key_name"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project_id"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "parent"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareOrganizationProperties(c, desired.Properties, actual.Properties) {
-		c.Config.Logger.Infof("Detected diff in Properties.\nDESIRED: %v\nACTUAL: %v", desired.Properties, actual.Properties)
-
 		diffs = append(diffs, organizationDiff{
-			UpdateOp:  &updateOrganizationUpdateOrganizationOperation{},
+			UpdateOp: &updateOrganizationUpdateOrganizationOperation{}, Diffs: ds,
 			FieldName: "Properties",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.AnalyticsRegion, actual.AnalyticsRegion, dcl.Info{}, fn.AddNest("AnalyticsRegion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "AnalyticsRegion",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.AuthorizedNetwork, actual.AuthorizedNetwork, dcl.Info{}, fn.AddNest("AuthorizedNetwork")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "AuthorizedNetwork",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.RuntimeType, actual.RuntimeType, dcl.Info{Type: "EnumType"}, fn.AddNest("RuntimeType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "RuntimeType",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SubscriptionType, actual.SubscriptionType, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("SubscriptionType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SubscriptionType",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.BillingType, actual.BillingType, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("BillingType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "BillingType",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.CaCertificate, actual.CaCertificate, dcl.Info{OutputOnly: true}, fn.AddNest("CaCertificate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CaCertificate",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.RuntimeDatabaseEncryptionKeyName, actual.RuntimeDatabaseEncryptionKeyName, dcl.Info{}, fn.AddNest("RuntimeDatabaseEncryptionKeyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "RuntimeDatabaseEncryptionKeyName",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{OutputOnly: true}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ProjectId",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "State",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Parent",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -891,6 +934,35 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 
 	return deduped, nil
 }
+func compareOrganizationPropertiesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*OrganizationProperties)
+	if !ok {
+		desiredNotPointer, ok := d.(OrganizationProperties)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a OrganizationProperties or *OrganizationProperties", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*OrganizationProperties)
+	if !ok {
+		actualNotPointer, ok := a.(OrganizationProperties)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a OrganizationProperties", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Property, actual.Property, dcl.Info{Type: "Set", ObjectFunction: compareOrganizationPropertiesPropertyNewStyle}, fn.AddNest("Property")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareOrganizationProperties(c *Client, desired, actual *OrganizationProperties) bool {
 	if desired == nil {
 		return false
@@ -972,6 +1044,42 @@ func compareOrganizationPropertiesMap(c *Client, desired, actual map[string]Orga
 		}
 	}
 	return false
+}
+
+func compareOrganizationPropertiesPropertyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*OrganizationPropertiesProperty)
+	if !ok {
+		desiredNotPointer, ok := d.(OrganizationPropertiesProperty)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a OrganizationPropertiesProperty or *OrganizationPropertiesProperty", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*OrganizationPropertiesProperty)
+	if !ok {
+		actualNotPointer, ok := a.(OrganizationPropertiesProperty)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a OrganizationPropertiesProperty", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareOrganizationPropertiesProperty(c *Client, desired, actual *OrganizationPropertiesProperty) bool {

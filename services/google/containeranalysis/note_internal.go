@@ -2506,143 +2506,8 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 	}
 
 	var diffs []noteDiff
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, noteDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.ShortDescription, actual.ShortDescription, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "short_description"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, noteDiff{
-			UpdateOp: &updateNoteUpdateNoteOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.LongDescription, actual.LongDescription, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "long_description"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, noteDiff{
-			UpdateOp: &updateNoteUpdateNoteOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.ExpirationTime, actual.ExpirationTime, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "expiration_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, noteDiff{
-			UpdateOp: &updateNoteUpdateNoteOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, noteDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, noteDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.RelatedNoteNames, actual.RelatedNoteNames, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "related_note_names"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, noteDiff{
-			UpdateOp: &updateNoteUpdateNoteOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, noteDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareNoteRelatedUrlSlice(c, desired.RelatedUrl, actual.RelatedUrl) {
-		c.Config.Logger.Infof("Detected diff in RelatedUrl.\nDESIRED: %v\nACTUAL: %v", desired.RelatedUrl, actual.RelatedUrl)
-
-		diffs = append(diffs, noteDiff{
-			UpdateOp:  &updateNoteUpdateNoteOperation{},
-			FieldName: "RelatedUrl",
-		})
-
-	}
-	if compareNoteVulnerability(c, desired.Vulnerability, actual.Vulnerability) {
-		c.Config.Logger.Infof("Detected diff in Vulnerability.\nDESIRED: %v\nACTUAL: %v", desired.Vulnerability, actual.Vulnerability)
-
-		diffs = append(diffs, noteDiff{
-			UpdateOp:  &updateNoteUpdateNoteOperation{},
-			FieldName: "Vulnerability",
-		})
-
-	}
-	if compareNoteBuild(c, desired.Build, actual.Build) {
-		c.Config.Logger.Infof("Detected diff in Build.\nDESIRED: %v\nACTUAL: %v", desired.Build, actual.Build)
-
-		diffs = append(diffs, noteDiff{
-			UpdateOp:  &updateNoteUpdateNoteOperation{},
-			FieldName: "Build",
-		})
-
-	}
-	if compareNoteImage(c, desired.Image, actual.Image) {
-		c.Config.Logger.Infof("Detected diff in Image.\nDESIRED: %v\nACTUAL: %v", desired.Image, actual.Image)
-
-		diffs = append(diffs, noteDiff{
-			UpdateOp:  &updateNoteUpdateNoteOperation{},
-			FieldName: "Image",
-		})
-
-	}
-	if compareNotePackage(c, desired.Package, actual.Package) {
-		c.Config.Logger.Infof("Detected diff in Package.\nDESIRED: %v\nACTUAL: %v", desired.Package, actual.Package)
-
-		diffs = append(diffs, noteDiff{
-			UpdateOp:  &updateNoteUpdateNoteOperation{},
-			FieldName: "Package",
-		})
-
-	}
-	if compareNoteDiscovery(c, desired.Discovery, actual.Discovery) {
-		c.Config.Logger.Infof("Detected diff in Discovery.\nDESIRED: %v\nACTUAL: %v", desired.Discovery, actual.Discovery)
-
-		diffs = append(diffs, noteDiff{
-			UpdateOp:  &updateNoteUpdateNoteOperation{},
-			FieldName: "Discovery",
-		})
-
-	}
-	if compareNoteDeployment(c, desired.Deployment, actual.Deployment) {
-		c.Config.Logger.Infof("Detected diff in Deployment.\nDESIRED: %v\nACTUAL: %v", desired.Deployment, actual.Deployment)
-
-		diffs = append(diffs, noteDiff{
-			UpdateOp:  &updateNoteUpdateNoteOperation{},
-			FieldName: "Deployment",
-		})
-
-	}
-	if compareNoteAttestation(c, desired.Attestation, actual.Attestation) {
-		c.Config.Logger.Infof("Detected diff in Attestation.\nDESIRED: %v\nACTUAL: %v", desired.Attestation, actual.Attestation)
-
-		diffs = append(diffs, noteDiff{
-			UpdateOp:  &updateNoteUpdateNoteOperation{},
-			FieldName: "Attestation",
-		})
-
-	}
 	diffs = analyzeNoteDiff(desired, actual, diffs)
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
@@ -2668,6 +2533,42 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 
 	return deduped, nil
 }
+func compareNoteRelatedUrlNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteRelatedUrl)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteRelatedUrl)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteRelatedUrl or *NoteRelatedUrl", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteRelatedUrl)
+	if !ok {
+		actualNotPointer, ok := a.(NoteRelatedUrl)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteRelatedUrl", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNoteRelatedUrl(c *Client, desired, actual *NoteRelatedUrl) bool {
 	if desired == nil {
 		return false
@@ -2717,6 +2618,70 @@ func compareNoteRelatedUrlMap(c *Client, desired, actual map[string]NoteRelatedU
 		}
 	}
 	return false
+}
+
+func compareNoteVulnerabilityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerability)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerability)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerability or *NoteVulnerability", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerability)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerability)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerability", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.CvssScore, actual.CvssScore, dcl.Info{}, fn.AddNest("CvssScore")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Severity, actual.Severity, dcl.Info{Type: "EnumType"}, fn.AddNest("Severity")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareNoteVulnerabilityDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CvssV3, actual.CvssV3, dcl.Info{ObjectFunction: compareNoteVulnerabilityCvssV3NewStyle}, fn.AddNest("CvssV3")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.WindowsDetails, actual.WindowsDetails, dcl.Info{ObjectFunction: compareNoteVulnerabilityWindowsDetailsNewStyle}, fn.AddNest("WindowsDetails")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SourceUpdateTime, actual.SourceUpdateTime, dcl.Info{}, fn.AddNest("SourceUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNoteVulnerability(c *Client, desired, actual *NoteVulnerability) bool {
@@ -2784,6 +2749,112 @@ func compareNoteVulnerabilityMap(c *Client, desired, actual map[string]NoteVulne
 		}
 	}
 	return false
+}
+
+func compareNoteVulnerabilityDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetails or *NoteVulnerabilityDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityDetails)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.SeverityName, actual.SeverityName, dcl.Info{}, fn.AddNest("SeverityName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PackageType, actual.PackageType, dcl.Info{}, fn.AddNest("PackageType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AffectedCpeUri, actual.AffectedCpeUri, dcl.Info{}, fn.AddNest("AffectedCpeUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AffectedPackage, actual.AffectedPackage, dcl.Info{}, fn.AddNest("AffectedPackage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AffectedVersionStart, actual.AffectedVersionStart, dcl.Info{ObjectFunction: compareNoteVulnerabilityDetailsAffectedVersionStartNewStyle}, fn.AddNest("AffectedVersionStart")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AffectedVersionEnd, actual.AffectedVersionEnd, dcl.Info{ObjectFunction: compareNoteVulnerabilityDetailsAffectedVersionEndNewStyle}, fn.AddNest("AffectedVersionEnd")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FixedCpeUri, actual.FixedCpeUri, dcl.Info{}, fn.AddNest("FixedCpeUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FixedPackage, actual.FixedPackage, dcl.Info{}, fn.AddNest("FixedPackage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FixedVersion, actual.FixedVersion, dcl.Info{ObjectFunction: compareNoteVulnerabilityDetailsFixedVersionNewStyle}, fn.AddNest("FixedVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IsObsolete, actual.IsObsolete, dcl.Info{}, fn.AddNest("IsObsolete")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SourceUpdateTime, actual.SourceUpdateTime, dcl.Info{}, fn.AddNest("SourceUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNoteVulnerabilityDetails(c *Client, desired, actual *NoteVulnerabilityDetails) bool {
@@ -2877,6 +2948,63 @@ func compareNoteVulnerabilityDetailsMap(c *Client, desired, actual map[string]No
 	return false
 }
 
+func compareNoteVulnerabilityDetailsAffectedVersionStartNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityDetailsAffectedVersionStart)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityDetailsAffectedVersionStart)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetailsAffectedVersionStart or *NoteVulnerabilityDetailsAffectedVersionStart", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityDetailsAffectedVersionStart)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityDetailsAffectedVersionStart)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetailsAffectedVersionStart", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Epoch, actual.Epoch, dcl.Info{}, fn.AddNest("Epoch")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Revision, actual.Revision, dcl.Info{}, fn.AddNest("Revision")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{Type: "EnumType"}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FullName, actual.FullName, dcl.Info{}, fn.AddNest("FullName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNoteVulnerabilityDetailsAffectedVersionStart(c *Client, desired, actual *NoteVulnerabilityDetailsAffectedVersionStart) bool {
 	if desired == nil {
 		return false
@@ -2938,6 +3066,63 @@ func compareNoteVulnerabilityDetailsAffectedVersionStartMap(c *Client, desired, 
 		}
 	}
 	return false
+}
+
+func compareNoteVulnerabilityDetailsAffectedVersionEndNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityDetailsAffectedVersionEnd)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityDetailsAffectedVersionEnd)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetailsAffectedVersionEnd or *NoteVulnerabilityDetailsAffectedVersionEnd", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityDetailsAffectedVersionEnd)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityDetailsAffectedVersionEnd)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetailsAffectedVersionEnd", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Epoch, actual.Epoch, dcl.Info{}, fn.AddNest("Epoch")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Revision, actual.Revision, dcl.Info{}, fn.AddNest("Revision")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{Type: "EnumType"}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FullName, actual.FullName, dcl.Info{}, fn.AddNest("FullName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, desired, actual *NoteVulnerabilityDetailsAffectedVersionEnd) bool {
@@ -3003,6 +3188,63 @@ func compareNoteVulnerabilityDetailsAffectedVersionEndMap(c *Client, desired, ac
 	return false
 }
 
+func compareNoteVulnerabilityDetailsFixedVersionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityDetailsFixedVersion)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityDetailsFixedVersion)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetailsFixedVersion or *NoteVulnerabilityDetailsFixedVersion", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityDetailsFixedVersion)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityDetailsFixedVersion)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetailsFixedVersion", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Epoch, actual.Epoch, dcl.Info{}, fn.AddNest("Epoch")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Revision, actual.Revision, dcl.Info{}, fn.AddNest("Revision")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{Type: "EnumType"}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FullName, actual.FullName, dcl.Info{}, fn.AddNest("FullName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNoteVulnerabilityDetailsFixedVersion(c *Client, desired, actual *NoteVulnerabilityDetailsFixedVersion) bool {
 	if desired == nil {
 		return false
@@ -3064,6 +3306,105 @@ func compareNoteVulnerabilityDetailsFixedVersionMap(c *Client, desired, actual m
 		}
 	}
 	return false
+}
+
+func compareNoteVulnerabilityCvssV3NewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityCvssV3)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityCvssV3)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityCvssV3 or *NoteVulnerabilityCvssV3", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityCvssV3)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityCvssV3)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityCvssV3", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BaseScore, actual.BaseScore, dcl.Info{}, fn.AddNest("BaseScore")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExploitabilityScore, actual.ExploitabilityScore, dcl.Info{}, fn.AddNest("ExploitabilityScore")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ImpactScore, actual.ImpactScore, dcl.Info{}, fn.AddNest("ImpactScore")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AttackVector, actual.AttackVector, dcl.Info{Type: "EnumType"}, fn.AddNest("AttackVector")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AttackComplexity, actual.AttackComplexity, dcl.Info{Type: "EnumType"}, fn.AddNest("AttackComplexity")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PrivilegesRequired, actual.PrivilegesRequired, dcl.Info{Type: "EnumType"}, fn.AddNest("PrivilegesRequired")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UserInteraction, actual.UserInteraction, dcl.Info{Type: "EnumType"}, fn.AddNest("UserInteraction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConfidentialityImpact, actual.ConfidentialityImpact, dcl.Info{Type: "EnumType"}, fn.AddNest("ConfidentialityImpact")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IntegrityImpact, actual.IntegrityImpact, dcl.Info{Type: "EnumType"}, fn.AddNest("IntegrityImpact")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AvailabilityImpact, actual.AvailabilityImpact, dcl.Info{Type: "EnumType"}, fn.AddNest("AvailabilityImpact")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNoteVulnerabilityCvssV3(c *Client, desired, actual *NoteVulnerabilityCvssV3) bool {
@@ -3153,6 +3494,56 @@ func compareNoteVulnerabilityCvssV3Map(c *Client, desired, actual map[string]Not
 	return false
 }
 
+func compareNoteVulnerabilityWindowsDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityWindowsDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityWindowsDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityWindowsDetails or *NoteVulnerabilityWindowsDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityWindowsDetails)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityWindowsDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityWindowsDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.CpeUri, actual.CpeUri, dcl.Info{}, fn.AddNest("CpeUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FixingKbs, actual.FixingKbs, dcl.Info{ObjectFunction: compareNoteVulnerabilityWindowsDetailsFixingKbsNewStyle}, fn.AddNest("FixingKbs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNoteVulnerabilityWindowsDetails(c *Client, desired, actual *NoteVulnerabilityWindowsDetails) bool {
 	if desired == nil {
 		return false
@@ -3212,6 +3603,42 @@ func compareNoteVulnerabilityWindowsDetailsMap(c *Client, desired, actual map[st
 	return false
 }
 
+func compareNoteVulnerabilityWindowsDetailsFixingKbsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityWindowsDetailsFixingKbs)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityWindowsDetailsFixingKbs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityWindowsDetailsFixingKbs or *NoteVulnerabilityWindowsDetailsFixingKbs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityWindowsDetailsFixingKbs)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityWindowsDetailsFixingKbs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityWindowsDetailsFixingKbs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, desired, actual *NoteVulnerabilityWindowsDetailsFixingKbs) bool {
 	if desired == nil {
 		return false
@@ -3263,6 +3690,35 @@ func compareNoteVulnerabilityWindowsDetailsFixingKbsMap(c *Client, desired, actu
 	return false
 }
 
+func compareNoteBuildNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteBuild)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteBuild)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteBuild or *NoteBuild", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteBuild)
+	if !ok {
+		actualNotPointer, ok := a.(NoteBuild)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteBuild", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BuilderVersion, actual.BuilderVersion, dcl.Info{}, fn.AddNest("BuilderVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNoteBuild(c *Client, desired, actual *NoteBuild) bool {
 	if desired == nil {
 		return false
@@ -3308,6 +3764,42 @@ func compareNoteBuildMap(c *Client, desired, actual map[string]NoteBuild) bool {
 		}
 	}
 	return false
+}
+
+func compareNoteImageNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteImage)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteImage)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteImage or *NoteImage", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteImage)
+	if !ok {
+		actualNotPointer, ok := a.(NoteImage)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteImage", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceUrl, actual.ResourceUrl, dcl.Info{}, fn.AddNest("ResourceUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, dcl.Info{ObjectFunction: compareNoteImageFingerprintNewStyle}, fn.AddNest("Fingerprint")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNoteImage(c *Client, desired, actual *NoteImage) bool {
@@ -3361,6 +3853,49 @@ func compareNoteImageMap(c *Client, desired, actual map[string]NoteImage) bool {
 	return false
 }
 
+func compareNoteImageFingerprintNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteImageFingerprint)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteImageFingerprint)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteImageFingerprint or *NoteImageFingerprint", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteImageFingerprint)
+	if !ok {
+		actualNotPointer, ok := a.(NoteImageFingerprint)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteImageFingerprint", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.V1Name, actual.V1Name, dcl.Info{}, fn.AddNest("V1Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.V2Blob, actual.V2Blob, dcl.Info{}, fn.AddNest("V2Blob")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.V2Name, actual.V2Name, dcl.Info{OutputOnly: true}, fn.AddNest("V2Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNoteImageFingerprint(c *Client, desired, actual *NoteImageFingerprint) bool {
 	if desired == nil {
 		return false
@@ -3412,6 +3947,42 @@ func compareNoteImageFingerprintMap(c *Client, desired, actual map[string]NoteIm
 	return false
 }
 
+func compareNotePackageNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NotePackage)
+	if !ok {
+		desiredNotPointer, ok := d.(NotePackage)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NotePackage or *NotePackage", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NotePackage)
+	if !ok {
+		actualNotPointer, ok := a.(NotePackage)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NotePackage", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Distribution, actual.Distribution, dcl.Info{ObjectFunction: compareNotePackageDistributionNewStyle}, fn.AddNest("Distribution")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNotePackage(c *Client, desired, actual *NotePackage) bool {
 	if desired == nil {
 		return false
@@ -3461,6 +4032,70 @@ func compareNotePackageMap(c *Client, desired, actual map[string]NotePackage) bo
 		}
 	}
 	return false
+}
+
+func compareNotePackageDistributionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NotePackageDistribution)
+	if !ok {
+		desiredNotPointer, ok := d.(NotePackageDistribution)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NotePackageDistribution or *NotePackageDistribution", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NotePackageDistribution)
+	if !ok {
+		actualNotPointer, ok := a.(NotePackageDistribution)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NotePackageDistribution", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.CpeUri, actual.CpeUri, dcl.Info{}, fn.AddNest("CpeUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Architecture, actual.Architecture, dcl.Info{Type: "EnumType"}, fn.AddNest("Architecture")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LatestVersion, actual.LatestVersion, dcl.Info{ObjectFunction: compareNotePackageDistributionLatestVersionNewStyle}, fn.AddNest("LatestVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Maintainer, actual.Maintainer, dcl.Info{}, fn.AddNest("Maintainer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNotePackageDistribution(c *Client, desired, actual *NotePackageDistribution) bool {
@@ -3530,6 +4165,63 @@ func compareNotePackageDistributionMap(c *Client, desired, actual map[string]Not
 	return false
 }
 
+func compareNotePackageDistributionLatestVersionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NotePackageDistributionLatestVersion)
+	if !ok {
+		desiredNotPointer, ok := d.(NotePackageDistributionLatestVersion)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NotePackageDistributionLatestVersion or *NotePackageDistributionLatestVersion", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NotePackageDistributionLatestVersion)
+	if !ok {
+		actualNotPointer, ok := a.(NotePackageDistributionLatestVersion)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NotePackageDistributionLatestVersion", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Epoch, actual.Epoch, dcl.Info{}, fn.AddNest("Epoch")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Revision, actual.Revision, dcl.Info{}, fn.AddNest("Revision")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{Type: "EnumType"}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FullName, actual.FullName, dcl.Info{}, fn.AddNest("FullName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNotePackageDistributionLatestVersion(c *Client, desired, actual *NotePackageDistributionLatestVersion) bool {
 	if desired == nil {
 		return false
@@ -3593,6 +4285,35 @@ func compareNotePackageDistributionLatestVersionMap(c *Client, desired, actual m
 	return false
 }
 
+func compareNoteDiscoveryNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteDiscovery)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteDiscovery)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteDiscovery or *NoteDiscovery", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteDiscovery)
+	if !ok {
+		actualNotPointer, ok := a.(NoteDiscovery)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteDiscovery", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AnalysisKind, actual.AnalysisKind, dcl.Info{Type: "EnumType"}, fn.AddNest("AnalysisKind")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNoteDiscovery(c *Client, desired, actual *NoteDiscovery) bool {
 	if desired == nil {
 		return false
@@ -3638,6 +4359,35 @@ func compareNoteDiscoveryMap(c *Client, desired, actual map[string]NoteDiscovery
 		}
 	}
 	return false
+}
+
+func compareNoteDeploymentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteDeployment)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteDeployment)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteDeployment or *NoteDeployment", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteDeployment)
+	if !ok {
+		actualNotPointer, ok := a.(NoteDeployment)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteDeployment", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceUri, actual.ResourceUri, dcl.Info{}, fn.AddNest("ResourceUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNoteDeployment(c *Client, desired, actual *NoteDeployment) bool {
@@ -3687,6 +4437,35 @@ func compareNoteDeploymentMap(c *Client, desired, actual map[string]NoteDeployme
 	return false
 }
 
+func compareNoteAttestationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteAttestation)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteAttestation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteAttestation or *NoteAttestation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteAttestation)
+	if !ok {
+		actualNotPointer, ok := a.(NoteAttestation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteAttestation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Hint, actual.Hint, dcl.Info{ObjectFunction: compareNoteAttestationHintNewStyle}, fn.AddNest("Hint")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNoteAttestation(c *Client, desired, actual *NoteAttestation) bool {
 	if desired == nil {
 		return false
@@ -3732,6 +4511,35 @@ func compareNoteAttestationMap(c *Client, desired, actual map[string]NoteAttesta
 		}
 	}
 	return false
+}
+
+func compareNoteAttestationHintNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteAttestationHint)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteAttestationHint)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteAttestationHint or *NoteAttestationHint", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteAttestationHint)
+	if !ok {
+		actualNotPointer, ok := a.(NoteAttestationHint)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteAttestationHint", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.HumanReadableName, actual.HumanReadableName, dcl.Info{}, fn.AddNest("HumanReadableName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNoteAttestationHint(c *Client, desired, actual *NoteAttestationHint) bool {

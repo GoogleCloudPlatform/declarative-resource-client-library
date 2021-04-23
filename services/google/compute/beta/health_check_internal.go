@@ -1160,143 +1160,166 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 	}
 
 	var diffs []healthCheckDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.CheckIntervalSec, actual.CheckIntervalSec, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "check_interval_sec"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CheckIntervalSec, actual.CheckIntervalSec, dcl.Info{}, fn.AddNest("CheckIntervalSec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
+			FieldName: "CheckIntervalSec",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
+			FieldName: "Description",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.HealthyThreshold, actual.HealthyThreshold, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "healthy_threshold"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HealthyThreshold, actual.HealthyThreshold, dcl.Info{}, fn.AddNest("HealthyThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
+			FieldName: "HealthyThreshold",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Http2HealthCheck, actual.Http2HealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttp2HealthCheckNewStyle}, fn.AddNest("Http2HealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, healthCheckDiff{
 			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "type"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.UnhealthyThreshold, actual.UnhealthyThreshold, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "unhealthy_threshold"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.TimeoutSec, actual.TimeoutSec, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "timeout_sec"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, healthCheckDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, healthCheckDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, healthCheckDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, healthCheckDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareHealthCheckHttp2HealthCheck(c, desired.Http2HealthCheck, actual.Http2HealthCheck) {
-		c.Config.Logger.Infof("Detected diff in Http2HealthCheck.\nDESIRED: %v\nACTUAL: %v", desired.Http2HealthCheck, actual.Http2HealthCheck)
-
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp:  &updateHealthCheckUpdateOperation{},
 			FieldName: "Http2HealthCheck",
 		})
-
 	}
-	if compareHealthCheckHttpHealthCheck(c, desired.HttpHealthCheck, actual.HttpHealthCheck) {
-		c.Config.Logger.Infof("Detected diff in HttpHealthCheck.\nDESIRED: %v\nACTUAL: %v", desired.HttpHealthCheck, actual.HttpHealthCheck)
 
+	if ds, err := dcl.Diff(desired.HttpHealthCheck, actual.HttpHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttpHealthCheckNewStyle}, fn.AddNest("HttpHealthCheck")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, healthCheckDiff{
-			UpdateOp:  &updateHealthCheckUpdateOperation{},
+			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
 			FieldName: "HttpHealthCheck",
 		})
-
 	}
-	if compareHealthCheckHttpsHealthCheck(c, desired.HttpsHealthCheck, actual.HttpsHealthCheck) {
-		c.Config.Logger.Infof("Detected diff in HttpsHealthCheck.\nDESIRED: %v\nACTUAL: %v", desired.HttpsHealthCheck, actual.HttpsHealthCheck)
 
+	if ds, err := dcl.Diff(desired.HttpsHealthCheck, actual.HttpsHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttpsHealthCheckNewStyle}, fn.AddNest("HttpsHealthCheck")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, healthCheckDiff{
-			UpdateOp:  &updateHealthCheckUpdateOperation{},
+			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
 			FieldName: "HttpsHealthCheck",
 		})
-
 	}
-	if compareHealthCheckSslHealthCheck(c, desired.SslHealthCheck, actual.SslHealthCheck) {
-		c.Config.Logger.Infof("Detected diff in SslHealthCheck.\nDESIRED: %v\nACTUAL: %v", desired.SslHealthCheck, actual.SslHealthCheck)
 
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, healthCheckDiff{
-			UpdateOp:  &updateHealthCheckUpdateOperation{},
+			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
+			FieldName: "Name",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SslHealthCheck, actual.SslHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckSslHealthCheckNewStyle}, fn.AddNest("SslHealthCheck")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{
+			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
 			FieldName: "SslHealthCheck",
 		})
-
 	}
-	if compareHealthCheckTcpHealthCheck(c, desired.TcpHealthCheck, actual.TcpHealthCheck) {
-		c.Config.Logger.Infof("Detected diff in TcpHealthCheck.\nDESIRED: %v\nACTUAL: %v", desired.TcpHealthCheck, actual.TcpHealthCheck)
 
+	if ds, err := dcl.Diff(desired.TcpHealthCheck, actual.TcpHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckTcpHealthCheckNewStyle}, fn.AddNest("TcpHealthCheck")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, healthCheckDiff{
-			UpdateOp:  &updateHealthCheckUpdateOperation{},
+			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
 			FieldName: "TcpHealthCheck",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{
+			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
+			FieldName: "Type",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.UnhealthyThreshold, actual.UnhealthyThreshold, dcl.Info{}, fn.AddNest("UnhealthyThreshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{
+			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
+			FieldName: "UnhealthyThreshold",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.TimeoutSec, actual.TimeoutSec, dcl.Info{}, fn.AddNest("TimeoutSec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{
+			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
+			FieldName: "TimeoutSec",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Region",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, healthCheckDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -1321,6 +1344,77 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 
 	return deduped, nil
 }
+func compareHealthCheckHttp2HealthCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*HealthCheckHttp2HealthCheck)
+	if !ok {
+		desiredNotPointer, ok := d.(HealthCheckHttp2HealthCheck)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a HealthCheckHttp2HealthCheck or *HealthCheckHttp2HealthCheck", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*HealthCheckHttp2HealthCheck)
+	if !ok {
+		actualNotPointer, ok := a.(HealthCheckHttp2HealthCheck)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a HealthCheckHttp2HealthCheck", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType"}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestPath, actual.RequestPath, dcl.Info{}, fn.AddNest("RequestPath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType"}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareHealthCheckHttp2HealthCheck(c *Client, desired, actual *HealthCheckHttp2HealthCheck) bool {
 	if desired == nil {
 		return false
@@ -1390,6 +1484,77 @@ func compareHealthCheckHttp2HealthCheckMap(c *Client, desired, actual map[string
 		}
 	}
 	return false
+}
+
+func compareHealthCheckHttpHealthCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*HealthCheckHttpHealthCheck)
+	if !ok {
+		desiredNotPointer, ok := d.(HealthCheckHttpHealthCheck)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a HealthCheckHttpHealthCheck or *HealthCheckHttpHealthCheck", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*HealthCheckHttpHealthCheck)
+	if !ok {
+		actualNotPointer, ok := a.(HealthCheckHttpHealthCheck)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a HealthCheckHttpHealthCheck", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType"}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestPath, actual.RequestPath, dcl.Info{}, fn.AddNest("RequestPath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType"}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareHealthCheckHttpHealthCheck(c *Client, desired, actual *HealthCheckHttpHealthCheck) bool {
@@ -1463,6 +1628,77 @@ func compareHealthCheckHttpHealthCheckMap(c *Client, desired, actual map[string]
 	return false
 }
 
+func compareHealthCheckHttpsHealthCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*HealthCheckHttpsHealthCheck)
+	if !ok {
+		desiredNotPointer, ok := d.(HealthCheckHttpsHealthCheck)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a HealthCheckHttpsHealthCheck or *HealthCheckHttpsHealthCheck", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*HealthCheckHttpsHealthCheck)
+	if !ok {
+		actualNotPointer, ok := a.(HealthCheckHttpsHealthCheck)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a HealthCheckHttpsHealthCheck", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType"}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestPath, actual.RequestPath, dcl.Info{}, fn.AddNest("RequestPath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType"}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareHealthCheckHttpsHealthCheck(c *Client, desired, actual *HealthCheckHttpsHealthCheck) bool {
 	if desired == nil {
 		return false
@@ -1534,6 +1770,70 @@ func compareHealthCheckHttpsHealthCheckMap(c *Client, desired, actual map[string
 	return false
 }
 
+func compareHealthCheckSslHealthCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*HealthCheckSslHealthCheck)
+	if !ok {
+		desiredNotPointer, ok := d.(HealthCheckSslHealthCheck)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a HealthCheckSslHealthCheck or *HealthCheckSslHealthCheck", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*HealthCheckSslHealthCheck)
+	if !ok {
+		actualNotPointer, ok := a.(HealthCheckSslHealthCheck)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a HealthCheckSslHealthCheck", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType"}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Request, actual.Request, dcl.Info{}, fn.AddNest("Request")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType"}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareHealthCheckSslHealthCheck(c *Client, desired, actual *HealthCheckSslHealthCheck) bool {
 	if desired == nil {
 		return false
@@ -1599,6 +1899,70 @@ func compareHealthCheckSslHealthCheckMap(c *Client, desired, actual map[string]H
 		}
 	}
 	return false
+}
+
+func compareHealthCheckTcpHealthCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*HealthCheckTcpHealthCheck)
+	if !ok {
+		desiredNotPointer, ok := d.(HealthCheckTcpHealthCheck)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a HealthCheckTcpHealthCheck or *HealthCheckTcpHealthCheck", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*HealthCheckTcpHealthCheck)
+	if !ok {
+		actualNotPointer, ok := a.(HealthCheckTcpHealthCheck)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a HealthCheckTcpHealthCheck", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType"}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Request, actual.Request, dcl.Info{}, fn.AddNest("Request")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType"}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareHealthCheckTcpHealthCheck(c *Client, desired, actual *HealthCheckTcpHealthCheck) bool {

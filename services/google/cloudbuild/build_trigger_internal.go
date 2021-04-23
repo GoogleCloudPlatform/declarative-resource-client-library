@@ -1925,127 +1925,147 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 	}
 
 	var diffs []buildTriggerDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, Diffs: ds,
+			FieldName: "Name",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, Diffs: ds,
+			FieldName: "Description",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Tags, actual.Tags, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "tags"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tags, actual.Tags, dcl.Info{}, fn.AddNest("Tags")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, Diffs: ds,
+			FieldName: "Tags",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "disabled"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, Diffs: ds,
+			FieldName: "Disabled",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Substitutions, actual.Substitutions, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "substitutions"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Substitutions, actual.Substitutions, dcl.Info{}, fn.AddNest("Substitutions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, Diffs: ds,
+			FieldName: "Substitutions",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Filename, actual.Filename, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "filename"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filename, actual.Filename, dcl.Info{}, fn.AddNest("Filename")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, Diffs: ds,
+			FieldName: "Filename",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoredFiles, actual.IgnoredFiles, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ignored_files"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoredFiles, actual.IgnoredFiles, dcl.Info{}, fn.AddNest("IgnoredFiles")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, Diffs: ds,
+			FieldName: "IgnoredFiles",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.IncludedFiles, actual.IncludedFiles, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "included_files"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IncludedFiles, actual.IncludedFiles, dcl.Info{}, fn.AddNest("IncludedFiles")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, buildTriggerDiff{
 			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, Diffs: ds,
+			FieldName: "IncludedFiles",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TriggerTemplate, actual.TriggerTemplate, dcl.Info{ObjectFunction: compareBuildTriggerTriggerTemplateNewStyle}, fn.AddNest("TriggerTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, buildTriggerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, buildTriggerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, buildTriggerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareBuildTriggerTriggerTemplate(c, desired.TriggerTemplate, actual.TriggerTemplate) {
-		c.Config.Logger.Infof("Detected diff in TriggerTemplate.\nDESIRED: %v\nACTUAL: %v", desired.TriggerTemplate, actual.TriggerTemplate)
-
 		diffs = append(diffs, buildTriggerDiff{
-			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},
+			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, Diffs: ds,
 			FieldName: "TriggerTemplate",
 		})
-
 	}
-	if compareBuildTriggerGithub(c, desired.Github, actual.Github) {
-		c.Config.Logger.Infof("Detected diff in Github.\nDESIRED: %v\nACTUAL: %v", desired.Github, actual.Github)
 
+	if ds, err := dcl.Diff(desired.Github, actual.Github, dcl.Info{ObjectFunction: compareBuildTriggerGithubNewStyle}, fn.AddNest("Github")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, buildTriggerDiff{
-			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},
+			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, Diffs: ds,
 			FieldName: "Github",
 		})
-
 	}
-	if compareBuildTriggerBuild(c, desired.Build, actual.Build) {
-		c.Config.Logger.Infof("Detected diff in Build.\nDESIRED: %v\nACTUAL: %v", desired.Build, actual.Build)
 
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, buildTriggerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Build, actual.Build, dcl.Info{ObjectFunction: compareBuildTriggerBuildNewStyle}, fn.AddNest("Build")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, buildTriggerDiff{
-			UpdateOp:  &updateBuildTriggerUpdateBuildTriggerOperation{},
+			UpdateOp: &updateBuildTriggerUpdateBuildTriggerOperation{}, Diffs: ds,
 			FieldName: "Build",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, buildTriggerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, buildTriggerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreateTime",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -2070,6 +2090,77 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 
 	return deduped, nil
 }
+func compareBuildTriggerTriggerTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BuildTriggerTriggerTemplate)
+	if !ok {
+		desiredNotPointer, ok := d.(BuildTriggerTriggerTemplate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerTriggerTemplate or *BuildTriggerTriggerTemplate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BuildTriggerTriggerTemplate)
+	if !ok {
+		actualNotPointer, ok := a.(BuildTriggerTriggerTemplate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerTriggerTemplate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RepoName, actual.RepoName, dcl.Info{}, fn.AddNest("RepoName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BranchName, actual.BranchName, dcl.Info{}, fn.AddNest("BranchName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TagName, actual.TagName, dcl.Info{}, fn.AddNest("TagName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CommitSha, actual.CommitSha, dcl.Info{}, fn.AddNest("CommitSha")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Dir, actual.Dir, dcl.Info{}, fn.AddNest("Dir")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InvertRegex, actual.InvertRegex, dcl.Info{}, fn.AddNest("InvertRegex")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareBuildTriggerTriggerTemplate(c *Client, desired, actual *BuildTriggerTriggerTemplate) bool {
 	if desired == nil {
 		return false
@@ -2141,6 +2232,56 @@ func compareBuildTriggerTriggerTemplateMap(c *Client, desired, actual map[string
 	return false
 }
 
+func compareBuildTriggerGithubNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BuildTriggerGithub)
+	if !ok {
+		desiredNotPointer, ok := d.(BuildTriggerGithub)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerGithub or *BuildTriggerGithub", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BuildTriggerGithub)
+	if !ok {
+		actualNotPointer, ok := a.(BuildTriggerGithub)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerGithub", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Owner, actual.Owner, dcl.Info{}, fn.AddNest("Owner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PullRequest, actual.PullRequest, dcl.Info{ObjectFunction: compareBuildTriggerGithubPullRequestNewStyle}, fn.AddNest("PullRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Push, actual.Push, dcl.Info{ObjectFunction: compareBuildTriggerGithubPushNewStyle}, fn.AddNest("Push")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareBuildTriggerGithub(c *Client, desired, actual *BuildTriggerGithub) bool {
 	if desired == nil {
 		return false
@@ -2200,6 +2341,49 @@ func compareBuildTriggerGithubMap(c *Client, desired, actual map[string]BuildTri
 	return false
 }
 
+func compareBuildTriggerGithubPullRequestNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BuildTriggerGithubPullRequest)
+	if !ok {
+		desiredNotPointer, ok := d.(BuildTriggerGithubPullRequest)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerGithubPullRequest or *BuildTriggerGithubPullRequest", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BuildTriggerGithubPullRequest)
+	if !ok {
+		actualNotPointer, ok := a.(BuildTriggerGithubPullRequest)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerGithubPullRequest", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Branch, actual.Branch, dcl.Info{}, fn.AddNest("Branch")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CommentControl, actual.CommentControl, dcl.Info{Type: "EnumType"}, fn.AddNest("CommentControl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InvertRegex, actual.InvertRegex, dcl.Info{}, fn.AddNest("InvertRegex")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareBuildTriggerGithubPullRequest(c *Client, desired, actual *BuildTriggerGithubPullRequest) bool {
 	if desired == nil {
 		return false
@@ -2255,6 +2439,49 @@ func compareBuildTriggerGithubPullRequestMap(c *Client, desired, actual map[stri
 	return false
 }
 
+func compareBuildTriggerGithubPushNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BuildTriggerGithubPush)
+	if !ok {
+		desiredNotPointer, ok := d.(BuildTriggerGithubPush)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerGithubPush or *BuildTriggerGithubPush", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BuildTriggerGithubPush)
+	if !ok {
+		actualNotPointer, ok := a.(BuildTriggerGithubPush)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerGithubPush", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Branch, actual.Branch, dcl.Info{}, fn.AddNest("Branch")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InvertRegex, actual.InvertRegex, dcl.Info{}, fn.AddNest("InvertRegex")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareBuildTriggerGithubPush(c *Client, desired, actual *BuildTriggerGithubPush) bool {
 	if desired == nil {
 		return false
@@ -2308,6 +2535,91 @@ func compareBuildTriggerGithubPushMap(c *Client, desired, actual map[string]Buil
 		}
 	}
 	return false
+}
+
+func compareBuildTriggerBuildNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BuildTriggerBuild)
+	if !ok {
+		desiredNotPointer, ok := d.(BuildTriggerBuild)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuild or *BuildTriggerBuild", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BuildTriggerBuild)
+	if !ok {
+		actualNotPointer, ok := a.(BuildTriggerBuild)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuild", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tags, actual.Tags, dcl.Info{}, fn.AddNest("Tags")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Images, actual.Images, dcl.Info{}, fn.AddNest("Images")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Substitutions, actual.Substitutions, dcl.Info{}, fn.AddNest("Substitutions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QueueTtl, actual.QueueTtl, dcl.Info{}, fn.AddNest("QueueTtl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogsBucket, actual.LogsBucket, dcl.Info{}, fn.AddNest("LogsBucket")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Timeout, actual.Timeout, dcl.Info{}, fn.AddNest("Timeout")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Secrets, actual.Secrets, dcl.Info{ObjectFunction: compareBuildTriggerBuildSecretsNewStyle}, fn.AddNest("Secrets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareBuildTriggerBuildStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceNewStyle}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareBuildTriggerBuild(c *Client, desired, actual *BuildTriggerBuild) bool {
@@ -2389,6 +2701,42 @@ func compareBuildTriggerBuildMap(c *Client, desired, actual map[string]BuildTrig
 	return false
 }
 
+func compareBuildTriggerBuildSecretsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BuildTriggerBuildSecrets)
+	if !ok {
+		desiredNotPointer, ok := d.(BuildTriggerBuildSecrets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildSecrets or *BuildTriggerBuildSecrets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BuildTriggerBuildSecrets)
+	if !ok {
+		actualNotPointer, ok := a.(BuildTriggerBuildSecrets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildSecrets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SecretEnv, actual.SecretEnv, dcl.Info{}, fn.AddNest("SecretEnv")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareBuildTriggerBuildSecrets(c *Client, desired, actual *BuildTriggerBuildSecrets) bool {
 	if desired == nil {
 		return false
@@ -2438,6 +2786,119 @@ func compareBuildTriggerBuildSecretsMap(c *Client, desired, actual map[string]Bu
 		}
 	}
 	return false
+}
+
+func compareBuildTriggerBuildStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BuildTriggerBuildSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(BuildTriggerBuildSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildSteps or *BuildTriggerBuildSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BuildTriggerBuildSteps)
+	if !ok {
+		actualNotPointer, ok := a.(BuildTriggerBuildSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Env, actual.Env, dcl.Info{}, fn.AddNest("Env")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Dir, actual.Dir, dcl.Info{}, fn.AddNest("Dir")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.WaitFor, actual.WaitFor, dcl.Info{}, fn.AddNest("WaitFor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Entrypoint, actual.Entrypoint, dcl.Info{}, fn.AddNest("Entrypoint")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SecretEnv, actual.SecretEnv, dcl.Info{}, fn.AddNest("SecretEnv")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareBuildTriggerBuildStepsVolumesNewStyle}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Timing, actual.Timing, dcl.Info{OutputOnly: true, ObjectFunction: compareBuildTriggerBuildStepsTimingNewStyle}, fn.AddNest("Timing")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PullTiming, actual.PullTiming, dcl.Info{OutputOnly: true, ObjectFunction: compareBuildTriggerBuildStepsPullTimingNewStyle}, fn.AddNest("PullTiming")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Timeout, actual.Timeout, dcl.Info{}, fn.AddNest("Timeout")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareBuildTriggerBuildSteps(c *Client, desired, actual *BuildTriggerBuildSteps) bool {
@@ -2523,6 +2984,42 @@ func compareBuildTriggerBuildStepsMap(c *Client, desired, actual map[string]Buil
 	return false
 }
 
+func compareBuildTriggerBuildStepsVolumesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BuildTriggerBuildStepsVolumes)
+	if !ok {
+		desiredNotPointer, ok := d.(BuildTriggerBuildStepsVolumes)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildStepsVolumes or *BuildTriggerBuildStepsVolumes", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BuildTriggerBuildStepsVolumes)
+	if !ok {
+		actualNotPointer, ok := a.(BuildTriggerBuildStepsVolumes)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildStepsVolumes", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareBuildTriggerBuildStepsVolumes(c *Client, desired, actual *BuildTriggerBuildStepsVolumes) bool {
 	if desired == nil {
 		return false
@@ -2572,6 +3069,42 @@ func compareBuildTriggerBuildStepsVolumesMap(c *Client, desired, actual map[stri
 		}
 	}
 	return false
+}
+
+func compareBuildTriggerBuildStepsTimingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BuildTriggerBuildStepsTiming)
+	if !ok {
+		desiredNotPointer, ok := d.(BuildTriggerBuildStepsTiming)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildStepsTiming or *BuildTriggerBuildStepsTiming", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BuildTriggerBuildStepsTiming)
+	if !ok {
+		actualNotPointer, ok := a.(BuildTriggerBuildStepsTiming)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildStepsTiming", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.StartTime, actual.StartTime, dcl.Info{}, fn.AddNest("StartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EndTime, actual.EndTime, dcl.Info{}, fn.AddNest("EndTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareBuildTriggerBuildStepsTiming(c *Client, desired, actual *BuildTriggerBuildStepsTiming) bool {
@@ -2625,6 +3158,42 @@ func compareBuildTriggerBuildStepsTimingMap(c *Client, desired, actual map[strin
 	return false
 }
 
+func compareBuildTriggerBuildStepsPullTimingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BuildTriggerBuildStepsPullTiming)
+	if !ok {
+		desiredNotPointer, ok := d.(BuildTriggerBuildStepsPullTiming)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildStepsPullTiming or *BuildTriggerBuildStepsPullTiming", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BuildTriggerBuildStepsPullTiming)
+	if !ok {
+		actualNotPointer, ok := a.(BuildTriggerBuildStepsPullTiming)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildStepsPullTiming", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.StartTime, actual.StartTime, dcl.Info{}, fn.AddNest("StartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EndTime, actual.EndTime, dcl.Info{}, fn.AddNest("EndTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareBuildTriggerBuildStepsPullTiming(c *Client, desired, actual *BuildTriggerBuildStepsPullTiming) bool {
 	if desired == nil {
 		return false
@@ -2676,6 +3245,42 @@ func compareBuildTriggerBuildStepsPullTimingMap(c *Client, desired, actual map[s
 	return false
 }
 
+func compareBuildTriggerBuildSourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BuildTriggerBuildSource)
+	if !ok {
+		desiredNotPointer, ok := d.(BuildTriggerBuildSource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildSource or *BuildTriggerBuildSource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BuildTriggerBuildSource)
+	if !ok {
+		actualNotPointer, ok := a.(BuildTriggerBuildSource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildSource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.StorageSource, actual.StorageSource, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceStorageSourceNewStyle}, fn.AddNest("StorageSource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RepoSource, actual.RepoSource, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceRepoSourceNewStyle}, fn.AddNest("RepoSource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareBuildTriggerBuildSource(c *Client, desired, actual *BuildTriggerBuildSource) bool {
 	if desired == nil {
 		return false
@@ -2725,6 +3330,49 @@ func compareBuildTriggerBuildSourceMap(c *Client, desired, actual map[string]Bui
 		}
 	}
 	return false
+}
+
+func compareBuildTriggerBuildSourceStorageSourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BuildTriggerBuildSourceStorageSource)
+	if !ok {
+		desiredNotPointer, ok := d.(BuildTriggerBuildSourceStorageSource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildSourceStorageSource or *BuildTriggerBuildSourceStorageSource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BuildTriggerBuildSourceStorageSource)
+	if !ok {
+		actualNotPointer, ok := a.(BuildTriggerBuildSourceStorageSource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildSourceStorageSource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bucket, actual.Bucket, dcl.Info{}, fn.AddNest("Bucket")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Object, actual.Object, dcl.Info{}, fn.AddNest("Object")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Generation, actual.Generation, dcl.Info{}, fn.AddNest("Generation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareBuildTriggerBuildSourceStorageSource(c *Client, desired, actual *BuildTriggerBuildSourceStorageSource) bool {
@@ -2780,6 +3428,84 @@ func compareBuildTriggerBuildSourceStorageSourceMap(c *Client, desired, actual m
 		}
 	}
 	return false
+}
+
+func compareBuildTriggerBuildSourceRepoSourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*BuildTriggerBuildSourceRepoSource)
+	if !ok {
+		desiredNotPointer, ok := d.(BuildTriggerBuildSourceRepoSource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildSourceRepoSource or *BuildTriggerBuildSourceRepoSource", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*BuildTriggerBuildSourceRepoSource)
+	if !ok {
+		actualNotPointer, ok := a.(BuildTriggerBuildSourceRepoSource)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a BuildTriggerBuildSourceRepoSource", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RepoName, actual.RepoName, dcl.Info{}, fn.AddNest("RepoName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BranchName, actual.BranchName, dcl.Info{}, fn.AddNest("BranchName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TagName, actual.TagName, dcl.Info{}, fn.AddNest("TagName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CommitSha, actual.CommitSha, dcl.Info{}, fn.AddNest("CommitSha")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Dir, actual.Dir, dcl.Info{}, fn.AddNest("Dir")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InvertRegex, actual.InvertRegex, dcl.Info{}, fn.AddNest("InvertRegex")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Substitutions, actual.Substitutions, dcl.Info{}, fn.AddNest("Substitutions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareBuildTriggerBuildSourceRepoSource(c *Client, desired, actual *BuildTriggerBuildSourceRepoSource) bool {

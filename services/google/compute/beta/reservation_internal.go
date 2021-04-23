@@ -808,77 +808,100 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 	}
 
 	var diffs []reservationDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "zone"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Commitment, actual.Commitment, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "commitment"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SpecificReservationRequired, actual.SpecificReservationRequired, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "specific_reservation_required"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "status"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareReservationSpecificReservation(c, desired.SpecificReservation, actual.SpecificReservation) {
-		c.Config.Logger.Infof("Detected diff in SpecificReservation.\nDESIRED: %v\nACTUAL: %v", desired.SpecificReservation, actual.SpecificReservation)
-		diffs = append(diffs, reservationDiff{
-			RequiresRecreate: true,
-			FieldName:        "SpecificReservation",
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Zone",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SpecificReservation, actual.SpecificReservation, dcl.Info{ObjectFunction: compareReservationSpecificReservationNewStyle}, fn.AddNest("SpecificReservation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SpecificReservation",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Commitment, actual.Commitment, dcl.Info{}, fn.AddNest("Commitment")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Commitment",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SpecificReservationRequired, actual.SpecificReservationRequired, dcl.Info{}, fn.AddNest("SpecificReservationRequired")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SpecificReservationRequired",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Status",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -903,6 +926,49 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 
 	return deduped, nil
 }
+func compareReservationSpecificReservationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ReservationSpecificReservation)
+	if !ok {
+		desiredNotPointer, ok := d.(ReservationSpecificReservation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ReservationSpecificReservation or *ReservationSpecificReservation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ReservationSpecificReservation)
+	if !ok {
+		actualNotPointer, ok := a.(ReservationSpecificReservation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ReservationSpecificReservation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.InstanceProperties, actual.InstanceProperties, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesNewStyle}, fn.AddNest("InstanceProperties")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InUseCount, actual.InUseCount, dcl.Info{}, fn.AddNest("InUseCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareReservationSpecificReservation(c *Client, desired, actual *ReservationSpecificReservation) bool {
 	if desired == nil {
 		return false
@@ -956,6 +1022,56 @@ func compareReservationSpecificReservationMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareReservationSpecificReservationInstancePropertiesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ReservationSpecificReservationInstanceProperties)
+	if !ok {
+		desiredNotPointer, ok := d.(ReservationSpecificReservationInstanceProperties)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ReservationSpecificReservationInstanceProperties or *ReservationSpecificReservationInstanceProperties", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ReservationSpecificReservationInstanceProperties)
+	if !ok {
+		actualNotPointer, ok := a.(ReservationSpecificReservationInstanceProperties)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ReservationSpecificReservationInstanceProperties", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GuestAccelerators, actual.GuestAccelerators, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsNewStyle}, fn.AddNest("GuestAccelerators")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.Info{}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LocalSsds, actual.LocalSsds, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesLocalSsdsNewStyle}, fn.AddNest("LocalSsds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareReservationSpecificReservationInstanceProperties(c *Client, desired, actual *ReservationSpecificReservationInstanceProperties) bool {
@@ -1017,6 +1133,42 @@ func compareReservationSpecificReservationInstancePropertiesMap(c *Client, desir
 	return false
 }
 
+func compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ReservationSpecificReservationInstancePropertiesGuestAccelerators)
+	if !ok {
+		desiredNotPointer, ok := d.(ReservationSpecificReservationInstancePropertiesGuestAccelerators)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ReservationSpecificReservationInstancePropertiesGuestAccelerators or *ReservationSpecificReservationInstancePropertiesGuestAccelerators", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ReservationSpecificReservationInstancePropertiesGuestAccelerators)
+	if !ok {
+		actualNotPointer, ok := a.(ReservationSpecificReservationInstancePropertiesGuestAccelerators)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ReservationSpecificReservationInstancePropertiesGuestAccelerators", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{}, fn.AddNest("AcceleratorType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.Info{}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareReservationSpecificReservationInstancePropertiesGuestAccelerators(c *Client, desired, actual *ReservationSpecificReservationInstancePropertiesGuestAccelerators) bool {
 	if desired == nil {
 		return false
@@ -1066,6 +1218,42 @@ func compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsMap
 		}
 	}
 	return false
+}
+
+func compareReservationSpecificReservationInstancePropertiesLocalSsdsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ReservationSpecificReservationInstancePropertiesLocalSsds)
+	if !ok {
+		desiredNotPointer, ok := d.(ReservationSpecificReservationInstancePropertiesLocalSsds)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ReservationSpecificReservationInstancePropertiesLocalSsds or *ReservationSpecificReservationInstancePropertiesLocalSsds", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ReservationSpecificReservationInstancePropertiesLocalSsds)
+	if !ok {
+		actualNotPointer, ok := a.(ReservationSpecificReservationInstancePropertiesLocalSsds)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ReservationSpecificReservationInstancePropertiesLocalSsds", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Interface, actual.Interface, dcl.Info{Type: "EnumType"}, fn.AddNest("Interface")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareReservationSpecificReservationInstancePropertiesLocalSsds(c *Client, desired, actual *ReservationSpecificReservationInstancePropertiesLocalSsds) bool {

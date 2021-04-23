@@ -899,85 +899,104 @@ func diffServicePerimeter(c *Client, desired, actual *ServicePerimeter, opts ...
 	}
 
 	var diffs []servicePerimeterDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "title"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.Info{}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, servicePerimeterDiff{
 			UpdateOp: &updateServicePerimeterUpdateOperation{}, Diffs: ds,
+			FieldName: "Title",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, servicePerimeterDiff{
 			UpdateOp: &updateServicePerimeterUpdateOperation{}, Diffs: ds,
+			FieldName: "Description",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpdateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.PerimeterType, actual.PerimeterType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "perimeter_type"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerimeterType, actual.PerimeterType, dcl.Info{Type: "EnumType"}, fn.AddNest("PerimeterType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "PerimeterType",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Policy, actual.Policy, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "policy"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareServicePerimeterStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.UseExplicitDryRunSpec, actual.UseExplicitDryRunSpec, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "use_explicit_dry_run_spec"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareServicePerimeterStatus(c, desired.Status, actual.Status) {
-		c.Config.Logger.Infof("Detected diff in Status.\nDESIRED: %v\nACTUAL: %v", desired.Status, actual.Status)
-
 		diffs = append(diffs, servicePerimeterDiff{
-			UpdateOp:  &updateServicePerimeterUpdateOperation{},
+			UpdateOp: &updateServicePerimeterUpdateOperation{}, Diffs: ds,
 			FieldName: "Status",
 		})
-
 	}
-	if compareServicePerimeterSpec(c, desired.Spec, actual.Spec) {
-		c.Config.Logger.Infof("Detected diff in Spec.\nDESIRED: %v\nACTUAL: %v", desired.Spec, actual.Spec)
 
+	if ds, err := dcl.Diff(desired.Policy, actual.Policy, dcl.Info{}, fn.AddNest("Policy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Policy",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.UseExplicitDryRunSpec, actual.UseExplicitDryRunSpec, dcl.Info{}, fn.AddNest("UseExplicitDryRunSpec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UseExplicitDryRunSpec",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServicePerimeterSpecNewStyle}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, servicePerimeterDiff{
-			UpdateOp:  &updateServicePerimeterUpdateOperation{},
+			UpdateOp: &updateServicePerimeterUpdateOperation{}, Diffs: ds,
 			FieldName: "Spec",
 		})
-
 	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -1002,6 +1021,56 @@ func diffServicePerimeter(c *Client, desired, actual *ServicePerimeter, opts ...
 
 	return deduped, nil
 }
+func compareServicePerimeterStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServicePerimeterStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(ServicePerimeterStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServicePerimeterStatus or *ServicePerimeterStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServicePerimeterStatus)
+	if !ok {
+		actualNotPointer, ok := a.(ServicePerimeterStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServicePerimeterStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AccessLevels, actual.AccessLevels, dcl.Info{}, fn.AddNest("AccessLevels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RestrictedServices, actual.RestrictedServices, dcl.Info{}, fn.AddNest("RestrictedServices")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VPCAccessibleServices, actual.VPCAccessibleServices, dcl.Info{ObjectFunction: compareServicePerimeterStatusVPCAccessibleServicesNewStyle}, fn.AddNest("VPCAccessibleServices")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServicePerimeterStatus(c *Client, desired, actual *ServicePerimeterStatus) bool {
 	if desired == nil {
 		return false
@@ -1061,6 +1130,42 @@ func compareServicePerimeterStatusMap(c *Client, desired, actual map[string]Serv
 	return false
 }
 
+func compareServicePerimeterStatusVPCAccessibleServicesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServicePerimeterStatusVPCAccessibleServices)
+	if !ok {
+		desiredNotPointer, ok := d.(ServicePerimeterStatusVPCAccessibleServices)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServicePerimeterStatusVPCAccessibleServices or *ServicePerimeterStatusVPCAccessibleServices", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServicePerimeterStatusVPCAccessibleServices)
+	if !ok {
+		actualNotPointer, ok := a.(ServicePerimeterStatusVPCAccessibleServices)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServicePerimeterStatusVPCAccessibleServices", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EnableRestriction, actual.EnableRestriction, dcl.Info{}, fn.AddNest("EnableRestriction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AllowedServices, actual.AllowedServices, dcl.Info{}, fn.AddNest("AllowedServices")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServicePerimeterStatusVPCAccessibleServices(c *Client, desired, actual *ServicePerimeterStatusVPCAccessibleServices) bool {
 	if desired == nil {
 		return false
@@ -1110,6 +1215,56 @@ func compareServicePerimeterStatusVPCAccessibleServicesMap(c *Client, desired, a
 		}
 	}
 	return false
+}
+
+func compareServicePerimeterSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServicePerimeterSpec)
+	if !ok {
+		desiredNotPointer, ok := d.(ServicePerimeterSpec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServicePerimeterSpec or *ServicePerimeterSpec", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServicePerimeterSpec)
+	if !ok {
+		actualNotPointer, ok := a.(ServicePerimeterSpec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServicePerimeterSpec", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AccessLevels, actual.AccessLevels, dcl.Info{}, fn.AddNest("AccessLevels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RestrictedServices, actual.RestrictedServices, dcl.Info{}, fn.AddNest("RestrictedServices")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VPCAccessibleServices, actual.VPCAccessibleServices, dcl.Info{ObjectFunction: compareServicePerimeterSpecVPCAccessibleServicesNewStyle}, fn.AddNest("VPCAccessibleServices")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServicePerimeterSpec(c *Client, desired, actual *ServicePerimeterSpec) bool {
@@ -1169,6 +1324,42 @@ func compareServicePerimeterSpecMap(c *Client, desired, actual map[string]Servic
 		}
 	}
 	return false
+}
+
+func compareServicePerimeterSpecVPCAccessibleServicesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServicePerimeterSpecVPCAccessibleServices)
+	if !ok {
+		desiredNotPointer, ok := d.(ServicePerimeterSpecVPCAccessibleServices)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServicePerimeterSpecVPCAccessibleServices or *ServicePerimeterSpecVPCAccessibleServices", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServicePerimeterSpecVPCAccessibleServices)
+	if !ok {
+		actualNotPointer, ok := a.(ServicePerimeterSpecVPCAccessibleServices)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServicePerimeterSpecVPCAccessibleServices", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EnableRestriction, actual.EnableRestriction, dcl.Info{}, fn.AddNest("EnableRestriction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AllowedServices, actual.AllowedServices, dcl.Info{}, fn.AddNest("AllowedServices")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServicePerimeterSpecVPCAccessibleServices(c *Client, desired, actual *ServicePerimeterSpecVPCAccessibleServices) bool {

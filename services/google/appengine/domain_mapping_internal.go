@@ -658,37 +658,56 @@ func diffDomainMapping(c *Client, desired, actual *DomainMapping, opts ...dcl.Ap
 	}
 
 	var diffs []domainMappingDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.App, actual.App, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "app"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SslSettings, actual.SslSettings, dcl.Info{ObjectFunction: compareDomainMappingSslSettingsNewStyle}, fn.AddNest("SslSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareDomainMappingSslSettings(c, desired.SslSettings, actual.SslSettings) {
-		c.Config.Logger.Infof("Detected diff in SslSettings.\nDESIRED: %v\nACTUAL: %v", desired.SslSettings, actual.SslSettings)
-
 		diffs = append(diffs, domainMappingDiff{
-			UpdateOp:  &updateDomainMappingUpdateDomainMappingOperation{},
+			UpdateOp: &updateDomainMappingUpdateDomainMappingOperation{}, Diffs: ds,
 			FieldName: "SslSettings",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.ResourceRecords, actual.ResourceRecords, dcl.Info{OutputOnly: true, ObjectFunction: compareDomainMappingResourceRecordsNewStyle}, fn.AddNest("ResourceRecords")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ResourceRecords",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.App, actual.App, dcl.Info{Type: "ReferenceType"}, fn.AddNest("App")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, domainMappingDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "App",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -713,6 +732,49 @@ func diffDomainMapping(c *Client, desired, actual *DomainMapping, opts ...dcl.Ap
 
 	return deduped, nil
 }
+func compareDomainMappingSslSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DomainMappingSslSettings)
+	if !ok {
+		desiredNotPointer, ok := d.(DomainMappingSslSettings)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DomainMappingSslSettings or *DomainMappingSslSettings", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DomainMappingSslSettings)
+	if !ok {
+		actualNotPointer, ok := a.(DomainMappingSslSettings)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DomainMappingSslSettings", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.CertificateId, actual.CertificateId, dcl.Info{}, fn.AddNest("CertificateId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SslManagementType, actual.SslManagementType, dcl.Info{Type: "EnumType"}, fn.AddNest("SslManagementType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PendingManagedCertificateId, actual.PendingManagedCertificateId, dcl.Info{OutputOnly: true}, fn.AddNest("PendingManagedCertificateId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDomainMappingSslSettings(c *Client, desired, actual *DomainMappingSslSettings) bool {
 	if desired == nil {
 		return false
@@ -762,6 +824,49 @@ func compareDomainMappingSslSettingsMap(c *Client, desired, actual map[string]Do
 		}
 	}
 	return false
+}
+
+func compareDomainMappingResourceRecordsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DomainMappingResourceRecords)
+	if !ok {
+		desiredNotPointer, ok := d.(DomainMappingResourceRecords)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DomainMappingResourceRecords or *DomainMappingResourceRecords", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DomainMappingResourceRecords)
+	if !ok {
+		actualNotPointer, ok := a.(DomainMappingResourceRecords)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DomainMappingResourceRecords", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Rrdata, actual.Rrdata, dcl.Info{}, fn.AddNest("Rrdata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDomainMappingResourceRecords(c *Client, desired, actual *DomainMappingResourceRecords) bool {

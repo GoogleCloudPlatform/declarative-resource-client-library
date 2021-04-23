@@ -618,98 +618,127 @@ func diffRole(c *Client, desired, actual *Role, opts ...dcl.ApplyOption) ([]role
 	}
 
 	var diffs []roleDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "title"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.LifecyclePhase, actual.LifecyclePhase, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "lifecycle_phase"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.GroupName, actual.GroupName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "group_name"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.GroupTitle, actual.GroupTitle, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "group_title"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.IncludedPermissions, actual.IncludedPermissions, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "included_permissions"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Stage, actual.Stage, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "stage"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "etag"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Deleted, actual.Deleted, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "deleted"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.IncludedRoles, actual.IncludedRoles, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "included_roles"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "parent"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareRoleLocalizedValues(c, desired.LocalizedValues, actual.LocalizedValues) {
-		c.Config.Logger.Infof("Detected diff in LocalizedValues.\nDESIRED: %v\nACTUAL: %v", desired.LocalizedValues, actual.LocalizedValues)
-		diffs = append(diffs, roleDiff{
-			RequiresRecreate: true,
-			FieldName:        "LocalizedValues",
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.Info{}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Title",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.LocalizedValues, actual.LocalizedValues, dcl.Info{ObjectFunction: compareRoleLocalizedValuesNewStyle}, fn.AddNest("LocalizedValues")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "LocalizedValues",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.LifecyclePhase, actual.LifecyclePhase, dcl.Info{}, fn.AddNest("LifecyclePhase")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "LifecyclePhase",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.GroupName, actual.GroupName, dcl.Info{}, fn.AddNest("GroupName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "GroupName",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.GroupTitle, actual.GroupTitle, dcl.Info{}, fn.AddNest("GroupTitle")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "GroupTitle",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.IncludedPermissions, actual.IncludedPermissions, dcl.Info{}, fn.AddNest("IncludedPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "IncludedPermissions",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Stage, actual.Stage, dcl.Info{Type: "EnumType"}, fn.AddNest("Stage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Stage",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Etag",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Deleted, actual.Deleted, dcl.Info{}, fn.AddNest("Deleted")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Deleted",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.IncludedRoles, actual.IncludedRoles, dcl.Info{}, fn.AddNest("IncludedRoles")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "IncludedRoles",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, roleDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Parent",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -734,6 +763,42 @@ func diffRole(c *Client, desired, actual *Role, opts ...dcl.ApplyOption) ([]role
 
 	return deduped, nil
 }
+func compareRoleLocalizedValuesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*RoleLocalizedValues)
+	if !ok {
+		desiredNotPointer, ok := d.(RoleLocalizedValues)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a RoleLocalizedValues or *RoleLocalizedValues", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*RoleLocalizedValues)
+	if !ok {
+		actualNotPointer, ok := a.(RoleLocalizedValues)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a RoleLocalizedValues", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LocalizedTitle, actual.LocalizedTitle, dcl.Info{}, fn.AddNest("LocalizedTitle")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LocalizedDescription, actual.LocalizedDescription, dcl.Info{}, fn.AddNest("LocalizedDescription")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareRoleLocalizedValues(c *Client, desired, actual *RoleLocalizedValues) bool {
 	if desired == nil {
 		return false

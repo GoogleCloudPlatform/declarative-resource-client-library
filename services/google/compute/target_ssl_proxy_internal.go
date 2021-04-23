@@ -460,68 +460,89 @@ func diffTargetSslProxy(c *Client, desired, actual *TargetSslProxy, opts ...dcl.
 	}
 
 	var diffs []targetSslProxyDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "service"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Service",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SslCertificates, actual.SslCertificates, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ssl_certificates"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SslCertificates, actual.SslCertificates, dcl.Info{Type: "ReferenceType"}, fn.AddNest("SslCertificates")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SslCertificates",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "proxy_header"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType"}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ProxyHeader",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SslPolicy, actual.SslPolicy, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ssl_policy"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SslPolicy, actual.SslPolicy, dcl.Info{}, fn.AddNest("SslPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SslPolicy",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, targetSslProxyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

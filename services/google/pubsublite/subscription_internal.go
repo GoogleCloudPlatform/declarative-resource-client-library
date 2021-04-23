@@ -570,44 +570,56 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 	}
 
 	var diffs []subscriptionDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Topic, actual.Topic, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "topic"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Topic, actual.Topic, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Topic")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Topic",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeliveryConfig, actual.DeliveryConfig, dcl.Info{ObjectFunction: compareSubscriptionDeliveryConfigNewStyle}, fn.AddNest("DeliveryConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareSubscriptionDeliveryConfig(c, desired.DeliveryConfig, actual.DeliveryConfig) {
-		c.Config.Logger.Infof("Detected diff in DeliveryConfig.\nDESIRED: %v\nACTUAL: %v", desired.DeliveryConfig, actual.DeliveryConfig)
-
 		diffs = append(diffs, subscriptionDiff{
-			UpdateOp:  &updateSubscriptionUpdateSubscriptionOperation{},
+			UpdateOp: &updateSubscriptionUpdateSubscriptionOperation{}, Diffs: ds,
 			FieldName: "DeliveryConfig",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subscriptionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -632,6 +644,35 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 
 	return deduped, nil
 }
+func compareSubscriptionDeliveryConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*SubscriptionDeliveryConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(SubscriptionDeliveryConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SubscriptionDeliveryConfig or *SubscriptionDeliveryConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*SubscriptionDeliveryConfig)
+	if !ok {
+		actualNotPointer, ok := a.(SubscriptionDeliveryConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SubscriptionDeliveryConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DeliveryRequirement, actual.DeliveryRequirement, dcl.Info{Type: "EnumType"}, fn.AddNest("DeliveryRequirement")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareSubscriptionDeliveryConfig(c *Client, desired, actual *SubscriptionDeliveryConfig) bool {
 	if desired == nil {
 		return false

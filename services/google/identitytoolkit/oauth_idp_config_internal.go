@@ -603,77 +603,89 @@ func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.
 	}
 
 	var diffs []oAuthIdpConfigDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, oAuthIdpConfigDiff{
 			UpdateOp: &updateOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
+			FieldName: "Name",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.ClientId, actual.ClientId, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "client_id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClientId, actual.ClientId, dcl.Info{}, fn.AddNest("ClientId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, oAuthIdpConfigDiff{
 			UpdateOp: &updateOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
+			FieldName: "ClientId",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Issuer, actual.Issuer, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "issuer"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Issuer, actual.Issuer, dcl.Info{}, fn.AddNest("Issuer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, oAuthIdpConfigDiff{
 			UpdateOp: &updateOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
+			FieldName: "Issuer",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, oAuthIdpConfigDiff{
 			UpdateOp: &updateOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
+			FieldName: "DisplayName",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enabled"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, oAuthIdpConfigDiff{
 			UpdateOp: &updateOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
+			FieldName: "Enabled",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.ClientSecret, actual.ClientSecret, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "client_secret"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClientSecret, actual.ClientSecret, dcl.Info{}, fn.AddNest("ClientSecret")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, oAuthIdpConfigDiff{
 			UpdateOp: &updateOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
+			FieldName: "ClientSecret",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResponseType, actual.ResponseType, dcl.Info{ObjectFunction: compareOAuthIdpConfigResponseTypeNewStyle}, fn.AddNest("ResponseType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, oAuthIdpConfigDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareOAuthIdpConfigResponseType(c, desired.ResponseType, actual.ResponseType) {
-		c.Config.Logger.Infof("Detected diff in ResponseType.\nDESIRED: %v\nACTUAL: %v", desired.ResponseType, actual.ResponseType)
-
 		diffs = append(diffs, oAuthIdpConfigDiff{
-			UpdateOp:  &updateOAuthIdpConfigUpdateConfigOperation{},
+			UpdateOp: &updateOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
 			FieldName: "ResponseType",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, oAuthIdpConfigDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -698,6 +710,49 @@ func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.
 
 	return deduped, nil
 }
+func compareOAuthIdpConfigResponseTypeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*OAuthIdpConfigResponseType)
+	if !ok {
+		desiredNotPointer, ok := d.(OAuthIdpConfigResponseType)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a OAuthIdpConfigResponseType or *OAuthIdpConfigResponseType", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*OAuthIdpConfigResponseType)
+	if !ok {
+		actualNotPointer, ok := a.(OAuthIdpConfigResponseType)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a OAuthIdpConfigResponseType", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.IdToken, actual.IdToken, dcl.Info{}, fn.AddNest("IdToken")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Token, actual.Token, dcl.Info{}, fn.AddNest("Token")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareOAuthIdpConfigResponseType(c *Client, desired, actual *OAuthIdpConfigResponseType) bool {
 	if desired == nil {
 		return false

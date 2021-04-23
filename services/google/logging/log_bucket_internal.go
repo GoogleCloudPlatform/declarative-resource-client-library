@@ -425,79 +425,100 @@ func diffLogBucket(c *Client, desired, actual *LogBucket, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []logBucketDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, logBucketDiff{
 			UpdateOp: &updateLogBucketUpdateBucketOperation{}, Diffs: ds,
+			FieldName: "Description",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpdateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.RetentionDays, actual.RetentionDays, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "retention_days"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RetentionDays, actual.RetentionDays, dcl.Info{}, fn.AddNest("RetentionDays")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, logBucketDiff{
 			UpdateOp: &updateLogBucketUpdateBucketOperation{}, Diffs: ds,
+			FieldName: "RetentionDays",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Locked, actual.Locked, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "locked"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Locked, actual.Locked, dcl.Info{}, fn.AddNest("Locked")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Locked",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.LifecycleState, actual.LifecycleState, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "lifecycle_state"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LifecycleState, actual.LifecycleState, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("LifecycleState")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "LifecycleState",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "parent"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Parent",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, logBucketDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

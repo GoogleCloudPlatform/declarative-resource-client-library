@@ -736,42 +736,55 @@ func diffAttestor(c *Client, desired, actual *Attestor, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []attestorDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareAttestorUserOwnedGrafeasNote(c, desired.UserOwnedGrafeasNote, actual.UserOwnedGrafeasNote) {
-		c.Config.Logger.Infof("Detected diff in UserOwnedGrafeasNote.\nDESIRED: %v\nACTUAL: %v", desired.UserOwnedGrafeasNote, actual.UserOwnedGrafeasNote)
-		diffs = append(diffs, attestorDiff{
-			RequiresRecreate: true,
-			FieldName:        "UserOwnedGrafeasNote",
+		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.UserOwnedGrafeasNote, actual.UserOwnedGrafeasNote, dcl.Info{ObjectFunction: compareAttestorUserOwnedGrafeasNoteNewStyle}, fn.AddNest("UserOwnedGrafeasNote")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UserOwnedGrafeasNote",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpdateTime",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -796,6 +809,49 @@ func diffAttestor(c *Client, desired, actual *Attestor, opts ...dcl.ApplyOption)
 
 	return deduped, nil
 }
+func compareAttestorUserOwnedGrafeasNoteNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AttestorUserOwnedGrafeasNote)
+	if !ok {
+		desiredNotPointer, ok := d.(AttestorUserOwnedGrafeasNote)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedGrafeasNote or *AttestorUserOwnedGrafeasNote", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AttestorUserOwnedGrafeasNote)
+	if !ok {
+		actualNotPointer, ok := a.(AttestorUserOwnedGrafeasNote)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedGrafeasNote", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NoteReference, actual.NoteReference, dcl.Info{Type: "ReferenceType"}, fn.AddNest("NoteReference")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicKeys, actual.PublicKeys, dcl.Info{ObjectFunction: compareAttestorUserOwnedGrafeasNotePublicKeysNewStyle}, fn.AddNest("PublicKeys")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelegationServiceAccountEmail, actual.DelegationServiceAccountEmail, dcl.Info{OutputOnly: true}, fn.AddNest("DelegationServiceAccountEmail")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAttestorUserOwnedGrafeasNote(c *Client, desired, actual *AttestorUserOwnedGrafeasNote) bool {
 	if desired == nil {
 		return false
@@ -845,6 +901,56 @@ func compareAttestorUserOwnedGrafeasNoteMap(c *Client, desired, actual map[strin
 		}
 	}
 	return false
+}
+
+func compareAttestorUserOwnedGrafeasNotePublicKeysNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AttestorUserOwnedGrafeasNotePublicKeys)
+	if !ok {
+		desiredNotPointer, ok := d.(AttestorUserOwnedGrafeasNotePublicKeys)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedGrafeasNotePublicKeys or *AttestorUserOwnedGrafeasNotePublicKeys", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AttestorUserOwnedGrafeasNotePublicKeys)
+	if !ok {
+		actualNotPointer, ok := a.(AttestorUserOwnedGrafeasNotePublicKeys)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedGrafeasNotePublicKeys", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Comment, actual.Comment, dcl.Info{}, fn.AddNest("Comment")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AsciiArmoredPgpPublicKey, actual.AsciiArmoredPgpPublicKey, dcl.Info{}, fn.AddNest("AsciiArmoredPgpPublicKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PkixPublicKey, actual.PkixPublicKey, dcl.Info{ObjectFunction: compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyNewStyle}, fn.AddNest("PkixPublicKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAttestorUserOwnedGrafeasNotePublicKeys(c *Client, desired, actual *AttestorUserOwnedGrafeasNotePublicKeys) bool {
@@ -904,6 +1010,42 @@ func compareAttestorUserOwnedGrafeasNotePublicKeysMap(c *Client, desired, actual
 		}
 	}
 	return false
+}
+
+func compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey)
+	if !ok {
+		desiredNotPointer, ok := d.(AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey or *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey)
+	if !ok {
+		actualNotPointer, ok := a.(AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PublicKeyPem, actual.PublicKeyPem, dcl.Info{}, fn.AddNest("PublicKeyPem")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SignatureAlgorithm, actual.SignatureAlgorithm, dcl.Info{Type: "EnumType"}, fn.AddNest("SignatureAlgorithm")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c *Client, desired, actual *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) bool {

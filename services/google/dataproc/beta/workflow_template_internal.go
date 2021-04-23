@@ -2989,84 +2989,109 @@ func diffWorkflowTemplate(c *Client, desired, actual *WorkflowTemplate, opts ...
 	}
 
 	var diffs []workflowTemplateDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "version"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.DagTimeout, actual.DagTimeout, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "dag_timeout"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareWorkflowTemplatePlacement(c, desired.Placement, actual.Placement) {
-		c.Config.Logger.Infof("Detected diff in Placement.\nDESIRED: %v\nACTUAL: %v", desired.Placement, actual.Placement)
-		diffs = append(diffs, workflowTemplateDiff{
-			RequiresRecreate: true,
-			FieldName:        "Placement",
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
 		})
 	}
-	if compareWorkflowTemplateJobsSlice(c, desired.Jobs, actual.Jobs) {
-		c.Config.Logger.Infof("Detected diff in Jobs.\nDESIRED: %v\nACTUAL: %v", desired.Jobs, actual.Jobs)
-		diffs = append(diffs, workflowTemplateDiff{
-			RequiresRecreate: true,
-			FieldName:        "Jobs",
+
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Version",
 		})
 	}
-	if compareWorkflowTemplateParametersSlice(c, desired.Parameters, actual.Parameters) {
-		c.Config.Logger.Infof("Detected diff in Parameters.\nDESIRED: %v\nACTUAL: %v", desired.Parameters, actual.Parameters)
-		diffs = append(diffs, workflowTemplateDiff{
-			RequiresRecreate: true,
-			FieldName:        "Parameters",
+
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreateTime",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpdateTime",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Labels",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Placement, actual.Placement, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementNewStyle}, fn.AddNest("Placement")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Placement",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Jobs, actual.Jobs, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsNewStyle}, fn.AddNest("Jobs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Jobs",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Parameters, actual.Parameters, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersNewStyle}, fn.AddNest("Parameters")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Parameters",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.DagTimeout, actual.DagTimeout, dcl.Info{}, fn.AddNest("DagTimeout")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DagTimeout",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, workflowTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -3091,6 +3116,42 @@ func diffWorkflowTemplate(c *Client, desired, actual *WorkflowTemplate, opts ...
 
 	return deduped, nil
 }
+func compareWorkflowTemplatePlacementNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplatePlacement)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplatePlacement)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplatePlacement or *WorkflowTemplatePlacement", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplatePlacement)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplatePlacement)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplatePlacement", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ManagedCluster, actual.ManagedCluster, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterNewStyle}, fn.AddNest("ManagedCluster")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClusterSelector, actual.ClusterSelector, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementClusterSelectorNewStyle}, fn.AddNest("ClusterSelector")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplatePlacement(c *Client, desired, actual *WorkflowTemplatePlacement) bool {
 	if desired == nil {
 		return false
@@ -3140,6 +3201,49 @@ func compareWorkflowTemplatePlacementMap(c *Client, desired, actual map[string]W
 		}
 	}
 	return false
+}
+
+func compareWorkflowTemplatePlacementManagedClusterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplatePlacementManagedCluster)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplatePlacementManagedCluster)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplatePlacementManagedCluster or *WorkflowTemplatePlacementManagedCluster", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplatePlacementManagedCluster)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplatePlacementManagedCluster)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplatePlacementManagedCluster", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ClusterName, actual.ClusterName, dcl.Info{}, fn.AddNest("ClusterName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{ObjectFunction: compareClusterClusterConfigNewStyle}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareWorkflowTemplatePlacementManagedCluster(c *Client, desired, actual *WorkflowTemplatePlacementManagedCluster) bool {
@@ -3197,6 +3301,42 @@ func compareWorkflowTemplatePlacementManagedClusterMap(c *Client, desired, actua
 	return false
 }
 
+func compareWorkflowTemplatePlacementClusterSelectorNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplatePlacementClusterSelector)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplatePlacementClusterSelector)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplatePlacementClusterSelector or *WorkflowTemplatePlacementClusterSelector", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplatePlacementClusterSelector)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplatePlacementClusterSelector)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplatePlacementClusterSelector", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClusterLabels, actual.ClusterLabels, dcl.Info{}, fn.AddNest("ClusterLabels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplatePlacementClusterSelector(c *Client, desired, actual *WorkflowTemplatePlacementClusterSelector) bool {
 	if desired == nil {
 		return false
@@ -3246,6 +3386,112 @@ func compareWorkflowTemplatePlacementClusterSelectorMap(c *Client, desired, actu
 		}
 	}
 	return false
+}
+
+func compareWorkflowTemplateJobsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobs)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobs or *WorkflowTemplateJobs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobs)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.StepId, actual.StepId, dcl.Info{}, fn.AddNest("StepId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HadoopJob, actual.HadoopJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHadoopJobNewStyle}, fn.AddNest("HadoopJob")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SparkJob, actual.SparkJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkJobNewStyle}, fn.AddNest("SparkJob")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PysparkJob, actual.PysparkJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPysparkJobNewStyle}, fn.AddNest("PysparkJob")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HiveJob, actual.HiveJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHiveJobNewStyle}, fn.AddNest("HiveJob")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PigJob, actual.PigJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPigJobNewStyle}, fn.AddNest("PigJob")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SparkRJob, actual.SparkRJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkRJobNewStyle}, fn.AddNest("SparkRJob")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SparkSqlJob, actual.SparkSqlJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobNewStyle}, fn.AddNest("SparkSqlJob")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PrestoJob, actual.PrestoJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPrestoJobNewStyle}, fn.AddNest("PrestoJob")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scheduling, actual.Scheduling, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSchedulingNewStyle}, fn.AddNest("Scheduling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PrerequisiteStepIds, actual.PrerequisiteStepIds, dcl.Info{}, fn.AddNest("PrerequisiteStepIds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareWorkflowTemplateJobs(c *Client, desired, actual *WorkflowTemplateJobs) bool {
@@ -3339,6 +3585,84 @@ func compareWorkflowTemplateJobsMap(c *Client, desired, actual map[string]Workfl
 	return false
 }
 
+func compareWorkflowTemplateJobsHadoopJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsHadoopJob)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsHadoopJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsHadoopJob or *WorkflowTemplateJobsHadoopJob", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsHadoopJob)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsHadoopJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsHadoopJob", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MainJarFileUri, actual.MainJarFileUri, dcl.Info{}, fn.AddNest("MainJarFileUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MainClass, actual.MainClass, dcl.Info{}, fn.AddNest("MainClass")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHadoopJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateJobsHadoopJob(c *Client, desired, actual *WorkflowTemplateJobsHadoopJob) bool {
 	if desired == nil {
 		return false
@@ -3414,6 +3738,35 @@ func compareWorkflowTemplateJobsHadoopJobMap(c *Client, desired, actual map[stri
 	return false
 }
 
+func compareWorkflowTemplateJobsHadoopJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsHadoopJobLoggingConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsHadoopJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsHadoopJobLoggingConfig or *WorkflowTemplateJobsHadoopJobLoggingConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsHadoopJobLoggingConfig)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsHadoopJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsHadoopJobLoggingConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateJobsHadoopJobLoggingConfig(c *Client, desired, actual *WorkflowTemplateJobsHadoopJobLoggingConfig) bool {
 	if desired == nil {
 		return false
@@ -3459,6 +3812,84 @@ func compareWorkflowTemplateJobsHadoopJobLoggingConfigMap(c *Client, desired, ac
 		}
 	}
 	return false
+}
+
+func compareWorkflowTemplateJobsSparkJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsSparkJob)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsSparkJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkJob or *WorkflowTemplateJobsSparkJob", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsSparkJob)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsSparkJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkJob", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MainJarFileUri, actual.MainJarFileUri, dcl.Info{}, fn.AddNest("MainJarFileUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MainClass, actual.MainClass, dcl.Info{}, fn.AddNest("MainClass")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareWorkflowTemplateJobsSparkJob(c *Client, desired, actual *WorkflowTemplateJobsSparkJob) bool {
@@ -3536,6 +3967,35 @@ func compareWorkflowTemplateJobsSparkJobMap(c *Client, desired, actual map[strin
 	return false
 }
 
+func compareWorkflowTemplateJobsSparkJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsSparkJobLoggingConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsSparkJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkJobLoggingConfig or *WorkflowTemplateJobsSparkJobLoggingConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsSparkJobLoggingConfig)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsSparkJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkJobLoggingConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateJobsSparkJobLoggingConfig(c *Client, desired, actual *WorkflowTemplateJobsSparkJobLoggingConfig) bool {
 	if desired == nil {
 		return false
@@ -3581,6 +4041,84 @@ func compareWorkflowTemplateJobsSparkJobLoggingConfigMap(c *Client, desired, act
 		}
 	}
 	return false
+}
+
+func compareWorkflowTemplateJobsPysparkJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsPysparkJob)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsPysparkJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPysparkJob or *WorkflowTemplateJobsPysparkJob", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsPysparkJob)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsPysparkJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPysparkJob", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MainPythonFileUri, actual.MainPythonFileUri, dcl.Info{}, fn.AddNest("MainPythonFileUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PythonFileUris, actual.PythonFileUris, dcl.Info{}, fn.AddNest("PythonFileUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPysparkJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareWorkflowTemplateJobsPysparkJob(c *Client, desired, actual *WorkflowTemplateJobsPysparkJob) bool {
@@ -3658,6 +4196,35 @@ func compareWorkflowTemplateJobsPysparkJobMap(c *Client, desired, actual map[str
 	return false
 }
 
+func compareWorkflowTemplateJobsPysparkJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsPysparkJobLoggingConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsPysparkJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPysparkJobLoggingConfig or *WorkflowTemplateJobsPysparkJobLoggingConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsPysparkJobLoggingConfig)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsPysparkJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPysparkJobLoggingConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateJobsPysparkJobLoggingConfig(c *Client, desired, actual *WorkflowTemplateJobsPysparkJobLoggingConfig) bool {
 	if desired == nil {
 		return false
@@ -3703,6 +4270,70 @@ func compareWorkflowTemplateJobsPysparkJobLoggingConfigMap(c *Client, desired, a
 		}
 	}
 	return false
+}
+
+func compareWorkflowTemplateJobsHiveJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsHiveJob)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsHiveJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsHiveJob or *WorkflowTemplateJobsHiveJob", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsHiveJob)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsHiveJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsHiveJob", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHiveJobQueryListNewStyle}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.Info{}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.Info{}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareWorkflowTemplateJobsHiveJob(c *Client, desired, actual *WorkflowTemplateJobsHiveJob) bool {
@@ -3772,6 +4403,35 @@ func compareWorkflowTemplateJobsHiveJobMap(c *Client, desired, actual map[string
 	return false
 }
 
+func compareWorkflowTemplateJobsHiveJobQueryListNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsHiveJobQueryList)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsHiveJobQueryList)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsHiveJobQueryList or *WorkflowTemplateJobsHiveJobQueryList", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsHiveJobQueryList)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsHiveJobQueryList)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsHiveJobQueryList", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateJobsHiveJobQueryList(c *Client, desired, actual *WorkflowTemplateJobsHiveJobQueryList) bool {
 	if desired == nil {
 		return false
@@ -3817,6 +4477,77 @@ func compareWorkflowTemplateJobsHiveJobQueryListMap(c *Client, desired, actual m
 		}
 	}
 	return false
+}
+
+func compareWorkflowTemplateJobsPigJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsPigJob)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsPigJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPigJob or *WorkflowTemplateJobsPigJob", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsPigJob)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsPigJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPigJob", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPigJobQueryListNewStyle}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.Info{}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.Info{}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPigJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareWorkflowTemplateJobsPigJob(c *Client, desired, actual *WorkflowTemplateJobsPigJob) bool {
@@ -3890,6 +4621,35 @@ func compareWorkflowTemplateJobsPigJobMap(c *Client, desired, actual map[string]
 	return false
 }
 
+func compareWorkflowTemplateJobsPigJobQueryListNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsPigJobQueryList)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsPigJobQueryList)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPigJobQueryList or *WorkflowTemplateJobsPigJobQueryList", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsPigJobQueryList)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsPigJobQueryList)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPigJobQueryList", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateJobsPigJobQueryList(c *Client, desired, actual *WorkflowTemplateJobsPigJobQueryList) bool {
 	if desired == nil {
 		return false
@@ -3937,6 +4697,35 @@ func compareWorkflowTemplateJobsPigJobQueryListMap(c *Client, desired, actual ma
 	return false
 }
 
+func compareWorkflowTemplateJobsPigJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsPigJobLoggingConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsPigJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPigJobLoggingConfig or *WorkflowTemplateJobsPigJobLoggingConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsPigJobLoggingConfig)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsPigJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPigJobLoggingConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateJobsPigJobLoggingConfig(c *Client, desired, actual *WorkflowTemplateJobsPigJobLoggingConfig) bool {
 	if desired == nil {
 		return false
@@ -3982,6 +4771,70 @@ func compareWorkflowTemplateJobsPigJobLoggingConfigMap(c *Client, desired, actua
 		}
 	}
 	return false
+}
+
+func compareWorkflowTemplateJobsSparkRJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsSparkRJob)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsSparkRJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkRJob or *WorkflowTemplateJobsSparkRJob", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsSparkRJob)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsSparkRJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkRJob", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MainRFileUri, actual.MainRFileUri, dcl.Info{}, fn.AddNest("MainRFileUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkRJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareWorkflowTemplateJobsSparkRJob(c *Client, desired, actual *WorkflowTemplateJobsSparkRJob) bool {
@@ -4051,6 +4904,35 @@ func compareWorkflowTemplateJobsSparkRJobMap(c *Client, desired, actual map[stri
 	return false
 }
 
+func compareWorkflowTemplateJobsSparkRJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsSparkRJobLoggingConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsSparkRJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkRJobLoggingConfig or *WorkflowTemplateJobsSparkRJobLoggingConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsSparkRJobLoggingConfig)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsSparkRJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkRJobLoggingConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateJobsSparkRJobLoggingConfig(c *Client, desired, actual *WorkflowTemplateJobsSparkRJobLoggingConfig) bool {
 	if desired == nil {
 		return false
@@ -4096,6 +4978,70 @@ func compareWorkflowTemplateJobsSparkRJobLoggingConfigMap(c *Client, desired, ac
 		}
 	}
 	return false
+}
+
+func compareWorkflowTemplateJobsSparkSqlJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsSparkSqlJob)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsSparkSqlJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkSqlJob or *WorkflowTemplateJobsSparkSqlJob", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsSparkSqlJob)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsSparkSqlJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkSqlJob", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobQueryListNewStyle}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.Info{}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareWorkflowTemplateJobsSparkSqlJob(c *Client, desired, actual *WorkflowTemplateJobsSparkSqlJob) bool {
@@ -4165,6 +5111,35 @@ func compareWorkflowTemplateJobsSparkSqlJobMap(c *Client, desired, actual map[st
 	return false
 }
 
+func compareWorkflowTemplateJobsSparkSqlJobQueryListNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsSparkSqlJobQueryList)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsSparkSqlJobQueryList)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkSqlJobQueryList or *WorkflowTemplateJobsSparkSqlJobQueryList", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsSparkSqlJobQueryList)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsSparkSqlJobQueryList)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkSqlJobQueryList", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateJobsSparkSqlJobQueryList(c *Client, desired, actual *WorkflowTemplateJobsSparkSqlJobQueryList) bool {
 	if desired == nil {
 		return false
@@ -4212,6 +5187,35 @@ func compareWorkflowTemplateJobsSparkSqlJobQueryListMap(c *Client, desired, actu
 	return false
 }
 
+func compareWorkflowTemplateJobsSparkSqlJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsSparkSqlJobLoggingConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsSparkSqlJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkSqlJobLoggingConfig or *WorkflowTemplateJobsSparkSqlJobLoggingConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsSparkSqlJobLoggingConfig)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsSparkSqlJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsSparkSqlJobLoggingConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateJobsSparkSqlJobLoggingConfig(c *Client, desired, actual *WorkflowTemplateJobsSparkSqlJobLoggingConfig) bool {
 	if desired == nil {
 		return false
@@ -4257,6 +5261,77 @@ func compareWorkflowTemplateJobsSparkSqlJobLoggingConfigMap(c *Client, desired, 
 		}
 	}
 	return false
+}
+
+func compareWorkflowTemplateJobsPrestoJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsPrestoJob)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsPrestoJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPrestoJob or *WorkflowTemplateJobsPrestoJob", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsPrestoJob)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsPrestoJob)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPrestoJob", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPrestoJobQueryListNewStyle}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.Info{}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OutputFormat, actual.OutputFormat, dcl.Info{}, fn.AddNest("OutputFormat")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClientTags, actual.ClientTags, dcl.Info{}, fn.AddNest("ClientTags")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPrestoJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareWorkflowTemplateJobsPrestoJob(c *Client, desired, actual *WorkflowTemplateJobsPrestoJob) bool {
@@ -4330,6 +5405,35 @@ func compareWorkflowTemplateJobsPrestoJobMap(c *Client, desired, actual map[stri
 	return false
 }
 
+func compareWorkflowTemplateJobsPrestoJobQueryListNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsPrestoJobQueryList)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsPrestoJobQueryList)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPrestoJobQueryList or *WorkflowTemplateJobsPrestoJobQueryList", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsPrestoJobQueryList)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsPrestoJobQueryList)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPrestoJobQueryList", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateJobsPrestoJobQueryList(c *Client, desired, actual *WorkflowTemplateJobsPrestoJobQueryList) bool {
 	if desired == nil {
 		return false
@@ -4377,6 +5481,35 @@ func compareWorkflowTemplateJobsPrestoJobQueryListMap(c *Client, desired, actual
 	return false
 }
 
+func compareWorkflowTemplateJobsPrestoJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsPrestoJobLoggingConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsPrestoJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPrestoJobLoggingConfig or *WorkflowTemplateJobsPrestoJobLoggingConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsPrestoJobLoggingConfig)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsPrestoJobLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsPrestoJobLoggingConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateJobsPrestoJobLoggingConfig(c *Client, desired, actual *WorkflowTemplateJobsPrestoJobLoggingConfig) bool {
 	if desired == nil {
 		return false
@@ -4422,6 +5555,42 @@ func compareWorkflowTemplateJobsPrestoJobLoggingConfigMap(c *Client, desired, ac
 		}
 	}
 	return false
+}
+
+func compareWorkflowTemplateJobsSchedulingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateJobsScheduling)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateJobsScheduling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsScheduling or *WorkflowTemplateJobsScheduling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateJobsScheduling)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateJobsScheduling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateJobsScheduling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MaxFailuresPerHour, actual.MaxFailuresPerHour, dcl.Info{}, fn.AddNest("MaxFailuresPerHour")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxFailuresTotal, actual.MaxFailuresTotal, dcl.Info{}, fn.AddNest("MaxFailuresTotal")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareWorkflowTemplateJobsScheduling(c *Client, desired, actual *WorkflowTemplateJobsScheduling) bool {
@@ -4473,6 +5642,56 @@ func compareWorkflowTemplateJobsSchedulingMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareWorkflowTemplateParametersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateParameters)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateParameters)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateParameters or *WorkflowTemplateParameters", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateParameters)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateParameters)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateParameters", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Fields, actual.Fields, dcl.Info{}, fn.AddNest("Fields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Validation, actual.Validation, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersValidationNewStyle}, fn.AddNest("Validation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareWorkflowTemplateParameters(c *Client, desired, actual *WorkflowTemplateParameters) bool {
@@ -4534,6 +5753,42 @@ func compareWorkflowTemplateParametersMap(c *Client, desired, actual map[string]
 	return false
 }
 
+func compareWorkflowTemplateParametersValidationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateParametersValidation)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateParametersValidation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateParametersValidation or *WorkflowTemplateParametersValidation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateParametersValidation)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateParametersValidation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateParametersValidation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Regex, actual.Regex, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersValidationRegexNewStyle}, fn.AddNest("Regex")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersValidationValuesNewStyle}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateParametersValidation(c *Client, desired, actual *WorkflowTemplateParametersValidation) bool {
 	if desired == nil {
 		return false
@@ -4585,6 +5840,35 @@ func compareWorkflowTemplateParametersValidationMap(c *Client, desired, actual m
 	return false
 }
 
+func compareWorkflowTemplateParametersValidationRegexNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateParametersValidationRegex)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateParametersValidationRegex)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateParametersValidationRegex or *WorkflowTemplateParametersValidationRegex", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateParametersValidationRegex)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateParametersValidationRegex)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateParametersValidationRegex", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Regexes, actual.Regexes, dcl.Info{}, fn.AddNest("Regexes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplateParametersValidationRegex(c *Client, desired, actual *WorkflowTemplateParametersValidationRegex) bool {
 	if desired == nil {
 		return false
@@ -4630,6 +5914,35 @@ func compareWorkflowTemplateParametersValidationRegexMap(c *Client, desired, act
 		}
 	}
 	return false
+}
+
+func compareWorkflowTemplateParametersValidationValuesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateParametersValidationValues)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateParametersValidationValues)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateParametersValidationValues or *WorkflowTemplateParametersValidationValues", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateParametersValidationValues)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateParametersValidationValues)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateParametersValidationValues", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.Info{}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareWorkflowTemplateParametersValidationValues(c *Client, desired, actual *WorkflowTemplateParametersValidationValues) bool {

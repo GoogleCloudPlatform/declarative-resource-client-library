@@ -382,28 +382,36 @@ func diffProjectBillingInfo(c *Client, desired, actual *ProjectBillingInfo, opts
 	}
 
 	var diffs []projectBillingInfoDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, projectBillingInfoDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, projectBillingInfoDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.BillingAccountName, actual.BillingAccountName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "billing_account_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BillingAccountName, actual.BillingAccountName, dcl.Info{}, fn.AddNest("BillingAccountName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, projectBillingInfoDiff{
 			UpdateOp: &updateProjectBillingInfoUpdateProjectBillingInfoOperation{}, Diffs: ds,
+			FieldName: "BillingAccountName",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.BillingEnabled, actual.BillingEnabled, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "billing_enabled"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BillingEnabled, actual.BillingEnabled, dcl.Info{OutputOnly: true}, fn.AddNest("BillingEnabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, projectBillingInfoDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, projectBillingInfoDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "BillingEnabled",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

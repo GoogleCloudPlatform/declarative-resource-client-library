@@ -600,69 +600,85 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]user
 	}
 
 	var diffs []userDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Password, actual.Password, dcl.Info{Ignore: true, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "password"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Password, actual.Password, dcl.Info{Ignore: true}, fn.AddNest("Password")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, userDiff{
 			UpdateOp: &updateUserUpdateOperation{}, Diffs: ds,
+			FieldName: "Password",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "instance"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Instance",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "type"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SqlserverUserDetails, actual.SqlserverUserDetails, dcl.Info{ObjectFunction: compareUserSqlserverUserDetailsNewStyle}, fn.AddNest("SqlserverUserDetails")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, userDiff{
 			UpdateOp: &updateUserUpdateOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "etag"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "host"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareUserSqlserverUserDetails(c, desired.SqlserverUserDetails, actual.SqlserverUserDetails) {
-		c.Config.Logger.Infof("Detected diff in SqlserverUserDetails.\nDESIRED: %v\nACTUAL: %v", desired.SqlserverUserDetails, actual.SqlserverUserDetails)
-
-		diffs = append(diffs, userDiff{
-			UpdateOp:  &updateUserUpdateOperation{},
 			FieldName: "SqlserverUserDetails",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, userDiff{
+			UpdateOp: &updateUserUpdateOperation{}, Diffs: ds,
+			FieldName: "Type",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Etag",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Host",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -687,6 +703,42 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]user
 
 	return deduped, nil
 }
+func compareUserSqlserverUserDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*UserSqlserverUserDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(UserSqlserverUserDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a UserSqlserverUserDetails or *UserSqlserverUserDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*UserSqlserverUserDetails)
+	if !ok {
+		actualNotPointer, ok := a.(UserSqlserverUserDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a UserSqlserverUserDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServerRoles, actual.ServerRoles, dcl.Info{}, fn.AddNest("ServerRoles")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareUserSqlserverUserDetails(c *Client, desired, actual *UserSqlserverUserDetails) bool {
 	if desired == nil {
 		return false

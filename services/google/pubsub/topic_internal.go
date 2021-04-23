@@ -562,48 +562,58 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 	}
 
 	var diffs []topicDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "kms_key_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, topicDiff{
 			UpdateOp: &updateTopicUpdateOperation{}, Diffs: ds,
+			FieldName: "KmsKeyName",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, topicDiff{
 			UpdateOp: &updateTopicUpdateOperation{}, Diffs: ds,
+			FieldName: "Labels",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MessageStoragePolicy, actual.MessageStoragePolicy, dcl.Info{ObjectFunction: compareTopicMessageStoragePolicyNewStyle}, fn.AddNest("MessageStoragePolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareTopicMessageStoragePolicy(c, desired.MessageStoragePolicy, actual.MessageStoragePolicy) {
-		c.Config.Logger.Infof("Detected diff in MessageStoragePolicy.\nDESIRED: %v\nACTUAL: %v", desired.MessageStoragePolicy, actual.MessageStoragePolicy)
-
 		diffs = append(diffs, topicDiff{
-			UpdateOp:  &updateTopicUpdateOperation{},
+			UpdateOp: &updateTopicUpdateOperation{}, Diffs: ds,
 			FieldName: "MessageStoragePolicy",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -628,6 +638,35 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 
 	return deduped, nil
 }
+func compareTopicMessageStoragePolicyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TopicMessageStoragePolicy)
+	if !ok {
+		desiredNotPointer, ok := d.(TopicMessageStoragePolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TopicMessageStoragePolicy or *TopicMessageStoragePolicy", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TopicMessageStoragePolicy)
+	if !ok {
+		actualNotPointer, ok := a.(TopicMessageStoragePolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TopicMessageStoragePolicy", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AllowedPersistenceRegions, actual.AllowedPersistenceRegions, dcl.Info{Type: "Set"}, fn.AddNest("AllowedPersistenceRegions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareTopicMessageStoragePolicy(c *Client, desired, actual *TopicMessageStoragePolicy) bool {
 	if desired == nil {
 		return false

@@ -442,47 +442,71 @@ func diffAssignment(c *Client, desired, actual *Assignment, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []assignmentDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Assignee, actual.Assignee, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "assignee"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.JobType, actual.JobType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "job_type"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Assignee, actual.Assignee, dcl.Info{}, fn.AddNest("Assignee")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Assignee",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JobType, actual.JobType, dcl.Info{Type: "EnumType"}, fn.AddNest("JobType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "JobType",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "State",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Reservation, actual.Reservation, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "reservation"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Reservation, actual.Reservation, dcl.Info{}, fn.AddNest("Reservation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Reservation",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

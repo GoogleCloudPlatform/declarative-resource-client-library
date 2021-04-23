@@ -412,33 +412,53 @@ func diffIdentityAwareProxyClient(c *Client, desired, actual *IdentityAwareProxy
 	}
 
 	var diffs []identityAwareProxyClientDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "secret"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{OutputOnly: true}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Secret",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DisplayName",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Brand, actual.Brand, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "brand"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Brand, actual.Brand, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Brand")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Brand",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

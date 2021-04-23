@@ -470,68 +470,89 @@ func diffConnector(c *Client, desired, actual *Connector, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []connectorDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "network"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Network",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ip_cidr_range"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{}, fn.AddNest("IPCidrRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "IPCidrRange",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.MinThroughput, actual.MinThroughput, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "min_throughput"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinThroughput, actual.MinThroughput, dcl.Info{}, fn.AddNest("MinThroughput")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "MinThroughput",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.MaxThroughput, actual.MaxThroughput, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "max_throughput"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxThroughput, actual.MaxThroughput, dcl.Info{}, fn.AddNest("MaxThroughput")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "MaxThroughput",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "State",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

@@ -23,8 +23,7 @@ message GkehubBetaFeatureMembership {
   string feature = 2;
   string location = 3;
   string project = 4;
-  string project_number = 5;
-  GkehubBetaFeatureMembershipConfigmanagement configmanagement = 6;
+  GkehubBetaFeatureMembershipConfigmanagement configmanagement = 5;
 }
 
 message GkehubBetaFeatureMembershipConfigmanagement {

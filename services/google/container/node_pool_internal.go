@@ -1969,120 +1969,158 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []nodePoolDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "node_count"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{ObjectFunction: compareNodePoolConfigNewStyle}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Config",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.Info{}, fn.AddNest("NodeCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, nodePoolDiff{
 			UpdateOp: &updateNodePoolSetSizeOperation{}, Diffs: ds,
+			FieldName: "NodeCount",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "version"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Version",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "status"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Status",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "status_message"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{OutputOnly: true}, fn.AddNest("StatusMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "StatusMessage",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Locations, actual.Locations, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "locations"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Locations, actual.Locations, dcl.Info{}, fn.AddNest("Locations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, nodePoolDiff{
 			UpdateOp: &updateNodePoolUpdateOperation{}, Diffs: ds,
+			FieldName: "Locations",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.PodIPv4CidrSize, actual.PodIPv4CidrSize, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "pod_ipv4_cidr_size"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Autoscaling, actual.Autoscaling, dcl.Info{ObjectFunction: compareNodePoolAutoscalingNewStyle}, fn.AddNest("Autoscaling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Cluster, actual.Cluster, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "cluster"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareNodePoolConfig(c, desired.Config, actual.Config) {
-		c.Config.Logger.Infof("Detected diff in Config.\nDESIRED: %v\nACTUAL: %v", desired.Config, actual.Config)
 		diffs = append(diffs, nodePoolDiff{
-			RequiresRecreate: true,
-			FieldName:        "Config",
-		})
-	}
-	if compareNodePoolAutoscaling(c, desired.Autoscaling, actual.Autoscaling) {
-		c.Config.Logger.Infof("Detected diff in Autoscaling.\nDESIRED: %v\nACTUAL: %v", desired.Autoscaling, actual.Autoscaling)
-
-		diffs = append(diffs, nodePoolDiff{
-			UpdateOp:  &updateNodePoolSetAutoscalingOperation{},
+			UpdateOp: &updateNodePoolSetAutoscalingOperation{}, Diffs: ds,
 			FieldName: "Autoscaling",
 		})
-
 	}
-	if compareNodePoolManagement(c, desired.Management, actual.Management) {
-		c.Config.Logger.Infof("Detected diff in Management.\nDESIRED: %v\nACTUAL: %v", desired.Management, actual.Management)
 
+	if ds, err := dcl.Diff(desired.Management, actual.Management, dcl.Info{ObjectFunction: compareNodePoolManagementNewStyle}, fn.AddNest("Management")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, nodePoolDiff{
-			UpdateOp:  &updateNodePoolSetManagementOperation{},
+			UpdateOp: &updateNodePoolSetManagementOperation{}, Diffs: ds,
 			FieldName: "Management",
 		})
+	}
 
-	}
-	if compareNodePoolMaxPodsConstraint(c, desired.MaxPodsConstraint, actual.MaxPodsConstraint) {
-		c.Config.Logger.Infof("Detected diff in MaxPodsConstraint.\nDESIRED: %v\nACTUAL: %v", desired.MaxPodsConstraint, actual.MaxPodsConstraint)
-		diffs = append(diffs, nodePoolDiff{
-			RequiresRecreate: true,
-			FieldName:        "MaxPodsConstraint",
+	if ds, err := dcl.Diff(desired.MaxPodsConstraint, actual.MaxPodsConstraint, dcl.Info{ObjectFunction: compareNodePoolMaxPodsConstraintNewStyle}, fn.AddNest("MaxPodsConstraint")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "MaxPodsConstraint",
 		})
 	}
-	if compareNodePoolUpgradeSettings(c, desired.UpgradeSettings, actual.UpgradeSettings) {
-		c.Config.Logger.Infof("Detected diff in UpgradeSettings.\nDESIRED: %v\nACTUAL: %v", desired.UpgradeSettings, actual.UpgradeSettings)
-		diffs = append(diffs, nodePoolDiff{
-			RequiresRecreate: true,
-			FieldName:        "UpgradeSettings",
+
+	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{OutputOnly: true, ObjectFunction: compareNodePoolConditionsNewStyle}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Conditions",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.PodIPv4CidrSize, actual.PodIPv4CidrSize, dcl.Info{OutputOnly: true}, fn.AddNest("PodIPv4CidrSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "PodIPv4CidrSize",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.UpgradeSettings, actual.UpgradeSettings, dcl.Info{ObjectFunction: compareNodePoolUpgradeSettingsNewStyle}, fn.AddNest("UpgradeSettings")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpgradeSettings",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Cluster, actual.Cluster, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Cluster")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Cluster",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodePoolDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -2107,6 +2145,147 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 
 	return deduped, nil
 }
+func compareNodePoolConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfig or *NodePoolConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolConfig)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{}, fn.AddNest("OAuthScopes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ImageType, actual.ImageType, dcl.Info{}, fn.AddNest("ImageType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LocalSsdCount, actual.LocalSsdCount, dcl.Info{}, fn.AddNest("LocalSsdCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Tags, actual.Tags, dcl.Info{}, fn.AddNest("Tags")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Preemptible, actual.Preemptible, dcl.Info{}, fn.AddNest("Preemptible")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.Info{ObjectFunction: compareNodePoolConfigAcceleratorsNewStyle}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskType, actual.DiskType, dcl.Info{}, fn.AddNest("DiskType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.Info{}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Taints, actual.Taints, dcl.Info{ObjectFunction: compareNodePoolConfigTaintsNewStyle}, fn.AddNest("Taints")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SandboxConfig, actual.SandboxConfig, dcl.Info{ObjectFunction: compareNodePoolConfigSandboxConfigNewStyle}, fn.AddNest("SandboxConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReservationAffinity, actual.ReservationAffinity, dcl.Info{ObjectFunction: compareNodePoolConfigReservationAffinityNewStyle}, fn.AddNest("ReservationAffinity")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareNodePoolConfigShieldedInstanceConfigNewStyle}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNodePoolConfig(c *Client, desired, actual *NodePoolConfig) bool {
 	if desired == nil {
 		return false
@@ -2218,6 +2397,42 @@ func compareNodePoolConfigMap(c *Client, desired, actual map[string]NodePoolConf
 	return false
 }
 
+func compareNodePoolConfigAcceleratorsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolConfigAccelerators)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolConfigAccelerators)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigAccelerators or *NodePoolConfigAccelerators", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolConfigAccelerators)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolConfigAccelerators)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigAccelerators", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.Info{}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{}, fn.AddNest("AcceleratorType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNodePoolConfigAccelerators(c *Client, desired, actual *NodePoolConfigAccelerators) bool {
 	if desired == nil {
 		return false
@@ -2267,6 +2482,49 @@ func compareNodePoolConfigAcceleratorsMap(c *Client, desired, actual map[string]
 		}
 	}
 	return false
+}
+
+func compareNodePoolConfigTaintsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolConfigTaints)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolConfigTaints)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigTaints or *NodePoolConfigTaints", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolConfigTaints)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolConfigTaints)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigTaints", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Effect, actual.Effect, dcl.Info{}, fn.AddNest("Effect")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNodePoolConfigTaints(c *Client, desired, actual *NodePoolConfigTaints) bool {
@@ -2324,6 +2582,35 @@ func compareNodePoolConfigTaintsMap(c *Client, desired, actual map[string]NodePo
 	return false
 }
 
+func compareNodePoolConfigSandboxConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolConfigSandboxConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolConfigSandboxConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigSandboxConfig or *NodePoolConfigSandboxConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolConfigSandboxConfig)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolConfigSandboxConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigSandboxConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNodePoolConfigSandboxConfig(c *Client, desired, actual *NodePoolConfigSandboxConfig) bool {
 	if desired == nil {
 		return false
@@ -2369,6 +2656,49 @@ func compareNodePoolConfigSandboxConfigMap(c *Client, desired, actual map[string
 		}
 	}
 	return false
+}
+
+func compareNodePoolConfigReservationAffinityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolConfigReservationAffinity)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolConfigReservationAffinity)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigReservationAffinity or *NodePoolConfigReservationAffinity", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolConfigReservationAffinity)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolConfigReservationAffinity)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigReservationAffinity", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ConsumeReservationType, actual.ConsumeReservationType, dcl.Info{Type: "EnumType"}, fn.AddNest("ConsumeReservationType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.Info{}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNodePoolConfigReservationAffinity(c *Client, desired, actual *NodePoolConfigReservationAffinity) bool {
@@ -2426,6 +2756,42 @@ func compareNodePoolConfigReservationAffinityMap(c *Client, desired, actual map[
 	return false
 }
 
+func compareNodePoolConfigShieldedInstanceConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolConfigShieldedInstanceConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolConfigShieldedInstanceConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigShieldedInstanceConfig or *NodePoolConfigShieldedInstanceConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolConfigShieldedInstanceConfig)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolConfigShieldedInstanceConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigShieldedInstanceConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EnableSecureBoot, actual.EnableSecureBoot, dcl.Info{}, fn.AddNest("EnableSecureBoot")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring, dcl.Info{}, fn.AddNest("EnableIntegrityMonitoring")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNodePoolConfigShieldedInstanceConfig(c *Client, desired, actual *NodePoolConfigShieldedInstanceConfig) bool {
 	if desired == nil {
 		return false
@@ -2475,6 +2841,56 @@ func compareNodePoolConfigShieldedInstanceConfigMap(c *Client, desired, actual m
 		}
 	}
 	return false
+}
+
+func compareNodePoolAutoscalingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolAutoscaling)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolAutoscaling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolAutoscaling or *NodePoolAutoscaling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolAutoscaling)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolAutoscaling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolAutoscaling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinNodeCount, actual.MinNodeCount, dcl.Info{}, fn.AddNest("MinNodeCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxNodeCount, actual.MaxNodeCount, dcl.Info{}, fn.AddNest("MaxNodeCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Autoprovisioned, actual.Autoprovisioned, dcl.Info{}, fn.AddNest("Autoprovisioned")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNodePoolAutoscaling(c *Client, desired, actual *NodePoolAutoscaling) bool {
@@ -2536,6 +2952,49 @@ func compareNodePoolAutoscalingMap(c *Client, desired, actual map[string]NodePoo
 	return false
 }
 
+func compareNodePoolManagementNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolManagement)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolManagement)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolManagement or *NodePoolManagement", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolManagement)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolManagement)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolManagement", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AutoUpgrade, actual.AutoUpgrade, dcl.Info{}, fn.AddNest("AutoUpgrade")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AutoRepair, actual.AutoRepair, dcl.Info{}, fn.AddNest("AutoRepair")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpgradeOptions, actual.UpgradeOptions, dcl.Info{ObjectFunction: compareNodePoolManagementUpgradeOptionsNewStyle}, fn.AddNest("UpgradeOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNodePoolManagement(c *Client, desired, actual *NodePoolManagement) bool {
 	if desired == nil {
 		return false
@@ -2591,6 +3050,42 @@ func compareNodePoolManagementMap(c *Client, desired, actual map[string]NodePool
 	return false
 }
 
+func compareNodePoolManagementUpgradeOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolManagementUpgradeOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolManagementUpgradeOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolManagementUpgradeOptions or *NodePoolManagementUpgradeOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolManagementUpgradeOptions)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolManagementUpgradeOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolManagementUpgradeOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AutoUpgradeStartTime, actual.AutoUpgradeStartTime, dcl.Info{OutputOnly: true}, fn.AddNest("AutoUpgradeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OutputOnly: true}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNodePoolManagementUpgradeOptions(c *Client, desired, actual *NodePoolManagementUpgradeOptions) bool {
 	if desired == nil {
 		return false
@@ -2632,6 +3127,35 @@ func compareNodePoolManagementUpgradeOptionsMap(c *Client, desired, actual map[s
 		}
 	}
 	return false
+}
+
+func compareNodePoolMaxPodsConstraintNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolMaxPodsConstraint)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolMaxPodsConstraint)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolMaxPodsConstraint or *NodePoolMaxPodsConstraint", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolMaxPodsConstraint)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolMaxPodsConstraint)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolMaxPodsConstraint", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MaxPodsPerNode, actual.MaxPodsPerNode, dcl.Info{}, fn.AddNest("MaxPodsPerNode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNodePoolMaxPodsConstraint(c *Client, desired, actual *NodePoolMaxPodsConstraint) bool {
@@ -2681,6 +3205,42 @@ func compareNodePoolMaxPodsConstraintMap(c *Client, desired, actual map[string]N
 	return false
 }
 
+func compareNodePoolConditionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolConditions)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolConditions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConditions or *NodePoolConditions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolConditions)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolConditions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConditions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OutputOnly: true}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNodePoolConditions(c *Client, desired, actual *NodePoolConditions) bool {
 	if desired == nil {
 		return false
@@ -2722,6 +3282,42 @@ func compareNodePoolConditionsMap(c *Client, desired, actual map[string]NodePool
 		}
 	}
 	return false
+}
+
+func compareNodePoolUpgradeSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolUpgradeSettings)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolUpgradeSettings)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolUpgradeSettings or *NodePoolUpgradeSettings", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolUpgradeSettings)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolUpgradeSettings)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolUpgradeSettings", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.Info{}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.Info{}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNodePoolUpgradeSettings(c *Client, desired, actual *NodePoolUpgradeSettings) bool {

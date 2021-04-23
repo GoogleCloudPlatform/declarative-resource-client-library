@@ -12687,64 +12687,77 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []dashboardDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, dashboardDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, dashboardDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, dashboardDiff{
 			UpdateOp: &updateDashboardUpdateOperation{}, Diffs: ds,
+			FieldName: "DisplayName",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GridLayout, actual.GridLayout, dcl.Info{ObjectFunction: compareDashboardGridLayoutNewStyle}, fn.AddNest("GridLayout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, dashboardDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareDashboardGridLayout(c, desired.GridLayout, actual.GridLayout) {
-		c.Config.Logger.Infof("Detected diff in GridLayout.\nDESIRED: %v\nACTUAL: %v", desired.GridLayout, actual.GridLayout)
-
 		diffs = append(diffs, dashboardDiff{
-			UpdateOp:  &updateDashboardUpdateOperation{},
+			UpdateOp: &updateDashboardUpdateOperation{}, Diffs: ds,
 			FieldName: "GridLayout",
 		})
-
 	}
-	if compareDashboardMosaicLayout(c, desired.MosaicLayout, actual.MosaicLayout) {
-		c.Config.Logger.Infof("Detected diff in MosaicLayout.\nDESIRED: %v\nACTUAL: %v", desired.MosaicLayout, actual.MosaicLayout)
 
+	if ds, err := dcl.Diff(desired.MosaicLayout, actual.MosaicLayout, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutNewStyle}, fn.AddNest("MosaicLayout")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, dashboardDiff{
-			UpdateOp:  &updateDashboardUpdateOperation{},
+			UpdateOp: &updateDashboardUpdateOperation{}, Diffs: ds,
 			FieldName: "MosaicLayout",
 		})
-
 	}
-	if compareDashboardRowLayout(c, desired.RowLayout, actual.RowLayout) {
-		c.Config.Logger.Infof("Detected diff in RowLayout.\nDESIRED: %v\nACTUAL: %v", desired.RowLayout, actual.RowLayout)
-		diffs = append(diffs, dashboardDiff{
-			RequiresRecreate: true,
-			FieldName:        "RowLayout",
+
+	if ds, err := dcl.Diff(desired.RowLayout, actual.RowLayout, dcl.Info{ObjectFunction: compareDashboardRowLayoutNewStyle}, fn.AddNest("RowLayout")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dashboardDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "RowLayout",
 		})
 	}
-	if compareDashboardColumnLayout(c, desired.ColumnLayout, actual.ColumnLayout) {
-		c.Config.Logger.Infof("Detected diff in ColumnLayout.\nDESIRED: %v\nACTUAL: %v", desired.ColumnLayout, actual.ColumnLayout)
 
+	if ds, err := dcl.Diff(desired.ColumnLayout, actual.ColumnLayout, dcl.Info{ObjectFunction: compareDashboardColumnLayoutNewStyle}, fn.AddNest("ColumnLayout")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, dashboardDiff{
-			UpdateOp:  &updateDashboardUpdateOperation{},
+			UpdateOp: &updateDashboardUpdateOperation{}, Diffs: ds,
 			FieldName: "ColumnLayout",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dashboardDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -12769,6 +12782,42 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 
 	return deduped, nil
 }
+func compareDashboardGridLayoutNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardGridLayout)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardGridLayout)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardGridLayout or *DashboardGridLayout", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardGridLayout)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardGridLayout)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardGridLayout", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Columns, actual.Columns, dcl.Info{}, fn.AddNest("Columns")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Widgets, actual.Widgets, dcl.Info{ObjectFunction: compareDashboardWidgetNewStyle}, fn.AddNest("Widgets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardGridLayout(c *Client, desired, actual *DashboardGridLayout) bool {
 	if desired == nil {
 		return false
@@ -12820,6 +12869,42 @@ func compareDashboardGridLayoutMap(c *Client, desired, actual map[string]Dashboa
 	return false
 }
 
+func compareDashboardMosaicLayoutNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardMosaicLayout)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardMosaicLayout)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardMosaicLayout or *DashboardMosaicLayout", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardMosaicLayout)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardMosaicLayout)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardMosaicLayout", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Columns, actual.Columns, dcl.Info{}, fn.AddNest("Columns")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Tiles, actual.Tiles, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesNewStyle}, fn.AddNest("Tiles")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardMosaicLayout(c *Client, desired, actual *DashboardMosaicLayout) bool {
 	if desired == nil {
 		return false
@@ -12869,6 +12954,63 @@ func compareDashboardMosaicLayoutMap(c *Client, desired, actual map[string]Dashb
 		}
 	}
 	return false
+}
+
+func compareDashboardMosaicLayoutTilesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardMosaicLayoutTiles)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardMosaicLayoutTiles)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardMosaicLayoutTiles or *DashboardMosaicLayoutTiles", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardMosaicLayoutTiles)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardMosaicLayoutTiles)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardMosaicLayoutTiles", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.XPos, actual.XPos, dcl.Info{}, fn.AddNest("XPos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.YPos, actual.YPos, dcl.Info{}, fn.AddNest("YPos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Height, actual.Height, dcl.Info{}, fn.AddNest("Height")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Widget, actual.Widget, dcl.Info{ObjectFunction: compareDashboardWidgetNewStyle}, fn.AddNest("Widget")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardMosaicLayoutTiles(c *Client, desired, actual *DashboardMosaicLayoutTiles) bool {
@@ -12934,6 +13076,35 @@ func compareDashboardMosaicLayoutTilesMap(c *Client, desired, actual map[string]
 	return false
 }
 
+func compareDashboardRowLayoutNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardRowLayout)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardRowLayout)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardRowLayout or *DashboardRowLayout", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardRowLayout)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardRowLayout)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardRowLayout", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Rows, actual.Rows, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsNewStyle}, fn.AddNest("Rows")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardRowLayout(c *Client, desired, actual *DashboardRowLayout) bool {
 	if desired == nil {
 		return false
@@ -12979,6 +13150,42 @@ func compareDashboardRowLayoutMap(c *Client, desired, actual map[string]Dashboar
 		}
 	}
 	return false
+}
+
+func compareDashboardRowLayoutRowsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardRowLayoutRows)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardRowLayoutRows)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardRowLayoutRows or *DashboardRowLayoutRows", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardRowLayoutRows)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardRowLayoutRows)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardRowLayoutRows", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Widgets, actual.Widgets, dcl.Info{ObjectFunction: compareDashboardWidgetNewStyle}, fn.AddNest("Widgets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardRowLayoutRows(c *Client, desired, actual *DashboardRowLayoutRows) bool {
@@ -13032,6 +13239,35 @@ func compareDashboardRowLayoutRowsMap(c *Client, desired, actual map[string]Dash
 	return false
 }
 
+func compareDashboardColumnLayoutNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardColumnLayout)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardColumnLayout)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardColumnLayout or *DashboardColumnLayout", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardColumnLayout)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardColumnLayout)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardColumnLayout", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Columns, actual.Columns, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsNewStyle}, fn.AddNest("Columns")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardColumnLayout(c *Client, desired, actual *DashboardColumnLayout) bool {
 	if desired == nil {
 		return false
@@ -13077,6 +13313,42 @@ func compareDashboardColumnLayoutMap(c *Client, desired, actual map[string]Dashb
 		}
 	}
 	return false
+}
+
+func compareDashboardColumnLayoutColumnsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardColumnLayoutColumns)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardColumnLayoutColumns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardColumnLayoutColumns or *DashboardColumnLayoutColumns", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardColumnLayoutColumns)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardColumnLayoutColumns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardColumnLayoutColumns", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Widgets, actual.Widgets, dcl.Info{ObjectFunction: compareDashboardWidgetNewStyle}, fn.AddNest("Widgets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardColumnLayoutColumns(c *Client, desired, actual *DashboardColumnLayoutColumns) bool {
@@ -13128,6 +13400,63 @@ func compareDashboardColumnLayoutColumnsMap(c *Client, desired, actual map[strin
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidget)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidget or *DashboardWidget", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidget)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidget", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.Info{}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.XyChart, actual.XyChart, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartNewStyle}, fn.AddNest("XyChart")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scorecard, actual.Scorecard, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardNewStyle}, fn.AddNest("Scorecard")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.Info{ObjectFunction: compareDashboardWidgetTextNewStyle}, fn.AddNest("Text")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Blank, actual.Blank, dcl.Info{ObjectFunction: compareDashboardWidgetBlankNewStyle}, fn.AddNest("Blank")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidget(c *Client, desired, actual *DashboardWidget) bool {
@@ -13191,6 +13520,84 @@ func compareDashboardWidgetMap(c *Client, desired, actual map[string]DashboardWi
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChart)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChart)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChart or *DashboardWidgetXyChart", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChart)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChart)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChart", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DataSets, actual.DataSets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsNewStyle}, fn.AddNest("DataSets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SourceDrilldown, actual.SourceDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartSourceDrilldownNewStyle}, fn.AddNest("SourceDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetricDrilldown, actual.MetricDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartMetricDrilldownNewStyle}, fn.AddNest("MetricDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TimeshiftDuration, actual.TimeshiftDuration, dcl.Info{}, fn.AddNest("TimeshiftDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartThresholdsNewStyle}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.XAxis, actual.XAxis, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartXAxisNewStyle}, fn.AddNest("XAxis")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.YAxis, actual.YAxis, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartYAxisNewStyle}, fn.AddNest("YAxis")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ChartOptions, actual.ChartOptions, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartChartOptionsNewStyle}, fn.AddNest("ChartOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChart(c *Client, desired, actual *DashboardWidgetXyChart) bool {
@@ -13268,6 +13675,56 @@ func compareDashboardWidgetXyChartMap(c *Client, desired, actual map[string]Dash
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSets or *DashboardWidgetXyChartDataSets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryNewStyle}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PlotType, actual.PlotType, dcl.Info{Type: "EnumType"}, fn.AddNest("PlotType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LegendTemplate, actual.LegendTemplate, dcl.Info{}, fn.AddNest("LegendTemplate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.Info{}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSets(c *Client, desired, actual *DashboardWidgetXyChartDataSets) bool {
 	if desired == nil {
 		return false
@@ -13325,6 +13782,63 @@ func compareDashboardWidgetXyChartDataSetsMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQuery)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQuery)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQuery or *DashboardWidgetXyChartDataSetsTimeSeriesQuery", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQuery)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQuery)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQuery", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterNewStyle}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNewStyle}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.Info{}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiSource, actual.ApiSource, dcl.Info{Type: "EnumType"}, fn.AddNest("ApiSource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.Info{}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQuery) bool {
@@ -13390,6 +13904,56 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryMap(c *Client, desired,
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationNewStyle}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) bool {
 	if desired == nil {
 		return false
@@ -13447,6 +14011,70 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterMap(c *
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) bool {
@@ -13516,6 +14144,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -13561,6 +14218,42 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) bool {
@@ -13612,6 +14305,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) bool {
@@ -13669,6 +14405,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -13722,6 +14501,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -13779,6 +14601,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -13826,6 +14677,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -13871,6 +14751,70 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) bool {
@@ -13940,6 +14884,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -13985,6 +14958,42 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) bool {
@@ -14036,6 +15045,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
@@ -14093,6 +15145,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -14146,6 +15241,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -14203,6 +15341,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -14250,6 +15417,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -14295,6 +15491,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType"}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType"}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) bool {
@@ -14350,6 +15589,56 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) bool {
@@ -14411,6 +15700,42 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioMa
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) bool {
 	if desired == nil {
 		return false
@@ -14460,6 +15785,70 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) bool {
@@ -14529,6 +15918,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -14574,6 +15992,42 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) bool {
@@ -14625,6 +16079,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) bool {
@@ -14682,6 +16179,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -14735,6 +16275,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -14792,6 +16375,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -14839,6 +16451,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -14884,6 +16525,42 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) bool {
@@ -14935,6 +16612,70 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) bool {
@@ -15004,6 +16745,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -15049,6 +16819,42 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) bool {
@@ -15100,6 +16906,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) bool {
@@ -15157,6 +17006,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -15210,6 +17102,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -15267,6 +17202,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -15314,6 +17278,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -15359,6 +17352,70 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) bool {
@@ -15428,6 +17485,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -15473,6 +17559,42 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) bool {
@@ -15524,6 +17646,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
@@ -15581,6 +17746,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -15634,6 +17842,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -15691,6 +17942,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -15738,6 +18018,35 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	return false
 }
 
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -15783,6 +18092,49 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter or *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType"}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType"}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, desired, actual *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) bool {
@@ -15838,6 +18190,77 @@ func compareDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartSourceDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartSourceDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldown or *DashboardWidgetXyChartSourceDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartSourceDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartSourceDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceTypeDrilldown, actual.ResourceTypeDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldownNewStyle}, fn.AddNest("ResourceTypeDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceLabelDrilldowns, actual.ResourceLabelDrilldowns, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsNewStyle}, fn.AddNest("ResourceLabelDrilldowns")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetadataSystemLabelDrilldowns, actual.MetadataSystemLabelDrilldowns, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsNewStyle}, fn.AddNest("MetadataSystemLabelDrilldowns")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetadataUserLabelDrilldowns, actual.MetadataUserLabelDrilldowns, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsNewStyle}, fn.AddNest("MetadataUserLabelDrilldowns")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupNameDrilldown, actual.GroupNameDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldownNewStyle}, fn.AddNest("GroupNameDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceNameDrilldown, actual.ServiceNameDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldownNewStyle}, fn.AddNest("ServiceNameDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceTypeDrilldown, actual.ServiceTypeDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownNewStyle}, fn.AddNest("ServiceTypeDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartSourceDrilldown(c *Client, desired, actual *DashboardWidgetXyChartSourceDrilldown) bool {
@@ -15911,6 +18334,35 @@ func compareDashboardWidgetXyChartSourceDrilldownMap(c *Client, desired, actual 
 	return false
 }
 
+func compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown or *DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValues, actual.TargetValues, dcl.Info{}, fn.AddNest("TargetValues")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c *Client, desired, actual *DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown) bool {
 	if desired == nil {
 		return false
@@ -15956,6 +18408,49 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldownMap(c *Cli
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns or *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogicalOperator, actual.LogicalOperator, dcl.Info{Type: "EnumType"}, fn.AddNest("LogicalOperator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ValueRestrictions, actual.ValueRestrictions, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsNewStyle}, fn.AddNest("ValueRestrictions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c *Client, desired, actual *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns) bool {
@@ -16013,6 +18508,42 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsMap(c *C
 	return false
 }
 
+func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions or *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValue, actual.TargetValue, dcl.Info{}, fn.AddNest("TargetValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Comparator, actual.Comparator, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions(c *Client, desired, actual *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions) bool {
 	if desired == nil {
 		return false
@@ -16062,6 +18593,49 @@ func compareDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRes
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns or *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogicalOperator, actual.LogicalOperator, dcl.Info{Type: "EnumType"}, fn.AddNest("LogicalOperator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ValueRestrictions, actual.ValueRestrictions, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsNewStyle}, fn.AddNest("ValueRestrictions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c *Client, desired, actual *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns) bool {
@@ -16119,6 +18693,42 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsMa
 	return false
 }
 
+func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions or *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValue, actual.TargetValue, dcl.Info{}, fn.AddNest("TargetValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Comparator, actual.Comparator, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c *Client, desired, actual *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) bool {
 	if desired == nil {
 		return false
@@ -16168,6 +18778,49 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsVa
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns or *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogicalOperator, actual.LogicalOperator, dcl.Info{Type: "EnumType"}, fn.AddNest("LogicalOperator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ValueRestrictions, actual.ValueRestrictions, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsNewStyle}, fn.AddNest("ValueRestrictions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c *Client, desired, actual *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns) bool {
@@ -16225,6 +18878,42 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsMap(
 	return false
 }
 
+func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions or *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValue, actual.TargetValue, dcl.Info{}, fn.AddNest("TargetValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Comparator, actual.Comparator, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c *Client, desired, actual *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) bool {
 	if desired == nil {
 		return false
@@ -16276,6 +18965,35 @@ func compareDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValu
 	return false
 }
 
+func compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown or *DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValues, actual.TargetValues, dcl.Info{}, fn.AddNest("TargetValues")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(c *Client, desired, actual *DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown) bool {
 	if desired == nil {
 		return false
@@ -16321,6 +19039,35 @@ func compareDashboardWidgetXyChartSourceDrilldownGroupNameDrilldownMap(c *Client
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown or *DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValues, actual.TargetValues, dcl.Info{}, fn.AddNest("TargetValues")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(c *Client, desired, actual *DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown) bool {
@@ -16370,6 +19117,35 @@ func compareDashboardWidgetXyChartSourceDrilldownServiceNameDrilldownMap(c *Clie
 	return false
 }
 
+func compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown or *DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Types, actual.Types, dcl.Info{Type: "EnumType"}, fn.AddNest("Types")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(c *Client, desired, actual *DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown) bool {
 	if desired == nil {
 		return false
@@ -16415,6 +19191,49 @@ func compareDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartMetricDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartMetricDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartMetricDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartMetricDrilldown or *DashboardWidgetXyChartMetricDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartMetricDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartMetricDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartMetricDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricTypeDrilldown, actual.MetricTypeDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldownNewStyle}, fn.AddNest("MetricTypeDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetricLabelDrilldowns, actual.MetricLabelDrilldowns, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsNewStyle}, fn.AddNest("MetricLabelDrilldowns")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetricGroupByDrilldown, actual.MetricGroupByDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownNewStyle}, fn.AddNest("MetricGroupByDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartMetricDrilldown(c *Client, desired, actual *DashboardWidgetXyChartMetricDrilldown) bool {
@@ -16472,6 +19291,35 @@ func compareDashboardWidgetXyChartMetricDrilldownMap(c *Client, desired, actual 
 	return false
 }
 
+func compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown or *DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValue, actual.TargetValue, dcl.Info{}, fn.AddNest("TargetValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c *Client, desired, actual *DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown) bool {
 	if desired == nil {
 		return false
@@ -16517,6 +19365,49 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldownMap(c *Clien
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns or *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogicalOperator, actual.LogicalOperator, dcl.Info{Type: "EnumType"}, fn.AddNest("LogicalOperator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ValueRestrictions, actual.ValueRestrictions, dcl.Info{ObjectFunction: compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsNewStyle}, fn.AddNest("ValueRestrictions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c *Client, desired, actual *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns) bool {
@@ -16574,6 +19465,42 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsMap(c *Cli
 	return false
 }
 
+func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions or *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValue, actual.TargetValue, dcl.Info{}, fn.AddNest("TargetValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Comparator, actual.Comparator, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions(c *Client, desired, actual *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions) bool {
 	if desired == nil {
 		return false
@@ -16623,6 +19550,63 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestr
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown or *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceLabels, actual.ResourceLabels, dcl.Info{}, fn.AddNest("ResourceLabels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetricLabels, actual.MetricLabels, dcl.Info{}, fn.AddNest("MetricLabels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetadataSystemLabels, actual.MetadataSystemLabels, dcl.Info{}, fn.AddNest("MetadataSystemLabels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetadataUserLabels, actual.MetadataUserLabels, dcl.Info{}, fn.AddNest("MetadataUserLabels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Reducer, actual.Reducer, dcl.Info{Type: "EnumType"}, fn.AddNest("Reducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c *Client, desired, actual *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown) bool {
@@ -16688,6 +19672,56 @@ func compareDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownMap(c *Cl
 	return false
 }
 
+func compareDashboardWidgetXyChartThresholdsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartThresholds)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartThresholds)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartThresholds or *DashboardWidgetXyChartThresholds", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartThresholds)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartThresholds)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartThresholds", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.Info{Type: "EnumType"}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType"}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartThresholds(c *Client, desired, actual *DashboardWidgetXyChartThresholds) bool {
 	if desired == nil {
 		return false
@@ -16747,6 +19781,42 @@ func compareDashboardWidgetXyChartThresholdsMap(c *Client, desired, actual map[s
 	return false
 }
 
+func compareDashboardWidgetXyChartXAxisNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartXAxis)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartXAxis)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartXAxis or *DashboardWidgetXyChartXAxis", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartXAxis)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartXAxis)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartXAxis", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{Type: "EnumType"}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartXAxis(c *Client, desired, actual *DashboardWidgetXyChartXAxis) bool {
 	if desired == nil {
 		return false
@@ -16796,6 +19866,42 @@ func compareDashboardWidgetXyChartXAxisMap(c *Client, desired, actual map[string
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetXyChartYAxisNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartYAxis)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartYAxis)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartYAxis or *DashboardWidgetXyChartYAxis", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartYAxis)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartYAxis)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartYAxis", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{Type: "EnumType"}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetXyChartYAxis(c *Client, desired, actual *DashboardWidgetXyChartYAxis) bool {
@@ -16849,6 +19955,42 @@ func compareDashboardWidgetXyChartYAxisMap(c *Client, desired, actual map[string
 	return false
 }
 
+func compareDashboardWidgetXyChartChartOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetXyChartChartOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetXyChartChartOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartChartOptions or *DashboardWidgetXyChartChartOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetXyChartChartOptions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetXyChartChartOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetXyChartChartOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{Type: "EnumType"}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ShowLegend, actual.ShowLegend, dcl.Info{}, fn.AddNest("ShowLegend")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetXyChartChartOptions(c *Client, desired, actual *DashboardWidgetXyChartChartOptions) bool {
 	if desired == nil {
 		return false
@@ -16898,6 +20040,70 @@ func compareDashboardWidgetXyChartChartOptionsMap(c *Client, desired, actual map
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecard)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecard)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecard or *DashboardWidgetScorecard", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecard)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecard)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecard", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryNewStyle}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SourceDrilldown, actual.SourceDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardSourceDrilldownNewStyle}, fn.AddNest("SourceDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetricDrilldown, actual.MetricDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardMetricDrilldownNewStyle}, fn.AddNest("MetricDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GaugeView, actual.GaugeView, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardGaugeViewNewStyle}, fn.AddNest("GaugeView")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SparkChartView, actual.SparkChartView, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardSparkChartViewNewStyle}, fn.AddNest("SparkChartView")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardThresholdsNewStyle}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecard(c *Client, desired, actual *DashboardWidgetScorecard) bool {
@@ -16967,6 +20173,63 @@ func compareDashboardWidgetScorecardMap(c *Client, desired, actual map[string]Da
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQuery)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQuery)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQuery or *DashboardWidgetScorecardTimeSeriesQuery", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQuery)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQuery)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQuery", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterNewStyle}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNewStyle}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.Info{}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiSource, actual.ApiSource, dcl.Info{Type: "EnumType"}, fn.AddNest("ApiSource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.Info{}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQuery(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQuery) bool {
 	if desired == nil {
 		return false
@@ -17030,6 +20293,56 @@ func compareDashboardWidgetScorecardTimeSeriesQueryMap(c *Client, desired, actua
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationNewStyle}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) bool {
 	if desired == nil {
 		return false
@@ -17087,6 +20400,70 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterMap(c *Client
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) bool {
@@ -17156,6 +20533,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationMa
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -17201,6 +20607,42 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) bool {
@@ -17252,6 +20694,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) bool {
@@ -17309,6 +20794,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -17362,6 +20890,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -17419,6 +20990,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -17466,6 +21066,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -17511,6 +21140,70 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) bool {
@@ -17580,6 +21273,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -17625,6 +21347,42 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) bool {
@@ -17676,6 +21434,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
@@ -17733,6 +21534,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -17786,6 +21630,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -17843,6 +21730,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -17890,6 +21806,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -17935,6 +21880,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType"}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType"}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) bool {
@@ -17990,6 +21978,56 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) bool {
@@ -18051,6 +22089,42 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioMap(c *C
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) bool {
 	if desired == nil {
 		return false
@@ -18100,6 +22174,70 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) bool {
@@ -18169,6 +22307,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -18214,6 +22381,42 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) bool {
@@ -18265,6 +22468,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) bool {
@@ -18322,6 +22568,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -18375,6 +22664,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -18432,6 +22764,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -18479,6 +22840,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -18524,6 +22914,42 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) bool {
@@ -18575,6 +23001,70 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) bool {
@@ -18644,6 +23134,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -18689,6 +23208,42 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) bool {
@@ -18740,6 +23295,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) bool {
@@ -18797,6 +23395,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -18850,6 +23491,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -18907,6 +23591,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -18954,6 +23667,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -18999,6 +23741,70 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) bool {
@@ -19068,6 +23874,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) bool {
 	if desired == nil {
 		return false
@@ -19113,6 +23948,42 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) bool {
@@ -19164,6 +24035,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) bool {
@@ -19221,6 +24135,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
 	if desired == nil {
 		return false
@@ -19274,6 +24231,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
@@ -19331,6 +24331,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
 	if desired == nil {
 		return false
@@ -19378,6 +24407,35 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	return false
 }
 
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) bool {
 	if desired == nil {
 		return false
@@ -19423,6 +24481,49 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter or *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType"}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType"}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(c *Client, desired, actual *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) bool {
@@ -19478,6 +24579,77 @@ func compareDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardSourceDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardSourceDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldown or *DashboardWidgetScorecardSourceDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardSourceDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardSourceDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceTypeDrilldown, actual.ResourceTypeDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldownNewStyle}, fn.AddNest("ResourceTypeDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceLabelDrilldowns, actual.ResourceLabelDrilldowns, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsNewStyle}, fn.AddNest("ResourceLabelDrilldowns")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetadataSystemLabelDrilldowns, actual.MetadataSystemLabelDrilldowns, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsNewStyle}, fn.AddNest("MetadataSystemLabelDrilldowns")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetadataUserLabelDrilldowns, actual.MetadataUserLabelDrilldowns, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsNewStyle}, fn.AddNest("MetadataUserLabelDrilldowns")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GroupNameDrilldown, actual.GroupNameDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldownNewStyle}, fn.AddNest("GroupNameDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceNameDrilldown, actual.ServiceNameDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldownNewStyle}, fn.AddNest("ServiceNameDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceTypeDrilldown, actual.ServiceTypeDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownNewStyle}, fn.AddNest("ServiceTypeDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardSourceDrilldown(c *Client, desired, actual *DashboardWidgetScorecardSourceDrilldown) bool {
@@ -19551,6 +24723,35 @@ func compareDashboardWidgetScorecardSourceDrilldownMap(c *Client, desired, actua
 	return false
 }
 
+func compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown or *DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValues, actual.TargetValues, dcl.Info{}, fn.AddNest("TargetValues")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c *Client, desired, actual *DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown) bool {
 	if desired == nil {
 		return false
@@ -19596,6 +24797,49 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldownMap(c *C
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns or *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogicalOperator, actual.LogicalOperator, dcl.Info{Type: "EnumType"}, fn.AddNest("LogicalOperator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ValueRestrictions, actual.ValueRestrictions, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsNewStyle}, fn.AddNest("ValueRestrictions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c *Client, desired, actual *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns) bool {
@@ -19653,6 +24897,42 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsMap(c 
 	return false
 }
 
+func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions or *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValue, actual.TargetValue, dcl.Info{}, fn.AddNest("TargetValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Comparator, actual.Comparator, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions(c *Client, desired, actual *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions) bool {
 	if desired == nil {
 		return false
@@ -19702,6 +24982,49 @@ func compareDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueR
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns or *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogicalOperator, actual.LogicalOperator, dcl.Info{Type: "EnumType"}, fn.AddNest("LogicalOperator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ValueRestrictions, actual.ValueRestrictions, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsNewStyle}, fn.AddNest("ValueRestrictions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns(c *Client, desired, actual *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns) bool {
@@ -19759,6 +25082,42 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 	return false
 }
 
+func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions or *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValue, actual.TargetValue, dcl.Info{}, fn.AddNest("TargetValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Comparator, actual.Comparator, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions(c *Client, desired, actual *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) bool {
 	if desired == nil {
 		return false
@@ -19808,6 +25167,49 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns or *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogicalOperator, actual.LogicalOperator, dcl.Info{Type: "EnumType"}, fn.AddNest("LogicalOperator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ValueRestrictions, actual.ValueRestrictions, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsNewStyle}, fn.AddNest("ValueRestrictions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c *Client, desired, actual *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns) bool {
@@ -19865,6 +25267,42 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsMa
 	return false
 }
 
+func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions or *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValue, actual.TargetValue, dcl.Info{}, fn.AddNest("TargetValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Comparator, actual.Comparator, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions(c *Client, desired, actual *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) bool {
 	if desired == nil {
 		return false
@@ -19916,6 +25354,35 @@ func compareDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsVa
 	return false
 }
 
+func compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown or *DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValues, actual.TargetValues, dcl.Info{}, fn.AddNest("TargetValues")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(c *Client, desired, actual *DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown) bool {
 	if desired == nil {
 		return false
@@ -19961,6 +25428,35 @@ func compareDashboardWidgetScorecardSourceDrilldownGroupNameDrilldownMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown or *DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValues, actual.TargetValues, dcl.Info{}, fn.AddNest("TargetValues")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(c *Client, desired, actual *DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown) bool {
@@ -20010,6 +25506,35 @@ func compareDashboardWidgetScorecardSourceDrilldownServiceNameDrilldownMap(c *Cl
 	return false
 }
 
+func compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown or *DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Types, actual.Types, dcl.Info{Type: "EnumType"}, fn.AddNest("Types")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(c *Client, desired, actual *DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown) bool {
 	if desired == nil {
 		return false
@@ -20055,6 +25580,49 @@ func compareDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownMap(c *Cl
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardMetricDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardMetricDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardMetricDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardMetricDrilldown or *DashboardWidgetScorecardMetricDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardMetricDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardMetricDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardMetricDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricTypeDrilldown, actual.MetricTypeDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldownNewStyle}, fn.AddNest("MetricTypeDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetricLabelDrilldowns, actual.MetricLabelDrilldowns, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsNewStyle}, fn.AddNest("MetricLabelDrilldowns")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetricGroupByDrilldown, actual.MetricGroupByDrilldown, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownNewStyle}, fn.AddNest("MetricGroupByDrilldown")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardMetricDrilldown(c *Client, desired, actual *DashboardWidgetScorecardMetricDrilldown) bool {
@@ -20112,6 +25680,35 @@ func compareDashboardWidgetScorecardMetricDrilldownMap(c *Client, desired, actua
 	return false
 }
 
+func compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown or *DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValue, actual.TargetValue, dcl.Info{}, fn.AddNest("TargetValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c *Client, desired, actual *DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown) bool {
 	if desired == nil {
 		return false
@@ -20157,6 +25754,49 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldownMap(c *Cli
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns or *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogicalOperator, actual.LogicalOperator, dcl.Info{Type: "EnumType"}, fn.AddNest("LogicalOperator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ValueRestrictions, actual.ValueRestrictions, dcl.Info{ObjectFunction: compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsNewStyle}, fn.AddNest("ValueRestrictions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c *Client, desired, actual *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns) bool {
@@ -20214,6 +25854,42 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsMap(c *C
 	return false
 }
 
+func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions or *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TargetValue, actual.TargetValue, dcl.Info{}, fn.AddNest("TargetValue")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Comparator, actual.Comparator, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions(c *Client, desired, actual *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions) bool {
 	if desired == nil {
 		return false
@@ -20263,6 +25939,63 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRes
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown or *DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceLabels, actual.ResourceLabels, dcl.Info{}, fn.AddNest("ResourceLabels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetricLabels, actual.MetricLabels, dcl.Info{}, fn.AddNest("MetricLabels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetadataSystemLabels, actual.MetadataSystemLabels, dcl.Info{}, fn.AddNest("MetadataSystemLabels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MetadataUserLabels, actual.MetadataUserLabels, dcl.Info{}, fn.AddNest("MetadataUserLabels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Reducer, actual.Reducer, dcl.Info{Type: "EnumType"}, fn.AddNest("Reducer")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c *Client, desired, actual *DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown) bool {
@@ -20328,6 +26061,42 @@ func compareDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownMap(c *
 	return false
 }
 
+func compareDashboardWidgetScorecardGaugeViewNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardGaugeView)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardGaugeView)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardGaugeView or *DashboardWidgetScorecardGaugeView", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardGaugeView)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardGaugeView)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardGaugeView", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LowerBound, actual.LowerBound, dcl.Info{}, fn.AddNest("LowerBound")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpperBound, actual.UpperBound, dcl.Info{}, fn.AddNest("UpperBound")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardGaugeView(c *Client, desired, actual *DashboardWidgetScorecardGaugeView) bool {
 	if desired == nil {
 		return false
@@ -20379,6 +26148,42 @@ func compareDashboardWidgetScorecardGaugeViewMap(c *Client, desired, actual map[
 	return false
 }
 
+func compareDashboardWidgetScorecardSparkChartViewNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardSparkChartView)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardSparkChartView)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSparkChartView or *DashboardWidgetScorecardSparkChartView", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardSparkChartView)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardSparkChartView)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardSparkChartView", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.SparkChartType, actual.SparkChartType, dcl.Info{Type: "EnumType"}, fn.AddNest("SparkChartType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.Info{}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetScorecardSparkChartView(c *Client, desired, actual *DashboardWidgetScorecardSparkChartView) bool {
 	if desired == nil {
 		return false
@@ -20428,6 +26233,56 @@ func compareDashboardWidgetScorecardSparkChartViewMap(c *Client, desired, actual
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetScorecardThresholdsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetScorecardThresholds)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetScorecardThresholds)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardThresholds or *DashboardWidgetScorecardThresholds", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetScorecardThresholds)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetScorecardThresholds)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetScorecardThresholds", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.Info{Type: "EnumType"}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType"}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareDashboardWidgetScorecardThresholds(c *Client, desired, actual *DashboardWidgetScorecardThresholds) bool {
@@ -20489,6 +26344,42 @@ func compareDashboardWidgetScorecardThresholdsMap(c *Client, desired, actual map
 	return false
 }
 
+func compareDashboardWidgetTextNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardWidgetText)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardWidgetText)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetText or *DashboardWidgetText", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardWidgetText)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardWidgetText)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardWidgetText", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Format, actual.Format, dcl.Info{Type: "EnumType"}, fn.AddNest("Format")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardWidgetText(c *Client, desired, actual *DashboardWidgetText) bool {
 	if desired == nil {
 		return false
@@ -20538,6 +26429,12 @@ func compareDashboardWidgetTextMap(c *Client, desired, actual map[string]Dashboa
 		}
 	}
 	return false
+}
+
+func compareDashboardWidgetBlankNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
 }
 
 func compareDashboardWidgetBlank(c *Client, desired, actual *DashboardWidgetBlank) bool {

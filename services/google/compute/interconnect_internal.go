@@ -861,156 +861,206 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 	}
 
 	var diffs []interconnectDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
+			FieldName: "Description",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
+			FieldName: "Name",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
+			FieldName: "Location",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.LinkType, actual.LinkType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "link_type"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinkType, actual.LinkType, dcl.Info{Type: "EnumType"}, fn.AddNest("LinkType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
+			FieldName: "LinkType",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedLinkCount, actual.RequestedLinkCount, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "requested_link_count"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedLinkCount, actual.RequestedLinkCount, dcl.Info{}, fn.AddNest("RequestedLinkCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
+			FieldName: "RequestedLinkCount",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.InterconnectType, actual.InterconnectType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "interconnect_type"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InterconnectType, actual.InterconnectType, dcl.Info{Type: "EnumType"}, fn.AddNest("InterconnectType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
+			FieldName: "InterconnectType",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.AdminEnabled, actual.AdminEnabled, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "admin_enabled"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdminEnabled, actual.AdminEnabled, dcl.Info{}, fn.AddNest("AdminEnabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
+			FieldName: "AdminEnabled",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.NocContactEmail, actual.NocContactEmail, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "noc_contact_email"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NocContactEmail, actual.NocContactEmail, dcl.Info{}, fn.AddNest("NocContactEmail")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
+			FieldName: "NocContactEmail",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.CustomerName, actual.CustomerName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "customer_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CustomerName, actual.CustomerName, dcl.Info{}, fn.AddNest("CustomerName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, interconnectDiff{
 			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
+			FieldName: "CustomerName",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.OperationalStatus, actual.OperationalStatus, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "operational_status"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OperationalStatus, actual.OperationalStatus, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("OperationalStatus")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "OperationalStatus",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ProvisionedLinkCount, actual.ProvisionedLinkCount, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "provisioned_link_count"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProvisionedLinkCount, actual.ProvisionedLinkCount, dcl.Info{OutputOnly: true}, fn.AddNest("ProvisionedLinkCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ProvisionedLinkCount",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.InterconnectAttachments, actual.InterconnectAttachments, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "interconnect_attachments"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InterconnectAttachments, actual.InterconnectAttachments, dcl.Info{OutputOnly: true}, fn.AddNest("InterconnectAttachments")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "InterconnectAttachments",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "peer_ip_address"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{OutputOnly: true}, fn.AddNest("PeerIPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "PeerIPAddress",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.GoogleIPAddress, actual.GoogleIPAddress, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "google_ip_address"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GoogleIPAddress, actual.GoogleIPAddress, dcl.Info{OutputOnly: true}, fn.AddNest("GoogleIPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "GoogleIPAddress",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.GoogleReferenceId, actual.GoogleReferenceId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "google_reference_id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GoogleReferenceId, actual.GoogleReferenceId, dcl.Info{OutputOnly: true}, fn.AddNest("GoogleReferenceId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "GoogleReferenceId",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExpectedOutages, actual.ExpectedOutages, dcl.Info{OutputOnly: true, ObjectFunction: compareInterconnectExpectedOutagesNewStyle}, fn.AddNest("ExpectedOutages")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ExpectedOutages",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CircuitInfos, actual.CircuitInfos, dcl.Info{OutputOnly: true, ObjectFunction: compareInterconnectCircuitInfosNewStyle}, fn.AddNest("CircuitInfos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CircuitInfos",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "State",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1037,6 +1087,84 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 
 	return deduped, nil
 }
+func compareInterconnectExpectedOutagesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InterconnectExpectedOutages)
+	if !ok {
+		desiredNotPointer, ok := d.(InterconnectExpectedOutages)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InterconnectExpectedOutages or *InterconnectExpectedOutages", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InterconnectExpectedOutages)
+	if !ok {
+		actualNotPointer, ok := a.(InterconnectExpectedOutages)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InterconnectExpectedOutages", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{Type: "EnumType"}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IssueType, actual.IssueType, dcl.Info{Type: "EnumType"}, fn.AddNest("IssueType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AffectedCircuits, actual.AffectedCircuits, dcl.Info{}, fn.AddNest("AffectedCircuits")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.StartTime, actual.StartTime, dcl.Info{}, fn.AddNest("StartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EndTime, actual.EndTime, dcl.Info{}, fn.AddNest("EndTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInterconnectExpectedOutages(c *Client, desired, actual *InterconnectExpectedOutages) bool {
 	if desired == nil {
 		return false
@@ -1110,6 +1238,49 @@ func compareInterconnectExpectedOutagesMap(c *Client, desired, actual map[string
 		}
 	}
 	return false
+}
+
+func compareInterconnectCircuitInfosNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InterconnectCircuitInfos)
+	if !ok {
+		desiredNotPointer, ok := d.(InterconnectCircuitInfos)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InterconnectCircuitInfos or *InterconnectCircuitInfos", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InterconnectCircuitInfos)
+	if !ok {
+		actualNotPointer, ok := a.(InterconnectCircuitInfos)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InterconnectCircuitInfos", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.GoogleCircuitId, actual.GoogleCircuitId, dcl.Info{}, fn.AddNest("GoogleCircuitId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GoogleDemarcId, actual.GoogleDemarcId, dcl.Info{}, fn.AddNest("GoogleDemarcId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CustomerDemarcId, actual.CustomerDemarcId, dcl.Info{}, fn.AddNest("CustomerDemarcId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInterconnectCircuitInfos(c *Client, desired, actual *InterconnectCircuitInfos) bool {

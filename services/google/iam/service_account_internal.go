@@ -673,74 +673,93 @@ func diffServiceAccount(c *Client, desired, actual *ServiceAccount, opts ...dcl.
 	}
 
 	var diffs []serviceAccountDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OutputOnly: true}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.UniqueId, actual.UniqueId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "unique_id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UniqueId, actual.UniqueId, dcl.Info{OutputOnly: true}, fn.AddNest("UniqueId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UniqueId",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Email, actual.Email, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "email"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Email, actual.Email, dcl.Info{OutputOnly: true}, fn.AddNest("Email")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Email",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, serviceAccountDiff{
 			UpdateOp: &updateServiceAccountPatchServiceAccountOperation{}, Diffs: ds,
+			FieldName: "DisplayName",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, serviceAccountDiff{
 			UpdateOp: &updateServiceAccountPatchServiceAccountOperation{}, Diffs: ds,
+			FieldName: "Description",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.OAuth2ClientId, actual.OAuth2ClientId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "oauth2_client_id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuth2ClientId, actual.OAuth2ClientId, dcl.Info{OutputOnly: true}, fn.AddNest("OAuth2ClientId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "disabled"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareServiceAccountActasResources(c, desired.ActasResources, actual.ActasResources) {
-		c.Config.Logger.Infof("Detected diff in ActasResources.\nDESIRED: %v\nACTUAL: %v", desired.ActasResources, actual.ActasResources)
-		diffs = append(diffs, serviceAccountDiff{
-			RequiresRecreate: true,
-			FieldName:        "ActasResources",
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "OAuth2ClientId",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.ActasResources, actual.ActasResources, dcl.Info{ObjectFunction: compareServiceAccountActasResourcesNewStyle}, fn.AddNest("ActasResources")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ActasResources",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{OutputOnly: true}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceAccountDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Disabled",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -765,6 +784,35 @@ func diffServiceAccount(c *Client, desired, actual *ServiceAccount, opts ...dcl.
 
 	return deduped, nil
 }
+func compareServiceAccountActasResourcesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceAccountActasResources)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceAccountActasResources)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceAccountActasResources or *ServiceAccountActasResources", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceAccountActasResources)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceAccountActasResources)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceAccountActasResources", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{ObjectFunction: compareServiceAccountActasResourcesResourcesNewStyle}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceAccountActasResources(c *Client, desired, actual *ServiceAccountActasResources) bool {
 	if desired == nil {
 		return false
@@ -810,6 +858,35 @@ func compareServiceAccountActasResourcesMap(c *Client, desired, actual map[strin
 		}
 	}
 	return false
+}
+
+func compareServiceAccountActasResourcesResourcesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceAccountActasResourcesResources)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceAccountActasResourcesResources)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceAccountActasResourcesResources or *ServiceAccountActasResourcesResources", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceAccountActasResourcesResources)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceAccountActasResourcesResources)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceAccountActasResourcesResources", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.FullResourceName, actual.FullResourceName, dcl.Info{}, fn.AddNest("FullResourceName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceAccountActasResourcesResources(c *Client, desired, actual *ServiceAccountActasResourcesResources) bool {

@@ -315,33 +315,44 @@ func diffFirewallPolicyAssociation(c *Client, desired, actual *FirewallPolicyAss
 	}
 
 	var diffs []firewallPolicyAssociationDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.AttachmentTarget, actual.AttachmentTarget, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "attachment_target"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AttachmentTarget, actual.AttachmentTarget, dcl.Info{Type: "ReferenceType"}, fn.AddNest("AttachmentTarget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "AttachmentTarget",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.FirewallPolicy, actual.FirewallPolicy, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "firewall_policy"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FirewallPolicy, actual.FirewallPolicy, dcl.Info{Type: "ReferenceType"}, fn.AddNest("FirewallPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "FirewallPolicy",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OutputOnly: true}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DisplayName",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

@@ -2046,56 +2046,73 @@ func diffInstanceTemplate(c *Client, desired, actual *InstanceTemplate, opts ...
 	}
 
 	var diffs []instanceTemplateDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "creation_timestamp"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, instanceTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceTemplateDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareInstanceTemplateProperties(c, desired.Properties, actual.Properties) {
-		c.Config.Logger.Infof("Detected diff in Properties.\nDESIRED: %v\nACTUAL: %v", desired.Properties, actual.Properties)
-		diffs = append(diffs, instanceTemplateDiff{
-			RequiresRecreate: true,
-			FieldName:        "Properties",
+		diffs = append(diffs, instanceTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreationTimestamp",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesNewStyle}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Properties",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceTemplateDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -2120,6 +2137,126 @@ func diffInstanceTemplate(c *Client, desired, actual *InstanceTemplate, opts ...
 
 	return deduped, nil
 }
+func compareInstanceTemplatePropertiesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplateProperties)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplateProperties)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplateProperties or *InstanceTemplateProperties", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplateProperties)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplateProperties)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplateProperties", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.CanIPForward, actual.CanIPForward, dcl.Info{}, fn.AddNest("CanIPForward")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Disks, actual.Disks, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesDisksNewStyle}, fn.AddNest("Disks")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{Type: "ReferenceType"}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.Info{}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReservationAffinity, actual.ReservationAffinity, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesReservationAffinityNewStyle}, fn.AddNest("ReservationAffinity")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GuestAccelerators, actual.GuestAccelerators, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesGuestAcceleratorsNewStyle}, fn.AddNest("GuestAccelerators")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NetworkInterfaces, actual.NetworkInterfaces, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesNetworkInterfacesNewStyle}, fn.AddNest("NetworkInterfaces")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesShieldedInstanceConfigNewStyle}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scheduling, actual.Scheduling, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesSchedulingNewStyle}, fn.AddNest("Scheduling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceAccounts, actual.ServiceAccounts, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesServiceAccountsNewStyle}, fn.AddNest("ServiceAccounts")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Tags, actual.Tags, dcl.Info{}, fn.AddNest("Tags")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceTemplateProperties(c *Client, desired, actual *InstanceTemplateProperties) bool {
 	if desired == nil {
 		return false
@@ -2219,6 +2356,105 @@ func compareInstanceTemplatePropertiesMap(c *Client, desired, actual map[string]
 	return false
 }
 
+func compareInstanceTemplatePropertiesDisksNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesDisks)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesDisks)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisks or *InstanceTemplatePropertiesDisks", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesDisks)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesDisks)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisks", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AutoDelete, actual.AutoDelete, dcl.Info{}, fn.AddNest("AutoDelete")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Boot, actual.Boot, dcl.Info{}, fn.AddNest("Boot")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DeviceName, actual.DeviceName, dcl.Info{}, fn.AddNest("DeviceName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskEncryptionKey, actual.DiskEncryptionKey, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesDisksDiskEncryptionKeyNewStyle}, fn.AddNest("DiskEncryptionKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Index, actual.Index, dcl.Info{}, fn.AddNest("Index")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InitializeParams, actual.InitializeParams, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesDisksInitializeParamsNewStyle}, fn.AddNest("InitializeParams")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GuestOsFeatures, actual.GuestOsFeatures, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesDisksGuestOsFeaturesNewStyle}, fn.AddNest("GuestOsFeatures")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Interface, actual.Interface, dcl.Info{Type: "EnumType"}, fn.AddNest("Interface")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{Type: "EnumType"}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceTemplatePropertiesDisks(c *Client, desired, actual *InstanceTemplatePropertiesDisks) bool {
 	if desired == nil {
 		return false
@@ -2306,6 +2542,49 @@ func compareInstanceTemplatePropertiesDisksMap(c *Client, desired, actual map[st
 	return false
 }
 
+func compareInstanceTemplatePropertiesDisksDiskEncryptionKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesDisksDiskEncryptionKey)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesDisksDiskEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksDiskEncryptionKey or *InstanceTemplatePropertiesDisksDiskEncryptionKey", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesDisksDiskEncryptionKey)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesDisksDiskEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksDiskEncryptionKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RawKey, actual.RawKey, dcl.Info{}, fn.AddNest("RawKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RsaEncryptedKey, actual.RsaEncryptedKey, dcl.Info{}, fn.AddNest("RsaEncryptedKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Sha256, actual.Sha256, dcl.Info{OutputOnly: true}, fn.AddNest("Sha256")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceTemplatePropertiesDisksDiskEncryptionKey(c *Client, desired, actual *InstanceTemplatePropertiesDisksDiskEncryptionKey) bool {
 	if desired == nil {
 		return false
@@ -2355,6 +2634,105 @@ func compareInstanceTemplatePropertiesDisksDiskEncryptionKeyMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareInstanceTemplatePropertiesDisksInitializeParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesDisksInitializeParams)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesDisksInitializeParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksInitializeParams or *InstanceTemplatePropertiesDisksInitializeParams", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesDisksInitializeParams)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesDisksInitializeParams)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksInitializeParams", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DiskName, actual.DiskName, dcl.Info{}, fn.AddNest("DiskName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskType, actual.DiskType, dcl.Info{Type: "ReferenceType"}, fn.AddNest("DiskType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SourceImage, actual.SourceImage, dcl.Info{}, fn.AddNest("SourceImage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SourceSnapshot, actual.SourceSnapshot, dcl.Info{}, fn.AddNest("SourceSnapshot")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKeyNewStyle}, fn.AddNest("SourceSnapshotEncryptionKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePolicies, actual.ResourcePolicies, dcl.Info{}, fn.AddNest("ResourcePolicies")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OnUpdateAction, actual.OnUpdateAction, dcl.Info{}, fn.AddNest("OnUpdateAction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKeyNewStyle}, fn.AddNest("SourceImageEncryptionKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceTemplatePropertiesDisksInitializeParams(c *Client, desired, actual *InstanceTemplatePropertiesDisksInitializeParams) bool {
@@ -2444,6 +2822,49 @@ func compareInstanceTemplatePropertiesDisksInitializeParamsMap(c *Client, desire
 	return false
 }
 
+func compareInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey or *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RawKey, actual.RawKey, dcl.Info{}, fn.AddNest("RawKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Sha256, actual.Sha256, dcl.Info{OutputOnly: true}, fn.AddNest("Sha256")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey(c *Client, desired, actual *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey) bool {
 	if desired == nil {
 		return false
@@ -2493,6 +2914,49 @@ func compareInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncrypt
 		}
 	}
 	return false
+}
+
+func compareInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey or *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RawKey, actual.RawKey, dcl.Info{}, fn.AddNest("RawKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Sha256, actual.Sha256, dcl.Info{OutputOnly: true}, fn.AddNest("Sha256")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(c *Client, desired, actual *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey) bool {
@@ -2546,6 +3010,35 @@ func compareInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryption
 	return false
 }
 
+func compareInstanceTemplatePropertiesDisksGuestOsFeaturesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesDisksGuestOsFeatures)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesDisksGuestOsFeatures)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksGuestOsFeatures or *InstanceTemplatePropertiesDisksGuestOsFeatures", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesDisksGuestOsFeatures)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesDisksGuestOsFeatures)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesDisksGuestOsFeatures", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceTemplatePropertiesDisksGuestOsFeatures(c *Client, desired, actual *InstanceTemplatePropertiesDisksGuestOsFeatures) bool {
 	if desired == nil {
 		return false
@@ -2591,6 +3084,42 @@ func compareInstanceTemplatePropertiesDisksGuestOsFeaturesMap(c *Client, desired
 		}
 	}
 	return false
+}
+
+func compareInstanceTemplatePropertiesReservationAffinityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesReservationAffinity)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesReservationAffinity)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesReservationAffinity or *InstanceTemplatePropertiesReservationAffinity", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesReservationAffinity)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesReservationAffinity)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesReservationAffinity", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceTemplatePropertiesReservationAffinity(c *Client, desired, actual *InstanceTemplatePropertiesReservationAffinity) bool {
@@ -2644,6 +3173,42 @@ func compareInstanceTemplatePropertiesReservationAffinityMap(c *Client, desired,
 	return false
 }
 
+func compareInstanceTemplatePropertiesGuestAcceleratorsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesGuestAccelerators)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesGuestAccelerators)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesGuestAccelerators or *InstanceTemplatePropertiesGuestAccelerators", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesGuestAccelerators)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesGuestAccelerators)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesGuestAccelerators", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.Info{}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{}, fn.AddNest("AcceleratorType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceTemplatePropertiesGuestAccelerators(c *Client, desired, actual *InstanceTemplatePropertiesGuestAccelerators) bool {
 	if desired == nil {
 		return false
@@ -2693,6 +3258,70 @@ func compareInstanceTemplatePropertiesGuestAcceleratorsMap(c *Client, desired, a
 		}
 	}
 	return false
+}
+
+func compareInstanceTemplatePropertiesNetworkInterfacesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesNetworkInterfaces)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesNetworkInterfaces)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesNetworkInterfaces or *InstanceTemplatePropertiesNetworkInterfaces", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesNetworkInterfaces)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesNetworkInterfaces)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesNetworkInterfaces", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AccessConfigs, actual.AccessConfigs, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNewStyle}, fn.AddNest("AccessConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AliasIPRanges, actual.AliasIPRanges, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesNetworkInterfacesAliasIPRangesNewStyle}, fn.AddNest("AliasIPRanges")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NetworkIP, actual.NetworkIP, dcl.Info{}, fn.AddNest("NetworkIP")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceTemplatePropertiesNetworkInterfaces(c *Client, desired, actual *InstanceTemplatePropertiesNetworkInterfaces) bool {
@@ -2756,6 +3385,70 @@ func compareInstanceTemplatePropertiesNetworkInterfacesMap(c *Client, desired, a
 		}
 	}
 	return false
+}
+
+func compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesNetworkInterfacesAccessConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesNetworkInterfacesAccessConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesNetworkInterfacesAccessConfigs or *InstanceTemplatePropertiesNetworkInterfacesAccessConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesNetworkInterfacesAccessConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesNetworkInterfacesAccessConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesNetworkInterfacesAccessConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NatIP, actual.NatIP, dcl.Info{Type: "ReferenceType"}, fn.AddNest("NatIP")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SetPublicPtr, actual.SetPublicPtr, dcl.Info{}, fn.AddNest("SetPublicPtr")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicPtrDomainName, actual.PublicPtrDomainName, dcl.Info{}, fn.AddNest("PublicPtrDomainName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NetworkTier, actual.NetworkTier, dcl.Info{Type: "EnumType"}, fn.AddNest("NetworkTier")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c *Client, desired, actual *InstanceTemplatePropertiesNetworkInterfacesAccessConfigs) bool {
@@ -2825,6 +3518,42 @@ func compareInstanceTemplatePropertiesNetworkInterfacesAccessConfigsMap(c *Clien
 	return false
 }
 
+func compareInstanceTemplatePropertiesNetworkInterfacesAliasIPRangesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges or *InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{}, fn.AddNest("IPCidrRange")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SubnetworkRangeName, actual.SubnetworkRangeName, dcl.Info{}, fn.AddNest("SubnetworkRangeName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(c *Client, desired, actual *InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges) bool {
 	if desired == nil {
 		return false
@@ -2874,6 +3603,49 @@ func compareInstanceTemplatePropertiesNetworkInterfacesAliasIPRangesMap(c *Clien
 		}
 	}
 	return false
+}
+
+func compareInstanceTemplatePropertiesShieldedInstanceConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesShieldedInstanceConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesShieldedInstanceConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesShieldedInstanceConfig or *InstanceTemplatePropertiesShieldedInstanceConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesShieldedInstanceConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesShieldedInstanceConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesShieldedInstanceConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EnableSecureBoot, actual.EnableSecureBoot, dcl.Info{}, fn.AddNest("EnableSecureBoot")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableVtpm, actual.EnableVtpm, dcl.Info{}, fn.AddNest("EnableVtpm")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring, dcl.Info{}, fn.AddNest("EnableIntegrityMonitoring")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceTemplatePropertiesShieldedInstanceConfig(c *Client, desired, actual *InstanceTemplatePropertiesShieldedInstanceConfig) bool {
@@ -2929,6 +3701,56 @@ func compareInstanceTemplatePropertiesShieldedInstanceConfigMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareInstanceTemplatePropertiesSchedulingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesScheduling)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesScheduling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesScheduling or *InstanceTemplatePropertiesScheduling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesScheduling)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesScheduling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesScheduling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AutomaticRestart, actual.AutomaticRestart, dcl.Info{}, fn.AddNest("AutomaticRestart")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OnHostMaintenance, actual.OnHostMaintenance, dcl.Info{}, fn.AddNest("OnHostMaintenance")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Preemptible, actual.Preemptible, dcl.Info{}, fn.AddNest("Preemptible")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NodeAffinities, actual.NodeAffinities, dcl.Info{ObjectFunction: compareInstanceTemplatePropertiesSchedulingNodeAffinitiesNewStyle}, fn.AddNest("NodeAffinities")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceTemplatePropertiesScheduling(c *Client, desired, actual *InstanceTemplatePropertiesScheduling) bool {
@@ -2990,6 +3812,49 @@ func compareInstanceTemplatePropertiesSchedulingMap(c *Client, desired, actual m
 	return false
 }
 
+func compareInstanceTemplatePropertiesSchedulingNodeAffinitiesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesSchedulingNodeAffinities)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesSchedulingNodeAffinities)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesSchedulingNodeAffinities or *InstanceTemplatePropertiesSchedulingNodeAffinities", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesSchedulingNodeAffinities)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesSchedulingNodeAffinities)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesSchedulingNodeAffinities", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Operator, actual.Operator, dcl.Info{Type: "EnumType"}, fn.AddNest("Operator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.Info{}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceTemplatePropertiesSchedulingNodeAffinities(c *Client, desired, actual *InstanceTemplatePropertiesSchedulingNodeAffinities) bool {
 	if desired == nil {
 		return false
@@ -3043,6 +3908,42 @@ func compareInstanceTemplatePropertiesSchedulingNodeAffinitiesMap(c *Client, des
 		}
 	}
 	return false
+}
+
+func compareInstanceTemplatePropertiesServiceAccountsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceTemplatePropertiesServiceAccounts)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceTemplatePropertiesServiceAccounts)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesServiceAccounts or *InstanceTemplatePropertiesServiceAccounts", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceTemplatePropertiesServiceAccounts)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceTemplatePropertiesServiceAccounts)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceTemplatePropertiesServiceAccounts", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Email, actual.Email, dcl.Info{}, fn.AddNest("Email")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scopes, actual.Scopes, dcl.Info{}, fn.AddNest("Scopes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceTemplatePropertiesServiceAccounts(c *Client, desired, actual *InstanceTemplatePropertiesServiceAccounts) bool {

@@ -27569,354 +27569,398 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []instanceDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
 			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "Name",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "display_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
 			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "DisplayName",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
 			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "Labels",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "zone"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
 			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "Zone",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.AuthorizedNetworkId, actual.AuthorizedNetworkId, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "authorized_network_id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Sku, actual.Sku, dcl.Info{ObjectFunction: compareInstanceSkuNewStyle}, fn.AddNest("Sku")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, instanceDiff{
 			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.ReservedIPRange, actual.ReservedIPRange, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "reserved_ip_range"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.HostName, actual.HostName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "host_name"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.PortNumber, actual.PortNumber, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "port_number"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.CurrentZone, actual.CurrentZone, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "current_zone"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.CreationTime, actual.CreationTime, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "creation_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "status_message"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.ExtraField, actual.ExtraField, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "extra_field"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.EnableCallHistory, actual.EnableCallHistory, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enable_call_history"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.PublicResourceViewOverride, actual.PublicResourceViewOverride, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "public_resource_view_override"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{
-			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareInstanceSku(c, desired.Sku, actual.Sku) {
-		c.Config.Logger.Infof("Detected diff in Sku.\nDESIRED: %v\nACTUAL: %v", desired.Sku, actual.Sku)
-
-		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
 			FieldName: "Sku",
 		})
-
 	}
-	if compareInstancePreprocessCreateRecipe(c, desired.PreprocessCreateRecipe, actual.PreprocessCreateRecipe) {
-		c.Config.Logger.Infof("Detected diff in PreprocessCreateRecipe.\nDESIRED: %v\nACTUAL: %v", desired.PreprocessCreateRecipe, actual.PreprocessCreateRecipe)
 
+	if ds, err := dcl.Diff(desired.AuthorizedNetworkId, actual.AuthorizedNetworkId, dcl.Info{}, fn.AddNest("AuthorizedNetworkId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "AuthorizedNetworkId",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ReservedIPRange, actual.ReservedIPRange, dcl.Info{}, fn.AddNest("ReservedIPRange")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "ReservedIPRange",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.HostName, actual.HostName, dcl.Info{}, fn.AddNest("HostName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "HostName",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.PortNumber, actual.PortNumber, dcl.Info{}, fn.AddNest("PortNumber")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "PortNumber",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.CurrentZone, actual.CurrentZone, dcl.Info{}, fn.AddNest("CurrentZone")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "CurrentZone",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.CreationTime, actual.CreationTime, dcl.Info{}, fn.AddNest("CreationTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "CreationTime",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "State",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{}, fn.AddNest("StatusMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "StatusMessage",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ExtraField, actual.ExtraField, dcl.Info{}, fn.AddNest("ExtraField")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "ExtraField",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessCreateRecipe, actual.PreprocessCreateRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeNewStyle}, fn.AddNest("PreprocessCreateRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "PreprocessCreateRecipe",
 		})
-
 	}
-	if compareInstanceInitiateCreateRecipe(c, desired.InitiateCreateRecipe, actual.InitiateCreateRecipe) {
-		c.Config.Logger.Infof("Detected diff in InitiateCreateRecipe.\nDESIRED: %v\nACTUAL: %v", desired.InitiateCreateRecipe, actual.InitiateCreateRecipe)
 
+	if ds, err := dcl.Diff(desired.InitiateCreateRecipe, actual.InitiateCreateRecipe, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeNewStyle}, fn.AddNest("InitiateCreateRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "InitiateCreateRecipe",
 		})
-
 	}
-	if compareInstanceCreateRecipe(c, desired.CreateRecipe, actual.CreateRecipe) {
-		c.Config.Logger.Infof("Detected diff in CreateRecipe.\nDESIRED: %v\nACTUAL: %v", desired.CreateRecipe, actual.CreateRecipe)
 
+	if ds, err := dcl.Diff(desired.CreateRecipe, actual.CreateRecipe, dcl.Info{ObjectFunction: compareInstanceCreateRecipeNewStyle}, fn.AddNest("CreateRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "CreateRecipe",
 		})
-
 	}
-	if compareInstanceDeleteRecipe(c, desired.DeleteRecipe, actual.DeleteRecipe) {
-		c.Config.Logger.Infof("Detected diff in DeleteRecipe.\nDESIRED: %v\nACTUAL: %v", desired.DeleteRecipe, actual.DeleteRecipe)
 
+	if ds, err := dcl.Diff(desired.DeleteRecipe, actual.DeleteRecipe, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeNewStyle}, fn.AddNest("DeleteRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "DeleteRecipe",
 		})
-
 	}
-	if compareInstanceUpdateRecipe(c, desired.UpdateRecipe, actual.UpdateRecipe) {
-		c.Config.Logger.Infof("Detected diff in UpdateRecipe.\nDESIRED: %v\nACTUAL: %v", desired.UpdateRecipe, actual.UpdateRecipe)
 
+	if ds, err := dcl.Diff(desired.UpdateRecipe, actual.UpdateRecipe, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeNewStyle}, fn.AddNest("UpdateRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "UpdateRecipe",
 		})
-
 	}
-	if compareInstancePreprocessResetRecipe(c, desired.PreprocessResetRecipe, actual.PreprocessResetRecipe) {
-		c.Config.Logger.Infof("Detected diff in PreprocessResetRecipe.\nDESIRED: %v\nACTUAL: %v", desired.PreprocessResetRecipe, actual.PreprocessResetRecipe)
 
+	if ds, err := dcl.Diff(desired.PreprocessResetRecipe, actual.PreprocessResetRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeNewStyle}, fn.AddNest("PreprocessResetRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "PreprocessResetRecipe",
 		})
-
 	}
-	if compareInstanceInitiateResetRecipe(c, desired.InitiateResetRecipe, actual.InitiateResetRecipe) {
-		c.Config.Logger.Infof("Detected diff in InitiateResetRecipe.\nDESIRED: %v\nACTUAL: %v", desired.InitiateResetRecipe, actual.InitiateResetRecipe)
 
+	if ds, err := dcl.Diff(desired.InitiateResetRecipe, actual.InitiateResetRecipe, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeNewStyle}, fn.AddNest("InitiateResetRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "InitiateResetRecipe",
 		})
-
 	}
-	if compareInstanceResetRecipe(c, desired.ResetRecipe, actual.ResetRecipe) {
-		c.Config.Logger.Infof("Detected diff in ResetRecipe.\nDESIRED: %v\nACTUAL: %v", desired.ResetRecipe, actual.ResetRecipe)
 
+	if ds, err := dcl.Diff(desired.ResetRecipe, actual.ResetRecipe, dcl.Info{ObjectFunction: compareInstanceResetRecipeNewStyle}, fn.AddNest("ResetRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "ResetRecipe",
 		})
-
 	}
-	if compareInstancePreprocessRepairRecipe(c, desired.PreprocessRepairRecipe, actual.PreprocessRepairRecipe) {
-		c.Config.Logger.Infof("Detected diff in PreprocessRepairRecipe.\nDESIRED: %v\nACTUAL: %v", desired.PreprocessRepairRecipe, actual.PreprocessRepairRecipe)
 
+	if ds, err := dcl.Diff(desired.PreprocessRepairRecipe, actual.PreprocessRepairRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeNewStyle}, fn.AddNest("PreprocessRepairRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "PreprocessRepairRecipe",
 		})
-
 	}
-	if compareInstanceInitiateRepairRecipe(c, desired.InitiateRepairRecipe, actual.InitiateRepairRecipe) {
-		c.Config.Logger.Infof("Detected diff in InitiateRepairRecipe.\nDESIRED: %v\nACTUAL: %v", desired.InitiateRepairRecipe, actual.InitiateRepairRecipe)
 
+	if ds, err := dcl.Diff(desired.InitiateRepairRecipe, actual.InitiateRepairRecipe, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeNewStyle}, fn.AddNest("InitiateRepairRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "InitiateRepairRecipe",
 		})
-
 	}
-	if compareInstanceRepairRecipe(c, desired.RepairRecipe, actual.RepairRecipe) {
-		c.Config.Logger.Infof("Detected diff in RepairRecipe.\nDESIRED: %v\nACTUAL: %v", desired.RepairRecipe, actual.RepairRecipe)
 
+	if ds, err := dcl.Diff(desired.RepairRecipe, actual.RepairRecipe, dcl.Info{ObjectFunction: compareInstanceRepairRecipeNewStyle}, fn.AddNest("RepairRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "RepairRecipe",
 		})
-
 	}
-	if compareInstancePreprocessDeleteRecipe(c, desired.PreprocessDeleteRecipe, actual.PreprocessDeleteRecipe) {
-		c.Config.Logger.Infof("Detected diff in PreprocessDeleteRecipe.\nDESIRED: %v\nACTUAL: %v", desired.PreprocessDeleteRecipe, actual.PreprocessDeleteRecipe)
 
+	if ds, err := dcl.Diff(desired.PreprocessDeleteRecipe, actual.PreprocessDeleteRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeNewStyle}, fn.AddNest("PreprocessDeleteRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "PreprocessDeleteRecipe",
 		})
-
 	}
-	if compareInstanceInitiateDeleteRecipe(c, desired.InitiateDeleteRecipe, actual.InitiateDeleteRecipe) {
-		c.Config.Logger.Infof("Detected diff in InitiateDeleteRecipe.\nDESIRED: %v\nACTUAL: %v", desired.InitiateDeleteRecipe, actual.InitiateDeleteRecipe)
 
+	if ds, err := dcl.Diff(desired.InitiateDeleteRecipe, actual.InitiateDeleteRecipe, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeNewStyle}, fn.AddNest("InitiateDeleteRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "InitiateDeleteRecipe",
 		})
-
 	}
-	if compareInstancePreprocessUpdateRecipe(c, desired.PreprocessUpdateRecipe, actual.PreprocessUpdateRecipe) {
-		c.Config.Logger.Infof("Detected diff in PreprocessUpdateRecipe.\nDESIRED: %v\nACTUAL: %v", desired.PreprocessUpdateRecipe, actual.PreprocessUpdateRecipe)
 
+	if ds, err := dcl.Diff(desired.PreprocessUpdateRecipe, actual.PreprocessUpdateRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeNewStyle}, fn.AddNest("PreprocessUpdateRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "PreprocessUpdateRecipe",
 		})
-
 	}
-	if compareInstanceInitiateUpdateRecipe(c, desired.InitiateUpdateRecipe, actual.InitiateUpdateRecipe) {
-		c.Config.Logger.Infof("Detected diff in InitiateUpdateRecipe.\nDESIRED: %v\nACTUAL: %v", desired.InitiateUpdateRecipe, actual.InitiateUpdateRecipe)
 
+	if ds, err := dcl.Diff(desired.InitiateUpdateRecipe, actual.InitiateUpdateRecipe, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeNewStyle}, fn.AddNest("InitiateUpdateRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "InitiateUpdateRecipe",
 		})
-
 	}
-	if compareInstancePreprocessFreezeRecipe(c, desired.PreprocessFreezeRecipe, actual.PreprocessFreezeRecipe) {
-		c.Config.Logger.Infof("Detected diff in PreprocessFreezeRecipe.\nDESIRED: %v\nACTUAL: %v", desired.PreprocessFreezeRecipe, actual.PreprocessFreezeRecipe)
 
+	if ds, err := dcl.Diff(desired.PreprocessFreezeRecipe, actual.PreprocessFreezeRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeNewStyle}, fn.AddNest("PreprocessFreezeRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "PreprocessFreezeRecipe",
 		})
-
 	}
-	if compareInstanceFreezeRecipe(c, desired.FreezeRecipe, actual.FreezeRecipe) {
-		c.Config.Logger.Infof("Detected diff in FreezeRecipe.\nDESIRED: %v\nACTUAL: %v", desired.FreezeRecipe, actual.FreezeRecipe)
 
+	if ds, err := dcl.Diff(desired.FreezeRecipe, actual.FreezeRecipe, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeNewStyle}, fn.AddNest("FreezeRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "FreezeRecipe",
 		})
-
 	}
-	if compareInstancePreprocessUnfreezeRecipe(c, desired.PreprocessUnfreezeRecipe, actual.PreprocessUnfreezeRecipe) {
-		c.Config.Logger.Infof("Detected diff in PreprocessUnfreezeRecipe.\nDESIRED: %v\nACTUAL: %v", desired.PreprocessUnfreezeRecipe, actual.PreprocessUnfreezeRecipe)
 
+	if ds, err := dcl.Diff(desired.PreprocessUnfreezeRecipe, actual.PreprocessUnfreezeRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeNewStyle}, fn.AddNest("PreprocessUnfreezeRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "PreprocessUnfreezeRecipe",
 		})
-
 	}
-	if compareInstanceUnfreezeRecipe(c, desired.UnfreezeRecipe, actual.UnfreezeRecipe) {
-		c.Config.Logger.Infof("Detected diff in UnfreezeRecipe.\nDESIRED: %v\nACTUAL: %v", desired.UnfreezeRecipe, actual.UnfreezeRecipe)
 
+	if ds, err := dcl.Diff(desired.UnfreezeRecipe, actual.UnfreezeRecipe, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeNewStyle}, fn.AddNest("UnfreezeRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "UnfreezeRecipe",
 		})
-
 	}
-	if compareInstanceReadonlyRecipe(c, desired.ReadonlyRecipe, actual.ReadonlyRecipe) {
-		c.Config.Logger.Infof("Detected diff in ReadonlyRecipe.\nDESIRED: %v\nACTUAL: %v", desired.ReadonlyRecipe, actual.ReadonlyRecipe)
 
+	if ds, err := dcl.Diff(desired.ReadonlyRecipe, actual.ReadonlyRecipe, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeNewStyle}, fn.AddNest("ReadonlyRecipe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "ReadonlyRecipe",
 		})
-
 	}
-	if compareInstanceHistorySlice(c, desired.History, actual.History) {
-		c.Config.Logger.Infof("Detected diff in History.\nDESIRED: %v\nACTUAL: %v", desired.History, actual.History)
 
+	if ds, err := dcl.Diff(desired.EnableCallHistory, actual.EnableCallHistory, dcl.Info{}, fn.AddNest("EnableCallHistory")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, instanceDiff{
-			UpdateOp:  &updateInstanceUpdateInstanceOperation{},
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "EnableCallHistory",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.History, actual.History, dcl.Info{ObjectFunction: compareInstanceHistoryNewStyle}, fn.AddNest("History")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
 			FieldName: "History",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.PublicResourceViewOverride, actual.PublicResourceViewOverride, dcl.Info{}, fn.AddNest("PublicResourceViewOverride")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{
+			UpdateOp: &updateInstanceUpdateInstanceOperation{}, Diffs: ds,
+			FieldName: "PublicResourceViewOverride",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, instanceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -27941,6 +27985,42 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 
 	return deduped, nil
 }
+func compareInstanceSkuNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceSku)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceSku)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceSku or *InstanceSku", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceSku)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceSku)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceSku", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tier, actual.Tier, dcl.Info{Type: "EnumType"}, fn.AddNest("Tier")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Size, actual.Size, dcl.Info{Type: "EnumType"}, fn.AddNest("Size")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceSku(c *Client, desired, actual *InstanceSku) bool {
 	if desired == nil {
 		return false
@@ -27990,6 +28070,84 @@ func compareInstanceSkuMap(c *Client, desired, actual map[string]InstanceSku) bo
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessCreateRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipe or *InstancePreprocessCreateRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessCreateRecipe(c *Client, desired, actual *InstancePreprocessCreateRecipe) bool {
@@ -28065,6 +28223,140 @@ func compareInstancePreprocessCreateRecipeMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessCreateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeSteps or *InstancePreprocessCreateRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessCreateRecipeSteps(c *Client, desired, actual *InstancePreprocessCreateRecipeSteps) bool {
@@ -28174,6 +28466,49 @@ func compareInstancePreprocessCreateRecipeStepsMap(c *Client, desired, actual ma
 	return false
 }
 
+func compareInstancePreprocessCreateRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsStatus or *InstancePreprocessCreateRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessCreateRecipeStepsStatus(c *Client, desired, actual *InstancePreprocessCreateRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -28229,6 +28564,42 @@ func compareInstancePreprocessCreateRecipeStepsStatusMap(c *Client, desired, act
 	return false
 }
 
+func compareInstancePreprocessCreateRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsStatusDetails or *InstancePreprocessCreateRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessCreateRecipeStepsStatusDetails(c *Client, desired, actual *InstancePreprocessCreateRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -28278,6 +28649,42 @@ func compareInstancePreprocessCreateRecipeStepsStatusDetailsMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessCreateRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsQuotaRequestDeltas or *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas) bool {
@@ -28331,6 +28738,42 @@ func compareInstancePreprocessCreateRecipeStepsQuotaRequestDeltasMap(c *Client, 
 	return false
 }
 
+func compareInstancePreprocessCreateRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsPreprocessUpdate or *InstancePreprocessCreateRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessCreateRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstancePreprocessCreateRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -28380,6 +28823,49 @@ func compareInstancePreprocessCreateRecipeStepsPreprocessUpdateMap(c *Client, de
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessCreateRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsRequestedTenantProject or *InstancePreprocessCreateRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessCreateRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstancePreprocessCreateRecipeStepsRequestedTenantProject) bool {
@@ -28435,6 +28921,56 @@ func compareInstancePreprocessCreateRecipeStepsRequestedTenantProjectMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessCreateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsPermissionsInfo or *InstancePreprocessCreateRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessCreateRecipeStepsPermissionsInfo(c *Client, desired, actual *InstancePreprocessCreateRecipeStepsPermissionsInfo) bool {
@@ -28496,6 +29032,49 @@ func compareInstancePreprocessCreateRecipeStepsPermissionsInfoMap(c *Client, des
 	return false
 }
 
+func compareInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName or *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -28551,6 +29130,35 @@ func compareInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameMap(c *C
 	return false
 }
 
+func compareInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions or *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -28598,6 +29206,12 @@ func compareInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsMap(
 	return false
 }
 
+func compareInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -28639,6 +29253,35 @@ func compareInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrsMap(c *Cli
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate or *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate) bool {
@@ -28686,6 +29329,49 @@ func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -28743,6 +29429,35 @@ func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	return false
 }
 
+func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -28790,6 +29505,35 @@ func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	return false
 }
 
+func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -28835,6 +29579,84 @@ func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateCreateRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipe or *InstanceInitiateCreateRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateCreateRecipe(c *Client, desired, actual *InstanceInitiateCreateRecipe) bool {
@@ -28910,6 +29732,140 @@ func compareInstanceInitiateCreateRecipeMap(c *Client, desired, actual map[strin
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateCreateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeSteps or *InstanceInitiateCreateRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateCreateRecipeSteps(c *Client, desired, actual *InstanceInitiateCreateRecipeSteps) bool {
@@ -29019,6 +29975,49 @@ func compareInstanceInitiateCreateRecipeStepsMap(c *Client, desired, actual map[
 	return false
 }
 
+func compareInstanceInitiateCreateRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsStatus or *InstanceInitiateCreateRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateCreateRecipeStepsStatus(c *Client, desired, actual *InstanceInitiateCreateRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -29074,6 +30073,42 @@ func compareInstanceInitiateCreateRecipeStepsStatusMap(c *Client, desired, actua
 	return false
 }
 
+func compareInstanceInitiateCreateRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsStatusDetails or *InstanceInitiateCreateRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateCreateRecipeStepsStatusDetails(c *Client, desired, actual *InstanceInitiateCreateRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -29123,6 +30158,42 @@ func compareInstanceInitiateCreateRecipeStepsStatusDetailsMap(c *Client, desired
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateCreateRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsQuotaRequestDeltas or *InstanceInitiateCreateRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateCreateRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstanceInitiateCreateRecipeStepsQuotaRequestDeltas) bool {
@@ -29176,6 +30247,42 @@ func compareInstanceInitiateCreateRecipeStepsQuotaRequestDeltasMap(c *Client, de
 	return false
 }
 
+func compareInstanceInitiateCreateRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsPreprocessUpdate or *InstanceInitiateCreateRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateCreateRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstanceInitiateCreateRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -29225,6 +30332,49 @@ func compareInstanceInitiateCreateRecipeStepsPreprocessUpdateMap(c *Client, desi
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateCreateRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsRequestedTenantProject or *InstanceInitiateCreateRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateCreateRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstanceInitiateCreateRecipeStepsRequestedTenantProject) bool {
@@ -29280,6 +30430,56 @@ func compareInstanceInitiateCreateRecipeStepsRequestedTenantProjectMap(c *Client
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateCreateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsPermissionsInfo or *InstanceInitiateCreateRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateCreateRecipeStepsPermissionsInfo(c *Client, desired, actual *InstanceInitiateCreateRecipeStepsPermissionsInfo) bool {
@@ -29341,6 +30541,49 @@ func compareInstanceInitiateCreateRecipeStepsPermissionsInfoMap(c *Client, desir
 	return false
 }
 
+func compareInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName or *InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -29396,6 +30639,35 @@ func compareInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyNameMap(c *Cli
 	return false
 }
 
+func compareInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions or *InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -29443,6 +30715,12 @@ func compareInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissionsMap(c 
 	return false
 }
 
+func compareInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -29484,6 +30762,35 @@ func compareInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrsMap(c *Clien
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdate or *InstanceInitiateCreateRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstanceInitiateCreateRecipeStepsKeyNotificationsUpdate) bool {
@@ -29531,6 +30838,49 @@ func compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateMap(c *Client
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -29588,6 +30938,35 @@ func compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificati
 	return false
 }
 
+func compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -29635,6 +31014,35 @@ func compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificati
 	return false
 }
 
+func compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -29680,6 +31088,84 @@ func compareInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificati
 		}
 	}
 	return false
+}
+
+func compareInstanceCreateRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipe or *InstanceCreateRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceCreateRecipe(c *Client, desired, actual *InstanceCreateRecipe) bool {
@@ -29755,6 +31241,140 @@ func compareInstanceCreateRecipeMap(c *Client, desired, actual map[string]Instan
 		}
 	}
 	return false
+}
+
+func compareInstanceCreateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeSteps or *InstanceCreateRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceCreateRecipeSteps(c *Client, desired, actual *InstanceCreateRecipeSteps) bool {
@@ -29864,6 +31484,49 @@ func compareInstanceCreateRecipeStepsMap(c *Client, desired, actual map[string]I
 	return false
 }
 
+func compareInstanceCreateRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsStatus or *InstanceCreateRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceCreateRecipeStepsStatus(c *Client, desired, actual *InstanceCreateRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -29919,6 +31582,42 @@ func compareInstanceCreateRecipeStepsStatusMap(c *Client, desired, actual map[st
 	return false
 }
 
+func compareInstanceCreateRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsStatusDetails or *InstanceCreateRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceCreateRecipeStepsStatusDetails(c *Client, desired, actual *InstanceCreateRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -29968,6 +31667,42 @@ func compareInstanceCreateRecipeStepsStatusDetailsMap(c *Client, desired, actual
 		}
 	}
 	return false
+}
+
+func compareInstanceCreateRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsQuotaRequestDeltas or *InstanceCreateRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceCreateRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstanceCreateRecipeStepsQuotaRequestDeltas) bool {
@@ -30021,6 +31756,42 @@ func compareInstanceCreateRecipeStepsQuotaRequestDeltasMap(c *Client, desired, a
 	return false
 }
 
+func compareInstanceCreateRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsPreprocessUpdate or *InstanceCreateRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceCreateRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstanceCreateRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -30070,6 +31841,49 @@ func compareInstanceCreateRecipeStepsPreprocessUpdateMap(c *Client, desired, act
 		}
 	}
 	return false
+}
+
+func compareInstanceCreateRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsRequestedTenantProject or *InstanceCreateRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceCreateRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstanceCreateRecipeStepsRequestedTenantProject) bool {
@@ -30125,6 +31939,56 @@ func compareInstanceCreateRecipeStepsRequestedTenantProjectMap(c *Client, desire
 		}
 	}
 	return false
+}
+
+func compareInstanceCreateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsPermissionsInfo or *InstanceCreateRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceCreateRecipeStepsPermissionsInfo(c *Client, desired, actual *InstanceCreateRecipeStepsPermissionsInfo) bool {
@@ -30186,6 +32050,49 @@ func compareInstanceCreateRecipeStepsPermissionsInfoMap(c *Client, desired, actu
 	return false
 }
 
+func compareInstanceCreateRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsPermissionsInfoPolicyName or *InstanceCreateRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceCreateRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstanceCreateRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -30241,6 +32148,35 @@ func compareInstanceCreateRecipeStepsPermissionsInfoPolicyNameMap(c *Client, des
 	return false
 }
 
+func compareInstanceCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsPermissionsInfoIamPermissions or *InstanceCreateRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceCreateRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstanceCreateRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -30288,6 +32224,12 @@ func compareInstanceCreateRecipeStepsPermissionsInfoIamPermissionsMap(c *Client,
 	return false
 }
 
+func compareInstanceCreateRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstanceCreateRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstanceCreateRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -30329,6 +32271,35 @@ func compareInstanceCreateRecipeStepsPermissionsInfoApiAttrsMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareInstanceCreateRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsKeyNotificationsUpdate or *InstanceCreateRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceCreateRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstanceCreateRecipeStepsKeyNotificationsUpdate) bool {
@@ -30376,6 +32347,49 @@ func compareInstanceCreateRecipeStepsKeyNotificationsUpdateMap(c *Client, desire
 		}
 	}
 	return false
+}
+
+func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -30433,6 +32447,35 @@ func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoM
 	return false
 }
 
+func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -30480,6 +32523,35 @@ func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 	return false
 }
 
+func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -30525,6 +32597,84 @@ func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 		}
 	}
 	return false
+}
+
+func compareInstanceDeleteRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipe or *InstanceDeleteRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceDeleteRecipe(c *Client, desired, actual *InstanceDeleteRecipe) bool {
@@ -30600,6 +32750,140 @@ func compareInstanceDeleteRecipeMap(c *Client, desired, actual map[string]Instan
 		}
 	}
 	return false
+}
+
+func compareInstanceDeleteRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeSteps or *InstanceDeleteRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceDeleteRecipeSteps(c *Client, desired, actual *InstanceDeleteRecipeSteps) bool {
@@ -30709,6 +32993,49 @@ func compareInstanceDeleteRecipeStepsMap(c *Client, desired, actual map[string]I
 	return false
 }
 
+func compareInstanceDeleteRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsStatus or *InstanceDeleteRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceDeleteRecipeStepsStatus(c *Client, desired, actual *InstanceDeleteRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -30764,6 +33091,42 @@ func compareInstanceDeleteRecipeStepsStatusMap(c *Client, desired, actual map[st
 	return false
 }
 
+func compareInstanceDeleteRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsStatusDetails or *InstanceDeleteRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceDeleteRecipeStepsStatusDetails(c *Client, desired, actual *InstanceDeleteRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -30813,6 +33176,42 @@ func compareInstanceDeleteRecipeStepsStatusDetailsMap(c *Client, desired, actual
 		}
 	}
 	return false
+}
+
+func compareInstanceDeleteRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsQuotaRequestDeltas or *InstanceDeleteRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceDeleteRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstanceDeleteRecipeStepsQuotaRequestDeltas) bool {
@@ -30866,6 +33265,42 @@ func compareInstanceDeleteRecipeStepsQuotaRequestDeltasMap(c *Client, desired, a
 	return false
 }
 
+func compareInstanceDeleteRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsPreprocessUpdate or *InstanceDeleteRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceDeleteRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstanceDeleteRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -30915,6 +33350,49 @@ func compareInstanceDeleteRecipeStepsPreprocessUpdateMap(c *Client, desired, act
 		}
 	}
 	return false
+}
+
+func compareInstanceDeleteRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsRequestedTenantProject or *InstanceDeleteRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceDeleteRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstanceDeleteRecipeStepsRequestedTenantProject) bool {
@@ -30970,6 +33448,56 @@ func compareInstanceDeleteRecipeStepsRequestedTenantProjectMap(c *Client, desire
 		}
 	}
 	return false
+}
+
+func compareInstanceDeleteRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsPermissionsInfo or *InstanceDeleteRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceDeleteRecipeStepsPermissionsInfo(c *Client, desired, actual *InstanceDeleteRecipeStepsPermissionsInfo) bool {
@@ -31031,6 +33559,49 @@ func compareInstanceDeleteRecipeStepsPermissionsInfoMap(c *Client, desired, actu
 	return false
 }
 
+func compareInstanceDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsPermissionsInfoPolicyName or *InstanceDeleteRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceDeleteRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstanceDeleteRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -31086,6 +33657,35 @@ func compareInstanceDeleteRecipeStepsPermissionsInfoPolicyNameMap(c *Client, des
 	return false
 }
 
+func compareInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsPermissionsInfoIamPermissions or *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -31133,6 +33733,12 @@ func compareInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsMap(c *Client,
 	return false
 }
 
+func compareInstanceDeleteRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstanceDeleteRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstanceDeleteRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -31174,6 +33780,35 @@ func compareInstanceDeleteRecipeStepsPermissionsInfoApiAttrsMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsKeyNotificationsUpdate or *InstanceDeleteRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceDeleteRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstanceDeleteRecipeStepsKeyNotificationsUpdate) bool {
@@ -31221,6 +33856,49 @@ func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateMap(c *Client, desire
 		}
 	}
 	return false
+}
+
+func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -31278,6 +33956,35 @@ func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoM
 	return false
 }
 
+func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -31325,6 +34032,35 @@ func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 	return false
 }
 
+func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -31370,6 +34106,84 @@ func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 		}
 	}
 	return false
+}
+
+func compareInstanceUpdateRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipe or *InstanceUpdateRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUpdateRecipe(c *Client, desired, actual *InstanceUpdateRecipe) bool {
@@ -31445,6 +34259,140 @@ func compareInstanceUpdateRecipeMap(c *Client, desired, actual map[string]Instan
 		}
 	}
 	return false
+}
+
+func compareInstanceUpdateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeSteps or *InstanceUpdateRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUpdateRecipeSteps(c *Client, desired, actual *InstanceUpdateRecipeSteps) bool {
@@ -31554,6 +34502,49 @@ func compareInstanceUpdateRecipeStepsMap(c *Client, desired, actual map[string]I
 	return false
 }
 
+func compareInstanceUpdateRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsStatus or *InstanceUpdateRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUpdateRecipeStepsStatus(c *Client, desired, actual *InstanceUpdateRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -31609,6 +34600,42 @@ func compareInstanceUpdateRecipeStepsStatusMap(c *Client, desired, actual map[st
 	return false
 }
 
+func compareInstanceUpdateRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsStatusDetails or *InstanceUpdateRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUpdateRecipeStepsStatusDetails(c *Client, desired, actual *InstanceUpdateRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -31658,6 +34685,42 @@ func compareInstanceUpdateRecipeStepsStatusDetailsMap(c *Client, desired, actual
 		}
 	}
 	return false
+}
+
+func compareInstanceUpdateRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsQuotaRequestDeltas or *InstanceUpdateRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUpdateRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstanceUpdateRecipeStepsQuotaRequestDeltas) bool {
@@ -31711,6 +34774,42 @@ func compareInstanceUpdateRecipeStepsQuotaRequestDeltasMap(c *Client, desired, a
 	return false
 }
 
+func compareInstanceUpdateRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsPreprocessUpdate or *InstanceUpdateRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUpdateRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstanceUpdateRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -31760,6 +34859,49 @@ func compareInstanceUpdateRecipeStepsPreprocessUpdateMap(c *Client, desired, act
 		}
 	}
 	return false
+}
+
+func compareInstanceUpdateRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsRequestedTenantProject or *InstanceUpdateRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUpdateRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstanceUpdateRecipeStepsRequestedTenantProject) bool {
@@ -31815,6 +34957,56 @@ func compareInstanceUpdateRecipeStepsRequestedTenantProjectMap(c *Client, desire
 		}
 	}
 	return false
+}
+
+func compareInstanceUpdateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsPermissionsInfo or *InstanceUpdateRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUpdateRecipeStepsPermissionsInfo(c *Client, desired, actual *InstanceUpdateRecipeStepsPermissionsInfo) bool {
@@ -31876,6 +35068,49 @@ func compareInstanceUpdateRecipeStepsPermissionsInfoMap(c *Client, desired, actu
 	return false
 }
 
+func compareInstanceUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsPermissionsInfoPolicyName or *InstanceUpdateRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUpdateRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstanceUpdateRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -31931,6 +35166,35 @@ func compareInstanceUpdateRecipeStepsPermissionsInfoPolicyNameMap(c *Client, des
 	return false
 }
 
+func compareInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsPermissionsInfoIamPermissions or *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -31978,6 +35242,12 @@ func compareInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsMap(c *Client,
 	return false
 }
 
+func compareInstanceUpdateRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstanceUpdateRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstanceUpdateRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -32019,6 +35289,35 @@ func compareInstanceUpdateRecipeStepsPermissionsInfoApiAttrsMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsKeyNotificationsUpdate or *InstanceUpdateRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUpdateRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstanceUpdateRecipeStepsKeyNotificationsUpdate) bool {
@@ -32066,6 +35365,49 @@ func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateMap(c *Client, desire
 		}
 	}
 	return false
+}
+
+func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -32123,6 +35465,35 @@ func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoM
 	return false
 }
 
+func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -32170,6 +35541,35 @@ func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 	return false
 }
 
+func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -32215,6 +35615,84 @@ func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessResetRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipe or *InstancePreprocessResetRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessResetRecipe(c *Client, desired, actual *InstancePreprocessResetRecipe) bool {
@@ -32290,6 +35768,140 @@ func compareInstancePreprocessResetRecipeMap(c *Client, desired, actual map[stri
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessResetRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeSteps or *InstancePreprocessResetRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessResetRecipeSteps(c *Client, desired, actual *InstancePreprocessResetRecipeSteps) bool {
@@ -32399,6 +36011,49 @@ func compareInstancePreprocessResetRecipeStepsMap(c *Client, desired, actual map
 	return false
 }
 
+func compareInstancePreprocessResetRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsStatus or *InstancePreprocessResetRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessResetRecipeStepsStatus(c *Client, desired, actual *InstancePreprocessResetRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -32454,6 +36109,42 @@ func compareInstancePreprocessResetRecipeStepsStatusMap(c *Client, desired, actu
 	return false
 }
 
+func compareInstancePreprocessResetRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsStatusDetails or *InstancePreprocessResetRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessResetRecipeStepsStatusDetails(c *Client, desired, actual *InstancePreprocessResetRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -32503,6 +36194,42 @@ func compareInstancePreprocessResetRecipeStepsStatusDetailsMap(c *Client, desire
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessResetRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsQuotaRequestDeltas or *InstancePreprocessResetRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessResetRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstancePreprocessResetRecipeStepsQuotaRequestDeltas) bool {
@@ -32556,6 +36283,42 @@ func compareInstancePreprocessResetRecipeStepsQuotaRequestDeltasMap(c *Client, d
 	return false
 }
 
+func compareInstancePreprocessResetRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsPreprocessUpdate or *InstancePreprocessResetRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessResetRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstancePreprocessResetRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -32605,6 +36368,49 @@ func compareInstancePreprocessResetRecipeStepsPreprocessUpdateMap(c *Client, des
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessResetRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsRequestedTenantProject or *InstancePreprocessResetRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessResetRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstancePreprocessResetRecipeStepsRequestedTenantProject) bool {
@@ -32660,6 +36466,56 @@ func compareInstancePreprocessResetRecipeStepsRequestedTenantProjectMap(c *Clien
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessResetRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsPermissionsInfo or *InstancePreprocessResetRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessResetRecipeStepsPermissionsInfo(c *Client, desired, actual *InstancePreprocessResetRecipeStepsPermissionsInfo) bool {
@@ -32721,6 +36577,49 @@ func compareInstancePreprocessResetRecipeStepsPermissionsInfoMap(c *Client, desi
 	return false
 }
 
+func compareInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName or *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -32776,6 +36675,35 @@ func compareInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameMap(c *Cl
 	return false
 }
 
+func compareInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions or *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -32823,6 +36751,12 @@ func compareInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsMap(c
 	return false
 }
 
+func compareInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -32864,6 +36798,35 @@ func compareInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrsMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsKeyNotificationsUpdate or *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate) bool {
@@ -32911,6 +36874,49 @@ func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateMap(c *Clien
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -32968,6 +36974,35 @@ func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 	return false
 }
 
+func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -33015,6 +37050,35 @@ func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 	return false
 }
 
+func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -33060,6 +37124,84 @@ func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateResetRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipe or *InstanceInitiateResetRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateResetRecipe(c *Client, desired, actual *InstanceInitiateResetRecipe) bool {
@@ -33135,6 +37277,140 @@ func compareInstanceInitiateResetRecipeMap(c *Client, desired, actual map[string
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateResetRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeSteps or *InstanceInitiateResetRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateResetRecipeSteps(c *Client, desired, actual *InstanceInitiateResetRecipeSteps) bool {
@@ -33244,6 +37520,49 @@ func compareInstanceInitiateResetRecipeStepsMap(c *Client, desired, actual map[s
 	return false
 }
 
+func compareInstanceInitiateResetRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsStatus or *InstanceInitiateResetRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateResetRecipeStepsStatus(c *Client, desired, actual *InstanceInitiateResetRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -33299,6 +37618,42 @@ func compareInstanceInitiateResetRecipeStepsStatusMap(c *Client, desired, actual
 	return false
 }
 
+func compareInstanceInitiateResetRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsStatusDetails or *InstanceInitiateResetRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateResetRecipeStepsStatusDetails(c *Client, desired, actual *InstanceInitiateResetRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -33348,6 +37703,42 @@ func compareInstanceInitiateResetRecipeStepsStatusDetailsMap(c *Client, desired,
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateResetRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsQuotaRequestDeltas or *InstanceInitiateResetRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateResetRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstanceInitiateResetRecipeStepsQuotaRequestDeltas) bool {
@@ -33401,6 +37792,42 @@ func compareInstanceInitiateResetRecipeStepsQuotaRequestDeltasMap(c *Client, des
 	return false
 }
 
+func compareInstanceInitiateResetRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsPreprocessUpdate or *InstanceInitiateResetRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateResetRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstanceInitiateResetRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -33450,6 +37877,49 @@ func compareInstanceInitiateResetRecipeStepsPreprocessUpdateMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateResetRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsRequestedTenantProject or *InstanceInitiateResetRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateResetRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstanceInitiateResetRecipeStepsRequestedTenantProject) bool {
@@ -33505,6 +37975,56 @@ func compareInstanceInitiateResetRecipeStepsRequestedTenantProjectMap(c *Client,
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateResetRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsPermissionsInfo or *InstanceInitiateResetRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateResetRecipeStepsPermissionsInfo(c *Client, desired, actual *InstanceInitiateResetRecipeStepsPermissionsInfo) bool {
@@ -33566,6 +38086,49 @@ func compareInstanceInitiateResetRecipeStepsPermissionsInfoMap(c *Client, desire
 	return false
 }
 
+func compareInstanceInitiateResetRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsPermissionsInfoPolicyName or *InstanceInitiateResetRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateResetRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstanceInitiateResetRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -33621,6 +38184,35 @@ func compareInstanceInitiateResetRecipeStepsPermissionsInfoPolicyNameMap(c *Clie
 	return false
 }
 
+func compareInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions or *InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -33668,6 +38260,12 @@ func compareInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissionsMap(c *
 	return false
 }
 
+func compareInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -33709,6 +38307,35 @@ func compareInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrsMap(c *Client
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsKeyNotificationsUpdate or *InstanceInitiateResetRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstanceInitiateResetRecipeStepsKeyNotificationsUpdate) bool {
@@ -33756,6 +38383,49 @@ func compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateMap(c *Client,
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -33813,6 +38483,35 @@ func compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	return false
 }
 
+func compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -33860,6 +38559,35 @@ func compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	return false
 }
 
+func compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -33905,6 +38633,84 @@ func compareInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 		}
 	}
 	return false
+}
+
+func compareInstanceResetRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipe or *InstanceResetRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceResetRecipe(c *Client, desired, actual *InstanceResetRecipe) bool {
@@ -33980,6 +38786,140 @@ func compareInstanceResetRecipeMap(c *Client, desired, actual map[string]Instanc
 		}
 	}
 	return false
+}
+
+func compareInstanceResetRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeSteps or *InstanceResetRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceResetRecipeSteps(c *Client, desired, actual *InstanceResetRecipeSteps) bool {
@@ -34089,6 +39029,49 @@ func compareInstanceResetRecipeStepsMap(c *Client, desired, actual map[string]In
 	return false
 }
 
+func compareInstanceResetRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsStatus or *InstanceResetRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceResetRecipeStepsStatus(c *Client, desired, actual *InstanceResetRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -34144,6 +39127,42 @@ func compareInstanceResetRecipeStepsStatusMap(c *Client, desired, actual map[str
 	return false
 }
 
+func compareInstanceResetRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsStatusDetails or *InstanceResetRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceResetRecipeStepsStatusDetails(c *Client, desired, actual *InstanceResetRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -34193,6 +39212,42 @@ func compareInstanceResetRecipeStepsStatusDetailsMap(c *Client, desired, actual 
 		}
 	}
 	return false
+}
+
+func compareInstanceResetRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsQuotaRequestDeltas or *InstanceResetRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceResetRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstanceResetRecipeStepsQuotaRequestDeltas) bool {
@@ -34246,6 +39301,42 @@ func compareInstanceResetRecipeStepsQuotaRequestDeltasMap(c *Client, desired, ac
 	return false
 }
 
+func compareInstanceResetRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsPreprocessUpdate or *InstanceResetRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceResetRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstanceResetRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -34295,6 +39386,49 @@ func compareInstanceResetRecipeStepsPreprocessUpdateMap(c *Client, desired, actu
 		}
 	}
 	return false
+}
+
+func compareInstanceResetRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsRequestedTenantProject or *InstanceResetRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceResetRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstanceResetRecipeStepsRequestedTenantProject) bool {
@@ -34350,6 +39484,56 @@ func compareInstanceResetRecipeStepsRequestedTenantProjectMap(c *Client, desired
 		}
 	}
 	return false
+}
+
+func compareInstanceResetRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsPermissionsInfo or *InstanceResetRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceResetRecipeStepsPermissionsInfo(c *Client, desired, actual *InstanceResetRecipeStepsPermissionsInfo) bool {
@@ -34411,6 +39595,49 @@ func compareInstanceResetRecipeStepsPermissionsInfoMap(c *Client, desired, actua
 	return false
 }
 
+func compareInstanceResetRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsPermissionsInfoPolicyName or *InstanceResetRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceResetRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstanceResetRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -34466,6 +39693,35 @@ func compareInstanceResetRecipeStepsPermissionsInfoPolicyNameMap(c *Client, desi
 	return false
 }
 
+func compareInstanceResetRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsPermissionsInfoIamPermissions or *InstanceResetRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceResetRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstanceResetRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -34513,6 +39769,12 @@ func compareInstanceResetRecipeStepsPermissionsInfoIamPermissionsMap(c *Client, 
 	return false
 }
 
+func compareInstanceResetRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstanceResetRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstanceResetRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -34554,6 +39816,35 @@ func compareInstanceResetRecipeStepsPermissionsInfoApiAttrsMap(c *Client, desire
 		}
 	}
 	return false
+}
+
+func compareInstanceResetRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsKeyNotificationsUpdate or *InstanceResetRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceResetRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstanceResetRecipeStepsKeyNotificationsUpdate) bool {
@@ -34601,6 +39892,49 @@ func compareInstanceResetRecipeStepsKeyNotificationsUpdateMap(c *Client, desired
 		}
 	}
 	return false
+}
+
+func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -34658,6 +39992,35 @@ func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoMa
 	return false
 }
 
+func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -34705,6 +40068,35 @@ func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKe
 	return false
 }
 
+func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -34750,6 +40142,84 @@ func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKe
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessRepairRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipe or *InstancePreprocessRepairRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessRepairRecipe(c *Client, desired, actual *InstancePreprocessRepairRecipe) bool {
@@ -34825,6 +40295,140 @@ func compareInstancePreprocessRepairRecipeMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessRepairRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeSteps or *InstancePreprocessRepairRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessRepairRecipeSteps(c *Client, desired, actual *InstancePreprocessRepairRecipeSteps) bool {
@@ -34934,6 +40538,49 @@ func compareInstancePreprocessRepairRecipeStepsMap(c *Client, desired, actual ma
 	return false
 }
 
+func compareInstancePreprocessRepairRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsStatus or *InstancePreprocessRepairRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessRepairRecipeStepsStatus(c *Client, desired, actual *InstancePreprocessRepairRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -34989,6 +40636,42 @@ func compareInstancePreprocessRepairRecipeStepsStatusMap(c *Client, desired, act
 	return false
 }
 
+func compareInstancePreprocessRepairRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsStatusDetails or *InstancePreprocessRepairRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessRepairRecipeStepsStatusDetails(c *Client, desired, actual *InstancePreprocessRepairRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -35038,6 +40721,42 @@ func compareInstancePreprocessRepairRecipeStepsStatusDetailsMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessRepairRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsQuotaRequestDeltas or *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas) bool {
@@ -35091,6 +40810,42 @@ func compareInstancePreprocessRepairRecipeStepsQuotaRequestDeltasMap(c *Client, 
 	return false
 }
 
+func compareInstancePreprocessRepairRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsPreprocessUpdate or *InstancePreprocessRepairRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessRepairRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstancePreprocessRepairRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -35140,6 +40895,49 @@ func compareInstancePreprocessRepairRecipeStepsPreprocessUpdateMap(c *Client, de
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessRepairRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsRequestedTenantProject or *InstancePreprocessRepairRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessRepairRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstancePreprocessRepairRecipeStepsRequestedTenantProject) bool {
@@ -35195,6 +40993,56 @@ func compareInstancePreprocessRepairRecipeStepsRequestedTenantProjectMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessRepairRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsPermissionsInfo or *InstancePreprocessRepairRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessRepairRecipeStepsPermissionsInfo(c *Client, desired, actual *InstancePreprocessRepairRecipeStepsPermissionsInfo) bool {
@@ -35256,6 +41104,49 @@ func compareInstancePreprocessRepairRecipeStepsPermissionsInfoMap(c *Client, des
 	return false
 }
 
+func compareInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName or *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -35311,6 +41202,35 @@ func compareInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameMap(c *C
 	return false
 }
 
+func compareInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions or *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -35358,6 +41278,12 @@ func compareInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsMap(
 	return false
 }
 
+func compareInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -35399,6 +41325,35 @@ func compareInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrsMap(c *Cli
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate or *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate) bool {
@@ -35446,6 +41401,49 @@ func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -35503,6 +41501,35 @@ func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 	return false
 }
 
+func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -35550,6 +41577,35 @@ func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 	return false
 }
 
+func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -35595,6 +41651,84 @@ func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateRepairRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipe or *InstanceInitiateRepairRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateRepairRecipe(c *Client, desired, actual *InstanceInitiateRepairRecipe) bool {
@@ -35670,6 +41804,140 @@ func compareInstanceInitiateRepairRecipeMap(c *Client, desired, actual map[strin
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateRepairRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeSteps or *InstanceInitiateRepairRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateRepairRecipeSteps(c *Client, desired, actual *InstanceInitiateRepairRecipeSteps) bool {
@@ -35779,6 +42047,49 @@ func compareInstanceInitiateRepairRecipeStepsMap(c *Client, desired, actual map[
 	return false
 }
 
+func compareInstanceInitiateRepairRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsStatus or *InstanceInitiateRepairRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateRepairRecipeStepsStatus(c *Client, desired, actual *InstanceInitiateRepairRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -35834,6 +42145,42 @@ func compareInstanceInitiateRepairRecipeStepsStatusMap(c *Client, desired, actua
 	return false
 }
 
+func compareInstanceInitiateRepairRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsStatusDetails or *InstanceInitiateRepairRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateRepairRecipeStepsStatusDetails(c *Client, desired, actual *InstanceInitiateRepairRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -35883,6 +42230,42 @@ func compareInstanceInitiateRepairRecipeStepsStatusDetailsMap(c *Client, desired
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateRepairRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsQuotaRequestDeltas or *InstanceInitiateRepairRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateRepairRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstanceInitiateRepairRecipeStepsQuotaRequestDeltas) bool {
@@ -35936,6 +42319,42 @@ func compareInstanceInitiateRepairRecipeStepsQuotaRequestDeltasMap(c *Client, de
 	return false
 }
 
+func compareInstanceInitiateRepairRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsPreprocessUpdate or *InstanceInitiateRepairRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateRepairRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstanceInitiateRepairRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -35985,6 +42404,49 @@ func compareInstanceInitiateRepairRecipeStepsPreprocessUpdateMap(c *Client, desi
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateRepairRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsRequestedTenantProject or *InstanceInitiateRepairRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateRepairRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstanceInitiateRepairRecipeStepsRequestedTenantProject) bool {
@@ -36040,6 +42502,56 @@ func compareInstanceInitiateRepairRecipeStepsRequestedTenantProjectMap(c *Client
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateRepairRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsPermissionsInfo or *InstanceInitiateRepairRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateRepairRecipeStepsPermissionsInfo(c *Client, desired, actual *InstanceInitiateRepairRecipeStepsPermissionsInfo) bool {
@@ -36101,6 +42613,49 @@ func compareInstanceInitiateRepairRecipeStepsPermissionsInfoMap(c *Client, desir
 	return false
 }
 
+func compareInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName or *InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -36156,6 +42711,35 @@ func compareInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyNameMap(c *Cli
 	return false
 }
 
+func compareInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions or *InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -36203,6 +42787,12 @@ func compareInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissionsMap(c 
 	return false
 }
 
+func compareInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -36244,6 +42834,35 @@ func compareInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrsMap(c *Clien
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdate or *InstanceInitiateRepairRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstanceInitiateRepairRecipeStepsKeyNotificationsUpdate) bool {
@@ -36291,6 +42910,49 @@ func compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateMap(c *Client
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -36348,6 +43010,35 @@ func compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificati
 	return false
 }
 
+func compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -36395,6 +43086,35 @@ func compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificati
 	return false
 }
 
+func compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -36440,6 +43160,84 @@ func compareInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificati
 		}
 	}
 	return false
+}
+
+func compareInstanceRepairRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipe or *InstanceRepairRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceRepairRecipe(c *Client, desired, actual *InstanceRepairRecipe) bool {
@@ -36515,6 +43313,140 @@ func compareInstanceRepairRecipeMap(c *Client, desired, actual map[string]Instan
 		}
 	}
 	return false
+}
+
+func compareInstanceRepairRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeSteps or *InstanceRepairRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceRepairRecipeSteps(c *Client, desired, actual *InstanceRepairRecipeSteps) bool {
@@ -36624,6 +43556,49 @@ func compareInstanceRepairRecipeStepsMap(c *Client, desired, actual map[string]I
 	return false
 }
 
+func compareInstanceRepairRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsStatus or *InstanceRepairRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceRepairRecipeStepsStatus(c *Client, desired, actual *InstanceRepairRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -36679,6 +43654,42 @@ func compareInstanceRepairRecipeStepsStatusMap(c *Client, desired, actual map[st
 	return false
 }
 
+func compareInstanceRepairRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsStatusDetails or *InstanceRepairRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceRepairRecipeStepsStatusDetails(c *Client, desired, actual *InstanceRepairRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -36728,6 +43739,42 @@ func compareInstanceRepairRecipeStepsStatusDetailsMap(c *Client, desired, actual
 		}
 	}
 	return false
+}
+
+func compareInstanceRepairRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsQuotaRequestDeltas or *InstanceRepairRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceRepairRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstanceRepairRecipeStepsQuotaRequestDeltas) bool {
@@ -36781,6 +43828,42 @@ func compareInstanceRepairRecipeStepsQuotaRequestDeltasMap(c *Client, desired, a
 	return false
 }
 
+func compareInstanceRepairRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsPreprocessUpdate or *InstanceRepairRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceRepairRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstanceRepairRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -36830,6 +43913,49 @@ func compareInstanceRepairRecipeStepsPreprocessUpdateMap(c *Client, desired, act
 		}
 	}
 	return false
+}
+
+func compareInstanceRepairRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsRequestedTenantProject or *InstanceRepairRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceRepairRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstanceRepairRecipeStepsRequestedTenantProject) bool {
@@ -36885,6 +44011,56 @@ func compareInstanceRepairRecipeStepsRequestedTenantProjectMap(c *Client, desire
 		}
 	}
 	return false
+}
+
+func compareInstanceRepairRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsPermissionsInfo or *InstanceRepairRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceRepairRecipeStepsPermissionsInfo(c *Client, desired, actual *InstanceRepairRecipeStepsPermissionsInfo) bool {
@@ -36946,6 +44122,49 @@ func compareInstanceRepairRecipeStepsPermissionsInfoMap(c *Client, desired, actu
 	return false
 }
 
+func compareInstanceRepairRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsPermissionsInfoPolicyName or *InstanceRepairRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceRepairRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstanceRepairRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -37001,6 +44220,35 @@ func compareInstanceRepairRecipeStepsPermissionsInfoPolicyNameMap(c *Client, des
 	return false
 }
 
+func compareInstanceRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsPermissionsInfoIamPermissions or *InstanceRepairRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceRepairRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstanceRepairRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -37048,6 +44296,12 @@ func compareInstanceRepairRecipeStepsPermissionsInfoIamPermissionsMap(c *Client,
 	return false
 }
 
+func compareInstanceRepairRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstanceRepairRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstanceRepairRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -37089,6 +44343,35 @@ func compareInstanceRepairRecipeStepsPermissionsInfoApiAttrsMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareInstanceRepairRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsKeyNotificationsUpdate or *InstanceRepairRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceRepairRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstanceRepairRecipeStepsKeyNotificationsUpdate) bool {
@@ -37136,6 +44419,49 @@ func compareInstanceRepairRecipeStepsKeyNotificationsUpdateMap(c *Client, desire
 		}
 	}
 	return false
+}
+
+func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -37193,6 +44519,35 @@ func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoM
 	return false
 }
 
+func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -37240,6 +44595,35 @@ func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 	return false
 }
 
+func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -37285,6 +44669,84 @@ func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessDeleteRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipe or *InstancePreprocessDeleteRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessDeleteRecipe(c *Client, desired, actual *InstancePreprocessDeleteRecipe) bool {
@@ -37360,6 +44822,140 @@ func compareInstancePreprocessDeleteRecipeMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessDeleteRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeSteps or *InstancePreprocessDeleteRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessDeleteRecipeSteps(c *Client, desired, actual *InstancePreprocessDeleteRecipeSteps) bool {
@@ -37469,6 +45065,49 @@ func compareInstancePreprocessDeleteRecipeStepsMap(c *Client, desired, actual ma
 	return false
 }
 
+func compareInstancePreprocessDeleteRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsStatus or *InstancePreprocessDeleteRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessDeleteRecipeStepsStatus(c *Client, desired, actual *InstancePreprocessDeleteRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -37524,6 +45163,42 @@ func compareInstancePreprocessDeleteRecipeStepsStatusMap(c *Client, desired, act
 	return false
 }
 
+func compareInstancePreprocessDeleteRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsStatusDetails or *InstancePreprocessDeleteRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessDeleteRecipeStepsStatusDetails(c *Client, desired, actual *InstancePreprocessDeleteRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -37573,6 +45248,42 @@ func compareInstancePreprocessDeleteRecipeStepsStatusDetailsMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas or *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas) bool {
@@ -37626,6 +45337,42 @@ func compareInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasMap(c *Client, 
 	return false
 }
 
+func compareInstancePreprocessDeleteRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsPreprocessUpdate or *InstancePreprocessDeleteRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessDeleteRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstancePreprocessDeleteRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -37675,6 +45422,49 @@ func compareInstancePreprocessDeleteRecipeStepsPreprocessUpdateMap(c *Client, de
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessDeleteRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsRequestedTenantProject or *InstancePreprocessDeleteRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessDeleteRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstancePreprocessDeleteRecipeStepsRequestedTenantProject) bool {
@@ -37730,6 +45520,56 @@ func compareInstancePreprocessDeleteRecipeStepsRequestedTenantProjectMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsPermissionsInfo or *InstancePreprocessDeleteRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessDeleteRecipeStepsPermissionsInfo(c *Client, desired, actual *InstancePreprocessDeleteRecipeStepsPermissionsInfo) bool {
@@ -37791,6 +45631,49 @@ func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoMap(c *Client, des
 	return false
 }
 
+func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName or *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -37846,6 +45729,35 @@ func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameMap(c *C
 	return false
 }
 
+func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions or *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -37893,6 +45805,12 @@ func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsMap(
 	return false
 }
 
+func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -37934,6 +45852,35 @@ func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrsMap(c *Cli
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate or *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate) bool {
@@ -37981,6 +45928,49 @@ func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -38038,6 +46028,35 @@ func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 	return false
 }
 
+func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -38085,6 +46104,35 @@ func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 	return false
 }
 
+func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -38130,6 +46178,84 @@ func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateDeleteRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipe or *InstanceInitiateDeleteRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateDeleteRecipe(c *Client, desired, actual *InstanceInitiateDeleteRecipe) bool {
@@ -38205,6 +46331,140 @@ func compareInstanceInitiateDeleteRecipeMap(c *Client, desired, actual map[strin
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateDeleteRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeSteps or *InstanceInitiateDeleteRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateDeleteRecipeSteps(c *Client, desired, actual *InstanceInitiateDeleteRecipeSteps) bool {
@@ -38314,6 +46574,49 @@ func compareInstanceInitiateDeleteRecipeStepsMap(c *Client, desired, actual map[
 	return false
 }
 
+func compareInstanceInitiateDeleteRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsStatus or *InstanceInitiateDeleteRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateDeleteRecipeStepsStatus(c *Client, desired, actual *InstanceInitiateDeleteRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -38369,6 +46672,42 @@ func compareInstanceInitiateDeleteRecipeStepsStatusMap(c *Client, desired, actua
 	return false
 }
 
+func compareInstanceInitiateDeleteRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsStatusDetails or *InstanceInitiateDeleteRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateDeleteRecipeStepsStatusDetails(c *Client, desired, actual *InstanceInitiateDeleteRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -38418,6 +46757,42 @@ func compareInstanceInitiateDeleteRecipeStepsStatusDetailsMap(c *Client, desired
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateDeleteRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsQuotaRequestDeltas or *InstanceInitiateDeleteRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateDeleteRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstanceInitiateDeleteRecipeStepsQuotaRequestDeltas) bool {
@@ -38471,6 +46846,42 @@ func compareInstanceInitiateDeleteRecipeStepsQuotaRequestDeltasMap(c *Client, de
 	return false
 }
 
+func compareInstanceInitiateDeleteRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsPreprocessUpdate or *InstanceInitiateDeleteRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateDeleteRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstanceInitiateDeleteRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -38520,6 +46931,49 @@ func compareInstanceInitiateDeleteRecipeStepsPreprocessUpdateMap(c *Client, desi
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateDeleteRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsRequestedTenantProject or *InstanceInitiateDeleteRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateDeleteRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstanceInitiateDeleteRecipeStepsRequestedTenantProject) bool {
@@ -38575,6 +47029,56 @@ func compareInstanceInitiateDeleteRecipeStepsRequestedTenantProjectMap(c *Client
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateDeleteRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsPermissionsInfo or *InstanceInitiateDeleteRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateDeleteRecipeStepsPermissionsInfo(c *Client, desired, actual *InstanceInitiateDeleteRecipeStepsPermissionsInfo) bool {
@@ -38636,6 +47140,49 @@ func compareInstanceInitiateDeleteRecipeStepsPermissionsInfoMap(c *Client, desir
 	return false
 }
 
+func compareInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName or *InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -38691,6 +47238,35 @@ func compareInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyNameMap(c *Cli
 	return false
 }
 
+func compareInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions or *InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -38738,6 +47314,12 @@ func compareInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissionsMap(c 
 	return false
 }
 
+func compareInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -38779,6 +47361,35 @@ func compareInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrsMap(c *Clien
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate or *InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate) bool {
@@ -38826,6 +47437,49 @@ func compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateMap(c *Client
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -38883,6 +47537,35 @@ func compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificati
 	return false
 }
 
+func compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -38930,6 +47613,35 @@ func compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificati
 	return false
 }
 
+func compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -38975,6 +47687,84 @@ func compareInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificati
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUpdateRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipe or *InstancePreprocessUpdateRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUpdateRecipe(c *Client, desired, actual *InstancePreprocessUpdateRecipe) bool {
@@ -39050,6 +47840,140 @@ func compareInstancePreprocessUpdateRecipeMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUpdateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeSteps or *InstancePreprocessUpdateRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUpdateRecipeSteps(c *Client, desired, actual *InstancePreprocessUpdateRecipeSteps) bool {
@@ -39159,6 +48083,49 @@ func compareInstancePreprocessUpdateRecipeStepsMap(c *Client, desired, actual ma
 	return false
 }
 
+func compareInstancePreprocessUpdateRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsStatus or *InstancePreprocessUpdateRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUpdateRecipeStepsStatus(c *Client, desired, actual *InstancePreprocessUpdateRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -39214,6 +48181,42 @@ func compareInstancePreprocessUpdateRecipeStepsStatusMap(c *Client, desired, act
 	return false
 }
 
+func compareInstancePreprocessUpdateRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsStatusDetails or *InstancePreprocessUpdateRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUpdateRecipeStepsStatusDetails(c *Client, desired, actual *InstancePreprocessUpdateRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -39263,6 +48266,42 @@ func compareInstancePreprocessUpdateRecipeStepsStatusDetailsMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas or *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas) bool {
@@ -39316,6 +48355,42 @@ func compareInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasMap(c *Client, 
 	return false
 }
 
+func compareInstancePreprocessUpdateRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsPreprocessUpdate or *InstancePreprocessUpdateRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUpdateRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstancePreprocessUpdateRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -39365,6 +48440,49 @@ func compareInstancePreprocessUpdateRecipeStepsPreprocessUpdateMap(c *Client, de
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUpdateRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsRequestedTenantProject or *InstancePreprocessUpdateRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUpdateRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstancePreprocessUpdateRecipeStepsRequestedTenantProject) bool {
@@ -39420,6 +48538,56 @@ func compareInstancePreprocessUpdateRecipeStepsRequestedTenantProjectMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsPermissionsInfo or *InstancePreprocessUpdateRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUpdateRecipeStepsPermissionsInfo(c *Client, desired, actual *InstancePreprocessUpdateRecipeStepsPermissionsInfo) bool {
@@ -39481,6 +48649,49 @@ func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoMap(c *Client, des
 	return false
 }
 
+func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName or *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -39536,6 +48747,35 @@ func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameMap(c *C
 	return false
 }
 
+func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions or *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -39583,6 +48823,12 @@ func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsMap(
 	return false
 }
 
+func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -39624,6 +48870,35 @@ func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrsMap(c *Cli
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate or *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate) bool {
@@ -39671,6 +48946,49 @@ func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -39728,6 +49046,35 @@ func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	return false
 }
 
+func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -39775,6 +49122,35 @@ func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	return false
 }
 
+func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -39820,6 +49196,84 @@ func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateUpdateRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipe or *InstanceInitiateUpdateRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateUpdateRecipe(c *Client, desired, actual *InstanceInitiateUpdateRecipe) bool {
@@ -39895,6 +49349,140 @@ func compareInstanceInitiateUpdateRecipeMap(c *Client, desired, actual map[strin
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateUpdateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeSteps or *InstanceInitiateUpdateRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateUpdateRecipeSteps(c *Client, desired, actual *InstanceInitiateUpdateRecipeSteps) bool {
@@ -40004,6 +49592,49 @@ func compareInstanceInitiateUpdateRecipeStepsMap(c *Client, desired, actual map[
 	return false
 }
 
+func compareInstanceInitiateUpdateRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsStatus or *InstanceInitiateUpdateRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateUpdateRecipeStepsStatus(c *Client, desired, actual *InstanceInitiateUpdateRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -40059,6 +49690,42 @@ func compareInstanceInitiateUpdateRecipeStepsStatusMap(c *Client, desired, actua
 	return false
 }
 
+func compareInstanceInitiateUpdateRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsStatusDetails or *InstanceInitiateUpdateRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateUpdateRecipeStepsStatusDetails(c *Client, desired, actual *InstanceInitiateUpdateRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -40108,6 +49775,42 @@ func compareInstanceInitiateUpdateRecipeStepsStatusDetailsMap(c *Client, desired
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateUpdateRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsQuotaRequestDeltas or *InstanceInitiateUpdateRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateUpdateRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstanceInitiateUpdateRecipeStepsQuotaRequestDeltas) bool {
@@ -40161,6 +49864,42 @@ func compareInstanceInitiateUpdateRecipeStepsQuotaRequestDeltasMap(c *Client, de
 	return false
 }
 
+func compareInstanceInitiateUpdateRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsPreprocessUpdate or *InstanceInitiateUpdateRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateUpdateRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstanceInitiateUpdateRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -40210,6 +49949,49 @@ func compareInstanceInitiateUpdateRecipeStepsPreprocessUpdateMap(c *Client, desi
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateUpdateRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsRequestedTenantProject or *InstanceInitiateUpdateRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateUpdateRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstanceInitiateUpdateRecipeStepsRequestedTenantProject) bool {
@@ -40265,6 +50047,56 @@ func compareInstanceInitiateUpdateRecipeStepsRequestedTenantProjectMap(c *Client
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateUpdateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsPermissionsInfo or *InstanceInitiateUpdateRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateUpdateRecipeStepsPermissionsInfo(c *Client, desired, actual *InstanceInitiateUpdateRecipeStepsPermissionsInfo) bool {
@@ -40326,6 +50158,49 @@ func compareInstanceInitiateUpdateRecipeStepsPermissionsInfoMap(c *Client, desir
 	return false
 }
 
+func compareInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName or *InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -40381,6 +50256,35 @@ func compareInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyNameMap(c *Cli
 	return false
 }
 
+func compareInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions or *InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -40428,6 +50332,12 @@ func compareInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissionsMap(c 
 	return false
 }
 
+func compareInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -40469,6 +50379,35 @@ func compareInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrsMap(c *Clien
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate or *InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate) bool {
@@ -40516,6 +50455,49 @@ func compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateMap(c *Client
 		}
 	}
 	return false
+}
+
+func compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -40573,6 +50555,35 @@ func compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificati
 	return false
 }
 
+func compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -40620,6 +50631,35 @@ func compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificati
 	return false
 }
 
+func compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -40665,6 +50705,84 @@ func compareInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificati
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessFreezeRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipe or *InstancePreprocessFreezeRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessFreezeRecipe(c *Client, desired, actual *InstancePreprocessFreezeRecipe) bool {
@@ -40740,6 +50858,140 @@ func compareInstancePreprocessFreezeRecipeMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessFreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeSteps or *InstancePreprocessFreezeRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessFreezeRecipeSteps(c *Client, desired, actual *InstancePreprocessFreezeRecipeSteps) bool {
@@ -40849,6 +51101,49 @@ func compareInstancePreprocessFreezeRecipeStepsMap(c *Client, desired, actual ma
 	return false
 }
 
+func compareInstancePreprocessFreezeRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsStatus or *InstancePreprocessFreezeRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessFreezeRecipeStepsStatus(c *Client, desired, actual *InstancePreprocessFreezeRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -40904,6 +51199,42 @@ func compareInstancePreprocessFreezeRecipeStepsStatusMap(c *Client, desired, act
 	return false
 }
 
+func compareInstancePreprocessFreezeRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsStatusDetails or *InstancePreprocessFreezeRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessFreezeRecipeStepsStatusDetails(c *Client, desired, actual *InstancePreprocessFreezeRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -40953,6 +51284,42 @@ func compareInstancePreprocessFreezeRecipeStepsStatusDetailsMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas or *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas) bool {
@@ -41006,6 +51373,42 @@ func compareInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasMap(c *Client, 
 	return false
 }
 
+func compareInstancePreprocessFreezeRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsPreprocessUpdate or *InstancePreprocessFreezeRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessFreezeRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstancePreprocessFreezeRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -41055,6 +51458,49 @@ func compareInstancePreprocessFreezeRecipeStepsPreprocessUpdateMap(c *Client, de
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessFreezeRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsRequestedTenantProject or *InstancePreprocessFreezeRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessFreezeRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstancePreprocessFreezeRecipeStepsRequestedTenantProject) bool {
@@ -41110,6 +51556,56 @@ func compareInstancePreprocessFreezeRecipeStepsRequestedTenantProjectMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsPermissionsInfo or *InstancePreprocessFreezeRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessFreezeRecipeStepsPermissionsInfo(c *Client, desired, actual *InstancePreprocessFreezeRecipeStepsPermissionsInfo) bool {
@@ -41171,6 +51667,49 @@ func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoMap(c *Client, des
 	return false
 }
 
+func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName or *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -41226,6 +51765,35 @@ func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameMap(c *C
 	return false
 }
 
+func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions or *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -41273,6 +51841,12 @@ func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsMap(
 	return false
 }
 
+func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -41314,6 +51888,35 @@ func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrsMap(c *Cli
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate or *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate) bool {
@@ -41361,6 +51964,49 @@ func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -41418,6 +52064,35 @@ func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 	return false
 }
 
+func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -41465,6 +52140,35 @@ func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 	return false
 }
 
+func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -41510,6 +52214,84 @@ func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 		}
 	}
 	return false
+}
+
+func compareInstanceFreezeRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipe or *InstanceFreezeRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceFreezeRecipe(c *Client, desired, actual *InstanceFreezeRecipe) bool {
@@ -41585,6 +52367,140 @@ func compareInstanceFreezeRecipeMap(c *Client, desired, actual map[string]Instan
 		}
 	}
 	return false
+}
+
+func compareInstanceFreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeSteps or *InstanceFreezeRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceFreezeRecipeSteps(c *Client, desired, actual *InstanceFreezeRecipeSteps) bool {
@@ -41694,6 +52610,49 @@ func compareInstanceFreezeRecipeStepsMap(c *Client, desired, actual map[string]I
 	return false
 }
 
+func compareInstanceFreezeRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsStatus or *InstanceFreezeRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceFreezeRecipeStepsStatus(c *Client, desired, actual *InstanceFreezeRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -41749,6 +52708,42 @@ func compareInstanceFreezeRecipeStepsStatusMap(c *Client, desired, actual map[st
 	return false
 }
 
+func compareInstanceFreezeRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsStatusDetails or *InstanceFreezeRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceFreezeRecipeStepsStatusDetails(c *Client, desired, actual *InstanceFreezeRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -41798,6 +52793,42 @@ func compareInstanceFreezeRecipeStepsStatusDetailsMap(c *Client, desired, actual
 		}
 	}
 	return false
+}
+
+func compareInstanceFreezeRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsQuotaRequestDeltas or *InstanceFreezeRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceFreezeRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstanceFreezeRecipeStepsQuotaRequestDeltas) bool {
@@ -41851,6 +52882,42 @@ func compareInstanceFreezeRecipeStepsQuotaRequestDeltasMap(c *Client, desired, a
 	return false
 }
 
+func compareInstanceFreezeRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsPreprocessUpdate or *InstanceFreezeRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceFreezeRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstanceFreezeRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -41900,6 +52967,49 @@ func compareInstanceFreezeRecipeStepsPreprocessUpdateMap(c *Client, desired, act
 		}
 	}
 	return false
+}
+
+func compareInstanceFreezeRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsRequestedTenantProject or *InstanceFreezeRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceFreezeRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstanceFreezeRecipeStepsRequestedTenantProject) bool {
@@ -41955,6 +53065,56 @@ func compareInstanceFreezeRecipeStepsRequestedTenantProjectMap(c *Client, desire
 		}
 	}
 	return false
+}
+
+func compareInstanceFreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsPermissionsInfo or *InstanceFreezeRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceFreezeRecipeStepsPermissionsInfo(c *Client, desired, actual *InstanceFreezeRecipeStepsPermissionsInfo) bool {
@@ -42016,6 +53176,49 @@ func compareInstanceFreezeRecipeStepsPermissionsInfoMap(c *Client, desired, actu
 	return false
 }
 
+func compareInstanceFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsPermissionsInfoPolicyName or *InstanceFreezeRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceFreezeRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstanceFreezeRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -42071,6 +53274,35 @@ func compareInstanceFreezeRecipeStepsPermissionsInfoPolicyNameMap(c *Client, des
 	return false
 }
 
+func compareInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsPermissionsInfoIamPermissions or *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -42118,6 +53350,12 @@ func compareInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsMap(c *Client,
 	return false
 }
 
+func compareInstanceFreezeRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstanceFreezeRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstanceFreezeRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -42159,6 +53397,35 @@ func compareInstanceFreezeRecipeStepsPermissionsInfoApiAttrsMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsKeyNotificationsUpdate or *InstanceFreezeRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceFreezeRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstanceFreezeRecipeStepsKeyNotificationsUpdate) bool {
@@ -42206,6 +53473,49 @@ func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateMap(c *Client, desire
 		}
 	}
 	return false
+}
+
+func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -42263,6 +53573,35 @@ func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoM
 	return false
 }
 
+func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -42310,6 +53649,35 @@ func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 	return false
 }
 
+func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -42355,6 +53723,84 @@ func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUnfreezeRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipe or *InstancePreprocessUnfreezeRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUnfreezeRecipe(c *Client, desired, actual *InstancePreprocessUnfreezeRecipe) bool {
@@ -42430,6 +53876,140 @@ func compareInstancePreprocessUnfreezeRecipeMap(c *Client, desired, actual map[s
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUnfreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeSteps or *InstancePreprocessUnfreezeRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUnfreezeRecipeSteps(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeSteps) bool {
@@ -42539,6 +54119,49 @@ func compareInstancePreprocessUnfreezeRecipeStepsMap(c *Client, desired, actual 
 	return false
 }
 
+func compareInstancePreprocessUnfreezeRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsStatus or *InstancePreprocessUnfreezeRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUnfreezeRecipeStepsStatus(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -42594,6 +54217,42 @@ func compareInstancePreprocessUnfreezeRecipeStepsStatusMap(c *Client, desired, a
 	return false
 }
 
+func compareInstancePreprocessUnfreezeRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsStatusDetails or *InstancePreprocessUnfreezeRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUnfreezeRecipeStepsStatusDetails(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -42643,6 +54302,42 @@ func compareInstancePreprocessUnfreezeRecipeStepsStatusDetailsMap(c *Client, des
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas or *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas) bool {
@@ -42696,6 +54391,42 @@ func compareInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasMap(c *Client
 	return false
 }
 
+func compareInstancePreprocessUnfreezeRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate or *InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -42745,6 +54476,49 @@ func compareInstancePreprocessUnfreezeRecipeStepsPreprocessUpdateMap(c *Client, 
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject or *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject) bool {
@@ -42800,6 +54574,56 @@ func compareInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectMap(c *Cl
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsPermissionsInfo or *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo) bool {
@@ -42861,6 +54685,49 @@ func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoMap(c *Client, d
 	return false
 }
 
+func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName or *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -42916,6 +54783,35 @@ func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameMap(c 
 	return false
 }
 
+func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions or *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -42963,6 +54859,12 @@ func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsMa
 	return false
 }
 
+func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -43004,6 +54906,35 @@ func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrsMap(c *C
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate or *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate) bool {
@@ -43051,6 +54982,49 @@ func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateMap(c *Cl
 		}
 	}
 	return false
+}
+
+func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -43108,6 +55082,35 @@ func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 	return false
 }
 
+func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -43155,6 +55158,35 @@ func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 	return false
 }
 
+func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -43200,6 +55232,84 @@ func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 		}
 	}
 	return false
+}
+
+func compareInstanceUnfreezeRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipe or *InstanceUnfreezeRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUnfreezeRecipe(c *Client, desired, actual *InstanceUnfreezeRecipe) bool {
@@ -43275,6 +55385,140 @@ func compareInstanceUnfreezeRecipeMap(c *Client, desired, actual map[string]Inst
 		}
 	}
 	return false
+}
+
+func compareInstanceUnfreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeSteps or *InstanceUnfreezeRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUnfreezeRecipeSteps(c *Client, desired, actual *InstanceUnfreezeRecipeSteps) bool {
@@ -43384,6 +55628,49 @@ func compareInstanceUnfreezeRecipeStepsMap(c *Client, desired, actual map[string
 	return false
 }
 
+func compareInstanceUnfreezeRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsStatus or *InstanceUnfreezeRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUnfreezeRecipeStepsStatus(c *Client, desired, actual *InstanceUnfreezeRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -43439,6 +55726,42 @@ func compareInstanceUnfreezeRecipeStepsStatusMap(c *Client, desired, actual map[
 	return false
 }
 
+func compareInstanceUnfreezeRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsStatusDetails or *InstanceUnfreezeRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUnfreezeRecipeStepsStatusDetails(c *Client, desired, actual *InstanceUnfreezeRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -43488,6 +55811,42 @@ func compareInstanceUnfreezeRecipeStepsStatusDetailsMap(c *Client, desired, actu
 		}
 	}
 	return false
+}
+
+func compareInstanceUnfreezeRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsQuotaRequestDeltas or *InstanceUnfreezeRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstanceUnfreezeRecipeStepsQuotaRequestDeltas) bool {
@@ -43541,6 +55900,42 @@ func compareInstanceUnfreezeRecipeStepsQuotaRequestDeltasMap(c *Client, desired,
 	return false
 }
 
+func compareInstanceUnfreezeRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsPreprocessUpdate or *InstanceUnfreezeRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUnfreezeRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstanceUnfreezeRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -43590,6 +55985,49 @@ func compareInstanceUnfreezeRecipeStepsPreprocessUpdateMap(c *Client, desired, a
 		}
 	}
 	return false
+}
+
+func compareInstanceUnfreezeRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsRequestedTenantProject or *InstanceUnfreezeRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUnfreezeRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstanceUnfreezeRecipeStepsRequestedTenantProject) bool {
@@ -43645,6 +56083,56 @@ func compareInstanceUnfreezeRecipeStepsRequestedTenantProjectMap(c *Client, desi
 		}
 	}
 	return false
+}
+
+func compareInstanceUnfreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsPermissionsInfo or *InstanceUnfreezeRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUnfreezeRecipeStepsPermissionsInfo(c *Client, desired, actual *InstanceUnfreezeRecipeStepsPermissionsInfo) bool {
@@ -43706,6 +56194,49 @@ func compareInstanceUnfreezeRecipeStepsPermissionsInfoMap(c *Client, desired, ac
 	return false
 }
 
+func compareInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName or *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -43761,6 +56292,35 @@ func compareInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameMap(c *Client, d
 	return false
 }
 
+func compareInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions or *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -43808,6 +56368,12 @@ func compareInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsMap(c *Clien
 	return false
 }
 
+func compareInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -43849,6 +56415,35 @@ func compareInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrsMap(c *Client, des
 		}
 	}
 	return false
+}
+
+func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsKeyNotificationsUpdate or *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate) bool {
@@ -43896,6 +56491,49 @@ func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateMap(c *Client, desi
 		}
 	}
 	return false
+}
+
+func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -43953,6 +56591,35 @@ func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	return false
 }
 
+func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -44000,6 +56667,35 @@ func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	return false
 }
 
+func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -44045,6 +56741,84 @@ func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 		}
 	}
 	return false
+}
+
+func compareInstanceReadonlyRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipe)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipe or *InstanceReadonlyRecipe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipe)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsNewStyle}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceReadonlyRecipe(c *Client, desired, actual *InstanceReadonlyRecipe) bool {
@@ -44120,6 +56894,140 @@ func compareInstanceReadonlyRecipeMap(c *Client, desired, actual map[string]Inst
 		}
 	}
 	return false
+}
+
+func compareInstanceReadonlyRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeSteps or *InstanceReadonlyRecipeSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeSteps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsQuotaRequestDeltasNewStyle}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPreprocessUpdateNewStyle}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsRequestedTenantProjectNewStyle}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoNewStyle}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateNewStyle}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceReadonlyRecipeSteps(c *Client, desired, actual *InstanceReadonlyRecipeSteps) bool {
@@ -44229,6 +57137,49 @@ func compareInstanceReadonlyRecipeStepsMap(c *Client, desired, actual map[string
 	return false
 }
 
+func compareInstanceReadonlyRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeStepsStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsStatus or *InstanceReadonlyRecipeStepsStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeStepsStatus)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceReadonlyRecipeStepsStatus(c *Client, desired, actual *InstanceReadonlyRecipeStepsStatus) bool {
 	if desired == nil {
 		return false
@@ -44284,6 +57235,42 @@ func compareInstanceReadonlyRecipeStepsStatusMap(c *Client, desired, actual map[
 	return false
 }
 
+func compareInstanceReadonlyRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeStepsStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsStatusDetails or *InstanceReadonlyRecipeStepsStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeStepsStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceReadonlyRecipeStepsStatusDetails(c *Client, desired, actual *InstanceReadonlyRecipeStepsStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -44333,6 +57320,42 @@ func compareInstanceReadonlyRecipeStepsStatusDetailsMap(c *Client, desired, actu
 		}
 	}
 	return false
+}
+
+func compareInstanceReadonlyRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsQuotaRequestDeltas or *InstanceReadonlyRecipeStepsQuotaRequestDeltas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeStepsQuotaRequestDeltas)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsQuotaRequestDeltas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsQuotaRequestDeltas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceReadonlyRecipeStepsQuotaRequestDeltas(c *Client, desired, actual *InstanceReadonlyRecipeStepsQuotaRequestDeltas) bool {
@@ -44386,6 +57409,42 @@ func compareInstanceReadonlyRecipeStepsQuotaRequestDeltasMap(c *Client, desired,
 	return false
 }
 
+func compareInstanceReadonlyRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeStepsPreprocessUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsPreprocessUpdate or *InstanceReadonlyRecipeStepsPreprocessUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeStepsPreprocessUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsPreprocessUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsPreprocessUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceReadonlyRecipeStepsPreprocessUpdate(c *Client, desired, actual *InstanceReadonlyRecipeStepsPreprocessUpdate) bool {
 	if desired == nil {
 		return false
@@ -44435,6 +57494,49 @@ func compareInstanceReadonlyRecipeStepsPreprocessUpdateMap(c *Client, desired, a
 		}
 	}
 	return false
+}
+
+func compareInstanceReadonlyRecipeStepsRequestedTenantProjectNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeStepsRequestedTenantProject)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsRequestedTenantProject or *InstanceReadonlyRecipeStepsRequestedTenantProject", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeStepsRequestedTenantProject)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsRequestedTenantProject)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsRequestedTenantProject", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType"}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceReadonlyRecipeStepsRequestedTenantProject(c *Client, desired, actual *InstanceReadonlyRecipeStepsRequestedTenantProject) bool {
@@ -44490,6 +57592,56 @@ func compareInstanceReadonlyRecipeStepsRequestedTenantProjectMap(c *Client, desi
 		}
 	}
 	return false
+}
+
+func compareInstanceReadonlyRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeStepsPermissionsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsPermissionsInfo or *InstanceReadonlyRecipeStepsPermissionsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeStepsPermissionsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsPermissionsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsPermissionsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameNewStyle}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsNewStyle}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoApiAttrsNewStyle}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceReadonlyRecipeStepsPermissionsInfo(c *Client, desired, actual *InstanceReadonlyRecipeStepsPermissionsInfo) bool {
@@ -44551,6 +57703,49 @@ func compareInstanceReadonlyRecipeStepsPermissionsInfoMap(c *Client, desired, ac
 	return false
 }
 
+func compareInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsPermissionsInfoPolicyName or *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeStepsPermissionsInfoPolicyName)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsPermissionsInfoPolicyName)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsPermissionsInfoPolicyName", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(c *Client, desired, actual *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName) bool {
 	if desired == nil {
 		return false
@@ -44606,6 +57801,35 @@ func compareInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameMap(c *Client, d
 	return false
 }
 
+func compareInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions or *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(c *Client, desired, actual *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions) bool {
 	if desired == nil {
 		return false
@@ -44653,6 +57877,12 @@ func compareInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsMap(c *Clien
 	return false
 }
 
+func compareInstanceReadonlyRecipeStepsPermissionsInfoApiAttrsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	return diffs, nil
+}
+
 func compareInstanceReadonlyRecipeStepsPermissionsInfoApiAttrs(c *Client, desired, actual *InstanceReadonlyRecipeStepsPermissionsInfoApiAttrs) bool {
 	if desired == nil {
 		return false
@@ -44694,6 +57924,35 @@ func compareInstanceReadonlyRecipeStepsPermissionsInfoApiAttrsMap(c *Client, des
 		}
 	}
 	return false
+}
+
+func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsKeyNotificationsUpdate or *InstanceReadonlyRecipeStepsKeyNotificationsUpdate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeStepsKeyNotificationsUpdate)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsKeyNotificationsUpdate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsKeyNotificationsUpdate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdate(c *Client, desired, actual *InstanceReadonlyRecipeStepsKeyNotificationsUpdate) bool {
@@ -44741,6 +58000,49 @@ func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateMap(c *Client, desi
 		}
 	}
 	return false
+}
+
+func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo or *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c *Client, desired, actual *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) bool {
@@ -44798,6 +58100,35 @@ func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	return false
 }
 
+func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, desired, actual *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) bool {
 	if desired == nil {
 		return false
@@ -44845,6 +58176,35 @@ func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	return false
 }
 
+func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, desired, actual *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) bool {
 	if desired == nil {
 		return false
@@ -44890,6 +58250,77 @@ func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 		}
 	}
 	return false
+}
+
+func compareInstanceHistoryNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceHistory)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceHistory)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceHistory or *InstanceHistory", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceHistory)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceHistory)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceHistory", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Timestamp, actual.Timestamp, dcl.Info{}, fn.AddNest("Timestamp")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OperationHandle, actual.OperationHandle, dcl.Info{}, fn.AddNest("OperationHandle")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.StepIndex, actual.StepIndex, dcl.Info{}, fn.AddNest("StepIndex")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TenantProjectNumber, actual.TenantProjectNumber, dcl.Info{}, fn.AddNest("TenantProjectNumber")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TenantProjectId, actual.TenantProjectId, dcl.Info{}, fn.AddNest("TenantProjectId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareInstanceHistory(c *Client, desired, actual *InstanceHistory) bool {

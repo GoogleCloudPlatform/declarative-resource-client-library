@@ -162,12 +162,12 @@ func getMembershipSpecs(ctx context.Context, r *FeatureMembership, c *Client) (m
 // Return the full key for a given FeatureMembership's entry in the membershipSpecs field.
 func membershipSpecKey(r *FeatureMembership) string {
 	params := map[string]interface{}{
-		"project_number": dcl.ValueOrEmptyString(r.ProjectNumber),
-		"location":       dcl.ValueOrEmptyString(r.Location),
-		"membership":     dcl.ValueOrEmptyString(r.Membership),
+		"project":    dcl.ValueOrEmptyString(r.Project),
+		"location":   dcl.ValueOrEmptyString(r.Location),
+		"membership": dcl.ValueOrEmptyString(r.Membership),
 	}
 
-	return dcl.Nprintf("projects/{{project_number}}/locations/{{location}}/memberships/{{membership}}", params)
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/memberships/{{membership}}", params)
 }
 
 // Find and return the key and value in membershipSpecs matching the given membership.
@@ -351,7 +351,7 @@ func (op *deleteFeatureMembershipOperation) do(ctx context.Context, r *FeatureMe
 	if err != nil {
 		return err
 	}
-	delete(membershipSpecs, key)
+	membershipSpecs[key] = map[string]interface{}{}
 	req := map[string]interface{}{
 		"membershipSpecs": membershipSpecs,
 	}

@@ -604,65 +604,83 @@ func diffNetwork(c *Client, desired, actual *Network, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []networkDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.GatewayIPv4, actual.GatewayIPv4, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "gateway_ipv4"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GatewayIPv4, actual.GatewayIPv4, dcl.Info{OutputOnly: true}, fn.AddNest("GatewayIPv4")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "GatewayIPv4",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.IPv4Range, actual.IPv4Range, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ipv4_range"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPv4Range, actual.IPv4Range, dcl.Info{OutputOnly: true}, fn.AddNest("IPv4Range")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "IPv4Range",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.AutoCreateSubnetworks, actual.AutoCreateSubnetworks, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "auto_create_subnetworks"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoCreateSubnetworks, actual.AutoCreateSubnetworks, dcl.Info{}, fn.AddNest("AutoCreateSubnetworks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "AutoCreateSubnetworks",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RoutingConfig, actual.RoutingConfig, dcl.Info{ObjectFunction: compareNetworkRoutingConfigNewStyle}, fn.AddNest("RoutingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareNetworkRoutingConfig(c, desired.RoutingConfig, actual.RoutingConfig) {
-		c.Config.Logger.Infof("Detected diff in RoutingConfig.\nDESIRED: %v\nACTUAL: %v", desired.RoutingConfig, actual.RoutingConfig)
-
 		diffs = append(diffs, networkDiff{
-			UpdateOp:  &updateNetworkUpdateOperation{},
+			UpdateOp: &updateNetworkUpdateOperation{}, Diffs: ds,
 			FieldName: "RoutingConfig",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -687,6 +705,35 @@ func diffNetwork(c *Client, desired, actual *Network, opts ...dcl.ApplyOption) (
 
 	return deduped, nil
 }
+func compareNetworkRoutingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NetworkRoutingConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(NetworkRoutingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NetworkRoutingConfig or *NetworkRoutingConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NetworkRoutingConfig)
+	if !ok {
+		actualNotPointer, ok := a.(NetworkRoutingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NetworkRoutingConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RoutingMode, actual.RoutingMode, dcl.Info{Type: "EnumType"}, fn.AddNest("RoutingMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNetworkRoutingConfig(c *Client, desired, actual *NetworkRoutingConfig) bool {
 	if desired == nil {
 		return false

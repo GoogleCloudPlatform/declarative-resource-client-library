@@ -492,49 +492,72 @@ func diffHmacKey(c *Client, desired, actual *HmacKey, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []hmacKeyDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.TimeCreated, actual.TimeCreated, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "time_created"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Updated, actual.Updated, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "updated"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeCreated, actual.TimeCreated, dcl.Info{OutputOnly: true}, fn.AddNest("TimeCreated")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "TimeCreated",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "secret"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Updated, actual.Updated, dcl.Info{OutputOnly: true}, fn.AddNest("Updated")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Updated",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{OutputOnly: true}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Secret",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, hmacKeyDiff{
 			UpdateOp: &updateHmacKeyUpdateOperation{}, Diffs: ds,
+			FieldName: "State",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "service_account_email"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, dcl.Info{}, fn.AddNest("ServiceAccountEmail")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ServiceAccountEmail",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

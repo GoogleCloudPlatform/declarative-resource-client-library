@@ -1025,186 +1025,226 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []functionDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
 			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
+			FieldName: "Description",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.SourceArchiveUrl, actual.SourceArchiveUrl, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_archive_url"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceArchiveUrl, actual.SourceArchiveUrl, dcl.Info{}, fn.AddNest("SourceArchiveUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceArchiveUrl",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "status"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceRepository, actual.SourceRepository, dcl.Info{ObjectFunction: compareFunctionSourceRepositoryNewStyle}, fn.AddNest("SourceRepository")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceRepository",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.EntryPoint, actual.EntryPoint, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "entry_point"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpsTrigger, actual.HttpsTrigger, dcl.Info{ObjectFunction: compareFunctionHttpsTriggerNewStyle}, fn.AddNest("HttpsTrigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "HttpsTrigger",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Runtime, actual.Runtime, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "runtime"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EventTrigger, actual.EventTrigger, dcl.Info{ObjectFunction: compareFunctionEventTriggerNewStyle}, fn.AddNest("EventTrigger")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "EventTrigger",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Status",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.EntryPoint, actual.EntryPoint, dcl.Info{}, fn.AddNest("EntryPoint")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "EntryPoint",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Runtime, actual.Runtime, dcl.Info{}, fn.AddNest("Runtime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
 			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
+			FieldName: "Runtime",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Timeout, actual.Timeout, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "timeout"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Timeout, actual.Timeout, dcl.Info{}, fn.AddNest("Timeout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
 			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
+			FieldName: "Timeout",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.AvailableMemoryMb, actual.AvailableMemoryMb, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "available_memory_mb"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AvailableMemoryMb, actual.AvailableMemoryMb, dcl.Info{}, fn.AddNest("AvailableMemoryMb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
 			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
+			FieldName: "AvailableMemoryMb",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "service_account_email"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, dcl.Info{Type: "ReferenceType"}, fn.AddNest("ServiceAccountEmail")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ServiceAccountEmail",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpdateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.VersionId, actual.VersionId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "version_id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VersionId, actual.VersionId, dcl.Info{OutputOnly: true}, fn.AddNest("VersionId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "VersionId",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
 			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
+			FieldName: "Labels",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.EnvironmentVariables, actual.EnvironmentVariables, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "environment_variables"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnvironmentVariables, actual.EnvironmentVariables, dcl.Info{}, fn.AddNest("EnvironmentVariables")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
 			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
+			FieldName: "EnvironmentVariables",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "network"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.MaxInstances, actual.MaxInstances, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "max_instances"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, functionDiff{
-			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Network",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.VPCConnector, actual.VPCConnector, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "vpc_connector"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.VPCConnectorEgressSettings, actual.VPCConnectorEgressSettings, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "vpc_connector_egress_settings"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxInstances, actual.MaxInstances, dcl.Info{}, fn.AddNest("MaxInstances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
 			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
+			FieldName: "MaxInstances",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.IngressSettings, actual.IngressSettings, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "ingress_settings"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VPCConnector, actual.VPCConnector, dcl.Info{Type: "ReferenceType"}, fn.AddNest("VPCConnector")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "VPCConnector",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.VPCConnectorEgressSettings, actual.VPCConnectorEgressSettings, dcl.Info{Type: "EnumType"}, fn.AddNest("VPCConnectorEgressSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, functionDiff{
 			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
+			FieldName: "VPCConnectorEgressSettings",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IngressSettings, actual.IngressSettings, dcl.Info{Type: "EnumType"}, fn.AddNest("IngressSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, functionDiff{
+			UpdateOp: &updateFunctionUpdateOperation{}, Diffs: ds,
+			FieldName: "IngressSettings",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Region",
+		})
 	}
 
-	if compareFunctionSourceRepository(c, desired.SourceRepository, actual.SourceRepository) {
-		c.Config.Logger.Infof("Detected diff in SourceRepository.\nDESIRED: %v\nACTUAL: %v", desired.SourceRepository, actual.SourceRepository)
-		diffs = append(diffs, functionDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceRepository",
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, functionDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
 		})
 	}
-	if compareFunctionHttpsTrigger(c, desired.HttpsTrigger, actual.HttpsTrigger) {
-		c.Config.Logger.Infof("Detected diff in HttpsTrigger.\nDESIRED: %v\nACTUAL: %v", desired.HttpsTrigger, actual.HttpsTrigger)
-		diffs = append(diffs, functionDiff{
-			RequiresRecreate: true,
-			FieldName:        "HttpsTrigger",
-		})
-	}
-	if compareFunctionEventTrigger(c, desired.EventTrigger, actual.EventTrigger) {
-		c.Config.Logger.Infof("Detected diff in EventTrigger.\nDESIRED: %v\nACTUAL: %v", desired.EventTrigger, actual.EventTrigger)
-		diffs = append(diffs, functionDiff{
-			RequiresRecreate: true,
-			FieldName:        "EventTrigger",
-		})
-	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -1229,6 +1269,42 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 
 	return deduped, nil
 }
+func compareFunctionSourceRepositoryNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FunctionSourceRepository)
+	if !ok {
+		desiredNotPointer, ok := d.(FunctionSourceRepository)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FunctionSourceRepository or *FunctionSourceRepository", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FunctionSourceRepository)
+	if !ok {
+		actualNotPointer, ok := a.(FunctionSourceRepository)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FunctionSourceRepository", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DeployedUrl, actual.DeployedUrl, dcl.Info{OutputOnly: true}, fn.AddNest("DeployedUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareFunctionSourceRepository(c *Client, desired, actual *FunctionSourceRepository) bool {
 	if desired == nil {
 		return false
@@ -1276,6 +1352,35 @@ func compareFunctionSourceRepositoryMap(c *Client, desired, actual map[string]Fu
 	return false
 }
 
+func compareFunctionHttpsTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FunctionHttpsTrigger)
+	if !ok {
+		desiredNotPointer, ok := d.(FunctionHttpsTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FunctionHttpsTrigger or *FunctionHttpsTrigger", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FunctionHttpsTrigger)
+	if !ok {
+		actualNotPointer, ok := a.(FunctionHttpsTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FunctionHttpsTrigger", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OutputOnly: true}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareFunctionHttpsTrigger(c *Client, desired, actual *FunctionHttpsTrigger) bool {
 	if desired == nil {
 		return false
@@ -1317,6 +1422,56 @@ func compareFunctionHttpsTriggerMap(c *Client, desired, actual map[string]Functi
 		}
 	}
 	return false
+}
+
+func compareFunctionEventTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FunctionEventTrigger)
+	if !ok {
+		desiredNotPointer, ok := d.(FunctionEventTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FunctionEventTrigger or *FunctionEventTrigger", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FunctionEventTrigger)
+	if !ok {
+		actualNotPointer, ok := a.(FunctionEventTrigger)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FunctionEventTrigger", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EventType, actual.EventType, dcl.Info{}, fn.AddNest("EventType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Resource, actual.Resource, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Resource")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FailurePolicy, actual.FailurePolicy, dcl.Info{}, fn.AddNest("FailurePolicy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareFunctionEventTrigger(c *Client, desired, actual *FunctionEventTrigger) bool {

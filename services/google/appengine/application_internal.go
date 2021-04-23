@@ -685,97 +685,121 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 	}
 
 	var diffs []applicationDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.AuthDomain, actual.AuthDomain, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "auth_domain"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AuthDomain, actual.AuthDomain, dcl.Info{}, fn.AddNest("AuthDomain")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, applicationDiff{
 			UpdateOp: &updateApplicationUpdateApplicationOperation{}, Diffs: ds,
+			FieldName: "AuthDomain",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.CodeBucket, actual.CodeBucket, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "code_bucket"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CodeBucket, actual.CodeBucket, dcl.Info{OutputOnly: true}, fn.AddNest("CodeBucket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CodeBucket",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.DatabaseType, actual.DatabaseType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "database_type"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DatabaseType, actual.DatabaseType, dcl.Info{Type: "EnumType"}, fn.AddNest("DatabaseType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DatabaseType",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultBucket, actual.DefaultBucket, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "default_bucket"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultBucket, actual.DefaultBucket, dcl.Info{OutputOnly: true}, fn.AddNest("DefaultBucket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DefaultBucket",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultHostname, actual.DefaultHostname, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "default_hostname"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultHostname, actual.DefaultHostname, dcl.Info{OutputOnly: true}, fn.AddNest("DefaultHostname")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DefaultHostname",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.GcrDomain, actual.GcrDomain, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "gcr_domain"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DispatchRules, actual.DispatchRules, dcl.Info{ObjectFunction: compareApplicationDispatchRulesNewStyle}, fn.AddNest("DispatchRules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DispatchRules",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.ServingStatus, actual.ServingStatus, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "serving_status"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FeatureSettings, actual.FeatureSettings, dcl.Info{ObjectFunction: compareApplicationFeatureSettingsNewStyle}, fn.AddNest("FeatureSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, applicationDiff{
 			UpdateOp: &updateApplicationUpdateApplicationOperation{}, Diffs: ds,
-		})
-	}
-
-	if compareApplicationDispatchRulesSlice(c, desired.DispatchRules, actual.DispatchRules) {
-		c.Config.Logger.Infof("Detected diff in DispatchRules.\nDESIRED: %v\nACTUAL: %v", desired.DispatchRules, actual.DispatchRules)
-		diffs = append(diffs, applicationDiff{
-			RequiresRecreate: true,
-			FieldName:        "DispatchRules",
-		})
-	}
-	if compareApplicationFeatureSettings(c, desired.FeatureSettings, actual.FeatureSettings) {
-		c.Config.Logger.Infof("Detected diff in FeatureSettings.\nDESIRED: %v\nACTUAL: %v", desired.FeatureSettings, actual.FeatureSettings)
-
-		diffs = append(diffs, applicationDiff{
-			UpdateOp:  &updateApplicationUpdateApplicationOperation{},
 			FieldName: "FeatureSettings",
 		})
-
 	}
-	if compareApplicationIap(c, desired.Iap, actual.Iap) {
-		c.Config.Logger.Infof("Detected diff in Iap.\nDESIRED: %v\nACTUAL: %v", desired.Iap, actual.Iap)
-		diffs = append(diffs, applicationDiff{
-			RequiresRecreate: true,
-			FieldName:        "Iap",
+
+	if ds, err := dcl.Diff(desired.GcrDomain, actual.GcrDomain, dcl.Info{}, fn.AddNest("GcrDomain")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "GcrDomain",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.Iap, actual.Iap, dcl.Info{ObjectFunction: compareApplicationIapNewStyle}, fn.AddNest("Iap")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Iap",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, applicationDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ServingStatus, actual.ServingStatus, dcl.Info{Type: "EnumType"}, fn.AddNest("ServingStatus")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, applicationDiff{
+			UpdateOp: &updateApplicationUpdateApplicationOperation{}, Diffs: ds,
+			FieldName: "ServingStatus",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -800,6 +824,49 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 
 	return deduped, nil
 }
+func compareApplicationDispatchRulesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ApplicationDispatchRules)
+	if !ok {
+		desiredNotPointer, ok := d.(ApplicationDispatchRules)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ApplicationDispatchRules or *ApplicationDispatchRules", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ApplicationDispatchRules)
+	if !ok {
+		actualNotPointer, ok := a.(ApplicationDispatchRules)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ApplicationDispatchRules", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Domain, actual.Domain, dcl.Info{}, fn.AddNest("Domain")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareApplicationDispatchRules(c *Client, desired, actual *ApplicationDispatchRules) bool {
 	if desired == nil {
 		return false
@@ -855,6 +922,42 @@ func compareApplicationDispatchRulesMap(c *Client, desired, actual map[string]Ap
 	return false
 }
 
+func compareApplicationFeatureSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ApplicationFeatureSettings)
+	if !ok {
+		desiredNotPointer, ok := d.(ApplicationFeatureSettings)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ApplicationFeatureSettings or *ApplicationFeatureSettings", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ApplicationFeatureSettings)
+	if !ok {
+		actualNotPointer, ok := a.(ApplicationFeatureSettings)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ApplicationFeatureSettings", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.SplitHealthChecks, actual.SplitHealthChecks, dcl.Info{}, fn.AddNest("SplitHealthChecks")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UseContainerOptimizedOs, actual.UseContainerOptimizedOs, dcl.Info{}, fn.AddNest("UseContainerOptimizedOs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareApplicationFeatureSettings(c *Client, desired, actual *ApplicationFeatureSettings) bool {
 	if desired == nil {
 		return false
@@ -904,6 +1007,56 @@ func compareApplicationFeatureSettingsMap(c *Client, desired, actual map[string]
 		}
 	}
 	return false
+}
+
+func compareApplicationIapNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ApplicationIap)
+	if !ok {
+		desiredNotPointer, ok := d.(ApplicationIap)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ApplicationIap or *ApplicationIap", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ApplicationIap)
+	if !ok {
+		actualNotPointer, ok := a.(ApplicationIap)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ApplicationIap", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OAuth2ClientId, actual.OAuth2ClientId, dcl.Info{}, fn.AddNest("OAuth2ClientId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OAuth2ClientSecret, actual.OAuth2ClientSecret, dcl.Info{}, fn.AddNest("OAuth2ClientSecret")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OAuth2ClientSecretSha256, actual.OAuth2ClientSecretSha256, dcl.Info{OutputOnly: true}, fn.AddNest("OAuth2ClientSecretSha256")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareApplicationIap(c *Client, desired, actual *ApplicationIap) bool {

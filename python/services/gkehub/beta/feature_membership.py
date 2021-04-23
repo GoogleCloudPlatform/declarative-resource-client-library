@@ -27,7 +27,6 @@ class FeatureMembership(object):
         feature: str = None,
         location: str = None,
         project: str = None,
-        project_number: str = None,
         configmanagement: dict = None,
         service_account_file: str = "",
     ):
@@ -37,7 +36,6 @@ class FeatureMembership(object):
         self.feature = feature
         self.location = location
         self.project = project
-        self.project_number = project_number
         self.configmanagement = configmanagement
         self.service_account_file = service_account_file
 
@@ -58,9 +56,6 @@ class FeatureMembership(object):
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
-        if Primitive.to_proto(self.project_number):
-            request.resource.project_number = Primitive.to_proto(self.project_number)
-
         if FeatureMembershipConfigmanagement.to_proto(self.configmanagement):
             request.resource.configmanagement.CopyFrom(
                 FeatureMembershipConfigmanagement.to_proto(self.configmanagement)
@@ -74,7 +69,6 @@ class FeatureMembership(object):
         self.feature = Primitive.from_proto(response.feature)
         self.location = Primitive.from_proto(response.location)
         self.project = Primitive.from_proto(response.project)
-        self.project_number = Primitive.from_proto(response.project_number)
         self.configmanagement = FeatureMembershipConfigmanagement.from_proto(
             response.configmanagement
         )
@@ -96,9 +90,6 @@ class FeatureMembership(object):
 
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
-
-        if Primitive.to_proto(self.project_number):
-            request.resource.project_number = Primitive.to_proto(self.project_number)
 
         if FeatureMembershipConfigmanagement.to_proto(self.configmanagement):
             request.resource.configmanagement.CopyFrom(
@@ -134,7 +125,6 @@ class FeatureMembership(object):
         res.feature = Primitive.from_proto(res_proto.feature)
         res.location = Primitive.from_proto(res_proto.location)
         res.project = Primitive.from_proto(res_proto.project)
-        res.project_number = Primitive.from_proto(res_proto.project_number)
         res.configmanagement = FeatureMembershipConfigmanagement.from_proto(
             res_proto.configmanagement
         )
@@ -150,8 +140,6 @@ class FeatureMembership(object):
             resource.location = Primitive.to_proto(self.location)
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
-        if Primitive.to_proto(self.project_number):
-            resource.project_number = Primitive.to_proto(self.project_number)
         if FeatureMembershipConfigmanagement.to_proto(self.configmanagement):
             resource.configmanagement.CopyFrom(
                 FeatureMembershipConfigmanagement.to_proto(self.configmanagement)

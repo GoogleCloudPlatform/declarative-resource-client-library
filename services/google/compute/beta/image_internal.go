@@ -1843,195 +1843,246 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 	}
 
 	var diffs []imageDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.ArchiveSizeBytes, actual.ArchiveSizeBytes, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "archive_size_bytes"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArchiveSizeBytes, actual.ArchiveSizeBytes, dcl.Info{OutputOnly: true}, fn.AddNest("ArchiveSizeBytes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ArchiveSizeBytes",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "disk_size_gb"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DiskSizeGb",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Family, actual.Family, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "family"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Family, actual.Family, dcl.Info{}, fn.AddNest("Family")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Family",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GuestOsFeature, actual.GuestOsFeature, dcl.Info{Type: "Set", ObjectFunction: compareImageGuestOsFeatureNewStyle}, fn.AddNest("GuestOsFeature")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "GuestOsFeature",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ImageEncryptionKey, actual.ImageEncryptionKey, dcl.Info{ObjectFunction: compareImageImageEncryptionKeyNewStyle}, fn.AddNest("ImageEncryptionKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ImageEncryptionKey",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, imageDiff{
 			UpdateOp: &updateImageSetLabelsOperation{}, Diffs: ds,
+			FieldName: "Labels",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.License, actual.License, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "license"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.License, actual.License, dcl.Info{}, fn.AddNest("License")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_disk"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SourceDiskId, actual.SourceDiskId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_disk_id"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SourceImage, actual.SourceImage, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_image"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SourceImageId, actual.SourceImageId, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_image_id"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SourceSnapshot, actual.SourceSnapshot, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_snapshot"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SourceSnapshotId, actual.SourceSnapshotId, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "source_snapshot_id"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SourceType, actual.SourceType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "source_type"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "status"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.StorageLocation, actual.StorageLocation, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "storage_location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareImageGuestOsFeatureSlice(c, desired.GuestOsFeature, actual.GuestOsFeature) {
-		c.Config.Logger.Infof("Detected diff in GuestOsFeature.\nDESIRED: %v\nACTUAL: %v", desired.GuestOsFeature, actual.GuestOsFeature)
-		toAdd, toRemove := compareImageGuestOsFeatureSets(c, desired.GuestOsFeature, actual.GuestOsFeature)
-		if len(toAdd) > 0 {
-			diffs = append(diffs, imageDiff{
-				RequiresRecreate: true,
-				FieldName:        "GuestOsFeature",
-			})
-		}
-		if len(toRemove) > 0 {
-			diffs = append(diffs, imageDiff{
-				RequiresRecreate: true,
-				FieldName:        "GuestOsFeature",
-			})
-		}
-	}
-	if compareImageImageEncryptionKey(c, desired.ImageEncryptionKey, actual.ImageEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in ImageEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.ImageEncryptionKey, actual.ImageEncryptionKey)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "ImageEncryptionKey",
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "License",
 		})
 	}
-	if compareImageShieldedInstanceInitialState(c, desired.ShieldedInstanceInitialState, actual.ShieldedInstanceInitialState) {
-		c.Config.Logger.Infof("Detected diff in ShieldedInstanceInitialState.\nDESIRED: %v\nACTUAL: %v", desired.ShieldedInstanceInitialState, actual.ShieldedInstanceInitialState)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "ShieldedInstanceInitialState",
-		})
-	}
-	if compareImageSourceDiskEncryptionKey(c, desired.SourceDiskEncryptionKey, actual.SourceDiskEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in SourceDiskEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.SourceDiskEncryptionKey, actual.SourceDiskEncryptionKey)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceDiskEncryptionKey",
-		})
-	}
-	if compareImageSourceImageEncryptionKey(c, desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in SourceImageEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceImageEncryptionKey",
-		})
-	}
-	if compareImageSourceSnapshotEncryptionKey(c, desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey) {
-		c.Config.Logger.Infof("Detected diff in SourceSnapshotEncryptionKey.\nDESIRED: %v\nACTUAL: %v", desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey)
-		diffs = append(diffs, imageDiff{
-			RequiresRecreate: true,
-			FieldName:        "SourceSnapshotEncryptionKey",
-		})
-	}
-	if compareImageDeprecated(c, desired.Deprecated, actual.Deprecated) {
-		c.Config.Logger.Infof("Detected diff in Deprecated.\nDESIRED: %v\nACTUAL: %v", desired.Deprecated, actual.Deprecated)
 
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.RawDisk, actual.RawDisk, dcl.Info{Ignore: true, ObjectFunction: compareImageRawDiskNewStyle}, fn.AddNest("RawDisk")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "RawDisk",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ShieldedInstanceInitialState, actual.ShieldedInstanceInitialState, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStateNewStyle}, fn.AddNest("ShieldedInstanceInitialState")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ShieldedInstanceInitialState",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, dcl.Info{}, fn.AddNest("SourceDisk")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceDisk",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceDiskEncryptionKey, actual.SourceDiskEncryptionKey, dcl.Info{ObjectFunction: compareImageSourceDiskEncryptionKeyNewStyle}, fn.AddNest("SourceDiskEncryptionKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceDiskEncryptionKey",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceDiskId, actual.SourceDiskId, dcl.Info{OutputOnly: true}, fn.AddNest("SourceDiskId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceDiskId",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceImage, actual.SourceImage, dcl.Info{}, fn.AddNest("SourceImage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceImage",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey, dcl.Info{ObjectFunction: compareImageSourceImageEncryptionKeyNewStyle}, fn.AddNest("SourceImageEncryptionKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceImageEncryptionKey",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceImageId, actual.SourceImageId, dcl.Info{}, fn.AddNest("SourceImageId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceImageId",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceSnapshot, actual.SourceSnapshot, dcl.Info{}, fn.AddNest("SourceSnapshot")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceSnapshot",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey, dcl.Info{ObjectFunction: compareImageSourceSnapshotEncryptionKeyNewStyle}, fn.AddNest("SourceSnapshotEncryptionKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceSnapshotEncryptionKey",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceSnapshotId, actual.SourceSnapshotId, dcl.Info{}, fn.AddNest("SourceSnapshotId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceSnapshotId",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SourceType, actual.SourceType, dcl.Info{Type: "EnumType"}, fn.AddNest("SourceType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SourceType",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Status",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.StorageLocation, actual.StorageLocation, dcl.Info{}, fn.AddNest("StorageLocation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "StorageLocation",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Deprecated, actual.Deprecated, dcl.Info{ObjectFunction: compareImageDeprecatedNewStyle}, fn.AddNest("Deprecated")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, imageDiff{
-			UpdateOp:  &updateImageDeprecateOperation{},
+			UpdateOp: &updateImageDeprecateOperation{}, Diffs: ds,
 			FieldName: "Deprecated",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, imageDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -2056,6 +2107,35 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 
 	return deduped, nil
 }
+func compareImageGuestOsFeatureNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ImageGuestOsFeature)
+	if !ok {
+		desiredNotPointer, ok := d.(ImageGuestOsFeature)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageGuestOsFeature or *ImageGuestOsFeature", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ImageGuestOsFeature)
+	if !ok {
+		actualNotPointer, ok := a.(ImageGuestOsFeature)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageGuestOsFeature", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareImageGuestOsFeature(c *Client, desired, actual *ImageGuestOsFeature) bool {
 	if desired == nil {
 		return false
@@ -2152,6 +2232,56 @@ func compareImageGuestOsFeatureSets(c *Client, desired, actual []ImageGuestOsFea
 	return toAdd, toRemove
 }
 
+func compareImageImageEncryptionKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ImageImageEncryptionKey)
+	if !ok {
+		desiredNotPointer, ok := d.(ImageImageEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageImageEncryptionKey or *ImageImageEncryptionKey", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ImageImageEncryptionKey)
+	if !ok {
+		actualNotPointer, ok := a.(ImageImageEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageImageEncryptionKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RawKey, actual.RawKey, dcl.Info{}, fn.AddNest("RawKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Sha256, actual.Sha256, dcl.Info{}, fn.AddNest("Sha256")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyServiceAccount, actual.KmsKeyServiceAccount, dcl.Info{}, fn.AddNest("KmsKeyServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareImageImageEncryptionKey(c *Client, desired, actual *ImageImageEncryptionKey) bool {
 	if desired == nil {
 		return false
@@ -2211,6 +2341,49 @@ func compareImageImageEncryptionKeyMap(c *Client, desired, actual map[string]Ima
 	return false
 }
 
+func compareImageRawDiskNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ImageRawDisk)
+	if !ok {
+		desiredNotPointer, ok := d.(ImageRawDisk)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageRawDisk or *ImageRawDisk", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ImageRawDisk)
+	if !ok {
+		actualNotPointer, ok := a.(ImageRawDisk)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageRawDisk", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Sha1Checksum, actual.Sha1Checksum, dcl.Info{}, fn.AddNest("Sha1Checksum")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ContainerType, actual.ContainerType, dcl.Info{Type: "EnumType"}, fn.AddNest("ContainerType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareImageRawDisk(c *Client, desired, actual *ImageRawDisk) bool {
 	if desired == nil {
 		return false
@@ -2264,6 +2437,56 @@ func compareImageRawDiskMap(c *Client, desired, actual map[string]ImageRawDisk) 
 		}
 	}
 	return false
+}
+
+func compareImageShieldedInstanceInitialStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ImageShieldedInstanceInitialState)
+	if !ok {
+		desiredNotPointer, ok := d.(ImageShieldedInstanceInitialState)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageShieldedInstanceInitialState or *ImageShieldedInstanceInitialState", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ImageShieldedInstanceInitialState)
+	if !ok {
+		actualNotPointer, ok := a.(ImageShieldedInstanceInitialState)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageShieldedInstanceInitialState", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Pk, actual.Pk, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStatePkNewStyle}, fn.AddNest("Pk")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Kek, actual.Kek, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStateKekNewStyle}, fn.AddNest("Kek")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Db, actual.Db, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStateDbNewStyle}, fn.AddNest("Db")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Dbx, actual.Dbx, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStateDbxNewStyle}, fn.AddNest("Dbx")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareImageShieldedInstanceInitialState(c *Client, desired, actual *ImageShieldedInstanceInitialState) bool {
@@ -2325,6 +2548,42 @@ func compareImageShieldedInstanceInitialStateMap(c *Client, desired, actual map[
 	return false
 }
 
+func compareImageShieldedInstanceInitialStatePkNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ImageShieldedInstanceInitialStatePk)
+	if !ok {
+		desiredNotPointer, ok := d.(ImageShieldedInstanceInitialStatePk)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageShieldedInstanceInitialStatePk or *ImageShieldedInstanceInitialStatePk", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ImageShieldedInstanceInitialStatePk)
+	if !ok {
+		actualNotPointer, ok := a.(ImageShieldedInstanceInitialStatePk)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageShieldedInstanceInitialStatePk", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FileType, actual.FileType, dcl.Info{Type: "EnumType"}, fn.AddNest("FileType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareImageShieldedInstanceInitialStatePk(c *Client, desired, actual *ImageShieldedInstanceInitialStatePk) bool {
 	if desired == nil {
 		return false
@@ -2374,6 +2633,42 @@ func compareImageShieldedInstanceInitialStatePkMap(c *Client, desired, actual ma
 		}
 	}
 	return false
+}
+
+func compareImageShieldedInstanceInitialStateKekNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ImageShieldedInstanceInitialStateKek)
+	if !ok {
+		desiredNotPointer, ok := d.(ImageShieldedInstanceInitialStateKek)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageShieldedInstanceInitialStateKek or *ImageShieldedInstanceInitialStateKek", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ImageShieldedInstanceInitialStateKek)
+	if !ok {
+		actualNotPointer, ok := a.(ImageShieldedInstanceInitialStateKek)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageShieldedInstanceInitialStateKek", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FileType, actual.FileType, dcl.Info{Type: "EnumType"}, fn.AddNest("FileType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareImageShieldedInstanceInitialStateKek(c *Client, desired, actual *ImageShieldedInstanceInitialStateKek) bool {
@@ -2427,6 +2722,42 @@ func compareImageShieldedInstanceInitialStateKekMap(c *Client, desired, actual m
 	return false
 }
 
+func compareImageShieldedInstanceInitialStateDbNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ImageShieldedInstanceInitialStateDb)
+	if !ok {
+		desiredNotPointer, ok := d.(ImageShieldedInstanceInitialStateDb)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageShieldedInstanceInitialStateDb or *ImageShieldedInstanceInitialStateDb", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ImageShieldedInstanceInitialStateDb)
+	if !ok {
+		actualNotPointer, ok := a.(ImageShieldedInstanceInitialStateDb)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageShieldedInstanceInitialStateDb", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FileType, actual.FileType, dcl.Info{Type: "EnumType"}, fn.AddNest("FileType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareImageShieldedInstanceInitialStateDb(c *Client, desired, actual *ImageShieldedInstanceInitialStateDb) bool {
 	if desired == nil {
 		return false
@@ -2478,6 +2809,42 @@ func compareImageShieldedInstanceInitialStateDbMap(c *Client, desired, actual ma
 	return false
 }
 
+func compareImageShieldedInstanceInitialStateDbxNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ImageShieldedInstanceInitialStateDbx)
+	if !ok {
+		desiredNotPointer, ok := d.(ImageShieldedInstanceInitialStateDbx)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageShieldedInstanceInitialStateDbx or *ImageShieldedInstanceInitialStateDbx", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ImageShieldedInstanceInitialStateDbx)
+	if !ok {
+		actualNotPointer, ok := a.(ImageShieldedInstanceInitialStateDbx)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageShieldedInstanceInitialStateDbx", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FileType, actual.FileType, dcl.Info{Type: "EnumType"}, fn.AddNest("FileType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareImageShieldedInstanceInitialStateDbx(c *Client, desired, actual *ImageShieldedInstanceInitialStateDbx) bool {
 	if desired == nil {
 		return false
@@ -2527,6 +2894,56 @@ func compareImageShieldedInstanceInitialStateDbxMap(c *Client, desired, actual m
 		}
 	}
 	return false
+}
+
+func compareImageSourceDiskEncryptionKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ImageSourceDiskEncryptionKey)
+	if !ok {
+		desiredNotPointer, ok := d.(ImageSourceDiskEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageSourceDiskEncryptionKey or *ImageSourceDiskEncryptionKey", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ImageSourceDiskEncryptionKey)
+	if !ok {
+		actualNotPointer, ok := a.(ImageSourceDiskEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageSourceDiskEncryptionKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RawKey, actual.RawKey, dcl.Info{}, fn.AddNest("RawKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Sha256, actual.Sha256, dcl.Info{}, fn.AddNest("Sha256")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyServiceAccount, actual.KmsKeyServiceAccount, dcl.Info{}, fn.AddNest("KmsKeyServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareImageSourceDiskEncryptionKey(c *Client, desired, actual *ImageSourceDiskEncryptionKey) bool {
@@ -2588,6 +3005,56 @@ func compareImageSourceDiskEncryptionKeyMap(c *Client, desired, actual map[strin
 	return false
 }
 
+func compareImageSourceImageEncryptionKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ImageSourceImageEncryptionKey)
+	if !ok {
+		desiredNotPointer, ok := d.(ImageSourceImageEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageSourceImageEncryptionKey or *ImageSourceImageEncryptionKey", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ImageSourceImageEncryptionKey)
+	if !ok {
+		actualNotPointer, ok := a.(ImageSourceImageEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageSourceImageEncryptionKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RawKey, actual.RawKey, dcl.Info{}, fn.AddNest("RawKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Sha256, actual.Sha256, dcl.Info{}, fn.AddNest("Sha256")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyServiceAccount, actual.KmsKeyServiceAccount, dcl.Info{}, fn.AddNest("KmsKeyServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareImageSourceImageEncryptionKey(c *Client, desired, actual *ImageSourceImageEncryptionKey) bool {
 	if desired == nil {
 		return false
@@ -2647,6 +3114,56 @@ func compareImageSourceImageEncryptionKeyMap(c *Client, desired, actual map[stri
 	return false
 }
 
+func compareImageSourceSnapshotEncryptionKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ImageSourceSnapshotEncryptionKey)
+	if !ok {
+		desiredNotPointer, ok := d.(ImageSourceSnapshotEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageSourceSnapshotEncryptionKey or *ImageSourceSnapshotEncryptionKey", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ImageSourceSnapshotEncryptionKey)
+	if !ok {
+		actualNotPointer, ok := a.(ImageSourceSnapshotEncryptionKey)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageSourceSnapshotEncryptionKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RawKey, actual.RawKey, dcl.Info{}, fn.AddNest("RawKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Sha256, actual.Sha256, dcl.Info{}, fn.AddNest("Sha256")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKeyServiceAccount, actual.KmsKeyServiceAccount, dcl.Info{}, fn.AddNest("KmsKeyServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareImageSourceSnapshotEncryptionKey(c *Client, desired, actual *ImageSourceSnapshotEncryptionKey) bool {
 	if desired == nil {
 		return false
@@ -2704,6 +3221,63 @@ func compareImageSourceSnapshotEncryptionKeyMap(c *Client, desired, actual map[s
 		}
 	}
 	return false
+}
+
+func compareImageDeprecatedNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ImageDeprecated)
+	if !ok {
+		desiredNotPointer, ok := d.(ImageDeprecated)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageDeprecated or *ImageDeprecated", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ImageDeprecated)
+	if !ok {
+		actualNotPointer, ok := a.(ImageDeprecated)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ImageDeprecated", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Replacement, actual.Replacement, dcl.Info{}, fn.AddNest("Replacement")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Deprecated, actual.Deprecated, dcl.Info{}, fn.AddNest("Deprecated")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Obsolete, actual.Obsolete, dcl.Info{}, fn.AddNest("Obsolete")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Deleted, actual.Deleted, dcl.Info{}, fn.AddNest("Deleted")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareImageDeprecated(c *Client, desired, actual *ImageDeprecated) bool {

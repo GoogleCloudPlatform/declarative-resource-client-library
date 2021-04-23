@@ -1066,128 +1066,191 @@ func diffNode(c *Client, desired, actual *Node, opts ...dcl.ApplyOption) ([]node
 	}
 
 	var diffs []nodeDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "accelerator_type"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{}, fn.AddNest("AcceleratorType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "AcceleratorType",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ip_address"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OutputOnly: true}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "IPAddress",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "port"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OutputOnly: true}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Port",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "State",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.HealthDescription, actual.HealthDescription, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "health_description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HealthDescription, actual.HealthDescription, dcl.Info{OutputOnly: true}, fn.AddNest("HealthDescription")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "HealthDescription",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.TensorflowVersion, actual.TensorflowVersion, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "tensorflow_version"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TensorflowVersion, actual.TensorflowVersion, dcl.Info{}, fn.AddNest("TensorflowVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, nodeDiff{
 			UpdateOp: &updateNodeReimageNodeOperation{}, Diffs: ds,
+			FieldName: "TensorflowVersion",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "network"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.CidrBlock, actual.CidrBlock, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "cidr_block"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "service_account"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Health, actual.Health, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "health"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.UseServiceNetworking, actual.UseServiceNetworking, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "use_service_networking"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareNodeSchedulingConfig(c, desired.SchedulingConfig, actual.SchedulingConfig) {
-		c.Config.Logger.Infof("Detected diff in SchedulingConfig.\nDESIRED: %v\nACTUAL: %v", desired.SchedulingConfig, actual.SchedulingConfig)
-		diffs = append(diffs, nodeDiff{
-			RequiresRecreate: true,
-			FieldName:        "SchedulingConfig",
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Network",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.CidrBlock, actual.CidrBlock, dcl.Info{}, fn.AddNest("CidrBlock")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CidrBlock",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{OutputOnly: true}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ServiceAccount",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, ObjectFunction: compareNodeCreateTimeNewStyle}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreateTime",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SchedulingConfig, actual.SchedulingConfig, dcl.Info{ObjectFunction: compareNodeSchedulingConfigNewStyle}, fn.AddNest("SchedulingConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SchedulingConfig",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.NetworkEndpoints, actual.NetworkEndpoints, dcl.Info{OutputOnly: true, ObjectFunction: compareNodeNetworkEndpointsNewStyle}, fn.AddNest("NetworkEndpoints")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NetworkEndpoints",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Health, actual.Health, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Health")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Health",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Labels",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.UseServiceNetworking, actual.UseServiceNetworking, dcl.Info{}, fn.AddNest("UseServiceNetworking")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UseServiceNetworking",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Symptoms, actual.Symptoms, dcl.Info{OutputOnly: true, ObjectFunction: compareNodeSymptomsNewStyle}, fn.AddNest("Symptoms")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Symptoms",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, nodeDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -1212,6 +1275,42 @@ func diffNode(c *Client, desired, actual *Node, opts ...dcl.ApplyOption) ([]node
 
 	return deduped, nil
 }
+func compareNodeCreateTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodeCreateTime)
+	if !ok {
+		desiredNotPointer, ok := d.(NodeCreateTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodeCreateTime or *NodeCreateTime", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodeCreateTime)
+	if !ok {
+		actualNotPointer, ok := a.(NodeCreateTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodeCreateTime", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNodeCreateTime(c *Client, desired, actual *NodeCreateTime) bool {
 	if desired == nil {
 		return false
@@ -1261,6 +1360,42 @@ func compareNodeCreateTimeMap(c *Client, desired, actual map[string]NodeCreateTi
 		}
 	}
 	return false
+}
+
+func compareNodeSchedulingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodeSchedulingConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(NodeSchedulingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodeSchedulingConfig or *NodeSchedulingConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodeSchedulingConfig)
+	if !ok {
+		actualNotPointer, ok := a.(NodeSchedulingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodeSchedulingConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Preemptible, actual.Preemptible, dcl.Info{}, fn.AddNest("Preemptible")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Reserved, actual.Reserved, dcl.Info{}, fn.AddNest("Reserved")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNodeSchedulingConfig(c *Client, desired, actual *NodeSchedulingConfig) bool {
@@ -1314,6 +1449,42 @@ func compareNodeSchedulingConfigMap(c *Client, desired, actual map[string]NodeSc
 	return false
 }
 
+func compareNodeNetworkEndpointsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodeNetworkEndpoints)
+	if !ok {
+		desiredNotPointer, ok := d.(NodeNetworkEndpoints)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodeNetworkEndpoints or *NodeNetworkEndpoints", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodeNetworkEndpoints)
+	if !ok {
+		actualNotPointer, ok := a.(NodeNetworkEndpoints)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodeNetworkEndpoints", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OutputOnly: true}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OutputOnly: true}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareNodeNetworkEndpoints(c *Client, desired, actual *NodeNetworkEndpoints) bool {
 	if desired == nil {
 		return false
@@ -1355,6 +1526,56 @@ func compareNodeNetworkEndpointsMap(c *Client, desired, actual map[string]NodeNe
 		}
 	}
 	return false
+}
+
+func compareNodeSymptomsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodeSymptoms)
+	if !ok {
+		desiredNotPointer, ok := d.(NodeSymptoms)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodeSymptoms or *NodeSymptoms", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodeSymptoms)
+	if !ok {
+		actualNotPointer, ok := a.(NodeSymptoms)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodeSymptoms", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{ObjectFunction: compareNodeSymptomsCreateTimeNewStyle}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SymptomType, actual.SymptomType, dcl.Info{Type: "EnumType"}, fn.AddNest("SymptomType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.WorkerId, actual.WorkerId, dcl.Info{}, fn.AddNest("WorkerId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNodeSymptoms(c *Client, desired, actual *NodeSymptoms) bool {
@@ -1414,6 +1635,42 @@ func compareNodeSymptomsMap(c *Client, desired, actual map[string]NodeSymptoms) 
 		}
 	}
 	return false
+}
+
+func compareNodeSymptomsCreateTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodeSymptomsCreateTime)
+	if !ok {
+		desiredNotPointer, ok := d.(NodeSymptomsCreateTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodeSymptomsCreateTime or *NodeSymptomsCreateTime", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodeSymptomsCreateTime)
+	if !ok {
+		actualNotPointer, ok := a.(NodeSymptomsCreateTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodeSymptomsCreateTime", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareNodeSymptomsCreateTime(c *Client, desired, actual *NodeSymptomsCreateTime) bool {

@@ -3153,91 +3153,107 @@ func diffGuestPolicy(c *Client, desired, actual *GuestPolicy, opts ...dcl.ApplyO
 	}
 
 	var diffs []guestPolicyDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, guestPolicyDiff{
 			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
+			FieldName: "Name",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, guestPolicyDiff{
 			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
+			FieldName: "Description",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpdateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "etag"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Assignment, actual.Assignment, dcl.Info{ObjectFunction: compareGuestPolicyAssignmentNewStyle}, fn.AddNest("Assignment")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, guestPolicyDiff{
 			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareGuestPolicyAssignment(c, desired.Assignment, actual.Assignment) {
-		c.Config.Logger.Infof("Detected diff in Assignment.\nDESIRED: %v\nACTUAL: %v", desired.Assignment, actual.Assignment)
-
-		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp:  &updateGuestPolicyUpdateGuestPolicyOperation{},
 			FieldName: "Assignment",
 		})
-
 	}
-	if compareGuestPolicyPackagesSlice(c, desired.Packages, actual.Packages) {
-		c.Config.Logger.Infof("Detected diff in Packages.\nDESIRED: %v\nACTUAL: %v", desired.Packages, actual.Packages)
 
+	if ds, err := dcl.Diff(desired.Packages, actual.Packages, dcl.Info{ObjectFunction: compareGuestPolicyPackagesNewStyle}, fn.AddNest("Packages")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp:  &updateGuestPolicyUpdateGuestPolicyOperation{},
+			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
 			FieldName: "Packages",
 		})
-
 	}
-	if compareGuestPolicyPackageRepositoriesSlice(c, desired.PackageRepositories, actual.PackageRepositories) {
-		c.Config.Logger.Infof("Detected diff in PackageRepositories.\nDESIRED: %v\nACTUAL: %v", desired.PackageRepositories, actual.PackageRepositories)
 
+	if ds, err := dcl.Diff(desired.PackageRepositories, actual.PackageRepositories, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesNewStyle}, fn.AddNest("PackageRepositories")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp:  &updateGuestPolicyUpdateGuestPolicyOperation{},
+			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
 			FieldName: "PackageRepositories",
 		})
-
 	}
-	if compareGuestPolicyRecipesSlice(c, desired.Recipes, actual.Recipes) {
-		c.Config.Logger.Infof("Detected diff in Recipes.\nDESIRED: %v\nACTUAL: %v", desired.Recipes, actual.Recipes)
 
+	if ds, err := dcl.Diff(desired.Recipes, actual.Recipes, dcl.Info{ObjectFunction: compareGuestPolicyRecipesNewStyle}, fn.AddNest("Recipes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp:  &updateGuestPolicyUpdateGuestPolicyOperation{},
+			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
 			FieldName: "Recipes",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, guestPolicyDiff{
+			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
+			FieldName: "Etag",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -3262,6 +3278,63 @@ func diffGuestPolicy(c *Client, desired, actual *GuestPolicy, opts ...dcl.ApplyO
 
 	return deduped, nil
 }
+func compareGuestPolicyAssignmentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyAssignment)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyAssignment)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyAssignment or *GuestPolicyAssignment", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyAssignment)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyAssignment)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyAssignment", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.GroupLabels, actual.GroupLabels, dcl.Info{ObjectFunction: compareGuestPolicyAssignmentGroupLabelsNewStyle}, fn.AddNest("GroupLabels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Zones, actual.Zones, dcl.Info{}, fn.AddNest("Zones")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Instances, actual.Instances, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Instances")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InstanceNamePrefixes, actual.InstanceNamePrefixes, dcl.Info{}, fn.AddNest("InstanceNamePrefixes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OsTypes, actual.OsTypes, dcl.Info{ObjectFunction: compareGuestPolicyAssignmentOsTypesNewStyle}, fn.AddNest("OsTypes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyAssignment(c *Client, desired, actual *GuestPolicyAssignment) bool {
 	if desired == nil {
 		return false
@@ -3325,6 +3398,35 @@ func compareGuestPolicyAssignmentMap(c *Client, desired, actual map[string]Guest
 	return false
 }
 
+func compareGuestPolicyAssignmentGroupLabelsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyAssignmentGroupLabels)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyAssignmentGroupLabels)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyAssignmentGroupLabels or *GuestPolicyAssignmentGroupLabels", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyAssignmentGroupLabels)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyAssignmentGroupLabels)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyAssignmentGroupLabels", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyAssignmentGroupLabels(c *Client, desired, actual *GuestPolicyAssignmentGroupLabels) bool {
 	if desired == nil {
 		return false
@@ -3370,6 +3472,49 @@ func compareGuestPolicyAssignmentGroupLabelsMap(c *Client, desired, actual map[s
 		}
 	}
 	return false
+}
+
+func compareGuestPolicyAssignmentOsTypesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyAssignmentOsTypes)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyAssignmentOsTypes)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyAssignmentOsTypes or *GuestPolicyAssignmentOsTypes", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyAssignmentOsTypes)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyAssignmentOsTypes)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyAssignmentOsTypes", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.OsShortName, actual.OsShortName, dcl.Info{}, fn.AddNest("OsShortName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OsVersion, actual.OsVersion, dcl.Info{}, fn.AddNest("OsVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OsArchitecture, actual.OsArchitecture, dcl.Info{}, fn.AddNest("OsArchitecture")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareGuestPolicyAssignmentOsTypes(c *Client, desired, actual *GuestPolicyAssignmentOsTypes) bool {
@@ -3427,6 +3572,49 @@ func compareGuestPolicyAssignmentOsTypesMap(c *Client, desired, actual map[strin
 	return false
 }
 
+func compareGuestPolicyPackagesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyPackages)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyPackages)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyPackages or *GuestPolicyPackages", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyPackages)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyPackages)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyPackages", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DesiredState, actual.DesiredState, dcl.Info{Type: "EnumType"}, fn.AddNest("DesiredState")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Manager, actual.Manager, dcl.Info{Type: "EnumType"}, fn.AddNest("Manager")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyPackages(c *Client, desired, actual *GuestPolicyPackages) bool {
 	if desired == nil {
 		return false
@@ -3480,6 +3668,56 @@ func compareGuestPolicyPackagesMap(c *Client, desired, actual map[string]GuestPo
 		}
 	}
 	return false
+}
+
+func compareGuestPolicyPackageRepositoriesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyPackageRepositories)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyPackageRepositories)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyPackageRepositories or *GuestPolicyPackageRepositories", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyPackageRepositories)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyPackageRepositories)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyPackageRepositories", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Apt, actual.Apt, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesAptNewStyle}, fn.AddNest("Apt")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Yum, actual.Yum, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesYumNewStyle}, fn.AddNest("Yum")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Zypper, actual.Zypper, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesZypperNewStyle}, fn.AddNest("Zypper")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Goo, actual.Goo, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesGooNewStyle}, fn.AddNest("Goo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareGuestPolicyPackageRepositories(c *Client, desired, actual *GuestPolicyPackageRepositories) bool {
@@ -3539,6 +3777,63 @@ func compareGuestPolicyPackageRepositoriesMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareGuestPolicyPackageRepositoriesAptNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyPackageRepositoriesApt)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyPackageRepositoriesApt)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyPackageRepositoriesApt or *GuestPolicyPackageRepositoriesApt", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyPackageRepositoriesApt)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyPackageRepositoriesApt)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyPackageRepositoriesApt", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ArchiveType, actual.ArchiveType, dcl.Info{Type: "EnumType"}, fn.AddNest("ArchiveType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Uri, actual.Uri, dcl.Info{}, fn.AddNest("Uri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Distribution, actual.Distribution, dcl.Info{}, fn.AddNest("Distribution")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Components, actual.Components, dcl.Info{}, fn.AddNest("Components")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GpgKey, actual.GpgKey, dcl.Info{}, fn.AddNest("GpgKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareGuestPolicyPackageRepositoriesApt(c *Client, desired, actual *GuestPolicyPackageRepositoriesApt) bool {
@@ -3604,6 +3899,56 @@ func compareGuestPolicyPackageRepositoriesAptMap(c *Client, desired, actual map[
 	return false
 }
 
+func compareGuestPolicyPackageRepositoriesYumNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyPackageRepositoriesYum)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyPackageRepositoriesYum)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyPackageRepositoriesYum or *GuestPolicyPackageRepositoriesYum", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyPackageRepositoriesYum)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyPackageRepositoriesYum)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyPackageRepositoriesYum", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BaseUrl, actual.BaseUrl, dcl.Info{}, fn.AddNest("BaseUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GpgKeys, actual.GpgKeys, dcl.Info{}, fn.AddNest("GpgKeys")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyPackageRepositoriesYum(c *Client, desired, actual *GuestPolicyPackageRepositoriesYum) bool {
 	if desired == nil {
 		return false
@@ -3661,6 +4006,56 @@ func compareGuestPolicyPackageRepositoriesYumMap(c *Client, desired, actual map[
 		}
 	}
 	return false
+}
+
+func compareGuestPolicyPackageRepositoriesZypperNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyPackageRepositoriesZypper)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyPackageRepositoriesZypper)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyPackageRepositoriesZypper or *GuestPolicyPackageRepositoriesZypper", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyPackageRepositoriesZypper)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyPackageRepositoriesZypper)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyPackageRepositoriesZypper", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BaseUrl, actual.BaseUrl, dcl.Info{}, fn.AddNest("BaseUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GpgKeys, actual.GpgKeys, dcl.Info{}, fn.AddNest("GpgKeys")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareGuestPolicyPackageRepositoriesZypper(c *Client, desired, actual *GuestPolicyPackageRepositoriesZypper) bool {
@@ -3722,6 +4117,42 @@ func compareGuestPolicyPackageRepositoriesZypperMap(c *Client, desired, actual m
 	return false
 }
 
+func compareGuestPolicyPackageRepositoriesGooNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyPackageRepositoriesGoo)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyPackageRepositoriesGoo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyPackageRepositoriesGoo or *GuestPolicyPackageRepositoriesGoo", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyPackageRepositoriesGoo)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyPackageRepositoriesGoo)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyPackageRepositoriesGoo", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyPackageRepositoriesGoo(c *Client, desired, actual *GuestPolicyPackageRepositoriesGoo) bool {
 	if desired == nil {
 		return false
@@ -3771,6 +4202,70 @@ func compareGuestPolicyPackageRepositoriesGooMap(c *Client, desired, actual map[
 		}
 	}
 	return false
+}
+
+func compareGuestPolicyRecipesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipes)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipes)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipes or *GuestPolicyRecipes", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipes)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipes)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipes", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Artifacts, actual.Artifacts, dcl.Info{ObjectFunction: compareGuestPolicyRecipesArtifactsNewStyle}, fn.AddNest("Artifacts")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InstallSteps, actual.InstallSteps, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsNewStyle}, fn.AddNest("InstallSteps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdateSteps, actual.UpdateSteps, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsNewStyle}, fn.AddNest("UpdateSteps")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DesiredState, actual.DesiredState, dcl.Info{Type: "EnumType"}, fn.AddNest("DesiredState")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareGuestPolicyRecipes(c *Client, desired, actual *GuestPolicyRecipes) bool {
@@ -3840,6 +4335,56 @@ func compareGuestPolicyRecipesMap(c *Client, desired, actual map[string]GuestPol
 	return false
 }
 
+func compareGuestPolicyRecipesArtifactsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesArtifacts)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesArtifacts)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesArtifacts or *GuestPolicyRecipesArtifacts", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesArtifacts)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesArtifacts)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesArtifacts", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Remote, actual.Remote, dcl.Info{ObjectFunction: compareGuestPolicyRecipesArtifactsRemoteNewStyle}, fn.AddNest("Remote")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Gcs, actual.Gcs, dcl.Info{ObjectFunction: compareGuestPolicyRecipesArtifactsGcsNewStyle}, fn.AddNest("Gcs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AllowInsecure, actual.AllowInsecure, dcl.Info{}, fn.AddNest("AllowInsecure")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyRecipesArtifacts(c *Client, desired, actual *GuestPolicyRecipesArtifacts) bool {
 	if desired == nil {
 		return false
@@ -3899,6 +4444,42 @@ func compareGuestPolicyRecipesArtifactsMap(c *Client, desired, actual map[string
 	return false
 }
 
+func compareGuestPolicyRecipesArtifactsRemoteNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesArtifactsRemote)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesArtifactsRemote)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesArtifactsRemote or *GuestPolicyRecipesArtifactsRemote", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesArtifactsRemote)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesArtifactsRemote)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesArtifactsRemote", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Uri, actual.Uri, dcl.Info{}, fn.AddNest("Uri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Checksum, actual.Checksum, dcl.Info{}, fn.AddNest("Checksum")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyRecipesArtifactsRemote(c *Client, desired, actual *GuestPolicyRecipesArtifactsRemote) bool {
 	if desired == nil {
 		return false
@@ -3948,6 +4529,49 @@ func compareGuestPolicyRecipesArtifactsRemoteMap(c *Client, desired, actual map[
 		}
 	}
 	return false
+}
+
+func compareGuestPolicyRecipesArtifactsGcsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesArtifactsGcs)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesArtifactsGcs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesArtifactsGcs or *GuestPolicyRecipesArtifactsGcs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesArtifactsGcs)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesArtifactsGcs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesArtifactsGcs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Bucket, actual.Bucket, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Bucket")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Object, actual.Object, dcl.Info{}, fn.AddNest("Object")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Generation, actual.Generation, dcl.Info{}, fn.AddNest("Generation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareGuestPolicyRecipesArtifactsGcs(c *Client, desired, actual *GuestPolicyRecipesArtifactsGcs) bool {
@@ -4003,6 +4627,77 @@ func compareGuestPolicyRecipesArtifactsGcsMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareGuestPolicyRecipesInstallStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesInstallSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesInstallSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallSteps or *GuestPolicyRecipesInstallSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesInstallSteps)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesInstallSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.FileCopy, actual.FileCopy, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsFileCopyNewStyle}, fn.AddNest("FileCopy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ArchiveExtraction, actual.ArchiveExtraction, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsArchiveExtractionNewStyle}, fn.AddNest("ArchiveExtraction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MsiInstallation, actual.MsiInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsMsiInstallationNewStyle}, fn.AddNest("MsiInstallation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DpkgInstallation, actual.DpkgInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsDpkgInstallationNewStyle}, fn.AddNest("DpkgInstallation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RpmInstallation, actual.RpmInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsRpmInstallationNewStyle}, fn.AddNest("RpmInstallation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FileExec, actual.FileExec, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsFileExecNewStyle}, fn.AddNest("FileExec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ScriptRun, actual.ScriptRun, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsScriptRunNewStyle}, fn.AddNest("ScriptRun")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareGuestPolicyRecipesInstallSteps(c *Client, desired, actual *GuestPolicyRecipesInstallSteps) bool {
@@ -4076,6 +4771,56 @@ func compareGuestPolicyRecipesInstallStepsMap(c *Client, desired, actual map[str
 	return false
 }
 
+func compareGuestPolicyRecipesInstallStepsFileCopyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesInstallStepsFileCopy)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesInstallStepsFileCopy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsFileCopy or *GuestPolicyRecipesInstallStepsFileCopy", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesInstallStepsFileCopy)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesInstallStepsFileCopy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsFileCopy", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Overwrite, actual.Overwrite, dcl.Info{}, fn.AddNest("Overwrite")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Permissions, actual.Permissions, dcl.Info{}, fn.AddNest("Permissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyRecipesInstallStepsFileCopy(c *Client, desired, actual *GuestPolicyRecipesInstallStepsFileCopy) bool {
 	if desired == nil {
 		return false
@@ -4135,6 +4880,49 @@ func compareGuestPolicyRecipesInstallStepsFileCopyMap(c *Client, desired, actual
 	return false
 }
 
+func compareGuestPolicyRecipesInstallStepsArchiveExtractionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesInstallStepsArchiveExtraction)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesInstallStepsArchiveExtraction)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsArchiveExtraction or *GuestPolicyRecipesInstallStepsArchiveExtraction", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesInstallStepsArchiveExtraction)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesInstallStepsArchiveExtraction)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsArchiveExtraction", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, desired, actual *GuestPolicyRecipesInstallStepsArchiveExtraction) bool {
 	if desired == nil {
 		return false
@@ -4188,6 +4976,49 @@ func compareGuestPolicyRecipesInstallStepsArchiveExtractionMap(c *Client, desire
 		}
 	}
 	return false
+}
+
+func compareGuestPolicyRecipesInstallStepsMsiInstallationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesInstallStepsMsiInstallation)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesInstallStepsMsiInstallation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsMsiInstallation or *GuestPolicyRecipesInstallStepsMsiInstallation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesInstallStepsMsiInstallation)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesInstallStepsMsiInstallation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsMsiInstallation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Flags, actual.Flags, dcl.Info{}, fn.AddNest("Flags")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, desired, actual *GuestPolicyRecipesInstallStepsMsiInstallation) bool {
@@ -4245,6 +5076,35 @@ func compareGuestPolicyRecipesInstallStepsMsiInstallationMap(c *Client, desired,
 	return false
 }
 
+func compareGuestPolicyRecipesInstallStepsDpkgInstallationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesInstallStepsDpkgInstallation)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesInstallStepsDpkgInstallation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsDpkgInstallation or *GuestPolicyRecipesInstallStepsDpkgInstallation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesInstallStepsDpkgInstallation)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesInstallStepsDpkgInstallation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsDpkgInstallation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, desired, actual *GuestPolicyRecipesInstallStepsDpkgInstallation) bool {
 	if desired == nil {
 		return false
@@ -4292,6 +5152,35 @@ func compareGuestPolicyRecipesInstallStepsDpkgInstallationMap(c *Client, desired
 	return false
 }
 
+func compareGuestPolicyRecipesInstallStepsRpmInstallationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesInstallStepsRpmInstallation)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesInstallStepsRpmInstallation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsRpmInstallation or *GuestPolicyRecipesInstallStepsRpmInstallation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesInstallStepsRpmInstallation)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesInstallStepsRpmInstallation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsRpmInstallation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, desired, actual *GuestPolicyRecipesInstallStepsRpmInstallation) bool {
 	if desired == nil {
 		return false
@@ -4337,6 +5226,56 @@ func compareGuestPolicyRecipesInstallStepsRpmInstallationMap(c *Client, desired,
 		}
 	}
 	return false
+}
+
+func compareGuestPolicyRecipesInstallStepsFileExecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesInstallStepsFileExec)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesInstallStepsFileExec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsFileExec or *GuestPolicyRecipesInstallStepsFileExec", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesInstallStepsFileExec)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesInstallStepsFileExec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsFileExec", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LocalPath, actual.LocalPath, dcl.Info{}, fn.AddNest("LocalPath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareGuestPolicyRecipesInstallStepsFileExec(c *Client, desired, actual *GuestPolicyRecipesInstallStepsFileExec) bool {
@@ -4398,6 +5337,49 @@ func compareGuestPolicyRecipesInstallStepsFileExecMap(c *Client, desired, actual
 	return false
 }
 
+func compareGuestPolicyRecipesInstallStepsScriptRunNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesInstallStepsScriptRun)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesInstallStepsScriptRun)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsScriptRun or *GuestPolicyRecipesInstallStepsScriptRun", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesInstallStepsScriptRun)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesInstallStepsScriptRun)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesInstallStepsScriptRun", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Script, actual.Script, dcl.Info{}, fn.AddNest("Script")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Interpreter, actual.Interpreter, dcl.Info{Type: "EnumType"}, fn.AddNest("Interpreter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyRecipesInstallStepsScriptRun(c *Client, desired, actual *GuestPolicyRecipesInstallStepsScriptRun) bool {
 	if desired == nil {
 		return false
@@ -4451,6 +5433,77 @@ func compareGuestPolicyRecipesInstallStepsScriptRunMap(c *Client, desired, actua
 		}
 	}
 	return false
+}
+
+func compareGuestPolicyRecipesUpdateStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesUpdateSteps)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesUpdateSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateSteps or *GuestPolicyRecipesUpdateSteps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesUpdateSteps)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesUpdateSteps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateSteps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.FileCopy, actual.FileCopy, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsFileCopyNewStyle}, fn.AddNest("FileCopy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ArchiveExtraction, actual.ArchiveExtraction, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsArchiveExtractionNewStyle}, fn.AddNest("ArchiveExtraction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MsiInstallation, actual.MsiInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsMsiInstallationNewStyle}, fn.AddNest("MsiInstallation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DpkgInstallation, actual.DpkgInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsDpkgInstallationNewStyle}, fn.AddNest("DpkgInstallation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RpmInstallation, actual.RpmInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsRpmInstallationNewStyle}, fn.AddNest("RpmInstallation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FileExec, actual.FileExec, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsFileExecNewStyle}, fn.AddNest("FileExec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ScriptRun, actual.ScriptRun, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsScriptRunNewStyle}, fn.AddNest("ScriptRun")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareGuestPolicyRecipesUpdateSteps(c *Client, desired, actual *GuestPolicyRecipesUpdateSteps) bool {
@@ -4524,6 +5577,56 @@ func compareGuestPolicyRecipesUpdateStepsMap(c *Client, desired, actual map[stri
 	return false
 }
 
+func compareGuestPolicyRecipesUpdateStepsFileCopyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesUpdateStepsFileCopy)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesUpdateStepsFileCopy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsFileCopy or *GuestPolicyRecipesUpdateStepsFileCopy", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesUpdateStepsFileCopy)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesUpdateStepsFileCopy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsFileCopy", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Overwrite, actual.Overwrite, dcl.Info{}, fn.AddNest("Overwrite")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Permissions, actual.Permissions, dcl.Info{}, fn.AddNest("Permissions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyRecipesUpdateStepsFileCopy(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsFileCopy) bool {
 	if desired == nil {
 		return false
@@ -4583,6 +5686,49 @@ func compareGuestPolicyRecipesUpdateStepsFileCopyMap(c *Client, desired, actual 
 	return false
 }
 
+func compareGuestPolicyRecipesUpdateStepsArchiveExtractionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesUpdateStepsArchiveExtraction)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesUpdateStepsArchiveExtraction)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsArchiveExtraction or *GuestPolicyRecipesUpdateStepsArchiveExtraction", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesUpdateStepsArchiveExtraction)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesUpdateStepsArchiveExtraction)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsArchiveExtraction", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsArchiveExtraction) bool {
 	if desired == nil {
 		return false
@@ -4636,6 +5782,49 @@ func compareGuestPolicyRecipesUpdateStepsArchiveExtractionMap(c *Client, desired
 		}
 	}
 	return false
+}
+
+func compareGuestPolicyRecipesUpdateStepsMsiInstallationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesUpdateStepsMsiInstallation)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesUpdateStepsMsiInstallation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsMsiInstallation or *GuestPolicyRecipesUpdateStepsMsiInstallation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesUpdateStepsMsiInstallation)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesUpdateStepsMsiInstallation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsMsiInstallation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Flags, actual.Flags, dcl.Info{}, fn.AddNest("Flags")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsMsiInstallation) bool {
@@ -4693,6 +5882,35 @@ func compareGuestPolicyRecipesUpdateStepsMsiInstallationMap(c *Client, desired, 
 	return false
 }
 
+func compareGuestPolicyRecipesUpdateStepsDpkgInstallationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesUpdateStepsDpkgInstallation)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesUpdateStepsDpkgInstallation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsDpkgInstallation or *GuestPolicyRecipesUpdateStepsDpkgInstallation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesUpdateStepsDpkgInstallation)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesUpdateStepsDpkgInstallation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsDpkgInstallation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsDpkgInstallation) bool {
 	if desired == nil {
 		return false
@@ -4740,6 +5958,35 @@ func compareGuestPolicyRecipesUpdateStepsDpkgInstallationMap(c *Client, desired,
 	return false
 }
 
+func compareGuestPolicyRecipesUpdateStepsRpmInstallationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesUpdateStepsRpmInstallation)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesUpdateStepsRpmInstallation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsRpmInstallation or *GuestPolicyRecipesUpdateStepsRpmInstallation", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesUpdateStepsRpmInstallation)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesUpdateStepsRpmInstallation)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsRpmInstallation", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsRpmInstallation) bool {
 	if desired == nil {
 		return false
@@ -4785,6 +6032,56 @@ func compareGuestPolicyRecipesUpdateStepsRpmInstallationMap(c *Client, desired, 
 		}
 	}
 	return false
+}
+
+func compareGuestPolicyRecipesUpdateStepsFileExecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesUpdateStepsFileExec)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesUpdateStepsFileExec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsFileExec or *GuestPolicyRecipesUpdateStepsFileExec", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesUpdateStepsFileExec)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesUpdateStepsFileExec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsFileExec", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LocalPath, actual.LocalPath, dcl.Info{}, fn.AddNest("LocalPath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareGuestPolicyRecipesUpdateStepsFileExec(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsFileExec) bool {
@@ -4844,6 +6141,49 @@ func compareGuestPolicyRecipesUpdateStepsFileExecMap(c *Client, desired, actual 
 		}
 	}
 	return false
+}
+
+func compareGuestPolicyRecipesUpdateStepsScriptRunNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GuestPolicyRecipesUpdateStepsScriptRun)
+	if !ok {
+		desiredNotPointer, ok := d.(GuestPolicyRecipesUpdateStepsScriptRun)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsScriptRun or *GuestPolicyRecipesUpdateStepsScriptRun", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GuestPolicyRecipesUpdateStepsScriptRun)
+	if !ok {
+		actualNotPointer, ok := a.(GuestPolicyRecipesUpdateStepsScriptRun)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GuestPolicyRecipesUpdateStepsScriptRun", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Script, actual.Script, dcl.Info{}, fn.AddNest("Script")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Interpreter, actual.Interpreter, dcl.Info{Type: "EnumType"}, fn.AddNest("Interpreter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareGuestPolicyRecipesUpdateStepsScriptRun(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsScriptRun) bool {

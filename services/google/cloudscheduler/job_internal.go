@@ -1431,130 +1431,163 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 	}
 
 	var diffs []jobDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, jobDiff{
 			UpdateOp: &updateJobUpdateJobOperation{}, Diffs: ds,
+			FieldName: "Name",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, jobDiff{
 			UpdateOp: &updateJobUpdateJobOperation{}, Diffs: ds,
+			FieldName: "Description",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Schedule, actual.Schedule, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "schedule"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PubsubTarget, actual.PubsubTarget, dcl.Info{ObjectFunction: compareJobPubsubTargetNewStyle}, fn.AddNest("PubsubTarget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, jobDiff{
 			UpdateOp: &updateJobUpdateJobOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.TimeZone, actual.TimeZone, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "time_zone"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, jobDiff{
-			UpdateOp: &updateJobUpdateJobOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.UserUpdateTime, actual.UserUpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "user_update_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "state"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.ScheduleTime, actual.ScheduleTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "schedule_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.LastAttemptTime, actual.LastAttemptTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "last_attempt_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.AttemptDeadline, actual.AttemptDeadline, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "attempt_deadline"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, jobDiff{
-			UpdateOp: &updateJobUpdateJobOperation{}, Diffs: ds,
-		})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareJobPubsubTarget(c, desired.PubsubTarget, actual.PubsubTarget) {
-		c.Config.Logger.Infof("Detected diff in PubsubTarget.\nDESIRED: %v\nACTUAL: %v", desired.PubsubTarget, actual.PubsubTarget)
-
-		diffs = append(diffs, jobDiff{
-			UpdateOp:  &updateJobUpdateJobOperation{},
 			FieldName: "PubsubTarget",
 		})
-
 	}
-	if compareJobAppEngineHttpTarget(c, desired.AppEngineHttpTarget, actual.AppEngineHttpTarget) {
-		c.Config.Logger.Infof("Detected diff in AppEngineHttpTarget.\nDESIRED: %v\nACTUAL: %v", desired.AppEngineHttpTarget, actual.AppEngineHttpTarget)
 
+	if ds, err := dcl.Diff(desired.AppEngineHttpTarget, actual.AppEngineHttpTarget, dcl.Info{ObjectFunction: compareJobAppEngineHttpTargetNewStyle}, fn.AddNest("AppEngineHttpTarget")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, jobDiff{
-			UpdateOp:  &updateJobUpdateJobOperation{},
+			UpdateOp: &updateJobUpdateJobOperation{}, Diffs: ds,
 			FieldName: "AppEngineHttpTarget",
 		})
-
 	}
-	if compareJobHttpTarget(c, desired.HttpTarget, actual.HttpTarget) {
-		c.Config.Logger.Infof("Detected diff in HttpTarget.\nDESIRED: %v\nACTUAL: %v", desired.HttpTarget, actual.HttpTarget)
 
+	if ds, err := dcl.Diff(desired.HttpTarget, actual.HttpTarget, dcl.Info{ObjectFunction: compareJobHttpTargetNewStyle}, fn.AddNest("HttpTarget")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, jobDiff{
-			UpdateOp:  &updateJobUpdateJobOperation{},
+			UpdateOp: &updateJobUpdateJobOperation{}, Diffs: ds,
 			FieldName: "HttpTarget",
 		})
-
 	}
-	if compareJobRetryConfig(c, desired.RetryConfig, actual.RetryConfig) {
-		c.Config.Logger.Infof("Detected diff in RetryConfig.\nDESIRED: %v\nACTUAL: %v", desired.RetryConfig, actual.RetryConfig)
 
+	if ds, err := dcl.Diff(desired.Schedule, actual.Schedule, dcl.Info{}, fn.AddNest("Schedule")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, jobDiff{
-			UpdateOp:  &updateJobUpdateJobOperation{},
+			UpdateOp: &updateJobUpdateJobOperation{}, Diffs: ds,
+			FieldName: "Schedule",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.TimeZone, actual.TimeZone, dcl.Info{}, fn.AddNest("TimeZone")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{
+			UpdateOp: &updateJobUpdateJobOperation{}, Diffs: ds,
+			FieldName: "TimeZone",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.UserUpdateTime, actual.UserUpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UserUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UserUpdateTime",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "State",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareJobStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Status",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ScheduleTime, actual.ScheduleTime, dcl.Info{OutputOnly: true}, fn.AddNest("ScheduleTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ScheduleTime",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.LastAttemptTime, actual.LastAttemptTime, dcl.Info{OutputOnly: true}, fn.AddNest("LastAttemptTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "LastAttemptTime",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.RetryConfig, actual.RetryConfig, dcl.Info{ObjectFunction: compareJobRetryConfigNewStyle}, fn.AddNest("RetryConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{
+			UpdateOp: &updateJobUpdateJobOperation{}, Diffs: ds,
 			FieldName: "RetryConfig",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.AttemptDeadline, actual.AttemptDeadline, dcl.Info{}, fn.AddNest("AttemptDeadline")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{
+			UpdateOp: &updateJobUpdateJobOperation{}, Diffs: ds,
+			FieldName: "AttemptDeadline",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -1579,6 +1612,49 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 
 	return deduped, nil
 }
+func compareJobPubsubTargetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*JobPubsubTarget)
+	if !ok {
+		desiredNotPointer, ok := d.(JobPubsubTarget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobPubsubTarget or *JobPubsubTarget", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*JobPubsubTarget)
+	if !ok {
+		actualNotPointer, ok := a.(JobPubsubTarget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobPubsubTarget", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TopicName, actual.TopicName, dcl.Info{Type: "ReferenceType"}, fn.AddNest("TopicName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Data, actual.Data, dcl.Info{}, fn.AddNest("Data")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Attributes, actual.Attributes, dcl.Info{}, fn.AddNest("Attributes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareJobPubsubTarget(c *Client, desired, actual *JobPubsubTarget) bool {
 	if desired == nil {
 		return false
@@ -1632,6 +1708,63 @@ func compareJobPubsubTargetMap(c *Client, desired, actual map[string]JobPubsubTa
 		}
 	}
 	return false
+}
+
+func compareJobAppEngineHttpTargetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*JobAppEngineHttpTarget)
+	if !ok {
+		desiredNotPointer, ok := d.(JobAppEngineHttpTarget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobAppEngineHttpTarget or *JobAppEngineHttpTarget", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*JobAppEngineHttpTarget)
+	if !ok {
+		actualNotPointer, ok := a.(JobAppEngineHttpTarget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobAppEngineHttpTarget", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.HttpMethod, actual.HttpMethod, dcl.Info{Type: "EnumType"}, fn.AddNest("HttpMethod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AppEngineRouting, actual.AppEngineRouting, dcl.Info{ObjectFunction: compareJobAppEngineHttpTargetAppEngineRoutingNewStyle}, fn.AddNest("AppEngineRouting")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RelativeUri, actual.RelativeUri, dcl.Info{}, fn.AddNest("RelativeUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Headers, actual.Headers, dcl.Info{}, fn.AddNest("Headers")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Body, actual.Body, dcl.Info{}, fn.AddNest("Body")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareJobAppEngineHttpTarget(c *Client, desired, actual *JobAppEngineHttpTarget) bool {
@@ -1697,6 +1830,56 @@ func compareJobAppEngineHttpTargetMap(c *Client, desired, actual map[string]JobA
 	return false
 }
 
+func compareJobAppEngineHttpTargetAppEngineRoutingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*JobAppEngineHttpTargetAppEngineRouting)
+	if !ok {
+		desiredNotPointer, ok := d.(JobAppEngineHttpTargetAppEngineRouting)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobAppEngineHttpTargetAppEngineRouting or *JobAppEngineHttpTargetAppEngineRouting", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*JobAppEngineHttpTargetAppEngineRouting)
+	if !ok {
+		actualNotPointer, ok := a.(JobAppEngineHttpTargetAppEngineRouting)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobAppEngineHttpTargetAppEngineRouting", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OutputOnly: true}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareJobAppEngineHttpTargetAppEngineRouting(c *Client, desired, actual *JobAppEngineHttpTargetAppEngineRouting) bool {
 	if desired == nil {
 		return false
@@ -1750,6 +1933,70 @@ func compareJobAppEngineHttpTargetAppEngineRoutingMap(c *Client, desired, actual
 		}
 	}
 	return false
+}
+
+func compareJobHttpTargetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*JobHttpTarget)
+	if !ok {
+		desiredNotPointer, ok := d.(JobHttpTarget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobHttpTarget or *JobHttpTarget", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*JobHttpTarget)
+	if !ok {
+		actualNotPointer, ok := a.(JobHttpTarget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobHttpTarget", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Uri, actual.Uri, dcl.Info{}, fn.AddNest("Uri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HttpMethod, actual.HttpMethod, dcl.Info{Type: "EnumType"}, fn.AddNest("HttpMethod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Headers, actual.Headers, dcl.Info{}, fn.AddNest("Headers")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Body, actual.Body, dcl.Info{}, fn.AddNest("Body")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OAuthToken, actual.OAuthToken, dcl.Info{ObjectFunction: compareJobHttpTargetOAuthTokenNewStyle}, fn.AddNest("OAuthToken")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OidcToken, actual.OidcToken, dcl.Info{ObjectFunction: compareJobHttpTargetOidcTokenNewStyle}, fn.AddNest("OidcToken")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareJobHttpTarget(c *Client, desired, actual *JobHttpTarget) bool {
@@ -1819,6 +2066,42 @@ func compareJobHttpTargetMap(c *Client, desired, actual map[string]JobHttpTarget
 	return false
 }
 
+func compareJobHttpTargetOAuthTokenNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*JobHttpTargetOAuthToken)
+	if !ok {
+		desiredNotPointer, ok := d.(JobHttpTargetOAuthToken)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobHttpTargetOAuthToken or *JobHttpTargetOAuthToken", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*JobHttpTargetOAuthToken)
+	if !ok {
+		actualNotPointer, ok := a.(JobHttpTargetOAuthToken)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobHttpTargetOAuthToken", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, dcl.Info{Type: "ReferenceType"}, fn.AddNest("ServiceAccountEmail")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareJobHttpTargetOAuthToken(c *Client, desired, actual *JobHttpTargetOAuthToken) bool {
 	if desired == nil {
 		return false
@@ -1870,6 +2153,42 @@ func compareJobHttpTargetOAuthTokenMap(c *Client, desired, actual map[string]Job
 	return false
 }
 
+func compareJobHttpTargetOidcTokenNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*JobHttpTargetOidcToken)
+	if !ok {
+		desiredNotPointer, ok := d.(JobHttpTargetOidcToken)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobHttpTargetOidcToken or *JobHttpTargetOidcToken", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*JobHttpTargetOidcToken)
+	if !ok {
+		actualNotPointer, ok := a.(JobHttpTargetOidcToken)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobHttpTargetOidcToken", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, dcl.Info{Type: "ReferenceType"}, fn.AddNest("ServiceAccountEmail")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Audience, actual.Audience, dcl.Info{}, fn.AddNest("Audience")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareJobHttpTargetOidcToken(c *Client, desired, actual *JobHttpTargetOidcToken) bool {
 	if desired == nil {
 		return false
@@ -1919,6 +2238,49 @@ func compareJobHttpTargetOidcTokenMap(c *Client, desired, actual map[string]JobH
 		}
 	}
 	return false
+}
+
+func compareJobStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*JobStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(JobStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobStatus or *JobStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*JobStatus)
+	if !ok {
+		actualNotPointer, ok := a.(JobStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareJobStatusDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareJobStatus(c *Client, desired, actual *JobStatus) bool {
@@ -1976,6 +2338,42 @@ func compareJobStatusMap(c *Client, desired, actual map[string]JobStatus) bool {
 	return false
 }
 
+func compareJobStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*JobStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(JobStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobStatusDetails or *JobStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*JobStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(JobStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareJobStatusDetails(c *Client, desired, actual *JobStatusDetails) bool {
 	if desired == nil {
 		return false
@@ -2025,6 +2423,63 @@ func compareJobStatusDetailsMap(c *Client, desired, actual map[string]JobStatusD
 		}
 	}
 	return false
+}
+
+func compareJobRetryConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*JobRetryConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(JobRetryConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobRetryConfig or *JobRetryConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*JobRetryConfig)
+	if !ok {
+		actualNotPointer, ok := a.(JobRetryConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a JobRetryConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RetryCount, actual.RetryCount, dcl.Info{}, fn.AddNest("RetryCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxRetryDuration, actual.MaxRetryDuration, dcl.Info{}, fn.AddNest("MaxRetryDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinBackoffDuration, actual.MinBackoffDuration, dcl.Info{}, fn.AddNest("MinBackoffDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxBackoffDuration, actual.MaxBackoffDuration, dcl.Info{}, fn.AddNest("MaxBackoffDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxDoublings, actual.MaxDoublings, dcl.Info{}, fn.AddNest("MaxDoublings")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareJobRetryConfig(c *Client, desired, actual *JobRetryConfig) bool {

@@ -119,7 +119,6 @@ func ProtoToFeatureMembership(p *betapb.GkehubBetaFeatureMembership) *beta.Featu
 		Feature:          dcl.StringOrNil(p.Feature),
 		Location:         dcl.StringOrNil(p.Location),
 		Project:          dcl.StringOrNil(p.Project),
-		ProjectNumber:    dcl.StringOrNil(p.ProjectNumber),
 		Configmanagement: ProtoToGkehubBetaFeatureMembershipConfigmanagement(p.GetConfigmanagement()),
 	}
 	return obj
@@ -219,7 +218,6 @@ func FeatureMembershipToProto(resource *beta.FeatureMembership) *betapb.GkehubBe
 		Feature:          dcl.ValueOrEmptyString(resource.Feature),
 		Location:         dcl.ValueOrEmptyString(resource.Location),
 		Project:          dcl.ValueOrEmptyString(resource.Project),
-		ProjectNumber:    dcl.ValueOrEmptyString(resource.ProjectNumber),
 		Configmanagement: GkehubBetaFeatureMembershipConfigmanagementToProto(resource.Configmanagement),
 	}
 

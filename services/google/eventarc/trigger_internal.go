@@ -70,6 +70,11 @@ func (r *TriggerDestination) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.Gke) {
+		if err := r.Gke.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *TriggerDestinationCloudRun) validate() error {
@@ -77,6 +82,21 @@ func (r *TriggerDestinationCloudRun) validate() error {
 		return err
 	}
 	if err := dcl.Required(r, "region"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *TriggerDestinationGke) validate() error {
+	if err := dcl.Required(r, "cluster"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "location"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "namespace"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "service"); err != nil {
 		return err
 	}
 	return nil
@@ -716,6 +736,7 @@ func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dc
 	if dcl.NameToSelfLink(des.CloudFunction, initial.CloudFunction) || dcl.IsZeroValue(des.CloudFunction) {
 		des.CloudFunction = initial.CloudFunction
 	}
+	des.Gke = canonicalizeTriggerDestinationGke(des.Gke, initial.Gke, opts...)
 
 	return des
 }
@@ -729,6 +750,7 @@ func canonicalizeNewTriggerDestination(c *Client, des, nw *TriggerDestination) *
 	if dcl.NameToSelfLink(des.CloudFunction, nw.CloudFunction) {
 		nw.CloudFunction = des.CloudFunction
 	}
+	nw.Gke = canonicalizeNewTriggerDestinationGke(c, des.Gke, nw.Gke)
 
 	return nw
 }
@@ -857,6 +879,104 @@ func canonicalizeNewTriggerDestinationCloudRunSlice(c *Client, des, nw []Trigger
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewTriggerDestinationCloudRun(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeTriggerDestinationGke(des, initial *TriggerDestinationGke, opts ...dcl.ApplyOption) *TriggerDestinationGke {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.StringCanonicalize(des.Cluster, initial.Cluster) || dcl.IsZeroValue(des.Cluster) {
+		des.Cluster = initial.Cluster
+	}
+	if dcl.StringCanonicalize(des.Location, initial.Location) || dcl.IsZeroValue(des.Location) {
+		des.Location = initial.Location
+	}
+	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) || dcl.IsZeroValue(des.Namespace) {
+		des.Namespace = initial.Namespace
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		des.Service = initial.Service
+	}
+	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+		des.Path = initial.Path
+	}
+
+	return des
+}
+
+func canonicalizeNewTriggerDestinationGke(c *Client, des, nw *TriggerDestinationGke) *TriggerDestinationGke {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Cluster, nw.Cluster) {
+		nw.Cluster = des.Cluster
+	}
+	if dcl.StringCanonicalize(des.Location, nw.Location) {
+		nw.Location = des.Location
+	}
+	if dcl.StringCanonicalize(des.Namespace, nw.Namespace) {
+		nw.Namespace = des.Namespace
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
+		nw.Path = des.Path
+	}
+
+	return nw
+}
+
+func canonicalizeNewTriggerDestinationGkeSet(c *Client, des, nw []TriggerDestinationGke) []TriggerDestinationGke {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []TriggerDestinationGke
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if !compareTriggerDestinationGke(c, &d, &n) {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewTriggerDestinationGkeSlice(c *Client, des, nw []TriggerDestinationGke) []TriggerDestinationGke {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return des
+	}
+
+	var items []TriggerDestinationGke
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTriggerDestinationGke(c, &d, &n))
 	}
 
 	return items
@@ -1034,106 +1154,123 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []triggerDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, triggerDiff{
 			UpdateOp: &updateTriggerUpdateTriggerOperation{}, Diffs: ds,
+			FieldName: "Name",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "uid"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{OutputOnly: true}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, triggerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, triggerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Uid",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, triggerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, triggerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, triggerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, triggerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpdateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "service_account"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EventFilters, actual.EventFilters, dcl.Info{Type: "Set", ObjectFunction: compareTriggerEventFiltersNewStyle}, fn.AddNest("EventFilters")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, triggerDiff{
 			UpdateOp: &updateTriggerUpdateTriggerOperation{}, Diffs: ds,
+			FieldName: "EventFilters",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{Type: "ReferenceType"}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, triggerDiff{
 			UpdateOp: &updateTriggerUpdateTriggerOperation{}, Diffs: ds,
+			FieldName: "ServiceAccount",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "etag"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{ObjectFunction: compareTriggerDestinationNewStyle}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, triggerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, triggerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, triggerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareTriggerEventFiltersSlice(c, desired.EventFilters, actual.EventFilters) {
-		c.Config.Logger.Infof("Detected diff in EventFilters.\nDESIRED: %v\nACTUAL: %v", desired.EventFilters, actual.EventFilters)
-
-		toAdd, toRemove := compareTriggerEventFiltersSets(c, desired.EventFilters, actual.EventFilters)
-		c.Config.Logger.Infof("diff in EventFilters is a set field - recomparing with set logic.\nto add: %#v\nto remove: %#v", toAdd, toRemove)
-		if len(toAdd) != 0 || len(toRemove) != 0 {
-			c.Config.Logger.Info("diff in EventFilters persists after set logic analysis.")
-			diffs = append(diffs, triggerDiff{
-				UpdateOp:  &updateTriggerUpdateTriggerOperation{},
-				FieldName: "EventFilters",
-			})
-		}
-
-	}
-	if compareTriggerDestination(c, desired.Destination, actual.Destination) {
-		c.Config.Logger.Infof("Detected diff in Destination.\nDESIRED: %v\nACTUAL: %v", desired.Destination, actual.Destination)
-
 		diffs = append(diffs, triggerDiff{
-			UpdateOp:  &updateTriggerUpdateTriggerOperation{},
+			UpdateOp: &updateTriggerUpdateTriggerOperation{}, Diffs: ds,
 			FieldName: "Destination",
 		})
-
 	}
-	if compareTriggerTransport(c, desired.Transport, actual.Transport) {
-		c.Config.Logger.Infof("Detected diff in Transport.\nDESIRED: %v\nACTUAL: %v", desired.Transport, actual.Transport)
-		diffs = append(diffs, triggerDiff{
-			RequiresRecreate: true,
-			FieldName:        "Transport",
+
+	if ds, err := dcl.Diff(desired.Transport, actual.Transport, dcl.Info{ObjectFunction: compareTriggerTransportNewStyle}, fn.AddNest("Transport")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, triggerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Transport",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, triggerDiff{
+			UpdateOp: &updateTriggerUpdateTriggerOperation{}, Diffs: ds,
+			FieldName: "Labels",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, triggerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Etag",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, triggerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, triggerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -1158,6 +1295,42 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 
 	return deduped, nil
 }
+func compareTriggerEventFiltersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TriggerEventFilters)
+	if !ok {
+		desiredNotPointer, ok := d.(TriggerEventFilters)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerEventFilters or *TriggerEventFilters", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TriggerEventFilters)
+	if !ok {
+		actualNotPointer, ok := a.(TriggerEventFilters)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerEventFilters", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Attribute, actual.Attribute, dcl.Info{}, fn.AddNest("Attribute")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareTriggerEventFilters(c *Client, desired, actual *TriggerEventFilters) bool {
 	if desired == nil {
 		return false
@@ -1258,6 +1431,49 @@ func compareTriggerEventFiltersSets(c *Client, desired, actual []TriggerEventFil
 	return toAdd, toRemove
 }
 
+func compareTriggerDestinationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TriggerDestination)
+	if !ok {
+		desiredNotPointer, ok := d.(TriggerDestination)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerDestination or *TriggerDestination", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TriggerDestination)
+	if !ok {
+		actualNotPointer, ok := a.(TriggerDestination)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerDestination", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.CloudRun, actual.CloudRun, dcl.Info{ObjectFunction: compareTriggerDestinationCloudRunNewStyle}, fn.AddNest("CloudRun")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CloudFunction, actual.CloudFunction, dcl.Info{Type: "ReferenceType"}, fn.AddNest("CloudFunction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Gke, actual.Gke, dcl.Info{ObjectFunction: compareTriggerDestinationGkeNewStyle}, fn.AddNest("Gke")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareTriggerDestination(c *Client, desired, actual *TriggerDestination) bool {
 	if desired == nil {
 		return false
@@ -1271,6 +1487,10 @@ func compareTriggerDestination(c *Client, desired, actual *TriggerDestination) b
 	}
 	if !dcl.NameToSelfLink(desired.CloudFunction, actual.CloudFunction) && !dcl.IsZeroValue(desired.CloudFunction) {
 		c.Config.Logger.Infof("Diff in CloudFunction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CloudFunction), dcl.SprintResource(actual.CloudFunction))
+		return true
+	}
+	if compareTriggerDestinationGke(c, desired.Gke, actual.Gke) && !dcl.IsZeroValue(desired.Gke) {
+		c.Config.Logger.Infof("Diff in Gke.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Gke), dcl.SprintResource(actual.Gke))
 		return true
 	}
 	return false
@@ -1307,6 +1527,49 @@ func compareTriggerDestinationMap(c *Client, desired, actual map[string]TriggerD
 		}
 	}
 	return false
+}
+
+func compareTriggerDestinationCloudRunNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TriggerDestinationCloudRun)
+	if !ok {
+		desiredNotPointer, ok := d.(TriggerDestinationCloudRun)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerDestinationCloudRun or *TriggerDestinationCloudRun", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TriggerDestinationCloudRun)
+	if !ok {
+		actualNotPointer, ok := a.(TriggerDestinationCloudRun)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerDestinationCloudRun", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareTriggerDestinationCloudRun(c *Client, desired, actual *TriggerDestinationCloudRun) bool {
@@ -1364,6 +1627,155 @@ func compareTriggerDestinationCloudRunMap(c *Client, desired, actual map[string]
 	return false
 }
 
+func compareTriggerDestinationGkeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TriggerDestinationGke)
+	if !ok {
+		desiredNotPointer, ok := d.(TriggerDestinationGke)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerDestinationGke or *TriggerDestinationGke", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TriggerDestinationGke)
+	if !ok {
+		actualNotPointer, ok := a.(TriggerDestinationGke)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerDestinationGke", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Cluster, actual.Cluster, dcl.Info{}, fn.AddNest("Cluster")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareTriggerDestinationGke(c *Client, desired, actual *TriggerDestinationGke) bool {
+	if desired == nil {
+		return false
+	}
+	if actual == nil {
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Cluster, actual.Cluster) && !dcl.IsZeroValue(desired.Cluster) {
+		c.Config.Logger.Infof("Diff in Cluster.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Cluster), dcl.SprintResource(actual.Cluster))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Location, actual.Location) && !dcl.IsZeroValue(desired.Location) {
+		c.Config.Logger.Infof("Diff in Location.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Location), dcl.SprintResource(actual.Location))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Namespace, actual.Namespace) && !dcl.IsZeroValue(desired.Namespace) {
+		c.Config.Logger.Infof("Diff in Namespace.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Namespace), dcl.SprintResource(actual.Namespace))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Service, actual.Service) && !dcl.IsZeroValue(desired.Service) {
+		c.Config.Logger.Infof("Diff in Service.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Service), dcl.SprintResource(actual.Service))
+		return true
+	}
+	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
+		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
+		return true
+	}
+	return false
+}
+
+func compareTriggerDestinationGkeSlice(c *Client, desired, actual []TriggerDestinationGke) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in TriggerDestinationGke, lengths unequal.")
+		return true
+	}
+	for i := 0; i < len(desired); i++ {
+		if compareTriggerDestinationGke(c, &desired[i], &actual[i]) {
+			c.Config.Logger.Infof("Diff in TriggerDestinationGke, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
+			return true
+		}
+	}
+	return false
+}
+
+func compareTriggerDestinationGkeMap(c *Client, desired, actual map[string]TriggerDestinationGke) bool {
+	if len(desired) != len(actual) {
+		c.Config.Logger.Info("Diff in TriggerDestinationGke, lengths unequal.")
+		return true
+	}
+	for k, desiredValue := range desired {
+		actualValue, ok := actual[k]
+		if !ok {
+			c.Config.Logger.Infof("Diff in TriggerDestinationGke, key %s not found in ACTUAL.\n", k)
+			return true
+		}
+		if compareTriggerDestinationGke(c, &desiredValue, &actualValue) {
+			c.Config.Logger.Infof("Diff in TriggerDestinationGke, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
+			return true
+		}
+	}
+	return false
+}
+
+func compareTriggerTransportNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TriggerTransport)
+	if !ok {
+		desiredNotPointer, ok := d.(TriggerTransport)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerTransport or *TriggerTransport", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TriggerTransport)
+	if !ok {
+		actualNotPointer, ok := a.(TriggerTransport)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerTransport", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Pubsub, actual.Pubsub, dcl.Info{ObjectFunction: compareTriggerTransportPubsubNewStyle}, fn.AddNest("Pubsub")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareTriggerTransport(c *Client, desired, actual *TriggerTransport) bool {
 	if desired == nil {
 		return false
@@ -1409,6 +1821,42 @@ func compareTriggerTransportMap(c *Client, desired, actual map[string]TriggerTra
 		}
 	}
 	return false
+}
+
+func compareTriggerTransportPubsubNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TriggerTransportPubsub)
+	if !ok {
+		desiredNotPointer, ok := d.(TriggerTransportPubsub)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerTransportPubsub or *TriggerTransportPubsub", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TriggerTransportPubsub)
+	if !ok {
+		actualNotPointer, ok := a.(TriggerTransportPubsub)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerTransportPubsub", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Topic, actual.Topic, dcl.Info{}, fn.AddNest("Topic")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Subscription, actual.Subscription, dcl.Info{OutputOnly: true}, fn.AddNest("Subscription")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareTriggerTransportPubsub(c *Client, desired, actual *TriggerTransportPubsub) bool {
@@ -1819,6 +2267,11 @@ func expandTriggerDestination(c *Client, f *TriggerDestination) (map[string]inte
 	if v := f.CloudFunction; !dcl.IsEmptyValueIndirect(v) {
 		m["cloudFunction"] = v
 	}
+	if v, err := expandTriggerDestinationGke(c, f.Gke); err != nil {
+		return nil, fmt.Errorf("error expanding Gke into gke: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["gke"] = v
+	}
 
 	return m, nil
 }
@@ -1834,6 +2287,7 @@ func flattenTriggerDestination(c *Client, i interface{}) *TriggerDestination {
 	r := &TriggerDestination{}
 	r.CloudRun = flattenTriggerDestinationCloudRun(c, m["cloudRun"])
 	r.CloudFunction = dcl.FlattenString(m["cloudFunction"])
+	r.Gke = flattenTriggerDestinationGke(c, m["gke"])
 
 	return r
 }
@@ -1951,6 +2405,131 @@ func flattenTriggerDestinationCloudRun(c *Client, i interface{}) *TriggerDestina
 	r.Service = dcl.FlattenString(m["service"])
 	r.Path = dcl.FlattenString(m["path"])
 	r.Region = dcl.FlattenString(m["region"])
+
+	return r
+}
+
+// expandTriggerDestinationGkeMap expands the contents of TriggerDestinationGke into a JSON
+// request object.
+func expandTriggerDestinationGkeMap(c *Client, f map[string]TriggerDestinationGke) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandTriggerDestinationGke(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandTriggerDestinationGkeSlice expands the contents of TriggerDestinationGke into a JSON
+// request object.
+func expandTriggerDestinationGkeSlice(c *Client, f []TriggerDestinationGke) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandTriggerDestinationGke(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenTriggerDestinationGkeMap flattens the contents of TriggerDestinationGke from a JSON
+// response object.
+func flattenTriggerDestinationGkeMap(c *Client, i interface{}) map[string]TriggerDestinationGke {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]TriggerDestinationGke{}
+	}
+
+	if len(a) == 0 {
+		return map[string]TriggerDestinationGke{}
+	}
+
+	items := make(map[string]TriggerDestinationGke)
+	for k, item := range a {
+		items[k] = *flattenTriggerDestinationGke(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenTriggerDestinationGkeSlice flattens the contents of TriggerDestinationGke from a JSON
+// response object.
+func flattenTriggerDestinationGkeSlice(c *Client, i interface{}) []TriggerDestinationGke {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []TriggerDestinationGke{}
+	}
+
+	if len(a) == 0 {
+		return []TriggerDestinationGke{}
+	}
+
+	items := make([]TriggerDestinationGke, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenTriggerDestinationGke(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandTriggerDestinationGke expands an instance of TriggerDestinationGke into a JSON
+// request object.
+func expandTriggerDestinationGke(c *Client, f *TriggerDestinationGke) (map[string]interface{}, error) {
+	m := make(map[string]interface{})
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+	if v := f.Cluster; !dcl.IsEmptyValueIndirect(v) {
+		m["cluster"] = v
+	}
+	if v := f.Location; !dcl.IsEmptyValueIndirect(v) {
+		m["location"] = v
+	}
+	if v := f.Namespace; !dcl.IsEmptyValueIndirect(v) {
+		m["namespace"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
+		m["path"] = v
+	}
+
+	return m, nil
+}
+
+// flattenTriggerDestinationGke flattens an instance of TriggerDestinationGke from a JSON
+// response object.
+func flattenTriggerDestinationGke(c *Client, i interface{}) *TriggerDestinationGke {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &TriggerDestinationGke{}
+	r.Cluster = dcl.FlattenString(m["cluster"])
+	r.Location = dcl.FlattenString(m["location"])
+	r.Namespace = dcl.FlattenString(m["namespace"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Path = dcl.FlattenString(m["path"])
 
 	return r
 }

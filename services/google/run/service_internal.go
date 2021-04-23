@@ -4914,56 +4914,82 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []serviceDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.ApiVersion, actual.ApiVersion, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "api_version"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiVersion, actual.ApiVersion, dcl.Info{}, fn.AddNest("ApiVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "kind"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareServiceMetadata(c, desired.Metadata, actual.Metadata) {
-		c.Config.Logger.Infof("Detected diff in Metadata.\nDESIRED: %v\nACTUAL: %v", desired.Metadata, actual.Metadata)
-		diffs = append(diffs, serviceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Metadata",
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ApiVersion",
 		})
 	}
-	if compareServiceSpec(c, desired.Spec, actual.Spec) {
-		c.Config.Logger.Infof("Detected diff in Spec.\nDESIRED: %v\nACTUAL: %v", desired.Spec, actual.Spec)
-		diffs = append(diffs, serviceDiff{
-			RequiresRecreate: true,
-			FieldName:        "Spec",
+
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Kind",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareServiceMetadataNewStyle}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Metadata",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServiceSpecNewStyle}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Spec",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Status",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -4988,6 +5014,133 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 
 	return deduped, nil
 }
+func compareServiceMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceMetadata)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceMetadata)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceMetadata or *ServiceMetadata", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceMetadata)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceMetadata)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceMetadata", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GenerateName, actual.GenerateName, dcl.Info{}, fn.AddNest("GenerateName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceVersion, actual.ResourceVersion, dcl.Info{}, fn.AddNest("ResourceVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Generation, actual.Generation, dcl.Info{}, fn.AddNest("Generation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{ObjectFunction: compareServiceMetadataCreateTimeNewStyle}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OwnerReferences, actual.OwnerReferences, dcl.Info{ObjectFunction: compareServiceMetadataOwnerReferencesNewStyle}, fn.AddNest("OwnerReferences")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{ObjectFunction: compareServiceMetadataDeleteTimeNewStyle}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DeletionGracePeriodSeconds, actual.DeletionGracePeriodSeconds, dcl.Info{}, fn.AddNest("DeletionGracePeriodSeconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Finalizers, actual.Finalizers, dcl.Info{}, fn.AddNest("Finalizers")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClusterName, actual.ClusterName, dcl.Info{}, fn.AddNest("ClusterName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceMetadata(c *Client, desired, actual *ServiceMetadata) bool {
 	if desired == nil {
 		return false
@@ -5091,6 +5244,42 @@ func compareServiceMetadataMap(c *Client, desired, actual map[string]ServiceMeta
 	return false
 }
 
+func compareServiceMetadataCreateTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceMetadataCreateTime)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceMetadataCreateTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceMetadataCreateTime or *ServiceMetadataCreateTime", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceMetadataCreateTime)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceMetadataCreateTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceMetadataCreateTime", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceMetadataCreateTime(c *Client, desired, actual *ServiceMetadataCreateTime) bool {
 	if desired == nil {
 		return false
@@ -5140,6 +5329,70 @@ func compareServiceMetadataCreateTimeMap(c *Client, desired, actual map[string]S
 		}
 	}
 	return false
+}
+
+func compareServiceMetadataOwnerReferencesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceMetadataOwnerReferences)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceMetadataOwnerReferences)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceMetadataOwnerReferences or *ServiceMetadataOwnerReferences", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceMetadataOwnerReferences)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceMetadataOwnerReferences)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceMetadataOwnerReferences", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ApiVersion, actual.ApiVersion, dcl.Info{}, fn.AddNest("ApiVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Controller, actual.Controller, dcl.Info{}, fn.AddNest("Controller")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion, dcl.Info{}, fn.AddNest("BlockOwnerDeletion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceMetadataOwnerReferences(c *Client, desired, actual *ServiceMetadataOwnerReferences) bool {
@@ -5209,6 +5462,42 @@ func compareServiceMetadataOwnerReferencesMap(c *Client, desired, actual map[str
 	return false
 }
 
+func compareServiceMetadataDeleteTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceMetadataDeleteTime)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceMetadataDeleteTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceMetadataDeleteTime or *ServiceMetadataDeleteTime", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceMetadataDeleteTime)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceMetadataDeleteTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceMetadataDeleteTime", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceMetadataDeleteTime(c *Client, desired, actual *ServiceMetadataDeleteTime) bool {
 	if desired == nil {
 		return false
@@ -5258,6 +5547,42 @@ func compareServiceMetadataDeleteTimeMap(c *Client, desired, actual map[string]S
 		}
 	}
 	return false
+}
+
+func compareServiceSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpec)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpec or *ServiceSpec", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpec)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpec", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Template, actual.Template, dcl.Info{ObjectFunction: compareServiceSpecTemplateNewStyle}, fn.AddNest("Template")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Traffic, actual.Traffic, dcl.Info{ObjectFunction: compareServiceSpecTrafficNewStyle}, fn.AddNest("Traffic")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpec(c *Client, desired, actual *ServiceSpec) bool {
@@ -5311,6 +5636,42 @@ func compareServiceSpecMap(c *Client, desired, actual map[string]ServiceSpec) bo
 	return false
 }
 
+func compareServiceSpecTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplate)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplate or *ServiceSpecTemplate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplate)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataNewStyle}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecNewStyle}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplate(c *Client, desired, actual *ServiceSpecTemplate) bool {
 	if desired == nil {
 		return false
@@ -5360,6 +5721,133 @@ func compareServiceSpecTemplateMap(c *Client, desired, actual map[string]Service
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateMetadata)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateMetadata)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateMetadata or *ServiceSpecTemplateMetadata", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateMetadata)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateMetadata)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateMetadata", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GenerateName, actual.GenerateName, dcl.Info{}, fn.AddNest("GenerateName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceVersion, actual.ResourceVersion, dcl.Info{}, fn.AddNest("ResourceVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Generation, actual.Generation, dcl.Info{}, fn.AddNest("Generation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataCreateTimeNewStyle}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OwnerReferences, actual.OwnerReferences, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataOwnerReferencesNewStyle}, fn.AddNest("OwnerReferences")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataDeleteTimeNewStyle}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DeletionGracePeriodSeconds, actual.DeletionGracePeriodSeconds, dcl.Info{}, fn.AddNest("DeletionGracePeriodSeconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Finalizers, actual.Finalizers, dcl.Info{}, fn.AddNest("Finalizers")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClusterName, actual.ClusterName, dcl.Info{}, fn.AddNest("ClusterName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateMetadata(c *Client, desired, actual *ServiceSpecTemplateMetadata) bool {
@@ -5465,6 +5953,42 @@ func compareServiceSpecTemplateMetadataMap(c *Client, desired, actual map[string
 	return false
 }
 
+func compareServiceSpecTemplateMetadataCreateTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateMetadataCreateTime)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateMetadataCreateTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateMetadataCreateTime or *ServiceSpecTemplateMetadataCreateTime", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateMetadataCreateTime)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateMetadataCreateTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateMetadataCreateTime", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateMetadataCreateTime(c *Client, desired, actual *ServiceSpecTemplateMetadataCreateTime) bool {
 	if desired == nil {
 		return false
@@ -5514,6 +6038,70 @@ func compareServiceSpecTemplateMetadataCreateTimeMap(c *Client, desired, actual 
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateMetadataOwnerReferencesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateMetadataOwnerReferences)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateMetadataOwnerReferences)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateMetadataOwnerReferences or *ServiceSpecTemplateMetadataOwnerReferences", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateMetadataOwnerReferences)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateMetadataOwnerReferences)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateMetadataOwnerReferences", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ApiVersion, actual.ApiVersion, dcl.Info{}, fn.AddNest("ApiVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Controller, actual.Controller, dcl.Info{}, fn.AddNest("Controller")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion, dcl.Info{}, fn.AddNest("BlockOwnerDeletion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateMetadataOwnerReferences(c *Client, desired, actual *ServiceSpecTemplateMetadataOwnerReferences) bool {
@@ -5583,6 +6171,42 @@ func compareServiceSpecTemplateMetadataOwnerReferencesMap(c *Client, desired, ac
 	return false
 }
 
+func compareServiceSpecTemplateMetadataDeleteTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateMetadataDeleteTime)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateMetadataDeleteTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateMetadataDeleteTime or *ServiceSpecTemplateMetadataDeleteTime", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateMetadataDeleteTime)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateMetadataDeleteTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateMetadataDeleteTime", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateMetadataDeleteTime(c *Client, desired, actual *ServiceSpecTemplateMetadataDeleteTime) bool {
 	if desired == nil {
 		return false
@@ -5632,6 +6256,63 @@ func compareServiceSpecTemplateMetadataDeleteTimeMap(c *Client, desired, actual 
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpec)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpec or *ServiceSpecTemplateSpec", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpec)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpec", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ContainerConcurrency, actual.ContainerConcurrency, dcl.Info{}, fn.AddNest("ContainerConcurrency")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TimeoutSeconds, actual.TimeoutSeconds, dcl.Info{}, fn.AddNest("TimeoutSeconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceAccountName, actual.ServiceAccountName, dcl.Info{}, fn.AddNest("ServiceAccountName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Containers, actual.Containers, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersNewStyle}, fn.AddNest("Containers")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesNewStyle}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpec(c *Client, desired, actual *ServiceSpecTemplateSpec) bool {
@@ -5695,6 +6376,140 @@ func compareServiceSpecTemplateSpecMap(c *Client, desired, actual map[string]Ser
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecContainersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainers)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainers)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainers or *ServiceSpecTemplateSpecContainers", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainers)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainers)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainers", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.Info{}, fn.AddNest("Image")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Command, actual.Command, dcl.Info{}, fn.AddNest("Command")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Env, actual.Env, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvNewStyle}, fn.AddNest("Env")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersResourcesNewStyle}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.WorkingDir, actual.WorkingDir, dcl.Info{}, fn.AddNest("WorkingDir")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersPortsNewStyle}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnvFrom, actual.EnvFrom, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromNewStyle}, fn.AddNest("EnvFrom")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VolumeMounts, actual.VolumeMounts, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersVolumeMountsNewStyle}, fn.AddNest("VolumeMounts")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LivenessProbe, actual.LivenessProbe, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeNewStyle}, fn.AddNest("LivenessProbe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadinessProbe, actual.ReadinessProbe, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeNewStyle}, fn.AddNest("ReadinessProbe")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TerminationMessagePath, actual.TerminationMessagePath, dcl.Info{}, fn.AddNest("TerminationMessagePath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TerminationMessagePolicy, actual.TerminationMessagePolicy, dcl.Info{}, fn.AddNest("TerminationMessagePolicy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ImagePullPolicy, actual.ImagePullPolicy, dcl.Info{}, fn.AddNest("ImagePullPolicy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SecurityContext, actual.SecurityContext, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersSecurityContextNewStyle}, fn.AddNest("SecurityContext")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecContainers(c *Client, desired, actual *ServiceSpecTemplateSpecContainers) bool {
@@ -5804,6 +6619,49 @@ func compareServiceSpecTemplateSpecContainersMap(c *Client, desired, actual map[
 	return false
 }
 
+func compareServiceSpecTemplateSpecContainersEnvNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersEnv)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersEnv)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnv or *ServiceSpecTemplateSpecContainersEnv", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersEnv)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersEnv)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnv", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ValueFrom, actual.ValueFrom, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromNewStyle}, fn.AddNest("ValueFrom")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecContainersEnv(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnv) bool {
 	if desired == nil {
 		return false
@@ -5859,6 +6717,42 @@ func compareServiceSpecTemplateSpecContainersEnvMap(c *Client, desired, actual m
 	return false
 }
 
+func compareServiceSpecTemplateSpecContainersEnvValueFromNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersEnvValueFrom)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersEnvValueFrom)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvValueFrom or *ServiceSpecTemplateSpecContainersEnvValueFrom", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersEnvValueFrom)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersEnvValueFrom)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvValueFrom", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ConfigMapKeyRef, actual.ConfigMapKeyRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefNewStyle}, fn.AddNest("ConfigMapKeyRef")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SecretKeyRef, actual.SecretKeyRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefNewStyle}, fn.AddNest("SecretKeyRef")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecContainersEnvValueFrom(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFrom) bool {
 	if desired == nil {
 		return false
@@ -5908,6 +6802,56 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromMap(c *Client, desired,
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef or *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceNewStyle}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) bool {
@@ -5969,6 +6913,35 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefMap(c *C
 	return false
 }
 
+func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference or *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) bool {
 	if desired == nil {
 		return false
@@ -6014,6 +6987,56 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObj
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef or *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceNewStyle}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) bool {
@@ -6075,6 +7098,35 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefMap(c *Clie
 	return false
 }
 
+func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference or *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) bool {
 	if desired == nil {
 		return false
@@ -6120,6 +7172,42 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObject
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecContainersResourcesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersResources)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersResources)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersResources or *ServiceSpecTemplateSpecContainersResources", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersResources)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersResources)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersResources", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Limits, actual.Limits, dcl.Info{}, fn.AddNest("Limits")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Requests, actual.Requests, dcl.Info{}, fn.AddNest("Requests")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecContainersResources(c *Client, desired, actual *ServiceSpecTemplateSpecContainersResources) bool {
@@ -6171,6 +7259,49 @@ func compareServiceSpecTemplateSpecContainersResourcesMap(c *Client, desired, ac
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecContainersPortsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersPorts)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersPorts)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersPorts or *ServiceSpecTemplateSpecContainersPorts", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersPorts)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersPorts)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersPorts", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ContainerPort, actual.ContainerPort, dcl.Info{}, fn.AddNest("ContainerPort")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Protocol, actual.Protocol, dcl.Info{}, fn.AddNest("Protocol")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecContainersPorts(c *Client, desired, actual *ServiceSpecTemplateSpecContainersPorts) bool {
@@ -6228,6 +7359,49 @@ func compareServiceSpecTemplateSpecContainersPortsMap(c *Client, desired, actual
 	return false
 }
 
+func compareServiceSpecTemplateSpecContainersEnvFromNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersEnvFrom)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersEnvFrom)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvFrom or *ServiceSpecTemplateSpecContainersEnvFrom", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersEnvFrom)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersEnvFrom)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvFrom", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Prefix, actual.Prefix, dcl.Info{}, fn.AddNest("Prefix")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConfigMapRef, actual.ConfigMapRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefNewStyle}, fn.AddNest("ConfigMapRef")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SecretRef, actual.SecretRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromSecretRefNewStyle}, fn.AddNest("SecretRef")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecContainersEnvFrom(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFrom) bool {
 	if desired == nil {
 		return false
@@ -6281,6 +7455,49 @@ func compareServiceSpecTemplateSpecContainersEnvFromMap(c *Client, desired, actu
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersEnvFromConfigMapRef)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersEnvFromConfigMapRef)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvFromConfigMapRef or *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersEnvFromConfigMapRef)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersEnvFromConfigMapRef)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvFromConfigMapRef", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceNewStyle}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) bool {
@@ -6338,6 +7555,35 @@ func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefMap(c *Client, d
 	return false
 }
 
+func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference or *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) bool {
 	if desired == nil {
 		return false
@@ -6383,6 +7629,49 @@ func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectRefer
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecContainersEnvFromSecretRefNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersEnvFromSecretRef)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersEnvFromSecretRef)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvFromSecretRef or *ServiceSpecTemplateSpecContainersEnvFromSecretRef", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersEnvFromSecretRef)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersEnvFromSecretRef)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvFromSecretRef", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceNewStyle}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFromSecretRef) bool {
@@ -6440,6 +7729,35 @@ func compareServiceSpecTemplateSpecContainersEnvFromSecretRefMap(c *Client, desi
 	return false
 }
 
+func compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference or *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) bool {
 	if desired == nil {
 		return false
@@ -6485,6 +7803,56 @@ func compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenc
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecContainersVolumeMountsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersVolumeMounts)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersVolumeMounts)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersVolumeMounts or *ServiceSpecTemplateSpecContainersVolumeMounts", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersVolumeMounts)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersVolumeMounts)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersVolumeMounts", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadOnly, actual.ReadOnly, dcl.Info{}, fn.AddNest("ReadOnly")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MountPath, actual.MountPath, dcl.Info{}, fn.AddNest("MountPath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SubPath, actual.SubPath, dcl.Info{}, fn.AddNest("SubPath")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecContainersVolumeMounts(c *Client, desired, actual *ServiceSpecTemplateSpecContainersVolumeMounts) bool {
@@ -6544,6 +7912,84 @@ func compareServiceSpecTemplateSpecContainersVolumeMountsMap(c *Client, desired,
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecContainersLivenessProbeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersLivenessProbe)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersLivenessProbe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersLivenessProbe or *ServiceSpecTemplateSpecContainersLivenessProbe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersLivenessProbe)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersLivenessProbe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersLivenessProbe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.InitialDelaySeconds, actual.InitialDelaySeconds, dcl.Info{}, fn.AddNest("InitialDelaySeconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TimeoutSeconds, actual.TimeoutSeconds, dcl.Info{}, fn.AddNest("TimeoutSeconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PeriodSeconds, actual.PeriodSeconds, dcl.Info{}, fn.AddNest("PeriodSeconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SuccessThreshold, actual.SuccessThreshold, dcl.Info{}, fn.AddNest("SuccessThreshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FailureThreshold, actual.FailureThreshold, dcl.Info{}, fn.AddNest("FailureThreshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Exec, actual.Exec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeExecNewStyle}, fn.AddNest("Exec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HttpGet, actual.HttpGet, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetNewStyle}, fn.AddNest("HttpGet")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TcpSocket, actual.TcpSocket, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketNewStyle}, fn.AddNest("TcpSocket")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecContainersLivenessProbe(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbe) bool {
@@ -6621,6 +8067,35 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeMap(c *Client, desired
 	return false
 }
 
+func compareServiceSpecTemplateSpecContainersLivenessProbeExecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersLivenessProbeExec)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersLivenessProbeExec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersLivenessProbeExec or *ServiceSpecTemplateSpecContainersLivenessProbeExec", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersLivenessProbeExec)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersLivenessProbeExec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersLivenessProbeExec", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Command, actual.Command, dcl.Info{}, fn.AddNest("Command")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecContainersLivenessProbeExec(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbeExec) bool {
 	if desired == nil {
 		return false
@@ -6666,6 +8141,56 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeExecMap(c *Client, des
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersLivenessProbeHttpGet)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersLivenessProbeHttpGet)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersLivenessProbeHttpGet or *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersLivenessProbeHttpGet)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersLivenessProbeHttpGet)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersLivenessProbeHttpGet", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scheme, actual.Scheme, dcl.Info{}, fn.AddNest("Scheme")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HttpHeaders, actual.HttpHeaders, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersNewStyle}, fn.AddNest("HttpHeaders")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) bool {
@@ -6727,6 +8252,42 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetMap(c *Client, 
 	return false
 }
 
+func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders or *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) bool {
 	if desired == nil {
 		return false
@@ -6778,6 +8339,42 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersMap(
 	return false
 }
 
+func compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket or *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) bool {
 	if desired == nil {
 		return false
@@ -6827,6 +8424,84 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketMap(c *Client
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecContainersReadinessProbeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersReadinessProbe)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersReadinessProbe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersReadinessProbe or *ServiceSpecTemplateSpecContainersReadinessProbe", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersReadinessProbe)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersReadinessProbe)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersReadinessProbe", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.InitialDelaySeconds, actual.InitialDelaySeconds, dcl.Info{}, fn.AddNest("InitialDelaySeconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TimeoutSeconds, actual.TimeoutSeconds, dcl.Info{}, fn.AddNest("TimeoutSeconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PeriodSeconds, actual.PeriodSeconds, dcl.Info{}, fn.AddNest("PeriodSeconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SuccessThreshold, actual.SuccessThreshold, dcl.Info{}, fn.AddNest("SuccessThreshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FailureThreshold, actual.FailureThreshold, dcl.Info{}, fn.AddNest("FailureThreshold")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Exec, actual.Exec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeExecNewStyle}, fn.AddNest("Exec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HttpGet, actual.HttpGet, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetNewStyle}, fn.AddNest("HttpGet")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TcpSocket, actual.TcpSocket, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketNewStyle}, fn.AddNest("TcpSocket")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecContainersReadinessProbe(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbe) bool {
@@ -6904,6 +8579,35 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeMap(c *Client, desire
 	return false
 }
 
+func compareServiceSpecTemplateSpecContainersReadinessProbeExecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersReadinessProbeExec)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersReadinessProbeExec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersReadinessProbeExec or *ServiceSpecTemplateSpecContainersReadinessProbeExec", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersReadinessProbeExec)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersReadinessProbeExec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersReadinessProbeExec", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Command, actual.Command, dcl.Info{}, fn.AddNest("Command")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecContainersReadinessProbeExec(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbeExec) bool {
 	if desired == nil {
 		return false
@@ -6949,6 +8653,56 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeExecMap(c *Client, de
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersReadinessProbeHttpGet)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersReadinessProbeHttpGet)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersReadinessProbeHttpGet or *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersReadinessProbeHttpGet)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersReadinessProbeHttpGet)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersReadinessProbeHttpGet", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scheme, actual.Scheme, dcl.Info{}, fn.AddNest("Scheme")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HttpHeaders, actual.HttpHeaders, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersNewStyle}, fn.AddNest("HttpHeaders")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) bool {
@@ -7010,6 +8764,42 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetMap(c *Client,
 	return false
 }
 
+func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders or *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) bool {
 	if desired == nil {
 		return false
@@ -7059,6 +8849,42 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersMap
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket or *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) bool {
@@ -7112,6 +8938,35 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketMap(c *Clien
 	return false
 }
 
+func compareServiceSpecTemplateSpecContainersSecurityContextNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecContainersSecurityContext)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecContainersSecurityContext)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersSecurityContext or *ServiceSpecTemplateSpecContainersSecurityContext", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecContainersSecurityContext)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecContainersSecurityContext)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecContainersSecurityContext", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RunAsUser, actual.RunAsUser, dcl.Info{}, fn.AddNest("RunAsUser")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecContainersSecurityContext(c *Client, desired, actual *ServiceSpecTemplateSpecContainersSecurityContext) bool {
 	if desired == nil {
 		return false
@@ -7157,6 +9012,49 @@ func compareServiceSpecTemplateSpecContainersSecurityContextMap(c *Client, desir
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecVolumesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecVolumes)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecVolumes)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecVolumes or *ServiceSpecTemplateSpecVolumes", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecVolumes)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecVolumes)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecVolumes", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesSecretNewStyle}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConfigMap, actual.ConfigMap, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesConfigMapNewStyle}, fn.AddNest("ConfigMap")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecVolumes(c *Client, desired, actual *ServiceSpecTemplateSpecVolumes) bool {
@@ -7212,6 +9110,56 @@ func compareServiceSpecTemplateSpecVolumesMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecVolumesSecretNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecVolumesSecret)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecVolumesSecret)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecVolumesSecret or *ServiceSpecTemplateSpecVolumesSecret", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecVolumesSecret)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecVolumesSecret)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecVolumesSecret", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.SecretName, actual.SecretName, dcl.Info{}, fn.AddNest("SecretName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Items, actual.Items, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesSecretItemsNewStyle}, fn.AddNest("Items")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DefaultMode, actual.DefaultMode, dcl.Info{}, fn.AddNest("DefaultMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecVolumesSecret(c *Client, desired, actual *ServiceSpecTemplateSpecVolumesSecret) bool {
@@ -7273,6 +9221,49 @@ func compareServiceSpecTemplateSpecVolumesSecretMap(c *Client, desired, actual m
 	return false
 }
 
+func compareServiceSpecTemplateSpecVolumesSecretItemsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecVolumesSecretItems)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecVolumesSecretItems)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecVolumesSecretItems or *ServiceSpecTemplateSpecVolumesSecretItems", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecVolumesSecretItems)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecVolumesSecretItems)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecVolumesSecretItems", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecVolumesSecretItems(c *Client, desired, actual *ServiceSpecTemplateSpecVolumesSecretItems) bool {
 	if desired == nil {
 		return false
@@ -7326,6 +9317,56 @@ func compareServiceSpecTemplateSpecVolumesSecretItemsMap(c *Client, desired, act
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTemplateSpecVolumesConfigMapNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecVolumesConfigMap)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecVolumesConfigMap)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecVolumesConfigMap or *ServiceSpecTemplateSpecVolumesConfigMap", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecVolumesConfigMap)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecVolumesConfigMap)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecVolumesConfigMap", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Items, actual.Items, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesConfigMapItemsNewStyle}, fn.AddNest("Items")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DefaultMode, actual.DefaultMode, dcl.Info{}, fn.AddNest("DefaultMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTemplateSpecVolumesConfigMap(c *Client, desired, actual *ServiceSpecTemplateSpecVolumesConfigMap) bool {
@@ -7387,6 +9428,49 @@ func compareServiceSpecTemplateSpecVolumesConfigMapMap(c *Client, desired, actua
 	return false
 }
 
+func compareServiceSpecTemplateSpecVolumesConfigMapItemsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTemplateSpecVolumesConfigMapItems)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTemplateSpecVolumesConfigMapItems)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecVolumesConfigMapItems or *ServiceSpecTemplateSpecVolumesConfigMapItems", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTemplateSpecVolumesConfigMapItems)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTemplateSpecVolumesConfigMapItems)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTemplateSpecVolumesConfigMapItems", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceSpecTemplateSpecVolumesConfigMapItems(c *Client, desired, actual *ServiceSpecTemplateSpecVolumesConfigMapItems) bool {
 	if desired == nil {
 		return false
@@ -7440,6 +9524,70 @@ func compareServiceSpecTemplateSpecVolumesConfigMapItemsMap(c *Client, desired, 
 		}
 	}
 	return false
+}
+
+func compareServiceSpecTrafficNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceSpecTraffic)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceSpecTraffic)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTraffic or *ServiceSpecTraffic", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceSpecTraffic)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceSpecTraffic)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceSpecTraffic", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ConfigurationName, actual.ConfigurationName, dcl.Info{}, fn.AddNest("ConfigurationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RevisionName, actual.RevisionName, dcl.Info{}, fn.AddNest("RevisionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LatestRevision, actual.LatestRevision, dcl.Info{}, fn.AddNest("LatestRevision")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OutputOnly: true}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceSpecTraffic(c *Client, desired, actual *ServiceSpecTraffic) bool {
@@ -7503,6 +9651,77 @@ func compareServiceSpecTrafficMap(c *Client, desired, actual map[string]ServiceS
 		}
 	}
 	return false
+}
+
+func compareServiceStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceStatus or *ServiceStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceStatus)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ObservedGeneration, actual.ObservedGeneration, dcl.Info{}, fn.AddNest("ObservedGeneration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareServiceStatusConditionsNewStyle}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LatestReadyRevisionName, actual.LatestReadyRevisionName, dcl.Info{}, fn.AddNest("LatestReadyRevisionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LatestCreatedRevisionName, actual.LatestCreatedRevisionName, dcl.Info{}, fn.AddNest("LatestCreatedRevisionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Traffic, actual.Traffic, dcl.Info{ObjectFunction: compareServiceStatusTrafficNewStyle}, fn.AddNest("Traffic")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Address, actual.Address, dcl.Info{ObjectFunction: compareServiceStatusAddressNewStyle}, fn.AddNest("Address")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceStatus(c *Client, desired, actual *ServiceStatus) bool {
@@ -7576,6 +9795,70 @@ func compareServiceStatusMap(c *Client, desired, actual map[string]ServiceStatus
 	return false
 }
 
+func compareServiceStatusConditionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceStatusConditions)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceStatusConditions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceStatusConditions or *ServiceStatusConditions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceStatusConditions)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceStatusConditions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceStatusConditions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Reason, actual.Reason, dcl.Info{}, fn.AddNest("Reason")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LastTransitionTime, actual.LastTransitionTime, dcl.Info{ObjectFunction: compareServiceStatusConditionsLastTransitionTimeNewStyle}, fn.AddNest("LastTransitionTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Severity, actual.Severity, dcl.Info{}, fn.AddNest("Severity")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceStatusConditions(c *Client, desired, actual *ServiceStatusConditions) bool {
 	if desired == nil {
 		return false
@@ -7643,6 +9926,42 @@ func compareServiceStatusConditionsMap(c *Client, desired, actual map[string]Ser
 	return false
 }
 
+func compareServiceStatusConditionsLastTransitionTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceStatusConditionsLastTransitionTime)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceStatusConditionsLastTransitionTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceStatusConditionsLastTransitionTime or *ServiceStatusConditionsLastTransitionTime", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceStatusConditionsLastTransitionTime)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceStatusConditionsLastTransitionTime)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceStatusConditionsLastTransitionTime", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareServiceStatusConditionsLastTransitionTime(c *Client, desired, actual *ServiceStatusConditionsLastTransitionTime) bool {
 	if desired == nil {
 		return false
@@ -7692,6 +10011,70 @@ func compareServiceStatusConditionsLastTransitionTimeMap(c *Client, desired, act
 		}
 	}
 	return false
+}
+
+func compareServiceStatusTrafficNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceStatusTraffic)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceStatusTraffic)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceStatusTraffic or *ServiceStatusTraffic", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceStatusTraffic)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceStatusTraffic)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceStatusTraffic", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ConfigurationName, actual.ConfigurationName, dcl.Info{}, fn.AddNest("ConfigurationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RevisionName, actual.RevisionName, dcl.Info{}, fn.AddNest("RevisionName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LatestRevision, actual.LatestRevision, dcl.Info{}, fn.AddNest("LatestRevision")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OutputOnly: true}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceStatusTraffic(c *Client, desired, actual *ServiceStatusTraffic) bool {
@@ -7755,6 +10138,35 @@ func compareServiceStatusTrafficMap(c *Client, desired, actual map[string]Servic
 		}
 	}
 	return false
+}
+
+func compareServiceStatusAddressNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ServiceStatusAddress)
+	if !ok {
+		desiredNotPointer, ok := d.(ServiceStatusAddress)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceStatusAddress or *ServiceStatusAddress", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ServiceStatusAddress)
+	if !ok {
+		actualNotPointer, ok := a.(ServiceStatusAddress)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ServiceStatusAddress", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareServiceStatusAddress(c *Client, desired, actual *ServiceStatusAddress) bool {

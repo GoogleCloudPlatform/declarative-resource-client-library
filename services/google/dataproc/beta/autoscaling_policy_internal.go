@@ -851,55 +851,67 @@ func diffAutoscalingPolicy(c *Client, desired, actual *AutoscalingPolicy, opts .
 	}
 
 	var diffs []autoscalingPolicyDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalingPolicyDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, autoscalingPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BasicAlgorithm, actual.BasicAlgorithm, dcl.Info{ObjectFunction: compareAutoscalingPolicyBasicAlgorithmNewStyle}, fn.AddNest("BasicAlgorithm")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalingPolicyDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, autoscalingPolicyDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareAutoscalingPolicyBasicAlgorithm(c, desired.BasicAlgorithm, actual.BasicAlgorithm) {
-		c.Config.Logger.Infof("Detected diff in BasicAlgorithm.\nDESIRED: %v\nACTUAL: %v", desired.BasicAlgorithm, actual.BasicAlgorithm)
-
 		diffs = append(diffs, autoscalingPolicyDiff{
-			UpdateOp:  &updateAutoscalingPolicyUpdateAutoscalingPolicyOperation{},
+			UpdateOp: &updateAutoscalingPolicyUpdateAutoscalingPolicyOperation{}, Diffs: ds,
 			FieldName: "BasicAlgorithm",
 		})
-
 	}
-	if compareAutoscalingPolicyWorkerConfig(c, desired.WorkerConfig, actual.WorkerConfig) {
-		c.Config.Logger.Infof("Detected diff in WorkerConfig.\nDESIRED: %v\nACTUAL: %v", desired.WorkerConfig, actual.WorkerConfig)
 
+	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareAutoscalingPolicyWorkerConfigNewStyle}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, autoscalingPolicyDiff{
-			UpdateOp:  &updateAutoscalingPolicyUpdateAutoscalingPolicyOperation{},
+			UpdateOp: &updateAutoscalingPolicyUpdateAutoscalingPolicyOperation{}, Diffs: ds,
 			FieldName: "WorkerConfig",
 		})
-
 	}
-	if compareAutoscalingPolicySecondaryWorkerConfig(c, desired.SecondaryWorkerConfig, actual.SecondaryWorkerConfig) {
-		c.Config.Logger.Infof("Detected diff in SecondaryWorkerConfig.\nDESIRED: %v\nACTUAL: %v", desired.SecondaryWorkerConfig, actual.SecondaryWorkerConfig)
 
+	if ds, err := dcl.Diff(desired.SecondaryWorkerConfig, actual.SecondaryWorkerConfig, dcl.Info{ObjectFunction: compareAutoscalingPolicySecondaryWorkerConfigNewStyle}, fn.AddNest("SecondaryWorkerConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, autoscalingPolicyDiff{
-			UpdateOp:  &updateAutoscalingPolicyUpdateAutoscalingPolicyOperation{},
+			UpdateOp: &updateAutoscalingPolicyUpdateAutoscalingPolicyOperation{}, Diffs: ds,
 			FieldName: "SecondaryWorkerConfig",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalingPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalingPolicyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -924,6 +936,42 @@ func diffAutoscalingPolicy(c *Client, desired, actual *AutoscalingPolicy, opts .
 
 	return deduped, nil
 }
+func compareAutoscalingPolicyBasicAlgorithmNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AutoscalingPolicyBasicAlgorithm)
+	if !ok {
+		desiredNotPointer, ok := d.(AutoscalingPolicyBasicAlgorithm)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalingPolicyBasicAlgorithm or *AutoscalingPolicyBasicAlgorithm", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AutoscalingPolicyBasicAlgorithm)
+	if !ok {
+		actualNotPointer, ok := a.(AutoscalingPolicyBasicAlgorithm)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalingPolicyBasicAlgorithm", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.YarnConfig, actual.YarnConfig, dcl.Info{ObjectFunction: compareAutoscalingPolicyBasicAlgorithmYarnConfigNewStyle}, fn.AddNest("YarnConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CooldownPeriod, actual.CooldownPeriod, dcl.Info{}, fn.AddNest("CooldownPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAutoscalingPolicyBasicAlgorithm(c *Client, desired, actual *AutoscalingPolicyBasicAlgorithm) bool {
 	if desired == nil {
 		return false
@@ -973,6 +1021,63 @@ func compareAutoscalingPolicyBasicAlgorithmMap(c *Client, desired, actual map[st
 		}
 	}
 	return false
+}
+
+func compareAutoscalingPolicyBasicAlgorithmYarnConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AutoscalingPolicyBasicAlgorithmYarnConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(AutoscalingPolicyBasicAlgorithmYarnConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalingPolicyBasicAlgorithmYarnConfig or *AutoscalingPolicyBasicAlgorithmYarnConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AutoscalingPolicyBasicAlgorithmYarnConfig)
+	if !ok {
+		actualNotPointer, ok := a.(AutoscalingPolicyBasicAlgorithmYarnConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalingPolicyBasicAlgorithmYarnConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.GracefulDecommissionTimeout, actual.GracefulDecommissionTimeout, dcl.Info{}, fn.AddNest("GracefulDecommissionTimeout")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ScaleUpFactor, actual.ScaleUpFactor, dcl.Info{}, fn.AddNest("ScaleUpFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ScaleDownFactor, actual.ScaleDownFactor, dcl.Info{}, fn.AddNest("ScaleDownFactor")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ScaleUpMinWorkerFraction, actual.ScaleUpMinWorkerFraction, dcl.Info{}, fn.AddNest("ScaleUpMinWorkerFraction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ScaleDownMinWorkerFraction, actual.ScaleDownMinWorkerFraction, dcl.Info{}, fn.AddNest("ScaleDownMinWorkerFraction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, desired, actual *AutoscalingPolicyBasicAlgorithmYarnConfig) bool {
@@ -1038,6 +1143,49 @@ func compareAutoscalingPolicyBasicAlgorithmYarnConfigMap(c *Client, desired, act
 	return false
 }
 
+func compareAutoscalingPolicyWorkerConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AutoscalingPolicyWorkerConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(AutoscalingPolicyWorkerConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalingPolicyWorkerConfig or *AutoscalingPolicyWorkerConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AutoscalingPolicyWorkerConfig)
+	if !ok {
+		actualNotPointer, ok := a.(AutoscalingPolicyWorkerConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalingPolicyWorkerConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinInstances, actual.MinInstances, dcl.Info{}, fn.AddNest("MinInstances")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxInstances, actual.MaxInstances, dcl.Info{}, fn.AddNest("MaxInstances")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAutoscalingPolicyWorkerConfig(c *Client, desired, actual *AutoscalingPolicyWorkerConfig) bool {
 	if desired == nil {
 		return false
@@ -1091,6 +1239,49 @@ func compareAutoscalingPolicyWorkerConfigMap(c *Client, desired, actual map[stri
 		}
 	}
 	return false
+}
+
+func compareAutoscalingPolicySecondaryWorkerConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AutoscalingPolicySecondaryWorkerConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(AutoscalingPolicySecondaryWorkerConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalingPolicySecondaryWorkerConfig or *AutoscalingPolicySecondaryWorkerConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AutoscalingPolicySecondaryWorkerConfig)
+	if !ok {
+		actualNotPointer, ok := a.(AutoscalingPolicySecondaryWorkerConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalingPolicySecondaryWorkerConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinInstances, actual.MinInstances, dcl.Info{}, fn.AddNest("MinInstances")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxInstances, actual.MaxInstances, dcl.Info{}, fn.AddNest("MaxInstances")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAutoscalingPolicySecondaryWorkerConfig(c *Client, desired, actual *AutoscalingPolicySecondaryWorkerConfig) bool {

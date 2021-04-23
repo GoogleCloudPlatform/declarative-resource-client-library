@@ -26,7 +26,6 @@ type FeatureMembership struct {
 	Feature          *string                            `json:"feature"`
 	Location         *string                            `json:"location"`
 	Project          *string                            `json:"project"`
-	ProjectNumber    *string                            `json:"projectNumber"`
 	Configmanagement *FeatureMembershipConfigmanagement `json:"configmanagement"`
 }
 

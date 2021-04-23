@@ -286,9 +286,6 @@ func canonicalizeFeatureMembershipDesiredState(rawDesired, rawInitial *FeatureMe
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
-	if dcl.NameToSelfLink(rawDesired.ProjectNumber, rawInitial.ProjectNumber) {
-		rawDesired.ProjectNumber = rawInitial.ProjectNumber
-	}
 	rawDesired.Configmanagement = canonicalizeFeatureMembershipConfigmanagement(rawDesired.Configmanagement, rawInitial.Configmanagement, opts...)
 
 	return rawDesired, nil
@@ -303,8 +300,6 @@ func canonicalizeFeatureMembershipNewState(c *Client, rawNew, rawDesired *Featur
 	rawNew.Location = rawDesired.Location
 
 	rawNew.Project = rawDesired.Project
-
-	rawNew.ProjectNumber = rawDesired.ProjectNumber
 
 	if dcl.IsEmptyValueIndirect(rawNew.Configmanagement) && dcl.IsEmptyValueIndirect(rawDesired.Configmanagement) {
 		rawNew.Configmanagement = rawDesired.Configmanagement
@@ -872,51 +867,56 @@ func diffFeatureMembership(c *Client, desired, actual *FeatureMembership, opts .
 	}
 
 	var diffs []featureMembershipDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Membership, actual.Membership, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "membership"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Membership, actual.Membership, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Membership")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureMembershipDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, featureMembershipDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Membership",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Feature, actual.Feature, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "feature"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Feature, actual.Feature, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Feature")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureMembershipDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, featureMembershipDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Feature",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureMembershipDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, featureMembershipDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureMembershipDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, featureMembershipDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ProjectNumber, actual.ProjectNumber, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project_number"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Configmanagement, actual.Configmanagement, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementNewStyle}, fn.AddNest("Configmanagement")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureMembershipDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareFeatureMembershipConfigmanagement(c, desired.Configmanagement, actual.Configmanagement) {
-		c.Config.Logger.Infof("Detected diff in Configmanagement.\nDESIRED: %v\nACTUAL: %v", desired.Configmanagement, actual.Configmanagement)
-
 		diffs = append(diffs, featureMembershipDiff{
-			UpdateOp:  &updateFeatureMembershipUpdateFeatureMembershipOperation{},
+			UpdateOp: &updateFeatureMembershipUpdateFeatureMembershipOperation{}, Diffs: ds,
 			FieldName: "Configmanagement",
 		})
-
 	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -941,6 +941,63 @@ func diffFeatureMembership(c *Client, desired, actual *FeatureMembership, opts .
 
 	return deduped, nil
 }
+func compareFeatureMembershipConfigmanagementNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureMembershipConfigmanagement)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureMembershipConfigmanagement)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagement or *FeatureMembershipConfigmanagement", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureMembershipConfigmanagement)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureMembershipConfigmanagement)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagement", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ConfigSync, actual.ConfigSync, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncNewStyle}, fn.AddNest("ConfigSync")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyController, actual.PolicyController, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementPolicyControllerNewStyle}, fn.AddNest("PolicyController")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Binauthz, actual.Binauthz, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementBinauthzNewStyle}, fn.AddNest("Binauthz")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HierarchyController, actual.HierarchyController, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle}, fn.AddNest("HierarchyController")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareFeatureMembershipConfigmanagement(c *Client, desired, actual *FeatureMembershipConfigmanagement) bool {
 	if desired == nil {
 		return false
@@ -1004,6 +1061,42 @@ func compareFeatureMembershipConfigmanagementMap(c *Client, desired, actual map[
 	return false
 }
 
+func compareFeatureMembershipConfigmanagementConfigSyncNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureMembershipConfigmanagementConfigSync)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureMembershipConfigmanagementConfigSync)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementConfigSync or *FeatureMembershipConfigmanagementConfigSync", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureMembershipConfigmanagementConfigSync)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureMembershipConfigmanagementConfigSync)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementConfigSync", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Git, actual.Git, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncGitNewStyle}, fn.AddNest("Git")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SourceFormat, actual.SourceFormat, dcl.Info{}, fn.AddNest("SourceFormat")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareFeatureMembershipConfigmanagementConfigSync(c *Client, desired, actual *FeatureMembershipConfigmanagementConfigSync) bool {
 	if desired == nil {
 		return false
@@ -1053,6 +1146,84 @@ func compareFeatureMembershipConfigmanagementConfigSyncMap(c *Client, desired, a
 		}
 	}
 	return false
+}
+
+func compareFeatureMembershipConfigmanagementConfigSyncGitNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureMembershipConfigmanagementConfigSyncGit)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureMembershipConfigmanagementConfigSyncGit)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementConfigSyncGit or *FeatureMembershipConfigmanagementConfigSyncGit", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureMembershipConfigmanagementConfigSyncGit)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureMembershipConfigmanagementConfigSyncGit)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementConfigSyncGit", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.SyncRepo, actual.SyncRepo, dcl.Info{}, fn.AddNest("SyncRepo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SyncBranch, actual.SyncBranch, dcl.Info{}, fn.AddNest("SyncBranch")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PolicyDir, actual.PolicyDir, dcl.Info{}, fn.AddNest("PolicyDir")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SyncWaitSecs, actual.SyncWaitSecs, dcl.Info{}, fn.AddNest("SyncWaitSecs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SyncRev, actual.SyncRev, dcl.Info{}, fn.AddNest("SyncRev")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SecretType, actual.SecretType, dcl.Info{}, fn.AddNest("SecretType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HttpsProxy, actual.HttpsProxy, dcl.Info{}, fn.AddNest("HttpsProxy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GcpServiceAccountEmail, actual.GcpServiceAccountEmail, dcl.Info{Type: "ReferenceType"}, fn.AddNest("GcpServiceAccountEmail")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareFeatureMembershipConfigmanagementConfigSyncGit(c *Client, desired, actual *FeatureMembershipConfigmanagementConfigSyncGit) bool {
@@ -1130,6 +1301,70 @@ func compareFeatureMembershipConfigmanagementConfigSyncGitMap(c *Client, desired
 	return false
 }
 
+func compareFeatureMembershipConfigmanagementPolicyControllerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureMembershipConfigmanagementPolicyController)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureMembershipConfigmanagementPolicyController)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementPolicyController or *FeatureMembershipConfigmanagementPolicyController", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureMembershipConfigmanagementPolicyController)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureMembershipConfigmanagementPolicyController)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementPolicyController", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExemptableNamespaces, actual.ExemptableNamespaces, dcl.Info{}, fn.AddNest("ExemptableNamespaces")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReferentialRulesEnabled, actual.ReferentialRulesEnabled, dcl.Info{}, fn.AddNest("ReferentialRulesEnabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogDeniesEnabled, actual.LogDeniesEnabled, dcl.Info{}, fn.AddNest("LogDeniesEnabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TemplateLibraryInstalled, actual.TemplateLibraryInstalled, dcl.Info{}, fn.AddNest("TemplateLibraryInstalled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AuditIntervalSeconds, actual.AuditIntervalSeconds, dcl.Info{}, fn.AddNest("AuditIntervalSeconds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareFeatureMembershipConfigmanagementPolicyController(c *Client, desired, actual *FeatureMembershipConfigmanagementPolicyController) bool {
 	if desired == nil {
 		return false
@@ -1197,6 +1432,35 @@ func compareFeatureMembershipConfigmanagementPolicyControllerMap(c *Client, desi
 	return false
 }
 
+func compareFeatureMembershipConfigmanagementBinauthzNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureMembershipConfigmanagementBinauthz)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureMembershipConfigmanagementBinauthz)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementBinauthz or *FeatureMembershipConfigmanagementBinauthz", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureMembershipConfigmanagementBinauthz)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureMembershipConfigmanagementBinauthz)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementBinauthz", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareFeatureMembershipConfigmanagementBinauthz(c *Client, desired, actual *FeatureMembershipConfigmanagementBinauthz) bool {
 	if desired == nil {
 		return false
@@ -1242,6 +1506,49 @@ func compareFeatureMembershipConfigmanagementBinauthzMap(c *Client, desired, act
 		}
 	}
 	return false
+}
+
+func compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureMembershipConfigmanagementHierarchyController)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureMembershipConfigmanagementHierarchyController)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementHierarchyController or *FeatureMembershipConfigmanagementHierarchyController", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureMembershipConfigmanagementHierarchyController)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureMembershipConfigmanagementHierarchyController)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementHierarchyController", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnablePodTreeLabels, actual.EnablePodTreeLabels, dcl.Info{}, fn.AddNest("EnablePodTreeLabels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableHierarchicalResourceQuota, actual.EnableHierarchicalResourceQuota, dcl.Info{}, fn.AddNest("EnableHierarchicalResourceQuota")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareFeatureMembershipConfigmanagementHierarchyController(c *Client, desired, actual *FeatureMembershipConfigmanagementHierarchyController) bool {
@@ -1308,7 +1615,6 @@ func (r *FeatureMembership) urlNormalized() *FeatureMembership {
 	normalized.Feature = dcl.SelfLinkToName(r.Feature)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.ProjectNumber = dcl.SelfLinkToName(r.ProjectNumber)
 	return &normalized
 }
 
@@ -1390,11 +1696,6 @@ func expandFeatureMembership(c *Client, f *FeatureMembership) (map[string]interf
 	} else if v != nil {
 		m["project"] = v
 	}
-	if v, err := dcl.EmptyValue(); err != nil {
-		return nil, fmt.Errorf("error expanding ProjectNumber into projectNumber: %w", err)
-	} else if v != nil {
-		m["projectNumber"] = v
-	}
 	if v, err := expandFeatureMembershipConfigmanagement(c, f.Configmanagement); err != nil {
 		return nil, fmt.Errorf("error expanding Configmanagement into configmanagement: %w", err)
 	} else if v != nil {
@@ -1420,7 +1721,6 @@ func flattenFeatureMembership(c *Client, i interface{}) *FeatureMembership {
 	r.Feature = dcl.FlattenString(m["feature"])
 	r.Location = dcl.FlattenString(m["location"])
 	r.Project = dcl.FlattenString(m["project"])
-	r.ProjectNumber = dcl.FlattenString(m["projectNumber"])
 	r.Configmanagement = flattenFeatureMembershipConfigmanagement(c, m["configmanagement"])
 
 	return r

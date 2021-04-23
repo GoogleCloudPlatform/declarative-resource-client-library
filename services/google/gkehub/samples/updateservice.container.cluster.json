@@ -4,6 +4,6 @@
   "location": "us-central1-a",
   "initialNodeCount": 1,
   "workloadIdentityConfig": {
-    "identityNamespace": "wenjuntoy2.svc.id.goog"
+    "identityNamespace": "{{project}}.svc.id.goog"
   }
 }

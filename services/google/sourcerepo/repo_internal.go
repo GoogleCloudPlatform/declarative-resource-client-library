@@ -559,49 +559,56 @@ func diffRepo(c *Client, desired, actual *Repo, opts ...dcl.ApplyOption) ([]repo
 	}
 
 	var diffs []repoDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Size, actual.Size, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "size"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Size, actual.Size, dcl.Info{OutputOnly: true}, fn.AddNest("Size")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Size",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "url"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OutputOnly: true}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Url",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PubsubConfigs, actual.PubsubConfigs, dcl.Info{Type: "Set", ObjectFunction: compareRepoPubsubConfigsNewStyle}, fn.AddNest("PubsubConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, repoDiff{
+			UpdateOp: &updateRepoUpdateRepoOperation{}, Diffs: ds,
+			FieldName: "PubsubConfigs",
+		})
 	}
 
-	if compareRepoPubsubConfigsSlice(c, desired.PubsubConfigs, actual.PubsubConfigs) {
-		c.Config.Logger.Infof("Detected diff in PubsubConfigs.\nDESIRED: %v\nACTUAL: %v", desired.PubsubConfigs, actual.PubsubConfigs)
-
-		toAdd, toRemove := compareRepoPubsubConfigsSets(c, desired.PubsubConfigs, actual.PubsubConfigs)
-		c.Config.Logger.Infof("diff in PubsubConfigs is a set field - recomparing with set logic.\nto add: %#v\nto remove: %#v", toAdd, toRemove)
-		if len(toAdd) != 0 || len(toRemove) != 0 {
-			c.Config.Logger.Info("diff in PubsubConfigs persists after set logic analysis.")
-			diffs = append(diffs, repoDiff{
-				UpdateOp:  &updateRepoUpdateRepoOperation{},
-				FieldName: "PubsubConfigs",
-			})
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
 		}
-
+		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -626,6 +633,49 @@ func diffRepo(c *Client, desired, actual *Repo, opts ...dcl.ApplyOption) ([]repo
 
 	return deduped, nil
 }
+func compareRepoPubsubConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*RepoPubsubConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(RepoPubsubConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a RepoPubsubConfigs or *RepoPubsubConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*RepoPubsubConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(RepoPubsubConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a RepoPubsubConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Topic, actual.Topic, dcl.Info{}, fn.AddNest("Topic")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MessageFormat, actual.MessageFormat, dcl.Info{}, fn.AddNest("MessageFormat")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, dcl.Info{}, fn.AddNest("ServiceAccountEmail")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareRepoPubsubConfigs(c *Client, desired, actual *RepoPubsubConfigs) bool {
 	if desired == nil {
 		return false

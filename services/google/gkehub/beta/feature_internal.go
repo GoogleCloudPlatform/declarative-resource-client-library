@@ -597,67 +597,84 @@ func diffFeature(c *Client, desired, actual *Feature, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []featureDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "labels"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, featureDiff{
 			UpdateOp: &updateFeatureUpdateFeatureOperation{}, Diffs: ds,
+			FieldName: "Labels",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareFeatureSpecNewStyle}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "delete_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareFeatureSpec(c, desired.Spec, actual.Spec) {
-		c.Config.Logger.Infof("Detected diff in Spec.\nDESIRED: %v\nACTUAL: %v", desired.Spec, actual.Spec)
-
 		diffs = append(diffs, featureDiff{
-			UpdateOp:  &updateFeatureUpdateFeatureOperation{},
+			UpdateOp: &updateFeatureUpdateFeatureOperation{}, Diffs: ds,
 			FieldName: "Spec",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreateTime",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpdateTime",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DeleteTime",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -682,6 +699,35 @@ func diffFeature(c *Client, desired, actual *Feature, opts ...dcl.ApplyOption) (
 
 	return deduped, nil
 }
+func compareFeatureSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureSpec)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureSpec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureSpec or *FeatureSpec", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureSpec)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureSpec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureSpec", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Multiclusteringress, actual.Multiclusteringress, dcl.Info{ObjectFunction: compareFeatureSpecMulticlusteringressNewStyle}, fn.AddNest("Multiclusteringress")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareFeatureSpec(c *Client, desired, actual *FeatureSpec) bool {
 	if desired == nil {
 		return false
@@ -727,6 +773,42 @@ func compareFeatureSpecMap(c *Client, desired, actual map[string]FeatureSpec) bo
 		}
 	}
 	return false
+}
+
+func compareFeatureSpecMulticlusteringressNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureSpecMulticlusteringress)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureSpecMulticlusteringress)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureSpecMulticlusteringress or *FeatureSpecMulticlusteringress", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureSpecMulticlusteringress)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureSpecMulticlusteringress)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureSpecMulticlusteringress", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ConfigMembership, actual.ConfigMembership, dcl.Info{}, fn.AddNest("ConfigMembership")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Billing, actual.Billing, dcl.Info{Type: "EnumType"}, fn.AddNest("Billing")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareFeatureSpecMulticlusteringress(c *Client, desired, actual *FeatureSpecMulticlusteringress) bool {

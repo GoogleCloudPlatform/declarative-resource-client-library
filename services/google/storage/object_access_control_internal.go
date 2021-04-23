@@ -632,83 +632,111 @@ func diffObjectAccessControl(c *Client, desired, actual *ObjectAccessControl, op
 	}
 
 	var diffs []objectAccessControlDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Bucket, actual.Bucket, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "bucket"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Bucket, actual.Bucket, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Bucket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, objectAccessControlDiff{
 			UpdateOp: &updateObjectAccessControlUpdateOperation{}, Diffs: ds,
+			FieldName: "Bucket",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Domain, actual.Domain, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "domain"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Domain, actual.Domain, dcl.Info{OutputOnly: true}, fn.AddNest("Domain")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Domain",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Email, actual.Email, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "email"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Email, actual.Email, dcl.Info{OutputOnly: true}, fn.AddNest("Email")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Email",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Entity, actual.Entity, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "entity"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Entity, actual.Entity, dcl.Info{}, fn.AddNest("Entity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, objectAccessControlDiff{
 			UpdateOp: &updateObjectAccessControlUpdateOperation{}, Diffs: ds,
+			FieldName: "Entity",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.EntityId, actual.EntityId, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "entity_id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EntityId, actual.EntityId, dcl.Info{OutputOnly: true}, fn.AddNest("EntityId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "EntityId",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Role, actual.Role, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "role"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProjectTeam, actual.ProjectTeam, dcl.Info{OutputOnly: true, ObjectFunction: compareObjectAccessControlProjectTeamNewStyle}, fn.AddNest("ProjectTeam")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ProjectTeam",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Role, actual.Role, dcl.Info{Type: "EnumType"}, fn.AddNest("Role")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, objectAccessControlDiff{
 			UpdateOp: &updateObjectAccessControlUpdateOperation{}, Diffs: ds,
+			FieldName: "Role",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Object, actual.Object, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "object"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Object, actual.Object, dcl.Info{}, fn.AddNest("Object")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, objectAccessControlDiff{
 			UpdateOp: &updateObjectAccessControlUpdateOperation{}, Diffs: ds,
+			FieldName: "Object",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Generation, actual.Generation, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "generation"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Generation, actual.Generation, dcl.Info{OutputOnly: true}, fn.AddNest("Generation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, objectAccessControlDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Generation",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -735,6 +763,42 @@ func diffObjectAccessControl(c *Client, desired, actual *ObjectAccessControl, op
 
 	return deduped, nil
 }
+func compareObjectAccessControlProjectTeamNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ObjectAccessControlProjectTeam)
+	if !ok {
+		desiredNotPointer, ok := d.(ObjectAccessControlProjectTeam)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ObjectAccessControlProjectTeam or *ObjectAccessControlProjectTeam", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ObjectAccessControlProjectTeam)
+	if !ok {
+		actualNotPointer, ok := a.(ObjectAccessControlProjectTeam)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ObjectAccessControlProjectTeam", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ProjectNumber, actual.ProjectNumber, dcl.Info{}, fn.AddNest("ProjectNumber")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Team, actual.Team, dcl.Info{Type: "EnumType"}, fn.AddNest("Team")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareObjectAccessControlProjectTeam(c *Client, desired, actual *ObjectAccessControlProjectTeam) bool {
 	if desired == nil {
 		return false

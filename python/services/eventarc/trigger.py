@@ -231,9 +231,12 @@ class TriggerEventFiltersArray(object):
 
 
 class TriggerDestination(object):
-    def __init__(self, cloud_run: dict = None, cloud_function: str = None):
+    def __init__(
+        self, cloud_run: dict = None, cloud_function: str = None, gke: dict = None
+    ):
         self.cloud_run = cloud_run
         self.cloud_function = cloud_function
+        self.gke = gke
 
     @classmethod
     def to_proto(self, resource):
@@ -249,6 +252,10 @@ class TriggerDestination(object):
             res.ClearField("cloud_run")
         if Primitive.to_proto(resource.cloud_function):
             res.cloud_function = Primitive.to_proto(resource.cloud_function)
+        if TriggerDestinationGke.to_proto(resource.gke):
+            res.gke.CopyFrom(TriggerDestinationGke.to_proto(resource.gke))
+        else:
+            res.ClearField("gke")
         return res
 
     @classmethod
@@ -257,7 +264,9 @@ class TriggerDestination(object):
             return None
 
         return TriggerDestination(
-            cloud_run=resource.cloud_run, cloud_function=resource.cloud_function,
+            cloud_run=resource.cloud_run,
+            cloud_function=resource.cloud_function,
+            gke=resource.gke,
         )
 
 
@@ -313,6 +322,65 @@ class TriggerDestinationCloudRunArray(object):
     @classmethod
     def from_proto(self, resources):
         return [TriggerDestinationCloudRun.from_proto(i) for i in resources]
+
+
+class TriggerDestinationGke(object):
+    def __init__(
+        self,
+        cluster: str = None,
+        location: str = None,
+        namespace: str = None,
+        service: str = None,
+        path: str = None,
+    ):
+        self.cluster = cluster
+        self.location = location
+        self.namespace = namespace
+        self.service = service
+        self.path = path
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = trigger_pb2.EventarcTriggerDestinationGke()
+        if Primitive.to_proto(resource.cluster):
+            res.cluster = Primitive.to_proto(resource.cluster)
+        if Primitive.to_proto(resource.location):
+            res.location = Primitive.to_proto(resource.location)
+        if Primitive.to_proto(resource.namespace):
+            res.namespace = Primitive.to_proto(resource.namespace)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.path):
+            res.path = Primitive.to_proto(resource.path)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return TriggerDestinationGke(
+            cluster=resource.cluster,
+            location=resource.location,
+            namespace=resource.namespace,
+            service=resource.service,
+            path=resource.path,
+        )
+
+
+class TriggerDestinationGkeArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [TriggerDestinationGke.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [TriggerDestinationGke.from_proto(i) for i in resources]
 
 
 class TriggerTransport(object):

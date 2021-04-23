@@ -1,7 +1,6 @@
 {
   "membership": "{{ref:basic.membership.json:name}}",
   "project": "{{project}}",
-  "projectNumber": "{{project_number}}",
   "location": "global",
   "feature": "{{ref:acm.feature.json:name}}",
   "configmanagement": {

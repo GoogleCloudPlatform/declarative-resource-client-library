@@ -66,6 +66,47 @@ components:
               type: object
               x-dcl-go-name: CloudRun
               x-dcl-go-type: TriggerDestinationCloudRun
+            gke:
+              description: A GKE service capable of receiving events. The service
+                should be running in the same project of the trigger.
+              properties:
+                cluster:
+                  description: Required. The name of the cluster the GKE service is
+                    running in. The cluster must be running in the same project as
+                    the trigger being created.
+                  type: string
+                  x-dcl-go-name: Cluster
+                location:
+                  description: Required. The name of the Google Compute Engine in
+                    which the cluster resides, which can either be compute zone (e.g.
+                    us-central1-a) for the zonal clusters or region (e.g. us-central1)
+                    for regional clusters.
+                  type: string
+                  x-dcl-go-name: Location
+                namespace:
+                  description: Required. The namespace the GKE service is running
+                    in.
+                  type: string
+                  x-dcl-go-name: Namespace
+                path:
+                  description: 'Optional. The relative path on the GKE service the
+                    events should be sent to. The value must conform to the definition
+                    of URI path segment (section 3.3 of RFC2396). Examples: "/route",
+                    "route", "route/subroute".'
+                  type: string
+                  x-dcl-go-name: Path
+                service:
+                  description: Required. Name of the GKE service.
+                  type: string
+                  x-dcl-go-name: Service
+              required:
+              - cluster
+              - location
+              - namespace
+              - service
+              type: object
+              x-dcl-go-name: Gke
+              x-dcl-go-type: TriggerDestinationGke
           type: object
           x-dcl-go-name: Destination
           x-dcl-go-type: TriggerDestination

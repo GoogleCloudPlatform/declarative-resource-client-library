@@ -590,61 +590,78 @@ func diffPolicy(c *Client, desired, actual *Policy, opts ...dcl.ApplyOption) ([]
 	}
 
 	var diffs []policyDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdmissionWhitelistPatterns, actual.AdmissionWhitelistPatterns, dcl.Info{ObjectFunction: comparePolicyAdmissionWhitelistPatternsNewStyle}, fn.AddNest("AdmissionWhitelistPatterns")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, policyDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.GlobalPolicyEvaluationMode, actual.GlobalPolicyEvaluationMode, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "global_policy_evaluation_mode"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, policyDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, policyDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, policyDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "update_time"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, policyDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if comparePolicyAdmissionWhitelistPatternsSlice(c, desired.AdmissionWhitelistPatterns, actual.AdmissionWhitelistPatterns) {
-		c.Config.Logger.Infof("Detected diff in AdmissionWhitelistPatterns.\nDESIRED: %v\nACTUAL: %v", desired.AdmissionWhitelistPatterns, actual.AdmissionWhitelistPatterns)
-		diffs = append(diffs, policyDiff{
-			RequiresRecreate: true,
-			FieldName:        "AdmissionWhitelistPatterns",
+		diffs = append(diffs, policyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "AdmissionWhitelistPatterns",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.DefaultAdmissionRule, actual.DefaultAdmissionRule, dcl.Info{ObjectFunction: comparePolicyDefaultAdmissionRuleNewStyle}, fn.AddNest("DefaultAdmissionRule")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, policyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DefaultAdmissionRule",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, policyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.GlobalPolicyEvaluationMode, actual.GlobalPolicyEvaluationMode, dcl.Info{Type: "EnumType"}, fn.AddNest("GlobalPolicyEvaluationMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, policyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "GlobalPolicyEvaluationMode",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, policyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, policyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, policyDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "UpdateTime",
+		})
+	}
+
 	if comparePolicyClusterAdmissionRulesMap(c, desired.ClusterAdmissionRules, actual.ClusterAdmissionRules) {
 		c.Config.Logger.Infof("Detected diff in ClusterAdmissionRules.\nDESIRED: %v\nACTUAL: %v", desired.ClusterAdmissionRules, actual.ClusterAdmissionRules)
 		diffs = append(diffs, policyDiff{
 			RequiresRecreate: true,
 			FieldName:        "ClusterAdmissionRules",
-		})
-	}
-	if comparePolicyDefaultAdmissionRule(c, desired.DefaultAdmissionRule, actual.DefaultAdmissionRule) {
-		c.Config.Logger.Infof("Detected diff in DefaultAdmissionRule.\nDESIRED: %v\nACTUAL: %v", desired.DefaultAdmissionRule, actual.DefaultAdmissionRule)
-		diffs = append(diffs, policyDiff{
-			RequiresRecreate: true,
-			FieldName:        "DefaultAdmissionRule",
 		})
 	}
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -671,6 +688,35 @@ func diffPolicy(c *Client, desired, actual *Policy, opts ...dcl.ApplyOption) ([]
 
 	return deduped, nil
 }
+func comparePolicyAdmissionWhitelistPatternsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*PolicyAdmissionWhitelistPatterns)
+	if !ok {
+		desiredNotPointer, ok := d.(PolicyAdmissionWhitelistPatterns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyAdmissionWhitelistPatterns or *PolicyAdmissionWhitelistPatterns", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*PolicyAdmissionWhitelistPatterns)
+	if !ok {
+		actualNotPointer, ok := a.(PolicyAdmissionWhitelistPatterns)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyAdmissionWhitelistPatterns", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NamePattern, actual.NamePattern, dcl.Info{}, fn.AddNest("NamePattern")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func comparePolicyAdmissionWhitelistPatterns(c *Client, desired, actual *PolicyAdmissionWhitelistPatterns) bool {
 	if desired == nil {
 		return false
@@ -716,6 +762,49 @@ func comparePolicyAdmissionWhitelistPatternsMap(c *Client, desired, actual map[s
 		}
 	}
 	return false
+}
+
+func comparePolicyClusterAdmissionRulesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*PolicyClusterAdmissionRules)
+	if !ok {
+		desiredNotPointer, ok := d.(PolicyClusterAdmissionRules)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyClusterAdmissionRules or *PolicyClusterAdmissionRules", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*PolicyClusterAdmissionRules)
+	if !ok {
+		actualNotPointer, ok := a.(PolicyClusterAdmissionRules)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyClusterAdmissionRules", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EvaluationMode, actual.EvaluationMode, dcl.Info{Type: "EnumType"}, fn.AddNest("EvaluationMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequireAttestationsBy, actual.RequireAttestationsBy, dcl.Info{Type: "ReferenceType"}, fn.AddNest("RequireAttestationsBy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnforcementMode, actual.EnforcementMode, dcl.Info{Type: "EnumType"}, fn.AddNest("EnforcementMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func comparePolicyClusterAdmissionRules(c *Client, desired, actual *PolicyClusterAdmissionRules) bool {
@@ -771,6 +860,49 @@ func comparePolicyClusterAdmissionRulesMap(c *Client, desired, actual map[string
 		}
 	}
 	return false
+}
+
+func comparePolicyDefaultAdmissionRuleNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*PolicyDefaultAdmissionRule)
+	if !ok {
+		desiredNotPointer, ok := d.(PolicyDefaultAdmissionRule)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyDefaultAdmissionRule or *PolicyDefaultAdmissionRule", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*PolicyDefaultAdmissionRule)
+	if !ok {
+		actualNotPointer, ok := a.(PolicyDefaultAdmissionRule)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyDefaultAdmissionRule", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EvaluationMode, actual.EvaluationMode, dcl.Info{Type: "EnumType"}, fn.AddNest("EvaluationMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RequireAttestationsBy, actual.RequireAttestationsBy, dcl.Info{Type: "ReferenceType"}, fn.AddNest("RequireAttestationsBy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnforcementMode, actual.EnforcementMode, dcl.Info{Type: "EnumType"}, fn.AddNest("EnforcementMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func comparePolicyDefaultAdmissionRule(c *Client, desired, actual *PolicyDefaultAdmissionRule) bool {

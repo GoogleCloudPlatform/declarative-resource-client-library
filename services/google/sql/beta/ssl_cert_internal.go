@@ -460,54 +460,80 @@ func diffSslCert(c *Client, desired, actual *SslCert, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []sslCertDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.CertSerialNumber, actual.CertSerialNumber, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "cert_serial_number"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CertSerialNumber, actual.CertSerialNumber, dcl.Info{OutputOnly: true}, fn.AddNest("CertSerialNumber")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CertSerialNumber",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Cert, actual.Cert, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "cert"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Cert, actual.Cert, dcl.Info{OutputOnly: true}, fn.AddNest("Cert")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Cert",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.CommonName, actual.CommonName, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "common_name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CommonName, actual.CommonName, dcl.Info{}, fn.AddNest("CommonName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CommonName",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ExpirationTime, actual.ExpirationTime, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "expiration_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExpirationTime, actual.ExpirationTime, dcl.Info{OutputOnly: true}, fn.AddNest("ExpirationTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ExpirationTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "instance"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Instance",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.

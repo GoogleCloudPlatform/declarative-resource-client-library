@@ -947,131 +947,160 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []subnetworkDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "creation_timestamp"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreationTimestamp",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.GatewayAddress, actual.GatewayAddress, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "gateway_address"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GatewayAddress, actual.GatewayAddress, dcl.Info{OutputOnly: true}, fn.AddNest("GatewayAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "GatewayAddress",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "ip_cidr_range"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{}, fn.AddNest("IPCidrRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, subnetworkDiff{
 			UpdateOp: &updateSubnetworkExpandIpCidrRangeOperation{}, Diffs: ds,
+			FieldName: "IPCidrRange",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "network"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Network",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "fingerprint"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, dcl.Info{OutputOnly: true}, fn.AddNest("Fingerprint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, subnetworkDiff{
 			UpdateOp: &updateSubnetworkUpdateOperation{}, Diffs: ds,
+			FieldName: "Fingerprint",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Purpose, actual.Purpose, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "purpose"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Purpose, actual.Purpose, dcl.Info{Type: "EnumType"}, fn.AddNest("Purpose")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Purpose",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Role, actual.Role, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "role"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Role, actual.Role, dcl.Info{Type: "EnumType"}, fn.AddNest("Role")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, subnetworkDiff{
 			UpdateOp: &updateSubnetworkUpdateOperation{}, Diffs: ds,
+			FieldName: "Role",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.PrivateIPGoogleAccess, actual.PrivateIPGoogleAccess, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "private_ip_google_access"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryIPRanges, actual.SecondaryIPRanges, dcl.Info{ObjectFunction: compareSubnetworkSecondaryIPRangesNewStyle}, fn.AddNest("SecondaryIPRanges")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subnetworkDiff{
+			UpdateOp: &updateSubnetworkUpdateOperation{}, Diffs: ds,
+			FieldName: "SecondaryIPRanges",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.PrivateIPGoogleAccess, actual.PrivateIPGoogleAccess, dcl.Info{}, fn.AddNest("PrivateIPGoogleAccess")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, subnetworkDiff{
 			UpdateOp: &updateSubnetworkSetPrivateIpGoogleAccessOperation{}, Diffs: ds,
+			FieldName: "PrivateIPGoogleAccess",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.EnableFlowLogs, actual.EnableFlowLogs, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enable_flow_logs"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareSubnetworkSecondaryIPRangesSlice(c, desired.SecondaryIPRanges, actual.SecondaryIPRanges) {
-		c.Config.Logger.Infof("Detected diff in SecondaryIPRanges.\nDESIRED: %v\nACTUAL: %v", desired.SecondaryIPRanges, actual.SecondaryIPRanges)
-
-		diffs = append(diffs, subnetworkDiff{
-			UpdateOp:  &updateSubnetworkUpdateOperation{},
-			FieldName: "SecondaryIPRanges",
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Region",
 		})
-
 	}
-	if compareSubnetworkLogConfig(c, desired.LogConfig, actual.LogConfig) {
-		c.Config.Logger.Infof("Detected diff in LogConfig.\nDESIRED: %v\nACTUAL: %v", desired.LogConfig, actual.LogConfig)
 
+	if ds, err := dcl.Diff(desired.LogConfig, actual.LogConfig, dcl.Info{ObjectFunction: compareSubnetworkLogConfigNewStyle}, fn.AddNest("LogConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
 		diffs = append(diffs, subnetworkDiff{
-			UpdateOp:  &updateSubnetworkUpdateOperation{},
+			UpdateOp: &updateSubnetworkUpdateOperation{}, Diffs: ds,
 			FieldName: "LogConfig",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.EnableFlowLogs, actual.EnableFlowLogs, dcl.Info{}, fn.AddNest("EnableFlowLogs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, subnetworkDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "EnableFlowLogs",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -1096,6 +1125,42 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 
 	return deduped, nil
 }
+func compareSubnetworkSecondaryIPRangesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*SubnetworkSecondaryIPRanges)
+	if !ok {
+		desiredNotPointer, ok := d.(SubnetworkSecondaryIPRanges)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SubnetworkSecondaryIPRanges or *SubnetworkSecondaryIPRanges", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*SubnetworkSecondaryIPRanges)
+	if !ok {
+		actualNotPointer, ok := a.(SubnetworkSecondaryIPRanges)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SubnetworkSecondaryIPRanges", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.RangeName, actual.RangeName, dcl.Info{}, fn.AddNest("RangeName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{}, fn.AddNest("IPCidrRange")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareSubnetworkSecondaryIPRanges(c *Client, desired, actual *SubnetworkSecondaryIPRanges) bool {
 	if desired == nil {
 		return false
@@ -1145,6 +1210,49 @@ func compareSubnetworkSecondaryIPRangesMap(c *Client, desired, actual map[string
 		}
 	}
 	return false
+}
+
+func compareSubnetworkLogConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*SubnetworkLogConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(SubnetworkLogConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SubnetworkLogConfig or *SubnetworkLogConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*SubnetworkLogConfig)
+	if !ok {
+		actualNotPointer, ok := a.(SubnetworkLogConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a SubnetworkLogConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AggregationInterval, actual.AggregationInterval, dcl.Info{Type: "EnumType"}, fn.AddNest("AggregationInterval")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FlowSampling, actual.FlowSampling, dcl.Info{}, fn.AddNest("FlowSampling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{Type: "EnumType"}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareSubnetworkLogConfig(c *Client, desired, actual *SubnetworkLogConfig) bool {

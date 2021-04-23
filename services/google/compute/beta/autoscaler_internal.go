@@ -1264,118 +1264,157 @@ func diffAutoscaler(c *Client, desired, actual *Autoscaler, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []autoscalerDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, autoscalerDiff{
 			UpdateOp: &updateAutoscalerUpdateOperation{}, Diffs: ds,
+			FieldName: "Description",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "ReferenceType", FieldName: "target"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, autoscalerDiff{
 			UpdateOp: &updateAutoscalerUpdateOperation{}, Diffs: ds,
+			FieldName: "Target",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "zone"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoscalingPolicy, actual.AutoscalingPolicy, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyNewStyle}, fn.AddNest("AutoscalingPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "region"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "EnumType", FieldName: "status"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.RecommendedSize, actual.RecommendedSize, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "recommended_size"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.SelfLinkWithId, actual.SelfLinkWithId, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link_with_id"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.ScalingScheduleStatus, actual.ScalingScheduleStatus, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "scaling_schedule_status"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "creation_timestamp"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareAutoscalerAutoscalingPolicy(c, desired.AutoscalingPolicy, actual.AutoscalingPolicy) {
-		c.Config.Logger.Infof("Detected diff in AutoscalingPolicy.\nDESIRED: %v\nACTUAL: %v", desired.AutoscalingPolicy, actual.AutoscalingPolicy)
-
 		diffs = append(diffs, autoscalerDiff{
-			UpdateOp:  &updateAutoscalerUpdateOperation{},
+			UpdateOp: &updateAutoscalerUpdateOperation{}, Diffs: ds,
 			FieldName: "AutoscalingPolicy",
 		})
-
 	}
+
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Zone",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Region",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Status",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.StatusDetails, actual.StatusDetails, dcl.Info{OutputOnly: true, ObjectFunction: compareAutoscalerStatusDetailsNewStyle}, fn.AddNest("StatusDetails")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "StatusDetails",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.RecommendedSize, actual.RecommendedSize, dcl.Info{OutputOnly: true}, fn.AddNest("RecommendedSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "RecommendedSize",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLinkWithId, actual.SelfLinkWithId, dcl.Info{}, fn.AddNest("SelfLinkWithId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLinkWithId",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ScalingScheduleStatus, actual.ScalingScheduleStatus, dcl.Info{}, fn.AddNest("ScalingScheduleStatus")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ScalingScheduleStatus",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreationTimestamp",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -1400,6 +1439,84 @@ func diffAutoscaler(c *Client, desired, actual *Autoscaler, opts ...dcl.ApplyOpt
 
 	return deduped, nil
 }
+func compareAutoscalerAutoscalingPolicyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AutoscalerAutoscalingPolicy)
+	if !ok {
+		desiredNotPointer, ok := d.(AutoscalerAutoscalingPolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerAutoscalingPolicy or *AutoscalerAutoscalingPolicy", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AutoscalerAutoscalingPolicy)
+	if !ok {
+		actualNotPointer, ok := a.(AutoscalerAutoscalingPolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerAutoscalingPolicy", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MinNumReplicas, actual.MinNumReplicas, dcl.Info{}, fn.AddNest("MinNumReplicas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxNumReplicas, actual.MaxNumReplicas, dcl.Info{}, fn.AddNest("MaxNumReplicas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ScaleInControl, actual.ScaleInControl, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyScaleInControlNewStyle}, fn.AddNest("ScaleInControl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CoolDownPeriodSec, actual.CoolDownPeriodSec, dcl.Info{}, fn.AddNest("CoolDownPeriodSec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CpuUtilization, actual.CpuUtilization, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyCpuUtilizationNewStyle}, fn.AddNest("CpuUtilization")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CustomMetricUtilizations, actual.CustomMetricUtilizations, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsNewStyle}, fn.AddNest("CustomMetricUtilizations")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LoadBalancingUtilization, actual.LoadBalancingUtilization, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyLoadBalancingUtilizationNewStyle}, fn.AddNest("LoadBalancingUtilization")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{Type: "EnumType"}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAutoscalerAutoscalingPolicy(c *Client, desired, actual *AutoscalerAutoscalingPolicy) bool {
 	if desired == nil {
 		return false
@@ -1475,6 +1592,42 @@ func compareAutoscalerAutoscalingPolicyMap(c *Client, desired, actual map[string
 	return false
 }
 
+func compareAutoscalerAutoscalingPolicyScaleInControlNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AutoscalerAutoscalingPolicyScaleInControl)
+	if !ok {
+		desiredNotPointer, ok := d.(AutoscalerAutoscalingPolicyScaleInControl)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerAutoscalingPolicyScaleInControl or *AutoscalerAutoscalingPolicyScaleInControl", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AutoscalerAutoscalingPolicyScaleInControl)
+	if !ok {
+		actualNotPointer, ok := a.(AutoscalerAutoscalingPolicyScaleInControl)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerAutoscalingPolicyScaleInControl", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MaxScaledInReplicas, actual.MaxScaledInReplicas, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasNewStyle}, fn.AddNest("MaxScaledInReplicas")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TimeWindowSec, actual.TimeWindowSec, dcl.Info{}, fn.AddNest("TimeWindowSec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAutoscalerAutoscalingPolicyScaleInControl(c *Client, desired, actual *AutoscalerAutoscalingPolicyScaleInControl) bool {
 	if desired == nil {
 		return false
@@ -1524,6 +1677,49 @@ func compareAutoscalerAutoscalingPolicyScaleInControlMap(c *Client, desired, act
 		}
 	}
 	return false
+}
+
+func compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas)
+	if !ok {
+		desiredNotPointer, ok := d.(AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas or *AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas)
+	if !ok {
+		actualNotPointer, ok := a.(AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c *Client, desired, actual *AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas) bool {
@@ -1577,6 +1773,35 @@ func compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasMap(c *C
 	return false
 }
 
+func compareAutoscalerAutoscalingPolicyCpuUtilizationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AutoscalerAutoscalingPolicyCpuUtilization)
+	if !ok {
+		desiredNotPointer, ok := d.(AutoscalerAutoscalingPolicyCpuUtilization)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerAutoscalingPolicyCpuUtilization or *AutoscalerAutoscalingPolicyCpuUtilization", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AutoscalerAutoscalingPolicyCpuUtilization)
+	if !ok {
+		actualNotPointer, ok := a.(AutoscalerAutoscalingPolicyCpuUtilization)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerAutoscalingPolicyCpuUtilization", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.UtilizationTarget, actual.UtilizationTarget, dcl.Info{}, fn.AddNest("UtilizationTarget")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAutoscalerAutoscalingPolicyCpuUtilization(c *Client, desired, actual *AutoscalerAutoscalingPolicyCpuUtilization) bool {
 	if desired == nil {
 		return false
@@ -1622,6 +1847,63 @@ func compareAutoscalerAutoscalingPolicyCpuUtilizationMap(c *Client, desired, act
 		}
 	}
 	return false
+}
+
+func compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AutoscalerAutoscalingPolicyCustomMetricUtilizations)
+	if !ok {
+		desiredNotPointer, ok := d.(AutoscalerAutoscalingPolicyCustomMetricUtilizations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerAutoscalingPolicyCustomMetricUtilizations or *AutoscalerAutoscalingPolicyCustomMetricUtilizations", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AutoscalerAutoscalingPolicyCustomMetricUtilizations)
+	if !ok {
+		actualNotPointer, ok := a.(AutoscalerAutoscalingPolicyCustomMetricUtilizations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerAutoscalingPolicyCustomMetricUtilizations", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Metric, actual.Metric, dcl.Info{}, fn.AddNest("Metric")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UtilizationTarget, actual.UtilizationTarget, dcl.Info{}, fn.AddNest("UtilizationTarget")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UtilizationTargetType, actual.UtilizationTargetType, dcl.Info{Type: "EnumType"}, fn.AddNest("UtilizationTargetType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SingleInstanceAssignment, actual.SingleInstanceAssignment, dcl.Info{}, fn.AddNest("SingleInstanceAssignment")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAutoscalerAutoscalingPolicyCustomMetricUtilizations(c *Client, desired, actual *AutoscalerAutoscalingPolicyCustomMetricUtilizations) bool {
@@ -1687,6 +1969,35 @@ func compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsMap(c *Client, de
 	return false
 }
 
+func compareAutoscalerAutoscalingPolicyLoadBalancingUtilizationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AutoscalerAutoscalingPolicyLoadBalancingUtilization)
+	if !ok {
+		desiredNotPointer, ok := d.(AutoscalerAutoscalingPolicyLoadBalancingUtilization)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerAutoscalingPolicyLoadBalancingUtilization or *AutoscalerAutoscalingPolicyLoadBalancingUtilization", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AutoscalerAutoscalingPolicyLoadBalancingUtilization)
+	if !ok {
+		actualNotPointer, ok := a.(AutoscalerAutoscalingPolicyLoadBalancingUtilization)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerAutoscalingPolicyLoadBalancingUtilization", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.UtilizationTarget, actual.UtilizationTarget, dcl.Info{}, fn.AddNest("UtilizationTarget")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareAutoscalerAutoscalingPolicyLoadBalancingUtilization(c *Client, desired, actual *AutoscalerAutoscalingPolicyLoadBalancingUtilization) bool {
 	if desired == nil {
 		return false
@@ -1732,6 +2043,42 @@ func compareAutoscalerAutoscalingPolicyLoadBalancingUtilizationMap(c *Client, de
 		}
 	}
 	return false
+}
+
+func compareAutoscalerStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*AutoscalerStatusDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(AutoscalerStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerStatusDetails or *AutoscalerStatusDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*AutoscalerStatusDetails)
+	if !ok {
+		actualNotPointer, ok := a.(AutoscalerStatusDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a AutoscalerStatusDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareAutoscalerStatusDetails(c *Client, desired, actual *AutoscalerStatusDetails) bool {

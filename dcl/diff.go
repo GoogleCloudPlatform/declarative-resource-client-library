@@ -26,14 +26,31 @@ type Info struct {
 	IgnoredPrefixes []string
 	Type            string
 
+	ObjectFunction func(desired, actual interface{}, fn FieldName) ([]*FieldDiff, error)
+}
+
+// FieldName is used to add information about a field's name for logging purposes.
+type FieldName struct {
 	FieldName string
 }
 
 // AddIndex adds an index to a FieldName and returns the same item.
 // Info is always pass-by-value, so the original field name still exists.
-func (i Info) AddIndex(index int) Info {
+func (i FieldName) AddIndex(index int) FieldName {
 	newInfo := i
 	newInfo.FieldName = newInfo.FieldName + fmt.Sprintf("[%v]", index)
+	return newInfo
+}
+
+// AddNest adds an index to a FieldName and returns the same item.
+// Info is always pass-by-value, so the original field name still exists.
+func (i FieldName) AddNest(field string) FieldName {
+	newInfo := i
+	if i.FieldName == "" {
+		newInfo.FieldName = field
+	} else {
+		newInfo.FieldName = newInfo.FieldName + fmt.Sprintf(".%s", field)
+	}
 	return newInfo
 }
 
@@ -66,15 +83,15 @@ func stringValue(i interface{}) string {
 }
 
 // Diff takes in two interfaces and diffs them according to Info.
-func Diff(desired, actual interface{}, info Info) ([]*FieldDiff, error) {
+func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, error) {
 	var diffs []*FieldDiff
 	// All Output-only fields should not be diffed.
 	if info.OutputOnly || info.Ignore {
 		return nil, nil
 	}
 
-	// If desired is set to nil, we do not care about the field.
-	if desired == nil {
+	// If desired is a zero value, we do not care about the field.
+	if IsZeroValue(desired) {
 		return nil, nil
 	}
 
@@ -84,19 +101,37 @@ func Diff(desired, actual interface{}, info Info) ([]*FieldDiff, error) {
 		return nil, nil
 	}
 
+	if desiredType == "slice" {
+		dSlice, iSlice, err := slices(desired, actual)
+		if err != nil {
+			return nil, err
+		}
+		var arrDiffs []*FieldDiff
+		if info.Type == "Set" {
+			arrDiffs, err = setDiff(dSlice, iSlice, info, fn)
+		} else {
+			arrDiffs, err = arrayDiff(dSlice, iSlice, info, fn)
+		}
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, arrDiffs...)
+		return diffs, nil
+	}
+
 	if info.Type == "ReferenceType" {
 		dStr, aStr, err := strs(desired, actual)
 		if err != nil {
 			return nil, err
 		}
 		if !StringEqualsWithSelfLink(dStr, aStr) {
-			diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Desired: dStr, Actual: aStr})
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: dStr, Actual: aStr})
 			return diffs, nil
 		}
 		return nil, nil
 	} else if info.Type == "EnumType" {
 		if !reflect.DeepEqual(desired, actual) {
-			diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Desired: desired, Actual: actual})
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
 			return diffs, nil
 		}
 		return nil, nil
@@ -109,17 +144,17 @@ func Diff(desired, actual interface{}, info Info) ([]*FieldDiff, error) {
 			return nil, err
 		}
 		if !StringCanonicalize(dStr, aStr) {
-			diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Desired: dStr, Actual: aStr})
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: dStr, Actual: aStr})
 		}
 
 	case "map":
 		if !MapEquals(desired, actual, info.IgnoredPrefixes) {
-			diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Desired: desired, Actual: actual})
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
 		}
 
 	case "int", "float64", "int64":
 		if !reflect.DeepEqual(desired, actual) {
-			diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Desired: desired, Actual: actual})
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
 		}
 
 	case "bool":
@@ -128,26 +163,24 @@ func Diff(desired, actual interface{}, info Info) ([]*FieldDiff, error) {
 			return nil, err
 		}
 		if !BoolCanonicalize(dBool, aBool) {
-			diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Desired: dBool, Actual: aBool})
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: dBool, Actual: aBool})
 		}
 
-	case "slice":
-		dSlice, iSlice, err := slices(desired, actual)
+	case "struct":
+		if info.ObjectFunction == nil {
+			return nil, fmt.Errorf("struct %v given without an object function", desired)
+		}
+
+		if actual == nil || ValueType(actual) == "invalid" {
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
+			return diffs, nil
+		}
+
+		ds, err := info.ObjectFunction(desired, actual, fn)
 		if err != nil {
 			return nil, err
 		}
-
-		var arrDiffs []*FieldDiff
-		if info.Type == "Set" {
-			arrDiffs, err = setDiff(dSlice, iSlice, info)
-		} else {
-			arrDiffs, err = arrayDiff(dSlice, iSlice, info)
-		}
-
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, arrDiffs...)
+		diffs = append(diffs, ds...)
 	default:
 		return nil, fmt.Errorf("no diffing logic exists for type: %q", desiredType)
 	}
@@ -155,7 +188,7 @@ func Diff(desired, actual interface{}, info Info) ([]*FieldDiff, error) {
 	return diffs, nil
 }
 
-func arrayDiff(desired, actual []interface{}, info Info) ([]*FieldDiff, error) {
+func arrayDiff(desired, actual []interface{}, info Info, fn FieldName) ([]*FieldDiff, error) {
 	var diffs []*FieldDiff
 
 	// Nothing to diff against.
@@ -163,14 +196,14 @@ func arrayDiff(desired, actual []interface{}, info Info) ([]*FieldDiff, error) {
 		return diffs, nil
 	}
 
-	if len(desired) != len(actual) {
-		diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, Message: fmt.Sprintf("different lengths: desired %d, actual %d", len(desired), len(actual))})
+	if len(desired) != len(actual) && !IsZeroValue(desired) {
+		diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Message: fmt.Sprintf("different lengths: desired %d, actual %d", len(desired), len(actual))})
 		return diffs, nil
 	}
 
 	for i, dItem := range desired {
 		aItem := actual[i]
-		diff, err := Diff(dItem, aItem, info.AddIndex(i))
+		diff, err := Diff(dItem, aItem, info, fn.AddIndex(i))
 		if err != nil {
 			return nil, err
 		}
@@ -181,12 +214,12 @@ func arrayDiff(desired, actual []interface{}, info Info) ([]*FieldDiff, error) {
 	return diffs, nil
 }
 
-func setDiff(desired, actual []interface{}, info Info) ([]*FieldDiff, error) {
+func setDiff(desired, actual []interface{}, info Info, fn FieldName) ([]*FieldDiff, error) {
 	var diffs []*FieldDiff
 
 	// Everything should be added.
 	if actual == nil {
-		diffs = append(diffs, &FieldDiff{FieldName: info.FieldName, ToAdd: desired})
+		diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, ToAdd: desired})
 		return diffs, nil
 	}
 
@@ -195,7 +228,7 @@ func setDiff(desired, actual []interface{}, info Info) ([]*FieldDiff, error) {
 	for i, aItem := range actual {
 		found := false
 		for _, desItem := range desired {
-			if ds, _ := Diff(desItem, aItem, info.AddIndex(i)); len(ds) == 0 {
+			if ds, _ := Diff(desItem, aItem, info, fn.AddIndex(i)); len(ds) == 0 {
 				found = true
 				break
 			}
@@ -208,7 +241,7 @@ func setDiff(desired, actual []interface{}, info Info) ([]*FieldDiff, error) {
 	for i, dItem := range desired {
 		found := false
 		for _, actItem := range actual {
-			if ds, _ := Diff(dItem, actItem, info.AddIndex(i)); len(ds) == 0 {
+			if ds, _ := Diff(dItem, actItem, info, fn.AddIndex(i)); len(ds) == 0 {
 				found = true
 				break
 			}
@@ -219,7 +252,7 @@ func setDiff(desired, actual []interface{}, info Info) ([]*FieldDiff, error) {
 	}
 
 	if len(toAdd) > 0 || len(toRemove) > 0 {
-		return []*FieldDiff{&FieldDiff{FieldName: info.FieldName, ToAdd: toAdd, ToRemove: toRemove}}, nil
+		return []*FieldDiff{&FieldDiff{FieldName: fn.FieldName, ToAdd: toAdd, ToRemove: toRemove}}, nil
 	}
 	return nil, nil
 }

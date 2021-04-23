@@ -8463,432 +8463,536 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []clusterDiff
+
+	var fn dcl.FieldName
+
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "name"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Name",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "description"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Description",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.InitialNodeCount, actual.InitialNodeCount, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "initial_node_count"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InitialNodeCount, actual.InitialNodeCount, dcl.Info{}, fn.AddNest("InitialNodeCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "InitialNodeCount",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingService, actual.LoggingService, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "logging_service"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MasterAuth, actual.MasterAuth, dcl.Info{ObjectFunction: compareClusterMasterAuthNewStyle}, fn.AddNest("MasterAuth")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "MasterAuth",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.LoggingService, actual.LoggingService, dcl.Info{}, fn.AddNest("LoggingService")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, clusterDiff{
 			UpdateOp: &updateClusterUpdateMonitoringAndLoggingServiceOperation{}, Diffs: ds,
+			FieldName: "LoggingService",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.MonitoringService, actual.MonitoringService, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "monitoring_service"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MonitoringService, actual.MonitoringService, dcl.Info{}, fn.AddNest("MonitoringService")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, clusterDiff{
 			UpdateOp: &updateClusterUpdateMonitoringAndLoggingServiceOperation{}, Diffs: ds,
+			FieldName: "MonitoringService",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "network"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Network",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterIPv4Cidr, actual.ClusterIPv4Cidr, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "cluster_ipv4_cidr"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterIPv4Cidr, actual.ClusterIPv4Cidr, dcl.Info{}, fn.AddNest("ClusterIPv4Cidr")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ClusterIPv4Cidr",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "subnetwork"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AddonsConfig, actual.AddonsConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigNewStyle}, fn.AddNest("AddonsConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{
+			UpdateOp: &updateClusterUpdateAddonsConfigOperation{}, Diffs: ds,
+			FieldName: "AddonsConfig",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Locations, actual.Locations, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "locations"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Subnetwork",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.NodePools, actual.NodePools, dcl.Info{ObjectFunction: compareClusterNodePoolsNewStyle}, fn.AddNest("NodePools")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NodePools",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Locations, actual.Locations, dcl.Info{}, fn.AddNest("Locations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, clusterDiff{
 			UpdateOp: &updateClusterUpdateLocationsOperation{}, Diffs: ds,
+			FieldName: "Locations",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.EnableKubernetesAlpha, actual.EnableKubernetesAlpha, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enable_kubernetes_alpha"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableKubernetesAlpha, actual.EnableKubernetesAlpha, dcl.Info{}, fn.AddNest("EnableKubernetesAlpha")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "EnableKubernetesAlpha",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceLabels, actual.ResourceLabels, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "resource_labels"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceLabels, actual.ResourceLabels, dcl.Info{}, fn.AddNest("ResourceLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ResourceLabels",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "label_fingerprint"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, dcl.Info{}, fn.AddNest("LabelFingerprint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "LabelFingerprint",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Endpoint, actual.Endpoint, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "endpoint"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LegacyAbac, actual.LegacyAbac, dcl.Info{ObjectFunction: compareClusterLegacyAbacNewStyle}, fn.AddNest("LegacyAbac")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{
+			UpdateOp: &updateClusterUpdateLegacyAbacOperation{}, Diffs: ds,
+			FieldName: "LegacyAbac",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.MasterVersion, actual.MasterVersion, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "master_version"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkPolicy, actual.NetworkPolicy, dcl.Info{ObjectFunction: compareClusterNetworkPolicyNewStyle}, fn.AddNest("NetworkPolicy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NetworkPolicy",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.IPAllocationPolicy, actual.IPAllocationPolicy, dcl.Info{ObjectFunction: compareClusterIPAllocationPolicyNewStyle}, fn.AddNest("IPAllocationPolicy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "IPAllocationPolicy",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.MasterAuthorizedNetworksConfig, actual.MasterAuthorizedNetworksConfig, dcl.Info{ObjectFunction: compareClusterMasterAuthorizedNetworksConfigNewStyle}, fn.AddNest("MasterAuthorizedNetworksConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{
+			UpdateOp: &updateClusterUpdateMasterAuthorizedNetworksConfigOperation{}, Diffs: ds,
+			FieldName: "MasterAuthorizedNetworksConfig",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.BinaryAuthorization, actual.BinaryAuthorization, dcl.Info{ObjectFunction: compareClusterBinaryAuthorizationNewStyle}, fn.AddNest("BinaryAuthorization")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{
+			UpdateOp: &updateClusterUpdateBinaryAuthorizationOperation{}, Diffs: ds,
+			FieldName: "BinaryAuthorization",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Autoscaling, actual.Autoscaling, dcl.Info{ObjectFunction: compareClusterAutoscalingNewStyle}, fn.AddNest("Autoscaling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Autoscaling",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareClusterNetworkConfigNewStyle}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NetworkConfig",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.MaintenancePolicy, actual.MaintenancePolicy, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyNewStyle}, fn.AddNest("MaintenancePolicy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{
+			UpdateOp: &updateClusterSetMaintenancePolicyOperation{}, Diffs: ds,
+			FieldName: "MaintenancePolicy",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.DefaultMaxPodsConstraint, actual.DefaultMaxPodsConstraint, dcl.Info{ObjectFunction: compareClusterDefaultMaxPodsConstraintNewStyle}, fn.AddNest("DefaultMaxPodsConstraint")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "DefaultMaxPodsConstraint",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceUsageExportConfig, actual.ResourceUsageExportConfig, dcl.Info{ObjectFunction: compareClusterResourceUsageExportConfigNewStyle}, fn.AddNest("ResourceUsageExportConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ResourceUsageExportConfig",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.AuthenticatorGroupsConfig, actual.AuthenticatorGroupsConfig, dcl.Info{ObjectFunction: compareClusterAuthenticatorGroupsConfigNewStyle}, fn.AddNest("AuthenticatorGroupsConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "AuthenticatorGroupsConfig",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.PrivateClusterConfig, actual.PrivateClusterConfig, dcl.Info{ObjectFunction: compareClusterPrivateClusterConfigNewStyle}, fn.AddNest("PrivateClusterConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "PrivateClusterConfig",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.DatabaseEncryption, actual.DatabaseEncryption, dcl.Info{ObjectFunction: compareClusterDatabaseEncryptionNewStyle}, fn.AddNest("DatabaseEncryption")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{
+			UpdateOp: &updateClusterUpdateDatabaseEncryptionOperation{}, Diffs: ds,
+			FieldName: "DatabaseEncryption",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.VerticalPodAutoscaling, actual.VerticalPodAutoscaling, dcl.Info{ObjectFunction: compareClusterVerticalPodAutoscalingNewStyle}, fn.AddNest("VerticalPodAutoscaling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{
+			UpdateOp: &updateClusterUpdateVerticalPodAutoscalingOperation{}, Diffs: ds,
+			FieldName: "VerticalPodAutoscaling",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.ShieldedNodes, actual.ShieldedNodes, dcl.Info{ObjectFunction: compareClusterShieldedNodesNewStyle}, fn.AddNest("ShieldedNodes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{
+			UpdateOp: &updateClusterUpdateShieldedNodesOperation{}, Diffs: ds,
+			FieldName: "ShieldedNodes",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Endpoint, actual.Endpoint, dcl.Info{}, fn.AddNest("Endpoint")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Endpoint",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.MasterVersion, actual.MasterVersion, dcl.Info{}, fn.AddNest("MasterVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, clusterDiff{
 			UpdateOp: &updateClusterUpdateMasterVersionOperation{}, Diffs: ds,
+			FieldName: "MasterVersion",
 		})
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "create_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CreateTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "status"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Status",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "status_message"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{}, fn.AddNest("StatusMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "StatusMessage",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.NodeIPv4CidrSize, actual.NodeIPv4CidrSize, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "node_ipv4_cidr_size"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeIPv4CidrSize, actual.NodeIPv4CidrSize, dcl.Info{}, fn.AddNest("NodeIPv4CidrSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NodeIPv4CidrSize",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ServicesIPv4Cidr, actual.ServicesIPv4Cidr, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "services_ipv4_cidr"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServicesIPv4Cidr, actual.ServicesIPv4Cidr, dcl.Info{}, fn.AddNest("ServicesIPv4Cidr")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ServicesIPv4Cidr",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.ExpireTime, actual.ExpireTime, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "expire_time"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExpireTime, actual.ExpireTime, dcl.Info{}, fn.AddNest("ExpireTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ExpireTime",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "location"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Location",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.EnableTPU, actual.EnableTPU, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "enable_tpu"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableTPU, actual.EnableTPU, dcl.Info{}, fn.AddNest("EnableTPU")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "EnableTPU",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.TPUIPv4CidrBlock, actual.TPUIPv4CidrBlock, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "tpu_ipv4_cidr_block"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TPUIPv4CidrBlock, actual.TPUIPv4CidrBlock, dcl.Info{}, fn.AddNest("TPUIPv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "TPUIPv4CidrBlock",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "project"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareClusterConditionsNewStyle}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Conditions",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "self_link"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Autopilot, actual.Autopilot, dcl.Info{ObjectFunction: compareClusterAutopilotNewStyle}, fn.AddNest("Autopilot")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Autopilot",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "zone"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Project",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.InitialClusterVersion, actual.InitialClusterVersion, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "initial_cluster_version"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeConfig, actual.NodeConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigNewStyle}, fn.AddNest("NodeConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NodeConfig",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.CurrentMasterVersion, actual.CurrentMasterVersion, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "current_master_version"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReleaseChannel, actual.ReleaseChannel, dcl.Info{ObjectFunction: compareClusterReleaseChannelNewStyle}, fn.AddNest("ReleaseChannel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ReleaseChannel",
+		})
 	}
 
-	if ds, err := dcl.Diff(desired.CurrentNodeVersion, actual.CurrentNodeVersion, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "current_node_version"}); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WorkloadIdentityConfig, actual.WorkloadIdentityConfig, dcl.Info{ObjectFunction: compareClusterWorkloadIdentityConfigNewStyle}, fn.AddNest("WorkloadIdentityConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.InstanceGroupUrls, actual.InstanceGroupUrls, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "instance_group_urls"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.CurrentNodeCount, actual.CurrentNodeCount, dcl.Info{Ignore: false, OutputOnly: false, IgnoredPrefixes: []string(nil), Type: "", FieldName: "current_node_count"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{Ignore: false, OutputOnly: true, IgnoredPrefixes: []string(nil), Type: "", FieldName: "id"}); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds})
-	}
-
-	if compareClusterMasterAuth(c, desired.MasterAuth, actual.MasterAuth) {
-		c.Config.Logger.Infof("Detected diff in MasterAuth.\nDESIRED: %v\nACTUAL: %v", desired.MasterAuth, actual.MasterAuth)
 		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "MasterAuth",
-		})
-	}
-	if compareClusterAddonsConfig(c, desired.AddonsConfig, actual.AddonsConfig) {
-		c.Config.Logger.Infof("Detected diff in AddonsConfig.\nDESIRED: %v\nACTUAL: %v", desired.AddonsConfig, actual.AddonsConfig)
-
-		diffs = append(diffs, clusterDiff{
-			UpdateOp:  &updateClusterUpdateAddonsConfigOperation{},
-			FieldName: "AddonsConfig",
-		})
-
-	}
-	if compareClusterNodePoolsSlice(c, desired.NodePools, actual.NodePools) {
-		c.Config.Logger.Infof("Detected diff in NodePools.\nDESIRED: %v\nACTUAL: %v", desired.NodePools, actual.NodePools)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "NodePools",
-		})
-	}
-	if compareClusterLegacyAbac(c, desired.LegacyAbac, actual.LegacyAbac) {
-		c.Config.Logger.Infof("Detected diff in LegacyAbac.\nDESIRED: %v\nACTUAL: %v", desired.LegacyAbac, actual.LegacyAbac)
-
-		diffs = append(diffs, clusterDiff{
-			UpdateOp:  &updateClusterUpdateLegacyAbacOperation{},
-			FieldName: "LegacyAbac",
-		})
-
-	}
-	if compareClusterNetworkPolicy(c, desired.NetworkPolicy, actual.NetworkPolicy) {
-		c.Config.Logger.Infof("Detected diff in NetworkPolicy.\nDESIRED: %v\nACTUAL: %v", desired.NetworkPolicy, actual.NetworkPolicy)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "NetworkPolicy",
-		})
-	}
-	if compareClusterIPAllocationPolicy(c, desired.IPAllocationPolicy, actual.IPAllocationPolicy) {
-		c.Config.Logger.Infof("Detected diff in IPAllocationPolicy.\nDESIRED: %v\nACTUAL: %v", desired.IPAllocationPolicy, actual.IPAllocationPolicy)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "IPAllocationPolicy",
-		})
-	}
-	if compareClusterMasterAuthorizedNetworksConfig(c, desired.MasterAuthorizedNetworksConfig, actual.MasterAuthorizedNetworksConfig) {
-		c.Config.Logger.Infof("Detected diff in MasterAuthorizedNetworksConfig.\nDESIRED: %v\nACTUAL: %v", desired.MasterAuthorizedNetworksConfig, actual.MasterAuthorizedNetworksConfig)
-
-		diffs = append(diffs, clusterDiff{
-			UpdateOp:  &updateClusterUpdateMasterAuthorizedNetworksConfigOperation{},
-			FieldName: "MasterAuthorizedNetworksConfig",
-		})
-
-	}
-	if compareClusterBinaryAuthorization(c, desired.BinaryAuthorization, actual.BinaryAuthorization) {
-		c.Config.Logger.Infof("Detected diff in BinaryAuthorization.\nDESIRED: %v\nACTUAL: %v", desired.BinaryAuthorization, actual.BinaryAuthorization)
-
-		diffs = append(diffs, clusterDiff{
-			UpdateOp:  &updateClusterUpdateBinaryAuthorizationOperation{},
-			FieldName: "BinaryAuthorization",
-		})
-
-	}
-	if compareClusterAutoscaling(c, desired.Autoscaling, actual.Autoscaling) {
-		c.Config.Logger.Infof("Detected diff in Autoscaling.\nDESIRED: %v\nACTUAL: %v", desired.Autoscaling, actual.Autoscaling)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "Autoscaling",
-		})
-	}
-	if compareClusterNetworkConfig(c, desired.NetworkConfig, actual.NetworkConfig) {
-		c.Config.Logger.Infof("Detected diff in NetworkConfig.\nDESIRED: %v\nACTUAL: %v", desired.NetworkConfig, actual.NetworkConfig)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "NetworkConfig",
-		})
-	}
-	if compareClusterMaintenancePolicy(c, desired.MaintenancePolicy, actual.MaintenancePolicy) {
-		c.Config.Logger.Infof("Detected diff in MaintenancePolicy.\nDESIRED: %v\nACTUAL: %v", desired.MaintenancePolicy, actual.MaintenancePolicy)
-
-		diffs = append(diffs, clusterDiff{
-			UpdateOp:  &updateClusterSetMaintenancePolicyOperation{},
-			FieldName: "MaintenancePolicy",
-		})
-
-	}
-	if compareClusterDefaultMaxPodsConstraint(c, desired.DefaultMaxPodsConstraint, actual.DefaultMaxPodsConstraint) {
-		c.Config.Logger.Infof("Detected diff in DefaultMaxPodsConstraint.\nDESIRED: %v\nACTUAL: %v", desired.DefaultMaxPodsConstraint, actual.DefaultMaxPodsConstraint)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "DefaultMaxPodsConstraint",
-		})
-	}
-	if compareClusterResourceUsageExportConfig(c, desired.ResourceUsageExportConfig, actual.ResourceUsageExportConfig) {
-		c.Config.Logger.Infof("Detected diff in ResourceUsageExportConfig.\nDESIRED: %v\nACTUAL: %v", desired.ResourceUsageExportConfig, actual.ResourceUsageExportConfig)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "ResourceUsageExportConfig",
-		})
-	}
-	if compareClusterAuthenticatorGroupsConfig(c, desired.AuthenticatorGroupsConfig, actual.AuthenticatorGroupsConfig) {
-		c.Config.Logger.Infof("Detected diff in AuthenticatorGroupsConfig.\nDESIRED: %v\nACTUAL: %v", desired.AuthenticatorGroupsConfig, actual.AuthenticatorGroupsConfig)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "AuthenticatorGroupsConfig",
-		})
-	}
-	if compareClusterPrivateClusterConfig(c, desired.PrivateClusterConfig, actual.PrivateClusterConfig) {
-		c.Config.Logger.Infof("Detected diff in PrivateClusterConfig.\nDESIRED: %v\nACTUAL: %v", desired.PrivateClusterConfig, actual.PrivateClusterConfig)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "PrivateClusterConfig",
-		})
-	}
-	if compareClusterDatabaseEncryption(c, desired.DatabaseEncryption, actual.DatabaseEncryption) {
-		c.Config.Logger.Infof("Detected diff in DatabaseEncryption.\nDESIRED: %v\nACTUAL: %v", desired.DatabaseEncryption, actual.DatabaseEncryption)
-
-		diffs = append(diffs, clusterDiff{
-			UpdateOp:  &updateClusterUpdateDatabaseEncryptionOperation{},
-			FieldName: "DatabaseEncryption",
-		})
-
-	}
-	if compareClusterVerticalPodAutoscaling(c, desired.VerticalPodAutoscaling, actual.VerticalPodAutoscaling) {
-		c.Config.Logger.Infof("Detected diff in VerticalPodAutoscaling.\nDESIRED: %v\nACTUAL: %v", desired.VerticalPodAutoscaling, actual.VerticalPodAutoscaling)
-
-		diffs = append(diffs, clusterDiff{
-			UpdateOp:  &updateClusterUpdateVerticalPodAutoscalingOperation{},
-			FieldName: "VerticalPodAutoscaling",
-		})
-
-	}
-	if compareClusterShieldedNodes(c, desired.ShieldedNodes, actual.ShieldedNodes) {
-		c.Config.Logger.Infof("Detected diff in ShieldedNodes.\nDESIRED: %v\nACTUAL: %v", desired.ShieldedNodes, actual.ShieldedNodes)
-
-		diffs = append(diffs, clusterDiff{
-			UpdateOp:  &updateClusterUpdateShieldedNodesOperation{},
-			FieldName: "ShieldedNodes",
-		})
-
-	}
-	if compareClusterConditionsSlice(c, desired.Conditions, actual.Conditions) {
-		c.Config.Logger.Infof("Detected diff in Conditions.\nDESIRED: %v\nACTUAL: %v", desired.Conditions, actual.Conditions)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "Conditions",
-		})
-	}
-	if compareClusterAutopilot(c, desired.Autopilot, actual.Autopilot) {
-		c.Config.Logger.Infof("Detected diff in Autopilot.\nDESIRED: %v\nACTUAL: %v", desired.Autopilot, actual.Autopilot)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "Autopilot",
-		})
-	}
-	if compareClusterNodeConfig(c, desired.NodeConfig, actual.NodeConfig) {
-		c.Config.Logger.Infof("Detected diff in NodeConfig.\nDESIRED: %v\nACTUAL: %v", desired.NodeConfig, actual.NodeConfig)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "NodeConfig",
-		})
-	}
-	if compareClusterReleaseChannel(c, desired.ReleaseChannel, actual.ReleaseChannel) {
-		c.Config.Logger.Infof("Detected diff in ReleaseChannel.\nDESIRED: %v\nACTUAL: %v", desired.ReleaseChannel, actual.ReleaseChannel)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "ReleaseChannel",
-		})
-	}
-	if compareClusterWorkloadIdentityConfig(c, desired.WorkloadIdentityConfig, actual.WorkloadIdentityConfig) {
-		c.Config.Logger.Infof("Detected diff in WorkloadIdentityConfig.\nDESIRED: %v\nACTUAL: %v", desired.WorkloadIdentityConfig, actual.WorkloadIdentityConfig)
-
-		diffs = append(diffs, clusterDiff{
-			UpdateOp:  &updateClusterUpdateWorkloadIdentityConfigOperation{},
+			UpdateOp: &updateClusterUpdateWorkloadIdentityConfigOperation{}, Diffs: ds,
 			FieldName: "WorkloadIdentityConfig",
 		})
+	}
 
-	}
-	if compareClusterNotificationConfig(c, desired.NotificationConfig, actual.NotificationConfig) {
-		c.Config.Logger.Infof("Detected diff in NotificationConfig.\nDESIRED: %v\nACTUAL: %v", desired.NotificationConfig, actual.NotificationConfig)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "NotificationConfig",
+	if ds, err := dcl.Diff(desired.NotificationConfig, actual.NotificationConfig, dcl.Info{ObjectFunction: compareClusterNotificationConfigNewStyle}, fn.AddNest("NotificationConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "NotificationConfig",
 		})
 	}
-	if compareClusterConfidentialNodes(c, desired.ConfidentialNodes, actual.ConfidentialNodes) {
-		c.Config.Logger.Infof("Detected diff in ConfidentialNodes.\nDESIRED: %v\nACTUAL: %v", desired.ConfidentialNodes, actual.ConfidentialNodes)
-		diffs = append(diffs, clusterDiff{
-			RequiresRecreate: true,
-			FieldName:        "ConfidentialNodes",
+
+	if ds, err := dcl.Diff(desired.ConfidentialNodes, actual.ConfidentialNodes, dcl.Info{ObjectFunction: compareClusterConfidentialNodesNewStyle}, fn.AddNest("ConfidentialNodes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "ConfidentialNodes",
 		})
 	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "SelfLink",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Zone",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.InitialClusterVersion, actual.InitialClusterVersion, dcl.Info{}, fn.AddNest("InitialClusterVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "InitialClusterVersion",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.CurrentMasterVersion, actual.CurrentMasterVersion, dcl.Info{}, fn.AddNest("CurrentMasterVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CurrentMasterVersion",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.CurrentNodeVersion, actual.CurrentNodeVersion, dcl.Info{}, fn.AddNest("CurrentNodeVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CurrentNodeVersion",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.InstanceGroupUrls, actual.InstanceGroupUrls, dcl.Info{}, fn.AddNest("InstanceGroupUrls")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "InstanceGroupUrls",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.CurrentNodeCount, actual.CurrentNodeCount, dcl.Info{}, fn.AddNest("CurrentNodeCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "CurrentNodeCount",
+		})
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, clusterDiff{RequiresRecreate: true, Diffs: ds,
+			FieldName: "Id",
+		})
+	}
+
 	// We need to ensure that this list does not contain identical operations *most of the time*.
 	// There may be some cases where we will need multiple copies of the same operation - for instance,
 	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
@@ -8913,6 +9017,70 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 
 	return deduped, nil
 }
+func compareClusterMasterAuthNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterMasterAuth)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterMasterAuth)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMasterAuth or *ClusterMasterAuth", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterMasterAuth)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterMasterAuth)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMasterAuth", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Username, actual.Username, dcl.Info{}, fn.AddNest("Username")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Password, actual.Password, dcl.Info{}, fn.AddNest("Password")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClientCertificateConfig, actual.ClientCertificateConfig, dcl.Info{ObjectFunction: compareClusterMasterAuthClientCertificateConfigNewStyle}, fn.AddNest("ClientCertificateConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClusterCaCertificate, actual.ClusterCaCertificate, dcl.Info{}, fn.AddNest("ClusterCaCertificate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClientCertificate, actual.ClientCertificate, dcl.Info{}, fn.AddNest("ClientCertificate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClientKey, actual.ClientKey, dcl.Info{}, fn.AddNest("ClientKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterMasterAuth(c *Client, desired, actual *ClusterMasterAuth) bool {
 	if desired == nil {
 		return false
@@ -8980,6 +9148,35 @@ func compareClusterMasterAuthMap(c *Client, desired, actual map[string]ClusterMa
 	return false
 }
 
+func compareClusterMasterAuthClientCertificateConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterMasterAuthClientCertificateConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterMasterAuthClientCertificateConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMasterAuthClientCertificateConfig or *ClusterMasterAuthClientCertificateConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterMasterAuthClientCertificateConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterMasterAuthClientCertificateConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMasterAuthClientCertificateConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.IssueClientCertificate, actual.IssueClientCertificate, dcl.Info{}, fn.AddNest("IssueClientCertificate")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterMasterAuthClientCertificateConfig(c *Client, desired, actual *ClusterMasterAuthClientCertificateConfig) bool {
 	if desired == nil {
 		return false
@@ -9025,6 +9222,84 @@ func compareClusterMasterAuthClientCertificateConfigMap(c *Client, desired, actu
 		}
 	}
 	return false
+}
+
+func compareClusterAddonsConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAddonsConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAddonsConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfig or *ClusterAddonsConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAddonsConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAddonsConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.HttpLoadBalancing, actual.HttpLoadBalancing, dcl.Info{ObjectFunction: compareClusterAddonsConfigHttpLoadBalancingNewStyle}, fn.AddNest("HttpLoadBalancing")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HorizontalPodAutoscaling, actual.HorizontalPodAutoscaling, dcl.Info{ObjectFunction: compareClusterAddonsConfigHorizontalPodAutoscalingNewStyle}, fn.AddNest("HorizontalPodAutoscaling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KubernetesDashboard, actual.KubernetesDashboard, dcl.Info{ObjectFunction: compareClusterAddonsConfigKubernetesDashboardNewStyle}, fn.AddNest("KubernetesDashboard")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NetworkPolicyConfig, actual.NetworkPolicyConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigNetworkPolicyConfigNewStyle}, fn.AddNest("NetworkPolicyConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CloudRunConfig, actual.CloudRunConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigCloudRunConfigNewStyle}, fn.AddNest("CloudRunConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DnsCacheConfig, actual.DnsCacheConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigDnsCacheConfigNewStyle}, fn.AddNest("DnsCacheConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConfigConnectorConfig, actual.ConfigConnectorConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigConfigConnectorConfigNewStyle}, fn.AddNest("ConfigConnectorConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GcePersistentDiskCsiDriverConfig, actual.GcePersistentDiskCsiDriverConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigGcePersistentDiskCsiDriverConfigNewStyle}, fn.AddNest("GcePersistentDiskCsiDriverConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterAddonsConfig(c *Client, desired, actual *ClusterAddonsConfig) bool {
@@ -9102,6 +9377,35 @@ func compareClusterAddonsConfigMap(c *Client, desired, actual map[string]Cluster
 	return false
 }
 
+func compareClusterAddonsConfigHttpLoadBalancingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAddonsConfigHttpLoadBalancing)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAddonsConfigHttpLoadBalancing)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigHttpLoadBalancing or *ClusterAddonsConfigHttpLoadBalancing", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAddonsConfigHttpLoadBalancing)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAddonsConfigHttpLoadBalancing)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigHttpLoadBalancing", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterAddonsConfigHttpLoadBalancing(c *Client, desired, actual *ClusterAddonsConfigHttpLoadBalancing) bool {
 	if desired == nil {
 		return false
@@ -9147,6 +9451,35 @@ func compareClusterAddonsConfigHttpLoadBalancingMap(c *Client, desired, actual m
 		}
 	}
 	return false
+}
+
+func compareClusterAddonsConfigHorizontalPodAutoscalingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAddonsConfigHorizontalPodAutoscaling)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAddonsConfigHorizontalPodAutoscaling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigHorizontalPodAutoscaling or *ClusterAddonsConfigHorizontalPodAutoscaling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAddonsConfigHorizontalPodAutoscaling)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAddonsConfigHorizontalPodAutoscaling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigHorizontalPodAutoscaling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterAddonsConfigHorizontalPodAutoscaling(c *Client, desired, actual *ClusterAddonsConfigHorizontalPodAutoscaling) bool {
@@ -9196,6 +9529,35 @@ func compareClusterAddonsConfigHorizontalPodAutoscalingMap(c *Client, desired, a
 	return false
 }
 
+func compareClusterAddonsConfigKubernetesDashboardNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAddonsConfigKubernetesDashboard)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAddonsConfigKubernetesDashboard)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigKubernetesDashboard or *ClusterAddonsConfigKubernetesDashboard", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAddonsConfigKubernetesDashboard)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAddonsConfigKubernetesDashboard)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigKubernetesDashboard", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterAddonsConfigKubernetesDashboard(c *Client, desired, actual *ClusterAddonsConfigKubernetesDashboard) bool {
 	if desired == nil {
 		return false
@@ -9243,6 +9605,35 @@ func compareClusterAddonsConfigKubernetesDashboardMap(c *Client, desired, actual
 	return false
 }
 
+func compareClusterAddonsConfigNetworkPolicyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAddonsConfigNetworkPolicyConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAddonsConfigNetworkPolicyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigNetworkPolicyConfig or *ClusterAddonsConfigNetworkPolicyConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAddonsConfigNetworkPolicyConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAddonsConfigNetworkPolicyConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigNetworkPolicyConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterAddonsConfigNetworkPolicyConfig(c *Client, desired, actual *ClusterAddonsConfigNetworkPolicyConfig) bool {
 	if desired == nil {
 		return false
@@ -9288,6 +9679,42 @@ func compareClusterAddonsConfigNetworkPolicyConfigMap(c *Client, desired, actual
 		}
 	}
 	return false
+}
+
+func compareClusterAddonsConfigCloudRunConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAddonsConfigCloudRunConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAddonsConfigCloudRunConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigCloudRunConfig or *ClusterAddonsConfigCloudRunConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAddonsConfigCloudRunConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAddonsConfigCloudRunConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigCloudRunConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LoadBalancerType, actual.LoadBalancerType, dcl.Info{Type: "EnumType"}, fn.AddNest("LoadBalancerType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterAddonsConfigCloudRunConfig(c *Client, desired, actual *ClusterAddonsConfigCloudRunConfig) bool {
@@ -9341,6 +9768,35 @@ func compareClusterAddonsConfigCloudRunConfigMap(c *Client, desired, actual map[
 	return false
 }
 
+func compareClusterAddonsConfigDnsCacheConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAddonsConfigDnsCacheConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAddonsConfigDnsCacheConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigDnsCacheConfig or *ClusterAddonsConfigDnsCacheConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAddonsConfigDnsCacheConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAddonsConfigDnsCacheConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigDnsCacheConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterAddonsConfigDnsCacheConfig(c *Client, desired, actual *ClusterAddonsConfigDnsCacheConfig) bool {
 	if desired == nil {
 		return false
@@ -9386,6 +9842,35 @@ func compareClusterAddonsConfigDnsCacheConfigMap(c *Client, desired, actual map[
 		}
 	}
 	return false
+}
+
+func compareClusterAddonsConfigConfigConnectorConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAddonsConfigConfigConnectorConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAddonsConfigConfigConnectorConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigConfigConnectorConfig or *ClusterAddonsConfigConfigConnectorConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAddonsConfigConfigConnectorConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAddonsConfigConfigConnectorConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigConfigConnectorConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterAddonsConfigConfigConnectorConfig(c *Client, desired, actual *ClusterAddonsConfigConfigConnectorConfig) bool {
@@ -9435,6 +9920,35 @@ func compareClusterAddonsConfigConfigConnectorConfigMap(c *Client, desired, actu
 	return false
 }
 
+func compareClusterAddonsConfigGcePersistentDiskCsiDriverConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAddonsConfigGcePersistentDiskCsiDriverConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAddonsConfigGcePersistentDiskCsiDriverConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigGcePersistentDiskCsiDriverConfig or *ClusterAddonsConfigGcePersistentDiskCsiDriverConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAddonsConfigGcePersistentDiskCsiDriverConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAddonsConfigGcePersistentDiskCsiDriverConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAddonsConfigGcePersistentDiskCsiDriverConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterAddonsConfigGcePersistentDiskCsiDriverConfig(c *Client, desired, actual *ClusterAddonsConfigGcePersistentDiskCsiDriverConfig) bool {
 	if desired == nil {
 		return false
@@ -9480,6 +9994,133 @@ func compareClusterAddonsConfigGcePersistentDiskCsiDriverConfigMap(c *Client, de
 		}
 	}
 	return false
+}
+
+func compareClusterNodePoolsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePools)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePools)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePools or *ClusterNodePools", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePools)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePools)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePools", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigNewStyle}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InitialNodeCount, actual.InitialNodeCount, dcl.Info{}, fn.AddNest("InitialNodeCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Locations, actual.Locations, dcl.Info{}, fn.AddNest("Locations")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InstanceGroupUrls, actual.InstanceGroupUrls, dcl.Info{}, fn.AddNest("InstanceGroupUrls")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{}, fn.AddNest("StatusMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Autoscaling, actual.Autoscaling, dcl.Info{ObjectFunction: compareClusterNodePoolsAutoscalingNewStyle}, fn.AddNest("Autoscaling")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Management, actual.Management, dcl.Info{ObjectFunction: compareClusterNodePoolsManagementNewStyle}, fn.AddNest("Management")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxPodsConstraint, actual.MaxPodsConstraint, dcl.Info{ObjectFunction: compareClusterNodePoolsMaxPodsConstraintNewStyle}, fn.AddNest("MaxPodsConstraint")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareClusterNodePoolsConditionsNewStyle}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PodIPv4CidrSize, actual.PodIPv4CidrSize, dcl.Info{}, fn.AddNest("PodIPv4CidrSize")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpgradeSettings, actual.UpgradeSettings, dcl.Info{ObjectFunction: compareClusterNodePoolsUpgradeSettingsNewStyle}, fn.AddNest("UpgradeSettings")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNodePools(c *Client, desired, actual *ClusterNodePools) bool {
@@ -9583,6 +10224,182 @@ func compareClusterNodePoolsMap(c *Client, desired, actual map[string]ClusterNod
 		}
 	}
 	return false
+}
+
+func compareClusterNodePoolsConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfig or *ClusterNodePoolsConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{}, fn.AddNest("OAuthScopes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ImageType, actual.ImageType, dcl.Info{}, fn.AddNest("ImageType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LocalSsdCount, actual.LocalSsdCount, dcl.Info{}, fn.AddNest("LocalSsdCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Tags, actual.Tags, dcl.Info{}, fn.AddNest("Tags")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Preemptible, actual.Preemptible, dcl.Info{}, fn.AddNest("Preemptible")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigAcceleratorsNewStyle}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskType, actual.DiskType, dcl.Info{}, fn.AddNest("DiskType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.Info{}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.WorkloadMetadataConfig, actual.WorkloadMetadataConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigWorkloadMetadataConfigNewStyle}, fn.AddNest("WorkloadMetadataConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Taints, actual.Taints, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigTaintsNewStyle}, fn.AddNest("Taints")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SandboxConfig, actual.SandboxConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigSandboxConfigNewStyle}, fn.AddNest("SandboxConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NodeGroup, actual.NodeGroup, dcl.Info{}, fn.AddNest("NodeGroup")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReservationAffinity, actual.ReservationAffinity, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigReservationAffinityNewStyle}, fn.AddNest("ReservationAffinity")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigShieldedInstanceConfigNewStyle}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LinuxNodeConfig, actual.LinuxNodeConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigLinuxNodeConfigNewStyle}, fn.AddNest("LinuxNodeConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KubeletConfig, actual.KubeletConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigKubeletConfigNewStyle}, fn.AddNest("KubeletConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BootDiskKmsKey, actual.BootDiskKmsKey, dcl.Info{}, fn.AddNest("BootDiskKmsKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNodePoolsConfig(c *Client, desired, actual *ClusterNodePoolsConfig) bool {
@@ -9716,6 +10533,42 @@ func compareClusterNodePoolsConfigMap(c *Client, desired, actual map[string]Clus
 	return false
 }
 
+func compareClusterNodePoolsConfigAcceleratorsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsConfigAccelerators)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsConfigAccelerators)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigAccelerators or *ClusterNodePoolsConfigAccelerators", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsConfigAccelerators)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsConfigAccelerators)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigAccelerators", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.Info{}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{}, fn.AddNest("AcceleratorType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodePoolsConfigAccelerators(c *Client, desired, actual *ClusterNodePoolsConfigAccelerators) bool {
 	if desired == nil {
 		return false
@@ -9767,6 +10620,35 @@ func compareClusterNodePoolsConfigAcceleratorsMap(c *Client, desired, actual map
 	return false
 }
 
+func compareClusterNodePoolsConfigWorkloadMetadataConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsConfigWorkloadMetadataConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsConfigWorkloadMetadataConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigWorkloadMetadataConfig or *ClusterNodePoolsConfigWorkloadMetadataConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsConfigWorkloadMetadataConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsConfigWorkloadMetadataConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigWorkloadMetadataConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{Type: "EnumType"}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodePoolsConfigWorkloadMetadataConfig(c *Client, desired, actual *ClusterNodePoolsConfigWorkloadMetadataConfig) bool {
 	if desired == nil {
 		return false
@@ -9812,6 +10694,49 @@ func compareClusterNodePoolsConfigWorkloadMetadataConfigMap(c *Client, desired, 
 		}
 	}
 	return false
+}
+
+func compareClusterNodePoolsConfigTaintsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsConfigTaints)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsConfigTaints)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigTaints or *ClusterNodePoolsConfigTaints", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsConfigTaints)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsConfigTaints)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigTaints", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Effect, actual.Effect, dcl.Info{Type: "EnumType"}, fn.AddNest("Effect")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNodePoolsConfigTaints(c *Client, desired, actual *ClusterNodePoolsConfigTaints) bool {
@@ -9869,6 +10794,35 @@ func compareClusterNodePoolsConfigTaintsMap(c *Client, desired, actual map[strin
 	return false
 }
 
+func compareClusterNodePoolsConfigSandboxConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsConfigSandboxConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsConfigSandboxConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigSandboxConfig or *ClusterNodePoolsConfigSandboxConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsConfigSandboxConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsConfigSandboxConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigSandboxConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodePoolsConfigSandboxConfig(c *Client, desired, actual *ClusterNodePoolsConfigSandboxConfig) bool {
 	if desired == nil {
 		return false
@@ -9914,6 +10868,49 @@ func compareClusterNodePoolsConfigSandboxConfigMap(c *Client, desired, actual ma
 		}
 	}
 	return false
+}
+
+func compareClusterNodePoolsConfigReservationAffinityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsConfigReservationAffinity)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsConfigReservationAffinity)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigReservationAffinity or *ClusterNodePoolsConfigReservationAffinity", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsConfigReservationAffinity)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsConfigReservationAffinity)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigReservationAffinity", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ConsumeReservationType, actual.ConsumeReservationType, dcl.Info{Type: "EnumType"}, fn.AddNest("ConsumeReservationType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.Info{}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNodePoolsConfigReservationAffinity(c *Client, desired, actual *ClusterNodePoolsConfigReservationAffinity) bool {
@@ -9971,6 +10968,42 @@ func compareClusterNodePoolsConfigReservationAffinityMap(c *Client, desired, act
 	return false
 }
 
+func compareClusterNodePoolsConfigShieldedInstanceConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsConfigShieldedInstanceConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsConfigShieldedInstanceConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigShieldedInstanceConfig or *ClusterNodePoolsConfigShieldedInstanceConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsConfigShieldedInstanceConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsConfigShieldedInstanceConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigShieldedInstanceConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EnableSecureBoot, actual.EnableSecureBoot, dcl.Info{}, fn.AddNest("EnableSecureBoot")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring, dcl.Info{}, fn.AddNest("EnableIntegrityMonitoring")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodePoolsConfigShieldedInstanceConfig(c *Client, desired, actual *ClusterNodePoolsConfigShieldedInstanceConfig) bool {
 	if desired == nil {
 		return false
@@ -10022,6 +11055,35 @@ func compareClusterNodePoolsConfigShieldedInstanceConfigMap(c *Client, desired, 
 	return false
 }
 
+func compareClusterNodePoolsConfigLinuxNodeConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsConfigLinuxNodeConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsConfigLinuxNodeConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigLinuxNodeConfig or *ClusterNodePoolsConfigLinuxNodeConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsConfigLinuxNodeConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsConfigLinuxNodeConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigLinuxNodeConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Sysctls, actual.Sysctls, dcl.Info{}, fn.AddNest("Sysctls")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodePoolsConfigLinuxNodeConfig(c *Client, desired, actual *ClusterNodePoolsConfigLinuxNodeConfig) bool {
 	if desired == nil {
 		return false
@@ -10067,6 +11129,49 @@ func compareClusterNodePoolsConfigLinuxNodeConfigMap(c *Client, desired, actual 
 		}
 	}
 	return false
+}
+
+func compareClusterNodePoolsConfigKubeletConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsConfigKubeletConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsConfigKubeletConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigKubeletConfig or *ClusterNodePoolsConfigKubeletConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsConfigKubeletConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsConfigKubeletConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConfigKubeletConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.CpuManagerPolicy, actual.CpuManagerPolicy, dcl.Info{}, fn.AddNest("CpuManagerPolicy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CpuCfsQuota, actual.CpuCfsQuota, dcl.Info{}, fn.AddNest("CpuCfsQuota")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CpuCfsQuotaPeriod, actual.CpuCfsQuotaPeriod, dcl.Info{}, fn.AddNest("CpuCfsQuotaPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNodePoolsConfigKubeletConfig(c *Client, desired, actual *ClusterNodePoolsConfigKubeletConfig) bool {
@@ -10122,6 +11227,56 @@ func compareClusterNodePoolsConfigKubeletConfigMap(c *Client, desired, actual ma
 		}
 	}
 	return false
+}
+
+func compareClusterNodePoolsAutoscalingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsAutoscaling)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsAutoscaling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsAutoscaling or *ClusterNodePoolsAutoscaling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsAutoscaling)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsAutoscaling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsAutoscaling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinNodeCount, actual.MinNodeCount, dcl.Info{}, fn.AddNest("MinNodeCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxNodeCount, actual.MaxNodeCount, dcl.Info{}, fn.AddNest("MaxNodeCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Autoprovisioned, actual.Autoprovisioned, dcl.Info{}, fn.AddNest("Autoprovisioned")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNodePoolsAutoscaling(c *Client, desired, actual *ClusterNodePoolsAutoscaling) bool {
@@ -10183,6 +11338,49 @@ func compareClusterNodePoolsAutoscalingMap(c *Client, desired, actual map[string
 	return false
 }
 
+func compareClusterNodePoolsManagementNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsManagement)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsManagement)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsManagement or *ClusterNodePoolsManagement", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsManagement)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsManagement)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsManagement", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AutoUpgrade, actual.AutoUpgrade, dcl.Info{}, fn.AddNest("AutoUpgrade")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AutoRepair, actual.AutoRepair, dcl.Info{}, fn.AddNest("AutoRepair")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpgradeOptions, actual.UpgradeOptions, dcl.Info{ObjectFunction: compareClusterNodePoolsManagementUpgradeOptionsNewStyle}, fn.AddNest("UpgradeOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodePoolsManagement(c *Client, desired, actual *ClusterNodePoolsManagement) bool {
 	if desired == nil {
 		return false
@@ -10238,6 +11436,42 @@ func compareClusterNodePoolsManagementMap(c *Client, desired, actual map[string]
 	return false
 }
 
+func compareClusterNodePoolsManagementUpgradeOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsManagementUpgradeOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsManagementUpgradeOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsManagementUpgradeOptions or *ClusterNodePoolsManagementUpgradeOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsManagementUpgradeOptions)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsManagementUpgradeOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsManagementUpgradeOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AutoUpgradeStartTime, actual.AutoUpgradeStartTime, dcl.Info{}, fn.AddNest("AutoUpgradeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodePoolsManagementUpgradeOptions(c *Client, desired, actual *ClusterNodePoolsManagementUpgradeOptions) bool {
 	if desired == nil {
 		return false
@@ -10289,6 +11523,35 @@ func compareClusterNodePoolsManagementUpgradeOptionsMap(c *Client, desired, actu
 	return false
 }
 
+func compareClusterNodePoolsMaxPodsConstraintNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsMaxPodsConstraint)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsMaxPodsConstraint)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsMaxPodsConstraint or *ClusterNodePoolsMaxPodsConstraint", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsMaxPodsConstraint)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsMaxPodsConstraint)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsMaxPodsConstraint", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MaxPodsPerNode, actual.MaxPodsPerNode, dcl.Info{}, fn.AddNest("MaxPodsPerNode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodePoolsMaxPodsConstraint(c *Client, desired, actual *ClusterNodePoolsMaxPodsConstraint) bool {
 	if desired == nil {
 		return false
@@ -10334,6 +11597,49 @@ func compareClusterNodePoolsMaxPodsConstraintMap(c *Client, desired, actual map[
 		}
 	}
 	return false
+}
+
+func compareClusterNodePoolsConditionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsConditions)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsConditions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConditions or *ClusterNodePoolsConditions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsConditions)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsConditions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsConditions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{Type: "EnumType"}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CanonicalCode, actual.CanonicalCode, dcl.Info{Type: "EnumType"}, fn.AddNest("CanonicalCode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNodePoolsConditions(c *Client, desired, actual *ClusterNodePoolsConditions) bool {
@@ -10391,6 +11697,42 @@ func compareClusterNodePoolsConditionsMap(c *Client, desired, actual map[string]
 	return false
 }
 
+func compareClusterNodePoolsUpgradeSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodePoolsUpgradeSettings)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodePoolsUpgradeSettings)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsUpgradeSettings or *ClusterNodePoolsUpgradeSettings", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodePoolsUpgradeSettings)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodePoolsUpgradeSettings)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodePoolsUpgradeSettings", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.Info{}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.Info{}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodePoolsUpgradeSettings(c *Client, desired, actual *ClusterNodePoolsUpgradeSettings) bool {
 	if desired == nil {
 		return false
@@ -10442,6 +11784,35 @@ func compareClusterNodePoolsUpgradeSettingsMap(c *Client, desired, actual map[st
 	return false
 }
 
+func compareClusterLegacyAbacNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterLegacyAbac)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterLegacyAbac)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterLegacyAbac or *ClusterLegacyAbac", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterLegacyAbac)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterLegacyAbac)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterLegacyAbac", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterLegacyAbac(c *Client, desired, actual *ClusterLegacyAbac) bool {
 	if desired == nil {
 		return false
@@ -10487,6 +11858,42 @@ func compareClusterLegacyAbacMap(c *Client, desired, actual map[string]ClusterLe
 		}
 	}
 	return false
+}
+
+func compareClusterNetworkPolicyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNetworkPolicy)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNetworkPolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNetworkPolicy or *ClusterNetworkPolicy", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNetworkPolicy)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNetworkPolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNetworkPolicy", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Provider, actual.Provider, dcl.Info{Type: "EnumType"}, fn.AddNest("Provider")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNetworkPolicy(c *Client, desired, actual *ClusterNetworkPolicy) bool {
@@ -10538,6 +11945,119 @@ func compareClusterNetworkPolicyMap(c *Client, desired, actual map[string]Cluste
 		}
 	}
 	return false
+}
+
+func compareClusterIPAllocationPolicyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterIPAllocationPolicy)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterIPAllocationPolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterIPAllocationPolicy or *ClusterIPAllocationPolicy", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterIPAllocationPolicy)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterIPAllocationPolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterIPAllocationPolicy", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.UseIPAliases, actual.UseIPAliases, dcl.Info{}, fn.AddNest("UseIPAliases")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CreateSubnetwork, actual.CreateSubnetwork, dcl.Info{}, fn.AddNest("CreateSubnetwork")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SubnetworkName, actual.SubnetworkName, dcl.Info{}, fn.AddNest("SubnetworkName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClusterSecondaryRangeName, actual.ClusterSecondaryRangeName, dcl.Info{}, fn.AddNest("ClusterSecondaryRangeName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServicesSecondaryRangeName, actual.ServicesSecondaryRangeName, dcl.Info{}, fn.AddNest("ServicesSecondaryRangeName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClusterIPv4CidrBlock, actual.ClusterIPv4CidrBlock, dcl.Info{}, fn.AddNest("ClusterIPv4CidrBlock")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NodeIPv4CidrBlock, actual.NodeIPv4CidrBlock, dcl.Info{}, fn.AddNest("NodeIPv4CidrBlock")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServicesIPv4CidrBlock, actual.ServicesIPv4CidrBlock, dcl.Info{}, fn.AddNest("ServicesIPv4CidrBlock")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TPUIPv4CidrBlock, actual.TPUIPv4CidrBlock, dcl.Info{}, fn.AddNest("TPUIPv4CidrBlock")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ClusterIPv4Cidr, actual.ClusterIPv4Cidr, dcl.Info{}, fn.AddNest("ClusterIPv4Cidr")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NodeIPv4Cidr, actual.NodeIPv4Cidr, dcl.Info{}, fn.AddNest("NodeIPv4Cidr")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServicesIPv4Cidr, actual.ServicesIPv4Cidr, dcl.Info{}, fn.AddNest("ServicesIPv4Cidr")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UseRoutes, actual.UseRoutes, dcl.Info{}, fn.AddNest("UseRoutes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterIPAllocationPolicy(c *Client, desired, actual *ClusterIPAllocationPolicy) bool {
@@ -10635,6 +12155,42 @@ func compareClusterIPAllocationPolicyMap(c *Client, desired, actual map[string]C
 	return false
 }
 
+func compareClusterMasterAuthorizedNetworksConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterMasterAuthorizedNetworksConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterMasterAuthorizedNetworksConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMasterAuthorizedNetworksConfig or *ClusterMasterAuthorizedNetworksConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterMasterAuthorizedNetworksConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterMasterAuthorizedNetworksConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMasterAuthorizedNetworksConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CidrBlocks, actual.CidrBlocks, dcl.Info{ObjectFunction: compareClusterMasterAuthorizedNetworksConfigCidrBlocksNewStyle}, fn.AddNest("CidrBlocks")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterMasterAuthorizedNetworksConfig(c *Client, desired, actual *ClusterMasterAuthorizedNetworksConfig) bool {
 	if desired == nil {
 		return false
@@ -10684,6 +12240,42 @@ func compareClusterMasterAuthorizedNetworksConfigMap(c *Client, desired, actual 
 		}
 	}
 	return false
+}
+
+func compareClusterMasterAuthorizedNetworksConfigCidrBlocksNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterMasterAuthorizedNetworksConfigCidrBlocks)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterMasterAuthorizedNetworksConfigCidrBlocks)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMasterAuthorizedNetworksConfigCidrBlocks or *ClusterMasterAuthorizedNetworksConfigCidrBlocks", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterMasterAuthorizedNetworksConfigCidrBlocks)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterMasterAuthorizedNetworksConfigCidrBlocks)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMasterAuthorizedNetworksConfigCidrBlocks", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CidrBlock, actual.CidrBlock, dcl.Info{}, fn.AddNest("CidrBlock")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterMasterAuthorizedNetworksConfigCidrBlocks(c *Client, desired, actual *ClusterMasterAuthorizedNetworksConfigCidrBlocks) bool {
@@ -10737,6 +12329,35 @@ func compareClusterMasterAuthorizedNetworksConfigCidrBlocksMap(c *Client, desire
 	return false
 }
 
+func compareClusterBinaryAuthorizationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterBinaryAuthorization)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterBinaryAuthorization)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterBinaryAuthorization or *ClusterBinaryAuthorization", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterBinaryAuthorization)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterBinaryAuthorization)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterBinaryAuthorization", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterBinaryAuthorization(c *Client, desired, actual *ClusterBinaryAuthorization) bool {
 	if desired == nil {
 		return false
@@ -10782,6 +12403,56 @@ func compareClusterBinaryAuthorizationMap(c *Client, desired, actual map[string]
 		}
 	}
 	return false
+}
+
+func compareClusterAutoscalingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAutoscaling)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAutoscaling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscaling or *ClusterAutoscaling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAutoscaling)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAutoscaling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscaling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EnableNodeAutoprovisioning, actual.EnableNodeAutoprovisioning, dcl.Info{}, fn.AddNest("EnableNodeAutoprovisioning")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceLimits, actual.ResourceLimits, dcl.Info{ObjectFunction: compareClusterAutoscalingResourceLimitsNewStyle}, fn.AddNest("ResourceLimits")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AutoprovisioningNodePoolDefaults, actual.AutoprovisioningNodePoolDefaults, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsNewStyle}, fn.AddNest("AutoprovisioningNodePoolDefaults")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AutoprovisioningLocations, actual.AutoprovisioningLocations, dcl.Info{}, fn.AddNest("AutoprovisioningLocations")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterAutoscaling(c *Client, desired, actual *ClusterAutoscaling) bool {
@@ -10843,6 +12514,49 @@ func compareClusterAutoscalingMap(c *Client, desired, actual map[string]ClusterA
 	return false
 }
 
+func compareClusterAutoscalingResourceLimitsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAutoscalingResourceLimits)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAutoscalingResourceLimits)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscalingResourceLimits or *ClusterAutoscalingResourceLimits", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAutoscalingResourceLimits)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAutoscalingResourceLimits)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscalingResourceLimits", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceType, actual.ResourceType, dcl.Info{}, fn.AddNest("ResourceType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Minimum, actual.Minimum, dcl.Info{}, fn.AddNest("Minimum")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Maximum, actual.Maximum, dcl.Info{}, fn.AddNest("Maximum")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterAutoscalingResourceLimits(c *Client, desired, actual *ClusterAutoscalingResourceLimits) bool {
 	if desired == nil {
 		return false
@@ -10896,6 +12610,91 @@ func compareClusterAutoscalingResourceLimitsMap(c *Client, desired, actual map[s
 		}
 	}
 	return false
+}
+
+func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAutoscalingAutoprovisioningNodePoolDefaults)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAutoscalingAutoprovisioningNodePoolDefaults)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscalingAutoprovisioningNodePoolDefaults or *ClusterAutoscalingAutoprovisioningNodePoolDefaults", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAutoscalingAutoprovisioningNodePoolDefaults)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAutoscalingAutoprovisioningNodePoolDefaults)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscalingAutoprovisioningNodePoolDefaults", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{}, fn.AddNest("OAuthScopes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpgradeSettings, actual.UpgradeSettings, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettingsNewStyle}, fn.AddNest("UpgradeSettings")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Management, actual.Management, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementNewStyle}, fn.AddNest("Management")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.Info{}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskType, actual.DiskType, dcl.Info{}, fn.AddNest("DiskType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfigNewStyle}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BootDiskKmsKey, actual.BootDiskKmsKey, dcl.Info{}, fn.AddNest("BootDiskKmsKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterAutoscalingAutoprovisioningNodePoolDefaults(c *Client, desired, actual *ClusterAutoscalingAutoprovisioningNodePoolDefaults) bool {
@@ -10977,6 +12776,42 @@ func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsMap(c *Client, des
 	return false
 }
 
+func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings or *ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.Info{}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.Info{}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings(c *Client, desired, actual *ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings) bool {
 	if desired == nil {
 		return false
@@ -11026,6 +12861,49 @@ func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettingsMap
 		}
 	}
 	return false
+}
+
+func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement or *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AutoUpgrade, actual.AutoUpgrade, dcl.Info{}, fn.AddNest("AutoUpgrade")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AutoRepair, actual.AutoRepair, dcl.Info{}, fn.AddNest("AutoRepair")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpgradeOptions, actual.UpgradeOptions, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptionsNewStyle}, fn.AddNest("UpgradeOptions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement(c *Client, desired, actual *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement) bool {
@@ -11083,6 +12961,42 @@ func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementMap(c *C
 	return false
 }
 
+func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions or *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AutoUpgradeStartTime, actual.AutoUpgradeStartTime, dcl.Info{}, fn.AddNest("AutoUpgradeStartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions(c *Client, desired, actual *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions) bool {
 	if desired == nil {
 		return false
@@ -11134,6 +13048,42 @@ func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeO
 	return false
 }
 
+func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig or *ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EnableSecureBoot, actual.EnableSecureBoot, dcl.Info{}, fn.AddNest("EnableSecureBoot")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring, dcl.Info{}, fn.AddNest("EnableIntegrityMonitoring")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig(c *Client, desired, actual *ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig) bool {
 	if desired == nil {
 		return false
@@ -11183,6 +13133,63 @@ func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceCo
 		}
 	}
 	return false
+}
+
+func compareClusterNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNetworkConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNetworkConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNetworkConfig or *ClusterNetworkConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNetworkConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNetworkConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNetworkConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{OutputOnly: true}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{OutputOnly: true}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableIntraNodeVisibility, actual.EnableIntraNodeVisibility, dcl.Info{}, fn.AddNest("EnableIntraNodeVisibility")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DefaultSnatStatus, actual.DefaultSnatStatus, dcl.Info{ObjectFunction: compareClusterNetworkConfigDefaultSnatStatusNewStyle}, fn.AddNest("DefaultSnatStatus")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PrivateIPv6GoogleAccess, actual.PrivateIPv6GoogleAccess, dcl.Info{Type: "EnumType"}, fn.AddNest("PrivateIPv6GoogleAccess")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNetworkConfig(c *Client, desired, actual *ClusterNetworkConfig) bool {
@@ -11240,6 +13247,35 @@ func compareClusterNetworkConfigMap(c *Client, desired, actual map[string]Cluste
 	return false
 }
 
+func compareClusterNetworkConfigDefaultSnatStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNetworkConfigDefaultSnatStatus)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNetworkConfigDefaultSnatStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNetworkConfigDefaultSnatStatus or *ClusterNetworkConfigDefaultSnatStatus", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNetworkConfigDefaultSnatStatus)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNetworkConfigDefaultSnatStatus)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNetworkConfigDefaultSnatStatus", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNetworkConfigDefaultSnatStatus(c *Client, desired, actual *ClusterNetworkConfigDefaultSnatStatus) bool {
 	if desired == nil {
 		return false
@@ -11285,6 +13321,42 @@ func compareClusterNetworkConfigDefaultSnatStatusMap(c *Client, desired, actual 
 		}
 	}
 	return false
+}
+
+func compareClusterMaintenancePolicyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterMaintenancePolicy)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterMaintenancePolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMaintenancePolicy or *ClusterMaintenancePolicy", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterMaintenancePolicy)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterMaintenancePolicy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMaintenancePolicy", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Window, actual.Window, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyWindowNewStyle}, fn.AddNest("Window")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceVersion, actual.ResourceVersion, dcl.Info{}, fn.AddNest("ResourceVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterMaintenancePolicy(c *Client, desired, actual *ClusterMaintenancePolicy) bool {
@@ -11336,6 +13408,49 @@ func compareClusterMaintenancePolicyMap(c *Client, desired, actual map[string]Cl
 		}
 	}
 	return false
+}
+
+func compareClusterMaintenancePolicyWindowNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterMaintenancePolicyWindow)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterMaintenancePolicyWindow)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMaintenancePolicyWindow or *ClusterMaintenancePolicyWindow", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterMaintenancePolicyWindow)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterMaintenancePolicyWindow)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMaintenancePolicyWindow", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DailyMaintenanceWindow, actual.DailyMaintenanceWindow, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyWindowDailyMaintenanceWindowNewStyle}, fn.AddNest("DailyMaintenanceWindow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.RecurringWindow, actual.RecurringWindow, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyWindowRecurringWindowNewStyle}, fn.AddNest("RecurringWindow")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaintenanceExclusions, actual.MaintenanceExclusions, dcl.Info{}, fn.AddNest("MaintenanceExclusions")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterMaintenancePolicyWindow(c *Client, desired, actual *ClusterMaintenancePolicyWindow) bool {
@@ -11393,6 +13508,42 @@ func compareClusterMaintenancePolicyWindowMap(c *Client, desired, actual map[str
 	return false
 }
 
+func compareClusterMaintenancePolicyWindowDailyMaintenanceWindowNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterMaintenancePolicyWindowDailyMaintenanceWindow)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterMaintenancePolicyWindowDailyMaintenanceWindow)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMaintenancePolicyWindowDailyMaintenanceWindow or *ClusterMaintenancePolicyWindowDailyMaintenanceWindow", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterMaintenancePolicyWindowDailyMaintenanceWindow)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterMaintenancePolicyWindowDailyMaintenanceWindow)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMaintenancePolicyWindowDailyMaintenanceWindow", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.StartTime, actual.StartTime, dcl.Info{}, fn.AddNest("StartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterMaintenancePolicyWindowDailyMaintenanceWindow(c *Client, desired, actual *ClusterMaintenancePolicyWindowDailyMaintenanceWindow) bool {
 	if desired == nil {
 		return false
@@ -11442,6 +13593,42 @@ func compareClusterMaintenancePolicyWindowDailyMaintenanceWindowMap(c *Client, d
 		}
 	}
 	return false
+}
+
+func compareClusterMaintenancePolicyWindowRecurringWindowNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterMaintenancePolicyWindowRecurringWindow)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterMaintenancePolicyWindowRecurringWindow)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMaintenancePolicyWindowRecurringWindow or *ClusterMaintenancePolicyWindowRecurringWindow", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterMaintenancePolicyWindowRecurringWindow)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterMaintenancePolicyWindowRecurringWindow)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMaintenancePolicyWindowRecurringWindow", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Window, actual.Window, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyWindowRecurringWindowWindowNewStyle}, fn.AddNest("Window")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Recurrence, actual.Recurrence, dcl.Info{}, fn.AddNest("Recurrence")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterMaintenancePolicyWindowRecurringWindow(c *Client, desired, actual *ClusterMaintenancePolicyWindowRecurringWindow) bool {
@@ -11495,6 +13682,42 @@ func compareClusterMaintenancePolicyWindowRecurringWindowMap(c *Client, desired,
 	return false
 }
 
+func compareClusterMaintenancePolicyWindowRecurringWindowWindowNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterMaintenancePolicyWindowRecurringWindowWindow)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterMaintenancePolicyWindowRecurringWindowWindow)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMaintenancePolicyWindowRecurringWindowWindow or *ClusterMaintenancePolicyWindowRecurringWindowWindow", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterMaintenancePolicyWindowRecurringWindowWindow)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterMaintenancePolicyWindowRecurringWindowWindow)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterMaintenancePolicyWindowRecurringWindowWindow", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.StartTime, actual.StartTime, dcl.Info{}, fn.AddNest("StartTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EndTime, actual.EndTime, dcl.Info{}, fn.AddNest("EndTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterMaintenancePolicyWindowRecurringWindowWindow(c *Client, desired, actual *ClusterMaintenancePolicyWindowRecurringWindowWindow) bool {
 	if desired == nil {
 		return false
@@ -11546,6 +13769,35 @@ func compareClusterMaintenancePolicyWindowRecurringWindowWindowMap(c *Client, de
 	return false
 }
 
+func compareClusterDefaultMaxPodsConstraintNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterDefaultMaxPodsConstraint)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterDefaultMaxPodsConstraint)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterDefaultMaxPodsConstraint or *ClusterDefaultMaxPodsConstraint", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterDefaultMaxPodsConstraint)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterDefaultMaxPodsConstraint)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterDefaultMaxPodsConstraint", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MaxPodsPerNode, actual.MaxPodsPerNode, dcl.Info{}, fn.AddNest("MaxPodsPerNode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterDefaultMaxPodsConstraint(c *Client, desired, actual *ClusterDefaultMaxPodsConstraint) bool {
 	if desired == nil {
 		return false
@@ -11591,6 +13843,56 @@ func compareClusterDefaultMaxPodsConstraintMap(c *Client, desired, actual map[st
 		}
 	}
 	return false
+}
+
+func compareClusterResourceUsageExportConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterResourceUsageExportConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterResourceUsageExportConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterResourceUsageExportConfig or *ClusterResourceUsageExportConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterResourceUsageExportConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterResourceUsageExportConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterResourceUsageExportConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BigqueryDestination, actual.BigqueryDestination, dcl.Info{ObjectFunction: compareClusterResourceUsageExportConfigBigqueryDestinationNewStyle}, fn.AddNest("BigqueryDestination")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableNetworkEgressMonitoring, actual.EnableNetworkEgressMonitoring, dcl.Info{}, fn.AddNest("EnableNetworkEgressMonitoring")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConsumptionMeteringConfig, actual.ConsumptionMeteringConfig, dcl.Info{ObjectFunction: compareClusterResourceUsageExportConfigConsumptionMeteringConfigNewStyle}, fn.AddNest("ConsumptionMeteringConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableNetworkEgressMetering, actual.EnableNetworkEgressMetering, dcl.Info{}, fn.AddNest("EnableNetworkEgressMetering")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterResourceUsageExportConfig(c *Client, desired, actual *ClusterResourceUsageExportConfig) bool {
@@ -11652,6 +13954,35 @@ func compareClusterResourceUsageExportConfigMap(c *Client, desired, actual map[s
 	return false
 }
 
+func compareClusterResourceUsageExportConfigBigqueryDestinationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterResourceUsageExportConfigBigqueryDestination)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterResourceUsageExportConfigBigqueryDestination)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterResourceUsageExportConfigBigqueryDestination or *ClusterResourceUsageExportConfigBigqueryDestination", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterResourceUsageExportConfigBigqueryDestination)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterResourceUsageExportConfigBigqueryDestination)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterResourceUsageExportConfigBigqueryDestination", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DatasetId, actual.DatasetId, dcl.Info{}, fn.AddNest("DatasetId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterResourceUsageExportConfigBigqueryDestination(c *Client, desired, actual *ClusterResourceUsageExportConfigBigqueryDestination) bool {
 	if desired == nil {
 		return false
@@ -11699,6 +14030,35 @@ func compareClusterResourceUsageExportConfigBigqueryDestinationMap(c *Client, de
 	return false
 }
 
+func compareClusterResourceUsageExportConfigConsumptionMeteringConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterResourceUsageExportConfigConsumptionMeteringConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterResourceUsageExportConfigConsumptionMeteringConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterResourceUsageExportConfigConsumptionMeteringConfig or *ClusterResourceUsageExportConfigConsumptionMeteringConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterResourceUsageExportConfigConsumptionMeteringConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterResourceUsageExportConfigConsumptionMeteringConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterResourceUsageExportConfigConsumptionMeteringConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterResourceUsageExportConfigConsumptionMeteringConfig(c *Client, desired, actual *ClusterResourceUsageExportConfigConsumptionMeteringConfig) bool {
 	if desired == nil {
 		return false
@@ -11744,6 +14104,42 @@ func compareClusterResourceUsageExportConfigConsumptionMeteringConfigMap(c *Clie
 		}
 	}
 	return false
+}
+
+func compareClusterAuthenticatorGroupsConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAuthenticatorGroupsConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAuthenticatorGroupsConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAuthenticatorGroupsConfig or *ClusterAuthenticatorGroupsConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAuthenticatorGroupsConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAuthenticatorGroupsConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAuthenticatorGroupsConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SecurityGroup, actual.SecurityGroup, dcl.Info{}, fn.AddNest("SecurityGroup")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterAuthenticatorGroupsConfig(c *Client, desired, actual *ClusterAuthenticatorGroupsConfig) bool {
@@ -11795,6 +14191,77 @@ func compareClusterAuthenticatorGroupsConfigMap(c *Client, desired, actual map[s
 		}
 	}
 	return false
+}
+
+func compareClusterPrivateClusterConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterPrivateClusterConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterPrivateClusterConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterPrivateClusterConfig or *ClusterPrivateClusterConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterPrivateClusterConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterPrivateClusterConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterPrivateClusterConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EnablePrivateNodes, actual.EnablePrivateNodes, dcl.Info{}, fn.AddNest("EnablePrivateNodes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnablePrivateEndpoint, actual.EnablePrivateEndpoint, dcl.Info{}, fn.AddNest("EnablePrivateEndpoint")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MasterIPv4CidrBlock, actual.MasterIPv4CidrBlock, dcl.Info{}, fn.AddNest("MasterIPv4CidrBlock")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PrivateEndpoint, actual.PrivateEndpoint, dcl.Info{OutputOnly: true}, fn.AddNest("PrivateEndpoint")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicEndpoint, actual.PublicEndpoint, dcl.Info{OutputOnly: true}, fn.AddNest("PublicEndpoint")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PeeringName, actual.PeeringName, dcl.Info{OutputOnly: true}, fn.AddNest("PeeringName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MasterGlobalAccessConfig, actual.MasterGlobalAccessConfig, dcl.Info{ObjectFunction: compareClusterPrivateClusterConfigMasterGlobalAccessConfigNewStyle}, fn.AddNest("MasterGlobalAccessConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterPrivateClusterConfig(c *Client, desired, actual *ClusterPrivateClusterConfig) bool {
@@ -11856,6 +14323,35 @@ func compareClusterPrivateClusterConfigMap(c *Client, desired, actual map[string
 	return false
 }
 
+func compareClusterPrivateClusterConfigMasterGlobalAccessConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterPrivateClusterConfigMasterGlobalAccessConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterPrivateClusterConfigMasterGlobalAccessConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterPrivateClusterConfigMasterGlobalAccessConfig or *ClusterPrivateClusterConfigMasterGlobalAccessConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterPrivateClusterConfigMasterGlobalAccessConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterPrivateClusterConfigMasterGlobalAccessConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterPrivateClusterConfigMasterGlobalAccessConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterPrivateClusterConfigMasterGlobalAccessConfig(c *Client, desired, actual *ClusterPrivateClusterConfigMasterGlobalAccessConfig) bool {
 	if desired == nil {
 		return false
@@ -11901,6 +14397,42 @@ func compareClusterPrivateClusterConfigMasterGlobalAccessConfigMap(c *Client, de
 		}
 	}
 	return false
+}
+
+func compareClusterDatabaseEncryptionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterDatabaseEncryption)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterDatabaseEncryption)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterDatabaseEncryption or *ClusterDatabaseEncryption", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterDatabaseEncryption)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterDatabaseEncryption)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterDatabaseEncryption", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyName, actual.KeyName, dcl.Info{}, fn.AddNest("KeyName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterDatabaseEncryption(c *Client, desired, actual *ClusterDatabaseEncryption) bool {
@@ -11954,6 +14486,35 @@ func compareClusterDatabaseEncryptionMap(c *Client, desired, actual map[string]C
 	return false
 }
 
+func compareClusterVerticalPodAutoscalingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterVerticalPodAutoscaling)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterVerticalPodAutoscaling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterVerticalPodAutoscaling or *ClusterVerticalPodAutoscaling", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterVerticalPodAutoscaling)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterVerticalPodAutoscaling)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterVerticalPodAutoscaling", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterVerticalPodAutoscaling(c *Client, desired, actual *ClusterVerticalPodAutoscaling) bool {
 	if desired == nil {
 		return false
@@ -12001,6 +14562,35 @@ func compareClusterVerticalPodAutoscalingMap(c *Client, desired, actual map[stri
 	return false
 }
 
+func compareClusterShieldedNodesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterShieldedNodes)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterShieldedNodes)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterShieldedNodes or *ClusterShieldedNodes", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterShieldedNodes)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterShieldedNodes)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterShieldedNodes", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterShieldedNodes(c *Client, desired, actual *ClusterShieldedNodes) bool {
 	if desired == nil {
 		return false
@@ -12046,6 +14636,49 @@ func compareClusterShieldedNodesMap(c *Client, desired, actual map[string]Cluste
 		}
 	}
 	return false
+}
+
+func compareClusterConditionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterConditions)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterConditions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterConditions or *ClusterConditions", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterConditions)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterConditions)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterConditions", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CanonicalCode, actual.CanonicalCode, dcl.Info{Type: "EnumType"}, fn.AddNest("CanonicalCode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterConditions(c *Client, desired, actual *ClusterConditions) bool {
@@ -12103,6 +14736,35 @@ func compareClusterConditionsMap(c *Client, desired, actual map[string]ClusterCo
 	return false
 }
 
+func compareClusterAutopilotNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterAutopilot)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterAutopilot)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutopilot or *ClusterAutopilot", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterAutopilot)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterAutopilot)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterAutopilot", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterAutopilot(c *Client, desired, actual *ClusterAutopilot) bool {
 	if desired == nil {
 		return false
@@ -12148,6 +14810,182 @@ func compareClusterAutopilotMap(c *Client, desired, actual map[string]ClusterAut
 		}
 	}
 	return false
+}
+
+func compareClusterNodeConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodeConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodeConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfig or *ClusterNodeConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodeConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodeConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{}, fn.AddNest("OAuthScopes")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ImageType, actual.ImageType, dcl.Info{}, fn.AddNest("ImageType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LocalSsdCount, actual.LocalSsdCount, dcl.Info{}, fn.AddNest("LocalSsdCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Tags, actual.Tags, dcl.Info{}, fn.AddNest("Tags")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Preemptible, actual.Preemptible, dcl.Info{}, fn.AddNest("Preemptible")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.Info{ObjectFunction: compareClusterNodeConfigAcceleratorsNewStyle}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DiskType, actual.DiskType, dcl.Info{}, fn.AddNest("DiskType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.Info{}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.WorkloadMetadataConfig, actual.WorkloadMetadataConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigWorkloadMetadataConfigNewStyle}, fn.AddNest("WorkloadMetadataConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Taints, actual.Taints, dcl.Info{ObjectFunction: compareClusterNodeConfigTaintsNewStyle}, fn.AddNest("Taints")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SandboxConfig, actual.SandboxConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigSandboxConfigNewStyle}, fn.AddNest("SandboxConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NodeGroup, actual.NodeGroup, dcl.Info{}, fn.AddNest("NodeGroup")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReservationAffinity, actual.ReservationAffinity, dcl.Info{ObjectFunction: compareClusterNodeConfigReservationAffinityNewStyle}, fn.AddNest("ReservationAffinity")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigShieldedInstanceConfigNewStyle}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LinuxNodeConfig, actual.LinuxNodeConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigLinuxNodeConfigNewStyle}, fn.AddNest("LinuxNodeConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KubeletConfig, actual.KubeletConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigKubeletConfigNewStyle}, fn.AddNest("KubeletConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BootDiskKmsKey, actual.BootDiskKmsKey, dcl.Info{}, fn.AddNest("BootDiskKmsKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNodeConfig(c *Client, desired, actual *ClusterNodeConfig) bool {
@@ -12281,6 +15119,42 @@ func compareClusterNodeConfigMap(c *Client, desired, actual map[string]ClusterNo
 	return false
 }
 
+func compareClusterNodeConfigAcceleratorsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodeConfigAccelerators)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodeConfigAccelerators)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigAccelerators or *ClusterNodeConfigAccelerators", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodeConfigAccelerators)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodeConfigAccelerators)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigAccelerators", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.Info{}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{}, fn.AddNest("AcceleratorType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodeConfigAccelerators(c *Client, desired, actual *ClusterNodeConfigAccelerators) bool {
 	if desired == nil {
 		return false
@@ -12332,6 +15206,35 @@ func compareClusterNodeConfigAcceleratorsMap(c *Client, desired, actual map[stri
 	return false
 }
 
+func compareClusterNodeConfigWorkloadMetadataConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodeConfigWorkloadMetadataConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodeConfigWorkloadMetadataConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigWorkloadMetadataConfig or *ClusterNodeConfigWorkloadMetadataConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodeConfigWorkloadMetadataConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodeConfigWorkloadMetadataConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigWorkloadMetadataConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{Type: "EnumType"}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodeConfigWorkloadMetadataConfig(c *Client, desired, actual *ClusterNodeConfigWorkloadMetadataConfig) bool {
 	if desired == nil {
 		return false
@@ -12377,6 +15280,49 @@ func compareClusterNodeConfigWorkloadMetadataConfigMap(c *Client, desired, actua
 		}
 	}
 	return false
+}
+
+func compareClusterNodeConfigTaintsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodeConfigTaints)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodeConfigTaints)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigTaints or *ClusterNodeConfigTaints", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodeConfigTaints)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodeConfigTaints)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigTaints", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Effect, actual.Effect, dcl.Info{Type: "EnumType"}, fn.AddNest("Effect")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNodeConfigTaints(c *Client, desired, actual *ClusterNodeConfigTaints) bool {
@@ -12434,6 +15380,35 @@ func compareClusterNodeConfigTaintsMap(c *Client, desired, actual map[string]Clu
 	return false
 }
 
+func compareClusterNodeConfigSandboxConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodeConfigSandboxConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodeConfigSandboxConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigSandboxConfig or *ClusterNodeConfigSandboxConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodeConfigSandboxConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodeConfigSandboxConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigSandboxConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodeConfigSandboxConfig(c *Client, desired, actual *ClusterNodeConfigSandboxConfig) bool {
 	if desired == nil {
 		return false
@@ -12479,6 +15454,49 @@ func compareClusterNodeConfigSandboxConfigMap(c *Client, desired, actual map[str
 		}
 	}
 	return false
+}
+
+func compareClusterNodeConfigReservationAffinityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodeConfigReservationAffinity)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodeConfigReservationAffinity)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigReservationAffinity or *ClusterNodeConfigReservationAffinity", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodeConfigReservationAffinity)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodeConfigReservationAffinity)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigReservationAffinity", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ConsumeReservationType, actual.ConsumeReservationType, dcl.Info{Type: "EnumType"}, fn.AddNest("ConsumeReservationType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.Info{}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNodeConfigReservationAffinity(c *Client, desired, actual *ClusterNodeConfigReservationAffinity) bool {
@@ -12536,6 +15554,42 @@ func compareClusterNodeConfigReservationAffinityMap(c *Client, desired, actual m
 	return false
 }
 
+func compareClusterNodeConfigShieldedInstanceConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodeConfigShieldedInstanceConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodeConfigShieldedInstanceConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigShieldedInstanceConfig or *ClusterNodeConfigShieldedInstanceConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodeConfigShieldedInstanceConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodeConfigShieldedInstanceConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigShieldedInstanceConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EnableSecureBoot, actual.EnableSecureBoot, dcl.Info{}, fn.AddNest("EnableSecureBoot")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableIntegrityMonitoring, actual.EnableIntegrityMonitoring, dcl.Info{}, fn.AddNest("EnableIntegrityMonitoring")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodeConfigShieldedInstanceConfig(c *Client, desired, actual *ClusterNodeConfigShieldedInstanceConfig) bool {
 	if desired == nil {
 		return false
@@ -12587,6 +15641,35 @@ func compareClusterNodeConfigShieldedInstanceConfigMap(c *Client, desired, actua
 	return false
 }
 
+func compareClusterNodeConfigLinuxNodeConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodeConfigLinuxNodeConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodeConfigLinuxNodeConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigLinuxNodeConfig or *ClusterNodeConfigLinuxNodeConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodeConfigLinuxNodeConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodeConfigLinuxNodeConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigLinuxNodeConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Sysctls, actual.Sysctls, dcl.Info{}, fn.AddNest("Sysctls")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNodeConfigLinuxNodeConfig(c *Client, desired, actual *ClusterNodeConfigLinuxNodeConfig) bool {
 	if desired == nil {
 		return false
@@ -12632,6 +15715,49 @@ func compareClusterNodeConfigLinuxNodeConfigMap(c *Client, desired, actual map[s
 		}
 	}
 	return false
+}
+
+func compareClusterNodeConfigKubeletConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodeConfigKubeletConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodeConfigKubeletConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigKubeletConfig or *ClusterNodeConfigKubeletConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodeConfigKubeletConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodeConfigKubeletConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeConfigKubeletConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.CpuManagerPolicy, actual.CpuManagerPolicy, dcl.Info{}, fn.AddNest("CpuManagerPolicy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CpuCfsQuota, actual.CpuCfsQuota, dcl.Info{}, fn.AddNest("CpuCfsQuota")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CpuCfsQuotaPeriod, actual.CpuCfsQuotaPeriod, dcl.Info{}, fn.AddNest("CpuCfsQuotaPeriod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNodeConfigKubeletConfig(c *Client, desired, actual *ClusterNodeConfigKubeletConfig) bool {
@@ -12689,6 +15815,35 @@ func compareClusterNodeConfigKubeletConfigMap(c *Client, desired, actual map[str
 	return false
 }
 
+func compareClusterReleaseChannelNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterReleaseChannel)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterReleaseChannel)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterReleaseChannel or *ClusterReleaseChannel", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterReleaseChannel)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterReleaseChannel)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterReleaseChannel", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Channel, actual.Channel, dcl.Info{Type: "EnumType"}, fn.AddNest("Channel")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterReleaseChannel(c *Client, desired, actual *ClusterReleaseChannel) bool {
 	if desired == nil {
 		return false
@@ -12734,6 +15889,35 @@ func compareClusterReleaseChannelMap(c *Client, desired, actual map[string]Clust
 		}
 	}
 	return false
+}
+
+func compareClusterWorkloadIdentityConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterWorkloadIdentityConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterWorkloadIdentityConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterWorkloadIdentityConfig or *ClusterWorkloadIdentityConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterWorkloadIdentityConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterWorkloadIdentityConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterWorkloadIdentityConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.WorkloadPool, actual.WorkloadPool, dcl.Info{}, fn.AddNest("WorkloadPool")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterWorkloadIdentityConfig(c *Client, desired, actual *ClusterWorkloadIdentityConfig) bool {
@@ -12783,6 +15967,35 @@ func compareClusterWorkloadIdentityConfigMap(c *Client, desired, actual map[stri
 	return false
 }
 
+func compareClusterNotificationConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNotificationConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNotificationConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNotificationConfig or *ClusterNotificationConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNotificationConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNotificationConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNotificationConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Pubsub, actual.Pubsub, dcl.Info{ObjectFunction: compareClusterNotificationConfigPubsubNewStyle}, fn.AddNest("Pubsub")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareClusterNotificationConfig(c *Client, desired, actual *ClusterNotificationConfig) bool {
 	if desired == nil {
 		return false
@@ -12828,6 +16041,42 @@ func compareClusterNotificationConfigMap(c *Client, desired, actual map[string]C
 		}
 	}
 	return false
+}
+
+func compareClusterNotificationConfigPubsubNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNotificationConfigPubsub)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNotificationConfigPubsub)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNotificationConfigPubsub or *ClusterNotificationConfigPubsub", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNotificationConfigPubsub)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNotificationConfigPubsub)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNotificationConfigPubsub", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Topic, actual.Topic, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Topic")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterNotificationConfigPubsub(c *Client, desired, actual *ClusterNotificationConfigPubsub) bool {
@@ -12879,6 +16128,35 @@ func compareClusterNotificationConfigPubsubMap(c *Client, desired, actual map[st
 		}
 	}
 	return false
+}
+
+func compareClusterConfidentialNodesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterConfidentialNodes)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterConfidentialNodes)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterConfidentialNodes or *ClusterConfidentialNodes", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterConfidentialNodes)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterConfidentialNodes)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterConfidentialNodes", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 func compareClusterConfidentialNodes(c *Client, desired, actual *ClusterConfidentialNodes) bool {
