@@ -36,6 +36,9 @@ components:
               description: Database name.
               type: string
               x-dcl-go-name: Database
+              x-dcl-references:
+              - field: name
+                resource: Sql/Database
             instanceId:
               description: Cloud SQL instance ID in the form `project:location:instance`.
               type: string

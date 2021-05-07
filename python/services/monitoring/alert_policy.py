@@ -234,38 +234,6 @@ class AlertPolicy(object):
 
         return stub.ListMonitoringAlertPolicy(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = alert_policy_pb2.MonitoringAlertPolicy()
-        any_proto.Unpack(res_proto)
-
-        res = AlertPolicy()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.documentation = AlertPolicyDocumentation.from_proto(res_proto.documentation)
-        res.user_labels = Primitive.from_proto(res_proto.user_labels)
-        res.conditions = AlertPolicyConditionsArray.from_proto(res_proto.conditions)
-        res.combiner = AlertPolicyCombinerEnum.from_proto(res_proto.combiner)
-        res.disabled = Primitive.from_proto(res_proto.disabled)
-        res.enabled = AlertPolicyEnabled.from_proto(res_proto.enabled)
-        res.validity = AlertPolicyValidity.from_proto(res_proto.validity)
-        res.notification_channels = Primitive.from_proto(
-            res_proto.notification_channels
-        )
-        res.creation_record = AlertPolicyCreationRecord.from_proto(
-            res_proto.creation_record
-        )
-        res.mutation_record = AlertPolicyMutationRecord.from_proto(
-            res_proto.mutation_record
-        )
-        res.incident_strategy = AlertPolicyIncidentStrategy.from_proto(
-            res_proto.incident_strategy
-        )
-        res.metadata = AlertPolicyMetadata.from_proto(res_proto.metadata)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = alert_policy_pb2.MonitoringAlertPolicy()
         if Primitive.to_proto(self.name):

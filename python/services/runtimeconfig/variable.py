@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from connector import channel
-from google3.cloud.graphite.mmv2.services.google.runtimeconfig import variable_pb2
-from google3.cloud.graphite.mmv2.services.google.runtimeconfig import variable_pb2_grpc
+from google3.cloud.graphite.mmv2.services.google.runtime_config import variable_pb2
+from google3.cloud.graphite.mmv2.services.google.runtime_config import variable_pb2_grpc
 
 from typing import List
 
@@ -97,21 +97,6 @@ class Variable(object):
         request.RuntimeConfig = runtimeConfig
 
         return stub.ListRuntimeconfigVariable(request).items
-
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = variable_pb2.RuntimeconfigVariable()
-        any_proto.Unpack(res_proto)
-
-        res = Variable()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.runtime_config = Primitive.from_proto(res_proto.runtime_config)
-        res.text = Primitive.from_proto(res_proto.text)
-        res.value = Primitive.from_proto(res_proto.value)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
 
     def to_proto(self):
         resource = variable_pb2.RuntimeconfigVariable()

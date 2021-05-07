@@ -139,26 +139,6 @@ class TargetSslProxy(object):
 
         return stub.ListComputeTargetSslProxy(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = target_ssl_proxy_pb2.ComputeTargetSslProxy()
-        any_proto.Unpack(res_proto)
-
-        res = TargetSslProxy()
-        res.id = Primitive.from_proto(res_proto.id)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.service = Primitive.from_proto(res_proto.service)
-        res.ssl_certificates = Primitive.from_proto(res_proto.ssl_certificates)
-        res.proxy_header = TargetSslProxyProxyHeaderEnum.from_proto(
-            res_proto.proxy_header
-        )
-        res.ssl_policy = Primitive.from_proto(res_proto.ssl_policy)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = target_ssl_proxy_pb2.ComputeTargetSslProxy()
         if Primitive.to_proto(self.id):

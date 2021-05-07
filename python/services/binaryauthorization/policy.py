@@ -145,31 +145,6 @@ class Policy(object):
 
         return stub.ListBinaryauthorizationPolicy(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = policy_pb2.BinaryauthorizationPolicy()
-        any_proto.Unpack(res_proto)
-
-        res = Policy()
-        res.admission_whitelist_patterns = PolicyAdmissionWhitelistPatternsArray.from_proto(
-            res_proto.admission_whitelist_patterns
-        )
-        res.cluster_admission_rules = Primitive.from_proto(
-            res_proto.cluster_admission_rules
-        )
-        res.default_admission_rule = PolicyDefaultAdmissionRule.from_proto(
-            res_proto.default_admission_rule
-        )
-        res.description = Primitive.from_proto(res_proto.description)
-        res.global_policy_evaluation_mode = PolicyGlobalPolicyEvaluationModeEnum.from_proto(
-            res_proto.global_policy_evaluation_mode
-        )
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        return res
-
     def to_proto(self):
         resource = policy_pb2.BinaryauthorizationPolicy()
         if PolicyAdmissionWhitelistPatternsArray.to_proto(

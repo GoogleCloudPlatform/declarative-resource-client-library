@@ -4,7 +4,8 @@
  "project": "{{project}}",
   "workerConfig": {
     "machineType": "e2-medium",
-    "diskSizeGb": 100
+    "diskSizeGb": 100,
+    "noExternalIP": false
   },
   "networkConfig": {}
 }

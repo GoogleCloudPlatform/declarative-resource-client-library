@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from connector import channel
-from google3.cloud.graphite.mmv2.services.google.servicenetworking import connection_pb2
-from google3.cloud.graphite.mmv2.services.google.servicenetworking import (
+from google3.cloud.graphite.mmv2.services.google.service_networking import (
+    connection_pb2,
+)
+from google3.cloud.graphite.mmv2.services.google.service_networking import (
     connection_pb2_grpc,
 )
 
@@ -102,22 +104,6 @@ class Connection(object):
         request.Service = service
 
         return stub.ListServicenetworkingConnection(request).items
-
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = connection_pb2.ServicenetworkingConnection()
-        any_proto.Unpack(res_proto)
-
-        res = Connection()
-        res.network = Primitive.from_proto(res_proto.network)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.reserved_peering_ranges = Primitive.from_proto(
-            res_proto.reserved_peering_ranges
-        )
-        res.service = Primitive.from_proto(res_proto.service)
-        return res
 
     def to_proto(self):
         resource = connection_pb2.ServicenetworkingConnection()

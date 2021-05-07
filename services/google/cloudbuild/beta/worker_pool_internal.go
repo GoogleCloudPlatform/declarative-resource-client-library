@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -452,18 +451,6 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.State) {
-		rawDesired.State = rawInitial.State
-	}
-	if dcl.IsZeroValue(rawDesired.CreateTime) {
-		rawDesired.CreateTime = rawInitial.CreateTime
-	}
-	if dcl.IsZeroValue(rawDesired.UpdateTime) {
-		rawDesired.UpdateTime = rawInitial.UpdateTime
-	}
-	if dcl.IsZeroValue(rawDesired.DeleteTime) {
-		rawDesired.DeleteTime = rawInitial.DeleteTime
-	}
 	rawDesired.WorkerConfig = canonicalizeWorkerPoolWorkerConfig(rawDesired.WorkerConfig, rawInitial.WorkerConfig, opts...)
 	rawDesired.NetworkConfig = canonicalizeWorkerPoolNetworkConfig(rawDesired.NetworkConfig, rawInitial.NetworkConfig, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -558,6 +545,9 @@ func canonicalizeNewWorkerPoolWorkerConfig(c *Client, des, nw *WorkerPoolWorkerC
 	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) {
 		nw.MachineType = des.MachineType
 	}
+	if dcl.IsZeroValue(nw.DiskSizeGb) {
+		nw.DiskSizeGb = des.DiskSizeGb
+	}
 	if dcl.BoolCanonicalize(des.NoExternalIP, nw.NoExternalIP) {
 		nw.NoExternalIP = des.NoExternalIP
 	}
@@ -573,7 +563,7 @@ func canonicalizeNewWorkerPoolWorkerConfigSet(c *Client, des, nw []WorkerPoolWor
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareWorkerPoolWorkerConfig(c, &d, &n) {
+			if diffs, _ := compareWorkerPoolWorkerConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -596,7 +586,7 @@ func canonicalizeNewWorkerPoolWorkerConfigSlice(c *Client, des, nw []WorkerPoolW
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []WorkerPoolWorkerConfig
@@ -647,7 +637,7 @@ func canonicalizeNewWorkerPoolNetworkConfigSet(c *Client, des, nw []WorkerPoolNe
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareWorkerPoolNetworkConfig(c, &d, &n) {
+			if diffs, _ := compareWorkerPoolNetworkConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -670,7 +660,7 @@ func canonicalizeNewWorkerPoolNetworkConfigSlice(c *Client, des, nw []WorkerPool
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []WorkerPoolNetworkConfig
@@ -704,91 +694,124 @@ func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []workerPoolDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkerPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "State",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkerPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkerPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UpdateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkerPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "DeleteTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkerPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareWorkerPoolWorkerConfigNewStyle}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareWorkerPoolWorkerConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{
-			UpdateOp: &updateWorkerPoolUpdateWorkerPoolOperation{}, Diffs: ds,
-			FieldName: "WorkerConfig",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkerPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareWorkerPoolNetworkConfigNewStyle}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareWorkerPoolNetworkConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{
-			UpdateOp: &updateWorkerPoolUpdateWorkerPoolOperation{}, Diffs: ds,
-			FieldName: "NetworkConfig",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkerPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkerPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workerPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkerPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -835,82 +858,27 @@ func compareWorkerPoolWorkerConfigNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NoExternalIP, actual.NoExternalIP, dcl.Info{}, fn.AddNest("NoExternalIP")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NoExternalIP, actual.NoExternalIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NoExternalIP")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareWorkerPoolWorkerConfig(c *Client, desired, actual *WorkerPoolWorkerConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MachineType, actual.MachineType) && !dcl.IsZeroValue(desired.MachineType) {
-		c.Config.Logger.Infof("Diff in MachineType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MachineType), dcl.SprintResource(actual.MachineType))
-		return true
-	}
-	if !reflect.DeepEqual(desired.DiskSizeGb, actual.DiskSizeGb) && !dcl.IsZeroValue(desired.DiskSizeGb) {
-		c.Config.Logger.Infof("Diff in DiskSizeGb.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DiskSizeGb), dcl.SprintResource(actual.DiskSizeGb))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.NoExternalIP, actual.NoExternalIP) && !dcl.IsZeroValue(desired.NoExternalIP) {
-		c.Config.Logger.Infof("Diff in NoExternalIP.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NoExternalIP), dcl.SprintResource(actual.NoExternalIP))
-		return true
-	}
-	return false
-}
-
-func compareWorkerPoolWorkerConfigSlice(c *Client, desired, actual []WorkerPoolWorkerConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkerPoolWorkerConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkerPoolWorkerConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkerPoolWorkerConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkerPoolWorkerConfigMap(c *Client, desired, actual map[string]WorkerPoolWorkerConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkerPoolWorkerConfig, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in WorkerPoolWorkerConfig, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareWorkerPoolWorkerConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in WorkerPoolWorkerConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareWorkerPoolNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -933,78 +901,13 @@ func compareWorkerPoolNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PeeredNetwork, actual.PeeredNetwork, dcl.Info{Type: "ReferenceType"}, fn.AddNest("PeeredNetwork")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeeredNetwork, actual.PeeredNetwork, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeeredNetwork")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareWorkerPoolNetworkConfig(c *Client, desired, actual *WorkerPoolNetworkConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.NameToSelfLink(desired.PeeredNetwork, actual.PeeredNetwork) && !dcl.IsZeroValue(desired.PeeredNetwork) {
-		c.Config.Logger.Infof("Diff in PeeredNetwork.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PeeredNetwork), dcl.SprintResource(actual.PeeredNetwork))
-		return true
-	}
-	return false
-}
-
-func compareWorkerPoolNetworkConfigSlice(c *Client, desired, actual []WorkerPoolNetworkConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkerPoolNetworkConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkerPoolNetworkConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkerPoolNetworkConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkerPoolNetworkConfigMap(c *Client, desired, actual map[string]WorkerPoolNetworkConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkerPoolNetworkConfig, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in WorkerPoolNetworkConfig, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareWorkerPoolNetworkConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in WorkerPoolNetworkConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkerPoolStateEnumSlice(c *Client, desired, actual []WorkerPoolStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkerPoolStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkerPoolStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkerPoolStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkerPoolStateEnum(c *Client, desired, actual *WorkerPoolStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1128,18 +1031,18 @@ func flattenWorkerPool(c *Client, i interface{}) *WorkerPool {
 		return nil
 	}
 
-	r := &WorkerPool{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.State = flattenWorkerPoolStateEnum(m["state"])
-	r.CreateTime = dcl.FlattenString(m["createTime"])
-	r.UpdateTime = dcl.FlattenString(m["updateTime"])
-	r.DeleteTime = dcl.FlattenString(m["deleteTime"])
-	r.WorkerConfig = flattenWorkerPoolWorkerConfig(c, m["workerConfig"])
-	r.NetworkConfig = flattenWorkerPoolNetworkConfig(c, m["networkConfig"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Location = dcl.FlattenString(m["location"])
+	res := &WorkerPool{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.State = flattenWorkerPoolStateEnum(m["state"])
+	res.CreateTime = dcl.FlattenString(m["createTime"])
+	res.UpdateTime = dcl.FlattenString(m["updateTime"])
+	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
+	res.WorkerConfig = flattenWorkerPoolWorkerConfig(c, m["workerConfig"])
+	res.NetworkConfig = flattenWorkerPoolNetworkConfig(c, m["networkConfig"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Location = dcl.FlattenString(m["location"])
 
-	return r
+	return res
 }
 
 // expandWorkerPoolWorkerConfigMap expands the contents of WorkerPoolWorkerConfig into a JSON
@@ -1226,10 +1129,11 @@ func flattenWorkerPoolWorkerConfigSlice(c *Client, i interface{}) []WorkerPoolWo
 // expandWorkerPoolWorkerConfig expands an instance of WorkerPoolWorkerConfig into a JSON
 // request object.
 func expandWorkerPoolWorkerConfig(c *Client, f *WorkerPoolWorkerConfig) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MachineType; !dcl.IsEmptyValueIndirect(v) {
 		m["machineType"] = v
 	}
@@ -1343,10 +1247,11 @@ func flattenWorkerPoolNetworkConfigSlice(c *Client, i interface{}) []WorkerPoolN
 // expandWorkerPoolNetworkConfig expands an instance of WorkerPoolNetworkConfig into a JSON
 // request object.
 func expandWorkerPoolNetworkConfig(c *Client, f *WorkerPoolNetworkConfig) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.PeeredNetwork; !dcl.IsEmptyValueIndirect(v) {
 		m["peeredNetwork"] = v
 	}
@@ -1438,5 +1343,36 @@ func (r *WorkerPool) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToWorkerPoolDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]workerPoolDiff, error) {
+	var diffs []workerPoolDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := workerPoolDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToworkerPoolApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToworkerPoolApiOperation(op string, opts ...dcl.ApplyOption) (workerPoolApiOperation, error) {
+	switch op {
+
+	case "updateWorkerPoolUpdateWorkerPoolOperation":
+		return &updateWorkerPoolUpdateWorkerPoolOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

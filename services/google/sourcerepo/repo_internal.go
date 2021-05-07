@@ -401,12 +401,6 @@ func canonicalizeRepoDesiredState(rawDesired, rawInitial *Repo, opts ...dcl.Appl
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Size) {
-		rawDesired.Size = rawInitial.Size
-	}
-	if dcl.StringCanonicalize(rawDesired.Url, rawInitial.Url) {
-		rawDesired.Url = rawInitial.Url
-	}
 	if dcl.IsZeroValue(rawDesired.PubsubConfigs) {
 		rawDesired.PubsubConfigs = rawInitial.PubsubConfigs
 	}
@@ -502,7 +496,7 @@ func canonicalizeNewRepoPubsubConfigsSet(c *Client, des, nw []RepoPubsubConfigs)
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareRepoPubsubConfigs(c, &d, &n) {
+			if diffs, _ := compareRepoPubsubConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -525,7 +519,7 @@ func canonicalizeNewRepoPubsubConfigsSlice(c *Client, des, nw []RepoPubsubConfig
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []RepoPubsubConfigs
@@ -559,54 +553,72 @@ func diffRepo(c *Client, desired, actual *Repo, opts ...dcl.ApplyOption) ([]repo
 	}
 
 	var diffs []repoDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRepoDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Size, actual.Size, dcl.Info{OutputOnly: true}, fn.AddNest("Size")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Size, actual.Size, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Size")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Size",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRepoDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OutputOnly: true}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Url",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRepoDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.PubsubConfigs, actual.PubsubConfigs, dcl.Info{Type: "Set", ObjectFunction: compareRepoPubsubConfigsNewStyle}, fn.AddNest("PubsubConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PubsubConfigs, actual.PubsubConfigs, dcl.Info{Type: "Set", ObjectFunction: compareRepoPubsubConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateRepoUpdateRepoOperation")}, fn.AddNest("PubsubConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, repoDiff{
-			UpdateOp: &updateRepoUpdateRepoOperation{}, Diffs: ds,
-			FieldName: "PubsubConfigs",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRepoDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, repoDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRepoDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -653,131 +665,27 @@ func compareRepoPubsubConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Topic, actual.Topic, dcl.Info{}, fn.AddNest("Topic")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Topic, actual.Topic, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Topic")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MessageFormat, actual.MessageFormat, dcl.Info{}, fn.AddNest("MessageFormat")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MessageFormat, actual.MessageFormat, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MessageFormat")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, dcl.Info{}, fn.AddNest("ServiceAccountEmail")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAccountEmail")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareRepoPubsubConfigs(c *Client, desired, actual *RepoPubsubConfigs) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Topic, actual.Topic) && !dcl.IsZeroValue(desired.Topic) {
-		c.Config.Logger.Infof("Diff in Topic.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Topic), dcl.SprintResource(actual.Topic))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MessageFormat, actual.MessageFormat) && !dcl.IsZeroValue(desired.MessageFormat) {
-		c.Config.Logger.Infof("Diff in MessageFormat.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MessageFormat), dcl.SprintResource(actual.MessageFormat))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ServiceAccountEmail, actual.ServiceAccountEmail) && !dcl.IsZeroValue(desired.ServiceAccountEmail) {
-		c.Config.Logger.Infof("Diff in ServiceAccountEmail.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountEmail), dcl.SprintResource(actual.ServiceAccountEmail))
-		return true
-	}
-	return false
-}
-
-func compareRepoPubsubConfigsSlice(c *Client, desired, actual []RepoPubsubConfigs) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RepoPubsubConfigs, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRepoPubsubConfigs(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RepoPubsubConfigs, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRepoPubsubConfigsMap(c *Client, desired, actual map[string]RepoPubsubConfigs) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RepoPubsubConfigs, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in RepoPubsubConfigs, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareRepoPubsubConfigs(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RepoPubsubConfigs, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRepoPubsubConfigsSets(c *Client, desired, actual []RepoPubsubConfigs) (toAdd, toRemove []RepoPubsubConfigs) {
-	if actual == nil {
-		return desired, nil
-	}
-	desiredHashes := make(map[string]RepoPubsubConfigs)
-	for _, d := range desired {
-		desiredHashes[d.HashCode()] = d
-	}
-	actualHashes := make(map[string]RepoPubsubConfigs)
-	for _, a := range actual {
-		actualHashes[a.HashCode()] = a
-	}
-	toAdd = make([]RepoPubsubConfigs, 0)
-	toRemove = make([]RepoPubsubConfigs, 0)
-
-	for k, v := range actualHashes {
-		_, found := desiredHashes[k]
-		if !found {
-			// backup - search linearly for equivalent value.
-			for _, des := range desiredHashes {
-				if !compareRepoPubsubConfigs(c, &des, &v) {
-					found = true
-					break
-				}
-			}
-		}
-		if !found {
-			toRemove = append(toRemove, v)
-		}
-	}
-
-	for k, v := range desiredHashes {
-		_, found := actualHashes[k]
-		if !found {
-			for _, act := range actualHashes {
-				if !compareRepoPubsubConfigs(c, &v, &act) {
-					found = true
-					break
-				}
-			}
-		}
-		if !found {
-			toAdd = append(toAdd, v)
-		}
-	}
-
-	return toAdd, toRemove
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -884,14 +792,14 @@ func flattenRepo(c *Client, i interface{}) *Repo {
 		return nil
 	}
 
-	r := &Repo{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.Size = dcl.FlattenInteger(m["size"])
-	r.Url = dcl.FlattenString(m["url"])
-	r.PubsubConfigs = flattenRepoPubsubConfig(m["pubsubConfigs"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &Repo{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.Size = dcl.FlattenInteger(m["size"])
+	res.Url = dcl.FlattenString(m["url"])
+	res.PubsubConfigs = flattenRepoPubsubConfig(m["pubsubConfigs"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // expandRepoPubsubConfigsMap expands the contents of RepoPubsubConfigs into a JSON
@@ -978,10 +886,11 @@ func flattenRepoPubsubConfigsSlice(c *Client, i interface{}) []RepoPubsubConfigs
 // expandRepoPubsubConfigs expands an instance of RepoPubsubConfigs into a JSON
 // request object.
 func expandRepoPubsubConfigs(c *Client, f *RepoPubsubConfigs) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Topic; !dcl.IsEmptyValueIndirect(v) {
 		m["topic"] = v
 	}
@@ -1042,5 +951,36 @@ func (r *Repo) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToRepoDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]repoDiff, error) {
+	var diffs []repoDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := repoDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTorepoApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTorepoApiOperation(op string, opts ...dcl.ApplyOption) (repoApiOperation, error) {
+	switch op {
+
+	case "updateRepoUpdateRepoOperation":
+		return &updateRepoUpdateRepoOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

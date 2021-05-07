@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -354,9 +353,6 @@ func canonicalizeRouteDesiredState(rawDesired, rawInitial *Route, opts ...dcl.Ap
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Id) {
-		rawDesired.Id = rawInitial.Id
-	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -387,20 +383,11 @@ func canonicalizeRouteDesiredState(rawDesired, rawInitial *Route, opts ...dcl.Ap
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.NextHopGateway, rawInitial.NextHopGateway) {
 		rawDesired.NextHopGateway = rawInitial.NextHopGateway
 	}
-	if dcl.StringCanonicalize(rawDesired.NextHopPeering, rawInitial.NextHopPeering) {
-		rawDesired.NextHopPeering = rawInitial.NextHopPeering
-	}
 	if dcl.StringCanonicalize(rawDesired.NextHopIlb, rawInitial.NextHopIlb) {
 		rawDesired.NextHopIlb = rawInitial.NextHopIlb
 	}
-	if dcl.IsZeroValue(rawDesired.Warning) {
-		rawDesired.Warning = rawInitial.Warning
-	}
 	if dcl.StringCanonicalize(rawDesired.NextHopVpnTunnel, rawInitial.NextHopVpnTunnel) {
 		rawDesired.NextHopVpnTunnel = rawInitial.NextHopVpnTunnel
-	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
@@ -545,16 +532,6 @@ func canonicalizeRouteWarning(des, initial *RouteWarning, opts ...dcl.ApplyOptio
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Code) {
-		des.Code = initial.Code
-	}
-	if dcl.StringCanonicalize(des.Message, initial.Message) || dcl.IsZeroValue(des.Message) {
-		des.Message = initial.Message
-	}
-	if dcl.IsZeroValue(des.Data) {
-		des.Data = initial.Data
-	}
-
 	return des
 }
 
@@ -563,8 +540,14 @@ func canonicalizeNewRouteWarning(c *Client, des, nw *RouteWarning) *RouteWarning
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Code) {
+		nw.Code = des.Code
+	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
+	}
+	if dcl.IsZeroValue(nw.Data) {
+		nw.Data = des.Data
 	}
 
 	return nw
@@ -578,7 +561,7 @@ func canonicalizeNewRouteWarningSet(c *Client, des, nw []RouteWarning) []RouteWa
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareRouteWarning(c, &d, &n) {
+			if diffs, _ := compareRouteWarningNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -601,7 +584,7 @@ func canonicalizeNewRouteWarningSlice(c *Client, des, nw []RouteWarning) []Route
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []RouteWarning
@@ -635,161 +618,228 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]ro
 	}
 
 	var diffs []routeDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Id",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Network",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Tag",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DestRange, actual.DestRange, dcl.Info{}, fn.AddNest("DestRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DestRange, actual.DestRange, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DestRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "DestRange",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Priority, actual.Priority, dcl.Info{}, fn.AddNest("Priority")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Priority, actual.Priority, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Priority")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Priority",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopInstance, actual.NextHopInstance, dcl.Info{}, fn.AddNest("NextHopInstance")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopInstance, actual.NextHopInstance, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NextHopInstance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "NextHopInstance",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopIP, actual.NextHopIP, dcl.Info{}, fn.AddNest("NextHopIP")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopIP, actual.NextHopIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NextHopIP")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "NextHopIP",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopNetwork, actual.NextHopNetwork, dcl.Info{}, fn.AddNest("NextHopNetwork")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopNetwork, actual.NextHopNetwork, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NextHopNetwork")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "NextHopNetwork",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopGateway, actual.NextHopGateway, dcl.Info{}, fn.AddNest("NextHopGateway")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopGateway, actual.NextHopGateway, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NextHopGateway")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "NextHopGateway",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopPeering, actual.NextHopPeering, dcl.Info{OutputOnly: true}, fn.AddNest("NextHopPeering")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopPeering, actual.NextHopPeering, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NextHopPeering")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "NextHopPeering",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopIlb, actual.NextHopIlb, dcl.Info{}, fn.AddNest("NextHopIlb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopIlb, actual.NextHopIlb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NextHopIlb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "NextHopIlb",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareRouteWarningNewStyle}, fn.AddNest("Warning")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareRouteWarningNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Warning")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Warning",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopVpnTunnel, actual.NextHopVpnTunnel, dcl.Info{}, fn.AddNest("NextHopVpnTunnel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopVpnTunnel, actual.NextHopVpnTunnel, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NextHopVpnTunnel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "NextHopVpnTunnel",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routeDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouteDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -836,88 +886,27 @@ func compareRouteWarningNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OutputOnly: true}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Data, actual.Data, dcl.Info{OutputOnly: true}, fn.AddNest("Data")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Data, actual.Data, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Data")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareRouteWarning(c *Client, desired, actual *RouteWarning) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	return false
-}
-
-func compareRouteWarningSlice(c *Client, desired, actual []RouteWarning) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouteWarning, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouteWarning(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouteWarning, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouteWarningMap(c *Client, desired, actual map[string]RouteWarning) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouteWarning, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in RouteWarning, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareRouteWarning(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RouteWarning, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouteWarningCodeEnumSlice(c *Client, desired, actual []RouteWarningCodeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouteWarningCodeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouteWarningCodeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouteWarningCodeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouteWarningCodeEnum(c *Client, desired, actual *RouteWarningCodeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1072,30 +1061,30 @@ func flattenRoute(c *Client, i interface{}) *Route {
 		return nil
 	}
 
-	r := &Route{}
-	r.Id = dcl.FlattenInteger(m["id"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.Network = dcl.FlattenString(m["network"])
-	r.Tag = dcl.FlattenStringSlice(m["tags"])
-	r.DestRange = dcl.FlattenString(m["destRange"])
-	r.Priority = dcl.FlattenInteger(m["priority"])
+	res := &Route{}
+	res.Id = dcl.FlattenInteger(m["id"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.Network = dcl.FlattenString(m["network"])
+	res.Tag = dcl.FlattenStringSlice(m["tags"])
+	res.DestRange = dcl.FlattenString(m["destRange"])
+	res.Priority = dcl.FlattenInteger(m["priority"])
 	if _, ok := m["priority"]; !ok {
 		c.Config.Logger.Info("Using default value for priority")
-		r.Priority = dcl.Int64(1000)
+		res.Priority = dcl.Int64(1000)
 	}
-	r.NextHopInstance = dcl.FlattenString(m["nextHopInstance"])
-	r.NextHopIP = dcl.FlattenString(m["nextHopIp"])
-	r.NextHopNetwork = dcl.FlattenString(m["nextHopNetwork"])
-	r.NextHopGateway = dcl.FlattenString(m["nextHopGateway"])
-	r.NextHopPeering = dcl.FlattenString(m["nextHopPeering"])
-	r.NextHopIlb = dcl.FlattenString(m["nextHopIlb"])
-	r.Warning = flattenRouteWarningSlice(c, m["warnings"])
-	r.NextHopVpnTunnel = dcl.FlattenString(m["nextHopVpnTunnel"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
-	r.Project = dcl.FlattenString(m["project"])
+	res.NextHopInstance = dcl.FlattenString(m["nextHopInstance"])
+	res.NextHopIP = dcl.FlattenString(m["nextHopIp"])
+	res.NextHopNetwork = dcl.FlattenString(m["nextHopNetwork"])
+	res.NextHopGateway = dcl.FlattenString(m["nextHopGateway"])
+	res.NextHopPeering = dcl.FlattenString(m["nextHopPeering"])
+	res.NextHopIlb = dcl.FlattenString(m["nextHopIlb"])
+	res.Warning = flattenRouteWarningSlice(c, m["warnings"])
+	res.NextHopVpnTunnel = dcl.FlattenString(m["nextHopVpnTunnel"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // expandRouteWarningMap expands the contents of RouteWarning into a JSON
@@ -1182,10 +1171,11 @@ func flattenRouteWarningSlice(c *Client, i interface{}) []RouteWarning {
 // expandRouteWarning expands an instance of RouteWarning into a JSON
 // request object.
 func expandRouteWarning(c *Client, f *RouteWarning) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Code; !dcl.IsEmptyValueIndirect(v) {
 		m["code"] = v
 	}
@@ -1279,5 +1269,33 @@ func (r *Route) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToRouteDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]routeDiff, error) {
+	var diffs []routeDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := routeDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTorouteApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTorouteApiOperation(op string, opts ...dcl.ApplyOption) (routeApiOperation, error) {
+	switch op {
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

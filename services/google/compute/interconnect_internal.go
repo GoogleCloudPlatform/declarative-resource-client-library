@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -452,12 +451,6 @@ func canonicalizeInterconnectDesiredState(rawDesired, rawInitial *Interconnect, 
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
-	}
-	if dcl.IsZeroValue(rawDesired.Id) {
-		rawDesired.Id = rawInitial.Id
-	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -481,33 +474,6 @@ func canonicalizeInterconnectDesiredState(rawDesired, rawInitial *Interconnect, 
 	}
 	if dcl.StringCanonicalize(rawDesired.CustomerName, rawInitial.CustomerName) {
 		rawDesired.CustomerName = rawInitial.CustomerName
-	}
-	if dcl.IsZeroValue(rawDesired.OperationalStatus) {
-		rawDesired.OperationalStatus = rawInitial.OperationalStatus
-	}
-	if dcl.IsZeroValue(rawDesired.ProvisionedLinkCount) {
-		rawDesired.ProvisionedLinkCount = rawInitial.ProvisionedLinkCount
-	}
-	if dcl.IsZeroValue(rawDesired.InterconnectAttachments) {
-		rawDesired.InterconnectAttachments = rawInitial.InterconnectAttachments
-	}
-	if dcl.StringCanonicalize(rawDesired.PeerIPAddress, rawInitial.PeerIPAddress) {
-		rawDesired.PeerIPAddress = rawInitial.PeerIPAddress
-	}
-	if dcl.StringCanonicalize(rawDesired.GoogleIPAddress, rawInitial.GoogleIPAddress) {
-		rawDesired.GoogleIPAddress = rawInitial.GoogleIPAddress
-	}
-	if dcl.StringCanonicalize(rawDesired.GoogleReferenceId, rawInitial.GoogleReferenceId) {
-		rawDesired.GoogleReferenceId = rawInitial.GoogleReferenceId
-	}
-	if dcl.IsZeroValue(rawDesired.ExpectedOutages) {
-		rawDesired.ExpectedOutages = rawInitial.ExpectedOutages
-	}
-	if dcl.IsZeroValue(rawDesired.CircuitInfos) {
-		rawDesired.CircuitInfos = rawInitial.CircuitInfos
-	}
-	if dcl.IsZeroValue(rawDesired.State) {
-		rawDesired.State = rawInitial.State
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
@@ -706,6 +672,24 @@ func canonicalizeNewInterconnectExpectedOutages(c *Client, des, nw *Interconnect
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
 		nw.Description = des.Description
 	}
+	if dcl.IsZeroValue(nw.Source) {
+		nw.Source = des.Source
+	}
+	if dcl.IsZeroValue(nw.State) {
+		nw.State = des.State
+	}
+	if dcl.IsZeroValue(nw.IssueType) {
+		nw.IssueType = des.IssueType
+	}
+	if dcl.IsZeroValue(nw.AffectedCircuits) {
+		nw.AffectedCircuits = des.AffectedCircuits
+	}
+	if dcl.IsZeroValue(nw.StartTime) {
+		nw.StartTime = des.StartTime
+	}
+	if dcl.IsZeroValue(nw.EndTime) {
+		nw.EndTime = des.EndTime
+	}
 
 	return nw
 }
@@ -718,7 +702,7 @@ func canonicalizeNewInterconnectExpectedOutagesSet(c *Client, des, nw []Intercon
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareInterconnectExpectedOutages(c, &d, &n) {
+			if diffs, _ := compareInterconnectExpectedOutagesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -741,7 +725,7 @@ func canonicalizeNewInterconnectExpectedOutagesSlice(c *Client, des, nw []Interc
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []InterconnectExpectedOutages
@@ -804,7 +788,7 @@ func canonicalizeNewInterconnectCircuitInfosSet(c *Client, des, nw []Interconnec
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareInterconnectCircuitInfos(c, &d, &n) {
+			if diffs, _ := compareInterconnectCircuitInfosNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -827,7 +811,7 @@ func canonicalizeNewInterconnectCircuitInfosSlice(c *Client, des, nw []Interconn
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []InterconnectCircuitInfos
@@ -861,206 +845,280 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 	}
 
 	var diffs []interconnectDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInterconnectPatchOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Id",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInterconnectPatchOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInterconnectPatchOperation")}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.LinkType, actual.LinkType, dcl.Info{Type: "EnumType"}, fn.AddNest("LinkType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinkType, actual.LinkType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInterconnectPatchOperation")}, fn.AddNest("LinkType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
-			FieldName: "LinkType",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedLinkCount, actual.RequestedLinkCount, dcl.Info{}, fn.AddNest("RequestedLinkCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedLinkCount, actual.RequestedLinkCount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInterconnectPatchOperation")}, fn.AddNest("RequestedLinkCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
-			FieldName: "RequestedLinkCount",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.InterconnectType, actual.InterconnectType, dcl.Info{Type: "EnumType"}, fn.AddNest("InterconnectType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InterconnectType, actual.InterconnectType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInterconnectPatchOperation")}, fn.AddNest("InterconnectType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
-			FieldName: "InterconnectType",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdminEnabled, actual.AdminEnabled, dcl.Info{}, fn.AddNest("AdminEnabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdminEnabled, actual.AdminEnabled, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInterconnectPatchOperation")}, fn.AddNest("AdminEnabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
-			FieldName: "AdminEnabled",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NocContactEmail, actual.NocContactEmail, dcl.Info{}, fn.AddNest("NocContactEmail")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NocContactEmail, actual.NocContactEmail, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInterconnectPatchOperation")}, fn.AddNest("NocContactEmail")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
-			FieldName: "NocContactEmail",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CustomerName, actual.CustomerName, dcl.Info{}, fn.AddNest("CustomerName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CustomerName, actual.CustomerName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInterconnectPatchOperation")}, fn.AddNest("CustomerName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{
-			UpdateOp: &updateInterconnectPatchOperation{}, Diffs: ds,
-			FieldName: "CustomerName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.OperationalStatus, actual.OperationalStatus, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("OperationalStatus")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OperationalStatus, actual.OperationalStatus, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OperationalStatus")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "OperationalStatus",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ProvisionedLinkCount, actual.ProvisionedLinkCount, dcl.Info{OutputOnly: true}, fn.AddNest("ProvisionedLinkCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProvisionedLinkCount, actual.ProvisionedLinkCount, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProvisionedLinkCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ProvisionedLinkCount",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.InterconnectAttachments, actual.InterconnectAttachments, dcl.Info{OutputOnly: true}, fn.AddNest("InterconnectAttachments")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InterconnectAttachments, actual.InterconnectAttachments, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InterconnectAttachments")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "InterconnectAttachments",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{OutputOnly: true}, fn.AddNest("PeerIPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeerIPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "PeerIPAddress",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.GoogleIPAddress, actual.GoogleIPAddress, dcl.Info{OutputOnly: true}, fn.AddNest("GoogleIPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GoogleIPAddress, actual.GoogleIPAddress, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GoogleIPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "GoogleIPAddress",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.GoogleReferenceId, actual.GoogleReferenceId, dcl.Info{OutputOnly: true}, fn.AddNest("GoogleReferenceId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GoogleReferenceId, actual.GoogleReferenceId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GoogleReferenceId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "GoogleReferenceId",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExpectedOutages, actual.ExpectedOutages, dcl.Info{OutputOnly: true, ObjectFunction: compareInterconnectExpectedOutagesNewStyle}, fn.AddNest("ExpectedOutages")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExpectedOutages, actual.ExpectedOutages, dcl.Info{OutputOnly: true, ObjectFunction: compareInterconnectExpectedOutagesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExpectedOutages")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ExpectedOutages",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CircuitInfos, actual.CircuitInfos, dcl.Info{OutputOnly: true, ObjectFunction: compareInterconnectCircuitInfosNewStyle}, fn.AddNest("CircuitInfos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CircuitInfos, actual.CircuitInfos, dcl.Info{OutputOnly: true, ObjectFunction: compareInterconnectCircuitInfosNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CircuitInfos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CircuitInfos",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "State",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, interconnectDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToInterconnectDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1107,137 +1165,62 @@ func compareInterconnectExpectedOutagesNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{Type: "EnumType"}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IssueType, actual.IssueType, dcl.Info{Type: "EnumType"}, fn.AddNest("IssueType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IssueType, actual.IssueType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IssueType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AffectedCircuits, actual.AffectedCircuits, dcl.Info{}, fn.AddNest("AffectedCircuits")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AffectedCircuits, actual.AffectedCircuits, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AffectedCircuits")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StartTime, actual.StartTime, dcl.Info{}, fn.AddNest("StartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StartTime, actual.StartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EndTime, actual.EndTime, dcl.Info{}, fn.AddNest("EndTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EndTime, actual.EndTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EndTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareInterconnectExpectedOutages(c *Client, desired, actual *InterconnectExpectedOutages) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
-		c.Config.Logger.Infof("Diff in Description.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Source, actual.Source) && !dcl.IsZeroValue(desired.Source) {
-		c.Config.Logger.Infof("Diff in Source.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Source), dcl.SprintResource(actual.Source))
-		return true
-	}
-	if !reflect.DeepEqual(desired.State, actual.State) && !dcl.IsZeroValue(desired.State) {
-		c.Config.Logger.Infof("Diff in State.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.State), dcl.SprintResource(actual.State))
-		return true
-	}
-	if !reflect.DeepEqual(desired.IssueType, actual.IssueType) && !dcl.IsZeroValue(desired.IssueType) {
-		c.Config.Logger.Infof("Diff in IssueType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IssueType), dcl.SprintResource(actual.IssueType))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.AffectedCircuits, actual.AffectedCircuits) && !dcl.IsZeroValue(desired.AffectedCircuits) {
-		c.Config.Logger.Infof("Diff in AffectedCircuits.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AffectedCircuits), dcl.SprintResource(actual.AffectedCircuits))
-		return true
-	}
-	if !reflect.DeepEqual(desired.StartTime, actual.StartTime) && !dcl.IsZeroValue(desired.StartTime) {
-		c.Config.Logger.Infof("Diff in StartTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StartTime), dcl.SprintResource(actual.StartTime))
-		return true
-	}
-	if !reflect.DeepEqual(desired.EndTime, actual.EndTime) && !dcl.IsZeroValue(desired.EndTime) {
-		c.Config.Logger.Infof("Diff in EndTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EndTime), dcl.SprintResource(actual.EndTime))
-		return true
-	}
-	return false
-}
-
-func compareInterconnectExpectedOutagesSlice(c *Client, desired, actual []InterconnectExpectedOutages) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InterconnectExpectedOutages, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInterconnectExpectedOutages(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectExpectedOutages, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInterconnectExpectedOutagesMap(c *Client, desired, actual map[string]InterconnectExpectedOutages) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InterconnectExpectedOutages, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in InterconnectExpectedOutages, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareInterconnectExpectedOutages(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InterconnectExpectedOutages, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareInterconnectCircuitInfosNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1260,208 +1243,27 @@ func compareInterconnectCircuitInfosNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.GoogleCircuitId, actual.GoogleCircuitId, dcl.Info{}, fn.AddNest("GoogleCircuitId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GoogleCircuitId, actual.GoogleCircuitId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GoogleCircuitId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GoogleDemarcId, actual.GoogleDemarcId, dcl.Info{}, fn.AddNest("GoogleDemarcId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GoogleDemarcId, actual.GoogleDemarcId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GoogleDemarcId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CustomerDemarcId, actual.CustomerDemarcId, dcl.Info{}, fn.AddNest("CustomerDemarcId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CustomerDemarcId, actual.CustomerDemarcId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CustomerDemarcId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareInterconnectCircuitInfos(c *Client, desired, actual *InterconnectCircuitInfos) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.GoogleCircuitId, actual.GoogleCircuitId) && !dcl.IsZeroValue(desired.GoogleCircuitId) {
-		c.Config.Logger.Infof("Diff in GoogleCircuitId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GoogleCircuitId), dcl.SprintResource(actual.GoogleCircuitId))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.GoogleDemarcId, actual.GoogleDemarcId) && !dcl.IsZeroValue(desired.GoogleDemarcId) {
-		c.Config.Logger.Infof("Diff in GoogleDemarcId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GoogleDemarcId), dcl.SprintResource(actual.GoogleDemarcId))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.CustomerDemarcId, actual.CustomerDemarcId) && !dcl.IsZeroValue(desired.CustomerDemarcId) {
-		c.Config.Logger.Infof("Diff in CustomerDemarcId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CustomerDemarcId), dcl.SprintResource(actual.CustomerDemarcId))
-		return true
-	}
-	return false
-}
-
-func compareInterconnectCircuitInfosSlice(c *Client, desired, actual []InterconnectCircuitInfos) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InterconnectCircuitInfos, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInterconnectCircuitInfos(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectCircuitInfos, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInterconnectCircuitInfosMap(c *Client, desired, actual map[string]InterconnectCircuitInfos) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InterconnectCircuitInfos, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in InterconnectCircuitInfos, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareInterconnectCircuitInfos(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in InterconnectCircuitInfos, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInterconnectLinkTypeEnumSlice(c *Client, desired, actual []InterconnectLinkTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InterconnectLinkTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInterconnectLinkTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectLinkTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInterconnectLinkTypeEnum(c *Client, desired, actual *InterconnectLinkTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareInterconnectInterconnectTypeEnumSlice(c *Client, desired, actual []InterconnectInterconnectTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InterconnectInterconnectTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInterconnectInterconnectTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectInterconnectTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInterconnectInterconnectTypeEnum(c *Client, desired, actual *InterconnectInterconnectTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareInterconnectOperationalStatusEnumSlice(c *Client, desired, actual []InterconnectOperationalStatusEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InterconnectOperationalStatusEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInterconnectOperationalStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectOperationalStatusEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInterconnectOperationalStatusEnum(c *Client, desired, actual *InterconnectOperationalStatusEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareInterconnectExpectedOutagesSourceEnumSlice(c *Client, desired, actual []InterconnectExpectedOutagesSourceEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InterconnectExpectedOutagesSourceEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInterconnectExpectedOutagesSourceEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectExpectedOutagesSourceEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInterconnectExpectedOutagesSourceEnum(c *Client, desired, actual *InterconnectExpectedOutagesSourceEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareInterconnectExpectedOutagesStateEnumSlice(c *Client, desired, actual []InterconnectExpectedOutagesStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InterconnectExpectedOutagesStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInterconnectExpectedOutagesStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectExpectedOutagesStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInterconnectExpectedOutagesStateEnum(c *Client, desired, actual *InterconnectExpectedOutagesStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareInterconnectExpectedOutagesIssueTypeEnumSlice(c *Client, desired, actual []InterconnectExpectedOutagesIssueTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InterconnectExpectedOutagesIssueTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInterconnectExpectedOutagesIssueTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectExpectedOutagesIssueTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInterconnectExpectedOutagesIssueTypeEnum(c *Client, desired, actual *InterconnectExpectedOutagesIssueTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareInterconnectStateEnumSlice(c *Client, desired, actual []InterconnectStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in InterconnectStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareInterconnectStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in InterconnectStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareInterconnectStateEnum(c *Client, desired, actual *InterconnectStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1623,30 +1425,30 @@ func flattenInterconnect(c *Client, i interface{}) *Interconnect {
 		return nil
 	}
 
-	r := &Interconnect{}
-	r.Description = dcl.FlattenString(m["description"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
-	r.Id = dcl.FlattenInteger(m["id"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Location = dcl.FlattenString(m["location"])
-	r.LinkType = flattenInterconnectLinkTypeEnum(m["linkType"])
-	r.RequestedLinkCount = dcl.FlattenInteger(m["requestedLinkCount"])
-	r.InterconnectType = flattenInterconnectInterconnectTypeEnum(m["interconnectType"])
-	r.AdminEnabled = dcl.FlattenBool(m["adminEnabled"])
-	r.NocContactEmail = dcl.FlattenString(m["nocContactEmail"])
-	r.CustomerName = dcl.FlattenString(m["customerName"])
-	r.OperationalStatus = flattenInterconnectOperationalStatusEnum(m["operationalStatus"])
-	r.ProvisionedLinkCount = dcl.FlattenInteger(m["provisionedLinkCount"])
-	r.InterconnectAttachments = dcl.FlattenStringSlice(m["interconnectAttachments"])
-	r.PeerIPAddress = dcl.FlattenString(m["peerIpAddress"])
-	r.GoogleIPAddress = dcl.FlattenString(m["googleIpAddress"])
-	r.GoogleReferenceId = dcl.FlattenString(m["googleReferenceId"])
-	r.ExpectedOutages = flattenInterconnectExpectedOutagesSlice(c, m["expectedOutages"])
-	r.CircuitInfos = flattenInterconnectCircuitInfosSlice(c, m["circuitInfos"])
-	r.State = flattenInterconnectStateEnum(m["state"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &Interconnect{}
+	res.Description = dcl.FlattenString(m["description"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.Id = dcl.FlattenInteger(m["id"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Location = dcl.FlattenString(m["location"])
+	res.LinkType = flattenInterconnectLinkTypeEnum(m["linkType"])
+	res.RequestedLinkCount = dcl.FlattenInteger(m["requestedLinkCount"])
+	res.InterconnectType = flattenInterconnectInterconnectTypeEnum(m["interconnectType"])
+	res.AdminEnabled = dcl.FlattenBool(m["adminEnabled"])
+	res.NocContactEmail = dcl.FlattenString(m["nocContactEmail"])
+	res.CustomerName = dcl.FlattenString(m["customerName"])
+	res.OperationalStatus = flattenInterconnectOperationalStatusEnum(m["operationalStatus"])
+	res.ProvisionedLinkCount = dcl.FlattenInteger(m["provisionedLinkCount"])
+	res.InterconnectAttachments = dcl.FlattenStringSlice(m["interconnectAttachments"])
+	res.PeerIPAddress = dcl.FlattenString(m["peerIpAddress"])
+	res.GoogleIPAddress = dcl.FlattenString(m["googleIpAddress"])
+	res.GoogleReferenceId = dcl.FlattenString(m["googleReferenceId"])
+	res.ExpectedOutages = flattenInterconnectExpectedOutagesSlice(c, m["expectedOutages"])
+	res.CircuitInfos = flattenInterconnectCircuitInfosSlice(c, m["circuitInfos"])
+	res.State = flattenInterconnectStateEnum(m["state"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // expandInterconnectExpectedOutagesMap expands the contents of InterconnectExpectedOutages into a JSON
@@ -1733,10 +1535,11 @@ func flattenInterconnectExpectedOutagesSlice(c *Client, i interface{}) []Interco
 // expandInterconnectExpectedOutages expands an instance of InterconnectExpectedOutages into a JSON
 // request object.
 func expandInterconnectExpectedOutages(c *Client, f *InterconnectExpectedOutages) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -1870,10 +1673,11 @@ func flattenInterconnectCircuitInfosSlice(c *Client, i interface{}) []Interconne
 // expandInterconnectCircuitInfos expands an instance of InterconnectCircuitInfos into a JSON
 // request object.
 func expandInterconnectCircuitInfos(c *Client, f *InterconnectCircuitInfos) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.GoogleCircuitId; !dcl.IsEmptyValueIndirect(v) {
 		m["googleCircuitId"] = v
 	}
@@ -2151,5 +1955,36 @@ func (r *Interconnect) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToInterconnectDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]interconnectDiff, error) {
+	var diffs []interconnectDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := interconnectDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTointerconnectApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTointerconnectApiOperation(op string, opts ...dcl.ApplyOption) (interconnectApiOperation, error) {
+	switch op {
+
+	case "updateInterconnectPatchOperation":
+		return &updateInterconnectPatchOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

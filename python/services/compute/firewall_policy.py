@@ -106,23 +106,6 @@ class FirewallPolicy(object):
 
         return stub.ListComputeFirewallPolicy(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = firewall_policy_pb2.ComputeFirewallPolicy()
-        any_proto.Unpack(res_proto)
-
-        res = FirewallPolicy()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.fingerprint = Primitive.from_proto(res_proto.fingerprint)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.self_link_with_id = Primitive.from_proto(res_proto.self_link_with_id)
-        res.rule_tuple_count = Primitive.from_proto(res_proto.rule_tuple_count)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.parent = Primitive.from_proto(res_proto.parent)
-        return res
-
     def to_proto(self):
         resource = firewall_policy_pb2.ComputeFirewallPolicy()
         if Primitive.to_proto(self.name):

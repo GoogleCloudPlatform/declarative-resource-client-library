@@ -7,7 +7,7 @@
  "workerConfig": {
    "machineType": "n1-standard-1",
    "diskSizeGb": 20,
-   "noExternalIp": false
+   "noExternalIP": false
  }
 }
 

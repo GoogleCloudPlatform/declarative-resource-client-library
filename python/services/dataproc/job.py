@@ -265,48 +265,6 @@ class Job(object):
 
         return stub.ListDataprocJob(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = job_pb2.DataprocJob()
-        any_proto.Unpack(res_proto)
-
-        res = Job()
-        res.reference = JobReference.from_proto(res_proto.reference)
-        res.placement = JobPlacement.from_proto(res_proto.placement)
-        res.hadoop_job = JobHadoopJob.from_proto(res_proto.hadoop_job)
-        res.spark_job = JobSparkJob.from_proto(res_proto.spark_job)
-        res.pyspark_job = JobPysparkJob.from_proto(res_proto.pyspark_job)
-        res.hive_job = JobHiveJob.from_proto(res_proto.hive_job)
-        res.pig_job = JobPigJob.from_proto(res_proto.pig_job)
-        res.spark_r_job = JobSparkRJob.from_proto(res_proto.spark_r_job)
-        res.spark_sql_job = JobSparkSqlJob.from_proto(res_proto.spark_sql_job)
-        res.presto_job = JobPrestoJob.from_proto(res_proto.presto_job)
-        res.status = JobStatus.from_proto(res_proto.status)
-        res.status_history = JobStatusHistoryArray.from_proto(res_proto.status_history)
-        res.yarn_applications = JobYarnApplicationsArray.from_proto(
-            res_proto.yarn_applications
-        )
-        res.submitted_by = Primitive.from_proto(res_proto.submitted_by)
-        res.driver_input_resource_uri = Primitive.from_proto(
-            res_proto.driver_input_resource_uri
-        )
-        res.driver_output_resource_uri = Primitive.from_proto(
-            res_proto.driver_output_resource_uri
-        )
-        res.driver_control_files_uri = Primitive.from_proto(
-            res_proto.driver_control_files_uri
-        )
-        res.interactive = Primitive.from_proto(res_proto.interactive)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.scheduling = JobScheduling.from_proto(res_proto.scheduling)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.done = Primitive.from_proto(res_proto.done)
-        res.driver_runner = JobDriverRunner.from_proto(res_proto.driver_runner)
-        res.region = Primitive.from_proto(res_proto.region)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = job_pb2.DataprocJob()
         if JobReference.to_proto(self.reference):

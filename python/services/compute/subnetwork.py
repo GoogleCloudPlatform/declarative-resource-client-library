@@ -187,35 +187,6 @@ class Subnetwork(object):
 
         return stub.ListComputeSubnetwork(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = subnetwork_pb2.ComputeSubnetwork()
-        any_proto.Unpack(res_proto)
-
-        res = Subnetwork()
-        res.creation_timestamp = Primitive.from_proto(res_proto.creation_timestamp)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.gateway_address = Primitive.from_proto(res_proto.gateway_address)
-        res.ip_cidr_range = Primitive.from_proto(res_proto.ip_cidr_range)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.network = Primitive.from_proto(res_proto.network)
-        res.fingerprint = Primitive.from_proto(res_proto.fingerprint)
-        res.purpose = SubnetworkPurposeEnum.from_proto(res_proto.purpose)
-        res.role = SubnetworkRoleEnum.from_proto(res_proto.role)
-        res.secondary_ip_ranges = SubnetworkSecondaryIPRangesArray.from_proto(
-            res_proto.secondary_ip_ranges
-        )
-        res.private_ip_google_access = Primitive.from_proto(
-            res_proto.private_ip_google_access
-        )
-        res.region = Primitive.from_proto(res_proto.region)
-        res.log_config = SubnetworkLogConfig.from_proto(res_proto.log_config)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.enable_flow_logs = Primitive.from_proto(res_proto.enable_flow_logs)
-        return res
-
     def to_proto(self):
         resource = subnetwork_pb2.ComputeSubnetwork()
         if Primitive.to_proto(self.description):

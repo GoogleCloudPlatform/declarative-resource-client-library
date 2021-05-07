@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -388,12 +387,6 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
 		rawDesired.Location = rawInitial.Location
 	}
-	if dcl.IsZeroValue(rawDesired.State) {
-		rawDesired.State = rawInitial.State
-	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
-	}
 
 	return rawDesired, nil
 }
@@ -470,89 +463,124 @@ func diffConnector(c *Client, desired, actual *Connector, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []connectorDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Network",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{}, fn.AddNest("IPCidrRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPCidrRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "IPCidrRange",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinThroughput, actual.MinThroughput, dcl.Info{}, fn.AddNest("MinThroughput")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinThroughput, actual.MinThroughput, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinThroughput")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "MinThroughput",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxThroughput, actual.MaxThroughput, dcl.Info{}, fn.AddNest("MaxThroughput")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxThroughput, actual.MaxThroughput, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxThroughput")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "MaxThroughput",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "State",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -578,23 +606,6 @@ func diffConnector(c *Client, desired, actual *Connector, opts ...dcl.ApplyOptio
 	}
 
 	return deduped, nil
-}
-func compareConnectorStateEnumSlice(c *Client, desired, actual []ConnectorStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ConnectorStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareConnectorStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ConnectorStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareConnectorStateEnum(c *Client, desired, actual *ConnectorStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -707,26 +718,26 @@ func flattenConnector(c *Client, i interface{}) *Connector {
 		return nil
 	}
 
-	r := &Connector{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.Network = dcl.FlattenString(m["network"])
-	r.IPCidrRange = dcl.FlattenString(m["ipCidrRange"])
-	r.MinThroughput = dcl.FlattenInteger(m["minThroughput"])
+	res := &Connector{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.Network = dcl.FlattenString(m["network"])
+	res.IPCidrRange = dcl.FlattenString(m["ipCidrRange"])
+	res.MinThroughput = dcl.FlattenInteger(m["minThroughput"])
 	if _, ok := m["minThroughput"]; !ok {
 		c.Config.Logger.Info("Using default value for minThroughput")
-		r.MinThroughput = dcl.Int64(200)
+		res.MinThroughput = dcl.Int64(200)
 	}
-	r.MaxThroughput = dcl.FlattenInteger(m["maxThroughput"])
+	res.MaxThroughput = dcl.FlattenInteger(m["maxThroughput"])
 	if _, ok := m["maxThroughput"]; !ok {
 		c.Config.Logger.Info("Using default value for maxThroughput")
-		r.MaxThroughput = dcl.Int64(1000)
+		res.MaxThroughput = dcl.Int64(1000)
 	}
-	r.Project = dcl.FlattenString(m["project"])
-	r.Location = dcl.FlattenString(m["location"])
-	r.State = flattenConnectorStateEnum(m["state"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Location = dcl.FlattenString(m["location"])
+	res.State = flattenConnectorStateEnum(m["state"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
 
-	return r
+	return res
 }
 
 // flattenConnectorStateEnumSlice flattens the contents of ConnectorStateEnum from a JSON
@@ -799,5 +810,33 @@ func (r *Connector) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToConnectorDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]connectorDiff, error) {
+	var diffs []connectorDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := connectorDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToconnectorApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToconnectorApiOperation(op string, opts ...dcl.ApplyOption) (connectorApiOperation, error) {
+	switch op {
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

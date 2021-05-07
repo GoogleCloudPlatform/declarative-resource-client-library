@@ -62,7 +62,7 @@ func (v ServiceStateEnum) Validate() error {
 // can identify it.
 func (r *Service) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "serviceusage",
+		Service: "service_usage",
 		Type:    "Service",
 		Version: "serviceusage",
 	}
@@ -236,6 +236,7 @@ func (c *Client) ApplyService(ctx context.Context, rawDesired *Service, opts ...
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

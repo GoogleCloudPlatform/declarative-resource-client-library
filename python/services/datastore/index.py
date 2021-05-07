@@ -91,21 +91,6 @@ class Index(object):
 
         return stub.ListDatastoreIndex(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = index_pb2.DatastoreIndex()
-        any_proto.Unpack(res_proto)
-
-        res = Index()
-        res.ancestor = IndexAncestorEnum.from_proto(res_proto.ancestor)
-        res.index_id = Primitive.from_proto(res_proto.index_id)
-        res.kind = Primitive.from_proto(res_proto.kind)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.properties = IndexPropertiesArray.from_proto(res_proto.properties)
-        res.state = IndexStateEnum.from_proto(res_proto.state)
-        return res
-
     def to_proto(self):
         resource = index_pb2.DatastoreIndex()
         if IndexAncestorEnum.to_proto(self.ancestor):

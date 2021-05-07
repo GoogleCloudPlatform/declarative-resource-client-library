@@ -179,35 +179,6 @@ class MetricDescriptor(object):
 
         return stub.ListMonitoringMetricDescriptor(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = metric_descriptor_pb2.MonitoringMetricDescriptor()
-        any_proto.Unpack(res_proto)
-
-        res = MetricDescriptor()
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.type = Primitive.from_proto(res_proto.type)
-        res.descriptor_labels = MetricDescriptorDescriptorLabelsArray.from_proto(
-            res_proto.descriptor_labels
-        )
-        res.metric_kind = MetricDescriptorMetricKindEnum.from_proto(
-            res_proto.metric_kind
-        )
-        res.value_type = MetricDescriptorValueTypeEnum.from_proto(res_proto.value_type)
-        res.unit = Primitive.from_proto(res_proto.unit)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.metadata = MetricDescriptorMetadata.from_proto(res_proto.metadata)
-        res.launch_stage = MetricDescriptorLaunchStageEnum.from_proto(
-            res_proto.launch_stage
-        )
-        res.monitored_resource_types = Primitive.from_proto(
-            res_proto.monitored_resource_types
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = metric_descriptor_pb2.MonitoringMetricDescriptor()
         if Primitive.to_proto(self.type):

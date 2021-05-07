@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -57,26 +56,10 @@ func (r *LogMetricMetricDescriptor) validate() error {
 	}
 	return nil
 }
-func (r *LogMetricMetricDescriptorLabels) validate() error {
+func (r *LogMetricMetricDescriptorDescriptorLabels) validate() error {
 	return nil
 }
 func (r *LogMetricMetricDescriptorMetadata) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.SamplePeriod) {
-		if err := r.SamplePeriod.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.IngestDelay) {
-		if err := r.IngestDelay.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *LogMetricMetricDescriptorMetadataSamplePeriod) validate() error {
-	return nil
-}
-func (r *LogMetricMetricDescriptorMetadataIngestDelay) validate() error {
 	return nil
 }
 func (r *LogMetricBucketOptions) validate() error {
@@ -499,12 +482,6 @@ func canonicalizeLogMetricDesiredState(rawDesired, rawInitial *LogMetric, opts .
 		rawDesired.LabelExtractors = rawInitial.LabelExtractors
 	}
 	rawDesired.BucketOptions = canonicalizeLogMetricBucketOptions(rawDesired.BucketOptions, rawInitial.BucketOptions, opts...)
-	if dcl.IsZeroValue(rawDesired.CreateTime) {
-		rawDesired.CreateTime = rawInitial.CreateTime
-	}
-	if dcl.IsZeroValue(rawDesired.UpdateTime) {
-		rawDesired.UpdateTime = rawInitial.UpdateTime
-	}
 	if dcl.IsZeroValue(rawDesired.Resolution) {
 		rawDesired.Resolution = rawInitial.Resolution
 	}
@@ -606,19 +583,16 @@ func canonicalizeLogMetricMetricDescriptor(des, initial *LogMetricMetricDescript
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
-	}
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
 	}
-	if dcl.IsZeroValue(des.Labels) {
-		des.Labels = initial.Labels
+	if dcl.IsZeroValue(des.DescriptorLabels) {
+		des.DescriptorLabels = initial.DescriptorLabels
 	}
 	if dcl.IsZeroValue(des.MetricKind) {
 		des.MetricKind = initial.MetricKind
 	}
-	if dcl.IsZeroValue(des.ValueType) {
+	if canonicalizeLogMetricMetricDescriptorValueType(des.ValueType, initial.ValueType) || dcl.IsZeroValue(des.ValueType) {
 		des.ValueType = initial.ValueType
 	}
 	if dcl.StringCanonicalize(des.Unit, initial.Unit) || dcl.IsZeroValue(des.Unit) {
@@ -649,14 +623,29 @@ func canonicalizeNewLogMetricMetricDescriptor(c *Client, des, nw *LogMetricMetri
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
 		nw.Type = des.Type
 	}
-	nw.Labels = canonicalizeNewLogMetricMetricDescriptorLabelsSet(c, des.Labels, nw.Labels)
+	nw.DescriptorLabels = canonicalizeNewLogMetricMetricDescriptorDescriptorLabelsSet(c, des.DescriptorLabels, nw.DescriptorLabels)
+	if dcl.IsZeroValue(nw.MetricKind) {
+		nw.MetricKind = des.MetricKind
+	}
+	if canonicalizeLogMetricMetricDescriptorValueType(des.ValueType, nw.ValueType) {
+		nw.ValueType = des.ValueType
+	}
 	if dcl.StringCanonicalize(des.Unit, nw.Unit) {
 		nw.Unit = des.Unit
+	}
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
+		nw.Description = des.Description
 	}
 	if dcl.StringCanonicalize(des.DisplayName, nw.DisplayName) {
 		nw.DisplayName = des.DisplayName
 	}
 	nw.Metadata = canonicalizeNewLogMetricMetricDescriptorMetadata(c, des.Metadata, nw.Metadata)
+	if dcl.IsZeroValue(nw.LaunchStage) {
+		nw.LaunchStage = des.LaunchStage
+	}
+	if dcl.IsZeroValue(nw.MonitoredResourceTypes) {
+		nw.MonitoredResourceTypes = des.MonitoredResourceTypes
+	}
 
 	return nw
 }
@@ -669,7 +658,7 @@ func canonicalizeNewLogMetricMetricDescriptorSet(c *Client, des, nw []LogMetricM
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareLogMetricMetricDescriptor(c, &d, &n) {
+			if diffs, _ := compareLogMetricMetricDescriptorNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -692,7 +681,7 @@ func canonicalizeNewLogMetricMetricDescriptorSlice(c *Client, des, nw []LogMetri
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []LogMetricMetricDescriptor
@@ -704,7 +693,7 @@ func canonicalizeNewLogMetricMetricDescriptorSlice(c *Client, des, nw []LogMetri
 	return items
 }
 
-func canonicalizeLogMetricMetricDescriptorLabels(des, initial *LogMetricMetricDescriptorLabels, opts ...dcl.ApplyOption) *LogMetricMetricDescriptorLabels {
+func canonicalizeLogMetricMetricDescriptorDescriptorLabels(des, initial *LogMetricMetricDescriptorDescriptorLabels, opts ...dcl.ApplyOption) *LogMetricMetricDescriptorDescriptorLabels {
 	if des == nil {
 		return initial
 	}
@@ -719,7 +708,7 @@ func canonicalizeLogMetricMetricDescriptorLabels(des, initial *LogMetricMetricDe
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
 		des.Key = initial.Key
 	}
-	if canonicalizeLogMetricValueType(des.ValueType, initial.ValueType) || dcl.IsZeroValue(des.ValueType) {
+	if canonicalizeLogMetricMetricDescriptorDescriptorLabelsValueType(des.ValueType, initial.ValueType) || dcl.IsZeroValue(des.ValueType) {
 		des.ValueType = initial.ValueType
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
@@ -729,7 +718,7 @@ func canonicalizeLogMetricMetricDescriptorLabels(des, initial *LogMetricMetricDe
 	return des
 }
 
-func canonicalizeNewLogMetricMetricDescriptorLabels(c *Client, des, nw *LogMetricMetricDescriptorLabels) *LogMetricMetricDescriptorLabels {
+func canonicalizeNewLogMetricMetricDescriptorDescriptorLabels(c *Client, des, nw *LogMetricMetricDescriptorDescriptorLabels) *LogMetricMetricDescriptorDescriptorLabels {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -737,7 +726,7 @@ func canonicalizeNewLogMetricMetricDescriptorLabels(c *Client, des, nw *LogMetri
 	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
 	}
-	if canonicalizeLogMetricValueType(des.ValueType, nw.ValueType) {
+	if canonicalizeLogMetricMetricDescriptorDescriptorLabelsValueType(des.ValueType, nw.ValueType) {
 		nw.ValueType = des.ValueType
 	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
@@ -747,15 +736,15 @@ func canonicalizeNewLogMetricMetricDescriptorLabels(c *Client, des, nw *LogMetri
 	return nw
 }
 
-func canonicalizeNewLogMetricMetricDescriptorLabelsSet(c *Client, des, nw []LogMetricMetricDescriptorLabels) []LogMetricMetricDescriptorLabels {
+func canonicalizeNewLogMetricMetricDescriptorDescriptorLabelsSet(c *Client, des, nw []LogMetricMetricDescriptorDescriptorLabels) []LogMetricMetricDescriptorDescriptorLabels {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []LogMetricMetricDescriptorLabels
+	var reorderedNew []LogMetricMetricDescriptorDescriptorLabels
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareLogMetricMetricDescriptorLabels(c, &d, &n) {
+			if diffs, _ := compareLogMetricMetricDescriptorDescriptorLabelsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -770,7 +759,7 @@ func canonicalizeNewLogMetricMetricDescriptorLabelsSet(c *Client, des, nw []LogM
 	return reorderedNew
 }
 
-func canonicalizeNewLogMetricMetricDescriptorLabelsSlice(c *Client, des, nw []LogMetricMetricDescriptorLabels) []LogMetricMetricDescriptorLabels {
+func canonicalizeNewLogMetricMetricDescriptorDescriptorLabelsSlice(c *Client, des, nw []LogMetricMetricDescriptorDescriptorLabels) []LogMetricMetricDescriptorDescriptorLabels {
 	if des == nil {
 		return nw
 	}
@@ -778,13 +767,13 @@ func canonicalizeNewLogMetricMetricDescriptorLabelsSlice(c *Client, des, nw []Lo
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
-	var items []LogMetricMetricDescriptorLabels
+	var items []LogMetricMetricDescriptorDescriptorLabels
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewLogMetricMetricDescriptorLabels(c, &d, &n))
+		items = append(items, *canonicalizeNewLogMetricMetricDescriptorDescriptorLabels(c, &d, &n))
 	}
 
 	return items
@@ -805,8 +794,12 @@ func canonicalizeLogMetricMetricDescriptorMetadata(des, initial *LogMetricMetric
 	if dcl.IsZeroValue(des.LaunchStage) {
 		des.LaunchStage = initial.LaunchStage
 	}
-	des.SamplePeriod = canonicalizeLogMetricMetricDescriptorMetadataSamplePeriod(des.SamplePeriod, initial.SamplePeriod, opts...)
-	des.IngestDelay = canonicalizeLogMetricMetricDescriptorMetadataIngestDelay(des.IngestDelay, initial.IngestDelay, opts...)
+	if dcl.StringCanonicalize(des.SamplePeriod, initial.SamplePeriod) || dcl.IsZeroValue(des.SamplePeriod) {
+		des.SamplePeriod = initial.SamplePeriod
+	}
+	if dcl.StringCanonicalize(des.IngestDelay, initial.IngestDelay) || dcl.IsZeroValue(des.IngestDelay) {
+		des.IngestDelay = initial.IngestDelay
+	}
 
 	return des
 }
@@ -816,8 +809,15 @@ func canonicalizeNewLogMetricMetricDescriptorMetadata(c *Client, des, nw *LogMet
 		return nw
 	}
 
-	nw.SamplePeriod = canonicalizeNewLogMetricMetricDescriptorMetadataSamplePeriod(c, des.SamplePeriod, nw.SamplePeriod)
-	nw.IngestDelay = canonicalizeNewLogMetricMetricDescriptorMetadataIngestDelay(c, des.IngestDelay, nw.IngestDelay)
+	if dcl.IsZeroValue(nw.LaunchStage) {
+		nw.LaunchStage = des.LaunchStage
+	}
+	if dcl.StringCanonicalize(des.SamplePeriod, nw.SamplePeriod) {
+		nw.SamplePeriod = des.SamplePeriod
+	}
+	if dcl.StringCanonicalize(des.IngestDelay, nw.IngestDelay) {
+		nw.IngestDelay = des.IngestDelay
+	}
 
 	return nw
 }
@@ -830,7 +830,7 @@ func canonicalizeNewLogMetricMetricDescriptorMetadataSet(c *Client, des, nw []Lo
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareLogMetricMetricDescriptorMetadata(c, &d, &n) {
+			if diffs, _ := compareLogMetricMetricDescriptorMetadataNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -853,159 +853,13 @@ func canonicalizeNewLogMetricMetricDescriptorMetadataSlice(c *Client, des, nw []
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []LogMetricMetricDescriptorMetadata
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewLogMetricMetricDescriptorMetadata(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeLogMetricMetricDescriptorMetadataSamplePeriod(des, initial *LogMetricMetricDescriptorMetadataSamplePeriod, opts ...dcl.ApplyOption) *LogMetricMetricDescriptorMetadataSamplePeriod {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewLogMetricMetricDescriptorMetadataSamplePeriod(c *Client, des, nw *LogMetricMetricDescriptorMetadataSamplePeriod) *LogMetricMetricDescriptorMetadataSamplePeriod {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewLogMetricMetricDescriptorMetadataSamplePeriodSet(c *Client, des, nw []LogMetricMetricDescriptorMetadataSamplePeriod) []LogMetricMetricDescriptorMetadataSamplePeriod {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []LogMetricMetricDescriptorMetadataSamplePeriod
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareLogMetricMetricDescriptorMetadataSamplePeriod(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewLogMetricMetricDescriptorMetadataSamplePeriodSlice(c *Client, des, nw []LogMetricMetricDescriptorMetadataSamplePeriod) []LogMetricMetricDescriptorMetadataSamplePeriod {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []LogMetricMetricDescriptorMetadataSamplePeriod
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewLogMetricMetricDescriptorMetadataSamplePeriod(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeLogMetricMetricDescriptorMetadataIngestDelay(des, initial *LogMetricMetricDescriptorMetadataIngestDelay, opts ...dcl.ApplyOption) *LogMetricMetricDescriptorMetadataIngestDelay {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.Seconds) {
-		des.Seconds = initial.Seconds
-	}
-	if dcl.IsZeroValue(des.Nanos) {
-		des.Nanos = initial.Nanos
-	}
-
-	return des
-}
-
-func canonicalizeNewLogMetricMetricDescriptorMetadataIngestDelay(c *Client, des, nw *LogMetricMetricDescriptorMetadataIngestDelay) *LogMetricMetricDescriptorMetadataIngestDelay {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewLogMetricMetricDescriptorMetadataIngestDelaySet(c *Client, des, nw []LogMetricMetricDescriptorMetadataIngestDelay) []LogMetricMetricDescriptorMetadataIngestDelay {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []LogMetricMetricDescriptorMetadataIngestDelay
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if !compareLogMetricMetricDescriptorMetadataIngestDelay(c, &d, &n) {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewLogMetricMetricDescriptorMetadataIngestDelaySlice(c *Client, des, nw []LogMetricMetricDescriptorMetadataIngestDelay) []LogMetricMetricDescriptorMetadataIngestDelay {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return des
-	}
-
-	var items []LogMetricMetricDescriptorMetadataIngestDelay
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewLogMetricMetricDescriptorMetadataIngestDelay(c, &d, &n))
 	}
 
 	return items
@@ -1050,7 +904,7 @@ func canonicalizeNewLogMetricBucketOptionsSet(c *Client, des, nw []LogMetricBuck
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareLogMetricBucketOptions(c, &d, &n) {
+			if diffs, _ := compareLogMetricBucketOptionsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1073,7 +927,7 @@ func canonicalizeNewLogMetricBucketOptionsSlice(c *Client, des, nw []LogMetricBu
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []LogMetricBucketOptions
@@ -1115,6 +969,16 @@ func canonicalizeNewLogMetricBucketOptionsLinearBuckets(c *Client, des, nw *LogM
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
+		nw.NumFiniteBuckets = des.NumFiniteBuckets
+	}
+	if dcl.IsZeroValue(nw.Width) {
+		nw.Width = des.Width
+	}
+	if dcl.IsZeroValue(nw.Offset) {
+		nw.Offset = des.Offset
+	}
+
 	return nw
 }
 
@@ -1126,7 +990,7 @@ func canonicalizeNewLogMetricBucketOptionsLinearBucketsSet(c *Client, des, nw []
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareLogMetricBucketOptionsLinearBuckets(c, &d, &n) {
+			if diffs, _ := compareLogMetricBucketOptionsLinearBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1149,7 +1013,7 @@ func canonicalizeNewLogMetricBucketOptionsLinearBucketsSlice(c *Client, des, nw 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []LogMetricBucketOptionsLinearBuckets
@@ -1191,6 +1055,16 @@ func canonicalizeNewLogMetricBucketOptionsExponentialBuckets(c *Client, des, nw 
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
+		nw.NumFiniteBuckets = des.NumFiniteBuckets
+	}
+	if dcl.IsZeroValue(nw.GrowthFactor) {
+		nw.GrowthFactor = des.GrowthFactor
+	}
+	if dcl.IsZeroValue(nw.Scale) {
+		nw.Scale = des.Scale
+	}
+
 	return nw
 }
 
@@ -1202,7 +1076,7 @@ func canonicalizeNewLogMetricBucketOptionsExponentialBucketsSet(c *Client, des, 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareLogMetricBucketOptionsExponentialBuckets(c, &d, &n) {
+			if diffs, _ := compareLogMetricBucketOptionsExponentialBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1225,7 +1099,7 @@ func canonicalizeNewLogMetricBucketOptionsExponentialBucketsSlice(c *Client, des
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []LogMetricBucketOptionsExponentialBuckets
@@ -1261,6 +1135,10 @@ func canonicalizeNewLogMetricBucketOptionsExplicitBuckets(c *Client, des, nw *Lo
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Bounds) {
+		nw.Bounds = des.Bounds
+	}
+
 	return nw
 }
 
@@ -1272,7 +1150,7 @@ func canonicalizeNewLogMetricBucketOptionsExplicitBucketsSet(c *Client, des, nw 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareLogMetricBucketOptionsExplicitBuckets(c, &d, &n) {
+			if diffs, _ := compareLogMetricBucketOptionsExplicitBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1295,7 +1173,7 @@ func canonicalizeNewLogMetricBucketOptionsExplicitBucketsSlice(c *Client, des, n
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []LogMetricBucketOptionsExplicitBuckets
@@ -1329,124 +1207,163 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []logMetricDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logMetricDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogMetricDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logMetricDiff{
-			UpdateOp: &updateLogMetricUpdateOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogMetricDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logMetricDiff{
-			UpdateOp: &updateLogMetricUpdateOperation{}, Diffs: ds,
-			FieldName: "Filter",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogMetricDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logMetricDiff{
-			UpdateOp: &updateLogMetricUpdateOperation{}, Diffs: ds,
-			FieldName: "Disabled",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogMetricDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.MetricDescriptor, actual.MetricDescriptor, dcl.Info{ObjectFunction: compareLogMetricMetricDescriptorNewStyle}, fn.AddNest("MetricDescriptor")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricDescriptor, actual.MetricDescriptor, dcl.Info{ObjectFunction: compareLogMetricMetricDescriptorNewStyle, OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("MetricDescriptor")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logMetricDiff{
-			UpdateOp: &updateLogMetricUpdateOperation{}, Diffs: ds,
-			FieldName: "MetricDescriptor",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogMetricDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ValueExtractor, actual.ValueExtractor, dcl.Info{}, fn.AddNest("ValueExtractor")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ValueExtractor, actual.ValueExtractor, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("ValueExtractor")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logMetricDiff{
-			UpdateOp: &updateLogMetricUpdateOperation{}, Diffs: ds,
-			FieldName: "ValueExtractor",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogMetricDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.LabelExtractors, actual.LabelExtractors, dcl.Info{}, fn.AddNest("LabelExtractors")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LabelExtractors, actual.LabelExtractors, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("LabelExtractors")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logMetricDiff{
-			UpdateOp: &updateLogMetricUpdateOperation{}, Diffs: ds,
-			FieldName: "LabelExtractors",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogMetricDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsNewStyle, OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logMetricDiff{
-			UpdateOp: &updateLogMetricUpdateOperation{}, Diffs: ds,
-			FieldName: "BucketOptions",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogMetricDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logMetricDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogMetricDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logMetricDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UpdateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogMetricDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Resolution, actual.Resolution, dcl.Info{}, fn.AddNest("Resolution")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Resolution, actual.Resolution, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("Resolution")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logMetricDiff{
-			UpdateOp: &updateLogMetricUpdateOperation{}, Diffs: ds,
-			FieldName: "Resolution",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogMetricDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logMetricDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogMetricDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1493,70 +1410,77 @@ func compareLogMetricMetricDescriptorNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Type: "Set", ObjectFunction: compareLogMetricMetricDescriptorLabelsNewStyle}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DescriptorLabels, actual.DescriptorLabels, dcl.Info{Type: "Set", ObjectFunction: compareLogMetricMetricDescriptorDescriptorLabelsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DescriptorLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MetricKind, actual.MetricKind, dcl.Info{Type: "EnumType"}, fn.AddNest("MetricKind")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricKind, actual.MetricKind, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricKind")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ValueType, actual.ValueType, dcl.Info{Type: "EnumType"}, fn.AddNest("ValueType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ValueType, actual.ValueType, dcl.Info{Type: "EnumType", CustomDiff: canonicalizeLogMetricMetricDescriptorValueType, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ValueType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Unit, actual.Unit, dcl.Info{}, fn.AddNest("Unit")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Unit, actual.Unit, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Unit")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareLogMetricMetricDescriptorMetadataNewStyle}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LaunchStage, actual.LaunchStage, dcl.Info{Type: "EnumType"}, fn.AddNest("LaunchStage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{Ignore: true, ObjectFunction: compareLogMetricMetricDescriptorMetadataNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MonitoredResourceTypes, actual.MonitoredResourceTypes, dcl.Info{}, fn.AddNest("MonitoredResourceTypes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LaunchStage, actual.LaunchStage, dcl.Info{Ignore: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LaunchStage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MonitoredResourceTypes, actual.MonitoredResourceTypes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MonitoredResourceTypes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1565,217 +1489,47 @@ func compareLogMetricMetricDescriptorNewStyle(d, a interface{}, fn dcl.FieldName
 	return diffs, nil
 }
 
-func compareLogMetricMetricDescriptor(c *Client, desired, actual *LogMetricMetricDescriptor) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	if toAdd, toRemove := compareLogMetricMetricDescriptorLabelsSets(c, desired.Labels, actual.Labels); len(toAdd)+len(toRemove) > 0 {
-		c.Config.Logger.Infof("Diff in Labels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MetricKind, actual.MetricKind) && !dcl.IsZeroValue(desired.MetricKind) {
-		c.Config.Logger.Infof("Diff in MetricKind.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MetricKind), dcl.SprintResource(actual.MetricKind))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ValueType, actual.ValueType) && !dcl.IsZeroValue(desired.ValueType) {
-		c.Config.Logger.Infof("Diff in ValueType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueType), dcl.SprintResource(actual.ValueType))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Unit, actual.Unit) && !dcl.IsZeroValue(desired.Unit) {
-		c.Config.Logger.Infof("Diff in Unit.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Unit), dcl.SprintResource(actual.Unit))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) && !dcl.IsZeroValue(desired.DisplayName) {
-		c.Config.Logger.Infof("Diff in DisplayName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DisplayName), dcl.SprintResource(actual.DisplayName))
-		return true
-	}
-	if compareLogMetricMetricDescriptorMetadata(c, desired.Metadata, actual.Metadata) && !dcl.IsZeroValue(desired.Metadata) {
-		c.Config.Logger.Infof("Diff in Metadata.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Metadata), dcl.SprintResource(actual.Metadata))
-		return true
-	}
-	if !reflect.DeepEqual(desired.LaunchStage, actual.LaunchStage) && !dcl.IsZeroValue(desired.LaunchStage) {
-		c.Config.Logger.Infof("Diff in LaunchStage.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LaunchStage), dcl.SprintResource(actual.LaunchStage))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.MonitoredResourceTypes, actual.MonitoredResourceTypes) && !dcl.IsZeroValue(desired.MonitoredResourceTypes) {
-		c.Config.Logger.Infof("Diff in MonitoredResourceTypes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MonitoredResourceTypes), dcl.SprintResource(actual.MonitoredResourceTypes))
-		return true
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorLabelsSets(c *Client, desired, actual []LogMetricMetricDescriptorLabels) (toAdd, toRemove []LogMetricMetricDescriptorLabels) {
-	if actual == nil {
-		return desired, nil
-	}
-	toAdd = make([]LogMetricMetricDescriptorLabels, 0)
-	toRemove = make([]LogMetricMetricDescriptorLabels, 0)
-
-	for _, act := range actual {
-		found := false
-		for _, des := range desired {
-			if !compareLogMetricMetricDescriptorLabels(c, &des, &act) {
-				found = true
-				break
-			}
-		}
-		if !found {
-			toRemove = append(toRemove, act)
-		}
-	}
-
-	for _, des := range desired {
-		found := false
-		for _, act := range actual {
-			if !compareLogMetricMetricDescriptorLabels(c, &des, &act) {
-				found = true
-				break
-			}
-		}
-		if !found {
-			toAdd = append(toAdd, des)
-		}
-	}
-
-	return toAdd, toRemove
-}
-
-func compareLogMetricMetricDescriptorSlice(c *Client, desired, actual []LogMetricMetricDescriptor) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptor, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricMetricDescriptor(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptor, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorMap(c *Client, desired, actual map[string]LogMetricMetricDescriptor) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptor, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptor, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareLogMetricMetricDescriptor(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptor, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorLabelsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareLogMetricMetricDescriptorDescriptorLabelsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*LogMetricMetricDescriptorLabels)
+	desired, ok := d.(*LogMetricMetricDescriptorDescriptorLabels)
 	if !ok {
-		desiredNotPointer, ok := d.(LogMetricMetricDescriptorLabels)
+		desiredNotPointer, ok := d.(LogMetricMetricDescriptorDescriptorLabels)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a LogMetricMetricDescriptorLabels or *LogMetricMetricDescriptorLabels", d)
+			return nil, fmt.Errorf("obj %v is not a LogMetricMetricDescriptorDescriptorLabels or *LogMetricMetricDescriptorDescriptorLabels", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*LogMetricMetricDescriptorLabels)
+	actual, ok := a.(*LogMetricMetricDescriptorDescriptorLabels)
 	if !ok {
-		actualNotPointer, ok := a.(LogMetricMetricDescriptorLabels)
+		actualNotPointer, ok := a.(LogMetricMetricDescriptorDescriptorLabels)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a LogMetricMetricDescriptorLabels", a)
+			return nil, fmt.Errorf("obj %v is not a LogMetricMetricDescriptorDescriptorLabels", a)
 		}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ValueType, actual.ValueType, dcl.Info{Type: "EnumType"}, fn.AddNest("ValueType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ValueType, actual.ValueType, dcl.Info{Type: "EnumType", CustomDiff: canonicalizeLogMetricMetricDescriptorDescriptorLabelsValueType, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ValueType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareLogMetricMetricDescriptorLabels(c *Client, desired, actual *LogMetricMetricDescriptorLabels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
-		c.Config.Logger.Infof("Diff in Key.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if !canonicalizeLogMetricValueType(desired.ValueType, actual.ValueType) && !dcl.IsZeroValue(desired.ValueType) {
-		c.Config.Logger.Infof("Diff in ValueType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueType), dcl.SprintResource(actual.ValueType))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
-		c.Config.Logger.Infof("Diff in Description.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
-		return true
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorLabelsSlice(c *Client, desired, actual []LogMetricMetricDescriptorLabels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptorLabels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricMetricDescriptorLabels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorLabels, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorLabelsMap(c *Client, desired, actual map[string]LogMetricMetricDescriptorLabels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptorLabels, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorLabels, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareLogMetricMetricDescriptorLabels(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorLabels, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareLogMetricMetricDescriptorMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1798,256 +1552,27 @@ func compareLogMetricMetricDescriptorMetadataNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LaunchStage, actual.LaunchStage, dcl.Info{Type: "EnumType"}, fn.AddNest("LaunchStage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LaunchStage, actual.LaunchStage, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LaunchStage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SamplePeriod, actual.SamplePeriod, dcl.Info{ObjectFunction: compareLogMetricMetricDescriptorMetadataSamplePeriodNewStyle}, fn.AddNest("SamplePeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SamplePeriod, actual.SamplePeriod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SamplePeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IngestDelay, actual.IngestDelay, dcl.Info{ObjectFunction: compareLogMetricMetricDescriptorMetadataIngestDelayNewStyle}, fn.AddNest("IngestDelay")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareLogMetricMetricDescriptorMetadata(c *Client, desired, actual *LogMetricMetricDescriptorMetadata) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.LaunchStage, actual.LaunchStage) && !dcl.IsZeroValue(desired.LaunchStage) {
-		c.Config.Logger.Infof("Diff in LaunchStage.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LaunchStage), dcl.SprintResource(actual.LaunchStage))
-		return true
-	}
-	if compareLogMetricMetricDescriptorMetadataSamplePeriod(c, desired.SamplePeriod, actual.SamplePeriod) && !dcl.IsZeroValue(desired.SamplePeriod) {
-		c.Config.Logger.Infof("Diff in SamplePeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SamplePeriod), dcl.SprintResource(actual.SamplePeriod))
-		return true
-	}
-	if compareLogMetricMetricDescriptorMetadataIngestDelay(c, desired.IngestDelay, actual.IngestDelay) && !dcl.IsZeroValue(desired.IngestDelay) {
-		c.Config.Logger.Infof("Diff in IngestDelay.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IngestDelay), dcl.SprintResource(actual.IngestDelay))
-		return true
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorMetadataSlice(c *Client, desired, actual []LogMetricMetricDescriptorMetadata) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptorMetadata, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricMetricDescriptorMetadata(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorMetadata, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorMetadataMap(c *Client, desired, actual map[string]LogMetricMetricDescriptorMetadata) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptorMetadata, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorMetadata, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareLogMetricMetricDescriptorMetadata(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorMetadata, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorMetadataSamplePeriodNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*LogMetricMetricDescriptorMetadataSamplePeriod)
-	if !ok {
-		desiredNotPointer, ok := d.(LogMetricMetricDescriptorMetadataSamplePeriod)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a LogMetricMetricDescriptorMetadataSamplePeriod or *LogMetricMetricDescriptorMetadataSamplePeriod", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*LogMetricMetricDescriptorMetadataSamplePeriod)
-	if !ok {
-		actualNotPointer, ok := a.(LogMetricMetricDescriptorMetadataSamplePeriod)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a LogMetricMetricDescriptorMetadataSamplePeriod", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IngestDelay, actual.IngestDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IngestDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareLogMetricMetricDescriptorMetadataSamplePeriod(c *Client, desired, actual *LogMetricMetricDescriptorMetadataSamplePeriod) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorMetadataSamplePeriodSlice(c *Client, desired, actual []LogMetricMetricDescriptorMetadataSamplePeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptorMetadataSamplePeriod, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricMetricDescriptorMetadataSamplePeriod(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorMetadataSamplePeriod, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorMetadataSamplePeriodMap(c *Client, desired, actual map[string]LogMetricMetricDescriptorMetadataSamplePeriod) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptorMetadataSamplePeriod, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorMetadataSamplePeriod, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareLogMetricMetricDescriptorMetadataSamplePeriod(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorMetadataSamplePeriod, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorMetadataIngestDelayNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*LogMetricMetricDescriptorMetadataIngestDelay)
-	if !ok {
-		desiredNotPointer, ok := d.(LogMetricMetricDescriptorMetadataIngestDelay)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a LogMetricMetricDescriptorMetadataIngestDelay or *LogMetricMetricDescriptorMetadataIngestDelay", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*LogMetricMetricDescriptorMetadataIngestDelay)
-	if !ok {
-		actualNotPointer, ok := a.(LogMetricMetricDescriptorMetadataIngestDelay)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a LogMetricMetricDescriptorMetadataIngestDelay", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareLogMetricMetricDescriptorMetadataIngestDelay(c *Client, desired, actual *LogMetricMetricDescriptorMetadataIngestDelay) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorMetadataIngestDelaySlice(c *Client, desired, actual []LogMetricMetricDescriptorMetadataIngestDelay) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptorMetadataIngestDelay, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricMetricDescriptorMetadataIngestDelay(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorMetadataIngestDelay, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorMetadataIngestDelayMap(c *Client, desired, actual map[string]LogMetricMetricDescriptorMetadataIngestDelay) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptorMetadataIngestDelay, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorMetadataIngestDelay, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareLogMetricMetricDescriptorMetadataIngestDelay(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorMetadataIngestDelay, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareLogMetricBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2070,82 +1595,27 @@ func compareLogMetricBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsLinearBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsExponentialBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsExplicitBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareLogMetricBucketOptions(c *Client, desired, actual *LogMetricBucketOptions) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareLogMetricBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if compareLogMetricBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if compareLogMetricBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
-		return true
-	}
-	return false
-}
-
-func compareLogMetricBucketOptionsSlice(c *Client, desired, actual []LogMetricBucketOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricBucketOptions, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricBucketOptionsMap(c *Client, desired, actual map[string]LogMetricBucketOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricBucketOptions, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in LogMetricBucketOptions, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareLogMetricBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in LogMetricBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareLogMetricBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2168,82 +1638,27 @@ func compareLogMetricBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareLogMetricBucketOptionsLinearBuckets(c *Client, desired, actual *LogMetricBucketOptionsLinearBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
-		return true
-	}
-	return false
-}
-
-func compareLogMetricBucketOptionsLinearBucketsSlice(c *Client, desired, actual []LogMetricBucketOptionsLinearBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricBucketOptionsLinearBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]LogMetricBucketOptionsLinearBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricBucketOptionsLinearBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in LogMetricBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareLogMetricBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in LogMetricBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareLogMetricBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2266,82 +1681,27 @@ func compareLogMetricBucketOptionsExponentialBucketsNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareLogMetricBucketOptionsExponentialBuckets(c *Client, desired, actual *LogMetricBucketOptionsExponentialBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
-		return true
-	}
-	return false
-}
-
-func compareLogMetricBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []LogMetricBucketOptionsExponentialBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricBucketOptionsExponentialBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]LogMetricBucketOptionsExponentialBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricBucketOptionsExponentialBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in LogMetricBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareLogMetricBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in LogMetricBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareLogMetricBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2364,150 +1724,13 @@ func compareLogMetricBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareLogMetricBucketOptionsExplicitBuckets(c *Client, desired, actual *LogMetricBucketOptionsExplicitBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
-		return true
-	}
-	return false
-}
-
-func compareLogMetricBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []LogMetricBucketOptionsExplicitBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricBucketOptionsExplicitBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]LogMetricBucketOptionsExplicitBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricBucketOptionsExplicitBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in LogMetricBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareLogMetricBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in LogMetricBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorLabelsValueTypeEnumSlice(c *Client, desired, actual []LogMetricMetricDescriptorLabelsValueTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptorLabelsValueTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricMetricDescriptorLabelsValueTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorLabelsValueTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorLabelsValueTypeEnum(c *Client, desired, actual *LogMetricMetricDescriptorLabelsValueTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareLogMetricMetricDescriptorMetricKindEnumSlice(c *Client, desired, actual []LogMetricMetricDescriptorMetricKindEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptorMetricKindEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricMetricDescriptorMetricKindEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorMetricKindEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorMetricKindEnum(c *Client, desired, actual *LogMetricMetricDescriptorMetricKindEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareLogMetricMetricDescriptorValueTypeEnumSlice(c *Client, desired, actual []LogMetricMetricDescriptorValueTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptorValueTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricMetricDescriptorValueTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorValueTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorValueTypeEnum(c *Client, desired, actual *LogMetricMetricDescriptorValueTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareLogMetricMetricDescriptorMetadataLaunchStageEnumSlice(c *Client, desired, actual []LogMetricMetricDescriptorMetadataLaunchStageEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptorMetadataLaunchStageEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricMetricDescriptorMetadataLaunchStageEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorMetadataLaunchStageEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorMetadataLaunchStageEnum(c *Client, desired, actual *LogMetricMetricDescriptorMetadataLaunchStageEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareLogMetricMetricDescriptorLaunchStageEnumSlice(c *Client, desired, actual []LogMetricMetricDescriptorLaunchStageEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in LogMetricMetricDescriptorLaunchStageEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareLogMetricMetricDescriptorLaunchStageEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in LogMetricMetricDescriptorLaunchStageEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareLogMetricMetricDescriptorLaunchStageEnum(c *Client, desired, actual *LogMetricMetricDescriptorLaunchStageEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -2637,21 +1860,21 @@ func flattenLogMetric(c *Client, i interface{}) *LogMetric {
 		return nil
 	}
 
-	r := &LogMetric{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.Filter = dcl.FlattenString(m["filter"])
-	r.Disabled = dcl.FlattenBool(m["disabled"])
-	r.MetricDescriptor = flattenLogMetricMetricDescriptor(c, m["metricDescriptor"])
-	r.ValueExtractor = dcl.FlattenString(m["valueExtractor"])
-	r.LabelExtractors = dcl.FlattenKeyValuePairs(m["labelExtractors"])
-	r.BucketOptions = flattenLogMetricBucketOptions(c, m["bucketOptions"])
-	r.CreateTime = dcl.FlattenString(m["createTime"])
-	r.UpdateTime = dcl.FlattenString(m["updateTime"])
-	r.Resolution = dcl.FlattenString(m["resolution"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &LogMetric{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.Filter = dcl.FlattenString(m["filter"])
+	res.Disabled = dcl.FlattenBool(m["disabled"])
+	res.MetricDescriptor = flattenLogMetricMetricDescriptor(c, m["metricDescriptor"])
+	res.ValueExtractor = dcl.FlattenString(m["valueExtractor"])
+	res.LabelExtractors = dcl.FlattenKeyValuePairs(m["labelExtractors"])
+	res.BucketOptions = flattenLogMetricBucketOptions(c, m["bucketOptions"])
+	res.CreateTime = dcl.FlattenString(m["createTime"])
+	res.UpdateTime = dcl.FlattenString(m["updateTime"])
+	res.Resolution = dcl.FlattenString(m["resolution"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // expandLogMetricMetricDescriptorMap expands the contents of LogMetricMetricDescriptor into a JSON
@@ -2738,18 +1961,19 @@ func flattenLogMetricMetricDescriptorSlice(c *Client, i interface{}) []LogMetric
 // expandLogMetricMetricDescriptor expands an instance of LogMetricMetricDescriptor into a JSON
 // request object.
 func expandLogMetricMetricDescriptor(c *Client, f *LogMetricMetricDescriptor) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
-	if v, err := expandLogMetricMetricDescriptorLabelsSlice(c, f.Labels); err != nil {
-		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
+	if v, err := expandLogMetricMetricDescriptorDescriptorLabelsSlice(c, f.DescriptorLabels); err != nil {
+		return nil, fmt.Errorf("error expanding DescriptorLabels into labels: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
@@ -2761,6 +1985,9 @@ func expandLogMetricMetricDescriptor(c *Client, f *LogMetricMetricDescriptor) (m
 	}
 	if v := f.Unit; !dcl.IsEmptyValueIndirect(v) {
 		m["unit"] = v
+	}
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		m["description"] = v
 	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["displayName"] = v
@@ -2791,10 +2018,11 @@ func flattenLogMetricMetricDescriptor(c *Client, i interface{}) *LogMetricMetric
 	r := &LogMetricMetricDescriptor{}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Type = dcl.FlattenString(m["type"])
-	r.Labels = flattenLogMetricMetricDescriptorLabelsSlice(c, m["labels"])
+	r.DescriptorLabels = flattenLogMetricMetricDescriptorDescriptorLabelsSlice(c, m["labels"])
 	r.MetricKind = flattenLogMetricMetricDescriptorMetricKindEnum(m["metricKind"])
 	r.ValueType = flattenLogMetricMetricDescriptorValueTypeEnum(m["valueType"])
 	r.Unit = dcl.FlattenString(m["unit"])
+	r.Description = dcl.FlattenString(m["description"])
 	r.DisplayName = dcl.FlattenString(m["displayName"])
 	r.Metadata = flattenLogMetricMetricDescriptorMetadata(c, m["metadata"])
 	r.LaunchStage = flattenLogMetricMetricDescriptorLaunchStageEnum(m["launchStage"])
@@ -2803,16 +2031,16 @@ func flattenLogMetricMetricDescriptor(c *Client, i interface{}) *LogMetricMetric
 	return r
 }
 
-// expandLogMetricMetricDescriptorLabelsMap expands the contents of LogMetricMetricDescriptorLabels into a JSON
+// expandLogMetricMetricDescriptorDescriptorLabelsMap expands the contents of LogMetricMetricDescriptorDescriptorLabels into a JSON
 // request object.
-func expandLogMetricMetricDescriptorLabelsMap(c *Client, f map[string]LogMetricMetricDescriptorLabels) (map[string]interface{}, error) {
+func expandLogMetricMetricDescriptorDescriptorLabelsMap(c *Client, f map[string]LogMetricMetricDescriptorDescriptorLabels) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandLogMetricMetricDescriptorLabels(c, &item)
+		i, err := expandLogMetricMetricDescriptorDescriptorLabels(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -2824,16 +2052,16 @@ func expandLogMetricMetricDescriptorLabelsMap(c *Client, f map[string]LogMetricM
 	return items, nil
 }
 
-// expandLogMetricMetricDescriptorLabelsSlice expands the contents of LogMetricMetricDescriptorLabels into a JSON
+// expandLogMetricMetricDescriptorDescriptorLabelsSlice expands the contents of LogMetricMetricDescriptorDescriptorLabels into a JSON
 // request object.
-func expandLogMetricMetricDescriptorLabelsSlice(c *Client, f []LogMetricMetricDescriptorLabels) ([]map[string]interface{}, error) {
+func expandLogMetricMetricDescriptorDescriptorLabelsSlice(c *Client, f []LogMetricMetricDescriptorDescriptorLabels) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandLogMetricMetricDescriptorLabels(c, &item)
+		i, err := expandLogMetricMetricDescriptorDescriptorLabels(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -2844,53 +2072,54 @@ func expandLogMetricMetricDescriptorLabelsSlice(c *Client, f []LogMetricMetricDe
 	return items, nil
 }
 
-// flattenLogMetricMetricDescriptorLabelsMap flattens the contents of LogMetricMetricDescriptorLabels from a JSON
+// flattenLogMetricMetricDescriptorDescriptorLabelsMap flattens the contents of LogMetricMetricDescriptorDescriptorLabels from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorLabelsMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorLabels {
+func flattenLogMetricMetricDescriptorDescriptorLabelsMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorDescriptorLabels {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]LogMetricMetricDescriptorLabels{}
+		return map[string]LogMetricMetricDescriptorDescriptorLabels{}
 	}
 
 	if len(a) == 0 {
-		return map[string]LogMetricMetricDescriptorLabels{}
+		return map[string]LogMetricMetricDescriptorDescriptorLabels{}
 	}
 
-	items := make(map[string]LogMetricMetricDescriptorLabels)
+	items := make(map[string]LogMetricMetricDescriptorDescriptorLabels)
 	for k, item := range a {
-		items[k] = *flattenLogMetricMetricDescriptorLabels(c, item.(map[string]interface{}))
+		items[k] = *flattenLogMetricMetricDescriptorDescriptorLabels(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenLogMetricMetricDescriptorLabelsSlice flattens the contents of LogMetricMetricDescriptorLabels from a JSON
+// flattenLogMetricMetricDescriptorDescriptorLabelsSlice flattens the contents of LogMetricMetricDescriptorDescriptorLabels from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorLabelsSlice(c *Client, i interface{}) []LogMetricMetricDescriptorLabels {
+func flattenLogMetricMetricDescriptorDescriptorLabelsSlice(c *Client, i interface{}) []LogMetricMetricDescriptorDescriptorLabels {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []LogMetricMetricDescriptorLabels{}
+		return []LogMetricMetricDescriptorDescriptorLabels{}
 	}
 
 	if len(a) == 0 {
-		return []LogMetricMetricDescriptorLabels{}
+		return []LogMetricMetricDescriptorDescriptorLabels{}
 	}
 
-	items := make([]LogMetricMetricDescriptorLabels, 0, len(a))
+	items := make([]LogMetricMetricDescriptorDescriptorLabels, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenLogMetricMetricDescriptorLabels(c, item.(map[string]interface{})))
+		items = append(items, *flattenLogMetricMetricDescriptorDescriptorLabels(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandLogMetricMetricDescriptorLabels expands an instance of LogMetricMetricDescriptorLabels into a JSON
+// expandLogMetricMetricDescriptorDescriptorLabels expands an instance of LogMetricMetricDescriptorDescriptorLabels into a JSON
 // request object.
-func expandLogMetricMetricDescriptorLabels(c *Client, f *LogMetricMetricDescriptorLabels) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
+func expandLogMetricMetricDescriptorDescriptorLabels(c *Client, f *LogMetricMetricDescriptorDescriptorLabels) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
 		m["key"] = v
 	}
@@ -2904,17 +2133,17 @@ func expandLogMetricMetricDescriptorLabels(c *Client, f *LogMetricMetricDescript
 	return m, nil
 }
 
-// flattenLogMetricMetricDescriptorLabels flattens an instance of LogMetricMetricDescriptorLabels from a JSON
+// flattenLogMetricMetricDescriptorDescriptorLabels flattens an instance of LogMetricMetricDescriptorDescriptorLabels from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorLabels(c *Client, i interface{}) *LogMetricMetricDescriptorLabels {
+func flattenLogMetricMetricDescriptorDescriptorLabels(c *Client, i interface{}) *LogMetricMetricDescriptorDescriptorLabels {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &LogMetricMetricDescriptorLabels{}
+	r := &LogMetricMetricDescriptorDescriptorLabels{}
 	r.Key = dcl.FlattenString(m["key"])
-	r.ValueType = flattenLogMetricMetricDescriptorLabelsValueTypeEnum(m["valueType"])
+	r.ValueType = flattenLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(m["valueType"])
 	r.Description = dcl.FlattenString(m["description"])
 
 	return r
@@ -3004,21 +2233,18 @@ func flattenLogMetricMetricDescriptorMetadataSlice(c *Client, i interface{}) []L
 // expandLogMetricMetricDescriptorMetadata expands an instance of LogMetricMetricDescriptorMetadata into a JSON
 // request object.
 func expandLogMetricMetricDescriptorMetadata(c *Client, f *LogMetricMetricDescriptorMetadata) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.LaunchStage; !dcl.IsEmptyValueIndirect(v) {
 		m["launchStage"] = v
 	}
-	if v, err := expandLogMetricMetricDescriptorMetadataSamplePeriod(c, f.SamplePeriod); err != nil {
-		return nil, fmt.Errorf("error expanding SamplePeriod into samplePeriod: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.SamplePeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["samplePeriod"] = v
 	}
-	if v, err := expandLogMetricMetricDescriptorMetadataIngestDelay(c, f.IngestDelay); err != nil {
-		return nil, fmt.Errorf("error expanding IngestDelay into ingestDelay: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.IngestDelay; !dcl.IsEmptyValueIndirect(v) {
 		m["ingestDelay"] = v
 	}
 
@@ -3035,234 +2261,8 @@ func flattenLogMetricMetricDescriptorMetadata(c *Client, i interface{}) *LogMetr
 
 	r := &LogMetricMetricDescriptorMetadata{}
 	r.LaunchStage = flattenLogMetricMetricDescriptorMetadataLaunchStageEnum(m["launchStage"])
-	r.SamplePeriod = flattenLogMetricMetricDescriptorMetadataSamplePeriod(c, m["samplePeriod"])
-	r.IngestDelay = flattenLogMetricMetricDescriptorMetadataIngestDelay(c, m["ingestDelay"])
-
-	return r
-}
-
-// expandLogMetricMetricDescriptorMetadataSamplePeriodMap expands the contents of LogMetricMetricDescriptorMetadataSamplePeriod into a JSON
-// request object.
-func expandLogMetricMetricDescriptorMetadataSamplePeriodMap(c *Client, f map[string]LogMetricMetricDescriptorMetadataSamplePeriod) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandLogMetricMetricDescriptorMetadataSamplePeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandLogMetricMetricDescriptorMetadataSamplePeriodSlice expands the contents of LogMetricMetricDescriptorMetadataSamplePeriod into a JSON
-// request object.
-func expandLogMetricMetricDescriptorMetadataSamplePeriodSlice(c *Client, f []LogMetricMetricDescriptorMetadataSamplePeriod) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandLogMetricMetricDescriptorMetadataSamplePeriod(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenLogMetricMetricDescriptorMetadataSamplePeriodMap flattens the contents of LogMetricMetricDescriptorMetadataSamplePeriod from a JSON
-// response object.
-func flattenLogMetricMetricDescriptorMetadataSamplePeriodMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorMetadataSamplePeriod {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]LogMetricMetricDescriptorMetadataSamplePeriod{}
-	}
-
-	if len(a) == 0 {
-		return map[string]LogMetricMetricDescriptorMetadataSamplePeriod{}
-	}
-
-	items := make(map[string]LogMetricMetricDescriptorMetadataSamplePeriod)
-	for k, item := range a {
-		items[k] = *flattenLogMetricMetricDescriptorMetadataSamplePeriod(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenLogMetricMetricDescriptorMetadataSamplePeriodSlice flattens the contents of LogMetricMetricDescriptorMetadataSamplePeriod from a JSON
-// response object.
-func flattenLogMetricMetricDescriptorMetadataSamplePeriodSlice(c *Client, i interface{}) []LogMetricMetricDescriptorMetadataSamplePeriod {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []LogMetricMetricDescriptorMetadataSamplePeriod{}
-	}
-
-	if len(a) == 0 {
-		return []LogMetricMetricDescriptorMetadataSamplePeriod{}
-	}
-
-	items := make([]LogMetricMetricDescriptorMetadataSamplePeriod, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenLogMetricMetricDescriptorMetadataSamplePeriod(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandLogMetricMetricDescriptorMetadataSamplePeriod expands an instance of LogMetricMetricDescriptorMetadataSamplePeriod into a JSON
-// request object.
-func expandLogMetricMetricDescriptorMetadataSamplePeriod(c *Client, f *LogMetricMetricDescriptorMetadataSamplePeriod) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenLogMetricMetricDescriptorMetadataSamplePeriod flattens an instance of LogMetricMetricDescriptorMetadataSamplePeriod from a JSON
-// response object.
-func flattenLogMetricMetricDescriptorMetadataSamplePeriod(c *Client, i interface{}) *LogMetricMetricDescriptorMetadataSamplePeriod {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &LogMetricMetricDescriptorMetadataSamplePeriod{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
-
-	return r
-}
-
-// expandLogMetricMetricDescriptorMetadataIngestDelayMap expands the contents of LogMetricMetricDescriptorMetadataIngestDelay into a JSON
-// request object.
-func expandLogMetricMetricDescriptorMetadataIngestDelayMap(c *Client, f map[string]LogMetricMetricDescriptorMetadataIngestDelay) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandLogMetricMetricDescriptorMetadataIngestDelay(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandLogMetricMetricDescriptorMetadataIngestDelaySlice expands the contents of LogMetricMetricDescriptorMetadataIngestDelay into a JSON
-// request object.
-func expandLogMetricMetricDescriptorMetadataIngestDelaySlice(c *Client, f []LogMetricMetricDescriptorMetadataIngestDelay) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandLogMetricMetricDescriptorMetadataIngestDelay(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenLogMetricMetricDescriptorMetadataIngestDelayMap flattens the contents of LogMetricMetricDescriptorMetadataIngestDelay from a JSON
-// response object.
-func flattenLogMetricMetricDescriptorMetadataIngestDelayMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorMetadataIngestDelay {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]LogMetricMetricDescriptorMetadataIngestDelay{}
-	}
-
-	if len(a) == 0 {
-		return map[string]LogMetricMetricDescriptorMetadataIngestDelay{}
-	}
-
-	items := make(map[string]LogMetricMetricDescriptorMetadataIngestDelay)
-	for k, item := range a {
-		items[k] = *flattenLogMetricMetricDescriptorMetadataIngestDelay(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenLogMetricMetricDescriptorMetadataIngestDelaySlice flattens the contents of LogMetricMetricDescriptorMetadataIngestDelay from a JSON
-// response object.
-func flattenLogMetricMetricDescriptorMetadataIngestDelaySlice(c *Client, i interface{}) []LogMetricMetricDescriptorMetadataIngestDelay {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []LogMetricMetricDescriptorMetadataIngestDelay{}
-	}
-
-	if len(a) == 0 {
-		return []LogMetricMetricDescriptorMetadataIngestDelay{}
-	}
-
-	items := make([]LogMetricMetricDescriptorMetadataIngestDelay, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenLogMetricMetricDescriptorMetadataIngestDelay(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandLogMetricMetricDescriptorMetadataIngestDelay expands an instance of LogMetricMetricDescriptorMetadataIngestDelay into a JSON
-// request object.
-func expandLogMetricMetricDescriptorMetadataIngestDelay(c *Client, f *LogMetricMetricDescriptorMetadataIngestDelay) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
-		m["seconds"] = v
-	}
-	if v := f.Nanos; !dcl.IsEmptyValueIndirect(v) {
-		m["nanos"] = v
-	}
-
-	return m, nil
-}
-
-// flattenLogMetricMetricDescriptorMetadataIngestDelay flattens an instance of LogMetricMetricDescriptorMetadataIngestDelay from a JSON
-// response object.
-func flattenLogMetricMetricDescriptorMetadataIngestDelay(c *Client, i interface{}) *LogMetricMetricDescriptorMetadataIngestDelay {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &LogMetricMetricDescriptorMetadataIngestDelay{}
-	r.Seconds = dcl.FlattenInteger(m["seconds"])
-	r.Nanos = dcl.FlattenInteger(m["nanos"])
+	r.SamplePeriod = dcl.FlattenString(m["samplePeriod"])
+	r.IngestDelay = dcl.FlattenString(m["ingestDelay"])
 
 	return r
 }
@@ -3351,10 +2351,11 @@ func flattenLogMetricBucketOptionsSlice(c *Client, i interface{}) []LogMetricBuc
 // expandLogMetricBucketOptions expands an instance of LogMetricBucketOptions into a JSON
 // request object.
 func expandLogMetricBucketOptions(c *Client, f *LogMetricBucketOptions) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandLogMetricBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -3474,10 +2475,11 @@ func flattenLogMetricBucketOptionsLinearBucketsSlice(c *Client, i interface{}) [
 // expandLogMetricBucketOptionsLinearBuckets expands an instance of LogMetricBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandLogMetricBucketOptionsLinearBuckets(c *Client, f *LogMetricBucketOptionsLinearBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -3591,10 +2593,11 @@ func flattenLogMetricBucketOptionsExponentialBucketsSlice(c *Client, i interface
 // expandLogMetricBucketOptionsExponentialBuckets expands an instance of LogMetricBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandLogMetricBucketOptionsExponentialBuckets(c *Client, f *LogMetricBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -3708,10 +2711,11 @@ func flattenLogMetricBucketOptionsExplicitBucketsSlice(c *Client, i interface{})
 // expandLogMetricBucketOptionsExplicitBuckets expands an instance of LogMetricBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandLogMetricBucketOptionsExplicitBuckets(c *Client, f *LogMetricBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -3733,35 +2737,35 @@ func flattenLogMetricBucketOptionsExplicitBuckets(c *Client, i interface{}) *Log
 	return r
 }
 
-// flattenLogMetricMetricDescriptorLabelsValueTypeEnumSlice flattens the contents of LogMetricMetricDescriptorLabelsValueTypeEnum from a JSON
+// flattenLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumSlice flattens the contents of LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorLabelsValueTypeEnumSlice(c *Client, i interface{}) []LogMetricMetricDescriptorLabelsValueTypeEnum {
+func flattenLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumSlice(c *Client, i interface{}) []LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []LogMetricMetricDescriptorLabelsValueTypeEnum{}
+		return []LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum{}
 	}
 
 	if len(a) == 0 {
-		return []LogMetricMetricDescriptorLabelsValueTypeEnum{}
+		return []LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum{}
 	}
 
-	items := make([]LogMetricMetricDescriptorLabelsValueTypeEnum, 0, len(a))
+	items := make([]LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenLogMetricMetricDescriptorLabelsValueTypeEnum(item.(interface{})))
+		items = append(items, *flattenLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenLogMetricMetricDescriptorLabelsValueTypeEnum asserts that an interface is a string, and returns a
-// pointer to a *LogMetricMetricDescriptorLabelsValueTypeEnum with the same value as that string.
-func flattenLogMetricMetricDescriptorLabelsValueTypeEnum(i interface{}) *LogMetricMetricDescriptorLabelsValueTypeEnum {
+// flattenLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum asserts that an interface is a string, and returns a
+// pointer to a *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum with the same value as that string.
+func flattenLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(i interface{}) *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return LogMetricMetricDescriptorLabelsValueTypeEnumRef("")
+		return LogMetricMetricDescriptorDescriptorLabelsValueTypeEnumRef("")
 	}
 
-	return LogMetricMetricDescriptorLabelsValueTypeEnumRef(s)
+	return LogMetricMetricDescriptorDescriptorLabelsValueTypeEnumRef(s)
 }
 
 // flattenLogMetricMetricDescriptorMetricKindEnumSlice flattens the contents of LogMetricMetricDescriptorMetricKindEnum from a JSON
@@ -3919,5 +2923,36 @@ func (r *LogMetric) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToLogMetricDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]logMetricDiff, error) {
+	var diffs []logMetricDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := logMetricDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTologMetricApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTologMetricApiOperation(op string, opts ...dcl.ApplyOption) (logMetricApiOperation, error) {
+	switch op {
+
+	case "updateLogMetricUpdateOperation":
+		return &updateLogMetricUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

@@ -66,13 +66,14 @@ message ComputeUrlMap {
   string default_service = 2;
   ComputeUrlMapDefaultUrlRedirect default_url_redirect = 3;
   string description = 4;
-  ComputeUrlMapHeaderAction header_action = 5;
-  repeated ComputeUrlMapHostRule host_rule = 6;
-  string name = 7;
-  repeated ComputeUrlMapPathMatcher path_matcher = 8;
-  string region = 9;
-  repeated ComputeUrlMapTest test = 10;
-  string project = 11;
+  string self_link = 5;
+  ComputeUrlMapHeaderAction header_action = 6;
+  repeated ComputeUrlMapHostRule host_rule = 7;
+  string name = 8;
+  repeated ComputeUrlMapPathMatcher path_matcher = 9;
+  string region = 10;
+  repeated ComputeUrlMapTest test = 11;
+  string project = 12;
 }
 
 message ComputeUrlMapDefaultRouteAction {

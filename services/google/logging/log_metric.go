@@ -41,28 +41,28 @@ func (r *LogMetric) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum LogMetricMetricDescriptorLabelsValueTypeEnum.
-type LogMetricMetricDescriptorLabelsValueTypeEnum string
+// The enum LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum.
+type LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum string
 
-// LogMetricMetricDescriptorLabelsValueTypeEnumRef returns a *LogMetricMetricDescriptorLabelsValueTypeEnum with the value of string s
+// LogMetricMetricDescriptorDescriptorLabelsValueTypeEnumRef returns a *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func LogMetricMetricDescriptorLabelsValueTypeEnumRef(s string) *LogMetricMetricDescriptorLabelsValueTypeEnum {
+func LogMetricMetricDescriptorDescriptorLabelsValueTypeEnumRef(s string) *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := LogMetricMetricDescriptorLabelsValueTypeEnum(s)
+	v := LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(s)
 	return &v
 }
 
-func (v LogMetricMetricDescriptorLabelsValueTypeEnum) Validate() error {
+func (v LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum) Validate() error {
 	for _, s := range []string{"STRING", "BOOL", "INT64", "DOUBLE", "DISTRIBUTION", "MONEY"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "LogMetricMetricDescriptorLabelsValueTypeEnum",
+		Enum:  "LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -177,17 +177,18 @@ func (v LogMetricMetricDescriptorLaunchStageEnum) Validate() error {
 }
 
 type LogMetricMetricDescriptor struct {
-	empty                  bool                                      `json:"-"`
-	Name                   *string                                   `json:"name"`
-	Type                   *string                                   `json:"type"`
-	Labels                 []LogMetricMetricDescriptorLabels         `json:"labels"`
-	MetricKind             *LogMetricMetricDescriptorMetricKindEnum  `json:"metricKind"`
-	ValueType              *LogMetricMetricDescriptorValueTypeEnum   `json:"valueType"`
-	Unit                   *string                                   `json:"unit"`
-	DisplayName            *string                                   `json:"displayName"`
-	Metadata               *LogMetricMetricDescriptorMetadata        `json:"metadata"`
-	LaunchStage            *LogMetricMetricDescriptorLaunchStageEnum `json:"launchStage"`
-	MonitoredResourceTypes []string                                  `json:"monitoredResourceTypes"`
+	empty                  bool                                        `json:"-"`
+	Name                   *string                                     `json:"name"`
+	Type                   *string                                     `json:"type"`
+	DescriptorLabels       []LogMetricMetricDescriptorDescriptorLabels `json:"descriptorLabels"`
+	MetricKind             *LogMetricMetricDescriptorMetricKindEnum    `json:"metricKind"`
+	ValueType              *LogMetricMetricDescriptorValueTypeEnum     `json:"valueType"`
+	Unit                   *string                                     `json:"unit"`
+	Description            *string                                     `json:"description"`
+	DisplayName            *string                                     `json:"displayName"`
+	Metadata               *LogMetricMetricDescriptorMetadata          `json:"metadata"`
+	LaunchStage            *LogMetricMetricDescriptorLaunchStageEnum   `json:"launchStage"`
+	MonitoredResourceTypes []string                                    `json:"monitoredResourceTypes"`
 }
 
 // This object is used to assert a desired state where this LogMetricMetricDescriptor is
@@ -206,23 +207,23 @@ func (r *LogMetricMetricDescriptor) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type LogMetricMetricDescriptorLabels struct {
-	empty       bool                                          `json:"-"`
-	Key         *string                                       `json:"key"`
-	ValueType   *LogMetricMetricDescriptorLabelsValueTypeEnum `json:"valueType"`
-	Description *string                                       `json:"description"`
+type LogMetricMetricDescriptorDescriptorLabels struct {
+	empty       bool                                                    `json:"-"`
+	Key         *string                                                 `json:"key"`
+	ValueType   *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum `json:"valueType"`
+	Description *string                                                 `json:"description"`
 }
 
-// This object is used to assert a desired state where this LogMetricMetricDescriptorLabels is
+// This object is used to assert a desired state where this LogMetricMetricDescriptorDescriptorLabels is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyLogMetricMetricDescriptorLabels *LogMetricMetricDescriptorLabels = &LogMetricMetricDescriptorLabels{empty: true}
+var EmptyLogMetricMetricDescriptorDescriptorLabels *LogMetricMetricDescriptorDescriptorLabels = &LogMetricMetricDescriptorDescriptorLabels{empty: true}
 
-func (r *LogMetricMetricDescriptorLabels) String() string {
+func (r *LogMetricMetricDescriptorDescriptorLabels) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *LogMetricMetricDescriptorLabels) HashCode() string {
+func (r *LogMetricMetricDescriptorDescriptorLabels) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -232,8 +233,8 @@ func (r *LogMetricMetricDescriptorLabels) HashCode() string {
 type LogMetricMetricDescriptorMetadata struct {
 	empty        bool                                              `json:"-"`
 	LaunchStage  *LogMetricMetricDescriptorMetadataLaunchStageEnum `json:"launchStage"`
-	SamplePeriod *LogMetricMetricDescriptorMetadataSamplePeriod    `json:"samplePeriod"`
-	IngestDelay  *LogMetricMetricDescriptorMetadataIngestDelay     `json:"ingestDelay"`
+	SamplePeriod *string                                           `json:"samplePeriod"`
+	IngestDelay  *string                                           `json:"ingestDelay"`
 }
 
 // This object is used to assert a desired state where this LogMetricMetricDescriptorMetadata is
@@ -246,50 +247,6 @@ func (r *LogMetricMetricDescriptorMetadata) String() string {
 }
 
 func (r *LogMetricMetricDescriptorMetadata) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type LogMetricMetricDescriptorMetadataSamplePeriod struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this LogMetricMetricDescriptorMetadataSamplePeriod is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyLogMetricMetricDescriptorMetadataSamplePeriod *LogMetricMetricDescriptorMetadataSamplePeriod = &LogMetricMetricDescriptorMetadataSamplePeriod{empty: true}
-
-func (r *LogMetricMetricDescriptorMetadataSamplePeriod) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *LogMetricMetricDescriptorMetadataSamplePeriod) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type LogMetricMetricDescriptorMetadataIngestDelay struct {
-	empty   bool   `json:"-"`
-	Seconds *int64 `json:"seconds"`
-	Nanos   *int64 `json:"nanos"`
-}
-
-// This object is used to assert a desired state where this LogMetricMetricDescriptorMetadataIngestDelay is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyLogMetricMetricDescriptorMetadataIngestDelay *LogMetricMetricDescriptorMetadataIngestDelay = &LogMetricMetricDescriptorMetadataIngestDelay{empty: true}
-
-func (r *LogMetricMetricDescriptorMetadataIngestDelay) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *LogMetricMetricDescriptorMetadataIngestDelay) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -564,6 +521,7 @@ func (c *Client) ApplyLogMetric(ctx context.Context, rawDesired *LogMetric, opts
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

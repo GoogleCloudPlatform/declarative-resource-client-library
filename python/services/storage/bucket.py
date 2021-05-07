@@ -148,24 +148,6 @@ class Bucket(object):
 
         return stub.ListStorageBucket(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = bucket_pb2.StorageBucket()
-        any_proto.Unpack(res_proto)
-
-        res = Bucket()
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.cors = BucketCorsArray.from_proto(res_proto.cors)
-        res.lifecycle = BucketLifecycle.from_proto(res_proto.lifecycle)
-        res.logging = BucketLogging.from_proto(res_proto.logging)
-        res.storage_class = BucketStorageClassEnum.from_proto(res_proto.storage_class)
-        res.versioning = BucketVersioning.from_proto(res_proto.versioning)
-        res.website = BucketWebsite.from_proto(res_proto.website)
-        return res
-
     def to_proto(self):
         resource = bucket_pb2.StorageBucket()
         if Primitive.to_proto(self.project):

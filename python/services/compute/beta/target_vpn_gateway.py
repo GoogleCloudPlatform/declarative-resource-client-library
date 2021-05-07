@@ -114,25 +114,6 @@ class TargetVpnGateway(object):
 
         return stub.ListComputeBetaTargetVpnGateway(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = target_vpn_gateway_pb2.ComputeBetaTargetVpnGateway()
-        any_proto.Unpack(res_proto)
-
-        res = TargetVpnGateway()
-        res.id = Primitive.from_proto(res_proto.id)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.region = Primitive.from_proto(res_proto.region)
-        res.network = Primitive.from_proto(res_proto.network)
-        res.tunnel = Primitive.from_proto(res_proto.tunnel)
-        res.status = TargetVpnGatewayStatusEnum.from_proto(res_proto.status)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.forwarding_rule = Primitive.from_proto(res_proto.forwarding_rule)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = target_vpn_gateway_pb2.ComputeBetaTargetVpnGateway()
         if Primitive.to_proto(self.name):

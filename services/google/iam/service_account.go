@@ -14,6 +14,7 @@
 package iam
 
 import (
+	"bytes"
 	"context"
 	"crypto/sha256"
 	"fmt"
@@ -258,6 +259,7 @@ func (c *Client) ApplyServiceAccount(ctx context.Context, rawDesired *ServiceAcc
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
@@ -358,4 +360,10 @@ func (c *Client) ApplyServiceAccount(ctx context.Context, rawDesired *ServiceAcc
 	}
 	c.Config.Logger.Info("Done Apply.")
 	return newState, nil
+}
+func (r *ServiceAccount) GetPolicy(basePath string) (string, string, *bytes.Buffer, error) {
+	u := r.getPolicyURL(basePath)
+	body := &bytes.Buffer{}
+	body.WriteString(fmt.Sprintf(`{"options":{"requestedPolicyVersion": %d}}`, r.IAMPolicyVersion()))
+	return u, "POST", body, nil
 }

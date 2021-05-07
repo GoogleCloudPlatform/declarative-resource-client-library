@@ -188,34 +188,6 @@ class Address(object):
 
         return stub.ListComputeAddress(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = address_pb2.ComputeAddress()
-        any_proto.Unpack(res_proto)
-
-        res = Address()
-        res.id = Primitive.from_proto(res_proto.id)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.address = Primitive.from_proto(res_proto.address)
-        res.prefix_length = Primitive.from_proto(res_proto.prefix_length)
-        res.status = AddressStatusEnum.from_proto(res_proto.status)
-        res.region = Primitive.from_proto(res_proto.region)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.network_tier = AddressNetworkTierEnum.from_proto(res_proto.network_tier)
-        res.ip_version = AddressIPVersionEnum.from_proto(res_proto.ip_version)
-        res.address_type = AddressAddressTypeEnum.from_proto(res_proto.address_type)
-        res.purpose = AddressPurposeEnum.from_proto(res_proto.purpose)
-        res.subnetwork = Primitive.from_proto(res_proto.subnetwork)
-        res.network = Primitive.from_proto(res_proto.network)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.creation_timestamp = Primitive.from_proto(res_proto.creation_timestamp)
-        res.users = Primitive.from_proto(res_proto.users)
-        res.label_fingerprint = Primitive.from_proto(res_proto.label_fingerprint)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = address_pb2.ComputeAddress()
         if Primitive.to_proto(self.name):

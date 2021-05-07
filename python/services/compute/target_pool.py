@@ -24,8 +24,8 @@ class TargetPool(object):
         backup_pool: str = None,
         description: str = None,
         failover_ratio: float = None,
-        health_check: list = None,
-        instance: list = None,
+        health_checks: list = None,
+        instances: list = None,
         name: str = None,
         region: str = None,
         self_link: str = None,
@@ -38,8 +38,8 @@ class TargetPool(object):
         self.backup_pool = backup_pool
         self.description = description
         self.failover_ratio = failover_ratio
-        self.health_check = health_check
-        self.instance = instance
+        self.health_checks = health_checks
+        self.instances = instances
         self.name = name
         self.region = region
         self.self_link = self_link
@@ -59,10 +59,12 @@ class TargetPool(object):
         if Primitive.to_proto(self.failover_ratio):
             request.resource.failover_ratio = Primitive.to_proto(self.failover_ratio)
 
-        if Primitive.to_proto(self.health_check):
-            request.resource.health_check.extend(Primitive.to_proto(self.health_check))
-        if Primitive.to_proto(self.instance):
-            request.resource.instance.extend(Primitive.to_proto(self.instance))
+        if Primitive.to_proto(self.health_checks):
+            request.resource.health_checks.extend(
+                Primitive.to_proto(self.health_checks)
+            )
+        if Primitive.to_proto(self.instances):
+            request.resource.instances.extend(Primitive.to_proto(self.instances))
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -86,8 +88,8 @@ class TargetPool(object):
         self.backup_pool = Primitive.from_proto(response.backup_pool)
         self.description = Primitive.from_proto(response.description)
         self.failover_ratio = Primitive.from_proto(response.failover_ratio)
-        self.health_check = Primitive.from_proto(response.health_check)
-        self.instance = Primitive.from_proto(response.instance)
+        self.health_checks = Primitive.from_proto(response.health_checks)
+        self.instances = Primitive.from_proto(response.instances)
         self.name = Primitive.from_proto(response.name)
         self.region = Primitive.from_proto(response.region)
         self.self_link = Primitive.from_proto(response.self_link)
@@ -109,10 +111,12 @@ class TargetPool(object):
         if Primitive.to_proto(self.failover_ratio):
             request.resource.failover_ratio = Primitive.to_proto(self.failover_ratio)
 
-        if Primitive.to_proto(self.health_check):
-            request.resource.health_check.extend(Primitive.to_proto(self.health_check))
-        if Primitive.to_proto(self.instance):
-            request.resource.instance.extend(Primitive.to_proto(self.instance))
+        if Primitive.to_proto(self.health_checks):
+            request.resource.health_checks.extend(
+                Primitive.to_proto(self.health_checks)
+            )
+        if Primitive.to_proto(self.instances):
+            request.resource.instances.extend(Primitive.to_proto(self.instances))
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -143,27 +147,6 @@ class TargetPool(object):
 
         return stub.ListComputeTargetPool(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = target_pool_pb2.ComputeTargetPool()
-        any_proto.Unpack(res_proto)
-
-        res = TargetPool()
-        res.backup_pool = Primitive.from_proto(res_proto.backup_pool)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.failover_ratio = Primitive.from_proto(res_proto.failover_ratio)
-        res.health_check = Primitive.from_proto(res_proto.health_check)
-        res.instance = Primitive.from_proto(res_proto.instance)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.region = Primitive.from_proto(res_proto.region)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.session_affinity = TargetPoolSessionAffinityEnum.from_proto(
-            res_proto.session_affinity
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = target_pool_pb2.ComputeTargetPool()
         if Primitive.to_proto(self.backup_pool):
@@ -172,10 +155,10 @@ class TargetPool(object):
             resource.description = Primitive.to_proto(self.description)
         if Primitive.to_proto(self.failover_ratio):
             resource.failover_ratio = Primitive.to_proto(self.failover_ratio)
-        if Primitive.to_proto(self.health_check):
-            resource.health_check.extend(Primitive.to_proto(self.health_check))
-        if Primitive.to_proto(self.instance):
-            resource.instance.extend(Primitive.to_proto(self.instance))
+        if Primitive.to_proto(self.health_checks):
+            resource.health_checks.extend(Primitive.to_proto(self.health_checks))
+        if Primitive.to_proto(self.instances):
+            resource.instances.extend(Primitive.to_proto(self.instances))
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.region):

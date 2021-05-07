@@ -105,20 +105,6 @@ class IdentityAwareProxyClient(object):
 
         return stub.ListIapIdentityAwareProxyClient(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = identity_aware_proxy_client_pb2.IapIdentityAwareProxyClient()
-        any_proto.Unpack(res_proto)
-
-        res = IdentityAwareProxyClient()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.secret = Primitive.from_proto(res_proto.secret)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.brand = Primitive.from_proto(res_proto.brand)
-        return res
-
     def to_proto(self):
         resource = identity_aware_proxy_client_pb2.IapIdentityAwareProxyClient()
         if Primitive.to_proto(self.name):

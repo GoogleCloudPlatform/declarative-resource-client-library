@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -545,9 +544,6 @@ func canonicalizeHealthCheckDesiredState(rawDesired, rawInitial *HealthCheck, op
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
-	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
 		rawDesired.Location = rawInitial.Location
 	}
@@ -687,14 +683,23 @@ func canonicalizeNewHealthCheckHttp2HealthCheck(c *Client, des, nw *HealthCheckH
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Port) {
+		nw.Port = des.Port
+	}
 	if dcl.StringCanonicalize(des.PortName, nw.PortName) {
 		nw.PortName = des.PortName
+	}
+	if dcl.IsZeroValue(nw.PortSpecification) {
+		nw.PortSpecification = des.PortSpecification
 	}
 	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
 	if dcl.StringCanonicalize(des.RequestPath, nw.RequestPath) {
 		nw.RequestPath = des.RequestPath
+	}
+	if dcl.IsZeroValue(nw.ProxyHeader) {
+		nw.ProxyHeader = des.ProxyHeader
 	}
 	if dcl.StringCanonicalize(des.Response, nw.Response) {
 		nw.Response = des.Response
@@ -711,7 +716,7 @@ func canonicalizeNewHealthCheckHttp2HealthCheckSet(c *Client, des, nw []HealthCh
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareHealthCheckHttp2HealthCheck(c, &d, &n) {
+			if diffs, _ := compareHealthCheckHttp2HealthCheckNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -734,7 +739,7 @@ func canonicalizeNewHealthCheckHttp2HealthCheckSlice(c *Client, des, nw []Health
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []HealthCheckHttp2HealthCheck
@@ -788,14 +793,23 @@ func canonicalizeNewHealthCheckHttpHealthCheck(c *Client, des, nw *HealthCheckHt
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Port) {
+		nw.Port = des.Port
+	}
 	if dcl.StringCanonicalize(des.PortName, nw.PortName) {
 		nw.PortName = des.PortName
+	}
+	if dcl.IsZeroValue(nw.PortSpecification) {
+		nw.PortSpecification = des.PortSpecification
 	}
 	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
 	if dcl.StringCanonicalize(des.RequestPath, nw.RequestPath) {
 		nw.RequestPath = des.RequestPath
+	}
+	if dcl.IsZeroValue(nw.ProxyHeader) {
+		nw.ProxyHeader = des.ProxyHeader
 	}
 	if dcl.StringCanonicalize(des.Response, nw.Response) {
 		nw.Response = des.Response
@@ -812,7 +826,7 @@ func canonicalizeNewHealthCheckHttpHealthCheckSet(c *Client, des, nw []HealthChe
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareHealthCheckHttpHealthCheck(c, &d, &n) {
+			if diffs, _ := compareHealthCheckHttpHealthCheckNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -835,7 +849,7 @@ func canonicalizeNewHealthCheckHttpHealthCheckSlice(c *Client, des, nw []HealthC
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []HealthCheckHttpHealthCheck
@@ -889,14 +903,23 @@ func canonicalizeNewHealthCheckHttpsHealthCheck(c *Client, des, nw *HealthCheckH
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Port) {
+		nw.Port = des.Port
+	}
 	if dcl.StringCanonicalize(des.PortName, nw.PortName) {
 		nw.PortName = des.PortName
+	}
+	if dcl.IsZeroValue(nw.PortSpecification) {
+		nw.PortSpecification = des.PortSpecification
 	}
 	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
 	if dcl.StringCanonicalize(des.RequestPath, nw.RequestPath) {
 		nw.RequestPath = des.RequestPath
+	}
+	if dcl.IsZeroValue(nw.ProxyHeader) {
+		nw.ProxyHeader = des.ProxyHeader
 	}
 	if dcl.StringCanonicalize(des.Response, nw.Response) {
 		nw.Response = des.Response
@@ -913,7 +936,7 @@ func canonicalizeNewHealthCheckHttpsHealthCheckSet(c *Client, des, nw []HealthCh
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareHealthCheckHttpsHealthCheck(c, &d, &n) {
+			if diffs, _ := compareHealthCheckHttpsHealthCheckNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -936,7 +959,7 @@ func canonicalizeNewHealthCheckHttpsHealthCheckSlice(c *Client, des, nw []Health
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []HealthCheckHttpsHealthCheck
@@ -987,14 +1010,23 @@ func canonicalizeNewHealthCheckSslHealthCheck(c *Client, des, nw *HealthCheckSsl
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Port) {
+		nw.Port = des.Port
+	}
 	if dcl.StringCanonicalize(des.PortName, nw.PortName) {
 		nw.PortName = des.PortName
+	}
+	if dcl.IsZeroValue(nw.PortSpecification) {
+		nw.PortSpecification = des.PortSpecification
 	}
 	if dcl.StringCanonicalize(des.Request, nw.Request) {
 		nw.Request = des.Request
 	}
 	if dcl.StringCanonicalize(des.Response, nw.Response) {
 		nw.Response = des.Response
+	}
+	if dcl.IsZeroValue(nw.ProxyHeader) {
+		nw.ProxyHeader = des.ProxyHeader
 	}
 
 	return nw
@@ -1008,7 +1040,7 @@ func canonicalizeNewHealthCheckSslHealthCheckSet(c *Client, des, nw []HealthChec
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareHealthCheckSslHealthCheck(c, &d, &n) {
+			if diffs, _ := compareHealthCheckSslHealthCheckNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1031,7 +1063,7 @@ func canonicalizeNewHealthCheckSslHealthCheckSlice(c *Client, des, nw []HealthCh
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []HealthCheckSslHealthCheck
@@ -1082,14 +1114,23 @@ func canonicalizeNewHealthCheckTcpHealthCheck(c *Client, des, nw *HealthCheckTcp
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Port) {
+		nw.Port = des.Port
+	}
 	if dcl.StringCanonicalize(des.PortName, nw.PortName) {
 		nw.PortName = des.PortName
+	}
+	if dcl.IsZeroValue(nw.PortSpecification) {
+		nw.PortSpecification = des.PortSpecification
 	}
 	if dcl.StringCanonicalize(des.Request, nw.Request) {
 		nw.Request = des.Request
 	}
 	if dcl.StringCanonicalize(des.Response, nw.Response) {
 		nw.Response = des.Response
+	}
+	if dcl.IsZeroValue(nw.ProxyHeader) {
+		nw.ProxyHeader = des.ProxyHeader
 	}
 
 	return nw
@@ -1103,7 +1144,7 @@ func canonicalizeNewHealthCheckTcpHealthCheckSet(c *Client, des, nw []HealthChec
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareHealthCheckTcpHealthCheck(c, &d, &n) {
+			if diffs, _ := compareHealthCheckTcpHealthCheckNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1126,7 +1167,7 @@ func canonicalizeNewHealthCheckTcpHealthCheckSlice(c *Client, des, nw []HealthCh
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []HealthCheckTcpHealthCheck
@@ -1160,164 +1201,215 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 	}
 
 	var diffs []healthCheckDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.CheckIntervalSec, actual.CheckIntervalSec, dcl.Info{}, fn.AddNest("CheckIntervalSec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CheckIntervalSec, actual.CheckIntervalSec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("CheckIntervalSec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "CheckIntervalSec",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.HealthyThreshold, actual.HealthyThreshold, dcl.Info{}, fn.AddNest("HealthyThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HealthyThreshold, actual.HealthyThreshold, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("HealthyThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "HealthyThreshold",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Http2HealthCheck, actual.Http2HealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttp2HealthCheckNewStyle}, fn.AddNest("Http2HealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Http2HealthCheck, actual.Http2HealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttp2HealthCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Http2HealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "Http2HealthCheck",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpHealthCheck, actual.HttpHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttpHealthCheckNewStyle}, fn.AddNest("HttpHealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpHealthCheck, actual.HttpHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttpHealthCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("HttpHealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "HttpHealthCheck",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpsHealthCheck, actual.HttpsHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttpsHealthCheckNewStyle}, fn.AddNest("HttpsHealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpsHealthCheck, actual.HttpsHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttpsHealthCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("HttpsHealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "HttpsHealthCheck",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SslHealthCheck, actual.SslHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckSslHealthCheckNewStyle}, fn.AddNest("SslHealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SslHealthCheck, actual.SslHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckSslHealthCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("SslHealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "SslHealthCheck",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.TcpHealthCheck, actual.TcpHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckTcpHealthCheckNewStyle}, fn.AddNest("TcpHealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TcpHealthCheck, actual.TcpHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckTcpHealthCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("TcpHealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "TcpHealthCheck",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "Type",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UnhealthyThreshold, actual.UnhealthyThreshold, dcl.Info{}, fn.AddNest("UnhealthyThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UnhealthyThreshold, actual.UnhealthyThreshold, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("UnhealthyThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "UnhealthyThreshold",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeoutSec, actual.TimeoutSec, dcl.Info{}, fn.AddNest("TimeoutSec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeoutSec, actual.TimeoutSec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("TimeoutSec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{
-			UpdateOp: &updateHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "TimeoutSec",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Region",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, healthCheckDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1364,126 +1456,55 @@ func compareHealthCheckHttp2HealthCheckNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType"}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestPath, actual.RequestPath, dcl.Info{}, fn.AddNest("RequestPath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestPath, actual.RequestPath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("RequestPath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType"}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareHealthCheckHttp2HealthCheck(c *Client, desired, actual *HealthCheckHttp2HealthCheck) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
-		c.Config.Logger.Infof("Diff in Port.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) {
-		c.Config.Logger.Infof("Diff in PortName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortName), dcl.SprintResource(actual.PortName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) {
-		c.Config.Logger.Infof("Diff in PortSpecification.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortSpecification), dcl.SprintResource(actual.PortSpecification))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.RequestPath, actual.RequestPath) && !dcl.IsZeroValue(desired.RequestPath) {
-		c.Config.Logger.Infof("Diff in RequestPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestPath), dcl.SprintResource(actual.RequestPath))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) {
-		c.Config.Logger.Infof("Diff in ProxyHeader.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProxyHeader), dcl.SprintResource(actual.ProxyHeader))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) {
-		c.Config.Logger.Infof("Diff in Response.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Response), dcl.SprintResource(actual.Response))
-		return true
-	}
-	return false
-}
-
-func compareHealthCheckHttp2HealthCheckSlice(c *Client, desired, actual []HealthCheckHttp2HealthCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttp2HealthCheck, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckHttp2HealthCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttp2HealthCheck, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckHttp2HealthCheckMap(c *Client, desired, actual map[string]HealthCheckHttp2HealthCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttp2HealthCheck, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in HealthCheckHttp2HealthCheck, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareHealthCheckHttp2HealthCheck(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttp2HealthCheck, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareHealthCheckHttpHealthCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1506,126 +1527,55 @@ func compareHealthCheckHttpHealthCheckNewStyle(d, a interface{}, fn dcl.FieldNam
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType"}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestPath, actual.RequestPath, dcl.Info{}, fn.AddNest("RequestPath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestPath, actual.RequestPath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("RequestPath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType"}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareHealthCheckHttpHealthCheck(c *Client, desired, actual *HealthCheckHttpHealthCheck) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
-		c.Config.Logger.Infof("Diff in Port.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) {
-		c.Config.Logger.Infof("Diff in PortName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortName), dcl.SprintResource(actual.PortName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) {
-		c.Config.Logger.Infof("Diff in PortSpecification.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortSpecification), dcl.SprintResource(actual.PortSpecification))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.RequestPath, actual.RequestPath) && !dcl.IsZeroValue(desired.RequestPath) {
-		c.Config.Logger.Infof("Diff in RequestPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestPath), dcl.SprintResource(actual.RequestPath))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) {
-		c.Config.Logger.Infof("Diff in ProxyHeader.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProxyHeader), dcl.SprintResource(actual.ProxyHeader))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) {
-		c.Config.Logger.Infof("Diff in Response.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Response), dcl.SprintResource(actual.Response))
-		return true
-	}
-	return false
-}
-
-func compareHealthCheckHttpHealthCheckSlice(c *Client, desired, actual []HealthCheckHttpHealthCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttpHealthCheck, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckHttpHealthCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttpHealthCheck, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckHttpHealthCheckMap(c *Client, desired, actual map[string]HealthCheckHttpHealthCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttpHealthCheck, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in HealthCheckHttpHealthCheck, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareHealthCheckHttpHealthCheck(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttpHealthCheck, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareHealthCheckHttpsHealthCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1648,126 +1598,55 @@ func compareHealthCheckHttpsHealthCheckNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType"}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestPath, actual.RequestPath, dcl.Info{}, fn.AddNest("RequestPath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestPath, actual.RequestPath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("RequestPath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType"}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareHealthCheckHttpsHealthCheck(c *Client, desired, actual *HealthCheckHttpsHealthCheck) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
-		c.Config.Logger.Infof("Diff in Port.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) {
-		c.Config.Logger.Infof("Diff in PortName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortName), dcl.SprintResource(actual.PortName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) {
-		c.Config.Logger.Infof("Diff in PortSpecification.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortSpecification), dcl.SprintResource(actual.PortSpecification))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.RequestPath, actual.RequestPath) && !dcl.IsZeroValue(desired.RequestPath) {
-		c.Config.Logger.Infof("Diff in RequestPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestPath), dcl.SprintResource(actual.RequestPath))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) {
-		c.Config.Logger.Infof("Diff in ProxyHeader.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProxyHeader), dcl.SprintResource(actual.ProxyHeader))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) {
-		c.Config.Logger.Infof("Diff in Response.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Response), dcl.SprintResource(actual.Response))
-		return true
-	}
-	return false
-}
-
-func compareHealthCheckHttpsHealthCheckSlice(c *Client, desired, actual []HealthCheckHttpsHealthCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttpsHealthCheck, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckHttpsHealthCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttpsHealthCheck, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckHttpsHealthCheckMap(c *Client, desired, actual map[string]HealthCheckHttpsHealthCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttpsHealthCheck, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in HealthCheckHttpsHealthCheck, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareHealthCheckHttpsHealthCheck(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttpsHealthCheck, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareHealthCheckSslHealthCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1790,115 +1669,48 @@ func compareHealthCheckSslHealthCheckNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType"}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Request, actual.Request, dcl.Info{}, fn.AddNest("Request")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Request, actual.Request, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Request")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType"}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareHealthCheckSslHealthCheck(c *Client, desired, actual *HealthCheckSslHealthCheck) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
-		c.Config.Logger.Infof("Diff in Port.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) {
-		c.Config.Logger.Infof("Diff in PortName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortName), dcl.SprintResource(actual.PortName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) {
-		c.Config.Logger.Infof("Diff in PortSpecification.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortSpecification), dcl.SprintResource(actual.PortSpecification))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Request, actual.Request) && !dcl.IsZeroValue(desired.Request) {
-		c.Config.Logger.Infof("Diff in Request.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Request), dcl.SprintResource(actual.Request))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) {
-		c.Config.Logger.Infof("Diff in Response.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Response), dcl.SprintResource(actual.Response))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) {
-		c.Config.Logger.Infof("Diff in ProxyHeader.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProxyHeader), dcl.SprintResource(actual.ProxyHeader))
-		return true
-	}
-	return false
-}
-
-func compareHealthCheckSslHealthCheckSlice(c *Client, desired, actual []HealthCheckSslHealthCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckSslHealthCheck, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckSslHealthCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckSslHealthCheck, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckSslHealthCheckMap(c *Client, desired, actual map[string]HealthCheckSslHealthCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckSslHealthCheck, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in HealthCheckSslHealthCheck, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareHealthCheckSslHealthCheck(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in HealthCheckSslHealthCheck, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareHealthCheckTcpHealthCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1921,313 +1733,48 @@ func compareHealthCheckTcpHealthCheckNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType"}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PortSpecification, actual.PortSpecification, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("PortSpecification")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Request, actual.Request, dcl.Info{}, fn.AddNest("Request")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Request, actual.Request, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Request")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Response, actual.Response, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Response")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType"}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProxyHeader, actual.ProxyHeader, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("ProxyHeader")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareHealthCheckTcpHealthCheck(c *Client, desired, actual *HealthCheckTcpHealthCheck) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
-		c.Config.Logger.Infof("Diff in Port.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.PortName, actual.PortName) && !dcl.IsZeroValue(desired.PortName) {
-		c.Config.Logger.Infof("Diff in PortName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortName), dcl.SprintResource(actual.PortName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PortSpecification, actual.PortSpecification) && !dcl.IsZeroValue(desired.PortSpecification) {
-		c.Config.Logger.Infof("Diff in PortSpecification.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PortSpecification), dcl.SprintResource(actual.PortSpecification))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Request, actual.Request) && !dcl.IsZeroValue(desired.Request) {
-		c.Config.Logger.Infof("Diff in Request.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Request), dcl.SprintResource(actual.Request))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Response, actual.Response) && !dcl.IsZeroValue(desired.Response) {
-		c.Config.Logger.Infof("Diff in Response.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Response), dcl.SprintResource(actual.Response))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ProxyHeader, actual.ProxyHeader) && !dcl.IsZeroValue(desired.ProxyHeader) {
-		c.Config.Logger.Infof("Diff in ProxyHeader.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProxyHeader), dcl.SprintResource(actual.ProxyHeader))
-		return true
-	}
-	return false
-}
-
-func compareHealthCheckTcpHealthCheckSlice(c *Client, desired, actual []HealthCheckTcpHealthCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckTcpHealthCheck, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckTcpHealthCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckTcpHealthCheck, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckTcpHealthCheckMap(c *Client, desired, actual map[string]HealthCheckTcpHealthCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckTcpHealthCheck, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in HealthCheckTcpHealthCheck, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareHealthCheckTcpHealthCheck(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in HealthCheckTcpHealthCheck, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckHttp2HealthCheckPortSpecificationEnumSlice(c *Client, desired, actual []HealthCheckHttp2HealthCheckPortSpecificationEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttp2HealthCheckPortSpecificationEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckHttp2HealthCheckPortSpecificationEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttp2HealthCheckPortSpecificationEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckHttp2HealthCheckPortSpecificationEnum(c *Client, desired, actual *HealthCheckHttp2HealthCheckPortSpecificationEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareHealthCheckHttp2HealthCheckProxyHeaderEnumSlice(c *Client, desired, actual []HealthCheckHttp2HealthCheckProxyHeaderEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttp2HealthCheckProxyHeaderEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckHttp2HealthCheckProxyHeaderEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttp2HealthCheckProxyHeaderEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckHttp2HealthCheckProxyHeaderEnum(c *Client, desired, actual *HealthCheckHttp2HealthCheckProxyHeaderEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareHealthCheckHttpHealthCheckPortSpecificationEnumSlice(c *Client, desired, actual []HealthCheckHttpHealthCheckPortSpecificationEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttpHealthCheckPortSpecificationEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckHttpHealthCheckPortSpecificationEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttpHealthCheckPortSpecificationEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckHttpHealthCheckPortSpecificationEnum(c *Client, desired, actual *HealthCheckHttpHealthCheckPortSpecificationEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareHealthCheckHttpHealthCheckProxyHeaderEnumSlice(c *Client, desired, actual []HealthCheckHttpHealthCheckProxyHeaderEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttpHealthCheckProxyHeaderEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckHttpHealthCheckProxyHeaderEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttpHealthCheckProxyHeaderEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckHttpHealthCheckProxyHeaderEnum(c *Client, desired, actual *HealthCheckHttpHealthCheckProxyHeaderEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareHealthCheckHttpsHealthCheckPortSpecificationEnumSlice(c *Client, desired, actual []HealthCheckHttpsHealthCheckPortSpecificationEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttpsHealthCheckPortSpecificationEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckHttpsHealthCheckPortSpecificationEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttpsHealthCheckPortSpecificationEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckHttpsHealthCheckPortSpecificationEnum(c *Client, desired, actual *HealthCheckHttpsHealthCheckPortSpecificationEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareHealthCheckHttpsHealthCheckProxyHeaderEnumSlice(c *Client, desired, actual []HealthCheckHttpsHealthCheckProxyHeaderEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckHttpsHealthCheckProxyHeaderEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckHttpsHealthCheckProxyHeaderEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckHttpsHealthCheckProxyHeaderEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckHttpsHealthCheckProxyHeaderEnum(c *Client, desired, actual *HealthCheckHttpsHealthCheckProxyHeaderEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareHealthCheckSslHealthCheckPortSpecificationEnumSlice(c *Client, desired, actual []HealthCheckSslHealthCheckPortSpecificationEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckSslHealthCheckPortSpecificationEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckSslHealthCheckPortSpecificationEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckSslHealthCheckPortSpecificationEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckSslHealthCheckPortSpecificationEnum(c *Client, desired, actual *HealthCheckSslHealthCheckPortSpecificationEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareHealthCheckSslHealthCheckProxyHeaderEnumSlice(c *Client, desired, actual []HealthCheckSslHealthCheckProxyHeaderEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckSslHealthCheckProxyHeaderEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckSslHealthCheckProxyHeaderEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckSslHealthCheckProxyHeaderEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckSslHealthCheckProxyHeaderEnum(c *Client, desired, actual *HealthCheckSslHealthCheckProxyHeaderEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareHealthCheckTcpHealthCheckPortSpecificationEnumSlice(c *Client, desired, actual []HealthCheckTcpHealthCheckPortSpecificationEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckTcpHealthCheckPortSpecificationEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckTcpHealthCheckPortSpecificationEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckTcpHealthCheckPortSpecificationEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckTcpHealthCheckPortSpecificationEnum(c *Client, desired, actual *HealthCheckTcpHealthCheckPortSpecificationEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareHealthCheckTcpHealthCheckProxyHeaderEnumSlice(c *Client, desired, actual []HealthCheckTcpHealthCheckProxyHeaderEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckTcpHealthCheckProxyHeaderEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckTcpHealthCheckProxyHeaderEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckTcpHealthCheckProxyHeaderEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckTcpHealthCheckProxyHeaderEnum(c *Client, desired, actual *HealthCheckTcpHealthCheckProxyHeaderEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareHealthCheckTypeEnumSlice(c *Client, desired, actual []HealthCheckTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HealthCheckTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHealthCheckTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HealthCheckTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHealthCheckTypeEnum(c *Client, desired, actual *HealthCheckTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -2385,25 +1932,25 @@ func flattenHealthCheck(c *Client, i interface{}) *HealthCheck {
 		return nil
 	}
 
-	r := &HealthCheck{}
-	r.CheckIntervalSec = dcl.FlattenInteger(m["checkIntervalSec"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.HealthyThreshold = dcl.FlattenInteger(m["healthyThreshold"])
-	r.Http2HealthCheck = flattenHealthCheckHttp2HealthCheck(c, m["http2HealthCheck"])
-	r.HttpHealthCheck = flattenHealthCheckHttpHealthCheck(c, m["httpHealthCheck"])
-	r.HttpsHealthCheck = flattenHealthCheckHttpsHealthCheck(c, m["httpsHealthCheck"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.SslHealthCheck = flattenHealthCheckSslHealthCheck(c, m["sslHealthCheck"])
-	r.TcpHealthCheck = flattenHealthCheckTcpHealthCheck(c, m["tcpHealthCheck"])
-	r.Type = flattenHealthCheckTypeEnum(m["type"])
-	r.UnhealthyThreshold = dcl.FlattenInteger(m["unhealthyThreshold"])
-	r.TimeoutSec = dcl.FlattenInteger(m["timeoutSec"])
-	r.Region = dcl.FlattenString(m["region"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
-	r.Location = dcl.FlattenString(m["location"])
+	res := &HealthCheck{}
+	res.CheckIntervalSec = dcl.FlattenInteger(m["checkIntervalSec"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.HealthyThreshold = dcl.FlattenInteger(m["healthyThreshold"])
+	res.Http2HealthCheck = flattenHealthCheckHttp2HealthCheck(c, m["http2HealthCheck"])
+	res.HttpHealthCheck = flattenHealthCheckHttpHealthCheck(c, m["httpHealthCheck"])
+	res.HttpsHealthCheck = flattenHealthCheckHttpsHealthCheck(c, m["httpsHealthCheck"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.SslHealthCheck = flattenHealthCheckSslHealthCheck(c, m["sslHealthCheck"])
+	res.TcpHealthCheck = flattenHealthCheckTcpHealthCheck(c, m["tcpHealthCheck"])
+	res.Type = flattenHealthCheckTypeEnum(m["type"])
+	res.UnhealthyThreshold = dcl.FlattenInteger(m["unhealthyThreshold"])
+	res.TimeoutSec = dcl.FlattenInteger(m["timeoutSec"])
+	res.Region = dcl.FlattenString(m["region"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.Location = dcl.FlattenString(m["location"])
 
-	return r
+	return res
 }
 
 // expandHealthCheckHttp2HealthCheckMap expands the contents of HealthCheckHttp2HealthCheck into a JSON
@@ -2490,10 +2037,11 @@ func flattenHealthCheckHttp2HealthCheckSlice(c *Client, i interface{}) []HealthC
 // expandHealthCheckHttp2HealthCheck expands an instance of HealthCheckHttp2HealthCheck into a JSON
 // request object.
 func expandHealthCheckHttp2HealthCheck(c *Client, f *HealthCheckHttp2HealthCheck) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
 		m["port"] = v
 	}
@@ -2623,10 +2171,11 @@ func flattenHealthCheckHttpHealthCheckSlice(c *Client, i interface{}) []HealthCh
 // expandHealthCheckHttpHealthCheck expands an instance of HealthCheckHttpHealthCheck into a JSON
 // request object.
 func expandHealthCheckHttpHealthCheck(c *Client, f *HealthCheckHttpHealthCheck) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
 		m["port"] = v
 	}
@@ -2756,10 +2305,11 @@ func flattenHealthCheckHttpsHealthCheckSlice(c *Client, i interface{}) []HealthC
 // expandHealthCheckHttpsHealthCheck expands an instance of HealthCheckHttpsHealthCheck into a JSON
 // request object.
 func expandHealthCheckHttpsHealthCheck(c *Client, f *HealthCheckHttpsHealthCheck) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
 		m["port"] = v
 	}
@@ -2889,10 +2439,11 @@ func flattenHealthCheckSslHealthCheckSlice(c *Client, i interface{}) []HealthChe
 // expandHealthCheckSslHealthCheck expands an instance of HealthCheckSslHealthCheck into a JSON
 // request object.
 func expandHealthCheckSslHealthCheck(c *Client, f *HealthCheckSslHealthCheck) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
 		m["port"] = v
 	}
@@ -3018,10 +2569,11 @@ func flattenHealthCheckTcpHealthCheckSlice(c *Client, i interface{}) []HealthChe
 // expandHealthCheckTcpHealthCheck expands an instance of HealthCheckTcpHealthCheck into a JSON
 // request object.
 func expandHealthCheckTcpHealthCheck(c *Client, f *HealthCheckTcpHealthCheck) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
 		m["port"] = v
 	}
@@ -3443,5 +2995,36 @@ func (r *HealthCheck) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToHealthCheckDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]healthCheckDiff, error) {
+	var diffs []healthCheckDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := healthCheckDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTohealthCheckApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTohealthCheckApiOperation(op string, opts ...dcl.ApplyOption) (healthCheckApiOperation, error) {
+	switch op {
+
+	case "updateHealthCheckUpdateOperation":
+		return &updateHealthCheckUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

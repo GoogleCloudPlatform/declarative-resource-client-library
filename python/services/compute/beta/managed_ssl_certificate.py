@@ -126,26 +126,6 @@ class ManagedSslCertificate(object):
 
         return stub.ListComputeBetaManagedSslCertificate(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = managed_ssl_certificate_pb2.ComputeBetaManagedSslCertificate()
-        any_proto.Unpack(res_proto)
-
-        res = ManagedSslCertificate()
-        res.id = Primitive.from_proto(res_proto.id)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.managed = ManagedSslCertificateManaged.from_proto(res_proto.managed)
-        res.type = ManagedSslCertificateTypeEnum.from_proto(res_proto.type)
-        res.subject_alternative_names = Primitive.from_proto(
-            res_proto.subject_alternative_names
-        )
-        res.expire_time = Primitive.from_proto(res_proto.expire_time)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = managed_ssl_certificate_pb2.ComputeBetaManagedSslCertificate()
         if Primitive.to_proto(self.name):

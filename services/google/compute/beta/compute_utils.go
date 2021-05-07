@@ -42,7 +42,10 @@ func EncodeImageDeprecateRequest(m map[string]interface{}) map[string]interface{
 // WrapTargetPoolInstance wraps the instances provided by AddInstance and RemoveInstance
 // in their required format.
 func WrapTargetPoolInstance(m map[string]interface{}) map[string]interface{} {
-	is := m["instances"].([]string)
+	is, ok := m["instances"].([]string)
+	if !ok {
+		return nil
+	}
 	wrapped := make([]interface{}, len(is))
 	for idx, i := range is {
 		wrapped[idx] = map[string]interface{}{
@@ -57,7 +60,10 @@ func WrapTargetPoolInstance(m map[string]interface{}) map[string]interface{} {
 // WrapTargetPoolHealthCheck wraps the instances provided by AddHC and RemoveHC
 // in their required format.
 func WrapTargetPoolHealthCheck(m map[string]interface{}) map[string]interface{} {
-	hcs := m["healthChecks"].([]string)
+	hcs, ok := m["healthChecks"].([]string)
+	if !ok {
+		return nil
+	}
 	wrapped := make([]interface{}, len(hcs))
 	for idx, hc := range hcs {
 		wrapped[idx] = map[string]interface{}{
@@ -69,7 +75,13 @@ func WrapTargetPoolHealthCheck(m map[string]interface{}) map[string]interface{} 
 	}
 }
 
-func canonicalizeReservationCPUPlatform(o, n *string) bool {
+func canonicalizeReservationCPUPlatform(o, n interface{}) bool {
+	oVal, _ := o.(*string)
+	nVal, _ := n.(*string)
+	return equalReservationCPUPlatform(oVal, nVal)
+}
+
+func equalReservationCPUPlatform(o, n *string) bool {
 	if o == nil && n == nil {
 		return true
 	}
@@ -86,7 +98,7 @@ func canonicalizeReservationCPUPlatform(o, n *string) bool {
 	return *o == *n
 }
 
-func deriveAutoscalerTarget(as *Autoscaler) (*string, error) {
+func deriveAutoscalerTarget(as *Autoscaler, _ *string) (*string, error) {
 	if !dcl.IsEmptyValueIndirect(as.Location) {
 		if dcl.IsZone(as.Location) {
 			return dcl.DeriveField("projects/%s/zones/%s/instanceGroupManagers/%s", as.Target, as.Project, dcl.SelfLinkToName(as.Location), dcl.SelfLinkToName(as.Target))
@@ -541,4 +553,37 @@ func (op *deleteNetworkEndpointOperation) do(ctx context.Context, r *NetworkEndp
 		return dcl.NotDeletedError{ExistingResource: r}
 	}
 	return nil
+}
+
+func machineTypeOperations() func(fd *dcl.FieldDiff) []string {
+	return func(fd *dcl.FieldDiff) []string {
+		// We're assuming that the instance is currently running. If it isn't, this will lead to a no-op stop operation.
+		return []string{"updateInstanceStopOperation", "updateInstanceMachineTypeOperation", "updateInstanceStartOperation"}
+	}
+}
+
+func targetPoolHealthCheck() func(fd *dcl.FieldDiff) []string {
+	return func(fd *dcl.FieldDiff) []string {
+		var ops []string
+		if !dcl.IsZeroValue(fd.ToAdd) {
+			ops = append(ops, "updateTargetPoolAddHCOperation")
+		}
+		if !dcl.IsZeroValue(fd.ToRemove) {
+			ops = append(ops, "updateTargetPoolRemoveHCOperation")
+		}
+		return ops
+	}
+}
+
+func targetPoolInstances() func(fd *dcl.FieldDiff) []string {
+	return func(fd *dcl.FieldDiff) []string {
+		var ops []string
+		if !dcl.IsZeroValue(fd.ToAdd) {
+			ops = append(ops, "updateTargetPoolAddInstanceOperation")
+		}
+		if !dcl.IsZeroValue(fd.ToRemove) {
+			ops = append(ops, "updateTargetPoolRemoveInstanceOperation")
+		}
+		return ops
+	}
 }

@@ -233,6 +233,7 @@ func (c *Client) ApplyTopic(ctx context.Context, rawDesired *Topic, opts ...dcl.
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

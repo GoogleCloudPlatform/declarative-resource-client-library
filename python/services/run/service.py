@@ -120,23 +120,6 @@ class Service(object):
 
         return stub.ListRunService(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = service_pb2.RunService()
-        any_proto.Unpack(res_proto)
-
-        res = Service()
-        res.api_version = Primitive.from_proto(res_proto.api_version)
-        res.kind = Primitive.from_proto(res_proto.kind)
-        res.metadata = ServiceMetadata.from_proto(res_proto.metadata)
-        res.spec = ServiceSpec.from_proto(res_proto.spec)
-        res.status = ServiceStatus.from_proto(res_proto.status)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        res.name = Primitive.from_proto(res_proto.name)
-        return res
-
     def to_proto(self):
         resource = service_pb2.RunService()
         if Primitive.to_proto(self.api_version):

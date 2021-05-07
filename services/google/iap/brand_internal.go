@@ -264,9 +264,6 @@ func canonicalizeBrandDesiredState(rawDesired, rawInitial *Brand, opts ...dcl.Ap
 	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.BoolCanonicalize(rawDesired.OrgInternalOnly, rawInitial.OrgInternalOnly) {
-		rawDesired.OrgInternalOnly = rawInitial.OrgInternalOnly
-	}
 	if dcl.StringCanonicalize(rawDesired.SupportEmail, rawInitial.SupportEmail) {
 		rawDesired.SupportEmail = rawInitial.SupportEmail
 	}
@@ -335,53 +332,72 @@ func diffBrand(c *Client, desired, actual *Brand, opts ...dcl.ApplyOption) ([]br
 	}
 
 	var diffs []brandDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.ApplicationTitle, actual.ApplicationTitle, dcl.Info{}, fn.AddNest("ApplicationTitle")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApplicationTitle, actual.ApplicationTitle, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApplicationTitle")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ApplicationTitle",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBrandDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBrandDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.OrgInternalOnly, actual.OrgInternalOnly, dcl.Info{OutputOnly: true}, fn.AddNest("OrgInternalOnly")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OrgInternalOnly, actual.OrgInternalOnly, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OrgInternalOnly")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "OrgInternalOnly",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBrandDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SupportEmail, actual.SupportEmail, dcl.Info{}, fn.AddNest("SupportEmail")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SupportEmail, actual.SupportEmail, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SupportEmail")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SupportEmail",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBrandDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, brandDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBrandDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -498,14 +514,14 @@ func flattenBrand(c *Client, i interface{}) *Brand {
 		return nil
 	}
 
-	r := &Brand{}
-	r.ApplicationTitle = dcl.FlattenString(m["applicationTitle"])
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	r.OrgInternalOnly = dcl.FlattenBool(m["orgInternalOnly"])
-	r.SupportEmail = dcl.FlattenString(m["supportEmail"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &Brand{}
+	res.ApplicationTitle = dcl.FlattenString(m["applicationTitle"])
+	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	res.OrgInternalOnly = dcl.FlattenBool(m["orgInternalOnly"])
+	res.SupportEmail = dcl.FlattenString(m["supportEmail"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -539,5 +555,33 @@ func (r *Brand) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToBrandDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]brandDiff, error) {
+	var diffs []brandDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := brandDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTobrandApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTobrandApiOperation(op string, opts ...dcl.ApplyOption) (brandApiOperation, error) {
+	switch op {
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

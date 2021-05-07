@@ -103,26 +103,6 @@ class ServiceAccount(object):
 
         return stub.ListIamServiceAccount(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = service_account_pb2.IamServiceAccount()
-        any_proto.Unpack(res_proto)
-
-        res = ServiceAccount()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.unique_id = Primitive.from_proto(res_proto.unique_id)
-        res.email = Primitive.from_proto(res_proto.email)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.oauth2_client_id = Primitive.from_proto(res_proto.oauth2_client_id)
-        res.actas_resources = ServiceAccountActasResources.from_proto(
-            res_proto.actas_resources
-        )
-        res.disabled = Primitive.from_proto(res_proto.disabled)
-        return res
-
     def to_proto(self):
         resource = service_account_pb2.IamServiceAccount()
         if Primitive.to_proto(self.name):

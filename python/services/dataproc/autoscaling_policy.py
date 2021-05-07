@@ -145,27 +145,6 @@ class AutoscalingPolicy(object):
 
         return stub.ListDataprocAutoscalingPolicy(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = autoscaling_policy_pb2.DataprocAutoscalingPolicy()
-        any_proto.Unpack(res_proto)
-
-        res = AutoscalingPolicy()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.basic_algorithm = AutoscalingPolicyBasicAlgorithm.from_proto(
-            res_proto.basic_algorithm
-        )
-        res.worker_config = AutoscalingPolicyWorkerConfig.from_proto(
-            res_proto.worker_config
-        )
-        res.secondary_worker_config = AutoscalingPolicySecondaryWorkerConfig.from_proto(
-            res_proto.secondary_worker_config
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = autoscaling_policy_pb2.DataprocAutoscalingPolicy()
         if Primitive.to_proto(self.name):

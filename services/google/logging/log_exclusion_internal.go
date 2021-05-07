@@ -397,12 +397,6 @@ func canonicalizeLogExclusionDesiredState(rawDesired, rawInitial *LogExclusion, 
 	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
 		rawDesired.Disabled = rawInitial.Disabled
 	}
-	if dcl.IsZeroValue(rawDesired.CreateTime) {
-		rawDesired.CreateTime = rawInitial.CreateTime
-	}
-	if dcl.IsZeroValue(rawDesired.UpdateTime) {
-		rawDesired.UpdateTime = rawInitial.UpdateTime
-	}
 	if dcl.NameToSelfLink(rawDesired.Parent, rawInitial.Parent) {
 		rawDesired.Parent = rawInitial.Parent
 	}
@@ -481,72 +475,98 @@ func diffLogExclusion(c *Client, desired, actual *LogExclusion, opts ...dcl.Appl
 	}
 
 	var diffs []logExclusionDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogExclusionUpdateExclusionOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logExclusionDiff{
-			UpdateOp: &updateLogExclusionUpdateExclusionOperation{}, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogExclusionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logExclusionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogExclusionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logExclusionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Filter",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogExclusionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logExclusionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Disabled",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogExclusionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logExclusionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogExclusionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logExclusionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UpdateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogExclusionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, logExclusionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Parent",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToLogExclusionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -681,16 +701,16 @@ func flattenLogExclusion(c *Client, i interface{}) *LogExclusion {
 		return nil
 	}
 
-	r := &LogExclusion{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.Filter = dcl.FlattenString(m["filter"])
-	r.Disabled = dcl.FlattenBool(m["disabled"])
-	r.CreateTime = dcl.FlattenString(m["createTime"])
-	r.UpdateTime = dcl.FlattenString(m["updateTime"])
-	r.Parent = dcl.FlattenString(m["parent"])
+	res := &LogExclusion{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.Filter = dcl.FlattenString(m["filter"])
+	res.Disabled = dcl.FlattenBool(m["disabled"])
+	res.CreateTime = dcl.FlattenString(m["createTime"])
+	res.UpdateTime = dcl.FlattenString(m["updateTime"])
+	res.Parent = dcl.FlattenString(m["parent"])
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -724,5 +744,36 @@ func (r *LogExclusion) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToLogExclusionDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]logExclusionDiff, error) {
+	var diffs []logExclusionDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := logExclusionDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTologExclusionApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTologExclusionApiOperation(op string, opts ...dcl.ApplyOption) (logExclusionApiOperation, error) {
+	switch op {
+
+	case "updateLogExclusionUpdateExclusionOperation":
+		return &updateLogExclusionUpdateExclusionOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

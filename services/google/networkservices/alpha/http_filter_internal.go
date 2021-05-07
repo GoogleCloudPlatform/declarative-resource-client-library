@@ -449,12 +449,6 @@ func canonicalizeHttpFilterDesiredState(rawDesired, rawInitial *HttpFilter, opts
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.IsZeroValue(rawDesired.CreateTime) {
-		rawDesired.CreateTime = rawInitial.CreateTime
-	}
-	if dcl.IsZeroValue(rawDesired.UpdateTime) {
-		rawDesired.UpdateTime = rawInitial.UpdateTime
-	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
 	}
@@ -566,104 +560,137 @@ func diffHttpFilter(c *Client, desired, actual *HttpFilter, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []httpFilterDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpFilterUpdateHttpFilterOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpFilterDiff{
-			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpFilterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpFilterDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpFilterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpFilterDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UpdateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpFilterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpFilterUpdateHttpFilterOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpFilterDiff{
-			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, Diffs: ds,
-			FieldName: "Labels",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpFilterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.FilterName, actual.FilterName, dcl.Info{}, fn.AddNest("FilterName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FilterName, actual.FilterName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpFilterUpdateHttpFilterOperation")}, fn.AddNest("FilterName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpFilterDiff{
-			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, Diffs: ds,
-			FieldName: "FilterName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpFilterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigTypeUrl, actual.ConfigTypeUrl, dcl.Info{}, fn.AddNest("ConfigTypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigTypeUrl, actual.ConfigTypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpFilterUpdateHttpFilterOperation")}, fn.AddNest("ConfigTypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpFilterDiff{
-			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, Diffs: ds,
-			FieldName: "ConfigTypeUrl",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpFilterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpFilterUpdateHttpFilterOperation")}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpFilterDiff{
-			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, Diffs: ds,
-			FieldName: "Config",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpFilterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpFilterUpdateHttpFilterOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpFilterDiff{
-			UpdateOp: &updateHttpFilterUpdateHttpFilterOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpFilterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpFilterDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpFilterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpFilterDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpFilterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -815,19 +842,19 @@ func flattenHttpFilter(c *Client, i interface{}) *HttpFilter {
 		return nil
 	}
 
-	r := &HttpFilter{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.CreateTime = dcl.FlattenString(m["createTime"])
-	r.UpdateTime = dcl.FlattenString(m["updateTime"])
-	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	r.FilterName = dcl.FlattenString(m["filterName"])
-	r.ConfigTypeUrl = dcl.FlattenString(m["configTypeUrl"])
-	r.Config = dcl.FlattenString(m["config"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Location = dcl.FlattenString(m["location"])
+	res := &HttpFilter{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.CreateTime = dcl.FlattenString(m["createTime"])
+	res.UpdateTime = dcl.FlattenString(m["updateTime"])
+	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	res.FilterName = dcl.FlattenString(m["filterName"])
+	res.ConfigTypeUrl = dcl.FlattenString(m["configTypeUrl"])
+	res.Config = dcl.FlattenString(m["config"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Location = dcl.FlattenString(m["location"])
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -869,5 +896,36 @@ func (r *HttpFilter) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToHttpFilterDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]httpFilterDiff, error) {
+	var diffs []httpFilterDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := httpFilterDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTohttpFilterApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTohttpFilterApiOperation(op string, opts ...dcl.ApplyOption) (httpFilterApiOperation, error) {
+	switch op {
+
+	case "updateHttpFilterUpdateHttpFilterOperation":
+		return &updateHttpFilterUpdateHttpFilterOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

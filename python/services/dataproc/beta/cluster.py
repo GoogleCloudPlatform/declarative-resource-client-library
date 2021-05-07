@@ -108,26 +108,6 @@ class Cluster(object):
 
         return stub.ListDataprocBetaCluster(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = cluster_pb2.DataprocBetaCluster()
-        any_proto.Unpack(res_proto)
-
-        res = Cluster()
-        res.project = Primitive.from_proto(res_proto.project)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.config = ClusterClusterConfig.from_proto(res_proto.config)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.status = ClusterStatus.from_proto(res_proto.status)
-        res.status_history = ClusterStatusHistoryArray.from_proto(
-            res_proto.status_history
-        )
-        res.cluster_uuid = Primitive.from_proto(res_proto.cluster_uuid)
-        res.metrics = ClusterMetrics.from_proto(res_proto.metrics)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = cluster_pb2.DataprocBetaCluster()
         if Primitive.to_proto(self.project):

@@ -219,6 +219,7 @@ func (c *Client) ApplyRealm(ctx context.Context, rawDesired *Realm, opts ...dcl.
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

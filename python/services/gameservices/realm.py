@@ -109,23 +109,6 @@ class Realm(object):
 
         return stub.ListGameservicesRealm(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = realm_pb2.GameservicesRealm()
-        any_proto.Unpack(res_proto)
-
-        res = Realm()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.time_zone = Primitive.from_proto(res_proto.time_zone)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.location = Primitive.from_proto(res_proto.location)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = realm_pb2.GameservicesRealm()
         if Primitive.to_proto(self.name):

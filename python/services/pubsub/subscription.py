@@ -177,33 +177,6 @@ class Subscription(object):
 
         return stub.ListPubsubSubscription(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = subscription_pb2.PubsubSubscription()
-        any_proto.Unpack(res_proto)
-
-        res = Subscription()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.topic = Primitive.from_proto(res_proto.topic)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.message_retention_duration = Primitive.from_proto(
-            res_proto.message_retention_duration
-        )
-        res.retain_acked_messages = Primitive.from_proto(
-            res_proto.retain_acked_messages
-        )
-        res.expiration_policy = SubscriptionExpirationPolicy.from_proto(
-            res_proto.expiration_policy
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        res.dead_letter_policy = SubscriptionDeadLetterPolicy.from_proto(
-            res_proto.dead_letter_policy
-        )
-        res.push_config = SubscriptionPushConfig.from_proto(res_proto.push_config)
-        res.ack_deadline_seconds = Primitive.from_proto(res_proto.ack_deadline_seconds)
-        return res
-
     def to_proto(self):
         resource = subscription_pb2.PubsubSubscription()
         if Primitive.to_proto(self.name):

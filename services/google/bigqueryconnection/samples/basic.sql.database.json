@@ -1,0 +1,5 @@
+{
+  "name": "{{database}}",
+  "project": "{{project}}",
+  "instance": "{{ref:basic.sql.instance.json:name}}"
+}

@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -406,18 +405,6 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.CreatedAt) {
-		rawDesired.CreatedAt = rawInitial.CreatedAt
-	}
-	if dcl.IsZeroValue(rawDesired.LastModifiedAt) {
-		rawDesired.LastModifiedAt = rawInitial.LastModifiedAt
-	}
-	if dcl.IsZeroValue(rawDesired.ExpiresAt) {
-		rawDesired.ExpiresAt = rawInitial.ExpiresAt
-	}
-	if dcl.IsZeroValue(rawDesired.Environments) {
-		rawDesired.Environments = rawInitial.Environments
-	}
 	rawDesired.Properties = canonicalizeOrganizationProperties(rawDesired.Properties, rawInitial.Properties, opts...)
 	if dcl.StringCanonicalize(rawDesired.AnalyticsRegion, rawInitial.AnalyticsRegion) {
 		rawDesired.AnalyticsRegion = rawInitial.AnalyticsRegion
@@ -428,23 +415,8 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 	if dcl.IsZeroValue(rawDesired.RuntimeType) {
 		rawDesired.RuntimeType = rawInitial.RuntimeType
 	}
-	if dcl.IsZeroValue(rawDesired.SubscriptionType) {
-		rawDesired.SubscriptionType = rawInitial.SubscriptionType
-	}
-	if dcl.IsZeroValue(rawDesired.BillingType) {
-		rawDesired.BillingType = rawInitial.BillingType
-	}
-	if dcl.StringCanonicalize(rawDesired.CaCertificate, rawInitial.CaCertificate) {
-		rawDesired.CaCertificate = rawInitial.CaCertificate
-	}
 	if dcl.StringCanonicalize(rawDesired.RuntimeDatabaseEncryptionKeyName, rawInitial.RuntimeDatabaseEncryptionKeyName) {
 		rawDesired.RuntimeDatabaseEncryptionKeyName = rawInitial.RuntimeDatabaseEncryptionKeyName
-	}
-	if dcl.StringCanonicalize(rawDesired.ProjectId, rawInitial.ProjectId) {
-		rawDesired.ProjectId = rawInitial.ProjectId
-	}
-	if dcl.IsZeroValue(rawDesired.State) {
-		rawDesired.State = rawInitial.State
 	}
 	if dcl.NameToSelfLink(rawDesired.Parent, rawInitial.Parent) {
 		rawDesired.Parent = rawInitial.Parent
@@ -604,7 +576,7 @@ func canonicalizeNewOrganizationPropertiesSet(c *Client, des, nw []OrganizationP
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareOrganizationProperties(c, &d, &n) {
+			if diffs, _ := compareOrganizationPropertiesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -627,7 +599,7 @@ func canonicalizeNewOrganizationPropertiesSlice(c *Client, des, nw []Organizatio
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []OrganizationProperties
@@ -684,7 +656,7 @@ func canonicalizeNewOrganizationPropertiesPropertySet(c *Client, des, nw []Organ
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareOrganizationPropertiesProperty(c, &d, &n) {
+			if diffs, _ := compareOrganizationPropertiesPropertyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -707,7 +679,7 @@ func canonicalizeNewOrganizationPropertiesPropertySlice(c *Client, des, nw []Org
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []OrganizationPropertiesProperty
@@ -741,173 +713,241 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 	}
 
 	var diffs []organizationDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateOrganizationUpdateOrganizationOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{
-			UpdateOp: &updateOrganizationUpdateOrganizationOperation{}, Diffs: ds,
-			FieldName: "DisplayName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateOrganizationUpdateOrganizationOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{
-			UpdateOp: &updateOrganizationUpdateOrganizationOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreatedAt, actual.CreatedAt, dcl.Info{OutputOnly: true}, fn.AddNest("CreatedAt")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreatedAt, actual.CreatedAt, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreatedAt")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreatedAt",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.LastModifiedAt, actual.LastModifiedAt, dcl.Info{OutputOnly: true}, fn.AddNest("LastModifiedAt")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LastModifiedAt, actual.LastModifiedAt, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LastModifiedAt")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "LastModifiedAt",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExpiresAt, actual.ExpiresAt, dcl.Info{OutputOnly: true}, fn.AddNest("ExpiresAt")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExpiresAt, actual.ExpiresAt, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExpiresAt")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ExpiresAt",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Environments, actual.Environments, dcl.Info{OutputOnly: true}, fn.AddNest("Environments")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Environments, actual.Environments, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Environments")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Environments",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{ObjectFunction: compareOrganizationPropertiesNewStyle}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{ObjectFunction: compareOrganizationPropertiesNewStyle, OperationSelector: dcl.TriggersOperation("updateOrganizationUpdateOrganizationOperation")}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{
-			UpdateOp: &updateOrganizationUpdateOrganizationOperation{}, Diffs: ds,
-			FieldName: "Properties",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AnalyticsRegion, actual.AnalyticsRegion, dcl.Info{}, fn.AddNest("AnalyticsRegion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AnalyticsRegion, actual.AnalyticsRegion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AnalyticsRegion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "AnalyticsRegion",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AuthorizedNetwork, actual.AuthorizedNetwork, dcl.Info{}, fn.AddNest("AuthorizedNetwork")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AuthorizedNetwork, actual.AuthorizedNetwork, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuthorizedNetwork")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "AuthorizedNetwork",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.RuntimeType, actual.RuntimeType, dcl.Info{Type: "EnumType"}, fn.AddNest("RuntimeType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RuntimeType, actual.RuntimeType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RuntimeType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "RuntimeType",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SubscriptionType, actual.SubscriptionType, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("SubscriptionType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SubscriptionType, actual.SubscriptionType, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SubscriptionType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SubscriptionType",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.BillingType, actual.BillingType, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("BillingType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BillingType, actual.BillingType, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BillingType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "BillingType",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CaCertificate, actual.CaCertificate, dcl.Info{OutputOnly: true}, fn.AddNest("CaCertificate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CaCertificate, actual.CaCertificate, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CaCertificate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CaCertificate",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.RuntimeDatabaseEncryptionKeyName, actual.RuntimeDatabaseEncryptionKeyName, dcl.Info{}, fn.AddNest("RuntimeDatabaseEncryptionKeyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RuntimeDatabaseEncryptionKeyName, actual.RuntimeDatabaseEncryptionKeyName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RuntimeDatabaseEncryptionKeyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "RuntimeDatabaseEncryptionKeyName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{OutputOnly: true}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ProjectId",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "State",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, organizationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Parent",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -954,96 +994,13 @@ func compareOrganizationPropertiesNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Property, actual.Property, dcl.Info{Type: "Set", ObjectFunction: compareOrganizationPropertiesPropertyNewStyle}, fn.AddNest("Property")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Property, actual.Property, dcl.Info{Type: "Set", ObjectFunction: compareOrganizationPropertiesPropertyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Property")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareOrganizationProperties(c *Client, desired, actual *OrganizationProperties) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if toAdd, toRemove := compareOrganizationPropertiesPropertySets(c, desired.Property, actual.Property); len(toAdd)+len(toRemove) > 0 {
-		c.Config.Logger.Infof("Diff in Property.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Property), dcl.SprintResource(actual.Property))
-		return true
-	}
-	return false
-}
-
-func compareOrganizationPropertiesPropertySets(c *Client, desired, actual []OrganizationPropertiesProperty) (toAdd, toRemove []OrganizationPropertiesProperty) {
-	if actual == nil {
-		return desired, nil
-	}
-	toAdd = make([]OrganizationPropertiesProperty, 0)
-	toRemove = make([]OrganizationPropertiesProperty, 0)
-
-	for _, act := range actual {
-		found := false
-		for _, des := range desired {
-			if !compareOrganizationPropertiesProperty(c, &des, &act) {
-				found = true
-				break
-			}
-		}
-		if !found {
-			toRemove = append(toRemove, act)
-		}
-	}
-
-	for _, des := range desired {
-		found := false
-		for _, act := range actual {
-			if !compareOrganizationPropertiesProperty(c, &des, &act) {
-				found = true
-				break
-			}
-		}
-		if !found {
-			toAdd = append(toAdd, des)
-		}
-	}
-
-	return toAdd, toRemove
-}
-
-func compareOrganizationPropertiesSlice(c *Client, desired, actual []OrganizationProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in OrganizationProperties, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareOrganizationProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in OrganizationProperties, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareOrganizationPropertiesMap(c *Client, desired, actual map[string]OrganizationProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in OrganizationProperties, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in OrganizationProperties, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareOrganizationProperties(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in OrganizationProperties, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareOrganizationPropertiesPropertyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1066,143 +1023,20 @@ func compareOrganizationPropertiesPropertyNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareOrganizationPropertiesProperty(c *Client, desired, actual *OrganizationPropertiesProperty) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-
-func compareOrganizationPropertiesPropertySlice(c *Client, desired, actual []OrganizationPropertiesProperty) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in OrganizationPropertiesProperty, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareOrganizationPropertiesProperty(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in OrganizationPropertiesProperty, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareOrganizationPropertiesPropertyMap(c *Client, desired, actual map[string]OrganizationPropertiesProperty) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in OrganizationPropertiesProperty, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in OrganizationPropertiesProperty, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareOrganizationPropertiesProperty(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in OrganizationPropertiesProperty, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareOrganizationRuntimeTypeEnumSlice(c *Client, desired, actual []OrganizationRuntimeTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in OrganizationRuntimeTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareOrganizationRuntimeTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in OrganizationRuntimeTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareOrganizationRuntimeTypeEnum(c *Client, desired, actual *OrganizationRuntimeTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareOrganizationSubscriptionTypeEnumSlice(c *Client, desired, actual []OrganizationSubscriptionTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in OrganizationSubscriptionTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareOrganizationSubscriptionTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in OrganizationSubscriptionTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareOrganizationSubscriptionTypeEnum(c *Client, desired, actual *OrganizationSubscriptionTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareOrganizationBillingTypeEnumSlice(c *Client, desired, actual []OrganizationBillingTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in OrganizationBillingTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareOrganizationBillingTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in OrganizationBillingTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareOrganizationBillingTypeEnum(c *Client, desired, actual *OrganizationBillingTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareOrganizationStateEnumSlice(c *Client, desired, actual []OrganizationStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in OrganizationStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareOrganizationStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in OrganizationStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareOrganizationStateEnum(c *Client, desired, actual *OrganizationStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1353,27 +1187,27 @@ func flattenOrganization(c *Client, i interface{}) *Organization {
 		return nil
 	}
 
-	r := &Organization{}
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	r.DisplayName = dcl.FlattenString(m["displayName"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.CreatedAt = dcl.FlattenInteger(m["createdAt"])
-	r.LastModifiedAt = dcl.FlattenInteger(m["lastModifiedAt"])
-	r.ExpiresAt = dcl.FlattenInteger(m["expiresAt"])
-	r.Environments = dcl.FlattenStringSlice(m["environments"])
-	r.Properties = flattenOrganizationProperties(c, m["properties"])
-	r.AnalyticsRegion = dcl.FlattenString(m["analyticsRegion"])
-	r.AuthorizedNetwork = dcl.FlattenString(m["authorizedNetwork"])
-	r.RuntimeType = flattenOrganizationRuntimeTypeEnum(m["runtimeType"])
-	r.SubscriptionType = flattenOrganizationSubscriptionTypeEnum(m["subscriptionType"])
-	r.BillingType = flattenOrganizationBillingTypeEnum(m["billingType"])
-	r.CaCertificate = dcl.FlattenString(m["caCertificate"])
-	r.RuntimeDatabaseEncryptionKeyName = dcl.FlattenString(m["runtimeDatabaseEncryptionKeyName"])
-	r.ProjectId = dcl.FlattenString(m["projectId"])
-	r.State = flattenOrganizationStateEnum(m["state"])
-	r.Parent = dcl.FlattenString(m["parent"])
+	res := &Organization{}
+	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	res.DisplayName = dcl.FlattenString(m["displayName"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.CreatedAt = dcl.FlattenInteger(m["createdAt"])
+	res.LastModifiedAt = dcl.FlattenInteger(m["lastModifiedAt"])
+	res.ExpiresAt = dcl.FlattenInteger(m["expiresAt"])
+	res.Environments = dcl.FlattenStringSlice(m["environments"])
+	res.Properties = flattenOrganizationProperties(c, m["properties"])
+	res.AnalyticsRegion = dcl.FlattenString(m["analyticsRegion"])
+	res.AuthorizedNetwork = dcl.FlattenString(m["authorizedNetwork"])
+	res.RuntimeType = flattenOrganizationRuntimeTypeEnum(m["runtimeType"])
+	res.SubscriptionType = flattenOrganizationSubscriptionTypeEnum(m["subscriptionType"])
+	res.BillingType = flattenOrganizationBillingTypeEnum(m["billingType"])
+	res.CaCertificate = dcl.FlattenString(m["caCertificate"])
+	res.RuntimeDatabaseEncryptionKeyName = dcl.FlattenString(m["runtimeDatabaseEncryptionKeyName"])
+	res.ProjectId = dcl.FlattenString(m["projectId"])
+	res.State = flattenOrganizationStateEnum(m["state"])
+	res.Parent = dcl.FlattenString(m["parent"])
 
-	return r
+	return res
 }
 
 // expandOrganizationPropertiesMap expands the contents of OrganizationProperties into a JSON
@@ -1460,10 +1294,11 @@ func flattenOrganizationPropertiesSlice(c *Client, i interface{}) []Organization
 // expandOrganizationProperties expands an instance of OrganizationProperties into a JSON
 // request object.
 func expandOrganizationProperties(c *Client, f *OrganizationProperties) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandOrganizationPropertiesPropertySlice(c, f.Property); err != nil {
 		return nil, fmt.Errorf("error expanding Property into property: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1571,10 +1406,11 @@ func flattenOrganizationPropertiesPropertySlice(c *Client, i interface{}) []Orga
 // expandOrganizationPropertiesProperty expands an instance of OrganizationPropertiesProperty into a JSON
 // request object.
 func expandOrganizationPropertiesProperty(c *Client, f *OrganizationPropertiesProperty) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -1747,5 +1583,36 @@ func (r *Organization) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToOrganizationDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]organizationDiff, error) {
+	var diffs []organizationDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := organizationDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToorganizationApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToorganizationApiOperation(op string, opts ...dcl.ApplyOption) (organizationApiOperation, error) {
+	switch op {
+
+	case "updateOrganizationUpdateOrganizationOperation":
+		return &updateOrganizationUpdateOrganizationOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

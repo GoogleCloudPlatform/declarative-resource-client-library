@@ -96,8 +96,9 @@ components:
               x-dcl-go-name: IngestDelay
               x-kubernetes-immutable: true
             launchStage:
-              description: 'Deprecated. Must use the instead. Possible values: LAUNCH_STAGE_UNSPECIFIED,
-                UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS, ALPHA, BETA, GA, DEPRECATED'
+              description: 'Deprecated. Must use the `MetricDescriptor.launch_stage`
+                instead. Possible values: LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED,
+                PRELAUNCH, EARLY_ACCESS, ALPHA, BETA, GA, DEPRECATED'
               enum:
               - LAUNCH_STAGE_UNSPECIFIED
               - UNIMPLEMENTED

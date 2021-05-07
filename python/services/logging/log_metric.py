@@ -161,29 +161,6 @@ class LogMetric(object):
 
         return stub.ListLoggingLogMetric(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = log_metric_pb2.LoggingLogMetric()
-        any_proto.Unpack(res_proto)
-
-        res = LogMetric()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.filter = Primitive.from_proto(res_proto.filter)
-        res.disabled = Primitive.from_proto(res_proto.disabled)
-        res.metric_descriptor = LogMetricMetricDescriptor.from_proto(
-            res_proto.metric_descriptor
-        )
-        res.value_extractor = Primitive.from_proto(res_proto.value_extractor)
-        res.label_extractors = Primitive.from_proto(res_proto.label_extractors)
-        res.bucket_options = LogMetricBucketOptions.from_proto(res_proto.bucket_options)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.resolution = Primitive.from_proto(res_proto.resolution)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = log_metric_pb2.LoggingLogMetric()
         if Primitive.to_proto(self.name):
@@ -222,10 +199,11 @@ class LogMetricMetricDescriptor(object):
         self,
         name: str = None,
         type: str = None,
-        labels: list = None,
+        descriptor_labels: list = None,
         metric_kind: str = None,
         value_type: str = None,
         unit: str = None,
+        description: str = None,
         display_name: str = None,
         metadata: dict = None,
         launch_stage: str = None,
@@ -233,10 +211,11 @@ class LogMetricMetricDescriptor(object):
     ):
         self.name = name
         self.type = type
-        self.labels = labels
+        self.descriptor_labels = descriptor_labels
         self.metric_kind = metric_kind
         self.value_type = value_type
         self.unit = unit
+        self.description = description
         self.display_name = display_name
         self.metadata = metadata
         self.launch_stage = launch_stage
@@ -252,9 +231,13 @@ class LogMetricMetricDescriptor(object):
             res.name = Primitive.to_proto(resource.name)
         if Primitive.to_proto(resource.type):
             res.type = Primitive.to_proto(resource.type)
-        if LogMetricMetricDescriptorLabelsArray.to_proto(resource.labels):
-            res.labels.extend(
-                LogMetricMetricDescriptorLabelsArray.to_proto(resource.labels)
+        if LogMetricMetricDescriptorDescriptorLabelsArray.to_proto(
+            resource.descriptor_labels
+        ):
+            res.descriptor_labels.extend(
+                LogMetricMetricDescriptorDescriptorLabelsArray.to_proto(
+                    resource.descriptor_labels
+                )
             )
         if LogMetricMetricDescriptorMetricKindEnum.to_proto(resource.metric_kind):
             res.metric_kind = LogMetricMetricDescriptorMetricKindEnum.to_proto(
@@ -266,6 +249,8 @@ class LogMetricMetricDescriptor(object):
             )
         if Primitive.to_proto(resource.unit):
             res.unit = Primitive.to_proto(resource.unit)
+        if Primitive.to_proto(resource.description):
+            res.description = Primitive.to_proto(resource.description)
         if Primitive.to_proto(resource.display_name):
             res.display_name = Primitive.to_proto(resource.display_name)
         if LogMetricMetricDescriptorMetadata.to_proto(resource.metadata):
@@ -292,10 +277,11 @@ class LogMetricMetricDescriptor(object):
         return LogMetricMetricDescriptor(
             name=resource.name,
             type=resource.type,
-            labels=resource.labels,
+            descriptor_labels=resource.descriptor_labels,
             metric_kind=resource.metric_kind,
             value_type=resource.value_type,
             unit=resource.unit,
+            description=resource.description,
             display_name=resource.display_name,
             metadata=resource.metadata,
             launch_stage=resource.launch_stage,
@@ -315,7 +301,7 @@ class LogMetricMetricDescriptorArray(object):
         return [LogMetricMetricDescriptor.from_proto(i) for i in resources]
 
 
-class LogMetricMetricDescriptorLabels(object):
+class LogMetricMetricDescriptorDescriptorLabels(object):
     def __init__(
         self, key: str = None, value_type: str = None, description: str = None
     ):
@@ -328,11 +314,13 @@ class LogMetricMetricDescriptorLabels(object):
         if not resource:
             return None
 
-        res = log_metric_pb2.LoggingLogMetricMetricDescriptorLabels()
+        res = log_metric_pb2.LoggingLogMetricMetricDescriptorDescriptorLabels()
         if Primitive.to_proto(resource.key):
             res.key = Primitive.to_proto(resource.key)
-        if LogMetricMetricDescriptorLabelsValueTypeEnum.to_proto(resource.value_type):
-            res.value_type = LogMetricMetricDescriptorLabelsValueTypeEnum.to_proto(
+        if LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum.to_proto(
+            resource.value_type
+        ):
+            res.value_type = LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum.to_proto(
                 resource.value_type
             )
         if Primitive.to_proto(resource.description):
@@ -344,31 +332,35 @@ class LogMetricMetricDescriptorLabels(object):
         if not resource:
             return None
 
-        return LogMetricMetricDescriptorLabels(
+        return LogMetricMetricDescriptorDescriptorLabels(
             key=resource.key,
             value_type=resource.value_type,
             description=resource.description,
         )
 
 
-class LogMetricMetricDescriptorLabelsArray(object):
+class LogMetricMetricDescriptorDescriptorLabelsArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [LogMetricMetricDescriptorLabels.to_proto(i) for i in resources]
+        return [
+            LogMetricMetricDescriptorDescriptorLabels.to_proto(i) for i in resources
+        ]
 
     @classmethod
     def from_proto(self, resources):
-        return [LogMetricMetricDescriptorLabels.from_proto(i) for i in resources]
+        return [
+            LogMetricMetricDescriptorDescriptorLabels.from_proto(i) for i in resources
+        ]
 
 
 class LogMetricMetricDescriptorMetadata(object):
     def __init__(
         self,
         launch_stage: str = None,
-        sample_period: dict = None,
-        ingest_delay: dict = None,
+        sample_period: str = None,
+        ingest_delay: str = None,
     ):
         self.launch_stage = launch_stage
         self.sample_period = sample_period
@@ -386,24 +378,10 @@ class LogMetricMetricDescriptorMetadata(object):
             res.launch_stage = LogMetricMetricDescriptorMetadataLaunchStageEnum.to_proto(
                 resource.launch_stage
             )
-        if LogMetricMetricDescriptorMetadataSamplePeriod.to_proto(
-            resource.sample_period
-        ):
-            res.sample_period.CopyFrom(
-                LogMetricMetricDescriptorMetadataSamplePeriod.to_proto(
-                    resource.sample_period
-                )
-            )
-        else:
-            res.ClearField("sample_period")
-        if LogMetricMetricDescriptorMetadataIngestDelay.to_proto(resource.ingest_delay):
-            res.ingest_delay.CopyFrom(
-                LogMetricMetricDescriptorMetadataIngestDelay.to_proto(
-                    resource.ingest_delay
-                )
-            )
-        else:
-            res.ClearField("ingest_delay")
+        if Primitive.to_proto(resource.sample_period):
+            res.sample_period = Primitive.to_proto(resource.sample_period)
+        if Primitive.to_proto(resource.ingest_delay):
+            res.ingest_delay = Primitive.to_proto(resource.ingest_delay)
         return res
 
     @classmethod
@@ -428,94 +406,6 @@ class LogMetricMetricDescriptorMetadataArray(object):
     @classmethod
     def from_proto(self, resources):
         return [LogMetricMetricDescriptorMetadata.from_proto(i) for i in resources]
-
-
-class LogMetricMetricDescriptorMetadataSamplePeriod(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = log_metric_pb2.LoggingLogMetricMetricDescriptorMetadataSamplePeriod()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return LogMetricMetricDescriptorMetadataSamplePeriod(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class LogMetricMetricDescriptorMetadataSamplePeriodArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            LogMetricMetricDescriptorMetadataSamplePeriod.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            LogMetricMetricDescriptorMetadataSamplePeriod.from_proto(i)
-            for i in resources
-        ]
-
-
-class LogMetricMetricDescriptorMetadataIngestDelay(object):
-    def __init__(self, seconds: int = None, nanos: int = None):
-        self.seconds = seconds
-        self.nanos = nanos
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = log_metric_pb2.LoggingLogMetricMetricDescriptorMetadataIngestDelay()
-        if Primitive.to_proto(resource.seconds):
-            res.seconds = Primitive.to_proto(resource.seconds)
-        if Primitive.to_proto(resource.nanos):
-            res.nanos = Primitive.to_proto(resource.nanos)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return LogMetricMetricDescriptorMetadataIngestDelay(
-            seconds=resource.seconds, nanos=resource.nanos,
-        )
-
-
-class LogMetricMetricDescriptorMetadataIngestDelayArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            LogMetricMetricDescriptorMetadataIngestDelay.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            LogMetricMetricDescriptorMetadataIngestDelay.from_proto(i)
-            for i in resources
-        ]
 
 
 class LogMetricBucketOptions(object):
@@ -716,22 +606,24 @@ class LogMetricBucketOptionsExplicitBucketsArray(object):
         return [LogMetricBucketOptionsExplicitBuckets.from_proto(i) for i in resources]
 
 
-class LogMetricMetricDescriptorLabelsValueTypeEnum(object):
+class LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return log_metric_pb2.LoggingLogMetricMetricDescriptorLabelsValueTypeEnum.Value(
-            "LoggingLogMetricMetricDescriptorLabelsValueTypeEnum%s" % resource
+        return log_metric_pb2.LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum.Value(
+            "LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return log_metric_pb2.LoggingLogMetricMetricDescriptorLabelsValueTypeEnum.Name(
+        return log_metric_pb2.LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum.Name(
             resource
-        )[len("LoggingLogMetricMetricDescriptorLabelsValueTypeEnum") :]
+        )[
+            len("LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum") :
+        ]
 
 
 class LogMetricMetricDescriptorMetricKindEnum(object):

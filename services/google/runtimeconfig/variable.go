@@ -38,7 +38,7 @@ func (r *Variable) String() string {
 // can identify it.
 func (r *Variable) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "runtimeconfig",
+		Service: "runtime_config",
 		Type:    "Variable",
 		Version: "runtimeconfig",
 	}
@@ -217,6 +217,7 @@ func (c *Client) ApplyVariable(ctx context.Context, rawDesired *Variable, opts .
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

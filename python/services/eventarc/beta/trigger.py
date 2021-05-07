@@ -145,28 +145,6 @@ class Trigger(object):
 
         return stub.ListEventarcBetaTrigger(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = trigger_pb2.EventarcBetaTrigger()
-        any_proto.Unpack(res_proto)
-
-        res = Trigger()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.service_account = Primitive.from_proto(res_proto.service_account)
-        res.destination = TriggerDestination.from_proto(res_proto.destination)
-        res.transport = TriggerTransport.from_proto(res_proto.transport)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.etag = Primitive.from_proto(res_proto.etag)
-        res.matching_criteria = TriggerMatchingCriteriaArray.from_proto(
-            res_proto.matching_criteria
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = trigger_pb2.EventarcBetaTrigger()
         if Primitive.to_proto(self.name):

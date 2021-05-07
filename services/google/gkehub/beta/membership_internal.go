@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -515,24 +514,8 @@ func canonicalizeMembershipDesiredState(rawDesired, rawInitial *Membership, opts
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	rawDesired.State = canonicalizeMembershipState(rawDesired.State, rawInitial.State, opts...)
-	if dcl.IsZeroValue(rawDesired.CreateTime) {
-		rawDesired.CreateTime = rawInitial.CreateTime
-	}
-	if dcl.IsZeroValue(rawDesired.UpdateTime) {
-		rawDesired.UpdateTime = rawInitial.UpdateTime
-	}
-	if dcl.IsZeroValue(rawDesired.DeleteTime) {
-		rawDesired.DeleteTime = rawInitial.DeleteTime
-	}
 	if dcl.StringCanonicalize(rawDesired.ExternalId, rawInitial.ExternalId) {
 		rawDesired.ExternalId = rawInitial.ExternalId
-	}
-	if dcl.IsZeroValue(rawDesired.LastConnectionTime) {
-		rawDesired.LastConnectionTime = rawInitial.LastConnectionTime
-	}
-	if dcl.StringCanonicalize(rawDesired.UniqueId, rawInitial.UniqueId) {
-		rawDesired.UniqueId = rawInitial.UniqueId
 	}
 	rawDesired.Authority = canonicalizeMembershipAuthority(rawDesired.Authority, rawInitial.Authority, opts...)
 	if dcl.IsZeroValue(rawDesired.InfrastructureType) {
@@ -650,7 +633,6 @@ func canonicalizeMembershipEndpoint(des, initial *MembershipEndpoint, opts ...dc
 	}
 
 	des.GkeCluster = canonicalizeMembershipEndpointGkeCluster(des.GkeCluster, initial.GkeCluster, opts...)
-	des.KubernetesMetadata = canonicalizeMembershipEndpointKubernetesMetadata(des.KubernetesMetadata, initial.KubernetesMetadata, opts...)
 	des.KubernetesResource = canonicalizeMembershipEndpointKubernetesResource(des.KubernetesResource, initial.KubernetesResource, opts...)
 
 	return des
@@ -676,7 +658,7 @@ func canonicalizeNewMembershipEndpointSet(c *Client, des, nw []MembershipEndpoin
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareMembershipEndpoint(c, &d, &n) {
+			if diffs, _ := compareMembershipEndpointNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -699,7 +681,7 @@ func canonicalizeNewMembershipEndpointSlice(c *Client, des, nw []MembershipEndpo
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []MembershipEndpoint
@@ -750,7 +732,7 @@ func canonicalizeNewMembershipEndpointGkeClusterSet(c *Client, des, nw []Members
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareMembershipEndpointGkeCluster(c, &d, &n) {
+			if diffs, _ := compareMembershipEndpointGkeClusterNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -773,7 +755,7 @@ func canonicalizeNewMembershipEndpointGkeClusterSlice(c *Client, des, nw []Membe
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []MembershipEndpointGkeCluster
@@ -797,25 +779,6 @@ func canonicalizeMembershipEndpointKubernetesMetadata(des, initial *MembershipEn
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.KubernetesApiServerVersion, initial.KubernetesApiServerVersion) || dcl.IsZeroValue(des.KubernetesApiServerVersion) {
-		des.KubernetesApiServerVersion = initial.KubernetesApiServerVersion
-	}
-	if dcl.StringCanonicalize(des.NodeProviderId, initial.NodeProviderId) || dcl.IsZeroValue(des.NodeProviderId) {
-		des.NodeProviderId = initial.NodeProviderId
-	}
-	if dcl.IsZeroValue(des.NodeCount) {
-		des.NodeCount = initial.NodeCount
-	}
-	if dcl.IsZeroValue(des.VcpuCount) {
-		des.VcpuCount = initial.VcpuCount
-	}
-	if dcl.IsZeroValue(des.MemoryMb) {
-		des.MemoryMb = initial.MemoryMb
-	}
-	if dcl.IsZeroValue(des.UpdateTime) {
-		des.UpdateTime = initial.UpdateTime
-	}
-
 	return des
 }
 
@@ -830,6 +793,18 @@ func canonicalizeNewMembershipEndpointKubernetesMetadata(c *Client, des, nw *Mem
 	if dcl.StringCanonicalize(des.NodeProviderId, nw.NodeProviderId) {
 		nw.NodeProviderId = des.NodeProviderId
 	}
+	if dcl.IsZeroValue(nw.NodeCount) {
+		nw.NodeCount = des.NodeCount
+	}
+	if dcl.IsZeroValue(nw.VcpuCount) {
+		nw.VcpuCount = des.VcpuCount
+	}
+	if dcl.IsZeroValue(nw.MemoryMb) {
+		nw.MemoryMb = des.MemoryMb
+	}
+	if dcl.IsZeroValue(nw.UpdateTime) {
+		nw.UpdateTime = des.UpdateTime
+	}
 
 	return nw
 }
@@ -842,7 +817,7 @@ func canonicalizeNewMembershipEndpointKubernetesMetadataSet(c *Client, des, nw [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareMembershipEndpointKubernetesMetadata(c, &d, &n) {
+			if diffs, _ := compareMembershipEndpointKubernetesMetadataNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -865,7 +840,7 @@ func canonicalizeNewMembershipEndpointKubernetesMetadataSlice(c *Client, des, nw
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []MembershipEndpointKubernetesMetadata
@@ -891,12 +866,6 @@ func canonicalizeMembershipEndpointKubernetesResource(des, initial *MembershipEn
 
 	if dcl.StringCanonicalize(des.MembershipCrManifest, initial.MembershipCrManifest) || dcl.IsZeroValue(des.MembershipCrManifest) {
 		des.MembershipCrManifest = initial.MembershipCrManifest
-	}
-	if dcl.IsZeroValue(des.MembershipResources) {
-		des.MembershipResources = initial.MembershipResources
-	}
-	if dcl.IsZeroValue(des.ConnectResources) {
-		des.ConnectResources = initial.ConnectResources
 	}
 	des.ResourceOptions = canonicalizeMembershipEndpointKubernetesResourceResourceOptions(des.ResourceOptions, initial.ResourceOptions, opts...)
 
@@ -926,7 +895,7 @@ func canonicalizeNewMembershipEndpointKubernetesResourceSet(c *Client, des, nw [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareMembershipEndpointKubernetesResource(c, &d, &n) {
+			if diffs, _ := compareMembershipEndpointKubernetesResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -949,7 +918,7 @@ func canonicalizeNewMembershipEndpointKubernetesResourceSlice(c *Client, des, nw
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []MembershipEndpointKubernetesResource
@@ -1006,7 +975,7 @@ func canonicalizeNewMembershipEndpointKubernetesResourceMembershipResourcesSet(c
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareMembershipEndpointKubernetesResourceMembershipResources(c, &d, &n) {
+			if diffs, _ := compareMembershipEndpointKubernetesResourceMembershipResourcesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1029,7 +998,7 @@ func canonicalizeNewMembershipEndpointKubernetesResourceMembershipResourcesSlice
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []MembershipEndpointKubernetesResourceMembershipResources
@@ -1086,7 +1055,7 @@ func canonicalizeNewMembershipEndpointKubernetesResourceConnectResourcesSet(c *C
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareMembershipEndpointKubernetesResourceConnectResources(c, &d, &n) {
+			if diffs, _ := compareMembershipEndpointKubernetesResourceConnectResourcesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1109,7 +1078,7 @@ func canonicalizeNewMembershipEndpointKubernetesResourceConnectResourcesSlice(c 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []MembershipEndpointKubernetesResourceConnectResources
@@ -1166,7 +1135,7 @@ func canonicalizeNewMembershipEndpointKubernetesResourceResourceOptionsSet(c *Cl
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareMembershipEndpointKubernetesResourceResourceOptions(c, &d, &n) {
+			if diffs, _ := compareMembershipEndpointKubernetesResourceResourceOptionsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1189,7 +1158,7 @@ func canonicalizeNewMembershipEndpointKubernetesResourceResourceOptionsSlice(c *
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []MembershipEndpointKubernetesResourceResourceOptions
@@ -1213,16 +1182,16 @@ func canonicalizeMembershipState(des, initial *MembershipState, opts ...dcl.Appl
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Code) {
-		des.Code = initial.Code
-	}
-
 	return des
 }
 
 func canonicalizeNewMembershipState(c *Client, des, nw *MembershipState) *MembershipState {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.IsZeroValue(nw.Code) {
+		nw.Code = des.Code
 	}
 
 	return nw
@@ -1236,7 +1205,7 @@ func canonicalizeNewMembershipStateSet(c *Client, des, nw []MembershipState) []M
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareMembershipState(c, &d, &n) {
+			if diffs, _ := compareMembershipStateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1259,7 +1228,7 @@ func canonicalizeNewMembershipStateSlice(c *Client, des, nw []MembershipState) [
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []MembershipState
@@ -1285,12 +1254,6 @@ func canonicalizeMembershipAuthority(des, initial *MembershipAuthority, opts ...
 
 	if dcl.StringCanonicalize(des.Issuer, initial.Issuer) || dcl.IsZeroValue(des.Issuer) {
 		des.Issuer = initial.Issuer
-	}
-	if dcl.StringCanonicalize(des.WorkloadIdentityPool, initial.WorkloadIdentityPool) || dcl.IsZeroValue(des.WorkloadIdentityPool) {
-		des.WorkloadIdentityPool = initial.WorkloadIdentityPool
-	}
-	if dcl.StringCanonicalize(des.IdentityProvider, initial.IdentityProvider) || dcl.IsZeroValue(des.IdentityProvider) {
-		des.IdentityProvider = initial.IdentityProvider
 	}
 
 	return des
@@ -1322,7 +1285,7 @@ func canonicalizeNewMembershipAuthoritySet(c *Client, des, nw []MembershipAuthor
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareMembershipAuthority(c, &d, &n) {
+			if diffs, _ := compareMembershipAuthorityNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1345,7 +1308,7 @@ func canonicalizeNewMembershipAuthoritySlice(c *Client, des, nw []MembershipAuth
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []MembershipAuthority
@@ -1379,149 +1342,202 @@ func diffMembership(c *Client, desired, actual *Membership, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []membershipDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Endpoint, actual.Endpoint, dcl.Info{ObjectFunction: compareMembershipEndpointNewStyle}, fn.AddNest("Endpoint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Endpoint, actual.Endpoint, dcl.Info{ObjectFunction: compareMembershipEndpointNewStyle, OperationSelector: dcl.TriggersOperation("updateMembershipUpdateMembershipOperation")}, fn.AddNest("Endpoint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{
-			UpdateOp: &updateMembershipUpdateMembershipOperation{}, Diffs: ds,
-			FieldName: "Endpoint",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateMembershipUpdateMembershipOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{
-			UpdateOp: &updateMembershipUpdateMembershipOperation{}, Diffs: ds,
-			FieldName: "Labels",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateMembershipUpdateMembershipOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{
-			UpdateOp: &updateMembershipUpdateMembershipOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, ObjectFunction: compareMembershipStateNewStyle}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, ObjectFunction: compareMembershipStateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "State",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UpdateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "DeleteTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExternalId, actual.ExternalId, dcl.Info{}, fn.AddNest("ExternalId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExternalId, actual.ExternalId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateMembershipUpdateMembershipOperation")}, fn.AddNest("ExternalId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{
-			UpdateOp: &updateMembershipUpdateMembershipOperation{}, Diffs: ds,
-			FieldName: "ExternalId",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.LastConnectionTime, actual.LastConnectionTime, dcl.Info{OutputOnly: true}, fn.AddNest("LastConnectionTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LastConnectionTime, actual.LastConnectionTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LastConnectionTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "LastConnectionTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UniqueId, actual.UniqueId, dcl.Info{OutputOnly: true}, fn.AddNest("UniqueId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UniqueId, actual.UniqueId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UniqueId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UniqueId",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Authority, actual.Authority, dcl.Info{ObjectFunction: compareMembershipAuthorityNewStyle}, fn.AddNest("Authority")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Authority, actual.Authority, dcl.Info{ObjectFunction: compareMembershipAuthorityNewStyle, OperationSelector: dcl.TriggersOperation("updateMembershipUpdateMembershipOperation")}, fn.AddNest("Authority")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{
-			UpdateOp: &updateMembershipUpdateMembershipOperation{}, Diffs: ds,
-			FieldName: "Authority",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.InfrastructureType, actual.InfrastructureType, dcl.Info{Type: "EnumType"}, fn.AddNest("InfrastructureType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InfrastructureType, actual.InfrastructureType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateMembershipUpdateMembershipOperation")}, fn.AddNest("InfrastructureType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{
-			UpdateOp: &updateMembershipUpdateMembershipOperation{}, Diffs: ds,
-			FieldName: "InfrastructureType",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, membershipDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1568,78 +1584,27 @@ func compareMembershipEndpointNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.GkeCluster, actual.GkeCluster, dcl.Info{ObjectFunction: compareMembershipEndpointGkeClusterNewStyle}, fn.AddNest("GkeCluster")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GkeCluster, actual.GkeCluster, dcl.Info{ObjectFunction: compareMembershipEndpointGkeClusterNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GkeCluster")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KubernetesMetadata, actual.KubernetesMetadata, dcl.Info{OutputOnly: true, ObjectFunction: compareMembershipEndpointKubernetesMetadataNewStyle}, fn.AddNest("KubernetesMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KubernetesMetadata, actual.KubernetesMetadata, dcl.Info{OutputOnly: true, ObjectFunction: compareMembershipEndpointKubernetesMetadataNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KubernetesMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KubernetesResource, actual.KubernetesResource, dcl.Info{ObjectFunction: compareMembershipEndpointKubernetesResourceNewStyle}, fn.AddNest("KubernetesResource")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KubernetesResource, actual.KubernetesResource, dcl.Info{ObjectFunction: compareMembershipEndpointKubernetesResourceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KubernetesResource")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareMembershipEndpoint(c *Client, desired, actual *MembershipEndpoint) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareMembershipEndpointGkeCluster(c, desired.GkeCluster, actual.GkeCluster) && !dcl.IsZeroValue(desired.GkeCluster) {
-		c.Config.Logger.Infof("Diff in GkeCluster.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GkeCluster), dcl.SprintResource(actual.GkeCluster))
-		return true
-	}
-	if compareMembershipEndpointKubernetesResource(c, desired.KubernetesResource, actual.KubernetesResource) && !dcl.IsZeroValue(desired.KubernetesResource) {
-		c.Config.Logger.Infof("Diff in KubernetesResource.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.KubernetesResource), dcl.SprintResource(actual.KubernetesResource))
-		return true
-	}
-	return false
-}
-
-func compareMembershipEndpointSlice(c *Client, desired, actual []MembershipEndpoint) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpoint, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareMembershipEndpoint(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpoint, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareMembershipEndpointMap(c *Client, desired, actual map[string]MembershipEndpoint) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpoint, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in MembershipEndpoint, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareMembershipEndpoint(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpoint, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareMembershipEndpointGkeClusterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1662,60 +1627,13 @@ func compareMembershipEndpointGkeClusterNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceLink, actual.ResourceLink, dcl.Info{Type: "ReferenceType"}, fn.AddNest("ResourceLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceLink, actual.ResourceLink, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareMembershipEndpointGkeCluster(c *Client, desired, actual *MembershipEndpointGkeCluster) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.NameToSelfLink(desired.ResourceLink, actual.ResourceLink) && !dcl.IsZeroValue(desired.ResourceLink) {
-		c.Config.Logger.Infof("Diff in ResourceLink.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceLink), dcl.SprintResource(actual.ResourceLink))
-		return true
-	}
-	return false
-}
-
-func compareMembershipEndpointGkeClusterSlice(c *Client, desired, actual []MembershipEndpointGkeCluster) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpointGkeCluster, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareMembershipEndpointGkeCluster(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointGkeCluster, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareMembershipEndpointGkeClusterMap(c *Client, desired, actual map[string]MembershipEndpointGkeCluster) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpointGkeCluster, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in MembershipEndpointGkeCluster, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareMembershipEndpointGkeCluster(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointGkeCluster, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareMembershipEndpointKubernetesMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1738,91 +1656,48 @@ func compareMembershipEndpointKubernetesMetadataNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KubernetesApiServerVersion, actual.KubernetesApiServerVersion, dcl.Info{OutputOnly: true}, fn.AddNest("KubernetesApiServerVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KubernetesApiServerVersion, actual.KubernetesApiServerVersion, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KubernetesApiServerVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeProviderId, actual.NodeProviderId, dcl.Info{OutputOnly: true}, fn.AddNest("NodeProviderId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeProviderId, actual.NodeProviderId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeProviderId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.Info{OutputOnly: true}, fn.AddNest("NodeCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VcpuCount, actual.VcpuCount, dcl.Info{OutputOnly: true}, fn.AddNest("VcpuCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VcpuCount, actual.VcpuCount, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VcpuCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MemoryMb, actual.MemoryMb, dcl.Info{OutputOnly: true}, fn.AddNest("MemoryMb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MemoryMb, actual.MemoryMb, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MemoryMb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareMembershipEndpointKubernetesMetadata(c *Client, desired, actual *MembershipEndpointKubernetesMetadata) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	return false
-}
-
-func compareMembershipEndpointKubernetesMetadataSlice(c *Client, desired, actual []MembershipEndpointKubernetesMetadata) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpointKubernetesMetadata, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareMembershipEndpointKubernetesMetadata(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesMetadata, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareMembershipEndpointKubernetesMetadataMap(c *Client, desired, actual map[string]MembershipEndpointKubernetesMetadata) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpointKubernetesMetadata, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesMetadata, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareMembershipEndpointKubernetesMetadata(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesMetadata, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareMembershipEndpointKubernetesResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1845,81 +1720,34 @@ func compareMembershipEndpointKubernetesResourceNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MembershipCrManifest, actual.MembershipCrManifest, dcl.Info{Ignore: true}, fn.AddNest("MembershipCrManifest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MembershipCrManifest, actual.MembershipCrManifest, dcl.Info{Ignore: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MembershipCrManifest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MembershipResources, actual.MembershipResources, dcl.Info{OutputOnly: true, ObjectFunction: compareMembershipEndpointKubernetesResourceMembershipResourcesNewStyle}, fn.AddNest("MembershipResources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MembershipResources, actual.MembershipResources, dcl.Info{OutputOnly: true, ObjectFunction: compareMembershipEndpointKubernetesResourceMembershipResourcesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MembershipResources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConnectResources, actual.ConnectResources, dcl.Info{OutputOnly: true, ObjectFunction: compareMembershipEndpointKubernetesResourceConnectResourcesNewStyle}, fn.AddNest("ConnectResources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConnectResources, actual.ConnectResources, dcl.Info{OutputOnly: true, ObjectFunction: compareMembershipEndpointKubernetesResourceConnectResourcesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConnectResources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceOptions, actual.ResourceOptions, dcl.Info{ObjectFunction: compareMembershipEndpointKubernetesResourceResourceOptionsNewStyle}, fn.AddNest("ResourceOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceOptions, actual.ResourceOptions, dcl.Info{ObjectFunction: compareMembershipEndpointKubernetesResourceResourceOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareMembershipEndpointKubernetesResource(c *Client, desired, actual *MembershipEndpointKubernetesResource) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareMembershipEndpointKubernetesResourceResourceOptions(c, desired.ResourceOptions, actual.ResourceOptions) && !dcl.IsZeroValue(desired.ResourceOptions) {
-		c.Config.Logger.Infof("Diff in ResourceOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceOptions), dcl.SprintResource(actual.ResourceOptions))
-		return true
-	}
-	return false
-}
-
-func compareMembershipEndpointKubernetesResourceSlice(c *Client, desired, actual []MembershipEndpointKubernetesResource) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpointKubernetesResource, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareMembershipEndpointKubernetesResource(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResource, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareMembershipEndpointKubernetesResourceMap(c *Client, desired, actual map[string]MembershipEndpointKubernetesResource) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpointKubernetesResource, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResource, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareMembershipEndpointKubernetesResource(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResource, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareMembershipEndpointKubernetesResourceMembershipResourcesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1942,71 +1770,20 @@ func compareMembershipEndpointKubernetesResourceMembershipResourcesNewStyle(d, a
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Manifest, actual.Manifest, dcl.Info{}, fn.AddNest("Manifest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Manifest, actual.Manifest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Manifest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterScoped, actual.ClusterScoped, dcl.Info{}, fn.AddNest("ClusterScoped")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterScoped, actual.ClusterScoped, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterScoped")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareMembershipEndpointKubernetesResourceMembershipResources(c *Client, desired, actual *MembershipEndpointKubernetesResourceMembershipResources) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Manifest, actual.Manifest) && !dcl.IsZeroValue(desired.Manifest) {
-		c.Config.Logger.Infof("Diff in Manifest.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Manifest), dcl.SprintResource(actual.Manifest))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.ClusterScoped, actual.ClusterScoped) && !dcl.IsZeroValue(desired.ClusterScoped) {
-		c.Config.Logger.Infof("Diff in ClusterScoped.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterScoped), dcl.SprintResource(actual.ClusterScoped))
-		return true
-	}
-	return false
-}
-
-func compareMembershipEndpointKubernetesResourceMembershipResourcesSlice(c *Client, desired, actual []MembershipEndpointKubernetesResourceMembershipResources) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpointKubernetesResourceMembershipResources, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareMembershipEndpointKubernetesResourceMembershipResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceMembershipResources, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareMembershipEndpointKubernetesResourceMembershipResourcesMap(c *Client, desired, actual map[string]MembershipEndpointKubernetesResourceMembershipResources) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpointKubernetesResourceMembershipResources, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceMembershipResources, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareMembershipEndpointKubernetesResourceMembershipResources(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceMembershipResources, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareMembershipEndpointKubernetesResourceConnectResourcesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2029,71 +1806,20 @@ func compareMembershipEndpointKubernetesResourceConnectResourcesNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Manifest, actual.Manifest, dcl.Info{}, fn.AddNest("Manifest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Manifest, actual.Manifest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Manifest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterScoped, actual.ClusterScoped, dcl.Info{}, fn.AddNest("ClusterScoped")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterScoped, actual.ClusterScoped, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterScoped")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareMembershipEndpointKubernetesResourceConnectResources(c *Client, desired, actual *MembershipEndpointKubernetesResourceConnectResources) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Manifest, actual.Manifest) && !dcl.IsZeroValue(desired.Manifest) {
-		c.Config.Logger.Infof("Diff in Manifest.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Manifest), dcl.SprintResource(actual.Manifest))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.ClusterScoped, actual.ClusterScoped) && !dcl.IsZeroValue(desired.ClusterScoped) {
-		c.Config.Logger.Infof("Diff in ClusterScoped.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterScoped), dcl.SprintResource(actual.ClusterScoped))
-		return true
-	}
-	return false
-}
-
-func compareMembershipEndpointKubernetesResourceConnectResourcesSlice(c *Client, desired, actual []MembershipEndpointKubernetesResourceConnectResources) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpointKubernetesResourceConnectResources, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareMembershipEndpointKubernetesResourceConnectResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceConnectResources, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareMembershipEndpointKubernetesResourceConnectResourcesMap(c *Client, desired, actual map[string]MembershipEndpointKubernetesResourceConnectResources) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpointKubernetesResourceConnectResources, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceConnectResources, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareMembershipEndpointKubernetesResourceConnectResources(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceConnectResources, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareMembershipEndpointKubernetesResourceResourceOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2116,71 +1842,20 @@ func compareMembershipEndpointKubernetesResourceResourceOptionsNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ConnectVersion, actual.ConnectVersion, dcl.Info{}, fn.AddNest("ConnectVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConnectVersion, actual.ConnectVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConnectVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.V1Beta1Crd, actual.V1Beta1Crd, dcl.Info{}, fn.AddNest("V1Beta1Crd")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.V1Beta1Crd, actual.V1Beta1Crd, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("V1Beta1Crd")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareMembershipEndpointKubernetesResourceResourceOptions(c *Client, desired, actual *MembershipEndpointKubernetesResourceResourceOptions) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ConnectVersion, actual.ConnectVersion) && !dcl.IsZeroValue(desired.ConnectVersion) {
-		c.Config.Logger.Infof("Diff in ConnectVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConnectVersion), dcl.SprintResource(actual.ConnectVersion))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.V1Beta1Crd, actual.V1Beta1Crd) && !dcl.IsZeroValue(desired.V1Beta1Crd) {
-		c.Config.Logger.Infof("Diff in V1Beta1Crd.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.V1Beta1Crd), dcl.SprintResource(actual.V1Beta1Crd))
-		return true
-	}
-	return false
-}
-
-func compareMembershipEndpointKubernetesResourceResourceOptionsSlice(c *Client, desired, actual []MembershipEndpointKubernetesResourceResourceOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpointKubernetesResourceResourceOptions, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareMembershipEndpointKubernetesResourceResourceOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceResourceOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareMembershipEndpointKubernetesResourceResourceOptionsMap(c *Client, desired, actual map[string]MembershipEndpointKubernetesResourceResourceOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipEndpointKubernetesResourceResourceOptions, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceResourceOptions, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareMembershipEndpointKubernetesResourceResourceOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipEndpointKubernetesResourceResourceOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareMembershipStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2203,56 +1878,13 @@ func compareMembershipStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareMembershipState(c *Client, desired, actual *MembershipState) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	return false
-}
-
-func compareMembershipStateSlice(c *Client, desired, actual []MembershipState) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipState, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareMembershipState(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipState, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareMembershipStateMap(c *Client, desired, actual map[string]MembershipState) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipState, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in MembershipState, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareMembershipState(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipState, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareMembershipAuthorityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2275,110 +1907,27 @@ func compareMembershipAuthorityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Issuer, actual.Issuer, dcl.Info{}, fn.AddNest("Issuer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Issuer, actual.Issuer, dcl.Info{OperationSelector: dcl.TriggersOperation("updateMembershipUpdateMembershipOperation")}, fn.AddNest("Issuer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WorkloadIdentityPool, actual.WorkloadIdentityPool, dcl.Info{OutputOnly: true}, fn.AddNest("WorkloadIdentityPool")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WorkloadIdentityPool, actual.WorkloadIdentityPool, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WorkloadIdentityPool")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IdentityProvider, actual.IdentityProvider, dcl.Info{OutputOnly: true}, fn.AddNest("IdentityProvider")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IdentityProvider, actual.IdentityProvider, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IdentityProvider")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareMembershipAuthority(c *Client, desired, actual *MembershipAuthority) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Issuer, actual.Issuer) && !dcl.IsZeroValue(desired.Issuer) {
-		c.Config.Logger.Infof("Diff in Issuer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Issuer), dcl.SprintResource(actual.Issuer))
-		return true
-	}
-	return false
-}
-
-func compareMembershipAuthoritySlice(c *Client, desired, actual []MembershipAuthority) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipAuthority, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareMembershipAuthority(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipAuthority, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareMembershipAuthorityMap(c *Client, desired, actual map[string]MembershipAuthority) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipAuthority, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in MembershipAuthority, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareMembershipAuthority(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in MembershipAuthority, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareMembershipStateCodeEnumSlice(c *Client, desired, actual []MembershipStateCodeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipStateCodeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareMembershipStateCodeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipStateCodeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareMembershipStateCodeEnum(c *Client, desired, actual *MembershipStateCodeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareMembershipInfrastructureTypeEnumSlice(c *Client, desired, actual []MembershipInfrastructureTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in MembershipInfrastructureTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareMembershipInfrastructureTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in MembershipInfrastructureTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareMembershipInfrastructureTypeEnum(c *Client, desired, actual *MembershipInfrastructureTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -2525,24 +2074,24 @@ func flattenMembership(c *Client, i interface{}) *Membership {
 		return nil
 	}
 
-	r := &Membership{}
-	r.Endpoint = flattenMembershipEndpoint(c, m["endpoint"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.State = flattenMembershipState(c, m["state"])
-	r.CreateTime = dcl.FlattenString(m["createTime"])
-	r.UpdateTime = dcl.FlattenString(m["updateTime"])
-	r.DeleteTime = dcl.FlattenString(m["deleteTime"])
-	r.ExternalId = dcl.FlattenString(m["externalId"])
-	r.LastConnectionTime = dcl.FlattenString(m["lastConnectionTime"])
-	r.UniqueId = dcl.FlattenString(m["uniqueId"])
-	r.Authority = flattenMembershipAuthority(c, m["authority"])
-	r.InfrastructureType = flattenMembershipInfrastructureTypeEnum(m["infrastructureType"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Location = dcl.FlattenString(m["location"])
+	res := &Membership{}
+	res.Endpoint = flattenMembershipEndpoint(c, m["endpoint"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.State = flattenMembershipState(c, m["state"])
+	res.CreateTime = dcl.FlattenString(m["createTime"])
+	res.UpdateTime = dcl.FlattenString(m["updateTime"])
+	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
+	res.ExternalId = dcl.FlattenString(m["externalId"])
+	res.LastConnectionTime = dcl.FlattenString(m["lastConnectionTime"])
+	res.UniqueId = dcl.FlattenString(m["uniqueId"])
+	res.Authority = flattenMembershipAuthority(c, m["authority"])
+	res.InfrastructureType = flattenMembershipInfrastructureTypeEnum(m["infrastructureType"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Location = dcl.FlattenString(m["location"])
 
-	return r
+	return res
 }
 
 // expandMembershipEndpointMap expands the contents of MembershipEndpoint into a JSON
@@ -2629,10 +2178,11 @@ func flattenMembershipEndpointSlice(c *Client, i interface{}) []MembershipEndpoi
 // expandMembershipEndpoint expands an instance of MembershipEndpoint into a JSON
 // request object.
 func expandMembershipEndpoint(c *Client, f *MembershipEndpoint) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandMembershipEndpointGkeCluster(c, f.GkeCluster); err != nil {
 		return nil, fmt.Errorf("error expanding GkeCluster into gkeCluster: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2752,10 +2302,11 @@ func flattenMembershipEndpointGkeClusterSlice(c *Client, i interface{}) []Member
 // expandMembershipEndpointGkeCluster expands an instance of MembershipEndpointGkeCluster into a JSON
 // request object.
 func expandMembershipEndpointGkeCluster(c *Client, f *MembershipEndpointGkeCluster) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandHubReferenceLink(f, f.ResourceLink); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceLink into resourceLink: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2863,10 +2414,11 @@ func flattenMembershipEndpointKubernetesMetadataSlice(c *Client, i interface{}) 
 // expandMembershipEndpointKubernetesMetadata expands an instance of MembershipEndpointKubernetesMetadata into a JSON
 // request object.
 func expandMembershipEndpointKubernetesMetadata(c *Client, f *MembershipEndpointKubernetesMetadata) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.KubernetesApiServerVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["kubernetesApiServerVersion"] = v
 	}
@@ -2992,10 +2544,11 @@ func flattenMembershipEndpointKubernetesResourceSlice(c *Client, i interface{}) 
 // expandMembershipEndpointKubernetesResource expands an instance of MembershipEndpointKubernetesResource into a JSON
 // request object.
 func expandMembershipEndpointKubernetesResource(c *Client, f *MembershipEndpointKubernetesResource) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MembershipCrManifest; !dcl.IsEmptyValueIndirect(v) {
 		m["membershipCrManifest"] = v
 	}
@@ -3119,10 +2672,11 @@ func flattenMembershipEndpointKubernetesResourceMembershipResourcesSlice(c *Clie
 // expandMembershipEndpointKubernetesResourceMembershipResources expands an instance of MembershipEndpointKubernetesResourceMembershipResources into a JSON
 // request object.
 func expandMembershipEndpointKubernetesResourceMembershipResources(c *Client, f *MembershipEndpointKubernetesResourceMembershipResources) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Manifest; !dcl.IsEmptyValueIndirect(v) {
 		m["manifest"] = v
 	}
@@ -3232,10 +2786,11 @@ func flattenMembershipEndpointKubernetesResourceConnectResourcesSlice(c *Client,
 // expandMembershipEndpointKubernetesResourceConnectResources expands an instance of MembershipEndpointKubernetesResourceConnectResources into a JSON
 // request object.
 func expandMembershipEndpointKubernetesResourceConnectResources(c *Client, f *MembershipEndpointKubernetesResourceConnectResources) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Manifest; !dcl.IsEmptyValueIndirect(v) {
 		m["manifest"] = v
 	}
@@ -3345,10 +2900,11 @@ func flattenMembershipEndpointKubernetesResourceResourceOptionsSlice(c *Client, 
 // expandMembershipEndpointKubernetesResourceResourceOptions expands an instance of MembershipEndpointKubernetesResourceResourceOptions into a JSON
 // request object.
 func expandMembershipEndpointKubernetesResourceResourceOptions(c *Client, f *MembershipEndpointKubernetesResourceResourceOptions) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ConnectVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["connectVersion"] = v
 	}
@@ -3458,10 +3014,11 @@ func flattenMembershipStateSlice(c *Client, i interface{}) []MembershipState {
 // expandMembershipState expands an instance of MembershipState into a JSON
 // request object.
 func expandMembershipState(c *Client, f *MembershipState) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Code; !dcl.IsEmptyValueIndirect(v) {
 		m["code"] = v
 	}
@@ -3567,10 +3124,11 @@ func flattenMembershipAuthoritySlice(c *Client, i interface{}) []MembershipAutho
 // expandMembershipAuthority expands an instance of MembershipAuthority into a JSON
 // request object.
 func expandMembershipAuthority(c *Client, f *MembershipAuthority) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Issuer; !dcl.IsEmptyValueIndirect(v) {
 		m["issuer"] = v
 	}
@@ -3701,5 +3259,36 @@ func (r *Membership) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToMembershipDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]membershipDiff, error) {
+	var diffs []membershipDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := membershipDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTomembershipApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTomembershipApiOperation(op string, opts ...dcl.ApplyOption) (membershipApiOperation, error) {
+	switch op {
+
+	case "updateMembershipUpdateMembershipOperation":
+		return &updateMembershipUpdateMembershipOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

@@ -349,66 +349,6 @@ class Disk(object):
 
         return stub.ListComputeBetaDisk(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = disk_pb2.ComputeBetaDisk()
-        any_proto.Unpack(res_proto)
-
-        res = Disk()
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.disk_encryption_key = DiskEncryptionKey.from_proto(
-            res_proto.disk_encryption_key
-        )
-        res.guest_os_feature = DiskGuestOsFeatureArray.from_proto(
-            res_proto.guest_os_feature
-        )
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.label_fingerprint = Primitive.from_proto(res_proto.label_fingerprint)
-        res.license = Primitive.from_proto(res_proto.license)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.region = Primitive.from_proto(res_proto.region)
-        res.replica_zones = Primitive.from_proto(res_proto.replica_zones)
-        res.resource_policy = Primitive.from_proto(res_proto.resource_policy)
-        res.size_gb = Primitive.from_proto(res_proto.size_gb)
-        res.source_image = Primitive.from_proto(res_proto.source_image)
-        res.source_image_encryption_key = DiskEncryptionKey.from_proto(
-            res_proto.source_image_encryption_key
-        )
-        res.source_image_id = Primitive.from_proto(res_proto.source_image_id)
-        res.source_snapshot = Primitive.from_proto(res_proto.source_snapshot)
-        res.source_snapshot_encryption_key = DiskEncryptionKey.from_proto(
-            res_proto.source_snapshot_encryption_key
-        )
-        res.source_snapshot_id = Primitive.from_proto(res_proto.source_snapshot_id)
-        res.type = Primitive.from_proto(res_proto.type)
-        res.zone = Primitive.from_proto(res_proto.zone)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.id = Primitive.from_proto(res_proto.id)
-        res.status = DiskStatusEnum.from_proto(res_proto.status)
-        res.options = Primitive.from_proto(res_proto.options)
-        res.licenses = Primitive.from_proto(res_proto.licenses)
-        res.guest_os_features = DiskGuestOsFeaturesArray.from_proto(
-            res_proto.guest_os_features
-        )
-        res.last_attach_timestamp = Primitive.from_proto(
-            res_proto.last_attach_timestamp
-        )
-        res.last_detach_timestamp = Primitive.from_proto(
-            res_proto.last_detach_timestamp
-        )
-        res.users = Primitive.from_proto(res_proto.users)
-        res.license_codes = int64Array.from_proto(res_proto.license_codes)
-        res.physical_block_size_bytes = Primitive.from_proto(
-            res_proto.physical_block_size_bytes
-        )
-        res.resource_policies = Primitive.from_proto(res_proto.resource_policies)
-        res.source_disk = Primitive.from_proto(res_proto.source_disk)
-        res.source_disk_id = Primitive.from_proto(res_proto.source_disk_id)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = disk_pb2.ComputeBetaDisk()
         if Primitive.to_proto(self.description):

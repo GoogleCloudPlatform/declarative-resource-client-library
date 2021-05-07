@@ -429,9 +429,6 @@ func canonicalizeDatabaseDesiredState(rawDesired, rawInitial *Database, opts ...
 	if dcl.StringCanonicalize(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
-	}
 
 	return rawDesired, nil
 }
@@ -511,64 +508,85 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []databaseDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Charset, actual.Charset, dcl.Info{}, fn.AddNest("Charset")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Charset, actual.Charset, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDatabaseUpdateOperation")}, fn.AddNest("Charset")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{
-			UpdateOp: &updateDatabaseUpdateOperation{}, Diffs: ds,
-			FieldName: "Charset",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToDatabaseDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Collation, actual.Collation, dcl.Info{}, fn.AddNest("Collation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Collation, actual.Collation, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDatabaseUpdateOperation")}, fn.AddNest("Collation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{
-			UpdateOp: &updateDatabaseUpdateOperation{}, Diffs: ds,
-			FieldName: "Collation",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToDatabaseDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Instance",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToDatabaseDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToDatabaseDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToDatabaseDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToDatabaseDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -701,15 +719,15 @@ func flattenDatabase(c *Client, i interface{}) *Database {
 		return nil
 	}
 
-	r := &Database{}
-	r.Charset = dcl.FlattenString(m["charset"])
-	r.Collation = dcl.FlattenString(m["collation"])
-	r.Instance = dcl.FlattenString(m["instance"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
+	res := &Database{}
+	res.Charset = dcl.FlattenString(m["charset"])
+	res.Collation = dcl.FlattenString(m["collation"])
+	res.Instance = dcl.FlattenString(m["instance"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -751,5 +769,36 @@ func (r *Database) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToDatabaseDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]databaseDiff, error) {
+	var diffs []databaseDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := databaseDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTodatabaseApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTodatabaseApiOperation(op string, opts ...dcl.ApplyOption) (databaseApiOperation, error) {
+	switch op {
+
+	case "updateDatabaseUpdateOperation":
+		return &updateDatabaseUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

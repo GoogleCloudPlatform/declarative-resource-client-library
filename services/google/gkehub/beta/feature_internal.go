@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -366,15 +365,6 @@ func canonicalizeFeatureDesiredState(rawDesired, rawInitial *Feature, opts ...dc
 		rawDesired.Labels = rawInitial.Labels
 	}
 	rawDesired.Spec = canonicalizeFeatureSpec(rawDesired.Spec, rawInitial.Spec, opts...)
-	if dcl.IsZeroValue(rawDesired.CreateTime) {
-		rawDesired.CreateTime = rawInitial.CreateTime
-	}
-	if dcl.IsZeroValue(rawDesired.UpdateTime) {
-		rawDesired.UpdateTime = rawInitial.UpdateTime
-	}
-	if dcl.IsZeroValue(rawDesired.DeleteTime) {
-		rawDesired.DeleteTime = rawInitial.DeleteTime
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
@@ -463,7 +453,7 @@ func canonicalizeNewFeatureSpecSet(c *Client, des, nw []FeatureSpec) []FeatureSp
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareFeatureSpec(c, &d, &n) {
+			if diffs, _ := compareFeatureSpecNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -486,7 +476,7 @@ func canonicalizeNewFeatureSpecSlice(c *Client, des, nw []FeatureSpec) []Feature
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []FeatureSpec
@@ -528,6 +518,9 @@ func canonicalizeNewFeatureSpecMulticlusteringress(c *Client, des, nw *FeatureSp
 	if dcl.StringCanonicalize(des.ConfigMembership, nw.ConfigMembership) {
 		nw.ConfigMembership = des.ConfigMembership
 	}
+	if dcl.IsZeroValue(nw.Billing) {
+		nw.Billing = des.Billing
+	}
 
 	return nw
 }
@@ -540,7 +533,7 @@ func canonicalizeNewFeatureSpecMulticlusteringressSet(c *Client, des, nw []Featu
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareFeatureSpecMulticlusteringress(c, &d, &n) {
+			if diffs, _ := compareFeatureSpecMulticlusteringressNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -563,7 +556,7 @@ func canonicalizeNewFeatureSpecMulticlusteringressSlice(c *Client, des, nw []Fea
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []FeatureSpecMulticlusteringress
@@ -597,82 +590,111 @@ func diffFeature(c *Client, desired, actual *Feature, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []featureDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFeatureDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFeatureUpdateFeatureOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureDiff{
-			UpdateOp: &updateFeatureUpdateFeatureOperation{}, Diffs: ds,
-			FieldName: "Labels",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFeatureDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareFeatureSpecNewStyle}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareFeatureSpecNewStyle, OperationSelector: dcl.TriggersOperation("updateFeatureUpdateFeatureOperation")}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureDiff{
-			UpdateOp: &updateFeatureUpdateFeatureOperation{}, Diffs: ds,
-			FieldName: "Spec",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFeatureDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFeatureDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UpdateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFeatureDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "DeleteTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFeatureDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFeatureDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFeatureDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -719,60 +741,13 @@ func compareFeatureSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Multiclusteringress, actual.Multiclusteringress, dcl.Info{ObjectFunction: compareFeatureSpecMulticlusteringressNewStyle}, fn.AddNest("Multiclusteringress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Multiclusteringress, actual.Multiclusteringress, dcl.Info{ObjectFunction: compareFeatureSpecMulticlusteringressNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Multiclusteringress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareFeatureSpec(c *Client, desired, actual *FeatureSpec) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareFeatureSpecMulticlusteringress(c, desired.Multiclusteringress, actual.Multiclusteringress) && !dcl.IsZeroValue(desired.Multiclusteringress) {
-		c.Config.Logger.Infof("Diff in Multiclusteringress.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Multiclusteringress), dcl.SprintResource(actual.Multiclusteringress))
-		return true
-	}
-	return false
-}
-
-func compareFeatureSpecSlice(c *Client, desired, actual []FeatureSpec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureSpec, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareFeatureSpec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FeatureSpec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFeatureSpecMap(c *Client, desired, actual map[string]FeatureSpec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureSpec, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in FeatureSpec, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareFeatureSpec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in FeatureSpec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareFeatureSpecMulticlusteringressNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -795,89 +770,20 @@ func compareFeatureSpecMulticlusteringressNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigMembership, actual.ConfigMembership, dcl.Info{}, fn.AddNest("ConfigMembership")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigMembership, actual.ConfigMembership, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigMembership")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Billing, actual.Billing, dcl.Info{Type: "EnumType"}, fn.AddNest("Billing")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Billing, actual.Billing, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Billing")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareFeatureSpecMulticlusteringress(c *Client, desired, actual *FeatureSpecMulticlusteringress) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ConfigMembership, actual.ConfigMembership) && !dcl.IsZeroValue(desired.ConfigMembership) {
-		c.Config.Logger.Infof("Diff in ConfigMembership.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigMembership), dcl.SprintResource(actual.ConfigMembership))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Billing, actual.Billing) && !dcl.IsZeroValue(desired.Billing) {
-		c.Config.Logger.Infof("Diff in Billing.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Billing), dcl.SprintResource(actual.Billing))
-		return true
-	}
-	return false
-}
-
-func compareFeatureSpecMulticlusteringressSlice(c *Client, desired, actual []FeatureSpecMulticlusteringress) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureSpecMulticlusteringress, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareFeatureSpecMulticlusteringress(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FeatureSpecMulticlusteringress, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFeatureSpecMulticlusteringressMap(c *Client, desired, actual map[string]FeatureSpecMulticlusteringress) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureSpecMulticlusteringress, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in FeatureSpecMulticlusteringress, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareFeatureSpecMulticlusteringress(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in FeatureSpecMulticlusteringress, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFeatureSpecMulticlusteringressBillingEnumSlice(c *Client, desired, actual []FeatureSpecMulticlusteringressBillingEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureSpecMulticlusteringressBillingEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareFeatureSpecMulticlusteringressBillingEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FeatureSpecMulticlusteringressBillingEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFeatureSpecMulticlusteringressBillingEnum(c *Client, desired, actual *FeatureSpecMulticlusteringressBillingEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -996,17 +902,17 @@ func flattenFeature(c *Client, i interface{}) *Feature {
 		return nil
 	}
 
-	r := &Feature{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	r.Spec = flattenFeatureSpec(c, m["spec"])
-	r.CreateTime = dcl.FlattenString(m["createTime"])
-	r.UpdateTime = dcl.FlattenString(m["updateTime"])
-	r.DeleteTime = dcl.FlattenString(m["deleteTime"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Location = dcl.FlattenString(m["location"])
+	res := &Feature{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	res.Spec = flattenFeatureSpec(c, m["spec"])
+	res.CreateTime = dcl.FlattenString(m["createTime"])
+	res.UpdateTime = dcl.FlattenString(m["updateTime"])
+	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Location = dcl.FlattenString(m["location"])
 
-	return r
+	return res
 }
 
 // expandFeatureSpecMap expands the contents of FeatureSpec into a JSON
@@ -1093,10 +999,11 @@ func flattenFeatureSpecSlice(c *Client, i interface{}) []FeatureSpec {
 // expandFeatureSpec expands an instance of FeatureSpec into a JSON
 // request object.
 func expandFeatureSpec(c *Client, f *FeatureSpec) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandFeatureSpecMulticlusteringress(c, f.Multiclusteringress); err != nil {
 		return nil, fmt.Errorf("error expanding Multiclusteringress into multiclusteringress: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1204,10 +1111,11 @@ func flattenFeatureSpecMulticlusteringressSlice(c *Client, i interface{}) []Feat
 // expandFeatureSpecMulticlusteringress expands an instance of FeatureSpecMulticlusteringress into a JSON
 // request object.
 func expandFeatureSpecMulticlusteringress(c *Client, f *FeatureSpecMulticlusteringress) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ConfigMembership; !dcl.IsEmptyValueIndirect(v) {
 		m["configMembership"] = v
 	}
@@ -1303,5 +1211,36 @@ func (r *Feature) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToFeatureDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]featureDiff, error) {
+	var diffs []featureDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := featureDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTofeatureApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTofeatureApiOperation(op string, opts ...dcl.ApplyOption) (featureApiOperation, error) {
+	switch op {
+
+	case "updateFeatureUpdateFeatureOperation":
+		return &updateFeatureUpdateFeatureOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

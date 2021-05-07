@@ -30,6 +30,9 @@ const ua = "DeclarativeClientLib/0.0.1"
 
 const defaultTimeout = 15 * time.Minute
 
+// ConfigOption is used to functionally configure Configs.
+type ConfigOption func(*Config)
+
 // Config is used to enclose the credentials and http client used to make
 // requests to GCP APIs.
 type Config struct {
@@ -38,6 +41,7 @@ type Config struct {
 	header        http.Header
 	clientOptions []option.ClientOption
 	userAgent     string
+	contentType   string
 	Logger        Logger
 	BasePath      string
 }
@@ -45,20 +49,49 @@ type Config struct {
 // UserAgent returns the user agent for the config, which will always include the
 // declarative SDK name and version.
 func (c *Config) UserAgent() string {
-	return fmt.Sprintf("%s %s", c.userAgent, ua)
+	if c.userAgent != "" {
+		return fmt.Sprintf("%s %s", c.userAgent, ua)
+	}
+	return ua
 }
 
-// NewConfig creates a Config object with the specified user agent and client.
-func NewConfig(o ...ClientOption) *Config {
-	return &Config{
-		RetryProvider: fetchRetryProvider(o),
-		Timeout:       fetchTimeout(o),
-		header:        fetchHeader(o),
-		userAgent:     fetchUserAgent(o),
-		Logger:        fetchLogger(o),
-		BasePath:      fetchBasePath(o),
-		clientOptions: fetchClientOptions(o),
+// NewConfig creates a Config object.
+func NewConfig(o ...ConfigOption) *Config {
+	c := &Config{
+		contentType:   "application/json",
+		Logger:        DefaultLogger(),
+		RetryProvider: &BackoffRetryProvider{},
+		Timeout:       defaultTimeout,
 	}
+
+	for _, opt := range o {
+		opt(c)
+	}
+
+	return c
+}
+
+// Clone returns a copy of an existing Config with optional new values.
+func (c *Config) Clone(o ...ConfigOption) *Config {
+	result := &Config{
+		RetryProvider: c.RetryProvider,
+		Timeout:       c.Timeout,
+		clientOptions: c.clientOptions,
+		userAgent:     c.userAgent,
+		contentType:   c.contentType,
+		Logger:        c.Logger,
+		BasePath:      c.BasePath,
+	}
+
+	if c.header != nil {
+		result.header = c.header.Clone()
+	}
+
+	for _, opt := range o {
+		opt(result)
+	}
+
+	return result
 }
 
 type loggingTransport struct {
@@ -90,11 +123,6 @@ func (t loggingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 // ApplyOption is an option that is accepted by Apply() functions.
 type ApplyOption interface {
 	Apply(*ApplyOpts)
-}
-
-// ClientOption is an option that is accepted in client creation.
-type ClientOption interface {
-	apply(*clientOpts)
 }
 
 // ApplyOpts refers to options that are taken in the apply function.
@@ -150,218 +178,100 @@ func FetchStateHint(c []ApplyOption) Resource {
 	return o.stateHint
 }
 
-// clientOpts refers to options passed into the client.
-type clientOpts struct {
-	retryProvider RetryProvider
-	timeout       time.Duration
-	header        http.Header
-	userAgent     string
-	logger        Logger
-	basepath      string
-	clientOptions []option.ClientOption
-}
-
-type retryOption struct {
-	retryProvider RetryProvider
-}
-
-func (t retryOption) apply(o *clientOpts) {
-	o.retryProvider = t.retryProvider
-}
-
-type timeoutOption struct {
-	timeout time.Duration
-}
-
-func (t timeoutOption) apply(o *clientOpts) {
-	o.timeout = t.timeout
-}
-
-type headerOption struct {
-	header string
-	value  string
-}
-
-func (h headerOption) apply(o *clientOpts) {
-	if o.header == nil {
-		o.header = make(http.Header)
-	}
-	o.header.Add(h.header, h.value)
-}
-
-type userAgentOption struct {
-	userAgent string
-}
-
-func (u userAgentOption) apply(o *clientOpts) {
-	o.userAgent = u.userAgent
-}
-
-type loggerOption struct {
-	logger Logger
-}
-
-func (l loggerOption) apply(o *clientOpts) {
-	o.logger = l.logger
-}
-
-type basepathOption struct {
-	basepath string
-}
-
-func (l basepathOption) apply(o *clientOpts) {
-	o.basepath = l.basepath
-}
-
-type apiClientOption struct {
-	o option.ClientOption
-}
-
-func (l apiClientOption) apply(o *clientOpts) {
-	o.clientOptions = append(o.clientOptions, l.o)
-}
-
 // WithRetryProvider allows a user to override default exponential backoff retry behavior.
-func WithRetryProvider(r RetryProvider) ClientOption {
-	return retryOption{retryProvider: r}
+func WithRetryProvider(r RetryProvider) ConfigOption {
+	return func(c *Config) {
+		c.RetryProvider = r
+	}
 }
 
 // WithTimeout allows a user to override default operation timeout.
-func WithTimeout(to time.Duration) ClientOption {
-	return timeoutOption{timeout: to}
+func WithTimeout(to time.Duration) ConfigOption {
+	return func(c *Config) {
+		c.Timeout = to
+	}
 }
 
 // WithLogger allows a user to specify a custom logger.
-func WithLogger(l Logger) ClientOption {
-	return loggerOption{logger: l}
+func WithLogger(l Logger) ConfigOption {
+	return func(c *Config) {
+		c.Logger = l
+	}
 }
 
-// WithBasePath allows a base path to be overriden.
-func WithBasePath(b string) ClientOption {
-	return basepathOption{basepath: b}
+// WithBasePath allows a base path to be overridden.
+func WithBasePath(b string) ConfigOption {
+	return func(c *Config) {
+		c.BasePath = b
+	}
 }
 
 // WithHeader allows aribitrary HTTP headers to be addded to requests. Not all headers
 // (e.g., "Content-Type") can be overridden. To set the User-Agent header, use WithUserAgent().
-func WithHeader(header, value string) ClientOption {
-	return headerOption{
-		header: header,
-		value:  value,
+func WithHeader(header, value string) ConfigOption {
+	return func(c *Config) {
+		if c.header == nil {
+			c.header = make(http.Header)
+		}
+		c.header.Add(header, value)
 	}
 }
 
 // WithUserAgent allows a user to specify a custom user-agent.
-func WithUserAgent(ua string) ClientOption {
-	return userAgentOption{userAgent: ua}
+func WithUserAgent(ua string) ConfigOption {
+	return func(c *Config) {
+		c.userAgent = ua
+	}
 }
 
-// WithAPIKey returns a ClientOption that specifies an API key to be used as the basis for authentication.
-func WithAPIKey(apiKey string) ClientOption {
-	return apiClientOption{o: option.WithAPIKey(apiKey)}
+// WithContentType allows a user to override the default Content-Type header.
+func WithContentType(ct string) ConfigOption {
+	return func(c *Config) {
+		c.contentType = ct
+	}
 }
 
-// WithClientCertSource returns a ClientOption that specifies a callback function for obtaining a TLS client certificate.
-func WithClientCertSource(s option.ClientCertSource) ClientOption {
-	return apiClientOption{o: option.WithClientCertSource(s)}
+// WithAPIKey returns a ConfigOption that specifies an API key to be used as the basis for authentication.
+func WithAPIKey(apiKey string) ConfigOption {
+	return func(c *Config) {
+		c.clientOptions = append(c.clientOptions, option.WithAPIKey(apiKey))
+	}
 }
 
-// WithCredentials returns a ClientOption that authenticates API calls using a caller-supplier Credentials struct.
-func WithCredentials(creds *google.Credentials) ClientOption {
-	return apiClientOption{o: option.WithCredentials(creds)}
+// WithClientCertSource returns a ConfigOption that specifies a callback function for obtaining a TLS client certificate.
+func WithClientCertSource(s option.ClientCertSource) ConfigOption {
+	return func(c *Config) {
+		c.clientOptions = append(c.clientOptions, option.WithClientCertSource(s))
+	}
 }
 
-// WithCredentialsFile returns a ClientOption that authenticates API calls with the given service account or refresh token JSON credentials file.
-func WithCredentialsFile(filename string) ClientOption {
-	return apiClientOption{o: option.WithCredentialsFile(filename)}
+// WithCredentials returns a ConfigOption that authenticates API calls using a caller-supplier Credentials struct.
+func WithCredentials(creds *google.Credentials) ConfigOption {
+	return func(c *Config) {
+		c.clientOptions = append(c.clientOptions, option.WithCredentials(creds))
+	}
 }
 
-// WithCredentialsJSON returns a ClientOption that authenticates API calls with the given service account or refresh token JSON credentials.
-func WithCredentialsJSON(p []byte) ClientOption {
-	return apiClientOption{o: option.WithCredentialsJSON(p)}
+// WithCredentialsFile returns a ConfigOption that authenticates API calls with the given service account or refresh token JSON credentials file.
+func WithCredentialsFile(filename string) ConfigOption {
+	return func(c *Config) {
+		c.clientOptions = append(c.clientOptions, option.WithCredentialsFile(filename))
+	}
 }
 
-// WithHTTPClient returns a ClientOption that specifies the HTTP client to use as the basis of communications.
+// WithCredentialsJSON returns a ConfigOption that authenticates API calls with the given service account or refresh token JSON credentials.
+func WithCredentialsJSON(p []byte) ConfigOption {
+	return func(c *Config) {
+		c.clientOptions = append(c.clientOptions, option.WithCredentialsJSON(p))
+	}
+}
+
+// WithHTTPClient returns a ConfigOption that specifies the HTTP client to use as the basis of communications.
 // When used, the WithHTTPClient option takes precedent over all other supplied authentication options.
-func WithHTTPClient(client *http.Client) ClientOption {
-	return apiClientOption{o: option.WithHTTPClient(client)}
-}
-
-// fetchRetryProvider returns either a default RetryProvider a user-specified provider.
-func fetchRetryProvider(c []ClientOption) RetryProvider {
-	var o clientOpts
-	for _, p := range c {
-		p.apply(&o)
+func WithHTTPClient(client *http.Client) ConfigOption {
+	return func(c *Config) {
+		c.clientOptions = append(c.clientOptions, option.WithHTTPClient(client))
 	}
-
-	if o.retryProvider != nil {
-		return o.retryProvider
-	}
-	return &BackoffRetryProvider{}
-}
-
-// fetchTimeout returns either a default timeout a user-specified timeout.
-func fetchTimeout(c []ClientOption) time.Duration {
-	var o clientOpts
-	for _, p := range c {
-		p.apply(&o)
-	}
-
-	if o.timeout <= 0 {
-		return defaultTimeout
-	}
-	return o.timeout
-}
-
-// fetchLogger returns either a new Logger or a user-specified logger.
-func fetchLogger(c []ClientOption) Logger {
-	var o clientOpts
-	for _, p := range c {
-		p.apply(&o)
-	}
-	if o.logger == nil {
-		return DefaultLogger()
-	}
-	return o.logger
-}
-
-// fetchHeader returns user-specified HTTP request headers.
-func fetchHeader(c []ClientOption) http.Header {
-	var o clientOpts
-	for _, p := range c {
-		p.apply(&o)
-	}
-	return o.header
-}
-
-// fetchUserAgent returns a user-specified or default user-agent string.
-func fetchUserAgent(c []ClientOption) string {
-	var o clientOpts
-	for _, p := range c {
-		p.apply(&o)
-	}
-
-	if o.userAgent == "" {
-		return "declarative-client-lib"
-	}
-	return o.userAgent
-}
-
-// fetchBasePath returns a user-specified base path or empty string.
-func fetchBasePath(c []ClientOption) string {
-	var o clientOpts
-	for _, p := range c {
-		p.apply(&o)
-	}
-	return o.basepath
-}
-
-// fetchClientOptions returns the API options to be used for network endpoints.
-func fetchClientOptions(c []ClientOption) []option.ClientOption {
-	var o clientOpts
-	for _, p := range c {
-		p.apply(&o)
-	}
-	return o.clientOptions
 }
 
 // Logger is an interface for logging requests and responses.

@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from connector import channel
-from google3.cloud.graphite.mmv2.services.google.pubsublite import subscription_pb2
-from google3.cloud.graphite.mmv2.services.google.pubsublite import subscription_pb2_grpc
+from google3.cloud.graphite.mmv2.services.google.pubsub_lite import subscription_pb2
+from google3.cloud.graphite.mmv2.services.google.pubsub_lite import (
+    subscription_pb2_grpc,
+)
 
 from typing import List
 
@@ -109,22 +111,6 @@ class Subscription(object):
         request.Location = location
 
         return stub.ListPubsubliteSubscription(request).items
-
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = subscription_pb2.PubsubliteSubscription()
-        any_proto.Unpack(res_proto)
-
-        res = Subscription()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.topic = Primitive.from_proto(res_proto.topic)
-        res.delivery_config = SubscriptionDeliveryConfig.from_proto(
-            res_proto.delivery_config
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
 
     def to_proto(self):
         resource = subscription_pb2.PubsubliteSubscription()

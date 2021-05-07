@@ -386,66 +386,85 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 	}
 
 	var diffs []resourceRecordSetDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.DnsName, actual.DnsName, dcl.Info{}, fn.AddNest("DnsName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DnsName, actual.DnsName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateResourceRecordSetUpdateOperation")}, fn.AddNest("DnsName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, resourceRecordSetDiff{
-			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, Diffs: ds,
-			FieldName: "DnsName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToResourceRecordSetDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DnsType, actual.DnsType, dcl.Info{}, fn.AddNest("DnsType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DnsType, actual.DnsType, dcl.Info{OperationSelector: dcl.TriggersOperation("updateResourceRecordSetUpdateOperation")}, fn.AddNest("DnsType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, resourceRecordSetDiff{
-			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, Diffs: ds,
-			FieldName: "DnsType",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToResourceRecordSetDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Ttl, actual.Ttl, dcl.Info{}, fn.AddNest("Ttl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Ttl, actual.Ttl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateResourceRecordSetUpdateOperation")}, fn.AddNest("Ttl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, resourceRecordSetDiff{
-			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, Diffs: ds,
-			FieldName: "Ttl",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToResourceRecordSetDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{OperationSelector: dcl.TriggersOperation("updateResourceRecordSetUpdateOperation")}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, resourceRecordSetDiff{
-			UpdateOp: &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, Diffs: ds,
-			FieldName: "Target",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToResourceRecordSetDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ManagedZone, actual.ManagedZone, dcl.Info{Type: "ReferenceType"}, fn.AddNest("ManagedZone")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManagedZone, actual.ManagedZone, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateResourceRecordSetUpdateOperation")}, fn.AddNest("ManagedZone")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, resourceRecordSetDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ManagedZone",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToResourceRecordSetDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, resourceRecordSetDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToResourceRecordSetDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -580,15 +599,15 @@ func flattenResourceRecordSet(c *Client, i interface{}) *ResourceRecordSet {
 		return nil
 	}
 
-	r := &ResourceRecordSet{}
-	r.DnsName = dcl.FlattenString(m["name"])
-	r.DnsType = dcl.FlattenString(m["type"])
-	r.Ttl = dcl.FlattenInteger(m["ttl"])
-	r.Target = dcl.FlattenStringSlice(m["rrdatas"])
-	r.ManagedZone = dcl.FlattenString(m["managedZone"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &ResourceRecordSet{}
+	res.DnsName = dcl.FlattenString(m["name"])
+	res.DnsType = dcl.FlattenString(m["type"])
+	res.Ttl = dcl.FlattenInteger(m["ttl"])
+	res.Target = dcl.FlattenStringSlice(m["rrdatas"])
+	res.ManagedZone = dcl.FlattenString(m["managedZone"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -638,5 +657,36 @@ func (r *ResourceRecordSet) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToResourceRecordSetDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]resourceRecordSetDiff, error) {
+	var diffs []resourceRecordSetDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := resourceRecordSetDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToresourceRecordSetApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToresourceRecordSetApiOperation(op string, opts ...dcl.ApplyOption) (resourceRecordSetApiOperation, error) {
+	switch op {
+
+	case "updateResourceRecordSetUpdateOperation":
+		return &updateResourceRecordSetUpdateOperation{ApplyOptions: opts}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

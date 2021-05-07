@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -803,15 +802,6 @@ func canonicalizeVersionDesiredState(rawDesired, rawInitial *Version, opts ...dc
 	if dcl.IsZeroValue(rawDesired.ServingStatus) {
 		rawDesired.ServingStatus = rawInitial.ServingStatus
 	}
-	if dcl.StringCanonicalize(rawDesired.CreatedBy, rawInitial.CreatedBy) {
-		rawDesired.CreatedBy = rawInitial.CreatedBy
-	}
-	if dcl.IsZeroValue(rawDesired.CreateTime) {
-		rawDesired.CreateTime = rawInitial.CreateTime
-	}
-	if dcl.IsZeroValue(rawDesired.DiskUsageBytes) {
-		rawDesired.DiskUsageBytes = rawInitial.DiskUsageBytes
-	}
 	if dcl.StringCanonicalize(rawDesired.RuntimeApiVersion, rawInitial.RuntimeApiVersion) {
 		rawDesired.RuntimeApiVersion = rawInitial.RuntimeApiVersion
 	}
@@ -840,9 +830,6 @@ func canonicalizeVersionDesiredState(rawDesired, rawInitial *Version, opts ...dc
 	rawDesired.LivenessCheck = canonicalizeVersionLivenessCheck(rawDesired.LivenessCheck, rawInitial.LivenessCheck, opts...)
 	if dcl.StringCanonicalize(rawDesired.NobuildFilesRegex, rawInitial.NobuildFilesRegex) {
 		rawDesired.NobuildFilesRegex = rawInitial.NobuildFilesRegex
-	}
-	if dcl.StringCanonicalize(rawDesired.VersionUrl, rawInitial.VersionUrl) {
-		rawDesired.VersionUrl = rawInitial.VersionUrl
 	}
 	rawDesired.Entrypoint = canonicalizeVersionEntrypoint(rawDesired.Entrypoint, rawInitial.Entrypoint, opts...)
 	rawDesired.VPCAccessConnector = canonicalizeVersionVPCAccessConnector(rawDesired.VPCAccessConnector, rawInitial.VPCAccessConnector, opts...)
@@ -1156,8 +1143,23 @@ func canonicalizeNewVersionAutomaticScaling(c *Client, des, nw *VersionAutomatic
 		nw.CoolDownPeriod = des.CoolDownPeriod
 	}
 	nw.CpuUtilization = canonicalizeNewVersionAutomaticScalingCpuUtilization(c, des.CpuUtilization, nw.CpuUtilization)
+	if dcl.IsZeroValue(nw.MaxConcurrentRequests) {
+		nw.MaxConcurrentRequests = des.MaxConcurrentRequests
+	}
+	if dcl.IsZeroValue(nw.MaxIdleInstances) {
+		nw.MaxIdleInstances = des.MaxIdleInstances
+	}
+	if dcl.IsZeroValue(nw.MaxTotalInstances) {
+		nw.MaxTotalInstances = des.MaxTotalInstances
+	}
 	if dcl.StringCanonicalize(des.MaxPendingLatency, nw.MaxPendingLatency) {
 		nw.MaxPendingLatency = des.MaxPendingLatency
+	}
+	if dcl.IsZeroValue(nw.MinIdleInstances) {
+		nw.MinIdleInstances = des.MinIdleInstances
+	}
+	if dcl.IsZeroValue(nw.MinTotalInstances) {
+		nw.MinTotalInstances = des.MinTotalInstances
 	}
 	if dcl.StringCanonicalize(des.MinPendingLatency, nw.MinPendingLatency) {
 		nw.MinPendingLatency = des.MinPendingLatency
@@ -1178,7 +1180,7 @@ func canonicalizeNewVersionAutomaticScalingSet(c *Client, des, nw []VersionAutom
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionAutomaticScaling(c, &d, &n) {
+			if diffs, _ := compareVersionAutomaticScalingNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1201,7 +1203,7 @@ func canonicalizeNewVersionAutomaticScalingSlice(c *Client, des, nw []VersionAut
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionAutomaticScaling
@@ -1243,6 +1245,9 @@ func canonicalizeNewVersionAutomaticScalingCpuUtilization(c *Client, des, nw *Ve
 	if dcl.StringCanonicalize(des.AggregationWindowLength, nw.AggregationWindowLength) {
 		nw.AggregationWindowLength = des.AggregationWindowLength
 	}
+	if dcl.IsZeroValue(nw.TargetUtilization) {
+		nw.TargetUtilization = des.TargetUtilization
+	}
 
 	return nw
 }
@@ -1255,7 +1260,7 @@ func canonicalizeNewVersionAutomaticScalingCpuUtilizationSet(c *Client, des, nw 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionAutomaticScalingCpuUtilization(c, &d, &n) {
+			if diffs, _ := compareVersionAutomaticScalingCpuUtilizationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1278,7 +1283,7 @@ func canonicalizeNewVersionAutomaticScalingCpuUtilizationSlice(c *Client, des, n
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionAutomaticScalingCpuUtilization
@@ -1317,6 +1322,13 @@ func canonicalizeNewVersionAutomaticScalingRequestUtilization(c *Client, des, nw
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.TargetRequestCountPerSecond) {
+		nw.TargetRequestCountPerSecond = des.TargetRequestCountPerSecond
+	}
+	if dcl.IsZeroValue(nw.TargetConcurrentRequests) {
+		nw.TargetConcurrentRequests = des.TargetConcurrentRequests
+	}
+
 	return nw
 }
 
@@ -1328,7 +1340,7 @@ func canonicalizeNewVersionAutomaticScalingRequestUtilizationSet(c *Client, des,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionAutomaticScalingRequestUtilization(c, &d, &n) {
+			if diffs, _ := compareVersionAutomaticScalingRequestUtilizationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1351,7 +1363,7 @@ func canonicalizeNewVersionAutomaticScalingRequestUtilizationSlice(c *Client, de
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionAutomaticScalingRequestUtilization
@@ -1396,6 +1408,19 @@ func canonicalizeNewVersionAutomaticScalingDiskUtilization(c *Client, des, nw *V
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.TargetWriteBytesPerSecond) {
+		nw.TargetWriteBytesPerSecond = des.TargetWriteBytesPerSecond
+	}
+	if dcl.IsZeroValue(nw.TargetWriteOpsPerSecond) {
+		nw.TargetWriteOpsPerSecond = des.TargetWriteOpsPerSecond
+	}
+	if dcl.IsZeroValue(nw.TargetReadBytesPerSecond) {
+		nw.TargetReadBytesPerSecond = des.TargetReadBytesPerSecond
+	}
+	if dcl.IsZeroValue(nw.TargetReadOpsPerSecond) {
+		nw.TargetReadOpsPerSecond = des.TargetReadOpsPerSecond
+	}
+
 	return nw
 }
 
@@ -1407,7 +1432,7 @@ func canonicalizeNewVersionAutomaticScalingDiskUtilizationSet(c *Client, des, nw
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionAutomaticScalingDiskUtilization(c, &d, &n) {
+			if diffs, _ := compareVersionAutomaticScalingDiskUtilizationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1430,7 +1455,7 @@ func canonicalizeNewVersionAutomaticScalingDiskUtilizationSlice(c *Client, des, 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionAutomaticScalingDiskUtilization
@@ -1475,6 +1500,19 @@ func canonicalizeNewVersionAutomaticScalingNetworkUtilization(c *Client, des, nw
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.TargetSentBytesPerSecond) {
+		nw.TargetSentBytesPerSecond = des.TargetSentBytesPerSecond
+	}
+	if dcl.IsZeroValue(nw.TargetSentPacketsPerSecond) {
+		nw.TargetSentPacketsPerSecond = des.TargetSentPacketsPerSecond
+	}
+	if dcl.IsZeroValue(nw.TargetReceivedBytesPerSecond) {
+		nw.TargetReceivedBytesPerSecond = des.TargetReceivedBytesPerSecond
+	}
+	if dcl.IsZeroValue(nw.TargetReceivedPacketsPerSecond) {
+		nw.TargetReceivedPacketsPerSecond = des.TargetReceivedPacketsPerSecond
+	}
+
 	return nw
 }
 
@@ -1486,7 +1524,7 @@ func canonicalizeNewVersionAutomaticScalingNetworkUtilizationSet(c *Client, des,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionAutomaticScalingNetworkUtilization(c, &d, &n) {
+			if diffs, _ := compareVersionAutomaticScalingNetworkUtilizationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1509,7 +1547,7 @@ func canonicalizeNewVersionAutomaticScalingNetworkUtilizationSlice(c *Client, de
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionAutomaticScalingNetworkUtilization
@@ -1554,6 +1592,19 @@ func canonicalizeNewVersionAutomaticScalingStandardSchedulerSettings(c *Client, 
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.TargetCpuUtilization) {
+		nw.TargetCpuUtilization = des.TargetCpuUtilization
+	}
+	if dcl.IsZeroValue(nw.TargetThroughputUtilization) {
+		nw.TargetThroughputUtilization = des.TargetThroughputUtilization
+	}
+	if dcl.IsZeroValue(nw.MinInstances) {
+		nw.MinInstances = des.MinInstances
+	}
+	if dcl.IsZeroValue(nw.MaxInstances) {
+		nw.MaxInstances = des.MaxInstances
+	}
+
 	return nw
 }
 
@@ -1565,7 +1616,7 @@ func canonicalizeNewVersionAutomaticScalingStandardSchedulerSettingsSet(c *Clien
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionAutomaticScalingStandardSchedulerSettings(c, &d, &n) {
+			if diffs, _ := compareVersionAutomaticScalingStandardSchedulerSettingsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1588,7 +1639,7 @@ func canonicalizeNewVersionAutomaticScalingStandardSchedulerSettingsSlice(c *Cli
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionAutomaticScalingStandardSchedulerSettings
@@ -1630,6 +1681,9 @@ func canonicalizeNewVersionBasicScaling(c *Client, des, nw *VersionBasicScaling)
 	if dcl.StringCanonicalize(des.IdleTimeout, nw.IdleTimeout) {
 		nw.IdleTimeout = des.IdleTimeout
 	}
+	if dcl.IsZeroValue(nw.MaxInstances) {
+		nw.MaxInstances = des.MaxInstances
+	}
 
 	return nw
 }
@@ -1642,7 +1696,7 @@ func canonicalizeNewVersionBasicScalingSet(c *Client, des, nw []VersionBasicScal
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionBasicScaling(c, &d, &n) {
+			if diffs, _ := compareVersionBasicScalingNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1665,7 +1719,7 @@ func canonicalizeNewVersionBasicScalingSlice(c *Client, des, nw []VersionBasicSc
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionBasicScaling
@@ -1701,6 +1755,10 @@ func canonicalizeNewVersionManualScaling(c *Client, des, nw *VersionManualScalin
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Instances) {
+		nw.Instances = des.Instances
+	}
+
 	return nw
 }
 
@@ -1712,7 +1770,7 @@ func canonicalizeNewVersionManualScalingSet(c *Client, des, nw []VersionManualSc
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionManualScaling(c, &d, &n) {
+			if diffs, _ := compareVersionManualScalingNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1735,7 +1793,7 @@ func canonicalizeNewVersionManualScalingSlice(c *Client, des, nw []VersionManual
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionManualScaling
@@ -1783,6 +1841,9 @@ func canonicalizeNewVersionNetwork(c *Client, des, nw *VersionNetwork) *VersionN
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.ForwardedPorts) {
+		nw.ForwardedPorts = des.ForwardedPorts
+	}
 	if dcl.StringCanonicalize(des.InstanceTag, nw.InstanceTag) {
 		nw.InstanceTag = des.InstanceTag
 	}
@@ -1807,7 +1868,7 @@ func canonicalizeNewVersionNetworkSet(c *Client, des, nw []VersionNetwork) []Ver
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionNetwork(c, &d, &n) {
+			if diffs, _ := compareVersionNetworkNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1830,7 +1891,7 @@ func canonicalizeNewVersionNetworkSlice(c *Client, des, nw []VersionNetwork) []V
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionNetwork
@@ -1875,6 +1936,15 @@ func canonicalizeNewVersionResources(c *Client, des, nw *VersionResources) *Vers
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Cpu) {
+		nw.Cpu = des.Cpu
+	}
+	if dcl.IsZeroValue(nw.DiskGb) {
+		nw.DiskGb = des.DiskGb
+	}
+	if dcl.IsZeroValue(nw.MemoryGb) {
+		nw.MemoryGb = des.MemoryGb
+	}
 	nw.Volumes = canonicalizeNewVersionResourcesVolumesSlice(c, des.Volumes, nw.Volumes)
 
 	return nw
@@ -1888,7 +1958,7 @@ func canonicalizeNewVersionResourcesSet(c *Client, des, nw []VersionResources) [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionResources(c, &d, &n) {
+			if diffs, _ := compareVersionResourcesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1911,7 +1981,7 @@ func canonicalizeNewVersionResourcesSlice(c *Client, des, nw []VersionResources)
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionResources
@@ -1959,6 +2029,9 @@ func canonicalizeNewVersionResourcesVolumes(c *Client, des, nw *VersionResources
 	if dcl.StringCanonicalize(des.VolumeType, nw.VolumeType) {
 		nw.VolumeType = des.VolumeType
 	}
+	if dcl.IsZeroValue(nw.SizeGb) {
+		nw.SizeGb = des.SizeGb
+	}
 
 	return nw
 }
@@ -1971,7 +2044,7 @@ func canonicalizeNewVersionResourcesVolumesSet(c *Client, des, nw []VersionResou
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionResourcesVolumes(c, &d, &n) {
+			if diffs, _ := compareVersionResourcesVolumesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1994,7 +2067,7 @@ func canonicalizeNewVersionResourcesVolumesSlice(c *Client, des, nw []VersionRes
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionResourcesVolumes
@@ -2051,6 +2124,18 @@ func canonicalizeNewVersionHandlers(c *Client, des, nw *VersionHandlers) *Versio
 	nw.StaticFiles = canonicalizeNewVersionHandlersStaticFiles(c, des.StaticFiles, nw.StaticFiles)
 	nw.Script = canonicalizeNewVersionHandlersScript(c, des.Script, nw.Script)
 	nw.ApiEndpoint = canonicalizeNewVersionHandlersApiEndpoint(c, des.ApiEndpoint, nw.ApiEndpoint)
+	if dcl.IsZeroValue(nw.SecurityLevel) {
+		nw.SecurityLevel = des.SecurityLevel
+	}
+	if dcl.IsZeroValue(nw.Login) {
+		nw.Login = des.Login
+	}
+	if dcl.IsZeroValue(nw.AuthFailAction) {
+		nw.AuthFailAction = des.AuthFailAction
+	}
+	if dcl.IsZeroValue(nw.RedirectHttpResponseCode) {
+		nw.RedirectHttpResponseCode = des.RedirectHttpResponseCode
+	}
 
 	return nw
 }
@@ -2063,7 +2148,7 @@ func canonicalizeNewVersionHandlersSet(c *Client, des, nw []VersionHandlers) []V
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionHandlers(c, &d, &n) {
+			if diffs, _ := compareVersionHandlersNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2086,7 +2171,7 @@ func canonicalizeNewVersionHandlersSlice(c *Client, des, nw []VersionHandlers) [
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionHandlers
@@ -2146,6 +2231,9 @@ func canonicalizeNewVersionHandlersStaticFiles(c *Client, des, nw *VersionHandle
 	if dcl.StringCanonicalize(des.UploadPathRegex, nw.UploadPathRegex) {
 		nw.UploadPathRegex = des.UploadPathRegex
 	}
+	if dcl.IsZeroValue(nw.HttpHeaders) {
+		nw.HttpHeaders = des.HttpHeaders
+	}
 	if dcl.StringCanonicalize(des.MimeType, nw.MimeType) {
 		nw.MimeType = des.MimeType
 	}
@@ -2170,7 +2258,7 @@ func canonicalizeNewVersionHandlersStaticFilesSet(c *Client, des, nw []VersionHa
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionHandlersStaticFiles(c, &d, &n) {
+			if diffs, _ := compareVersionHandlersStaticFilesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2193,7 +2281,7 @@ func canonicalizeNewVersionHandlersStaticFilesSlice(c *Client, des, nw []Version
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionHandlersStaticFiles
@@ -2244,7 +2332,7 @@ func canonicalizeNewVersionHandlersScriptSet(c *Client, des, nw []VersionHandler
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionHandlersScript(c, &d, &n) {
+			if diffs, _ := compareVersionHandlersScriptNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2267,7 +2355,7 @@ func canonicalizeNewVersionHandlersScriptSlice(c *Client, des, nw []VersionHandl
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionHandlersScript
@@ -2318,7 +2406,7 @@ func canonicalizeNewVersionHandlersApiEndpointSet(c *Client, des, nw []VersionHa
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionHandlersApiEndpoint(c, &d, &n) {
+			if diffs, _ := compareVersionHandlersApiEndpointNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2341,7 +2429,7 @@ func canonicalizeNewVersionHandlersApiEndpointSlice(c *Client, des, nw []Version
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionHandlersApiEndpoint
@@ -2383,6 +2471,9 @@ func canonicalizeNewVersionErrorHandlers(c *Client, des, nw *VersionErrorHandler
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.ErrorCode) {
+		nw.ErrorCode = des.ErrorCode
+	}
 	if dcl.StringCanonicalize(des.StaticFile, nw.StaticFile) {
 		nw.StaticFile = des.StaticFile
 	}
@@ -2401,7 +2492,7 @@ func canonicalizeNewVersionErrorHandlersSet(c *Client, des, nw []VersionErrorHan
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionErrorHandlers(c, &d, &n) {
+			if diffs, _ := compareVersionErrorHandlersNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2424,7 +2515,7 @@ func canonicalizeNewVersionErrorHandlersSlice(c *Client, des, nw []VersionErrorH
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionErrorHandlers
@@ -2481,7 +2572,7 @@ func canonicalizeNewVersionLibrariesSet(c *Client, des, nw []VersionLibraries) [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionLibraries(c, &d, &n) {
+			if diffs, _ := compareVersionLibrariesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2504,7 +2595,7 @@ func canonicalizeNewVersionLibrariesSlice(c *Client, des, nw []VersionLibraries)
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionLibraries
@@ -2552,8 +2643,17 @@ func canonicalizeNewVersionApiConfig(c *Client, des, nw *VersionApiConfig) *Vers
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.AuthFailAction) {
+		nw.AuthFailAction = des.AuthFailAction
+	}
+	if dcl.IsZeroValue(nw.Login) {
+		nw.Login = des.Login
+	}
 	if dcl.StringCanonicalize(des.Script, nw.Script) {
 		nw.Script = des.Script
+	}
+	if dcl.IsZeroValue(nw.SecurityLevel) {
+		nw.SecurityLevel = des.SecurityLevel
 	}
 	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
@@ -2570,7 +2670,7 @@ func canonicalizeNewVersionApiConfigSet(c *Client, des, nw []VersionApiConfig) [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionApiConfig(c, &d, &n) {
+			if diffs, _ := compareVersionApiConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2593,7 +2693,7 @@ func canonicalizeNewVersionApiConfigSlice(c *Client, des, nw []VersionApiConfig)
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionApiConfig
@@ -2632,6 +2732,9 @@ func canonicalizeNewVersionDeployment(c *Client, des, nw *VersionDeployment) *Ve
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Files) {
+		nw.Files = des.Files
+	}
 	nw.Container = canonicalizeNewVersionDeploymentContainer(c, des.Container, nw.Container)
 	nw.Zip = canonicalizeNewVersionDeploymentZip(c, des.Zip, nw.Zip)
 	nw.CloudBuildOptions = canonicalizeNewVersionDeploymentCloudBuildOptions(c, des.CloudBuildOptions, nw.CloudBuildOptions)
@@ -2647,7 +2750,7 @@ func canonicalizeNewVersionDeploymentSet(c *Client, des, nw []VersionDeployment)
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionDeployment(c, &d, &n) {
+			if diffs, _ := compareVersionDeploymentNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2670,7 +2773,7 @@ func canonicalizeNewVersionDeploymentSlice(c *Client, des, nw []VersionDeploymen
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionDeployment
@@ -2733,7 +2836,7 @@ func canonicalizeNewVersionDeploymentFilesSet(c *Client, des, nw []VersionDeploy
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionDeploymentFiles(c, &d, &n) {
+			if diffs, _ := compareVersionDeploymentFilesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2756,7 +2859,7 @@ func canonicalizeNewVersionDeploymentFilesSlice(c *Client, des, nw []VersionDepl
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionDeploymentFiles
@@ -2807,7 +2910,7 @@ func canonicalizeNewVersionDeploymentContainerSet(c *Client, des, nw []VersionDe
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionDeploymentContainer(c, &d, &n) {
+			if diffs, _ := compareVersionDeploymentContainerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2830,7 +2933,7 @@ func canonicalizeNewVersionDeploymentContainerSlice(c *Client, des, nw []Version
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionDeploymentContainer
@@ -2872,6 +2975,9 @@ func canonicalizeNewVersionDeploymentZip(c *Client, des, nw *VersionDeploymentZi
 	if dcl.StringCanonicalize(des.SourceUrl, nw.SourceUrl) {
 		nw.SourceUrl = des.SourceUrl
 	}
+	if dcl.IsZeroValue(nw.FilesCount) {
+		nw.FilesCount = des.FilesCount
+	}
 
 	return nw
 }
@@ -2884,7 +2990,7 @@ func canonicalizeNewVersionDeploymentZipSet(c *Client, des, nw []VersionDeployme
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionDeploymentZip(c, &d, &n) {
+			if diffs, _ := compareVersionDeploymentZipNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2907,7 +3013,7 @@ func canonicalizeNewVersionDeploymentZipSlice(c *Client, des, nw []VersionDeploy
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionDeploymentZip
@@ -2964,7 +3070,7 @@ func canonicalizeNewVersionDeploymentCloudBuildOptionsSet(c *Client, des, nw []V
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionDeploymentCloudBuildOptions(c, &d, &n) {
+			if diffs, _ := compareVersionDeploymentCloudBuildOptionsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2987,7 +3093,7 @@ func canonicalizeNewVersionDeploymentCloudBuildOptionsSlice(c *Client, des, nw [
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionDeploymentCloudBuildOptions
@@ -3047,6 +3153,15 @@ func canonicalizeNewVersionHealthCheck(c *Client, des, nw *VersionHealthCheck) *
 	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
+	if dcl.IsZeroValue(nw.HealthyThreshold) {
+		nw.HealthyThreshold = des.HealthyThreshold
+	}
+	if dcl.IsZeroValue(nw.UnhealthyThreshold) {
+		nw.UnhealthyThreshold = des.UnhealthyThreshold
+	}
+	if dcl.IsZeroValue(nw.RestartThreshold) {
+		nw.RestartThreshold = des.RestartThreshold
+	}
 	if dcl.StringCanonicalize(des.CheckInterval, nw.CheckInterval) {
 		nw.CheckInterval = des.CheckInterval
 	}
@@ -3065,7 +3180,7 @@ func canonicalizeNewVersionHealthCheckSet(c *Client, des, nw []VersionHealthChec
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionHealthCheck(c, &d, &n) {
+			if diffs, _ := compareVersionHealthCheckNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3088,7 +3203,7 @@ func canonicalizeNewVersionHealthCheckSlice(c *Client, des, nw []VersionHealthCh
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionHealthCheck
@@ -3148,6 +3263,12 @@ func canonicalizeNewVersionReadinessCheck(c *Client, des, nw *VersionReadinessCh
 	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
+	if dcl.IsZeroValue(nw.FailureThreshold) {
+		nw.FailureThreshold = des.FailureThreshold
+	}
+	if dcl.IsZeroValue(nw.SuccessThreshold) {
+		nw.SuccessThreshold = des.SuccessThreshold
+	}
 	if dcl.StringCanonicalize(des.CheckInterval, nw.CheckInterval) {
 		nw.CheckInterval = des.CheckInterval
 	}
@@ -3169,7 +3290,7 @@ func canonicalizeNewVersionReadinessCheckSet(c *Client, des, nw []VersionReadine
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionReadinessCheck(c, &d, &n) {
+			if diffs, _ := compareVersionReadinessCheckNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3192,7 +3313,7 @@ func canonicalizeNewVersionReadinessCheckSlice(c *Client, des, nw []VersionReadi
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionReadinessCheck
@@ -3252,6 +3373,12 @@ func canonicalizeNewVersionLivenessCheck(c *Client, des, nw *VersionLivenessChec
 	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
+	if dcl.IsZeroValue(nw.FailureThreshold) {
+		nw.FailureThreshold = des.FailureThreshold
+	}
+	if dcl.IsZeroValue(nw.SuccessThreshold) {
+		nw.SuccessThreshold = des.SuccessThreshold
+	}
 	if dcl.StringCanonicalize(des.CheckInterval, nw.CheckInterval) {
 		nw.CheckInterval = des.CheckInterval
 	}
@@ -3273,7 +3400,7 @@ func canonicalizeNewVersionLivenessCheckSet(c *Client, des, nw []VersionLiveness
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionLivenessCheck(c, &d, &n) {
+			if diffs, _ := compareVersionLivenessCheckNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3296,7 +3423,7 @@ func canonicalizeNewVersionLivenessCheckSlice(c *Client, des, nw []VersionLivene
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionLivenessCheck
@@ -3347,7 +3474,7 @@ func canonicalizeNewVersionEntrypointSet(c *Client, des, nw []VersionEntrypoint)
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionEntrypoint(c, &d, &n) {
+			if diffs, _ := compareVersionEntrypointNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3370,7 +3497,7 @@ func canonicalizeNewVersionEntrypointSlice(c *Client, des, nw []VersionEntrypoin
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionEntrypoint
@@ -3421,7 +3548,7 @@ func canonicalizeNewVersionVPCAccessConnectorSet(c *Client, des, nw []VersionVPC
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVersionVPCAccessConnector(c, &d, &n) {
+			if diffs, _ := compareVersionVPCAccessConnectorNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3444,7 +3571,7 @@ func canonicalizeNewVersionVPCAccessConnectorSlice(c *Client, des, nw []VersionV
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VersionVPCAccessConnector
@@ -3478,385 +3605,501 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []versionDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.ConsumerName, actual.ConsumerName, dcl.Info{}, fn.AddNest("ConsumerName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConsumerName, actual.ConsumerName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ConsumerName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "ConsumerName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutomaticScaling, actual.AutomaticScaling, dcl.Info{ObjectFunction: compareVersionAutomaticScalingNewStyle}, fn.AddNest("AutomaticScaling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutomaticScaling, actual.AutomaticScaling, dcl.Info{ObjectFunction: compareVersionAutomaticScalingNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("AutomaticScaling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "AutomaticScaling",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.BasicScaling, actual.BasicScaling, dcl.Info{ObjectFunction: compareVersionBasicScalingNewStyle}, fn.AddNest("BasicScaling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BasicScaling, actual.BasicScaling, dcl.Info{ObjectFunction: compareVersionBasicScalingNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("BasicScaling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "BasicScaling",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ManualScaling, actual.ManualScaling, dcl.Info{ObjectFunction: compareVersionManualScalingNewStyle}, fn.AddNest("ManualScaling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManualScaling, actual.ManualScaling, dcl.Info{ObjectFunction: compareVersionManualScalingNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ManualScaling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "ManualScaling",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.InboundServices, actual.InboundServices, dcl.Info{Type: "EnumType"}, fn.AddNest("InboundServices")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InboundServices, actual.InboundServices, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("InboundServices")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "InboundServices",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceClass, actual.InstanceClass, dcl.Info{}, fn.AddNest("InstanceClass")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceClass, actual.InstanceClass, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("InstanceClass")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "InstanceClass",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{ObjectFunction: compareVersionNetworkNewStyle}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{ObjectFunction: compareVersionNetworkNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "Network",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Zones, actual.Zones, dcl.Info{}, fn.AddNest("Zones")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zones, actual.Zones, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Zones")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "Zones",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{ObjectFunction: compareVersionResourcesNewStyle}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{ObjectFunction: compareVersionResourcesNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "Resources",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Runtime, actual.Runtime, dcl.Info{}, fn.AddNest("Runtime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Runtime, actual.Runtime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Runtime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "Runtime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.RuntimeChannel, actual.RuntimeChannel, dcl.Info{}, fn.AddNest("RuntimeChannel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RuntimeChannel, actual.RuntimeChannel, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("RuntimeChannel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "RuntimeChannel",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Threadsafe, actual.Threadsafe, dcl.Info{}, fn.AddNest("Threadsafe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Threadsafe, actual.Threadsafe, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Threadsafe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "Threadsafe",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Vm, actual.Vm, dcl.Info{}, fn.AddNest("Vm")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Vm, actual.Vm, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Vm")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "Vm",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.BetaSettings, actual.BetaSettings, dcl.Info{}, fn.AddNest("BetaSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BetaSettings, actual.BetaSettings, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("BetaSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "BetaSettings",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Env, actual.Env, dcl.Info{}, fn.AddNest("Env")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Env, actual.Env, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Env")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "Env",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServingStatus, actual.ServingStatus, dcl.Info{Type: "EnumType"}, fn.AddNest("ServingStatus")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServingStatus, actual.ServingStatus, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ServingStatus")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "ServingStatus",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreatedBy, actual.CreatedBy, dcl.Info{OutputOnly: true}, fn.AddNest("CreatedBy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreatedBy, actual.CreatedBy, dcl.Info{OutputOnly: true, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("CreatedBy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "CreatedBy",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "CreateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskUsageBytes, actual.DiskUsageBytes, dcl.Info{OutputOnly: true}, fn.AddNest("DiskUsageBytes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskUsageBytes, actual.DiskUsageBytes, dcl.Info{OutputOnly: true, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("DiskUsageBytes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "DiskUsageBytes",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.RuntimeApiVersion, actual.RuntimeApiVersion, dcl.Info{}, fn.AddNest("RuntimeApiVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RuntimeApiVersion, actual.RuntimeApiVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("RuntimeApiVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "RuntimeApiVersion",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.RuntimeMainExecutablePath, actual.RuntimeMainExecutablePath, dcl.Info{}, fn.AddNest("RuntimeMainExecutablePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RuntimeMainExecutablePath, actual.RuntimeMainExecutablePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("RuntimeMainExecutablePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "RuntimeMainExecutablePath",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Handlers, actual.Handlers, dcl.Info{ObjectFunction: compareVersionHandlersNewStyle}, fn.AddNest("Handlers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Handlers, actual.Handlers, dcl.Info{ObjectFunction: compareVersionHandlersNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Handlers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "Handlers",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorHandlers, actual.ErrorHandlers, dcl.Info{ObjectFunction: compareVersionErrorHandlersNewStyle}, fn.AddNest("ErrorHandlers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorHandlers, actual.ErrorHandlers, dcl.Info{ObjectFunction: compareVersionErrorHandlersNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ErrorHandlers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "ErrorHandlers",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Libraries, actual.Libraries, dcl.Info{ObjectFunction: compareVersionLibrariesNewStyle}, fn.AddNest("Libraries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Libraries, actual.Libraries, dcl.Info{ObjectFunction: compareVersionLibrariesNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Libraries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "Libraries",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiConfig, actual.ApiConfig, dcl.Info{ObjectFunction: compareVersionApiConfigNewStyle}, fn.AddNest("ApiConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiConfig, actual.ApiConfig, dcl.Info{ObjectFunction: compareVersionApiConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ApiConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "ApiConfig",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnvVariables, actual.EnvVariables, dcl.Info{}, fn.AddNest("EnvVariables")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnvVariables, actual.EnvVariables, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("EnvVariables")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "EnvVariables",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultExpiration, actual.DefaultExpiration, dcl.Info{}, fn.AddNest("DefaultExpiration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultExpiration, actual.DefaultExpiration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("DefaultExpiration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "DefaultExpiration",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Deployment, actual.Deployment, dcl.Info{ObjectFunction: compareVersionDeploymentNewStyle}, fn.AddNest("Deployment")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Deployment, actual.Deployment, dcl.Info{ObjectFunction: compareVersionDeploymentNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Deployment")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Deployment",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{ObjectFunction: compareVersionHealthCheckNewStyle}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{ObjectFunction: compareVersionHealthCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "HealthCheck",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadinessCheck, actual.ReadinessCheck, dcl.Info{ObjectFunction: compareVersionReadinessCheckNewStyle}, fn.AddNest("ReadinessCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadinessCheck, actual.ReadinessCheck, dcl.Info{ObjectFunction: compareVersionReadinessCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ReadinessCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "ReadinessCheck",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.LivenessCheck, actual.LivenessCheck, dcl.Info{ObjectFunction: compareVersionLivenessCheckNewStyle}, fn.AddNest("LivenessCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LivenessCheck, actual.LivenessCheck, dcl.Info{ObjectFunction: compareVersionLivenessCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("LivenessCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "LivenessCheck",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NobuildFilesRegex, actual.NobuildFilesRegex, dcl.Info{}, fn.AddNest("NobuildFilesRegex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NobuildFilesRegex, actual.NobuildFilesRegex, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("NobuildFilesRegex")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "NobuildFilesRegex",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.VersionUrl, actual.VersionUrl, dcl.Info{OutputOnly: true}, fn.AddNest("VersionUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VersionUrl, actual.VersionUrl, dcl.Info{OutputOnly: true, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("VersionUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "VersionUrl",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Entrypoint, actual.Entrypoint, dcl.Info{ObjectFunction: compareVersionEntrypointNewStyle}, fn.AddNest("Entrypoint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Entrypoint, actual.Entrypoint, dcl.Info{ObjectFunction: compareVersionEntrypointNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Entrypoint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "Entrypoint",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.VPCAccessConnector, actual.VPCAccessConnector, dcl.Info{ObjectFunction: compareVersionVPCAccessConnectorNewStyle}, fn.AddNest("VPCAccessConnector")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VPCAccessConnector, actual.VPCAccessConnector, dcl.Info{ObjectFunction: compareVersionVPCAccessConnectorNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("VPCAccessConnector")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{
-			UpdateOp: &updateVersionPatchVersionOperation{}, Diffs: ds,
-			FieldName: "VPCAccessConnector",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.App, actual.App, dcl.Info{Type: "ReferenceType"}, fn.AddNest("App")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.App, actual.App, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("App")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "App",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, versionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Service",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -3903,192 +4146,97 @@ func compareVersionAutomaticScalingNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.CoolDownPeriod, actual.CoolDownPeriod, dcl.Info{}, fn.AddNest("CoolDownPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CoolDownPeriod, actual.CoolDownPeriod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CoolDownPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CpuUtilization, actual.CpuUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingCpuUtilizationNewStyle}, fn.AddNest("CpuUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CpuUtilization, actual.CpuUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingCpuUtilizationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CpuUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxConcurrentRequests, actual.MaxConcurrentRequests, dcl.Info{}, fn.AddNest("MaxConcurrentRequests")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxConcurrentRequests, actual.MaxConcurrentRequests, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxConcurrentRequests")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxIdleInstances, actual.MaxIdleInstances, dcl.Info{}, fn.AddNest("MaxIdleInstances")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxIdleInstances, actual.MaxIdleInstances, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxIdleInstances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxTotalInstances, actual.MaxTotalInstances, dcl.Info{}, fn.AddNest("MaxTotalInstances")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxTotalInstances, actual.MaxTotalInstances, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxTotalInstances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxPendingLatency, actual.MaxPendingLatency, dcl.Info{}, fn.AddNest("MaxPendingLatency")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxPendingLatency, actual.MaxPendingLatency, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxPendingLatency")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinIdleInstances, actual.MinIdleInstances, dcl.Info{}, fn.AddNest("MinIdleInstances")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinIdleInstances, actual.MinIdleInstances, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinIdleInstances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinTotalInstances, actual.MinTotalInstances, dcl.Info{}, fn.AddNest("MinTotalInstances")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinTotalInstances, actual.MinTotalInstances, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinTotalInstances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinPendingLatency, actual.MinPendingLatency, dcl.Info{}, fn.AddNest("MinPendingLatency")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinPendingLatency, actual.MinPendingLatency, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinPendingLatency")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestUtilization, actual.RequestUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingRequestUtilizationNewStyle}, fn.AddNest("RequestUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestUtilization, actual.RequestUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingRequestUtilizationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskUtilization, actual.DiskUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingDiskUtilizationNewStyle}, fn.AddNest("DiskUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskUtilization, actual.DiskUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingDiskUtilizationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkUtilization, actual.NetworkUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingNetworkUtilizationNewStyle}, fn.AddNest("NetworkUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkUtilization, actual.NetworkUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingNetworkUtilizationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StandardSchedulerSettings, actual.StandardSchedulerSettings, dcl.Info{ObjectFunction: compareVersionAutomaticScalingStandardSchedulerSettingsNewStyle}, fn.AddNest("StandardSchedulerSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StandardSchedulerSettings, actual.StandardSchedulerSettings, dcl.Info{ObjectFunction: compareVersionAutomaticScalingStandardSchedulerSettingsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StandardSchedulerSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionAutomaticScaling(c *Client, desired, actual *VersionAutomaticScaling) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.CoolDownPeriod, actual.CoolDownPeriod) && !dcl.IsZeroValue(desired.CoolDownPeriod) {
-		c.Config.Logger.Infof("Diff in CoolDownPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CoolDownPeriod), dcl.SprintResource(actual.CoolDownPeriod))
-		return true
-	}
-	if compareVersionAutomaticScalingCpuUtilization(c, desired.CpuUtilization, actual.CpuUtilization) && !dcl.IsZeroValue(desired.CpuUtilization) {
-		c.Config.Logger.Infof("Diff in CpuUtilization.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CpuUtilization), dcl.SprintResource(actual.CpuUtilization))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MaxConcurrentRequests, actual.MaxConcurrentRequests) && !dcl.IsZeroValue(desired.MaxConcurrentRequests) {
-		c.Config.Logger.Infof("Diff in MaxConcurrentRequests.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxConcurrentRequests), dcl.SprintResource(actual.MaxConcurrentRequests))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MaxIdleInstances, actual.MaxIdleInstances) && !dcl.IsZeroValue(desired.MaxIdleInstances) {
-		c.Config.Logger.Infof("Diff in MaxIdleInstances.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxIdleInstances), dcl.SprintResource(actual.MaxIdleInstances))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MaxTotalInstances, actual.MaxTotalInstances) && !dcl.IsZeroValue(desired.MaxTotalInstances) {
-		c.Config.Logger.Infof("Diff in MaxTotalInstances.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxTotalInstances), dcl.SprintResource(actual.MaxTotalInstances))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MaxPendingLatency, actual.MaxPendingLatency) && !dcl.IsZeroValue(desired.MaxPendingLatency) {
-		c.Config.Logger.Infof("Diff in MaxPendingLatency.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxPendingLatency), dcl.SprintResource(actual.MaxPendingLatency))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MinIdleInstances, actual.MinIdleInstances) && !dcl.IsZeroValue(desired.MinIdleInstances) {
-		c.Config.Logger.Infof("Diff in MinIdleInstances.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinIdleInstances), dcl.SprintResource(actual.MinIdleInstances))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MinTotalInstances, actual.MinTotalInstances) && !dcl.IsZeroValue(desired.MinTotalInstances) {
-		c.Config.Logger.Infof("Diff in MinTotalInstances.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinTotalInstances), dcl.SprintResource(actual.MinTotalInstances))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MinPendingLatency, actual.MinPendingLatency) && !dcl.IsZeroValue(desired.MinPendingLatency) {
-		c.Config.Logger.Infof("Diff in MinPendingLatency.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinPendingLatency), dcl.SprintResource(actual.MinPendingLatency))
-		return true
-	}
-	if compareVersionAutomaticScalingRequestUtilization(c, desired.RequestUtilization, actual.RequestUtilization) && !dcl.IsZeroValue(desired.RequestUtilization) {
-		c.Config.Logger.Infof("Diff in RequestUtilization.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequestUtilization), dcl.SprintResource(actual.RequestUtilization))
-		return true
-	}
-	if compareVersionAutomaticScalingDiskUtilization(c, desired.DiskUtilization, actual.DiskUtilization) && !dcl.IsZeroValue(desired.DiskUtilization) {
-		c.Config.Logger.Infof("Diff in DiskUtilization.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DiskUtilization), dcl.SprintResource(actual.DiskUtilization))
-		return true
-	}
-	if compareVersionAutomaticScalingNetworkUtilization(c, desired.NetworkUtilization, actual.NetworkUtilization) && !dcl.IsZeroValue(desired.NetworkUtilization) {
-		c.Config.Logger.Infof("Diff in NetworkUtilization.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NetworkUtilization), dcl.SprintResource(actual.NetworkUtilization))
-		return true
-	}
-	if compareVersionAutomaticScalingStandardSchedulerSettings(c, desired.StandardSchedulerSettings, actual.StandardSchedulerSettings) && !dcl.IsZeroValue(desired.StandardSchedulerSettings) {
-		c.Config.Logger.Infof("Diff in StandardSchedulerSettings.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StandardSchedulerSettings), dcl.SprintResource(actual.StandardSchedulerSettings))
-		return true
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingSlice(c *Client, desired, actual []VersionAutomaticScaling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScaling, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScaling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScaling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingMap(c *Client, desired, actual map[string]VersionAutomaticScaling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScaling, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScaling, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionAutomaticScaling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScaling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionAutomaticScalingCpuUtilizationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4111,71 +4259,20 @@ func compareVersionAutomaticScalingCpuUtilizationNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AggregationWindowLength, actual.AggregationWindowLength, dcl.Info{}, fn.AddNest("AggregationWindowLength")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AggregationWindowLength, actual.AggregationWindowLength, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AggregationWindowLength")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetUtilization, actual.TargetUtilization, dcl.Info{}, fn.AddNest("TargetUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetUtilization, actual.TargetUtilization, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionAutomaticScalingCpuUtilization(c *Client, desired, actual *VersionAutomaticScalingCpuUtilization) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.AggregationWindowLength, actual.AggregationWindowLength) && !dcl.IsZeroValue(desired.AggregationWindowLength) {
-		c.Config.Logger.Infof("Diff in AggregationWindowLength.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AggregationWindowLength), dcl.SprintResource(actual.AggregationWindowLength))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TargetUtilization, actual.TargetUtilization) && !dcl.IsZeroValue(desired.TargetUtilization) {
-		c.Config.Logger.Infof("Diff in TargetUtilization.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetUtilization), dcl.SprintResource(actual.TargetUtilization))
-		return true
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingCpuUtilizationSlice(c *Client, desired, actual []VersionAutomaticScalingCpuUtilization) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingCpuUtilization, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingCpuUtilization(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingCpuUtilization, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingCpuUtilizationMap(c *Client, desired, actual map[string]VersionAutomaticScalingCpuUtilization) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingCpuUtilization, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingCpuUtilization, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionAutomaticScalingCpuUtilization(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingCpuUtilization, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionAutomaticScalingRequestUtilizationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4198,71 +4295,20 @@ func compareVersionAutomaticScalingRequestUtilizationNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TargetRequestCountPerSecond, actual.TargetRequestCountPerSecond, dcl.Info{}, fn.AddNest("TargetRequestCountPerSecond")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetRequestCountPerSecond, actual.TargetRequestCountPerSecond, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetRequestCountPerSecond")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetConcurrentRequests, actual.TargetConcurrentRequests, dcl.Info{}, fn.AddNest("TargetConcurrentRequests")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetConcurrentRequests, actual.TargetConcurrentRequests, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetConcurrentRequests")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionAutomaticScalingRequestUtilization(c *Client, desired, actual *VersionAutomaticScalingRequestUtilization) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.TargetRequestCountPerSecond, actual.TargetRequestCountPerSecond) && !dcl.IsZeroValue(desired.TargetRequestCountPerSecond) {
-		c.Config.Logger.Infof("Diff in TargetRequestCountPerSecond.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetRequestCountPerSecond), dcl.SprintResource(actual.TargetRequestCountPerSecond))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TargetConcurrentRequests, actual.TargetConcurrentRequests) && !dcl.IsZeroValue(desired.TargetConcurrentRequests) {
-		c.Config.Logger.Infof("Diff in TargetConcurrentRequests.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetConcurrentRequests), dcl.SprintResource(actual.TargetConcurrentRequests))
-		return true
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingRequestUtilizationSlice(c *Client, desired, actual []VersionAutomaticScalingRequestUtilization) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingRequestUtilization, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingRequestUtilization(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingRequestUtilization, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingRequestUtilizationMap(c *Client, desired, actual map[string]VersionAutomaticScalingRequestUtilization) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingRequestUtilization, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingRequestUtilization, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionAutomaticScalingRequestUtilization(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingRequestUtilization, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionAutomaticScalingDiskUtilizationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4285,93 +4331,34 @@ func compareVersionAutomaticScalingDiskUtilizationNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TargetWriteBytesPerSecond, actual.TargetWriteBytesPerSecond, dcl.Info{}, fn.AddNest("TargetWriteBytesPerSecond")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetWriteBytesPerSecond, actual.TargetWriteBytesPerSecond, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetWriteBytesPerSecond")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetWriteOpsPerSecond, actual.TargetWriteOpsPerSecond, dcl.Info{}, fn.AddNest("TargetWriteOpsPerSecond")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetWriteOpsPerSecond, actual.TargetWriteOpsPerSecond, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetWriteOpsPerSecond")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetReadBytesPerSecond, actual.TargetReadBytesPerSecond, dcl.Info{}, fn.AddNest("TargetReadBytesPerSecond")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetReadBytesPerSecond, actual.TargetReadBytesPerSecond, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetReadBytesPerSecond")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetReadOpsPerSecond, actual.TargetReadOpsPerSecond, dcl.Info{}, fn.AddNest("TargetReadOpsPerSecond")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetReadOpsPerSecond, actual.TargetReadOpsPerSecond, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetReadOpsPerSecond")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionAutomaticScalingDiskUtilization(c *Client, desired, actual *VersionAutomaticScalingDiskUtilization) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.TargetWriteBytesPerSecond, actual.TargetWriteBytesPerSecond) && !dcl.IsZeroValue(desired.TargetWriteBytesPerSecond) {
-		c.Config.Logger.Infof("Diff in TargetWriteBytesPerSecond.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetWriteBytesPerSecond), dcl.SprintResource(actual.TargetWriteBytesPerSecond))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TargetWriteOpsPerSecond, actual.TargetWriteOpsPerSecond) && !dcl.IsZeroValue(desired.TargetWriteOpsPerSecond) {
-		c.Config.Logger.Infof("Diff in TargetWriteOpsPerSecond.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetWriteOpsPerSecond), dcl.SprintResource(actual.TargetWriteOpsPerSecond))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TargetReadBytesPerSecond, actual.TargetReadBytesPerSecond) && !dcl.IsZeroValue(desired.TargetReadBytesPerSecond) {
-		c.Config.Logger.Infof("Diff in TargetReadBytesPerSecond.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetReadBytesPerSecond), dcl.SprintResource(actual.TargetReadBytesPerSecond))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TargetReadOpsPerSecond, actual.TargetReadOpsPerSecond) && !dcl.IsZeroValue(desired.TargetReadOpsPerSecond) {
-		c.Config.Logger.Infof("Diff in TargetReadOpsPerSecond.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetReadOpsPerSecond), dcl.SprintResource(actual.TargetReadOpsPerSecond))
-		return true
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingDiskUtilizationSlice(c *Client, desired, actual []VersionAutomaticScalingDiskUtilization) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingDiskUtilization, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingDiskUtilization(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingDiskUtilization, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingDiskUtilizationMap(c *Client, desired, actual map[string]VersionAutomaticScalingDiskUtilization) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingDiskUtilization, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingDiskUtilization, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionAutomaticScalingDiskUtilization(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingDiskUtilization, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionAutomaticScalingNetworkUtilizationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4394,93 +4381,34 @@ func compareVersionAutomaticScalingNetworkUtilizationNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TargetSentBytesPerSecond, actual.TargetSentBytesPerSecond, dcl.Info{}, fn.AddNest("TargetSentBytesPerSecond")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetSentBytesPerSecond, actual.TargetSentBytesPerSecond, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetSentBytesPerSecond")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetSentPacketsPerSecond, actual.TargetSentPacketsPerSecond, dcl.Info{}, fn.AddNest("TargetSentPacketsPerSecond")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetSentPacketsPerSecond, actual.TargetSentPacketsPerSecond, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetSentPacketsPerSecond")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetReceivedBytesPerSecond, actual.TargetReceivedBytesPerSecond, dcl.Info{}, fn.AddNest("TargetReceivedBytesPerSecond")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetReceivedBytesPerSecond, actual.TargetReceivedBytesPerSecond, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetReceivedBytesPerSecond")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetReceivedPacketsPerSecond, actual.TargetReceivedPacketsPerSecond, dcl.Info{}, fn.AddNest("TargetReceivedPacketsPerSecond")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetReceivedPacketsPerSecond, actual.TargetReceivedPacketsPerSecond, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetReceivedPacketsPerSecond")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionAutomaticScalingNetworkUtilization(c *Client, desired, actual *VersionAutomaticScalingNetworkUtilization) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.TargetSentBytesPerSecond, actual.TargetSentBytesPerSecond) && !dcl.IsZeroValue(desired.TargetSentBytesPerSecond) {
-		c.Config.Logger.Infof("Diff in TargetSentBytesPerSecond.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetSentBytesPerSecond), dcl.SprintResource(actual.TargetSentBytesPerSecond))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TargetSentPacketsPerSecond, actual.TargetSentPacketsPerSecond) && !dcl.IsZeroValue(desired.TargetSentPacketsPerSecond) {
-		c.Config.Logger.Infof("Diff in TargetSentPacketsPerSecond.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetSentPacketsPerSecond), dcl.SprintResource(actual.TargetSentPacketsPerSecond))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TargetReceivedBytesPerSecond, actual.TargetReceivedBytesPerSecond) && !dcl.IsZeroValue(desired.TargetReceivedBytesPerSecond) {
-		c.Config.Logger.Infof("Diff in TargetReceivedBytesPerSecond.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetReceivedBytesPerSecond), dcl.SprintResource(actual.TargetReceivedBytesPerSecond))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TargetReceivedPacketsPerSecond, actual.TargetReceivedPacketsPerSecond) && !dcl.IsZeroValue(desired.TargetReceivedPacketsPerSecond) {
-		c.Config.Logger.Infof("Diff in TargetReceivedPacketsPerSecond.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetReceivedPacketsPerSecond), dcl.SprintResource(actual.TargetReceivedPacketsPerSecond))
-		return true
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingNetworkUtilizationSlice(c *Client, desired, actual []VersionAutomaticScalingNetworkUtilization) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingNetworkUtilization, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingNetworkUtilization(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingNetworkUtilization, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingNetworkUtilizationMap(c *Client, desired, actual map[string]VersionAutomaticScalingNetworkUtilization) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingNetworkUtilization, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingNetworkUtilization, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionAutomaticScalingNetworkUtilization(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingNetworkUtilization, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionAutomaticScalingStandardSchedulerSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4503,93 +4431,34 @@ func compareVersionAutomaticScalingStandardSchedulerSettingsNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TargetCpuUtilization, actual.TargetCpuUtilization, dcl.Info{}, fn.AddNest("TargetCpuUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetCpuUtilization, actual.TargetCpuUtilization, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetCpuUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetThroughputUtilization, actual.TargetThroughputUtilization, dcl.Info{}, fn.AddNest("TargetThroughputUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetThroughputUtilization, actual.TargetThroughputUtilization, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetThroughputUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinInstances, actual.MinInstances, dcl.Info{}, fn.AddNest("MinInstances")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinInstances, actual.MinInstances, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinInstances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxInstances, actual.MaxInstances, dcl.Info{}, fn.AddNest("MaxInstances")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxInstances, actual.MaxInstances, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxInstances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionAutomaticScalingStandardSchedulerSettings(c *Client, desired, actual *VersionAutomaticScalingStandardSchedulerSettings) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.TargetCpuUtilization, actual.TargetCpuUtilization) && !dcl.IsZeroValue(desired.TargetCpuUtilization) {
-		c.Config.Logger.Infof("Diff in TargetCpuUtilization.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetCpuUtilization), dcl.SprintResource(actual.TargetCpuUtilization))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TargetThroughputUtilization, actual.TargetThroughputUtilization) && !dcl.IsZeroValue(desired.TargetThroughputUtilization) {
-		c.Config.Logger.Infof("Diff in TargetThroughputUtilization.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TargetThroughputUtilization), dcl.SprintResource(actual.TargetThroughputUtilization))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MinInstances, actual.MinInstances) && !dcl.IsZeroValue(desired.MinInstances) {
-		c.Config.Logger.Infof("Diff in MinInstances.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinInstances), dcl.SprintResource(actual.MinInstances))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MaxInstances, actual.MaxInstances) && !dcl.IsZeroValue(desired.MaxInstances) {
-		c.Config.Logger.Infof("Diff in MaxInstances.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxInstances), dcl.SprintResource(actual.MaxInstances))
-		return true
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingStandardSchedulerSettingsSlice(c *Client, desired, actual []VersionAutomaticScalingStandardSchedulerSettings) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingStandardSchedulerSettings, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionAutomaticScalingStandardSchedulerSettings(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingStandardSchedulerSettings, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionAutomaticScalingStandardSchedulerSettingsMap(c *Client, desired, actual map[string]VersionAutomaticScalingStandardSchedulerSettings) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionAutomaticScalingStandardSchedulerSettings, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingStandardSchedulerSettings, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionAutomaticScalingStandardSchedulerSettings(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionAutomaticScalingStandardSchedulerSettings, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionBasicScalingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4612,71 +4481,20 @@ func compareVersionBasicScalingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.IdleTimeout, actual.IdleTimeout, dcl.Info{}, fn.AddNest("IdleTimeout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IdleTimeout, actual.IdleTimeout, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IdleTimeout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxInstances, actual.MaxInstances, dcl.Info{}, fn.AddNest("MaxInstances")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxInstances, actual.MaxInstances, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxInstances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionBasicScaling(c *Client, desired, actual *VersionBasicScaling) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.IdleTimeout, actual.IdleTimeout) && !dcl.IsZeroValue(desired.IdleTimeout) {
-		c.Config.Logger.Infof("Diff in IdleTimeout.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IdleTimeout), dcl.SprintResource(actual.IdleTimeout))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MaxInstances, actual.MaxInstances) && !dcl.IsZeroValue(desired.MaxInstances) {
-		c.Config.Logger.Infof("Diff in MaxInstances.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxInstances), dcl.SprintResource(actual.MaxInstances))
-		return true
-	}
-	return false
-}
-
-func compareVersionBasicScalingSlice(c *Client, desired, actual []VersionBasicScaling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionBasicScaling, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionBasicScaling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionBasicScaling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionBasicScalingMap(c *Client, desired, actual map[string]VersionBasicScaling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionBasicScaling, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionBasicScaling, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionBasicScaling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionBasicScaling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionManualScalingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4699,60 +4517,13 @@ func compareVersionManualScalingNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Instances, actual.Instances, dcl.Info{}, fn.AddNest("Instances")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Instances, actual.Instances, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Instances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionManualScaling(c *Client, desired, actual *VersionManualScaling) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Instances, actual.Instances) && !dcl.IsZeroValue(desired.Instances) {
-		c.Config.Logger.Infof("Diff in Instances.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Instances), dcl.SprintResource(actual.Instances))
-		return true
-	}
-	return false
-}
-
-func compareVersionManualScalingSlice(c *Client, desired, actual []VersionManualScaling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionManualScaling, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionManualScaling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionManualScaling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionManualScalingMap(c *Client, desired, actual map[string]VersionManualScaling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionManualScaling, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionManualScaling, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionManualScaling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionManualScaling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionNetworkNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4775,104 +4546,41 @@ func compareVersionNetworkNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ForwardedPorts, actual.ForwardedPorts, dcl.Info{}, fn.AddNest("ForwardedPorts")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ForwardedPorts, actual.ForwardedPorts, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ForwardedPorts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceTag, actual.InstanceTag, dcl.Info{}, fn.AddNest("InstanceTag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceTag, actual.InstanceTag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceTag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SubnetworkName, actual.SubnetworkName, dcl.Info{Type: "ReferenceType"}, fn.AddNest("SubnetworkName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SubnetworkName, actual.SubnetworkName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SubnetworkName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SessionAffinity, actual.SessionAffinity, dcl.Info{}, fn.AddNest("SessionAffinity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SessionAffinity, actual.SessionAffinity, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SessionAffinity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionNetwork(c *Client, desired, actual *VersionNetwork) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.ForwardedPorts, actual.ForwardedPorts) && !dcl.IsZeroValue(desired.ForwardedPorts) {
-		c.Config.Logger.Infof("Diff in ForwardedPorts.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ForwardedPorts), dcl.SprintResource(actual.ForwardedPorts))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.InstanceTag, actual.InstanceTag) && !dcl.IsZeroValue(desired.InstanceTag) {
-		c.Config.Logger.Infof("Diff in InstanceTag.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceTag), dcl.SprintResource(actual.InstanceTag))
-		return true
-	}
-	if !dcl.NameToSelfLink(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.NameToSelfLink(desired.SubnetworkName, actual.SubnetworkName) && !dcl.IsZeroValue(desired.SubnetworkName) {
-		c.Config.Logger.Infof("Diff in SubnetworkName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SubnetworkName), dcl.SprintResource(actual.SubnetworkName))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.SessionAffinity, actual.SessionAffinity) && !dcl.IsZeroValue(desired.SessionAffinity) {
-		c.Config.Logger.Infof("Diff in SessionAffinity.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SessionAffinity), dcl.SprintResource(actual.SessionAffinity))
-		return true
-	}
-	return false
-}
-
-func compareVersionNetworkSlice(c *Client, desired, actual []VersionNetwork) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionNetwork, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionNetwork(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionNetwork, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionNetworkMap(c *Client, desired, actual map[string]VersionNetwork) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionNetwork, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionNetwork, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionNetwork(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionNetwork, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionResourcesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4895,93 +4603,34 @@ func compareVersionResourcesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Cpu, actual.Cpu, dcl.Info{}, fn.AddNest("Cpu")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Cpu, actual.Cpu, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Cpu")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskGb, actual.DiskGb, dcl.Info{}, fn.AddNest("DiskGb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskGb, actual.DiskGb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MemoryGb, actual.MemoryGb, dcl.Info{}, fn.AddNest("MemoryGb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MemoryGb, actual.MemoryGb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MemoryGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareVersionResourcesVolumesNewStyle}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareVersionResourcesVolumesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionResources(c *Client, desired, actual *VersionResources) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Cpu, actual.Cpu) && !dcl.IsZeroValue(desired.Cpu) {
-		c.Config.Logger.Infof("Diff in Cpu.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Cpu), dcl.SprintResource(actual.Cpu))
-		return true
-	}
-	if !reflect.DeepEqual(desired.DiskGb, actual.DiskGb) && !dcl.IsZeroValue(desired.DiskGb) {
-		c.Config.Logger.Infof("Diff in DiskGb.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DiskGb), dcl.SprintResource(actual.DiskGb))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MemoryGb, actual.MemoryGb) && !dcl.IsZeroValue(desired.MemoryGb) {
-		c.Config.Logger.Infof("Diff in MemoryGb.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MemoryGb), dcl.SprintResource(actual.MemoryGb))
-		return true
-	}
-	if compareVersionResourcesVolumesSlice(c, desired.Volumes, actual.Volumes) && !dcl.IsZeroValue(desired.Volumes) {
-		c.Config.Logger.Infof("Diff in Volumes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Volumes), dcl.SprintResource(actual.Volumes))
-		return true
-	}
-	return false
-}
-
-func compareVersionResourcesSlice(c *Client, desired, actual []VersionResources) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionResources, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionResources, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionResourcesMap(c *Client, desired, actual map[string]VersionResources) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionResources, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionResources, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionResources(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionResources, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionResourcesVolumesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5004,82 +4653,27 @@ func compareVersionResourcesVolumesNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VolumeType, actual.VolumeType, dcl.Info{}, fn.AddNest("VolumeType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VolumeType, actual.VolumeType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VolumeType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SizeGb, actual.SizeGb, dcl.Info{}, fn.AddNest("SizeGb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SizeGb, actual.SizeGb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SizeGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionResourcesVolumes(c *Client, desired, actual *VersionResourcesVolumes) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.VolumeType, actual.VolumeType) && !dcl.IsZeroValue(desired.VolumeType) {
-		c.Config.Logger.Infof("Diff in VolumeType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.VolumeType), dcl.SprintResource(actual.VolumeType))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SizeGb, actual.SizeGb) && !dcl.IsZeroValue(desired.SizeGb) {
-		c.Config.Logger.Infof("Diff in SizeGb.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SizeGb), dcl.SprintResource(actual.SizeGb))
-		return true
-	}
-	return false
-}
-
-func compareVersionResourcesVolumesSlice(c *Client, desired, actual []VersionResourcesVolumes) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionResourcesVolumes, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionResourcesVolumes(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionResourcesVolumes, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionResourcesVolumesMap(c *Client, desired, actual map[string]VersionResourcesVolumes) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionResourcesVolumes, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionResourcesVolumes, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionResourcesVolumes(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionResourcesVolumes, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionHandlersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5102,137 +4696,62 @@ func compareVersionHandlersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.UrlRegex, actual.UrlRegex, dcl.Info{}, fn.AddNest("UrlRegex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UrlRegex, actual.UrlRegex, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UrlRegex")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StaticFiles, actual.StaticFiles, dcl.Info{ObjectFunction: compareVersionHandlersStaticFilesNewStyle}, fn.AddNest("StaticFiles")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StaticFiles, actual.StaticFiles, dcl.Info{ObjectFunction: compareVersionHandlersStaticFilesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StaticFiles")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Script, actual.Script, dcl.Info{ObjectFunction: compareVersionHandlersScriptNewStyle}, fn.AddNest("Script")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Script, actual.Script, dcl.Info{ObjectFunction: compareVersionHandlersScriptNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Script")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiEndpoint, actual.ApiEndpoint, dcl.Info{ObjectFunction: compareVersionHandlersApiEndpointNewStyle}, fn.AddNest("ApiEndpoint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiEndpoint, actual.ApiEndpoint, dcl.Info{ObjectFunction: compareVersionHandlersApiEndpointNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiEndpoint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecurityLevel, actual.SecurityLevel, dcl.Info{Type: "EnumType"}, fn.AddNest("SecurityLevel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecurityLevel, actual.SecurityLevel, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecurityLevel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Login, actual.Login, dcl.Info{Type: "EnumType"}, fn.AddNest("Login")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Login, actual.Login, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Login")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AuthFailAction, actual.AuthFailAction, dcl.Info{Type: "EnumType"}, fn.AddNest("AuthFailAction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AuthFailAction, actual.AuthFailAction, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuthFailAction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RedirectHttpResponseCode, actual.RedirectHttpResponseCode, dcl.Info{Type: "EnumType"}, fn.AddNest("RedirectHttpResponseCode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RedirectHttpResponseCode, actual.RedirectHttpResponseCode, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RedirectHttpResponseCode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionHandlers(c *Client, desired, actual *VersionHandlers) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.UrlRegex, actual.UrlRegex) && !dcl.IsZeroValue(desired.UrlRegex) {
-		c.Config.Logger.Infof("Diff in UrlRegex.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlRegex), dcl.SprintResource(actual.UrlRegex))
-		return true
-	}
-	if compareVersionHandlersStaticFiles(c, desired.StaticFiles, actual.StaticFiles) && !dcl.IsZeroValue(desired.StaticFiles) {
-		c.Config.Logger.Infof("Diff in StaticFiles.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StaticFiles), dcl.SprintResource(actual.StaticFiles))
-		return true
-	}
-	if compareVersionHandlersScript(c, desired.Script, actual.Script) && !dcl.IsZeroValue(desired.Script) {
-		c.Config.Logger.Infof("Diff in Script.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Script), dcl.SprintResource(actual.Script))
-		return true
-	}
-	if compareVersionHandlersApiEndpoint(c, desired.ApiEndpoint, actual.ApiEndpoint) && !dcl.IsZeroValue(desired.ApiEndpoint) {
-		c.Config.Logger.Infof("Diff in ApiEndpoint.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiEndpoint), dcl.SprintResource(actual.ApiEndpoint))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SecurityLevel, actual.SecurityLevel) && !dcl.IsZeroValue(desired.SecurityLevel) {
-		c.Config.Logger.Infof("Diff in SecurityLevel.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecurityLevel), dcl.SprintResource(actual.SecurityLevel))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Login, actual.Login) && !dcl.IsZeroValue(desired.Login) {
-		c.Config.Logger.Infof("Diff in Login.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Login), dcl.SprintResource(actual.Login))
-		return true
-	}
-	if !reflect.DeepEqual(desired.AuthFailAction, actual.AuthFailAction) && !dcl.IsZeroValue(desired.AuthFailAction) {
-		c.Config.Logger.Infof("Diff in AuthFailAction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AuthFailAction), dcl.SprintResource(actual.AuthFailAction))
-		return true
-	}
-	if !reflect.DeepEqual(desired.RedirectHttpResponseCode, actual.RedirectHttpResponseCode) && !dcl.IsZeroValue(desired.RedirectHttpResponseCode) {
-		c.Config.Logger.Infof("Diff in RedirectHttpResponseCode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RedirectHttpResponseCode), dcl.SprintResource(actual.RedirectHttpResponseCode))
-		return true
-	}
-	return false
-}
-
-func compareVersionHandlersSlice(c *Client, desired, actual []VersionHandlers) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlers, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlers(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlers, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionHandlersMap(c *Client, desired, actual map[string]VersionHandlers) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlers, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionHandlers, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionHandlers(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionHandlers, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionHandlersStaticFilesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5255,126 +4774,55 @@ func compareVersionHandlersStaticFilesNewStyle(d, a interface{}, fn dcl.FieldNam
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UploadPathRegex, actual.UploadPathRegex, dcl.Info{}, fn.AddNest("UploadPathRegex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UploadPathRegex, actual.UploadPathRegex, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UploadPathRegex")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpHeaders, actual.HttpHeaders, dcl.Info{}, fn.AddNest("HttpHeaders")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpHeaders, actual.HttpHeaders, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HttpHeaders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MimeType, actual.MimeType, dcl.Info{}, fn.AddNest("MimeType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MimeType, actual.MimeType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MimeType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Expiration, actual.Expiration, dcl.Info{}, fn.AddNest("Expiration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Expiration, actual.Expiration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Expiration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequireMatchingFile, actual.RequireMatchingFile, dcl.Info{}, fn.AddNest("RequireMatchingFile")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequireMatchingFile, actual.RequireMatchingFile, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequireMatchingFile")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApplicationReadable, actual.ApplicationReadable, dcl.Info{}, fn.AddNest("ApplicationReadable")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApplicationReadable, actual.ApplicationReadable, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApplicationReadable")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionHandlersStaticFiles(c *Client, desired, actual *VersionHandlersStaticFiles) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.UploadPathRegex, actual.UploadPathRegex) && !dcl.IsZeroValue(desired.UploadPathRegex) {
-		c.Config.Logger.Infof("Diff in UploadPathRegex.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UploadPathRegex), dcl.SprintResource(actual.UploadPathRegex))
-		return true
-	}
-	if !dcl.MapEquals(desired.HttpHeaders, actual.HttpHeaders, []string(nil)) && !dcl.IsZeroValue(desired.HttpHeaders) {
-		c.Config.Logger.Infof("Diff in HttpHeaders.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpHeaders), dcl.SprintResource(actual.HttpHeaders))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MimeType, actual.MimeType) && !dcl.IsZeroValue(desired.MimeType) {
-		c.Config.Logger.Infof("Diff in MimeType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MimeType), dcl.SprintResource(actual.MimeType))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Expiration, actual.Expiration) && !dcl.IsZeroValue(desired.Expiration) {
-		c.Config.Logger.Infof("Diff in Expiration.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Expiration), dcl.SprintResource(actual.Expiration))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.RequireMatchingFile, actual.RequireMatchingFile) && !dcl.IsZeroValue(desired.RequireMatchingFile) {
-		c.Config.Logger.Infof("Diff in RequireMatchingFile.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RequireMatchingFile), dcl.SprintResource(actual.RequireMatchingFile))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.ApplicationReadable, actual.ApplicationReadable) && !dcl.IsZeroValue(desired.ApplicationReadable) {
-		c.Config.Logger.Infof("Diff in ApplicationReadable.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApplicationReadable), dcl.SprintResource(actual.ApplicationReadable))
-		return true
-	}
-	return false
-}
-
-func compareVersionHandlersStaticFilesSlice(c *Client, desired, actual []VersionHandlersStaticFiles) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersStaticFiles, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlersStaticFiles(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlersStaticFiles, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionHandlersStaticFilesMap(c *Client, desired, actual map[string]VersionHandlersStaticFiles) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersStaticFiles, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionHandlersStaticFiles, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionHandlersStaticFiles(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionHandlersStaticFiles, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionHandlersScriptNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5397,60 +4845,13 @@ func compareVersionHandlersScriptNewStyle(d, a interface{}, fn dcl.FieldName) ([
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ScriptPath, actual.ScriptPath, dcl.Info{}, fn.AddNest("ScriptPath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScriptPath, actual.ScriptPath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScriptPath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionHandlersScript(c *Client, desired, actual *VersionHandlersScript) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ScriptPath, actual.ScriptPath) && !dcl.IsZeroValue(desired.ScriptPath) {
-		c.Config.Logger.Infof("Diff in ScriptPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptPath), dcl.SprintResource(actual.ScriptPath))
-		return true
-	}
-	return false
-}
-
-func compareVersionHandlersScriptSlice(c *Client, desired, actual []VersionHandlersScript) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersScript, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlersScript(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlersScript, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionHandlersScriptMap(c *Client, desired, actual map[string]VersionHandlersScript) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersScript, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionHandlersScript, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionHandlersScript(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionHandlersScript, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionHandlersApiEndpointNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5473,60 +4874,13 @@ func compareVersionHandlersApiEndpointNewStyle(d, a interface{}, fn dcl.FieldNam
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ScriptPath, actual.ScriptPath, dcl.Info{}, fn.AddNest("ScriptPath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScriptPath, actual.ScriptPath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScriptPath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionHandlersApiEndpoint(c *Client, desired, actual *VersionHandlersApiEndpoint) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ScriptPath, actual.ScriptPath) && !dcl.IsZeroValue(desired.ScriptPath) {
-		c.Config.Logger.Infof("Diff in ScriptPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptPath), dcl.SprintResource(actual.ScriptPath))
-		return true
-	}
-	return false
-}
-
-func compareVersionHandlersApiEndpointSlice(c *Client, desired, actual []VersionHandlersApiEndpoint) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersApiEndpoint, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlersApiEndpoint(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlersApiEndpoint, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionHandlersApiEndpointMap(c *Client, desired, actual map[string]VersionHandlersApiEndpoint) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersApiEndpoint, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionHandlersApiEndpoint, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionHandlersApiEndpoint(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionHandlersApiEndpoint, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionErrorHandlersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5549,82 +4903,27 @@ func compareVersionErrorHandlersNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorCode, actual.ErrorCode, dcl.Info{Type: "EnumType"}, fn.AddNest("ErrorCode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorCode, actual.ErrorCode, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorCode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StaticFile, actual.StaticFile, dcl.Info{}, fn.AddNest("StaticFile")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StaticFile, actual.StaticFile, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StaticFile")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MimeType, actual.MimeType, dcl.Info{}, fn.AddNest("MimeType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MimeType, actual.MimeType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MimeType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionErrorHandlers(c *Client, desired, actual *VersionErrorHandlers) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.ErrorCode, actual.ErrorCode) && !dcl.IsZeroValue(desired.ErrorCode) {
-		c.Config.Logger.Infof("Diff in ErrorCode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ErrorCode), dcl.SprintResource(actual.ErrorCode))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.StaticFile, actual.StaticFile) && !dcl.IsZeroValue(desired.StaticFile) {
-		c.Config.Logger.Infof("Diff in StaticFile.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StaticFile), dcl.SprintResource(actual.StaticFile))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MimeType, actual.MimeType) && !dcl.IsZeroValue(desired.MimeType) {
-		c.Config.Logger.Infof("Diff in MimeType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MimeType), dcl.SprintResource(actual.MimeType))
-		return true
-	}
-	return false
-}
-
-func compareVersionErrorHandlersSlice(c *Client, desired, actual []VersionErrorHandlers) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionErrorHandlers, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionErrorHandlers(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionErrorHandlers, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionErrorHandlersMap(c *Client, desired, actual map[string]VersionErrorHandlers) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionErrorHandlers, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionErrorHandlers, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionErrorHandlers(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionErrorHandlers, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionLibrariesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5647,71 +4946,20 @@ func compareVersionLibrariesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionLibraries(c *Client, desired, actual *VersionLibraries) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Version, actual.Version) && !dcl.IsZeroValue(desired.Version) {
-		c.Config.Logger.Infof("Diff in Version.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Version), dcl.SprintResource(actual.Version))
-		return true
-	}
-	return false
-}
-
-func compareVersionLibrariesSlice(c *Client, desired, actual []VersionLibraries) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionLibraries, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionLibraries(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionLibraries, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionLibrariesMap(c *Client, desired, actual map[string]VersionLibraries) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionLibraries, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionLibraries, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionLibraries(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionLibraries, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionApiConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5734,104 +4982,41 @@ func compareVersionApiConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AuthFailAction, actual.AuthFailAction, dcl.Info{Type: "EnumType"}, fn.AddNest("AuthFailAction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AuthFailAction, actual.AuthFailAction, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuthFailAction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Login, actual.Login, dcl.Info{Type: "EnumType"}, fn.AddNest("Login")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Login, actual.Login, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Login")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Script, actual.Script, dcl.Info{}, fn.AddNest("Script")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Script, actual.Script, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Script")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecurityLevel, actual.SecurityLevel, dcl.Info{Type: "EnumType"}, fn.AddNest("SecurityLevel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecurityLevel, actual.SecurityLevel, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecurityLevel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionApiConfig(c *Client, desired, actual *VersionApiConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.AuthFailAction, actual.AuthFailAction) && !dcl.IsZeroValue(desired.AuthFailAction) {
-		c.Config.Logger.Infof("Diff in AuthFailAction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AuthFailAction), dcl.SprintResource(actual.AuthFailAction))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Login, actual.Login) && !dcl.IsZeroValue(desired.Login) {
-		c.Config.Logger.Infof("Diff in Login.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Login), dcl.SprintResource(actual.Login))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Script, actual.Script) && !dcl.IsZeroValue(desired.Script) {
-		c.Config.Logger.Infof("Diff in Script.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Script), dcl.SprintResource(actual.Script))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SecurityLevel, actual.SecurityLevel) && !dcl.IsZeroValue(desired.SecurityLevel) {
-		c.Config.Logger.Infof("Diff in SecurityLevel.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecurityLevel), dcl.SprintResource(actual.SecurityLevel))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) {
-		c.Config.Logger.Infof("Diff in Url.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
-		return true
-	}
-	return false
-}
-
-func compareVersionApiConfigSlice(c *Client, desired, actual []VersionApiConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionApiConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionApiConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionApiConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionApiConfigMap(c *Client, desired, actual map[string]VersionApiConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionApiConfig, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionApiConfig, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionApiConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionApiConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionDeploymentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5854,86 +5039,27 @@ func compareVersionDeploymentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Container, actual.Container, dcl.Info{ObjectFunction: compareVersionDeploymentContainerNewStyle}, fn.AddNest("Container")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Container, actual.Container, dcl.Info{ObjectFunction: compareVersionDeploymentContainerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Container")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Zip, actual.Zip, dcl.Info{ObjectFunction: compareVersionDeploymentZipNewStyle}, fn.AddNest("Zip")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zip, actual.Zip, dcl.Info{ObjectFunction: compareVersionDeploymentZipNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zip")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudBuildOptions, actual.CloudBuildOptions, dcl.Info{ObjectFunction: compareVersionDeploymentCloudBuildOptionsNewStyle}, fn.AddNest("CloudBuildOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudBuildOptions, actual.CloudBuildOptions, dcl.Info{ObjectFunction: compareVersionDeploymentCloudBuildOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudBuildOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionDeployment(c *Client, desired, actual *VersionDeployment) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareVersionDeploymentFilesMap(c, desired.Files, actual.Files) && !dcl.IsZeroValue(desired.Files) {
-		c.Config.Logger.Infof("Diff in Files.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Files), dcl.SprintResource(actual.Files))
-		return true
-	}
-	if compareVersionDeploymentContainer(c, desired.Container, actual.Container) && !dcl.IsZeroValue(desired.Container) {
-		c.Config.Logger.Infof("Diff in Container.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Container), dcl.SprintResource(actual.Container))
-		return true
-	}
-	if compareVersionDeploymentZip(c, desired.Zip, actual.Zip) && !dcl.IsZeroValue(desired.Zip) {
-		c.Config.Logger.Infof("Diff in Zip.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zip), dcl.SprintResource(actual.Zip))
-		return true
-	}
-	if compareVersionDeploymentCloudBuildOptions(c, desired.CloudBuildOptions, actual.CloudBuildOptions) && !dcl.IsZeroValue(desired.CloudBuildOptions) {
-		c.Config.Logger.Infof("Diff in CloudBuildOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CloudBuildOptions), dcl.SprintResource(actual.CloudBuildOptions))
-		return true
-	}
-	return false
-}
-
-func compareVersionDeploymentSlice(c *Client, desired, actual []VersionDeployment) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeployment, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionDeployment(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionDeployment, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionDeploymentMap(c *Client, desired, actual map[string]VersionDeployment) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeployment, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionDeployment, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionDeployment(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionDeployment, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionDeploymentFilesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5956,82 +5082,27 @@ func compareVersionDeploymentFilesNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SourceUrl, actual.SourceUrl, dcl.Info{}, fn.AddNest("SourceUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceUrl, actual.SourceUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Sha1Sum, actual.Sha1Sum, dcl.Info{}, fn.AddNest("Sha1Sum")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Sha1Sum, actual.Sha1Sum, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Sha1Sum")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MimeType, actual.MimeType, dcl.Info{}, fn.AddNest("MimeType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MimeType, actual.MimeType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MimeType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionDeploymentFiles(c *Client, desired, actual *VersionDeploymentFiles) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SourceUrl, actual.SourceUrl) && !dcl.IsZeroValue(desired.SourceUrl) {
-		c.Config.Logger.Infof("Diff in SourceUrl.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceUrl), dcl.SprintResource(actual.SourceUrl))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Sha1Sum, actual.Sha1Sum) && !dcl.IsZeroValue(desired.Sha1Sum) {
-		c.Config.Logger.Infof("Diff in Sha1Sum.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Sha1Sum), dcl.SprintResource(actual.Sha1Sum))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MimeType, actual.MimeType) && !dcl.IsZeroValue(desired.MimeType) {
-		c.Config.Logger.Infof("Diff in MimeType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MimeType), dcl.SprintResource(actual.MimeType))
-		return true
-	}
-	return false
-}
-
-func compareVersionDeploymentFilesSlice(c *Client, desired, actual []VersionDeploymentFiles) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeploymentFiles, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionDeploymentFiles(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionDeploymentFiles, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionDeploymentFilesMap(c *Client, desired, actual map[string]VersionDeploymentFiles) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeploymentFiles, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionDeploymentFiles, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionDeploymentFiles(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionDeploymentFiles, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionDeploymentContainerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6054,60 +5125,13 @@ func compareVersionDeploymentContainerNewStyle(d, a interface{}, fn dcl.FieldNam
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.Info{}, fn.AddNest("Image")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Image")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionDeploymentContainer(c *Client, desired, actual *VersionDeploymentContainer) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Image, actual.Image) && !dcl.IsZeroValue(desired.Image) {
-		c.Config.Logger.Infof("Diff in Image.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Image), dcl.SprintResource(actual.Image))
-		return true
-	}
-	return false
-}
-
-func compareVersionDeploymentContainerSlice(c *Client, desired, actual []VersionDeploymentContainer) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeploymentContainer, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionDeploymentContainer(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionDeploymentContainer, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionDeploymentContainerMap(c *Client, desired, actual map[string]VersionDeploymentContainer) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeploymentContainer, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionDeploymentContainer, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionDeploymentContainer(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionDeploymentContainer, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionDeploymentZipNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6130,71 +5154,20 @@ func compareVersionDeploymentZipNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SourceUrl, actual.SourceUrl, dcl.Info{}, fn.AddNest("SourceUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceUrl, actual.SourceUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FilesCount, actual.FilesCount, dcl.Info{}, fn.AddNest("FilesCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FilesCount, actual.FilesCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FilesCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionDeploymentZip(c *Client, desired, actual *VersionDeploymentZip) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SourceUrl, actual.SourceUrl) && !dcl.IsZeroValue(desired.SourceUrl) {
-		c.Config.Logger.Infof("Diff in SourceUrl.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceUrl), dcl.SprintResource(actual.SourceUrl))
-		return true
-	}
-	if !reflect.DeepEqual(desired.FilesCount, actual.FilesCount) && !dcl.IsZeroValue(desired.FilesCount) {
-		c.Config.Logger.Infof("Diff in FilesCount.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilesCount), dcl.SprintResource(actual.FilesCount))
-		return true
-	}
-	return false
-}
-
-func compareVersionDeploymentZipSlice(c *Client, desired, actual []VersionDeploymentZip) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeploymentZip, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionDeploymentZip(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionDeploymentZip, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionDeploymentZipMap(c *Client, desired, actual map[string]VersionDeploymentZip) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeploymentZip, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionDeploymentZip, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionDeploymentZip(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionDeploymentZip, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionDeploymentCloudBuildOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6217,71 +5190,20 @@ func compareVersionDeploymentCloudBuildOptionsNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AppYamlPath, actual.AppYamlPath, dcl.Info{}, fn.AddNest("AppYamlPath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AppYamlPath, actual.AppYamlPath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AppYamlPath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudBuildTimeout, actual.CloudBuildTimeout, dcl.Info{}, fn.AddNest("CloudBuildTimeout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudBuildTimeout, actual.CloudBuildTimeout, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudBuildTimeout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionDeploymentCloudBuildOptions(c *Client, desired, actual *VersionDeploymentCloudBuildOptions) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.AppYamlPath, actual.AppYamlPath) && !dcl.IsZeroValue(desired.AppYamlPath) {
-		c.Config.Logger.Infof("Diff in AppYamlPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AppYamlPath), dcl.SprintResource(actual.AppYamlPath))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.CloudBuildTimeout, actual.CloudBuildTimeout) && !dcl.IsZeroValue(desired.CloudBuildTimeout) {
-		c.Config.Logger.Infof("Diff in CloudBuildTimeout.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CloudBuildTimeout), dcl.SprintResource(actual.CloudBuildTimeout))
-		return true
-	}
-	return false
-}
-
-func compareVersionDeploymentCloudBuildOptionsSlice(c *Client, desired, actual []VersionDeploymentCloudBuildOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeploymentCloudBuildOptions, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionDeploymentCloudBuildOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionDeploymentCloudBuildOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionDeploymentCloudBuildOptionsMap(c *Client, desired, actual map[string]VersionDeploymentCloudBuildOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionDeploymentCloudBuildOptions, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionDeploymentCloudBuildOptions, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionDeploymentCloudBuildOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionDeploymentCloudBuildOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionHealthCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6304,126 +5226,55 @@ func compareVersionHealthCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DisableHealthCheck, actual.DisableHealthCheck, dcl.Info{}, fn.AddNest("DisableHealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisableHealthCheck, actual.DisableHealthCheck, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisableHealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HealthyThreshold, actual.HealthyThreshold, dcl.Info{}, fn.AddNest("HealthyThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HealthyThreshold, actual.HealthyThreshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HealthyThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UnhealthyThreshold, actual.UnhealthyThreshold, dcl.Info{}, fn.AddNest("UnhealthyThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UnhealthyThreshold, actual.UnhealthyThreshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UnhealthyThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RestartThreshold, actual.RestartThreshold, dcl.Info{}, fn.AddNest("RestartThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RestartThreshold, actual.RestartThreshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RestartThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CheckInterval, actual.CheckInterval, dcl.Info{}, fn.AddNest("CheckInterval")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CheckInterval, actual.CheckInterval, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CheckInterval")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Timeout, actual.Timeout, dcl.Info{}, fn.AddNest("Timeout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Timeout, actual.Timeout, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Timeout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionHealthCheck(c *Client, desired, actual *VersionHealthCheck) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.DisableHealthCheck, actual.DisableHealthCheck) && !dcl.IsZeroValue(desired.DisableHealthCheck) {
-		c.Config.Logger.Infof("Diff in DisableHealthCheck.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DisableHealthCheck), dcl.SprintResource(actual.DisableHealthCheck))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	if !reflect.DeepEqual(desired.HealthyThreshold, actual.HealthyThreshold) && !dcl.IsZeroValue(desired.HealthyThreshold) {
-		c.Config.Logger.Infof("Diff in HealthyThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HealthyThreshold), dcl.SprintResource(actual.HealthyThreshold))
-		return true
-	}
-	if !reflect.DeepEqual(desired.UnhealthyThreshold, actual.UnhealthyThreshold) && !dcl.IsZeroValue(desired.UnhealthyThreshold) {
-		c.Config.Logger.Infof("Diff in UnhealthyThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UnhealthyThreshold), dcl.SprintResource(actual.UnhealthyThreshold))
-		return true
-	}
-	if !reflect.DeepEqual(desired.RestartThreshold, actual.RestartThreshold) && !dcl.IsZeroValue(desired.RestartThreshold) {
-		c.Config.Logger.Infof("Diff in RestartThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RestartThreshold), dcl.SprintResource(actual.RestartThreshold))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) {
-		c.Config.Logger.Infof("Diff in CheckInterval.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CheckInterval), dcl.SprintResource(actual.CheckInterval))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
-		c.Config.Logger.Infof("Diff in Timeout.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
-		return true
-	}
-	return false
-}
-
-func compareVersionHealthCheckSlice(c *Client, desired, actual []VersionHealthCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHealthCheck, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionHealthCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHealthCheck, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionHealthCheckMap(c *Client, desired, actual map[string]VersionHealthCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHealthCheck, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionHealthCheck, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionHealthCheck(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionHealthCheck, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionReadinessCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6446,126 +5297,55 @@ func compareVersionReadinessCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FailureThreshold, actual.FailureThreshold, dcl.Info{}, fn.AddNest("FailureThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FailureThreshold, actual.FailureThreshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FailureThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SuccessThreshold, actual.SuccessThreshold, dcl.Info{}, fn.AddNest("SuccessThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SuccessThreshold, actual.SuccessThreshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SuccessThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CheckInterval, actual.CheckInterval, dcl.Info{}, fn.AddNest("CheckInterval")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CheckInterval, actual.CheckInterval, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CheckInterval")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Timeout, actual.Timeout, dcl.Info{}, fn.AddNest("Timeout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Timeout, actual.Timeout, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Timeout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AppStartTimeout, actual.AppStartTimeout, dcl.Info{}, fn.AddNest("AppStartTimeout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AppStartTimeout, actual.AppStartTimeout, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AppStartTimeout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionReadinessCheck(c *Client, desired, actual *VersionReadinessCheck) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	if !reflect.DeepEqual(desired.FailureThreshold, actual.FailureThreshold) && !dcl.IsZeroValue(desired.FailureThreshold) {
-		c.Config.Logger.Infof("Diff in FailureThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailureThreshold), dcl.SprintResource(actual.FailureThreshold))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SuccessThreshold, actual.SuccessThreshold) && !dcl.IsZeroValue(desired.SuccessThreshold) {
-		c.Config.Logger.Infof("Diff in SuccessThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuccessThreshold), dcl.SprintResource(actual.SuccessThreshold))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) {
-		c.Config.Logger.Infof("Diff in CheckInterval.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CheckInterval), dcl.SprintResource(actual.CheckInterval))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
-		c.Config.Logger.Infof("Diff in Timeout.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.AppStartTimeout, actual.AppStartTimeout) && !dcl.IsZeroValue(desired.AppStartTimeout) {
-		c.Config.Logger.Infof("Diff in AppStartTimeout.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AppStartTimeout), dcl.SprintResource(actual.AppStartTimeout))
-		return true
-	}
-	return false
-}
-
-func compareVersionReadinessCheckSlice(c *Client, desired, actual []VersionReadinessCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionReadinessCheck, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionReadinessCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionReadinessCheck, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionReadinessCheckMap(c *Client, desired, actual map[string]VersionReadinessCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionReadinessCheck, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionReadinessCheck, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionReadinessCheck(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionReadinessCheck, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionLivenessCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6588,126 +5368,55 @@ func compareVersionLivenessCheckNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FailureThreshold, actual.FailureThreshold, dcl.Info{}, fn.AddNest("FailureThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FailureThreshold, actual.FailureThreshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FailureThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SuccessThreshold, actual.SuccessThreshold, dcl.Info{}, fn.AddNest("SuccessThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SuccessThreshold, actual.SuccessThreshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SuccessThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CheckInterval, actual.CheckInterval, dcl.Info{}, fn.AddNest("CheckInterval")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CheckInterval, actual.CheckInterval, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CheckInterval")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Timeout, actual.Timeout, dcl.Info{}, fn.AddNest("Timeout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Timeout, actual.Timeout, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Timeout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InitialDelay, actual.InitialDelay, dcl.Info{}, fn.AddNest("InitialDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InitialDelay, actual.InitialDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InitialDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionLivenessCheck(c *Client, desired, actual *VersionLivenessCheck) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	if !reflect.DeepEqual(desired.FailureThreshold, actual.FailureThreshold) && !dcl.IsZeroValue(desired.FailureThreshold) {
-		c.Config.Logger.Infof("Diff in FailureThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailureThreshold), dcl.SprintResource(actual.FailureThreshold))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SuccessThreshold, actual.SuccessThreshold) && !dcl.IsZeroValue(desired.SuccessThreshold) {
-		c.Config.Logger.Infof("Diff in SuccessThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuccessThreshold), dcl.SprintResource(actual.SuccessThreshold))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.CheckInterval, actual.CheckInterval) && !dcl.IsZeroValue(desired.CheckInterval) {
-		c.Config.Logger.Infof("Diff in CheckInterval.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CheckInterval), dcl.SprintResource(actual.CheckInterval))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Timeout, actual.Timeout) && !dcl.IsZeroValue(desired.Timeout) {
-		c.Config.Logger.Infof("Diff in Timeout.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Timeout), dcl.SprintResource(actual.Timeout))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.InitialDelay, actual.InitialDelay) && !dcl.IsZeroValue(desired.InitialDelay) {
-		c.Config.Logger.Infof("Diff in InitialDelay.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitialDelay), dcl.SprintResource(actual.InitialDelay))
-		return true
-	}
-	return false
-}
-
-func compareVersionLivenessCheckSlice(c *Client, desired, actual []VersionLivenessCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionLivenessCheck, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionLivenessCheck(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionLivenessCheck, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionLivenessCheckMap(c *Client, desired, actual map[string]VersionLivenessCheck) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionLivenessCheck, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionLivenessCheck, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionLivenessCheck(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionLivenessCheck, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionEntrypointNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6730,60 +5439,13 @@ func compareVersionEntrypointNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Shell, actual.Shell, dcl.Info{}, fn.AddNest("Shell")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Shell, actual.Shell, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Shell")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionEntrypoint(c *Client, desired, actual *VersionEntrypoint) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Shell, actual.Shell) && !dcl.IsZeroValue(desired.Shell) {
-		c.Config.Logger.Infof("Diff in Shell.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Shell), dcl.SprintResource(actual.Shell))
-		return true
-	}
-	return false
-}
-
-func compareVersionEntrypointSlice(c *Client, desired, actual []VersionEntrypoint) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionEntrypoint, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionEntrypoint(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionEntrypoint, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionEntrypointMap(c *Client, desired, actual map[string]VersionEntrypoint) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionEntrypoint, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionEntrypoint, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionEntrypoint(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionEntrypoint, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareVersionVPCAccessConnectorNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6806,240 +5468,13 @@ func compareVersionVPCAccessConnectorNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVersionVPCAccessConnector(c *Client, desired, actual *VersionVPCAccessConnector) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.NameToSelfLink(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	return false
-}
-
-func compareVersionVPCAccessConnectorSlice(c *Client, desired, actual []VersionVPCAccessConnector) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionVPCAccessConnector, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionVPCAccessConnector(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionVPCAccessConnector, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionVPCAccessConnectorMap(c *Client, desired, actual map[string]VersionVPCAccessConnector) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionVPCAccessConnector, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VersionVPCAccessConnector, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVersionVPCAccessConnector(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VersionVPCAccessConnector, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionInboundServicesEnumSlice(c *Client, desired, actual []VersionInboundServicesEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionInboundServicesEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionInboundServicesEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionInboundServicesEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionInboundServicesEnum(c *Client, desired, actual *VersionInboundServicesEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareVersionServingStatusEnumSlice(c *Client, desired, actual []VersionServingStatusEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionServingStatusEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionServingStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionServingStatusEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionServingStatusEnum(c *Client, desired, actual *VersionServingStatusEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareVersionHandlersSecurityLevelEnumSlice(c *Client, desired, actual []VersionHandlersSecurityLevelEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersSecurityLevelEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlersSecurityLevelEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlersSecurityLevelEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionHandlersSecurityLevelEnum(c *Client, desired, actual *VersionHandlersSecurityLevelEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareVersionHandlersLoginEnumSlice(c *Client, desired, actual []VersionHandlersLoginEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersLoginEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlersLoginEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlersLoginEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionHandlersLoginEnum(c *Client, desired, actual *VersionHandlersLoginEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareVersionHandlersAuthFailActionEnumSlice(c *Client, desired, actual []VersionHandlersAuthFailActionEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersAuthFailActionEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlersAuthFailActionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlersAuthFailActionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionHandlersAuthFailActionEnum(c *Client, desired, actual *VersionHandlersAuthFailActionEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareVersionHandlersRedirectHttpResponseCodeEnumSlice(c *Client, desired, actual []VersionHandlersRedirectHttpResponseCodeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionHandlersRedirectHttpResponseCodeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionHandlersRedirectHttpResponseCodeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionHandlersRedirectHttpResponseCodeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionHandlersRedirectHttpResponseCodeEnum(c *Client, desired, actual *VersionHandlersRedirectHttpResponseCodeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareVersionErrorHandlersErrorCodeEnumSlice(c *Client, desired, actual []VersionErrorHandlersErrorCodeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionErrorHandlersErrorCodeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionErrorHandlersErrorCodeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionErrorHandlersErrorCodeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionErrorHandlersErrorCodeEnum(c *Client, desired, actual *VersionErrorHandlersErrorCodeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareVersionApiConfigAuthFailActionEnumSlice(c *Client, desired, actual []VersionApiConfigAuthFailActionEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionApiConfigAuthFailActionEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionApiConfigAuthFailActionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionApiConfigAuthFailActionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionApiConfigAuthFailActionEnum(c *Client, desired, actual *VersionApiConfigAuthFailActionEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareVersionApiConfigLoginEnumSlice(c *Client, desired, actual []VersionApiConfigLoginEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionApiConfigLoginEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionApiConfigLoginEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionApiConfigLoginEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionApiConfigLoginEnum(c *Client, desired, actual *VersionApiConfigLoginEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareVersionApiConfigSecurityLevelEnumSlice(c *Client, desired, actual []VersionApiConfigSecurityLevelEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VersionApiConfigSecurityLevelEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVersionApiConfigSecurityLevelEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VersionApiConfigSecurityLevelEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVersionApiConfigSecurityLevelEnum(c *Client, desired, actual *VersionApiConfigSecurityLevelEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -7285,47 +5720,47 @@ func flattenVersion(c *Client, i interface{}) *Version {
 		return nil
 	}
 
-	r := &Version{}
-	r.ConsumerName = dcl.FlattenString(m["consumerName"])
-	r.Name = dcl.FlattenString(m["id"])
-	r.AutomaticScaling = flattenVersionAutomaticScaling(c, m["automaticScaling"])
-	r.BasicScaling = flattenVersionBasicScaling(c, m["basicScaling"])
-	r.ManualScaling = flattenVersionManualScaling(c, m["manualScaling"])
-	r.InboundServices = flattenVersionInboundServicesEnumSlice(c, m["inboundServices"])
-	r.InstanceClass = dcl.FlattenString(m["instanceClass"])
-	r.Network = flattenVersionNetwork(c, m["network"])
-	r.Zones = dcl.FlattenStringSlice(m["zones"])
-	r.Resources = flattenVersionResources(c, m["resources"])
-	r.Runtime = dcl.FlattenString(m["runtime"])
-	r.RuntimeChannel = dcl.FlattenString(m["runtimeChannel"])
-	r.Threadsafe = dcl.FlattenBool(m["threadsafe"])
-	r.Vm = dcl.FlattenBool(m["vm"])
-	r.BetaSettings = dcl.FlattenKeyValuePairs(m["betaSettings"])
-	r.Env = dcl.FlattenString(m["env"])
-	r.ServingStatus = flattenVersionServingStatusEnum(m["servingStatus"])
-	r.CreatedBy = dcl.FlattenString(m["createdBy"])
-	r.CreateTime = dcl.FlattenString(m["createTime"])
-	r.DiskUsageBytes = dcl.FlattenInteger(m["diskUsageBytes"])
-	r.RuntimeApiVersion = dcl.FlattenString(m["runtimeApiVersion"])
-	r.RuntimeMainExecutablePath = dcl.FlattenString(m["runtimeMainExecutablePath"])
-	r.Handlers = flattenVersionHandlersSlice(c, m["handlers"])
-	r.ErrorHandlers = flattenVersionErrorHandlersSlice(c, m["errorHandlers"])
-	r.Libraries = flattenVersionLibrariesSlice(c, m["libraries"])
-	r.ApiConfig = flattenVersionApiConfig(c, m["apiConfig"])
-	r.EnvVariables = dcl.FlattenKeyValuePairs(m["envVariables"])
-	r.DefaultExpiration = dcl.FlattenString(m["defaultExpiration"])
-	r.Deployment = flattenVersionDeployment(c, m["deployment"])
-	r.HealthCheck = flattenVersionHealthCheck(c, m["healthCheck"])
-	r.ReadinessCheck = flattenVersionReadinessCheck(c, m["readinessCheck"])
-	r.LivenessCheck = flattenVersionLivenessCheck(c, m["livenessCheck"])
-	r.NobuildFilesRegex = dcl.FlattenString(m["nobuildFilesRegex"])
-	r.VersionUrl = dcl.FlattenString(m["versionUrl"])
-	r.Entrypoint = flattenVersionEntrypoint(c, m["entrypoint"])
-	r.VPCAccessConnector = flattenVersionVPCAccessConnector(c, m["vpcAccessConnector"])
-	r.App = dcl.FlattenString(m["app"])
-	r.Service = dcl.FlattenString(m["service"])
+	res := &Version{}
+	res.ConsumerName = dcl.FlattenString(m["consumerName"])
+	res.Name = dcl.FlattenString(m["id"])
+	res.AutomaticScaling = flattenVersionAutomaticScaling(c, m["automaticScaling"])
+	res.BasicScaling = flattenVersionBasicScaling(c, m["basicScaling"])
+	res.ManualScaling = flattenVersionManualScaling(c, m["manualScaling"])
+	res.InboundServices = flattenVersionInboundServicesEnumSlice(c, m["inboundServices"])
+	res.InstanceClass = dcl.FlattenString(m["instanceClass"])
+	res.Network = flattenVersionNetwork(c, m["network"])
+	res.Zones = dcl.FlattenStringSlice(m["zones"])
+	res.Resources = flattenVersionResources(c, m["resources"])
+	res.Runtime = dcl.FlattenString(m["runtime"])
+	res.RuntimeChannel = dcl.FlattenString(m["runtimeChannel"])
+	res.Threadsafe = dcl.FlattenBool(m["threadsafe"])
+	res.Vm = dcl.FlattenBool(m["vm"])
+	res.BetaSettings = dcl.FlattenKeyValuePairs(m["betaSettings"])
+	res.Env = dcl.FlattenString(m["env"])
+	res.ServingStatus = flattenVersionServingStatusEnum(m["servingStatus"])
+	res.CreatedBy = dcl.FlattenString(m["createdBy"])
+	res.CreateTime = dcl.FlattenString(m["createTime"])
+	res.DiskUsageBytes = dcl.FlattenInteger(m["diskUsageBytes"])
+	res.RuntimeApiVersion = dcl.FlattenString(m["runtimeApiVersion"])
+	res.RuntimeMainExecutablePath = dcl.FlattenString(m["runtimeMainExecutablePath"])
+	res.Handlers = flattenVersionHandlersSlice(c, m["handlers"])
+	res.ErrorHandlers = flattenVersionErrorHandlersSlice(c, m["errorHandlers"])
+	res.Libraries = flattenVersionLibrariesSlice(c, m["libraries"])
+	res.ApiConfig = flattenVersionApiConfig(c, m["apiConfig"])
+	res.EnvVariables = dcl.FlattenKeyValuePairs(m["envVariables"])
+	res.DefaultExpiration = dcl.FlattenString(m["defaultExpiration"])
+	res.Deployment = flattenVersionDeployment(c, m["deployment"])
+	res.HealthCheck = flattenVersionHealthCheck(c, m["healthCheck"])
+	res.ReadinessCheck = flattenVersionReadinessCheck(c, m["readinessCheck"])
+	res.LivenessCheck = flattenVersionLivenessCheck(c, m["livenessCheck"])
+	res.NobuildFilesRegex = dcl.FlattenString(m["nobuildFilesRegex"])
+	res.VersionUrl = dcl.FlattenString(m["versionUrl"])
+	res.Entrypoint = flattenVersionEntrypoint(c, m["entrypoint"])
+	res.VPCAccessConnector = flattenVersionVPCAccessConnector(c, m["vpcAccessConnector"])
+	res.App = dcl.FlattenString(m["app"])
+	res.Service = dcl.FlattenString(m["service"])
 
-	return r
+	return res
 }
 
 // expandVersionAutomaticScalingMap expands the contents of VersionAutomaticScaling into a JSON
@@ -7412,10 +5847,11 @@ func flattenVersionAutomaticScalingSlice(c *Client, i interface{}) []VersionAuto
 // expandVersionAutomaticScaling expands an instance of VersionAutomaticScaling into a JSON
 // request object.
 func expandVersionAutomaticScaling(c *Client, f *VersionAutomaticScaling) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.CoolDownPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["coolDownPeriod"] = v
 	}
@@ -7579,10 +6015,11 @@ func flattenVersionAutomaticScalingCpuUtilizationSlice(c *Client, i interface{})
 // expandVersionAutomaticScalingCpuUtilization expands an instance of VersionAutomaticScalingCpuUtilization into a JSON
 // request object.
 func expandVersionAutomaticScalingCpuUtilization(c *Client, f *VersionAutomaticScalingCpuUtilization) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.AggregationWindowLength; !dcl.IsEmptyValueIndirect(v) {
 		m["aggregationWindowLength"] = v
 	}
@@ -7692,10 +6129,11 @@ func flattenVersionAutomaticScalingRequestUtilizationSlice(c *Client, i interfac
 // expandVersionAutomaticScalingRequestUtilization expands an instance of VersionAutomaticScalingRequestUtilization into a JSON
 // request object.
 func expandVersionAutomaticScalingRequestUtilization(c *Client, f *VersionAutomaticScalingRequestUtilization) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.TargetRequestCountPerSecond; !dcl.IsEmptyValueIndirect(v) {
 		m["targetRequestCountPerSecond"] = v
 	}
@@ -7805,10 +6243,11 @@ func flattenVersionAutomaticScalingDiskUtilizationSlice(c *Client, i interface{}
 // expandVersionAutomaticScalingDiskUtilization expands an instance of VersionAutomaticScalingDiskUtilization into a JSON
 // request object.
 func expandVersionAutomaticScalingDiskUtilization(c *Client, f *VersionAutomaticScalingDiskUtilization) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.TargetWriteBytesPerSecond; !dcl.IsEmptyValueIndirect(v) {
 		m["targetWriteBytesPerSecond"] = v
 	}
@@ -7926,10 +6365,11 @@ func flattenVersionAutomaticScalingNetworkUtilizationSlice(c *Client, i interfac
 // expandVersionAutomaticScalingNetworkUtilization expands an instance of VersionAutomaticScalingNetworkUtilization into a JSON
 // request object.
 func expandVersionAutomaticScalingNetworkUtilization(c *Client, f *VersionAutomaticScalingNetworkUtilization) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.TargetSentBytesPerSecond; !dcl.IsEmptyValueIndirect(v) {
 		m["targetSentBytesPerSecond"] = v
 	}
@@ -8047,10 +6487,11 @@ func flattenVersionAutomaticScalingStandardSchedulerSettingsSlice(c *Client, i i
 // expandVersionAutomaticScalingStandardSchedulerSettings expands an instance of VersionAutomaticScalingStandardSchedulerSettings into a JSON
 // request object.
 func expandVersionAutomaticScalingStandardSchedulerSettings(c *Client, f *VersionAutomaticScalingStandardSchedulerSettings) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.TargetCpuUtilization; !dcl.IsEmptyValueIndirect(v) {
 		m["targetCpuUtilization"] = v
 	}
@@ -8168,10 +6609,11 @@ func flattenVersionBasicScalingSlice(c *Client, i interface{}) []VersionBasicSca
 // expandVersionBasicScaling expands an instance of VersionBasicScaling into a JSON
 // request object.
 func expandVersionBasicScaling(c *Client, f *VersionBasicScaling) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.IdleTimeout; !dcl.IsEmptyValueIndirect(v) {
 		m["idleTimeout"] = v
 	}
@@ -8281,10 +6723,11 @@ func flattenVersionManualScalingSlice(c *Client, i interface{}) []VersionManualS
 // expandVersionManualScaling expands an instance of VersionManualScaling into a JSON
 // request object.
 func expandVersionManualScaling(c *Client, f *VersionManualScaling) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Instances; !dcl.IsEmptyValueIndirect(v) {
 		m["instances"] = v
 	}
@@ -8390,10 +6833,11 @@ func flattenVersionNetworkSlice(c *Client, i interface{}) []VersionNetwork {
 // expandVersionNetwork expands an instance of VersionNetwork into a JSON
 // request object.
 func expandVersionNetwork(c *Client, f *VersionNetwork) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ForwardedPorts; !dcl.IsEmptyValueIndirect(v) {
 		m["forwardedPorts"] = v
 	}
@@ -8515,10 +6959,11 @@ func flattenVersionResourcesSlice(c *Client, i interface{}) []VersionResources {
 // expandVersionResources expands an instance of VersionResources into a JSON
 // request object.
 func expandVersionResources(c *Client, f *VersionResources) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Cpu; !dcl.IsEmptyValueIndirect(v) {
 		m["cpu"] = v
 	}
@@ -8638,10 +7083,11 @@ func flattenVersionResourcesVolumesSlice(c *Client, i interface{}) []VersionReso
 // expandVersionResourcesVolumes expands an instance of VersionResourcesVolumes into a JSON
 // request object.
 func expandVersionResourcesVolumes(c *Client, f *VersionResourcesVolumes) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -8755,10 +7201,11 @@ func flattenVersionHandlersSlice(c *Client, i interface{}) []VersionHandlers {
 // expandVersionHandlers expands an instance of VersionHandlers into a JSON
 // request object.
 func expandVersionHandlers(c *Client, f *VersionHandlers) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.UrlRegex; !dcl.IsEmptyValueIndirect(v) {
 		m["urlRegex"] = v
 	}
@@ -8898,10 +7345,11 @@ func flattenVersionHandlersStaticFilesSlice(c *Client, i interface{}) []VersionH
 // expandVersionHandlersStaticFiles expands an instance of VersionHandlersStaticFiles into a JSON
 // request object.
 func expandVersionHandlersStaticFiles(c *Client, f *VersionHandlersStaticFiles) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
 		m["path"] = v
 	}
@@ -9031,10 +7479,11 @@ func flattenVersionHandlersScriptSlice(c *Client, i interface{}) []VersionHandle
 // expandVersionHandlersScript expands an instance of VersionHandlersScript into a JSON
 // request object.
 func expandVersionHandlersScript(c *Client, f *VersionHandlersScript) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ScriptPath; !dcl.IsEmptyValueIndirect(v) {
 		m["scriptPath"] = v
 	}
@@ -9140,10 +7589,11 @@ func flattenVersionHandlersApiEndpointSlice(c *Client, i interface{}) []VersionH
 // expandVersionHandlersApiEndpoint expands an instance of VersionHandlersApiEndpoint into a JSON
 // request object.
 func expandVersionHandlersApiEndpoint(c *Client, f *VersionHandlersApiEndpoint) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ScriptPath; !dcl.IsEmptyValueIndirect(v) {
 		m["scriptPath"] = v
 	}
@@ -9249,10 +7699,11 @@ func flattenVersionErrorHandlersSlice(c *Client, i interface{}) []VersionErrorHa
 // expandVersionErrorHandlers expands an instance of VersionErrorHandlers into a JSON
 // request object.
 func expandVersionErrorHandlers(c *Client, f *VersionErrorHandlers) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ErrorCode; !dcl.IsEmptyValueIndirect(v) {
 		m["errorCode"] = v
 	}
@@ -9366,10 +7817,11 @@ func flattenVersionLibrariesSlice(c *Client, i interface{}) []VersionLibraries {
 // expandVersionLibraries expands an instance of VersionLibraries into a JSON
 // request object.
 func expandVersionLibraries(c *Client, f *VersionLibraries) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -9479,10 +7931,11 @@ func flattenVersionApiConfigSlice(c *Client, i interface{}) []VersionApiConfig {
 // expandVersionApiConfig expands an instance of VersionApiConfig into a JSON
 // request object.
 func expandVersionApiConfig(c *Client, f *VersionApiConfig) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.AuthFailAction; !dcl.IsEmptyValueIndirect(v) {
 		m["authFailAction"] = v
 	}
@@ -9604,10 +8057,11 @@ func flattenVersionDeploymentSlice(c *Client, i interface{}) []VersionDeployment
 // expandVersionDeployment expands an instance of VersionDeployment into a JSON
 // request object.
 func expandVersionDeployment(c *Client, f *VersionDeployment) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandVersionDeploymentFilesMap(c, f.Files); err != nil {
 		return nil, fmt.Errorf("error expanding Files into files: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -9733,10 +8187,11 @@ func flattenVersionDeploymentFilesSlice(c *Client, i interface{}) []VersionDeplo
 // expandVersionDeploymentFiles expands an instance of VersionDeploymentFiles into a JSON
 // request object.
 func expandVersionDeploymentFiles(c *Client, f *VersionDeploymentFiles) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.SourceUrl; !dcl.IsEmptyValueIndirect(v) {
 		m["sourceUrl"] = v
 	}
@@ -9850,10 +8305,11 @@ func flattenVersionDeploymentContainerSlice(c *Client, i interface{}) []VersionD
 // expandVersionDeploymentContainer expands an instance of VersionDeploymentContainer into a JSON
 // request object.
 func expandVersionDeploymentContainer(c *Client, f *VersionDeploymentContainer) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Image; !dcl.IsEmptyValueIndirect(v) {
 		m["image"] = v
 	}
@@ -9959,10 +8415,11 @@ func flattenVersionDeploymentZipSlice(c *Client, i interface{}) []VersionDeploym
 // expandVersionDeploymentZip expands an instance of VersionDeploymentZip into a JSON
 // request object.
 func expandVersionDeploymentZip(c *Client, f *VersionDeploymentZip) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.SourceUrl; !dcl.IsEmptyValueIndirect(v) {
 		m["sourceUrl"] = v
 	}
@@ -10072,10 +8529,11 @@ func flattenVersionDeploymentCloudBuildOptionsSlice(c *Client, i interface{}) []
 // expandVersionDeploymentCloudBuildOptions expands an instance of VersionDeploymentCloudBuildOptions into a JSON
 // request object.
 func expandVersionDeploymentCloudBuildOptions(c *Client, f *VersionDeploymentCloudBuildOptions) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.AppYamlPath; !dcl.IsEmptyValueIndirect(v) {
 		m["appYamlPath"] = v
 	}
@@ -10185,10 +8643,11 @@ func flattenVersionHealthCheckSlice(c *Client, i interface{}) []VersionHealthChe
 // expandVersionHealthCheck expands an instance of VersionHealthCheck into a JSON
 // request object.
 func expandVersionHealthCheck(c *Client, f *VersionHealthCheck) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.DisableHealthCheck; !dcl.IsEmptyValueIndirect(v) {
 		m["disableHealthCheck"] = v
 	}
@@ -10318,10 +8777,11 @@ func flattenVersionReadinessCheckSlice(c *Client, i interface{}) []VersionReadin
 // expandVersionReadinessCheck expands an instance of VersionReadinessCheck into a JSON
 // request object.
 func expandVersionReadinessCheck(c *Client, f *VersionReadinessCheck) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
 		m["path"] = v
 	}
@@ -10451,10 +8911,11 @@ func flattenVersionLivenessCheckSlice(c *Client, i interface{}) []VersionLivenes
 // expandVersionLivenessCheck expands an instance of VersionLivenessCheck into a JSON
 // request object.
 func expandVersionLivenessCheck(c *Client, f *VersionLivenessCheck) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
 		m["path"] = v
 	}
@@ -10584,10 +9045,11 @@ func flattenVersionEntrypointSlice(c *Client, i interface{}) []VersionEntrypoint
 // expandVersionEntrypoint expands an instance of VersionEntrypoint into a JSON
 // request object.
 func expandVersionEntrypoint(c *Client, f *VersionEntrypoint) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Shell; !dcl.IsEmptyValueIndirect(v) {
 		m["shell"] = v
 	}
@@ -10693,10 +9155,11 @@ func flattenVersionVPCAccessConnectorSlice(c *Client, i interface{}) []VersionVP
 // expandVersionVPCAccessConnector expands an instance of VersionVPCAccessConnector into a JSON
 // request object.
 func expandVersionVPCAccessConnector(c *Client, f *VersionVPCAccessConnector) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -11067,5 +9530,36 @@ func (r *Version) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToVersionDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]versionDiff, error) {
+	var diffs []versionDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := versionDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToversionApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToversionApiOperation(op string, opts ...dcl.ApplyOption) (versionApiOperation, error) {
+	switch op {
+
+	case "updateVersionPatchVersionOperation":
+		return &updateVersionPatchVersionOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

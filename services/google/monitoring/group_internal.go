@@ -497,66 +497,85 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]gr
 	}
 
 	var diffs []groupDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGroupUpdateOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, groupDiff{
-			UpdateOp: &updateGroupUpdateOperation{}, Diffs: ds,
-			FieldName: "DisplayName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGroupUpdateOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, groupDiff{
-			UpdateOp: &updateGroupUpdateOperation{}, Diffs: ds,
-			FieldName: "Filter",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.IsCluster, actual.IsCluster, dcl.Info{}, fn.AddNest("IsCluster")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IsCluster, actual.IsCluster, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGroupUpdateOperation")}, fn.AddNest("IsCluster")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, groupDiff{
-			UpdateOp: &updateGroupUpdateOperation{}, Diffs: ds,
-			FieldName: "IsCluster",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, groupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ParentName, actual.ParentName, dcl.Info{Type: "ReferenceType"}, fn.AddNest("ParentName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ParentName, actual.ParentName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateGroupUpdateOperation")}, fn.AddNest("ParentName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, groupDiff{
-			UpdateOp: &updateGroupUpdateOperation{}, Diffs: ds,
-			FieldName: "ParentName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, groupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -691,15 +710,15 @@ func flattenGroup(c *Client, i interface{}) *Group {
 		return nil
 	}
 
-	r := &Group{}
-	r.DisplayName = dcl.FlattenString(m["displayName"])
-	r.Filter = dcl.FlattenString(m["filter"])
-	r.IsCluster = dcl.FlattenBool(m["isCluster"])
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	r.ParentName = dcl.FlattenString(m["parentName"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &Group{}
+	res.DisplayName = dcl.FlattenString(m["displayName"])
+	res.Filter = dcl.FlattenString(m["filter"])
+	res.IsCluster = dcl.FlattenBool(m["isCluster"])
+	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	res.ParentName = dcl.FlattenString(m["parentName"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -733,5 +752,36 @@ func (r *Group) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToGroupDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]groupDiff, error) {
+	var diffs []groupDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := groupDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTogroupApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTogroupApiOperation(op string, opts ...dcl.ApplyOption) (groupApiOperation, error) {
+	switch op {
+
+	case "updateGroupUpdateOperation":
+		return &updateGroupUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

@@ -189,48 +189,6 @@ class Interconnect(object):
 
         return stub.ListComputeInterconnect(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = interconnect_pb2.ComputeInterconnect()
-        any_proto.Unpack(res_proto)
-
-        res = Interconnect()
-        res.description = Primitive.from_proto(res_proto.description)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.id = Primitive.from_proto(res_proto.id)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.location = Primitive.from_proto(res_proto.location)
-        res.link_type = InterconnectLinkTypeEnum.from_proto(res_proto.link_type)
-        res.requested_link_count = Primitive.from_proto(res_proto.requested_link_count)
-        res.interconnect_type = InterconnectInterconnectTypeEnum.from_proto(
-            res_proto.interconnect_type
-        )
-        res.admin_enabled = Primitive.from_proto(res_proto.admin_enabled)
-        res.noc_contact_email = Primitive.from_proto(res_proto.noc_contact_email)
-        res.customer_name = Primitive.from_proto(res_proto.customer_name)
-        res.operational_status = InterconnectOperationalStatusEnum.from_proto(
-            res_proto.operational_status
-        )
-        res.provisioned_link_count = Primitive.from_proto(
-            res_proto.provisioned_link_count
-        )
-        res.interconnect_attachments = Primitive.from_proto(
-            res_proto.interconnect_attachments
-        )
-        res.peer_ip_address = Primitive.from_proto(res_proto.peer_ip_address)
-        res.google_ip_address = Primitive.from_proto(res_proto.google_ip_address)
-        res.google_reference_id = Primitive.from_proto(res_proto.google_reference_id)
-        res.expected_outages = InterconnectExpectedOutagesArray.from_proto(
-            res_proto.expected_outages
-        )
-        res.circuit_infos = InterconnectCircuitInfosArray.from_proto(
-            res_proto.circuit_infos
-        )
-        res.state = InterconnectStateEnum.from_proto(res_proto.state)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = interconnect_pb2.ComputeInterconnect()
         if Primitive.to_proto(self.description):

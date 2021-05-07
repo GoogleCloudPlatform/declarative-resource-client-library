@@ -83,18 +83,6 @@ class ProjectBillingInfo(object):
 
         return stub.ListCloudbillingProjectBillingInfo(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = project_billing_info_pb2.CloudbillingProjectBillingInfo()
-        any_proto.Unpack(res_proto)
-
-        res = ProjectBillingInfo()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.billing_account_name = Primitive.from_proto(res_proto.billing_account_name)
-        res.billing_enabled = Primitive.from_proto(res_proto.billing_enabled)
-        return res
-
     def to_proto(self):
         resource = project_billing_info_pb2.CloudbillingProjectBillingInfo()
         if Primitive.to_proto(self.name):

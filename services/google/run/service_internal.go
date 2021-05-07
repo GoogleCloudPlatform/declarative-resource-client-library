@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -727,7 +726,6 @@ func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dc
 	}
 	rawDesired.Metadata = canonicalizeServiceMetadata(rawDesired.Metadata, rawInitial.Metadata, opts...)
 	rawDesired.Spec = canonicalizeServiceSpec(rawDesired.Spec, rawInitial.Spec, opts...)
-	rawDesired.Status = canonicalizeServiceStatus(rawDesired.Status, rawInitial.Status, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
@@ -866,9 +864,24 @@ func canonicalizeNewServiceMetadata(c *Client, des, nw *ServiceMetadata) *Servic
 	if dcl.StringCanonicalize(des.ResourceVersion, nw.ResourceVersion) {
 		nw.ResourceVersion = des.ResourceVersion
 	}
+	if dcl.IsZeroValue(nw.Generation) {
+		nw.Generation = des.Generation
+	}
 	nw.CreateTime = canonicalizeNewServiceMetadataCreateTime(c, des.CreateTime, nw.CreateTime)
+	if dcl.IsZeroValue(nw.Labels) {
+		nw.Labels = des.Labels
+	}
+	if dcl.IsZeroValue(nw.Annotations) {
+		nw.Annotations = des.Annotations
+	}
 	nw.OwnerReferences = canonicalizeNewServiceMetadataOwnerReferencesSlice(c, des.OwnerReferences, nw.OwnerReferences)
 	nw.DeleteTime = canonicalizeNewServiceMetadataDeleteTime(c, des.DeleteTime, nw.DeleteTime)
+	if dcl.IsZeroValue(nw.DeletionGracePeriodSeconds) {
+		nw.DeletionGracePeriodSeconds = des.DeletionGracePeriodSeconds
+	}
+	if dcl.IsZeroValue(nw.Finalizers) {
+		nw.Finalizers = des.Finalizers
+	}
 	if dcl.StringCanonicalize(des.ClusterName, nw.ClusterName) {
 		nw.ClusterName = des.ClusterName
 	}
@@ -884,7 +897,7 @@ func canonicalizeNewServiceMetadataSet(c *Client, des, nw []ServiceMetadata) []S
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceMetadata(c, &d, &n) {
+			if diffs, _ := compareServiceMetadataNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -907,7 +920,7 @@ func canonicalizeNewServiceMetadataSlice(c *Client, des, nw []ServiceMetadata) [
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceMetadata
@@ -946,6 +959,13 @@ func canonicalizeNewServiceMetadataCreateTime(c *Client, des, nw *ServiceMetadat
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Seconds) {
+		nw.Seconds = des.Seconds
+	}
+	if dcl.IsZeroValue(nw.Nanos) {
+		nw.Nanos = des.Nanos
+	}
+
 	return nw
 }
 
@@ -957,7 +977,7 @@ func canonicalizeNewServiceMetadataCreateTimeSet(c *Client, des, nw []ServiceMet
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceMetadataCreateTime(c, &d, &n) {
+			if diffs, _ := compareServiceMetadataCreateTimeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -980,7 +1000,7 @@ func canonicalizeNewServiceMetadataCreateTimeSlice(c *Client, des, nw []ServiceM
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceMetadataCreateTime
@@ -1061,7 +1081,7 @@ func canonicalizeNewServiceMetadataOwnerReferencesSet(c *Client, des, nw []Servi
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceMetadataOwnerReferences(c, &d, &n) {
+			if diffs, _ := compareServiceMetadataOwnerReferencesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1084,7 +1104,7 @@ func canonicalizeNewServiceMetadataOwnerReferencesSlice(c *Client, des, nw []Ser
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceMetadataOwnerReferences
@@ -1123,6 +1143,13 @@ func canonicalizeNewServiceMetadataDeleteTime(c *Client, des, nw *ServiceMetadat
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Seconds) {
+		nw.Seconds = des.Seconds
+	}
+	if dcl.IsZeroValue(nw.Nanos) {
+		nw.Nanos = des.Nanos
+	}
+
 	return nw
 }
 
@@ -1134,7 +1161,7 @@ func canonicalizeNewServiceMetadataDeleteTimeSet(c *Client, des, nw []ServiceMet
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceMetadataDeleteTime(c, &d, &n) {
+			if diffs, _ := compareServiceMetadataDeleteTimeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1157,7 +1184,7 @@ func canonicalizeNewServiceMetadataDeleteTimeSlice(c *Client, des, nw []ServiceM
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceMetadataDeleteTime
@@ -1208,7 +1235,7 @@ func canonicalizeNewServiceSpecSet(c *Client, des, nw []ServiceSpec) []ServiceSp
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpec(c, &d, &n) {
+			if diffs, _ := compareServiceSpecNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1231,7 +1258,7 @@ func canonicalizeNewServiceSpecSlice(c *Client, des, nw []ServiceSpec) []Service
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpec
@@ -1280,7 +1307,7 @@ func canonicalizeNewServiceSpecTemplateSet(c *Client, des, nw []ServiceSpecTempl
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplate(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1303,7 +1330,7 @@ func canonicalizeNewServiceSpecTemplateSlice(c *Client, des, nw []ServiceSpecTem
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplate
@@ -1395,9 +1422,24 @@ func canonicalizeNewServiceSpecTemplateMetadata(c *Client, des, nw *ServiceSpecT
 	if dcl.StringCanonicalize(des.ResourceVersion, nw.ResourceVersion) {
 		nw.ResourceVersion = des.ResourceVersion
 	}
+	if dcl.IsZeroValue(nw.Generation) {
+		nw.Generation = des.Generation
+	}
 	nw.CreateTime = canonicalizeNewServiceSpecTemplateMetadataCreateTime(c, des.CreateTime, nw.CreateTime)
+	if dcl.IsZeroValue(nw.Labels) {
+		nw.Labels = des.Labels
+	}
+	if dcl.IsZeroValue(nw.Annotations) {
+		nw.Annotations = des.Annotations
+	}
 	nw.OwnerReferences = canonicalizeNewServiceSpecTemplateMetadataOwnerReferencesSlice(c, des.OwnerReferences, nw.OwnerReferences)
 	nw.DeleteTime = canonicalizeNewServiceSpecTemplateMetadataDeleteTime(c, des.DeleteTime, nw.DeleteTime)
+	if dcl.IsZeroValue(nw.DeletionGracePeriodSeconds) {
+		nw.DeletionGracePeriodSeconds = des.DeletionGracePeriodSeconds
+	}
+	if dcl.IsZeroValue(nw.Finalizers) {
+		nw.Finalizers = des.Finalizers
+	}
 	if dcl.StringCanonicalize(des.ClusterName, nw.ClusterName) {
 		nw.ClusterName = des.ClusterName
 	}
@@ -1413,7 +1455,7 @@ func canonicalizeNewServiceSpecTemplateMetadataSet(c *Client, des, nw []ServiceS
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateMetadata(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateMetadataNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1436,7 +1478,7 @@ func canonicalizeNewServiceSpecTemplateMetadataSlice(c *Client, des, nw []Servic
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateMetadata
@@ -1475,6 +1517,13 @@ func canonicalizeNewServiceSpecTemplateMetadataCreateTime(c *Client, des, nw *Se
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Seconds) {
+		nw.Seconds = des.Seconds
+	}
+	if dcl.IsZeroValue(nw.Nanos) {
+		nw.Nanos = des.Nanos
+	}
+
 	return nw
 }
 
@@ -1486,7 +1535,7 @@ func canonicalizeNewServiceSpecTemplateMetadataCreateTimeSet(c *Client, des, nw 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateMetadataCreateTime(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateMetadataCreateTimeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1509,7 +1558,7 @@ func canonicalizeNewServiceSpecTemplateMetadataCreateTimeSlice(c *Client, des, n
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateMetadataCreateTime
@@ -1590,7 +1639,7 @@ func canonicalizeNewServiceSpecTemplateMetadataOwnerReferencesSet(c *Client, des
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateMetadataOwnerReferences(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateMetadataOwnerReferencesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1613,7 +1662,7 @@ func canonicalizeNewServiceSpecTemplateMetadataOwnerReferencesSlice(c *Client, d
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateMetadataOwnerReferences
@@ -1652,6 +1701,13 @@ func canonicalizeNewServiceSpecTemplateMetadataDeleteTime(c *Client, des, nw *Se
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Seconds) {
+		nw.Seconds = des.Seconds
+	}
+	if dcl.IsZeroValue(nw.Nanos) {
+		nw.Nanos = des.Nanos
+	}
+
 	return nw
 }
 
@@ -1663,7 +1719,7 @@ func canonicalizeNewServiceSpecTemplateMetadataDeleteTimeSet(c *Client, des, nw 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateMetadataDeleteTime(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateMetadataDeleteTimeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1686,7 +1742,7 @@ func canonicalizeNewServiceSpecTemplateMetadataDeleteTimeSlice(c *Client, des, n
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateMetadataDeleteTime
@@ -1734,6 +1790,12 @@ func canonicalizeNewServiceSpecTemplateSpec(c *Client, des, nw *ServiceSpecTempl
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.ContainerConcurrency) {
+		nw.ContainerConcurrency = des.ContainerConcurrency
+	}
+	if dcl.IsZeroValue(nw.TimeoutSeconds) {
+		nw.TimeoutSeconds = des.TimeoutSeconds
+	}
 	if dcl.StringCanonicalize(des.ServiceAccountName, nw.ServiceAccountName) {
 		nw.ServiceAccountName = des.ServiceAccountName
 	}
@@ -1751,7 +1813,7 @@ func canonicalizeNewServiceSpecTemplateSpecSet(c *Client, des, nw []ServiceSpecT
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpec(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1774,7 +1836,7 @@ func canonicalizeNewServiceSpecTemplateSpecSlice(c *Client, des, nw []ServiceSpe
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpec
@@ -1853,6 +1915,12 @@ func canonicalizeNewServiceSpecTemplateSpecContainers(c *Client, des, nw *Servic
 	if dcl.StringCanonicalize(des.Image, nw.Image) {
 		nw.Image = des.Image
 	}
+	if dcl.IsZeroValue(nw.Command) {
+		nw.Command = des.Command
+	}
+	if dcl.IsZeroValue(nw.Args) {
+		nw.Args = des.Args
+	}
 	nw.Env = canonicalizeNewServiceSpecTemplateSpecContainersEnvSlice(c, des.Env, nw.Env)
 	nw.Resources = canonicalizeNewServiceSpecTemplateSpecContainersResources(c, des.Resources, nw.Resources)
 	if dcl.StringCanonicalize(des.WorkingDir, nw.WorkingDir) {
@@ -1885,7 +1953,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersSet(c *Client, des, nw []Se
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainers(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1908,7 +1976,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersSlice(c *Client, des, nw []
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainers
@@ -1967,7 +2035,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvSet(c *Client, des, nw [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersEnv(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersEnvNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1990,7 +2058,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvSlice(c *Client, des, nw
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersEnv
@@ -2039,7 +2107,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSet(c *Client, 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersEnvValueFrom(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersEnvValueFromNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2062,7 +2130,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSlice(c *Client
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersEnvValueFrom
@@ -2127,7 +2195,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2150,7 +2218,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
@@ -2201,7 +2269,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2224,7 +2292,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference
@@ -2289,7 +2357,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSet
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2312,7 +2380,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSli
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef
@@ -2363,7 +2431,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLoc
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2386,7 +2454,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLoc
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference
@@ -2425,6 +2493,13 @@ func canonicalizeNewServiceSpecTemplateSpecContainersResources(c *Client, des, n
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Limits) {
+		nw.Limits = des.Limits
+	}
+	if dcl.IsZeroValue(nw.Requests) {
+		nw.Requests = des.Requests
+	}
+
 	return nw
 }
 
@@ -2436,7 +2511,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersResourcesSet(c *Client, des
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersResources(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersResourcesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2459,7 +2534,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersResourcesSlice(c *Client, d
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersResources
@@ -2504,6 +2579,9 @@ func canonicalizeNewServiceSpecTemplateSpecContainersPorts(c *Client, des, nw *S
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
+	if dcl.IsZeroValue(nw.ContainerPort) {
+		nw.ContainerPort = des.ContainerPort
+	}
 	if dcl.StringCanonicalize(des.Protocol, nw.Protocol) {
 		nw.Protocol = des.Protocol
 	}
@@ -2519,7 +2597,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersPortsSet(c *Client, des, nw
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersPorts(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersPortsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2542,7 +2620,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersPortsSlice(c *Client, des, 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersPorts
@@ -2597,7 +2675,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSet(c *Client, des, 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersEnvFrom(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersEnvFromNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2620,7 +2698,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSlice(c *Client, des
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersEnvFrom
@@ -2679,7 +2757,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefSet(c *C
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2702,7 +2780,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefSlice(c 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersEnvFromConfigMapRef
@@ -2753,7 +2831,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObj
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2776,7 +2854,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObj
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference
@@ -2835,7 +2913,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefSet(c *Clie
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersEnvFromSecretRefNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2858,7 +2936,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefSlice(c *Cl
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersEnvFromSecretRef
@@ -2909,7 +2987,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObject
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2932,7 +3010,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObject
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference
@@ -3001,7 +3079,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersVolumeMountsSet(c *Client, 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersVolumeMounts(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersVolumeMountsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3024,7 +3102,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersVolumeMountsSlice(c *Client
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersVolumeMounts
@@ -3075,6 +3153,21 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbe(c *Client, de
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.InitialDelaySeconds) {
+		nw.InitialDelaySeconds = des.InitialDelaySeconds
+	}
+	if dcl.IsZeroValue(nw.TimeoutSeconds) {
+		nw.TimeoutSeconds = des.TimeoutSeconds
+	}
+	if dcl.IsZeroValue(nw.PeriodSeconds) {
+		nw.PeriodSeconds = des.PeriodSeconds
+	}
+	if dcl.IsZeroValue(nw.SuccessThreshold) {
+		nw.SuccessThreshold = des.SuccessThreshold
+	}
+	if dcl.IsZeroValue(nw.FailureThreshold) {
+		nw.FailureThreshold = des.FailureThreshold
+	}
 	nw.Exec = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeExec(c, des.Exec, nw.Exec)
 	nw.HttpGet = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, des.HttpGet, nw.HttpGet)
 	nw.TcpSocket = canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, des.TcpSocket, nw.TcpSocket)
@@ -3090,7 +3183,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeSet(c *Client,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersLivenessProbe(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersLivenessProbeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3113,7 +3206,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeSlice(c *Clien
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersLivenessProbe
@@ -3164,7 +3257,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeExecSet(c *Cli
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersLivenessProbeExec(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersLivenessProbeExecNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3187,7 +3280,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeExecSlice(c *C
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersLivenessProbeExec
@@ -3254,7 +3347,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetSet(c *
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3277,7 +3370,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetSlice(c
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersLivenessProbeHttpGet
@@ -3334,7 +3427,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHea
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3357,7 +3450,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHea
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders
@@ -3396,6 +3489,9 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c *C
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Port) {
+		nw.Port = des.Port
+	}
 	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
@@ -3411,7 +3507,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSet(c
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3434,7 +3530,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSlice
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket
@@ -3485,6 +3581,21 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbe(c *Client, d
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.InitialDelaySeconds) {
+		nw.InitialDelaySeconds = des.InitialDelaySeconds
+	}
+	if dcl.IsZeroValue(nw.TimeoutSeconds) {
+		nw.TimeoutSeconds = des.TimeoutSeconds
+	}
+	if dcl.IsZeroValue(nw.PeriodSeconds) {
+		nw.PeriodSeconds = des.PeriodSeconds
+	}
+	if dcl.IsZeroValue(nw.SuccessThreshold) {
+		nw.SuccessThreshold = des.SuccessThreshold
+	}
+	if dcl.IsZeroValue(nw.FailureThreshold) {
+		nw.FailureThreshold = des.FailureThreshold
+	}
 	nw.Exec = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeExec(c, des.Exec, nw.Exec)
 	nw.HttpGet = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, des.HttpGet, nw.HttpGet)
 	nw.TcpSocket = canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, des.TcpSocket, nw.TcpSocket)
@@ -3500,7 +3611,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeSet(c *Client
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersReadinessProbe(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersReadinessProbeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3523,7 +3634,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeSlice(c *Clie
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersReadinessProbe
@@ -3574,7 +3685,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeExecSet(c *Cl
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersReadinessProbeExec(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersReadinessProbeExecNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3597,7 +3708,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeExecSlice(c *
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersReadinessProbeExec
@@ -3664,7 +3775,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetSet(c 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3687,7 +3798,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetSlice(
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersReadinessProbeHttpGet
@@ -3744,7 +3855,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHe
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3767,7 +3878,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHe
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders
@@ -3806,6 +3917,9 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c *
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Port) {
+		nw.Port = des.Port
+	}
 	if dcl.StringCanonicalize(des.Host, nw.Host) {
 		nw.Host = des.Host
 	}
@@ -3821,7 +3935,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSet(
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3844,7 +3958,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSlic
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket
@@ -3880,6 +3994,10 @@ func canonicalizeNewServiceSpecTemplateSpecContainersSecurityContext(c *Client, 
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.RunAsUser) {
+		nw.RunAsUser = des.RunAsUser
+	}
+
 	return nw
 }
 
@@ -3891,7 +4009,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersSecurityContextSet(c *Clien
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecContainersSecurityContext(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecContainersSecurityContextNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3914,7 +4032,7 @@ func canonicalizeNewServiceSpecTemplateSpecContainersSecurityContextSlice(c *Cli
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecContainersSecurityContext
@@ -3969,7 +4087,7 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSet(c *Client, des, nw []Servi
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecVolumes(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecVolumesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3992,7 +4110,7 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSlice(c *Client, des, nw []Ser
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecVolumes
@@ -4041,6 +4159,9 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSecret(c *Client, des, nw *Ser
 		nw.SecretName = des.SecretName
 	}
 	nw.Items = canonicalizeNewServiceSpecTemplateSpecVolumesSecretItemsSlice(c, des.Items, nw.Items)
+	if dcl.IsZeroValue(nw.DefaultMode) {
+		nw.DefaultMode = des.DefaultMode
+	}
 	if dcl.BoolCanonicalize(des.Optional, nw.Optional) {
 		nw.Optional = des.Optional
 	}
@@ -4056,7 +4177,7 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSecretSet(c *Client, des, nw [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecVolumesSecret(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecVolumesSecretNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4079,7 +4200,7 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSecretSlice(c *Client, des, nw
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecVolumesSecret
@@ -4127,6 +4248,9 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSecretItems(c *Client, des, nw
 	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
+	if dcl.IsZeroValue(nw.Mode) {
+		nw.Mode = des.Mode
+	}
 
 	return nw
 }
@@ -4139,7 +4263,7 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSecretItemsSet(c *Client, des,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecVolumesSecretItems(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecVolumesSecretItemsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4162,7 +4286,7 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesSecretItemsSlice(c *Client, de
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecVolumesSecretItems
@@ -4211,6 +4335,9 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMap(c *Client, des, nw *
 		nw.Name = des.Name
 	}
 	nw.Items = canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c, des.Items, nw.Items)
+	if dcl.IsZeroValue(nw.DefaultMode) {
+		nw.DefaultMode = des.DefaultMode
+	}
 	if dcl.BoolCanonicalize(des.Optional, nw.Optional) {
 		nw.Optional = des.Optional
 	}
@@ -4226,7 +4353,7 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapSet(c *Client, des, n
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecVolumesConfigMap(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecVolumesConfigMapNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4249,7 +4376,7 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapSlice(c *Client, des,
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecVolumesConfigMap
@@ -4297,6 +4424,9 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItems(c *Client, des,
 	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
+	if dcl.IsZeroValue(nw.Mode) {
+		nw.Mode = des.Mode
+	}
 
 	return nw
 }
@@ -4309,7 +4439,7 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItemsSet(c *Client, d
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTemplateSpecVolumesConfigMapItems(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTemplateSpecVolumesConfigMapItemsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4332,7 +4462,7 @@ func canonicalizeNewServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c *Client,
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTemplateSpecVolumesConfigMapItems
@@ -4371,9 +4501,6 @@ func canonicalizeServiceSpecTraffic(des, initial *ServiceSpecTraffic, opts ...dc
 	if dcl.BoolCanonicalize(des.LatestRevision, initial.LatestRevision) || dcl.IsZeroValue(des.LatestRevision) {
 		des.LatestRevision = initial.LatestRevision
 	}
-	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
-		des.Url = initial.Url
-	}
 
 	return des
 }
@@ -4388,6 +4515,9 @@ func canonicalizeNewServiceSpecTraffic(c *Client, des, nw *ServiceSpecTraffic) *
 	}
 	if dcl.StringCanonicalize(des.RevisionName, nw.RevisionName) {
 		nw.RevisionName = des.RevisionName
+	}
+	if dcl.IsZeroValue(nw.Percent) {
+		nw.Percent = des.Percent
 	}
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
 		nw.Tag = des.Tag
@@ -4410,7 +4540,7 @@ func canonicalizeNewServiceSpecTrafficSet(c *Client, des, nw []ServiceSpecTraffi
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceSpecTraffic(c, &d, &n) {
+			if diffs, _ := compareServiceSpecTrafficNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4433,7 +4563,7 @@ func canonicalizeNewServiceSpecTrafficSlice(c *Client, des, nw []ServiceSpecTraf
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceSpecTraffic
@@ -4485,6 +4615,9 @@ func canonicalizeNewServiceStatus(c *Client, des, nw *ServiceStatus) *ServiceSta
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.ObservedGeneration) {
+		nw.ObservedGeneration = des.ObservedGeneration
+	}
 	nw.Conditions = canonicalizeNewServiceStatusConditionsSlice(c, des.Conditions, nw.Conditions)
 	if dcl.StringCanonicalize(des.LatestReadyRevisionName, nw.LatestReadyRevisionName) {
 		nw.LatestReadyRevisionName = des.LatestReadyRevisionName
@@ -4509,7 +4642,7 @@ func canonicalizeNewServiceStatusSet(c *Client, des, nw []ServiceStatus) []Servi
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceStatus(c, &d, &n) {
+			if diffs, _ := compareServiceStatusNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4532,7 +4665,7 @@ func canonicalizeNewServiceStatusSlice(c *Client, des, nw []ServiceStatus) []Ser
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceStatus
@@ -4609,7 +4742,7 @@ func canonicalizeNewServiceStatusConditionsSet(c *Client, des, nw []ServiceStatu
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceStatusConditions(c, &d, &n) {
+			if diffs, _ := compareServiceStatusConditionsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4632,7 +4765,7 @@ func canonicalizeNewServiceStatusConditionsSlice(c *Client, des, nw []ServiceSta
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceStatusConditions
@@ -4671,6 +4804,13 @@ func canonicalizeNewServiceStatusConditionsLastTransitionTime(c *Client, des, nw
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Seconds) {
+		nw.Seconds = des.Seconds
+	}
+	if dcl.IsZeroValue(nw.Nanos) {
+		nw.Nanos = des.Nanos
+	}
+
 	return nw
 }
 
@@ -4682,7 +4822,7 @@ func canonicalizeNewServiceStatusConditionsLastTransitionTimeSet(c *Client, des,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceStatusConditionsLastTransitionTime(c, &d, &n) {
+			if diffs, _ := compareServiceStatusConditionsLastTransitionTimeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4705,7 +4845,7 @@ func canonicalizeNewServiceStatusConditionsLastTransitionTimeSlice(c *Client, de
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceStatusConditionsLastTransitionTime
@@ -4744,9 +4884,6 @@ func canonicalizeServiceStatusTraffic(des, initial *ServiceStatusTraffic, opts .
 	if dcl.BoolCanonicalize(des.LatestRevision, initial.LatestRevision) || dcl.IsZeroValue(des.LatestRevision) {
 		des.LatestRevision = initial.LatestRevision
 	}
-	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
-		des.Url = initial.Url
-	}
 
 	return des
 }
@@ -4761,6 +4898,9 @@ func canonicalizeNewServiceStatusTraffic(c *Client, des, nw *ServiceStatusTraffi
 	}
 	if dcl.StringCanonicalize(des.RevisionName, nw.RevisionName) {
 		nw.RevisionName = des.RevisionName
+	}
+	if dcl.IsZeroValue(nw.Percent) {
+		nw.Percent = des.Percent
 	}
 	if dcl.StringCanonicalize(des.Tag, nw.Tag) {
 		nw.Tag = des.Tag
@@ -4783,7 +4923,7 @@ func canonicalizeNewServiceStatusTrafficSet(c *Client, des, nw []ServiceStatusTr
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceStatusTraffic(c, &d, &n) {
+			if diffs, _ := compareServiceStatusTrafficNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4806,7 +4946,7 @@ func canonicalizeNewServiceStatusTrafficSlice(c *Client, des, nw []ServiceStatus
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceStatusTraffic
@@ -4857,7 +4997,7 @@ func canonicalizeNewServiceStatusAddressSet(c *Client, des, nw []ServiceStatusAd
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServiceStatusAddress(c, &d, &n) {
+			if diffs, _ := compareServiceStatusAddressNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4880,7 +5020,7 @@ func canonicalizeNewServiceStatusAddressSlice(c *Client, des, nw []ServiceStatus
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServiceStatusAddress
@@ -4914,80 +5054,111 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []serviceDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.ApiVersion, actual.ApiVersion, dcl.Info{}, fn.AddNest("ApiVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiVersion, actual.ApiVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ApiVersion",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServiceDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Kind",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServiceDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareServiceMetadataNewStyle}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareServiceMetadataNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Metadata",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServiceDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServiceSpecNewStyle}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServiceSpecNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Spec",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServiceDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Status",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServiceDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServiceDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServiceDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, serviceDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServiceDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -5034,214 +5205,111 @@ func compareServiceMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GenerateName, actual.GenerateName, dcl.Info{}, fn.AddNest("GenerateName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GenerateName, actual.GenerateName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GenerateName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceVersion, actual.ResourceVersion, dcl.Info{}, fn.AddNest("ResourceVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceVersion, actual.ResourceVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Generation, actual.Generation, dcl.Info{}, fn.AddNest("Generation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Generation, actual.Generation, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Generation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{ObjectFunction: compareServiceMetadataCreateTimeNewStyle}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{ObjectFunction: compareServiceMetadataCreateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OwnerReferences, actual.OwnerReferences, dcl.Info{ObjectFunction: compareServiceMetadataOwnerReferencesNewStyle}, fn.AddNest("OwnerReferences")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OwnerReferences, actual.OwnerReferences, dcl.Info{ObjectFunction: compareServiceMetadataOwnerReferencesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OwnerReferences")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{ObjectFunction: compareServiceMetadataDeleteTimeNewStyle}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{ObjectFunction: compareServiceMetadataDeleteTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeletionGracePeriodSeconds, actual.DeletionGracePeriodSeconds, dcl.Info{}, fn.AddNest("DeletionGracePeriodSeconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeletionGracePeriodSeconds, actual.DeletionGracePeriodSeconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeletionGracePeriodSeconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Finalizers, actual.Finalizers, dcl.Info{}, fn.AddNest("Finalizers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Finalizers, actual.Finalizers, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Finalizers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterName, actual.ClusterName, dcl.Info{}, fn.AddNest("ClusterName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterName, actual.ClusterName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceMetadata(c *Client, desired, actual *ServiceMetadata) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.GenerateName, actual.GenerateName) && !dcl.IsZeroValue(desired.GenerateName) {
-		c.Config.Logger.Infof("Diff in GenerateName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GenerateName), dcl.SprintResource(actual.GenerateName))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Namespace, actual.Namespace) && !dcl.IsZeroValue(desired.Namespace) {
-		c.Config.Logger.Infof("Diff in Namespace.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Namespace), dcl.SprintResource(actual.Namespace))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SelfLink, actual.SelfLink) && !dcl.IsZeroValue(desired.SelfLink) {
-		c.Config.Logger.Infof("Diff in SelfLink.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SelfLink), dcl.SprintResource(actual.SelfLink))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Uid, actual.Uid) && !dcl.IsZeroValue(desired.Uid) {
-		c.Config.Logger.Infof("Diff in Uid.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ResourceVersion, actual.ResourceVersion) && !dcl.IsZeroValue(desired.ResourceVersion) {
-		c.Config.Logger.Infof("Diff in ResourceVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceVersion), dcl.SprintResource(actual.ResourceVersion))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Generation, actual.Generation) && !dcl.IsZeroValue(desired.Generation) {
-		c.Config.Logger.Infof("Diff in Generation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Generation), dcl.SprintResource(actual.Generation))
-		return true
-	}
-	if compareServiceMetadataCreateTime(c, desired.CreateTime, actual.CreateTime) && !dcl.IsZeroValue(desired.CreateTime) {
-		c.Config.Logger.Infof("Diff in CreateTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CreateTime), dcl.SprintResource(actual.CreateTime))
-		return true
-	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) && !dcl.IsZeroValue(desired.Labels) {
-		c.Config.Logger.Infof("Diff in Labels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
-		return true
-	}
-	if !dcl.MapEquals(desired.Annotations, actual.Annotations, []string(nil)) && !dcl.IsZeroValue(desired.Annotations) {
-		c.Config.Logger.Infof("Diff in Annotations.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Annotations), dcl.SprintResource(actual.Annotations))
-		return true
-	}
-	if compareServiceMetadataOwnerReferencesSlice(c, desired.OwnerReferences, actual.OwnerReferences) && !dcl.IsZeroValue(desired.OwnerReferences) {
-		c.Config.Logger.Infof("Diff in OwnerReferences.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OwnerReferences), dcl.SprintResource(actual.OwnerReferences))
-		return true
-	}
-	if compareServiceMetadataDeleteTime(c, desired.DeleteTime, actual.DeleteTime) && !dcl.IsZeroValue(desired.DeleteTime) {
-		c.Config.Logger.Infof("Diff in DeleteTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeleteTime), dcl.SprintResource(actual.DeleteTime))
-		return true
-	}
-	if !reflect.DeepEqual(desired.DeletionGracePeriodSeconds, actual.DeletionGracePeriodSeconds) && !dcl.IsZeroValue(desired.DeletionGracePeriodSeconds) {
-		c.Config.Logger.Infof("Diff in DeletionGracePeriodSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeletionGracePeriodSeconds), dcl.SprintResource(actual.DeletionGracePeriodSeconds))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Finalizers, actual.Finalizers) && !dcl.IsZeroValue(desired.Finalizers) {
-		c.Config.Logger.Infof("Diff in Finalizers.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Finalizers), dcl.SprintResource(actual.Finalizers))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ClusterName, actual.ClusterName) && !dcl.IsZeroValue(desired.ClusterName) {
-		c.Config.Logger.Infof("Diff in ClusterName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterName), dcl.SprintResource(actual.ClusterName))
-		return true
-	}
-	return false
-}
-
-func compareServiceMetadataSlice(c *Client, desired, actual []ServiceMetadata) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceMetadata, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceMetadata(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceMetadata, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceMetadataMap(c *Client, desired, actual map[string]ServiceMetadata) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceMetadata, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceMetadata, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceMetadata(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceMetadata, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceMetadataCreateTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5264,71 +5332,20 @@ func compareServiceMetadataCreateTimeNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceMetadataCreateTime(c *Client, desired, actual *ServiceMetadataCreateTime) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareServiceMetadataCreateTimeSlice(c *Client, desired, actual []ServiceMetadataCreateTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceMetadataCreateTime, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceMetadataCreateTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceMetadataCreateTime, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceMetadataCreateTimeMap(c *Client, desired, actual map[string]ServiceMetadataCreateTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceMetadataCreateTime, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceMetadataCreateTime, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceMetadataCreateTime(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceMetadataCreateTime, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceMetadataOwnerReferencesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5351,115 +5368,48 @@ func compareServiceMetadataOwnerReferencesNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ApiVersion, actual.ApiVersion, dcl.Info{}, fn.AddNest("ApiVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiVersion, actual.ApiVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Controller, actual.Controller, dcl.Info{}, fn.AddNest("Controller")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Controller, actual.Controller, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Controller")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion, dcl.Info{}, fn.AddNest("BlockOwnerDeletion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BlockOwnerDeletion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceMetadataOwnerReferences(c *Client, desired, actual *ServiceMetadataOwnerReferences) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ApiVersion, actual.ApiVersion) && !dcl.IsZeroValue(desired.ApiVersion) {
-		c.Config.Logger.Infof("Diff in ApiVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiVersion), dcl.SprintResource(actual.ApiVersion))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) {
-		c.Config.Logger.Infof("Diff in Kind.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Uid, actual.Uid) && !dcl.IsZeroValue(desired.Uid) {
-		c.Config.Logger.Infof("Diff in Uid.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Controller, actual.Controller) && !dcl.IsZeroValue(desired.Controller) {
-		c.Config.Logger.Infof("Diff in Controller.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Controller), dcl.SprintResource(actual.Controller))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion) && !dcl.IsZeroValue(desired.BlockOwnerDeletion) {
-		c.Config.Logger.Infof("Diff in BlockOwnerDeletion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BlockOwnerDeletion), dcl.SprintResource(actual.BlockOwnerDeletion))
-		return true
-	}
-	return false
-}
-
-func compareServiceMetadataOwnerReferencesSlice(c *Client, desired, actual []ServiceMetadataOwnerReferences) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceMetadataOwnerReferences, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceMetadataOwnerReferences(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceMetadataOwnerReferences, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceMetadataOwnerReferencesMap(c *Client, desired, actual map[string]ServiceMetadataOwnerReferences) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceMetadataOwnerReferences, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceMetadataOwnerReferences, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceMetadataOwnerReferences(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceMetadataOwnerReferences, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceMetadataDeleteTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5482,71 +5432,20 @@ func compareServiceMetadataDeleteTimeNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceMetadataDeleteTime(c *Client, desired, actual *ServiceMetadataDeleteTime) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareServiceMetadataDeleteTimeSlice(c *Client, desired, actual []ServiceMetadataDeleteTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceMetadataDeleteTime, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceMetadataDeleteTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceMetadataDeleteTime, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceMetadataDeleteTimeMap(c *Client, desired, actual map[string]ServiceMetadataDeleteTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceMetadataDeleteTime, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceMetadataDeleteTime, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceMetadataDeleteTime(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceMetadataDeleteTime, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5569,71 +5468,20 @@ func compareServiceSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Template, actual.Template, dcl.Info{ObjectFunction: compareServiceSpecTemplateNewStyle}, fn.AddNest("Template")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Template, actual.Template, dcl.Info{ObjectFunction: compareServiceSpecTemplateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Template")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Traffic, actual.Traffic, dcl.Info{ObjectFunction: compareServiceSpecTrafficNewStyle}, fn.AddNest("Traffic")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Traffic, actual.Traffic, dcl.Info{ObjectFunction: compareServiceSpecTrafficNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Traffic")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpec(c *Client, desired, actual *ServiceSpec) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareServiceSpecTemplate(c, desired.Template, actual.Template) && !dcl.IsZeroValue(desired.Template) {
-		c.Config.Logger.Infof("Diff in Template.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Template), dcl.SprintResource(actual.Template))
-		return true
-	}
-	if compareServiceSpecTrafficSlice(c, desired.Traffic, actual.Traffic) && !dcl.IsZeroValue(desired.Traffic) {
-		c.Config.Logger.Infof("Diff in Traffic.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Traffic), dcl.SprintResource(actual.Traffic))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecSlice(c *Client, desired, actual []ServiceSpec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpec, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecMap(c *Client, desired, actual map[string]ServiceSpec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpec, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpec, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5656,71 +5504,20 @@ func compareServiceSpecTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataNewStyle}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecNewStyle}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplate(c *Client, desired, actual *ServiceSpecTemplate) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareServiceSpecTemplateMetadata(c, desired.Metadata, actual.Metadata) && !dcl.IsZeroValue(desired.Metadata) {
-		c.Config.Logger.Infof("Diff in Metadata.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Metadata), dcl.SprintResource(actual.Metadata))
-		return true
-	}
-	if compareServiceSpecTemplateSpec(c, desired.Spec, actual.Spec) && !dcl.IsZeroValue(desired.Spec) {
-		c.Config.Logger.Infof("Diff in Spec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Spec), dcl.SprintResource(actual.Spec))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSlice(c *Client, desired, actual []ServiceSpecTemplate) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplate, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplate(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplate, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateMap(c *Client, desired, actual map[string]ServiceSpecTemplate) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplate, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplate, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplate(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplate, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5743,214 +5540,111 @@ func compareServiceSpecTemplateMetadataNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GenerateName, actual.GenerateName, dcl.Info{}, fn.AddNest("GenerateName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GenerateName, actual.GenerateName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GenerateName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceVersion, actual.ResourceVersion, dcl.Info{}, fn.AddNest("ResourceVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceVersion, actual.ResourceVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Generation, actual.Generation, dcl.Info{}, fn.AddNest("Generation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Generation, actual.Generation, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Generation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataCreateTimeNewStyle}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataCreateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OwnerReferences, actual.OwnerReferences, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataOwnerReferencesNewStyle}, fn.AddNest("OwnerReferences")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OwnerReferences, actual.OwnerReferences, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataOwnerReferencesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OwnerReferences")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataDeleteTimeNewStyle}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataDeleteTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeletionGracePeriodSeconds, actual.DeletionGracePeriodSeconds, dcl.Info{}, fn.AddNest("DeletionGracePeriodSeconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeletionGracePeriodSeconds, actual.DeletionGracePeriodSeconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeletionGracePeriodSeconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Finalizers, actual.Finalizers, dcl.Info{}, fn.AddNest("Finalizers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Finalizers, actual.Finalizers, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Finalizers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterName, actual.ClusterName, dcl.Info{}, fn.AddNest("ClusterName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterName, actual.ClusterName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateMetadata(c *Client, desired, actual *ServiceSpecTemplateMetadata) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.GenerateName, actual.GenerateName) && !dcl.IsZeroValue(desired.GenerateName) {
-		c.Config.Logger.Infof("Diff in GenerateName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GenerateName), dcl.SprintResource(actual.GenerateName))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Namespace, actual.Namespace) && !dcl.IsZeroValue(desired.Namespace) {
-		c.Config.Logger.Infof("Diff in Namespace.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Namespace), dcl.SprintResource(actual.Namespace))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SelfLink, actual.SelfLink) && !dcl.IsZeroValue(desired.SelfLink) {
-		c.Config.Logger.Infof("Diff in SelfLink.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SelfLink), dcl.SprintResource(actual.SelfLink))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Uid, actual.Uid) && !dcl.IsZeroValue(desired.Uid) {
-		c.Config.Logger.Infof("Diff in Uid.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ResourceVersion, actual.ResourceVersion) && !dcl.IsZeroValue(desired.ResourceVersion) {
-		c.Config.Logger.Infof("Diff in ResourceVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceVersion), dcl.SprintResource(actual.ResourceVersion))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Generation, actual.Generation) && !dcl.IsZeroValue(desired.Generation) {
-		c.Config.Logger.Infof("Diff in Generation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Generation), dcl.SprintResource(actual.Generation))
-		return true
-	}
-	if compareServiceSpecTemplateMetadataCreateTime(c, desired.CreateTime, actual.CreateTime) && !dcl.IsZeroValue(desired.CreateTime) {
-		c.Config.Logger.Infof("Diff in CreateTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CreateTime), dcl.SprintResource(actual.CreateTime))
-		return true
-	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) && !dcl.IsZeroValue(desired.Labels) {
-		c.Config.Logger.Infof("Diff in Labels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
-		return true
-	}
-	if !dcl.MapEquals(desired.Annotations, actual.Annotations, []string(nil)) && !dcl.IsZeroValue(desired.Annotations) {
-		c.Config.Logger.Infof("Diff in Annotations.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Annotations), dcl.SprintResource(actual.Annotations))
-		return true
-	}
-	if compareServiceSpecTemplateMetadataOwnerReferencesSlice(c, desired.OwnerReferences, actual.OwnerReferences) && !dcl.IsZeroValue(desired.OwnerReferences) {
-		c.Config.Logger.Infof("Diff in OwnerReferences.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OwnerReferences), dcl.SprintResource(actual.OwnerReferences))
-		return true
-	}
-	if compareServiceSpecTemplateMetadataDeleteTime(c, desired.DeleteTime, actual.DeleteTime) && !dcl.IsZeroValue(desired.DeleteTime) {
-		c.Config.Logger.Infof("Diff in DeleteTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeleteTime), dcl.SprintResource(actual.DeleteTime))
-		return true
-	}
-	if !reflect.DeepEqual(desired.DeletionGracePeriodSeconds, actual.DeletionGracePeriodSeconds) && !dcl.IsZeroValue(desired.DeletionGracePeriodSeconds) {
-		c.Config.Logger.Infof("Diff in DeletionGracePeriodSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DeletionGracePeriodSeconds), dcl.SprintResource(actual.DeletionGracePeriodSeconds))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Finalizers, actual.Finalizers) && !dcl.IsZeroValue(desired.Finalizers) {
-		c.Config.Logger.Infof("Diff in Finalizers.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Finalizers), dcl.SprintResource(actual.Finalizers))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ClusterName, actual.ClusterName) && !dcl.IsZeroValue(desired.ClusterName) {
-		c.Config.Logger.Infof("Diff in ClusterName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterName), dcl.SprintResource(actual.ClusterName))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateMetadataSlice(c *Client, desired, actual []ServiceSpecTemplateMetadata) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateMetadata, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateMetadata(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadata, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateMetadataMap(c *Client, desired, actual map[string]ServiceSpecTemplateMetadata) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateMetadata, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadata, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateMetadata(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadata, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateMetadataCreateTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5973,71 +5667,20 @@ func compareServiceSpecTemplateMetadataCreateTimeNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateMetadataCreateTime(c *Client, desired, actual *ServiceSpecTemplateMetadataCreateTime) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateMetadataCreateTimeSlice(c *Client, desired, actual []ServiceSpecTemplateMetadataCreateTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateMetadataCreateTime, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateMetadataCreateTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataCreateTime, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateMetadataCreateTimeMap(c *Client, desired, actual map[string]ServiceSpecTemplateMetadataCreateTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateMetadataCreateTime, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataCreateTime, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateMetadataCreateTime(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataCreateTime, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateMetadataOwnerReferencesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6060,115 +5703,48 @@ func compareServiceSpecTemplateMetadataOwnerReferencesNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ApiVersion, actual.ApiVersion, dcl.Info{}, fn.AddNest("ApiVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiVersion, actual.ApiVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Controller, actual.Controller, dcl.Info{}, fn.AddNest("Controller")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Controller, actual.Controller, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Controller")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion, dcl.Info{}, fn.AddNest("BlockOwnerDeletion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BlockOwnerDeletion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateMetadataOwnerReferences(c *Client, desired, actual *ServiceSpecTemplateMetadataOwnerReferences) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ApiVersion, actual.ApiVersion) && !dcl.IsZeroValue(desired.ApiVersion) {
-		c.Config.Logger.Infof("Diff in ApiVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ApiVersion), dcl.SprintResource(actual.ApiVersion))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Kind, actual.Kind) && !dcl.IsZeroValue(desired.Kind) {
-		c.Config.Logger.Infof("Diff in Kind.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Kind), dcl.SprintResource(actual.Kind))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Uid, actual.Uid) && !dcl.IsZeroValue(desired.Uid) {
-		c.Config.Logger.Infof("Diff in Uid.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uid), dcl.SprintResource(actual.Uid))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Controller, actual.Controller) && !dcl.IsZeroValue(desired.Controller) {
-		c.Config.Logger.Infof("Diff in Controller.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Controller), dcl.SprintResource(actual.Controller))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.BlockOwnerDeletion, actual.BlockOwnerDeletion) && !dcl.IsZeroValue(desired.BlockOwnerDeletion) {
-		c.Config.Logger.Infof("Diff in BlockOwnerDeletion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BlockOwnerDeletion), dcl.SprintResource(actual.BlockOwnerDeletion))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateMetadataOwnerReferencesSlice(c *Client, desired, actual []ServiceSpecTemplateMetadataOwnerReferences) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateMetadataOwnerReferences, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateMetadataOwnerReferences(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataOwnerReferences, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateMetadataOwnerReferencesMap(c *Client, desired, actual map[string]ServiceSpecTemplateMetadataOwnerReferences) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateMetadataOwnerReferences, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataOwnerReferences, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateMetadataOwnerReferences(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataOwnerReferences, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateMetadataDeleteTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6191,71 +5767,20 @@ func compareServiceSpecTemplateMetadataDeleteTimeNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateMetadataDeleteTime(c *Client, desired, actual *ServiceSpecTemplateMetadataDeleteTime) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateMetadataDeleteTimeSlice(c *Client, desired, actual []ServiceSpecTemplateMetadataDeleteTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateMetadataDeleteTime, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateMetadataDeleteTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataDeleteTime, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateMetadataDeleteTimeMap(c *Client, desired, actual map[string]ServiceSpecTemplateMetadataDeleteTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateMetadataDeleteTime, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataDeleteTime, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateMetadataDeleteTime(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateMetadataDeleteTime, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6278,104 +5803,41 @@ func compareServiceSpecTemplateSpecNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ContainerConcurrency, actual.ContainerConcurrency, dcl.Info{}, fn.AddNest("ContainerConcurrency")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ContainerConcurrency, actual.ContainerConcurrency, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContainerConcurrency")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeoutSeconds, actual.TimeoutSeconds, dcl.Info{}, fn.AddNest("TimeoutSeconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeoutSeconds, actual.TimeoutSeconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TimeoutSeconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceAccountName, actual.ServiceAccountName, dcl.Info{}, fn.AddNest("ServiceAccountName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccountName, actual.ServiceAccountName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAccountName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Containers, actual.Containers, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersNewStyle}, fn.AddNest("Containers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Containers, actual.Containers, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Containers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesNewStyle}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpec(c *Client, desired, actual *ServiceSpecTemplateSpec) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.ContainerConcurrency, actual.ContainerConcurrency) && !dcl.IsZeroValue(desired.ContainerConcurrency) {
-		c.Config.Logger.Infof("Diff in ContainerConcurrency.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContainerConcurrency), dcl.SprintResource(actual.ContainerConcurrency))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TimeoutSeconds, actual.TimeoutSeconds) && !dcl.IsZeroValue(desired.TimeoutSeconds) {
-		c.Config.Logger.Infof("Diff in TimeoutSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeoutSeconds), dcl.SprintResource(actual.TimeoutSeconds))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ServiceAccountName, actual.ServiceAccountName) && !dcl.IsZeroValue(desired.ServiceAccountName) {
-		c.Config.Logger.Infof("Diff in ServiceAccountName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServiceAccountName), dcl.SprintResource(actual.ServiceAccountName))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersSlice(c, desired.Containers, actual.Containers) && !dcl.IsZeroValue(desired.Containers) {
-		c.Config.Logger.Infof("Diff in Containers.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Containers), dcl.SprintResource(actual.Containers))
-		return true
-	}
-	if compareServiceSpecTemplateSpecVolumesSlice(c, desired.Volumes, actual.Volumes) && !dcl.IsZeroValue(desired.Volumes) {
-		c.Config.Logger.Infof("Diff in Volumes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Volumes), dcl.SprintResource(actual.Volumes))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecSlice(c *Client, desired, actual []ServiceSpecTemplateSpec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpec, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpec, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpec, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6398,225 +5860,118 @@ func compareServiceSpecTemplateSpecContainersNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.Info{}, fn.AddNest("Image")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Image")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Command, actual.Command, dcl.Info{}, fn.AddNest("Command")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Command, actual.Command, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Command")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Env, actual.Env, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvNewStyle}, fn.AddNest("Env")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Env, actual.Env, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Env")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersResourcesNewStyle}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersResourcesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WorkingDir, actual.WorkingDir, dcl.Info{}, fn.AddNest("WorkingDir")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WorkingDir, actual.WorkingDir, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WorkingDir")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersPortsNewStyle}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersPortsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnvFrom, actual.EnvFrom, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromNewStyle}, fn.AddNest("EnvFrom")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnvFrom, actual.EnvFrom, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnvFrom")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VolumeMounts, actual.VolumeMounts, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersVolumeMountsNewStyle}, fn.AddNest("VolumeMounts")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VolumeMounts, actual.VolumeMounts, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersVolumeMountsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VolumeMounts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LivenessProbe, actual.LivenessProbe, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeNewStyle}, fn.AddNest("LivenessProbe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LivenessProbe, actual.LivenessProbe, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LivenessProbe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadinessProbe, actual.ReadinessProbe, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeNewStyle}, fn.AddNest("ReadinessProbe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadinessProbe, actual.ReadinessProbe, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadinessProbe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TerminationMessagePath, actual.TerminationMessagePath, dcl.Info{}, fn.AddNest("TerminationMessagePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TerminationMessagePath, actual.TerminationMessagePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TerminationMessagePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TerminationMessagePolicy, actual.TerminationMessagePolicy, dcl.Info{}, fn.AddNest("TerminationMessagePolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TerminationMessagePolicy, actual.TerminationMessagePolicy, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TerminationMessagePolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ImagePullPolicy, actual.ImagePullPolicy, dcl.Info{}, fn.AddNest("ImagePullPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ImagePullPolicy, actual.ImagePullPolicy, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImagePullPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecurityContext, actual.SecurityContext, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersSecurityContextNewStyle}, fn.AddNest("SecurityContext")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecurityContext, actual.SecurityContext, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersSecurityContextNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecurityContext")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainers(c *Client, desired, actual *ServiceSpecTemplateSpecContainers) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Image, actual.Image) && !dcl.IsZeroValue(desired.Image) {
-		c.Config.Logger.Infof("Diff in Image.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Image), dcl.SprintResource(actual.Image))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Command, actual.Command) && !dcl.IsZeroValue(desired.Command) {
-		c.Config.Logger.Infof("Diff in Command.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Command), dcl.SprintResource(actual.Command))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersEnvSlice(c, desired.Env, actual.Env) && !dcl.IsZeroValue(desired.Env) {
-		c.Config.Logger.Infof("Diff in Env.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Env), dcl.SprintResource(actual.Env))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersResources(c, desired.Resources, actual.Resources) && !dcl.IsZeroValue(desired.Resources) {
-		c.Config.Logger.Infof("Diff in Resources.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Resources), dcl.SprintResource(actual.Resources))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.WorkingDir, actual.WorkingDir) && !dcl.IsZeroValue(desired.WorkingDir) {
-		c.Config.Logger.Infof("Diff in WorkingDir.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WorkingDir), dcl.SprintResource(actual.WorkingDir))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersPortsSlice(c, desired.Ports, actual.Ports) && !dcl.IsZeroValue(desired.Ports) {
-		c.Config.Logger.Infof("Diff in Ports.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersEnvFromSlice(c, desired.EnvFrom, actual.EnvFrom) && !dcl.IsZeroValue(desired.EnvFrom) {
-		c.Config.Logger.Infof("Diff in EnvFrom.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnvFrom), dcl.SprintResource(actual.EnvFrom))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersVolumeMountsSlice(c, desired.VolumeMounts, actual.VolumeMounts) && !dcl.IsZeroValue(desired.VolumeMounts) {
-		c.Config.Logger.Infof("Diff in VolumeMounts.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.VolumeMounts), dcl.SprintResource(actual.VolumeMounts))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersLivenessProbe(c, desired.LivenessProbe, actual.LivenessProbe) && !dcl.IsZeroValue(desired.LivenessProbe) {
-		c.Config.Logger.Infof("Diff in LivenessProbe.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LivenessProbe), dcl.SprintResource(actual.LivenessProbe))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersReadinessProbe(c, desired.ReadinessProbe, actual.ReadinessProbe) && !dcl.IsZeroValue(desired.ReadinessProbe) {
-		c.Config.Logger.Infof("Diff in ReadinessProbe.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReadinessProbe), dcl.SprintResource(actual.ReadinessProbe))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.TerminationMessagePath, actual.TerminationMessagePath) && !dcl.IsZeroValue(desired.TerminationMessagePath) {
-		c.Config.Logger.Infof("Diff in TerminationMessagePath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TerminationMessagePath), dcl.SprintResource(actual.TerminationMessagePath))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.TerminationMessagePolicy, actual.TerminationMessagePolicy) && !dcl.IsZeroValue(desired.TerminationMessagePolicy) {
-		c.Config.Logger.Infof("Diff in TerminationMessagePolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TerminationMessagePolicy), dcl.SprintResource(actual.TerminationMessagePolicy))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ImagePullPolicy, actual.ImagePullPolicy) && !dcl.IsZeroValue(desired.ImagePullPolicy) {
-		c.Config.Logger.Infof("Diff in ImagePullPolicy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ImagePullPolicy), dcl.SprintResource(actual.ImagePullPolicy))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersSecurityContext(c, desired.SecurityContext, actual.SecurityContext) && !dcl.IsZeroValue(desired.SecurityContext) {
-		c.Config.Logger.Infof("Diff in SecurityContext.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecurityContext), dcl.SprintResource(actual.SecurityContext))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainers) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainers, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainers(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainers, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainers) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainers, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainers, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainers(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainers, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersEnvNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6639,82 +5994,27 @@ func compareServiceSpecTemplateSpecContainersEnvNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ValueFrom, actual.ValueFrom, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromNewStyle}, fn.AddNest("ValueFrom")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ValueFrom, actual.ValueFrom, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ValueFrom")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersEnv(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnv) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersEnvValueFrom(c, desired.ValueFrom, actual.ValueFrom) && !dcl.IsZeroValue(desired.ValueFrom) {
-		c.Config.Logger.Infof("Diff in ValueFrom.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ValueFrom), dcl.SprintResource(actual.ValueFrom))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnv) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnv, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersEnv(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnv, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersEnv) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnv, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnv, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersEnv(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnv, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersEnvValueFromNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6737,71 +6037,20 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigMapKeyRef, actual.ConfigMapKeyRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefNewStyle}, fn.AddNest("ConfigMapKeyRef")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigMapKeyRef, actual.ConfigMapKeyRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigMapKeyRef")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecretKeyRef, actual.SecretKeyRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefNewStyle}, fn.AddNest("SecretKeyRef")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecretKeyRef, actual.SecretKeyRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecretKeyRef")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFrom(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFrom) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, desired.ConfigMapKeyRef, actual.ConfigMapKeyRef) && !dcl.IsZeroValue(desired.ConfigMapKeyRef) {
-		c.Config.Logger.Infof("Diff in ConfigMapKeyRef.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigMapKeyRef), dcl.SprintResource(actual.ConfigMapKeyRef))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, desired.SecretKeyRef, actual.SecretKeyRef) && !dcl.IsZeroValue(desired.SecretKeyRef) {
-		c.Config.Logger.Infof("Diff in SecretKeyRef.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretKeyRef), dcl.SprintResource(actual.SecretKeyRef))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvValueFrom) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFrom, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersEnvValueFrom(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFrom, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersEnvValueFrom) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFrom, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFrom, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersEnvValueFrom(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFrom, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6824,93 +6073,34 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceNewStyle}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, desired.LocalObjectReference, actual.LocalObjectReference) && !dcl.IsZeroValue(desired.LocalObjectReference) {
-		c.Config.Logger.Infof("Diff in LocalObjectReference.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
-		c.Config.Logger.Infof("Diff in Key.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
-		c.Config.Logger.Infof("Diff in Optional.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6933,60 +6123,13 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObj
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7009,93 +6152,34 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceNewStyle}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, desired.LocalObjectReference, actual.LocalObjectReference) && !dcl.IsZeroValue(desired.LocalObjectReference) {
-		c.Config.Logger.Infof("Diff in LocalObjectReference.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
-		c.Config.Logger.Infof("Diff in Key.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
-		c.Config.Logger.Infof("Diff in Optional.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7118,60 +6202,13 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObject
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersResourcesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7194,71 +6231,20 @@ func compareServiceSpecTemplateSpecContainersResourcesNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Limits, actual.Limits, dcl.Info{}, fn.AddNest("Limits")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Limits, actual.Limits, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Limits")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Requests, actual.Requests, dcl.Info{}, fn.AddNest("Requests")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Requests, actual.Requests, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Requests")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersResources(c *Client, desired, actual *ServiceSpecTemplateSpecContainersResources) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.MapEquals(desired.Limits, actual.Limits, []string(nil)) && !dcl.IsZeroValue(desired.Limits) {
-		c.Config.Logger.Infof("Diff in Limits.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Limits), dcl.SprintResource(actual.Limits))
-		return true
-	}
-	if !dcl.MapEquals(desired.Requests, actual.Requests, []string(nil)) && !dcl.IsZeroValue(desired.Requests) {
-		c.Config.Logger.Infof("Diff in Requests.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Requests), dcl.SprintResource(actual.Requests))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersResourcesSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersResources) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersResources, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersResources, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersResourcesMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersResources) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersResources, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersResources, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersResources(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersResources, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersPortsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7281,82 +6267,27 @@ func compareServiceSpecTemplateSpecContainersPortsNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ContainerPort, actual.ContainerPort, dcl.Info{}, fn.AddNest("ContainerPort")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ContainerPort, actual.ContainerPort, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContainerPort")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Protocol, actual.Protocol, dcl.Info{}, fn.AddNest("Protocol")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Protocol, actual.Protocol, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Protocol")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersPorts(c *Client, desired, actual *ServiceSpecTemplateSpecContainersPorts) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ContainerPort, actual.ContainerPort) && !dcl.IsZeroValue(desired.ContainerPort) {
-		c.Config.Logger.Infof("Diff in ContainerPort.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContainerPort), dcl.SprintResource(actual.ContainerPort))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Protocol, actual.Protocol) && !dcl.IsZeroValue(desired.Protocol) {
-		c.Config.Logger.Infof("Diff in Protocol.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Protocol), dcl.SprintResource(actual.Protocol))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersPortsSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersPorts) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersPorts, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersPorts(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersPorts, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersPortsMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersPorts) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersPorts, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersPorts, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersPorts(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersPorts, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersEnvFromNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7379,82 +6310,27 @@ func compareServiceSpecTemplateSpecContainersEnvFromNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Prefix, actual.Prefix, dcl.Info{}, fn.AddNest("Prefix")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Prefix, actual.Prefix, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Prefix")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigMapRef, actual.ConfigMapRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefNewStyle}, fn.AddNest("ConfigMapRef")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigMapRef, actual.ConfigMapRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigMapRef")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecretRef, actual.SecretRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromSecretRefNewStyle}, fn.AddNest("SecretRef")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecretRef, actual.SecretRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromSecretRefNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecretRef")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFrom(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFrom) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Prefix, actual.Prefix) && !dcl.IsZeroValue(desired.Prefix) {
-		c.Config.Logger.Infof("Diff in Prefix.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Prefix), dcl.SprintResource(actual.Prefix))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, desired.ConfigMapRef, actual.ConfigMapRef) && !dcl.IsZeroValue(desired.ConfigMapRef) {
-		c.Config.Logger.Infof("Diff in ConfigMapRef.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigMapRef), dcl.SprintResource(actual.ConfigMapRef))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c, desired.SecretRef, actual.SecretRef) && !dcl.IsZeroValue(desired.SecretRef) {
-		c.Config.Logger.Infof("Diff in SecretRef.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretRef), dcl.SprintResource(actual.SecretRef))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvFrom) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFrom, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersEnvFrom(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFrom, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersEnvFrom) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFrom, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFrom, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersEnvFrom(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFrom, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7477,82 +6353,27 @@ func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceNewStyle}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, desired.LocalObjectReference, actual.LocalObjectReference) && !dcl.IsZeroValue(desired.LocalObjectReference) {
-		c.Config.Logger.Infof("Diff in LocalObjectReference.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
-		c.Config.Logger.Infof("Diff in Optional.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRef, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7575,60 +6396,13 @@ func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectRefer
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersEnvFromSecretRefNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7651,82 +6425,27 @@ func compareServiceSpecTemplateSpecContainersEnvFromSecretRefNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceNewStyle}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFromSecretRef) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, desired.LocalObjectReference, actual.LocalObjectReference) && !dcl.IsZeroValue(desired.LocalObjectReference) {
-		c.Config.Logger.Infof("Diff in LocalObjectReference.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalObjectReference), dcl.SprintResource(actual.LocalObjectReference))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
-		c.Config.Logger.Infof("Diff in Optional.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromSecretRefSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvFromSecretRef) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRef, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRef, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromSecretRefMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersEnvFromSecretRef) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRef, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRef, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersEnvFromSecretRef(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRef, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7749,60 +6468,13 @@ func compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c *Client, desired, actual *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersVolumeMountsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7825,93 +6497,34 @@ func compareServiceSpecTemplateSpecContainersVolumeMountsNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadOnly, actual.ReadOnly, dcl.Info{}, fn.AddNest("ReadOnly")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadOnly, actual.ReadOnly, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadOnly")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MountPath, actual.MountPath, dcl.Info{}, fn.AddNest("MountPath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MountPath, actual.MountPath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MountPath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SubPath, actual.SubPath, dcl.Info{}, fn.AddNest("SubPath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SubPath, actual.SubPath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SubPath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersVolumeMounts(c *Client, desired, actual *ServiceSpecTemplateSpecContainersVolumeMounts) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.ReadOnly, actual.ReadOnly) && !dcl.IsZeroValue(desired.ReadOnly) {
-		c.Config.Logger.Infof("Diff in ReadOnly.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReadOnly), dcl.SprintResource(actual.ReadOnly))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MountPath, actual.MountPath) && !dcl.IsZeroValue(desired.MountPath) {
-		c.Config.Logger.Infof("Diff in MountPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MountPath), dcl.SprintResource(actual.MountPath))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SubPath, actual.SubPath) && !dcl.IsZeroValue(desired.SubPath) {
-		c.Config.Logger.Infof("Diff in SubPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SubPath), dcl.SprintResource(actual.SubPath))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersVolumeMountsSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersVolumeMounts) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersVolumeMounts, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersVolumeMounts(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersVolumeMounts, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersVolumeMountsMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersVolumeMounts) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersVolumeMounts, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersVolumeMounts, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersVolumeMounts(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersVolumeMounts, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersLivenessProbeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7934,137 +6547,62 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InitialDelaySeconds, actual.InitialDelaySeconds, dcl.Info{}, fn.AddNest("InitialDelaySeconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InitialDelaySeconds, actual.InitialDelaySeconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InitialDelaySeconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeoutSeconds, actual.TimeoutSeconds, dcl.Info{}, fn.AddNest("TimeoutSeconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeoutSeconds, actual.TimeoutSeconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TimeoutSeconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PeriodSeconds, actual.PeriodSeconds, dcl.Info{}, fn.AddNest("PeriodSeconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeriodSeconds, actual.PeriodSeconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeriodSeconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SuccessThreshold, actual.SuccessThreshold, dcl.Info{}, fn.AddNest("SuccessThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SuccessThreshold, actual.SuccessThreshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SuccessThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FailureThreshold, actual.FailureThreshold, dcl.Info{}, fn.AddNest("FailureThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FailureThreshold, actual.FailureThreshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FailureThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Exec, actual.Exec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeExecNewStyle}, fn.AddNest("Exec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Exec, actual.Exec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeExecNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Exec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpGet, actual.HttpGet, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetNewStyle}, fn.AddNest("HttpGet")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpGet, actual.HttpGet, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HttpGet")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TcpSocket, actual.TcpSocket, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketNewStyle}, fn.AddNest("TcpSocket")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TcpSocket, actual.TcpSocket, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TcpSocket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbe(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbe) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.InitialDelaySeconds, actual.InitialDelaySeconds) && !dcl.IsZeroValue(desired.InitialDelaySeconds) {
-		c.Config.Logger.Infof("Diff in InitialDelaySeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitialDelaySeconds), dcl.SprintResource(actual.InitialDelaySeconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TimeoutSeconds, actual.TimeoutSeconds) && !dcl.IsZeroValue(desired.TimeoutSeconds) {
-		c.Config.Logger.Infof("Diff in TimeoutSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeoutSeconds), dcl.SprintResource(actual.TimeoutSeconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PeriodSeconds, actual.PeriodSeconds) && !dcl.IsZeroValue(desired.PeriodSeconds) {
-		c.Config.Logger.Infof("Diff in PeriodSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PeriodSeconds), dcl.SprintResource(actual.PeriodSeconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SuccessThreshold, actual.SuccessThreshold) && !dcl.IsZeroValue(desired.SuccessThreshold) {
-		c.Config.Logger.Infof("Diff in SuccessThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuccessThreshold), dcl.SprintResource(actual.SuccessThreshold))
-		return true
-	}
-	if !reflect.DeepEqual(desired.FailureThreshold, actual.FailureThreshold) && !dcl.IsZeroValue(desired.FailureThreshold) {
-		c.Config.Logger.Infof("Diff in FailureThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailureThreshold), dcl.SprintResource(actual.FailureThreshold))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersLivenessProbeExec(c, desired.Exec, actual.Exec) && !dcl.IsZeroValue(desired.Exec) {
-		c.Config.Logger.Infof("Diff in Exec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Exec), dcl.SprintResource(actual.Exec))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, desired.HttpGet, actual.HttpGet) && !dcl.IsZeroValue(desired.HttpGet) {
-		c.Config.Logger.Infof("Diff in HttpGet.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpGet), dcl.SprintResource(actual.HttpGet))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, desired.TcpSocket, actual.TcpSocket) && !dcl.IsZeroValue(desired.TcpSocket) {
-		c.Config.Logger.Infof("Diff in TcpSocket.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TcpSocket), dcl.SprintResource(actual.TcpSocket))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersLivenessProbe) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbe, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersLivenessProbe(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbe, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersLivenessProbe) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbe, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbe, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersLivenessProbe(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbe, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersLivenessProbeExecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8087,60 +6625,13 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeExecNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Command, actual.Command, dcl.Info{}, fn.AddNest("Command")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Command, actual.Command, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Command")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeExec(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbeExec) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Command, actual.Command) && !dcl.IsZeroValue(desired.Command) {
-		c.Config.Logger.Infof("Diff in Command.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Command), dcl.SprintResource(actual.Command))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeExecSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersLivenessProbeExec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbeExec, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersLivenessProbeExec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeExec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeExecMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersLivenessProbeExec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbeExec, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeExec, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersLivenessProbeExec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeExec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8163,93 +6654,34 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scheme, actual.Scheme, dcl.Info{}, fn.AddNest("Scheme")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scheme, actual.Scheme, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scheme")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpHeaders, actual.HttpHeaders, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersNewStyle}, fn.AddNest("HttpHeaders")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpHeaders, actual.HttpHeaders, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HttpHeaders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Scheme, actual.Scheme) && !dcl.IsZeroValue(desired.Scheme) {
-		c.Config.Logger.Infof("Diff in Scheme.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scheme), dcl.SprintResource(actual.Scheme))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice(c, desired.HttpHeaders, actual.HttpHeaders) && !dcl.IsZeroValue(desired.HttpHeaders) {
-		c.Config.Logger.Infof("Diff in HttpHeaders.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpHeaders), dcl.SprintResource(actual.HttpHeaders))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGet, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8272,71 +6704,20 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersNewS
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8359,71 +6740,20 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketNewStyle(d, a
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c *Client, desired, actual *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
-		c.Config.Logger.Infof("Diff in Port.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersReadinessProbeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8446,137 +6776,62 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InitialDelaySeconds, actual.InitialDelaySeconds, dcl.Info{}, fn.AddNest("InitialDelaySeconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InitialDelaySeconds, actual.InitialDelaySeconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InitialDelaySeconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeoutSeconds, actual.TimeoutSeconds, dcl.Info{}, fn.AddNest("TimeoutSeconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeoutSeconds, actual.TimeoutSeconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TimeoutSeconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PeriodSeconds, actual.PeriodSeconds, dcl.Info{}, fn.AddNest("PeriodSeconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeriodSeconds, actual.PeriodSeconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeriodSeconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SuccessThreshold, actual.SuccessThreshold, dcl.Info{}, fn.AddNest("SuccessThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SuccessThreshold, actual.SuccessThreshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SuccessThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FailureThreshold, actual.FailureThreshold, dcl.Info{}, fn.AddNest("FailureThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FailureThreshold, actual.FailureThreshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FailureThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Exec, actual.Exec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeExecNewStyle}, fn.AddNest("Exec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Exec, actual.Exec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeExecNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Exec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpGet, actual.HttpGet, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetNewStyle}, fn.AddNest("HttpGet")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpGet, actual.HttpGet, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HttpGet")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TcpSocket, actual.TcpSocket, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketNewStyle}, fn.AddNest("TcpSocket")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TcpSocket, actual.TcpSocket, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TcpSocket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbe(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbe) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.InitialDelaySeconds, actual.InitialDelaySeconds) && !dcl.IsZeroValue(desired.InitialDelaySeconds) {
-		c.Config.Logger.Infof("Diff in InitialDelaySeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InitialDelaySeconds), dcl.SprintResource(actual.InitialDelaySeconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TimeoutSeconds, actual.TimeoutSeconds) && !dcl.IsZeroValue(desired.TimeoutSeconds) {
-		c.Config.Logger.Infof("Diff in TimeoutSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeoutSeconds), dcl.SprintResource(actual.TimeoutSeconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PeriodSeconds, actual.PeriodSeconds) && !dcl.IsZeroValue(desired.PeriodSeconds) {
-		c.Config.Logger.Infof("Diff in PeriodSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PeriodSeconds), dcl.SprintResource(actual.PeriodSeconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SuccessThreshold, actual.SuccessThreshold) && !dcl.IsZeroValue(desired.SuccessThreshold) {
-		c.Config.Logger.Infof("Diff in SuccessThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SuccessThreshold), dcl.SprintResource(actual.SuccessThreshold))
-		return true
-	}
-	if !reflect.DeepEqual(desired.FailureThreshold, actual.FailureThreshold) && !dcl.IsZeroValue(desired.FailureThreshold) {
-		c.Config.Logger.Infof("Diff in FailureThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FailureThreshold), dcl.SprintResource(actual.FailureThreshold))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersReadinessProbeExec(c, desired.Exec, actual.Exec) && !dcl.IsZeroValue(desired.Exec) {
-		c.Config.Logger.Infof("Diff in Exec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Exec), dcl.SprintResource(actual.Exec))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, desired.HttpGet, actual.HttpGet) && !dcl.IsZeroValue(desired.HttpGet) {
-		c.Config.Logger.Infof("Diff in HttpGet.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpGet), dcl.SprintResource(actual.HttpGet))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, desired.TcpSocket, actual.TcpSocket) && !dcl.IsZeroValue(desired.TcpSocket) {
-		c.Config.Logger.Infof("Diff in TcpSocket.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TcpSocket), dcl.SprintResource(actual.TcpSocket))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersReadinessProbe) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbe, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersReadinessProbe(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbe, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersReadinessProbe) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbe, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbe, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersReadinessProbe(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbe, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersReadinessProbeExecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8599,60 +6854,13 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeExecNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Command, actual.Command, dcl.Info{}, fn.AddNest("Command")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Command, actual.Command, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Command")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeExec(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbeExec) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Command, actual.Command) && !dcl.IsZeroValue(desired.Command) {
-		c.Config.Logger.Infof("Diff in Command.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Command), dcl.SprintResource(actual.Command))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeExecSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersReadinessProbeExec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbeExec, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersReadinessProbeExec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeExec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeExecMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersReadinessProbeExec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbeExec, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeExec, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersReadinessProbeExec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeExec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8675,93 +6883,34 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scheme, actual.Scheme, dcl.Info{}, fn.AddNest("Scheme")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scheme, actual.Scheme, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scheme")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpHeaders, actual.HttpHeaders, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersNewStyle}, fn.AddNest("HttpHeaders")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpHeaders, actual.HttpHeaders, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HttpHeaders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Scheme, actual.Scheme) && !dcl.IsZeroValue(desired.Scheme) {
-		c.Config.Logger.Infof("Diff in Scheme.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scheme), dcl.SprintResource(actual.Scheme))
-		return true
-	}
-	if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice(c, desired.HttpHeaders, actual.HttpHeaders) && !dcl.IsZeroValue(desired.HttpHeaders) {
-		c.Config.Logger.Infof("Diff in HttpHeaders.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpHeaders), dcl.SprintResource(actual.HttpHeaders))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGet, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8784,71 +6933,20 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersNew
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8871,71 +6969,20 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketNewStyle(d, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c *Client, desired, actual *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Port, actual.Port) && !dcl.IsZeroValue(desired.Port) {
-		c.Config.Logger.Infof("Diff in Port.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Port), dcl.SprintResource(actual.Port))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Host, actual.Host) && !dcl.IsZeroValue(desired.Host) {
-		c.Config.Logger.Infof("Diff in Host.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Host), dcl.SprintResource(actual.Host))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecContainersSecurityContextNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8958,60 +7005,13 @@ func compareServiceSpecTemplateSpecContainersSecurityContextNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RunAsUser, actual.RunAsUser, dcl.Info{}, fn.AddNest("RunAsUser")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RunAsUser, actual.RunAsUser, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RunAsUser")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecContainersSecurityContext(c *Client, desired, actual *ServiceSpecTemplateSpecContainersSecurityContext) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.RunAsUser, actual.RunAsUser) && !dcl.IsZeroValue(desired.RunAsUser) {
-		c.Config.Logger.Infof("Diff in RunAsUser.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RunAsUser), dcl.SprintResource(actual.RunAsUser))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersSecurityContextSlice(c *Client, desired, actual []ServiceSpecTemplateSpecContainersSecurityContext) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersSecurityContext, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecContainersSecurityContext(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersSecurityContext, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecContainersSecurityContextMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecContainersSecurityContext) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecContainersSecurityContext, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersSecurityContext, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecContainersSecurityContext(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecContainersSecurityContext, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecVolumesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9034,82 +7034,27 @@ func compareServiceSpecTemplateSpecVolumesNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesSecretNewStyle}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesSecretNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigMap, actual.ConfigMap, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesConfigMapNewStyle}, fn.AddNest("ConfigMap")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigMap, actual.ConfigMap, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesConfigMapNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigMap")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecVolumes(c *Client, desired, actual *ServiceSpecTemplateSpecVolumes) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if compareServiceSpecTemplateSpecVolumesSecret(c, desired.Secret, actual.Secret) && !dcl.IsZeroValue(desired.Secret) {
-		c.Config.Logger.Infof("Diff in Secret.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Secret), dcl.SprintResource(actual.Secret))
-		return true
-	}
-	if compareServiceSpecTemplateSpecVolumesConfigMap(c, desired.ConfigMap, actual.ConfigMap) && !dcl.IsZeroValue(desired.ConfigMap) {
-		c.Config.Logger.Infof("Diff in ConfigMap.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigMap), dcl.SprintResource(actual.ConfigMap))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecVolumesSlice(c *Client, desired, actual []ServiceSpecTemplateSpecVolumes) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumes, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecVolumes(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumes, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecVolumesMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecVolumes) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumes, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumes, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecVolumes(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumes, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecVolumesSecretNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9132,93 +7077,34 @@ func compareServiceSpecTemplateSpecVolumesSecretNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SecretName, actual.SecretName, dcl.Info{}, fn.AddNest("SecretName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecretName, actual.SecretName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecretName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Items, actual.Items, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesSecretItemsNewStyle}, fn.AddNest("Items")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Items, actual.Items, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesSecretItemsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Items")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultMode, actual.DefaultMode, dcl.Info{}, fn.AddNest("DefaultMode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultMode, actual.DefaultMode, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecVolumesSecret(c *Client, desired, actual *ServiceSpecTemplateSpecVolumesSecret) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SecretName, actual.SecretName) && !dcl.IsZeroValue(desired.SecretName) {
-		c.Config.Logger.Infof("Diff in SecretName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretName), dcl.SprintResource(actual.SecretName))
-		return true
-	}
-	if compareServiceSpecTemplateSpecVolumesSecretItemsSlice(c, desired.Items, actual.Items) && !dcl.IsZeroValue(desired.Items) {
-		c.Config.Logger.Infof("Diff in Items.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Items), dcl.SprintResource(actual.Items))
-		return true
-	}
-	if !reflect.DeepEqual(desired.DefaultMode, actual.DefaultMode) && !dcl.IsZeroValue(desired.DefaultMode) {
-		c.Config.Logger.Infof("Diff in DefaultMode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultMode), dcl.SprintResource(actual.DefaultMode))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
-		c.Config.Logger.Infof("Diff in Optional.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecVolumesSecretSlice(c *Client, desired, actual []ServiceSpecTemplateSpecVolumesSecret) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumesSecret, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecVolumesSecret(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecret, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecVolumesSecretMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecVolumesSecret) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumesSecret, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecret, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecVolumesSecret(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecret, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecVolumesSecretItemsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9241,82 +7127,27 @@ func compareServiceSpecTemplateSpecVolumesSecretItemsNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecVolumesSecretItems(c *Client, desired, actual *ServiceSpecTemplateSpecVolumesSecretItems) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
-		c.Config.Logger.Infof("Diff in Key.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Mode, actual.Mode) && !dcl.IsZeroValue(desired.Mode) {
-		c.Config.Logger.Infof("Diff in Mode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Mode), dcl.SprintResource(actual.Mode))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecVolumesSecretItemsSlice(c *Client, desired, actual []ServiceSpecTemplateSpecVolumesSecretItems) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumesSecretItems, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecVolumesSecretItems(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecretItems, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecVolumesSecretItemsMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecVolumesSecretItems) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumesSecretItems, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecretItems, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecVolumesSecretItems(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesSecretItems, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecVolumesConfigMapNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9339,93 +7170,34 @@ func compareServiceSpecTemplateSpecVolumesConfigMapNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Items, actual.Items, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesConfigMapItemsNewStyle}, fn.AddNest("Items")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Items, actual.Items, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesConfigMapItemsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Items")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultMode, actual.DefaultMode, dcl.Info{}, fn.AddNest("DefaultMode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultMode, actual.DefaultMode, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Optional, actual.Optional, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Optional")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecVolumesConfigMap(c *Client, desired, actual *ServiceSpecTemplateSpecVolumesConfigMap) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if compareServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c, desired.Items, actual.Items) && !dcl.IsZeroValue(desired.Items) {
-		c.Config.Logger.Infof("Diff in Items.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Items), dcl.SprintResource(actual.Items))
-		return true
-	}
-	if !reflect.DeepEqual(desired.DefaultMode, actual.DefaultMode) && !dcl.IsZeroValue(desired.DefaultMode) {
-		c.Config.Logger.Infof("Diff in DefaultMode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DefaultMode), dcl.SprintResource(actual.DefaultMode))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Optional, actual.Optional) && !dcl.IsZeroValue(desired.Optional) {
-		c.Config.Logger.Infof("Diff in Optional.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Optional), dcl.SprintResource(actual.Optional))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecVolumesConfigMapSlice(c *Client, desired, actual []ServiceSpecTemplateSpecVolumesConfigMap) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumesConfigMap, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecVolumesConfigMap(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMap, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecVolumesConfigMapMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecVolumesConfigMap) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumesConfigMap, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMap, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecVolumesConfigMap(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMap, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTemplateSpecVolumesConfigMapItemsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9448,82 +7220,27 @@ func compareServiceSpecTemplateSpecVolumesConfigMapItemsNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTemplateSpecVolumesConfigMapItems(c *Client, desired, actual *ServiceSpecTemplateSpecVolumesConfigMapItems) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
-		c.Config.Logger.Infof("Diff in Key.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Path, actual.Path) && !dcl.IsZeroValue(desired.Path) {
-		c.Config.Logger.Infof("Diff in Path.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Path), dcl.SprintResource(actual.Path))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Mode, actual.Mode) && !dcl.IsZeroValue(desired.Mode) {
-		c.Config.Logger.Infof("Diff in Mode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Mode), dcl.SprintResource(actual.Mode))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c *Client, desired, actual []ServiceSpecTemplateSpecVolumesConfigMapItems) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumesConfigMapItems, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTemplateSpecVolumesConfigMapItems(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMapItems, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTemplateSpecVolumesConfigMapItemsMap(c *Client, desired, actual map[string]ServiceSpecTemplateSpecVolumesConfigMapItems) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTemplateSpecVolumesConfigMapItems, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMapItems, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTemplateSpecVolumesConfigMapItems(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTemplateSpecVolumesConfigMapItems, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceSpecTrafficNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9546,111 +7263,48 @@ func compareServiceSpecTrafficNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigurationName, actual.ConfigurationName, dcl.Info{}, fn.AddNest("ConfigurationName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigurationName, actual.ConfigurationName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigurationName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RevisionName, actual.RevisionName, dcl.Info{}, fn.AddNest("RevisionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RevisionName, actual.RevisionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RevisionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LatestRevision, actual.LatestRevision, dcl.Info{}, fn.AddNest("LatestRevision")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatestRevision, actual.LatestRevision, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatestRevision")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OutputOnly: true}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceSpecTraffic(c *Client, desired, actual *ServiceSpecTraffic) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ConfigurationName, actual.ConfigurationName) && !dcl.IsZeroValue(desired.ConfigurationName) {
-		c.Config.Logger.Infof("Diff in ConfigurationName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigurationName), dcl.SprintResource(actual.ConfigurationName))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.RevisionName, actual.RevisionName) && !dcl.IsZeroValue(desired.RevisionName) {
-		c.Config.Logger.Infof("Diff in RevisionName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RevisionName), dcl.SprintResource(actual.RevisionName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Tag, actual.Tag) && !dcl.IsZeroValue(desired.Tag) {
-		c.Config.Logger.Infof("Diff in Tag.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tag), dcl.SprintResource(actual.Tag))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.LatestRevision, actual.LatestRevision) && !dcl.IsZeroValue(desired.LatestRevision) {
-		c.Config.Logger.Infof("Diff in LatestRevision.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestRevision), dcl.SprintResource(actual.LatestRevision))
-		return true
-	}
-	return false
-}
-
-func compareServiceSpecTrafficSlice(c *Client, desired, actual []ServiceSpecTraffic) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTraffic, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceSpecTraffic(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTraffic, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceSpecTrafficMap(c *Client, desired, actual map[string]ServiceSpecTraffic) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceSpecTraffic, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceSpecTraffic, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceSpecTraffic(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceSpecTraffic, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9673,126 +7327,55 @@ func compareServiceStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ObservedGeneration, actual.ObservedGeneration, dcl.Info{}, fn.AddNest("ObservedGeneration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ObservedGeneration, actual.ObservedGeneration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ObservedGeneration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareServiceStatusConditionsNewStyle}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareServiceStatusConditionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LatestReadyRevisionName, actual.LatestReadyRevisionName, dcl.Info{}, fn.AddNest("LatestReadyRevisionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatestReadyRevisionName, actual.LatestReadyRevisionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatestReadyRevisionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LatestCreatedRevisionName, actual.LatestCreatedRevisionName, dcl.Info{}, fn.AddNest("LatestCreatedRevisionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatestCreatedRevisionName, actual.LatestCreatedRevisionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatestCreatedRevisionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Traffic, actual.Traffic, dcl.Info{ObjectFunction: compareServiceStatusTrafficNewStyle}, fn.AddNest("Traffic")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Traffic, actual.Traffic, dcl.Info{ObjectFunction: compareServiceStatusTrafficNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Traffic")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Address, actual.Address, dcl.Info{ObjectFunction: compareServiceStatusAddressNewStyle}, fn.AddNest("Address")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Address, actual.Address, dcl.Info{ObjectFunction: compareServiceStatusAddressNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Address")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceStatus(c *Client, desired, actual *ServiceStatus) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.ObservedGeneration, actual.ObservedGeneration) && !dcl.IsZeroValue(desired.ObservedGeneration) {
-		c.Config.Logger.Infof("Diff in ObservedGeneration.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ObservedGeneration), dcl.SprintResource(actual.ObservedGeneration))
-		return true
-	}
-	if compareServiceStatusConditionsSlice(c, desired.Conditions, actual.Conditions) && !dcl.IsZeroValue(desired.Conditions) {
-		c.Config.Logger.Infof("Diff in Conditions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Conditions), dcl.SprintResource(actual.Conditions))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.LatestReadyRevisionName, actual.LatestReadyRevisionName) && !dcl.IsZeroValue(desired.LatestReadyRevisionName) {
-		c.Config.Logger.Infof("Diff in LatestReadyRevisionName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestReadyRevisionName), dcl.SprintResource(actual.LatestReadyRevisionName))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.LatestCreatedRevisionName, actual.LatestCreatedRevisionName) && !dcl.IsZeroValue(desired.LatestCreatedRevisionName) {
-		c.Config.Logger.Infof("Diff in LatestCreatedRevisionName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestCreatedRevisionName), dcl.SprintResource(actual.LatestCreatedRevisionName))
-		return true
-	}
-	if compareServiceStatusTrafficSlice(c, desired.Traffic, actual.Traffic) && !dcl.IsZeroValue(desired.Traffic) {
-		c.Config.Logger.Infof("Diff in Traffic.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Traffic), dcl.SprintResource(actual.Traffic))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) {
-		c.Config.Logger.Infof("Diff in Url.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
-		return true
-	}
-	if compareServiceStatusAddress(c, desired.Address, actual.Address) && !dcl.IsZeroValue(desired.Address) {
-		c.Config.Logger.Infof("Diff in Address.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Address), dcl.SprintResource(actual.Address))
-		return true
-	}
-	return false
-}
-
-func compareServiceStatusSlice(c *Client, desired, actual []ServiceStatus) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceStatus, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceStatus(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceStatus, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceStatusMap(c *Client, desired, actual map[string]ServiceStatus) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceStatus, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceStatus, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceStatus(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceStatus, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceStatusConditionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9815,115 +7398,48 @@ func compareServiceStatusConditionsNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Reason, actual.Reason, dcl.Info{}, fn.AddNest("Reason")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Reason, actual.Reason, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Reason")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LastTransitionTime, actual.LastTransitionTime, dcl.Info{ObjectFunction: compareServiceStatusConditionsLastTransitionTimeNewStyle}, fn.AddNest("LastTransitionTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LastTransitionTime, actual.LastTransitionTime, dcl.Info{ObjectFunction: compareServiceStatusConditionsLastTransitionTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LastTransitionTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Severity, actual.Severity, dcl.Info{}, fn.AddNest("Severity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Severity, actual.Severity, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Severity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceStatusConditions(c *Client, desired, actual *ServiceStatusConditions) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Status, actual.Status) && !dcl.IsZeroValue(desired.Status) {
-		c.Config.Logger.Infof("Diff in Status.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Status), dcl.SprintResource(actual.Status))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Reason, actual.Reason) && !dcl.IsZeroValue(desired.Reason) {
-		c.Config.Logger.Infof("Diff in Reason.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Reason), dcl.SprintResource(actual.Reason))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Message, actual.Message) && !dcl.IsZeroValue(desired.Message) {
-		c.Config.Logger.Infof("Diff in Message.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Message), dcl.SprintResource(actual.Message))
-		return true
-	}
-	if compareServiceStatusConditionsLastTransitionTime(c, desired.LastTransitionTime, actual.LastTransitionTime) && !dcl.IsZeroValue(desired.LastTransitionTime) {
-		c.Config.Logger.Infof("Diff in LastTransitionTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LastTransitionTime), dcl.SprintResource(actual.LastTransitionTime))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Severity, actual.Severity) && !dcl.IsZeroValue(desired.Severity) {
-		c.Config.Logger.Infof("Diff in Severity.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Severity), dcl.SprintResource(actual.Severity))
-		return true
-	}
-	return false
-}
-
-func compareServiceStatusConditionsSlice(c *Client, desired, actual []ServiceStatusConditions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceStatusConditions, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceStatusConditions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceStatusConditions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceStatusConditionsMap(c *Client, desired, actual map[string]ServiceStatusConditions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceStatusConditions, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceStatusConditions, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceStatusConditions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceStatusConditions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceStatusConditionsLastTransitionTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9946,71 +7462,20 @@ func compareServiceStatusConditionsLastTransitionTimeNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceStatusConditionsLastTransitionTime(c *Client, desired, actual *ServiceStatusConditionsLastTransitionTime) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareServiceStatusConditionsLastTransitionTimeSlice(c *Client, desired, actual []ServiceStatusConditionsLastTransitionTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceStatusConditionsLastTransitionTime, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceStatusConditionsLastTransitionTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceStatusConditionsLastTransitionTime, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceStatusConditionsLastTransitionTimeMap(c *Client, desired, actual map[string]ServiceStatusConditionsLastTransitionTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceStatusConditionsLastTransitionTime, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceStatusConditionsLastTransitionTime, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceStatusConditionsLastTransitionTime(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceStatusConditionsLastTransitionTime, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceStatusTrafficNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -10033,111 +7498,48 @@ func compareServiceStatusTrafficNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigurationName, actual.ConfigurationName, dcl.Info{}, fn.AddNest("ConfigurationName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigurationName, actual.ConfigurationName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigurationName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RevisionName, actual.RevisionName, dcl.Info{}, fn.AddNest("RevisionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RevisionName, actual.RevisionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RevisionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LatestRevision, actual.LatestRevision, dcl.Info{}, fn.AddNest("LatestRevision")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatestRevision, actual.LatestRevision, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatestRevision")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OutputOnly: true}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceStatusTraffic(c *Client, desired, actual *ServiceStatusTraffic) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ConfigurationName, actual.ConfigurationName) && !dcl.IsZeroValue(desired.ConfigurationName) {
-		c.Config.Logger.Infof("Diff in ConfigurationName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigurationName), dcl.SprintResource(actual.ConfigurationName))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.RevisionName, actual.RevisionName) && !dcl.IsZeroValue(desired.RevisionName) {
-		c.Config.Logger.Infof("Diff in RevisionName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RevisionName), dcl.SprintResource(actual.RevisionName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Tag, actual.Tag) && !dcl.IsZeroValue(desired.Tag) {
-		c.Config.Logger.Infof("Diff in Tag.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tag), dcl.SprintResource(actual.Tag))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.LatestRevision, actual.LatestRevision) && !dcl.IsZeroValue(desired.LatestRevision) {
-		c.Config.Logger.Infof("Diff in LatestRevision.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LatestRevision), dcl.SprintResource(actual.LatestRevision))
-		return true
-	}
-	return false
-}
-
-func compareServiceStatusTrafficSlice(c *Client, desired, actual []ServiceStatusTraffic) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceStatusTraffic, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceStatusTraffic(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceStatusTraffic, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceStatusTrafficMap(c *Client, desired, actual map[string]ServiceStatusTraffic) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceStatusTraffic, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceStatusTraffic, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceStatusTraffic(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceStatusTraffic, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServiceStatusAddressNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -10160,60 +7562,13 @@ func compareServiceStatusAddressNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServiceStatusAddress(c *Client, desired, actual *ServiceStatusAddress) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) {
-		c.Config.Logger.Infof("Diff in Url.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
-		return true
-	}
-	return false
-}
-
-func compareServiceStatusAddressSlice(c *Client, desired, actual []ServiceStatusAddress) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceStatusAddress, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServiceStatusAddress(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServiceStatusAddress, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServiceStatusAddressMap(c *Client, desired, actual map[string]ServiceStatusAddress) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServiceStatusAddress, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServiceStatusAddress, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServiceStatusAddress(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServiceStatusAddress, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -10338,25 +7693,25 @@ func flattenService(c *Client, i interface{}) *Service {
 		return nil
 	}
 
-	r := &Service{}
-	r.ApiVersion = dcl.FlattenString(m["apiVersion"])
+	res := &Service{}
+	res.ApiVersion = dcl.FlattenString(m["apiVersion"])
 	if _, ok := m["apiVersion"]; !ok {
 		c.Config.Logger.Info("Using default value for apiVersion")
-		r.ApiVersion = dcl.String("serving.knative.dev/v1")
+		res.ApiVersion = dcl.String("serving.knative.dev/v1")
 	}
-	r.Kind = dcl.FlattenString(m["kind"])
+	res.Kind = dcl.FlattenString(m["kind"])
 	if _, ok := m["kind"]; !ok {
 		c.Config.Logger.Info("Using default value for kind")
-		r.Kind = dcl.String("Service")
+		res.Kind = dcl.String("Service")
 	}
-	r.Metadata = flattenServiceMetadata(c, m["metadata"])
-	r.Spec = flattenServiceSpec(c, m["spec"])
-	r.Status = flattenServiceStatus(c, m["status"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Location = dcl.FlattenString(m["location"])
-	r.Name = dcl.FlattenString(m["name"])
+	res.Metadata = flattenServiceMetadata(c, m["metadata"])
+	res.Spec = flattenServiceSpec(c, m["spec"])
+	res.Status = flattenServiceStatus(c, m["status"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Location = dcl.FlattenString(m["location"])
+	res.Name = dcl.FlattenString(m["name"])
 
-	return r
+	return res
 }
 
 // expandServiceMetadataMap expands the contents of ServiceMetadata into a JSON
@@ -10443,10 +7798,11 @@ func flattenServiceMetadataSlice(c *Client, i interface{}) []ServiceMetadata {
 // expandServiceMetadata expands an instance of ServiceMetadata into a JSON
 // request object.
 func expandServiceMetadata(c *Client, f *ServiceMetadata) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -10614,10 +7970,11 @@ func flattenServiceMetadataCreateTimeSlice(c *Client, i interface{}) []ServiceMe
 // expandServiceMetadataCreateTime expands an instance of ServiceMetadataCreateTime into a JSON
 // request object.
 func expandServiceMetadataCreateTime(c *Client, f *ServiceMetadataCreateTime) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -10727,10 +8084,11 @@ func flattenServiceMetadataOwnerReferencesSlice(c *Client, i interface{}) []Serv
 // expandServiceMetadataOwnerReferences expands an instance of ServiceMetadataOwnerReferences into a JSON
 // request object.
 func expandServiceMetadataOwnerReferences(c *Client, f *ServiceMetadataOwnerReferences) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ApiVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["apiVersion"] = v
 	}
@@ -10856,10 +8214,11 @@ func flattenServiceMetadataDeleteTimeSlice(c *Client, i interface{}) []ServiceMe
 // expandServiceMetadataDeleteTime expands an instance of ServiceMetadataDeleteTime into a JSON
 // request object.
 func expandServiceMetadataDeleteTime(c *Client, f *ServiceMetadataDeleteTime) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -10969,10 +8328,11 @@ func flattenServiceSpecSlice(c *Client, i interface{}) []ServiceSpec {
 // expandServiceSpec expands an instance of ServiceSpec into a JSON
 // request object.
 func expandServiceSpec(c *Client, f *ServiceSpec) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplate(c, f.Template); err != nil {
 		return nil, fmt.Errorf("error expanding Template into template: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -11086,10 +8446,11 @@ func flattenServiceSpecTemplateSlice(c *Client, i interface{}) []ServiceSpecTemp
 // expandServiceSpecTemplate expands an instance of ServiceSpecTemplate into a JSON
 // request object.
 func expandServiceSpecTemplate(c *Client, f *ServiceSpecTemplate) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplateMetadata(c, f.Metadata); err != nil {
 		return nil, fmt.Errorf("error expanding Metadata into metadata: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -11203,10 +8564,11 @@ func flattenServiceSpecTemplateMetadataSlice(c *Client, i interface{}) []Service
 // expandServiceSpecTemplateMetadata expands an instance of ServiceSpecTemplateMetadata into a JSON
 // request object.
 func expandServiceSpecTemplateMetadata(c *Client, f *ServiceSpecTemplateMetadata) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -11374,10 +8736,11 @@ func flattenServiceSpecTemplateMetadataCreateTimeSlice(c *Client, i interface{})
 // expandServiceSpecTemplateMetadataCreateTime expands an instance of ServiceSpecTemplateMetadataCreateTime into a JSON
 // request object.
 func expandServiceSpecTemplateMetadataCreateTime(c *Client, f *ServiceSpecTemplateMetadataCreateTime) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -11487,10 +8850,11 @@ func flattenServiceSpecTemplateMetadataOwnerReferencesSlice(c *Client, i interfa
 // expandServiceSpecTemplateMetadataOwnerReferences expands an instance of ServiceSpecTemplateMetadataOwnerReferences into a JSON
 // request object.
 func expandServiceSpecTemplateMetadataOwnerReferences(c *Client, f *ServiceSpecTemplateMetadataOwnerReferences) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ApiVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["apiVersion"] = v
 	}
@@ -11616,10 +8980,11 @@ func flattenServiceSpecTemplateMetadataDeleteTimeSlice(c *Client, i interface{})
 // expandServiceSpecTemplateMetadataDeleteTime expands an instance of ServiceSpecTemplateMetadataDeleteTime into a JSON
 // request object.
 func expandServiceSpecTemplateMetadataDeleteTime(c *Client, f *ServiceSpecTemplateMetadataDeleteTime) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -11729,10 +9094,11 @@ func flattenServiceSpecTemplateSpecSlice(c *Client, i interface{}) []ServiceSpec
 // expandServiceSpecTemplateSpec expands an instance of ServiceSpecTemplateSpec into a JSON
 // request object.
 func expandServiceSpecTemplateSpec(c *Client, f *ServiceSpecTemplateSpec) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ContainerConcurrency; !dcl.IsEmptyValueIndirect(v) {
 		m["containerConcurrency"] = v
 	}
@@ -11858,10 +9224,11 @@ func flattenServiceSpecTemplateSpecContainersSlice(c *Client, i interface{}) []S
 // expandServiceSpecTemplateSpecContainers expands an instance of ServiceSpecTemplateSpecContainers into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainers(c *Client, f *ServiceSpecTemplateSpecContainers) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -12043,10 +9410,11 @@ func flattenServiceSpecTemplateSpecContainersEnvSlice(c *Client, i interface{}) 
 // expandServiceSpecTemplateSpecContainersEnv expands an instance of ServiceSpecTemplateSpecContainersEnv into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnv(c *Client, f *ServiceSpecTemplateSpecContainersEnv) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -12162,10 +9530,11 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromSlice(c *Client, i inte
 // expandServiceSpecTemplateSpecContainersEnvValueFrom expands an instance of ServiceSpecTemplateSpecContainersEnvValueFrom into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvValueFrom(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFrom) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, f.ConfigMapKeyRef); err != nil {
 		return nil, fmt.Errorf("error expanding ConfigMapKeyRef into configMapKeyRef: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -12279,10 +9648,11 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefSlice(c 
 // expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef expands an instance of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, f.LocalObjectReference); err != nil {
 		return nil, fmt.Errorf("error expanding LocalObjectReference into localObjectReference: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -12402,10 +9772,11 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObj
 // expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference expands an instance of ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -12511,10 +9882,11 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefSlice(c *Cl
 // expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef expands an instance of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, f.LocalObjectReference); err != nil {
 		return nil, fmt.Errorf("error expanding LocalObjectReference into localObjectReference: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -12634,10 +10006,11 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObject
 // expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference expands an instance of ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c *Client, f *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -12743,10 +10116,11 @@ func flattenServiceSpecTemplateSpecContainersResourcesSlice(c *Client, i interfa
 // expandServiceSpecTemplateSpecContainersResources expands an instance of ServiceSpecTemplateSpecContainersResources into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersResources(c *Client, f *ServiceSpecTemplateSpecContainersResources) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Limits; !dcl.IsEmptyValueIndirect(v) {
 		m["limits"] = v
 	}
@@ -12856,10 +10230,11 @@ func flattenServiceSpecTemplateSpecContainersPortsSlice(c *Client, i interface{}
 // expandServiceSpecTemplateSpecContainersPorts expands an instance of ServiceSpecTemplateSpecContainersPorts into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersPorts(c *Client, f *ServiceSpecTemplateSpecContainersPorts) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -12973,10 +10348,11 @@ func flattenServiceSpecTemplateSpecContainersEnvFromSlice(c *Client, i interface
 // expandServiceSpecTemplateSpecContainersEnvFrom expands an instance of ServiceSpecTemplateSpecContainersEnvFrom into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvFrom(c *Client, f *ServiceSpecTemplateSpecContainersEnvFrom) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Prefix; !dcl.IsEmptyValueIndirect(v) {
 		m["prefix"] = v
 	}
@@ -13094,10 +10470,11 @@ func flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefSlice(c *Client,
 // expandServiceSpecTemplateSpecContainersEnvFromConfigMapRef expands an instance of ServiceSpecTemplateSpecContainersEnvFromConfigMapRef into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c *Client, f *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, f.LocalObjectReference); err != nil {
 		return nil, fmt.Errorf("error expanding LocalObjectReference into localObjectReference: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -13213,10 +10590,11 @@ func flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectRefer
 // expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference expands an instance of ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c *Client, f *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -13322,10 +10700,11 @@ func flattenServiceSpecTemplateSpecContainersEnvFromSecretRefSlice(c *Client, i 
 // expandServiceSpecTemplateSpecContainersEnvFromSecretRef expands an instance of ServiceSpecTemplateSpecContainersEnvFromSecretRef into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvFromSecretRef(c *Client, f *ServiceSpecTemplateSpecContainersEnvFromSecretRef) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, f.LocalObjectReference); err != nil {
 		return nil, fmt.Errorf("error expanding LocalObjectReference into localObjectReference: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -13441,10 +10820,11 @@ func flattenServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenc
 // expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference expands an instance of ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c *Client, f *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -13550,10 +10930,11 @@ func flattenServiceSpecTemplateSpecContainersVolumeMountsSlice(c *Client, i inte
 // expandServiceSpecTemplateSpecContainersVolumeMounts expands an instance of ServiceSpecTemplateSpecContainersVolumeMounts into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersVolumeMounts(c *Client, f *ServiceSpecTemplateSpecContainersVolumeMounts) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -13671,10 +11052,11 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeSlice(c *Client, i int
 // expandServiceSpecTemplateSpecContainersLivenessProbe expands an instance of ServiceSpecTemplateSpecContainersLivenessProbe into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersLivenessProbe(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbe) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.InitialDelaySeconds; !dcl.IsEmptyValueIndirect(v) {
 		m["initialDelaySeconds"] = v
 	}
@@ -13814,10 +11196,11 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeExecSlice(c *Client, i
 // expandServiceSpecTemplateSpecContainersLivenessProbeExec expands an instance of ServiceSpecTemplateSpecContainersLivenessProbeExec into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersLivenessProbeExec(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbeExec) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Command; !dcl.IsEmptyValueIndirect(v) {
 		m["command"] = v
 	}
@@ -13923,10 +11306,11 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetSlice(c *Client
 // expandServiceSpecTemplateSpecContainersLivenessProbeHttpGet expands an instance of ServiceSpecTemplateSpecContainersLivenessProbeHttpGet into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
 		m["path"] = v
 	}
@@ -14046,10 +11430,11 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersSlic
 // expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders expands an instance of ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -14159,10 +11544,11 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeTcpSocketSlice(c *Clie
 // expandServiceSpecTemplateSpecContainersLivenessProbeTcpSocket expands an instance of ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c *Client, f *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
 		m["port"] = v
 	}
@@ -14272,10 +11658,11 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeSlice(c *Client, i in
 // expandServiceSpecTemplateSpecContainersReadinessProbe expands an instance of ServiceSpecTemplateSpecContainersReadinessProbe into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersReadinessProbe(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbe) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.InitialDelaySeconds; !dcl.IsEmptyValueIndirect(v) {
 		m["initialDelaySeconds"] = v
 	}
@@ -14415,10 +11802,11 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeExecSlice(c *Client, 
 // expandServiceSpecTemplateSpecContainersReadinessProbeExec expands an instance of ServiceSpecTemplateSpecContainersReadinessProbeExec into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersReadinessProbeExec(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbeExec) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Command; !dcl.IsEmptyValueIndirect(v) {
 		m["command"] = v
 	}
@@ -14524,10 +11912,11 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetSlice(c *Clien
 // expandServiceSpecTemplateSpecContainersReadinessProbeHttpGet expands an instance of ServiceSpecTemplateSpecContainersReadinessProbeHttpGet into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
 		m["path"] = v
 	}
@@ -14647,10 +12036,11 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersSli
 // expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders expands an instance of ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -14760,10 +12150,11 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeTcpSocketSlice(c *Cli
 // expandServiceSpecTemplateSpecContainersReadinessProbeTcpSocket expands an instance of ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c *Client, f *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Port; !dcl.IsEmptyValueIndirect(v) {
 		m["port"] = v
 	}
@@ -14873,10 +12264,11 @@ func flattenServiceSpecTemplateSpecContainersSecurityContextSlice(c *Client, i i
 // expandServiceSpecTemplateSpecContainersSecurityContext expands an instance of ServiceSpecTemplateSpecContainersSecurityContext into a JSON
 // request object.
 func expandServiceSpecTemplateSpecContainersSecurityContext(c *Client, f *ServiceSpecTemplateSpecContainersSecurityContext) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.RunAsUser; !dcl.IsEmptyValueIndirect(v) {
 		m["runAsUser"] = v
 	}
@@ -14982,10 +12374,11 @@ func flattenServiceSpecTemplateSpecVolumesSlice(c *Client, i interface{}) []Serv
 // expandServiceSpecTemplateSpecVolumes expands an instance of ServiceSpecTemplateSpecVolumes into a JSON
 // request object.
 func expandServiceSpecTemplateSpecVolumes(c *Client, f *ServiceSpecTemplateSpecVolumes) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -15103,10 +12496,11 @@ func flattenServiceSpecTemplateSpecVolumesSecretSlice(c *Client, i interface{}) 
 // expandServiceSpecTemplateSpecVolumesSecret expands an instance of ServiceSpecTemplateSpecVolumesSecret into a JSON
 // request object.
 func expandServiceSpecTemplateSpecVolumesSecret(c *Client, f *ServiceSpecTemplateSpecVolumesSecret) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.SecretName; !dcl.IsEmptyValueIndirect(v) {
 		m["secretName"] = v
 	}
@@ -15226,10 +12620,11 @@ func flattenServiceSpecTemplateSpecVolumesSecretItemsSlice(c *Client, i interfac
 // expandServiceSpecTemplateSpecVolumesSecretItems expands an instance of ServiceSpecTemplateSpecVolumesSecretItems into a JSON
 // request object.
 func expandServiceSpecTemplateSpecVolumesSecretItems(c *Client, f *ServiceSpecTemplateSpecVolumesSecretItems) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
 		m["key"] = v
 	}
@@ -15343,10 +12738,11 @@ func flattenServiceSpecTemplateSpecVolumesConfigMapSlice(c *Client, i interface{
 // expandServiceSpecTemplateSpecVolumesConfigMap expands an instance of ServiceSpecTemplateSpecVolumesConfigMap into a JSON
 // request object.
 func expandServiceSpecTemplateSpecVolumesConfigMap(c *Client, f *ServiceSpecTemplateSpecVolumesConfigMap) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -15466,10 +12862,11 @@ func flattenServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c *Client, i inter
 // expandServiceSpecTemplateSpecVolumesConfigMapItems expands an instance of ServiceSpecTemplateSpecVolumesConfigMapItems into a JSON
 // request object.
 func expandServiceSpecTemplateSpecVolumesConfigMapItems(c *Client, f *ServiceSpecTemplateSpecVolumesConfigMapItems) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
 		m["key"] = v
 	}
@@ -15583,10 +12980,11 @@ func flattenServiceSpecTrafficSlice(c *Client, i interface{}) []ServiceSpecTraff
 // expandServiceSpecTraffic expands an instance of ServiceSpecTraffic into a JSON
 // request object.
 func expandServiceSpecTraffic(c *Client, f *ServiceSpecTraffic) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ConfigurationName; !dcl.IsEmptyValueIndirect(v) {
 		m["configurationName"] = v
 	}
@@ -15712,10 +13110,11 @@ func flattenServiceStatusSlice(c *Client, i interface{}) []ServiceStatus {
 // expandServiceStatus expands an instance of ServiceStatus into a JSON
 // request object.
 func expandServiceStatus(c *Client, f *ServiceStatus) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ObservedGeneration; !dcl.IsEmptyValueIndirect(v) {
 		m["observedGeneration"] = v
 	}
@@ -15851,10 +13250,11 @@ func flattenServiceStatusConditionsSlice(c *Client, i interface{}) []ServiceStat
 // expandServiceStatusConditions expands an instance of ServiceStatusConditions into a JSON
 // request object.
 func expandServiceStatusConditions(c *Client, f *ServiceStatusConditions) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
@@ -15982,10 +13382,11 @@ func flattenServiceStatusConditionsLastTransitionTimeSlice(c *Client, i interfac
 // expandServiceStatusConditionsLastTransitionTime expands an instance of ServiceStatusConditionsLastTransitionTime into a JSON
 // request object.
 func expandServiceStatusConditionsLastTransitionTime(c *Client, f *ServiceStatusConditionsLastTransitionTime) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -16095,10 +13496,11 @@ func flattenServiceStatusTrafficSlice(c *Client, i interface{}) []ServiceStatusT
 // expandServiceStatusTraffic expands an instance of ServiceStatusTraffic into a JSON
 // request object.
 func expandServiceStatusTraffic(c *Client, f *ServiceStatusTraffic) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ConfigurationName; !dcl.IsEmptyValueIndirect(v) {
 		m["configurationName"] = v
 	}
@@ -16224,10 +13626,11 @@ func flattenServiceStatusAddressSlice(c *Client, i interface{}) []ServiceStatusA
 // expandServiceStatusAddress expands an instance of ServiceStatusAddress into a JSON
 // request object.
 func expandServiceStatusAddress(c *Client, f *ServiceStatusAddress) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
 		m["url"] = v
 	}
@@ -16288,5 +13691,36 @@ func (r *Service) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToServiceDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]serviceDiff, error) {
+	var diffs []serviceDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := serviceDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToserviceApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToserviceApiOperation(op string, opts ...dcl.ApplyOption) (serviceApiOperation, error) {
+	switch op {
+
+	case "updateServiceUpdateServiceOperation":
+		return &updateServiceUpdateServiceOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

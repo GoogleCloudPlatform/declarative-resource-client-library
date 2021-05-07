@@ -57,6 +57,10 @@ components:
           description: The reservation for the resource
           type: string
           x-dcl-go-name: Reservation
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Bigqueryreservation/Reservation
           x-kubernetes-immutable: true
         state:
           description: 'Assignment will remain in PENDING state if no active capacity

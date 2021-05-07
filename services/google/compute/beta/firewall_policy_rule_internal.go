@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -331,9 +330,6 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	if dcl.BoolCanonicalize(rawDesired.EnableLogging, rawInitial.EnableLogging) {
 		rawDesired.EnableLogging = rawInitial.EnableLogging
 	}
-	if dcl.IsZeroValue(rawDesired.RuleTupleCount) {
-		rawDesired.RuleTupleCount = rawInitial.RuleTupleCount
-	}
 	if dcl.IsZeroValue(rawDesired.TargetServiceAccounts) {
 		rawDesired.TargetServiceAccounts = rawInitial.TargetServiceAccounts
 	}
@@ -475,7 +471,16 @@ func canonicalizeNewFirewallPolicyRuleMatch(c *Client, des, nw *FirewallPolicyRu
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.SrcIPRanges) {
+		nw.SrcIPRanges = des.SrcIPRanges
+	}
+	if dcl.IsZeroValue(nw.DestIPRanges) {
+		nw.DestIPRanges = des.DestIPRanges
+	}
 	nw.Layer4Configs = canonicalizeNewFirewallPolicyRuleMatchLayer4ConfigsSlice(c, des.Layer4Configs, nw.Layer4Configs)
+	if dcl.IsZeroValue(nw.SrcSecureLabels) {
+		nw.SrcSecureLabels = des.SrcSecureLabels
+	}
 
 	return nw
 }
@@ -488,7 +493,7 @@ func canonicalizeNewFirewallPolicyRuleMatchSet(c *Client, des, nw []FirewallPoli
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareFirewallPolicyRuleMatch(c, &d, &n) {
+			if diffs, _ := compareFirewallPolicyRuleMatchNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -511,7 +516,7 @@ func canonicalizeNewFirewallPolicyRuleMatchSlice(c *Client, des, nw []FirewallPo
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []FirewallPolicyRuleMatch
@@ -553,6 +558,9 @@ func canonicalizeNewFirewallPolicyRuleMatchLayer4Configs(c *Client, des, nw *Fir
 	if dcl.StringCanonicalize(des.IPProtocol, nw.IPProtocol) {
 		nw.IPProtocol = des.IPProtocol
 	}
+	if dcl.IsZeroValue(nw.Ports) {
+		nw.Ports = des.Ports
+	}
 
 	return nw
 }
@@ -565,7 +573,7 @@ func canonicalizeNewFirewallPolicyRuleMatchLayer4ConfigsSet(c *Client, des, nw [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareFirewallPolicyRuleMatchLayer4Configs(c, &d, &n) {
+			if diffs, _ := compareFirewallPolicyRuleMatchLayer4ConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -588,7 +596,7 @@ func canonicalizeNewFirewallPolicyRuleMatchLayer4ConfigsSlice(c *Client, des, nw
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []FirewallPolicyRuleMatchLayer4Configs
@@ -622,135 +630,176 @@ func diffFirewallPolicyRule(c *Client, desired, actual *FirewallPolicyRule, opts
 	}
 
 	var diffs []firewallPolicyRuleDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyRuleDiff{
-			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Priority, actual.Priority, dcl.Info{}, fn.AddNest("Priority")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Priority, actual.Priority, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Priority")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Priority",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Match, actual.Match, dcl.Info{ObjectFunction: compareFirewallPolicyRuleMatchNewStyle}, fn.AddNest("Match")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Match, actual.Match, dcl.Info{ObjectFunction: compareFirewallPolicyRuleMatchNewStyle, OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("Match")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyRuleDiff{
-			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, Diffs: ds,
-			FieldName: "Match",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyRuleDiff{
-			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, Diffs: ds,
-			FieldName: "Action",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType"}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyRuleDiff{
-			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, Diffs: ds,
-			FieldName: "Direction",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetResources, actual.TargetResources, dcl.Info{Type: "ReferenceType"}, fn.AddNest("TargetResources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetResources, actual.TargetResources, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("TargetResources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyRuleDiff{
-			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, Diffs: ds,
-			FieldName: "TargetResources",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnableLogging, actual.EnableLogging, dcl.Info{}, fn.AddNest("EnableLogging")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableLogging, actual.EnableLogging, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("EnableLogging")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyRuleDiff{
-			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, Diffs: ds,
-			FieldName: "EnableLogging",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.RuleTupleCount, actual.RuleTupleCount, dcl.Info{OutputOnly: true}, fn.AddNest("RuleTupleCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RuleTupleCount, actual.RuleTupleCount, dcl.Info{OutputOnly: true, OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("RuleTupleCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyRuleDiff{
-			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, Diffs: ds,
-			FieldName: "RuleTupleCount",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetServiceAccounts, actual.TargetServiceAccounts, dcl.Info{Type: "ReferenceType"}, fn.AddNest("TargetServiceAccounts")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetServiceAccounts, actual.TargetServiceAccounts, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("TargetServiceAccounts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyRuleDiff{
-			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, Diffs: ds,
-			FieldName: "TargetServiceAccounts",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetSecureLabels, actual.TargetSecureLabels, dcl.Info{}, fn.AddNest("TargetSecureLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetSecureLabels, actual.TargetSecureLabels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("TargetSecureLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyRuleDiff{
-			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, Diffs: ds,
-			FieldName: "TargetSecureLabels",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyRuleDiff{
-			UpdateOp: &updateFirewallPolicyRulePatchRuleOperation{}, Diffs: ds,
-			FieldName: "Disabled",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Kind",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.FirewallPolicy, actual.FirewallPolicy, dcl.Info{Type: "ReferenceType"}, fn.AddNest("FirewallPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FirewallPolicy, actual.FirewallPolicy, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FirewallPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "FirewallPolicy",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -797,93 +846,34 @@ func compareFirewallPolicyRuleMatchNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SrcIPRanges, actual.SrcIPRanges, dcl.Info{}, fn.AddNest("SrcIPRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SrcIPRanges, actual.SrcIPRanges, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SrcIPRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DestIPRanges, actual.DestIPRanges, dcl.Info{}, fn.AddNest("DestIPRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DestIPRanges, actual.DestIPRanges, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DestIPRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Layer4Configs, actual.Layer4Configs, dcl.Info{ObjectFunction: compareFirewallPolicyRuleMatchLayer4ConfigsNewStyle}, fn.AddNest("Layer4Configs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Layer4Configs, actual.Layer4Configs, dcl.Info{ObjectFunction: compareFirewallPolicyRuleMatchLayer4ConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Layer4Configs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SrcSecureLabels, actual.SrcSecureLabels, dcl.Info{}, fn.AddNest("SrcSecureLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SrcSecureLabels, actual.SrcSecureLabels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SrcSecureLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareFirewallPolicyRuleMatch(c *Client, desired, actual *FirewallPolicyRuleMatch) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.SrcIPRanges, actual.SrcIPRanges) && !dcl.IsZeroValue(desired.SrcIPRanges) {
-		c.Config.Logger.Infof("Diff in SrcIPRanges.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SrcIPRanges), dcl.SprintResource(actual.SrcIPRanges))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.DestIPRanges, actual.DestIPRanges) && !dcl.IsZeroValue(desired.DestIPRanges) {
-		c.Config.Logger.Infof("Diff in DestIPRanges.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DestIPRanges), dcl.SprintResource(actual.DestIPRanges))
-		return true
-	}
-	if compareFirewallPolicyRuleMatchLayer4ConfigsSlice(c, desired.Layer4Configs, actual.Layer4Configs) && !dcl.IsZeroValue(desired.Layer4Configs) {
-		c.Config.Logger.Infof("Diff in Layer4Configs.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Layer4Configs), dcl.SprintResource(actual.Layer4Configs))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.SrcSecureLabels, actual.SrcSecureLabels) && !dcl.IsZeroValue(desired.SrcSecureLabels) {
-		c.Config.Logger.Infof("Diff in SrcSecureLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SrcSecureLabels), dcl.SprintResource(actual.SrcSecureLabels))
-		return true
-	}
-	return false
-}
-
-func compareFirewallPolicyRuleMatchSlice(c *Client, desired, actual []FirewallPolicyRuleMatch) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FirewallPolicyRuleMatch, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareFirewallPolicyRuleMatch(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FirewallPolicyRuleMatch, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFirewallPolicyRuleMatchMap(c *Client, desired, actual map[string]FirewallPolicyRuleMatch) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FirewallPolicyRuleMatch, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in FirewallPolicyRuleMatch, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareFirewallPolicyRuleMatch(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in FirewallPolicyRuleMatch, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareFirewallPolicyRuleMatchLayer4ConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -906,89 +896,20 @@ func compareFirewallPolicyRuleMatchLayer4ConfigsNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.IPProtocol, actual.IPProtocol, dcl.Info{}, fn.AddNest("IPProtocol")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPProtocol, actual.IPProtocol, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPProtocol")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareFirewallPolicyRuleMatchLayer4Configs(c *Client, desired, actual *FirewallPolicyRuleMatchLayer4Configs) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.IPProtocol, actual.IPProtocol) && !dcl.IsZeroValue(desired.IPProtocol) {
-		c.Config.Logger.Infof("Diff in IPProtocol.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPProtocol), dcl.SprintResource(actual.IPProtocol))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Ports, actual.Ports) && !dcl.IsZeroValue(desired.Ports) {
-		c.Config.Logger.Infof("Diff in Ports.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Ports), dcl.SprintResource(actual.Ports))
-		return true
-	}
-	return false
-}
-
-func compareFirewallPolicyRuleMatchLayer4ConfigsSlice(c *Client, desired, actual []FirewallPolicyRuleMatchLayer4Configs) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FirewallPolicyRuleMatchLayer4Configs, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareFirewallPolicyRuleMatchLayer4Configs(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FirewallPolicyRuleMatchLayer4Configs, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFirewallPolicyRuleMatchLayer4ConfigsMap(c *Client, desired, actual map[string]FirewallPolicyRuleMatchLayer4Configs) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FirewallPolicyRuleMatchLayer4Configs, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in FirewallPolicyRuleMatchLayer4Configs, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareFirewallPolicyRuleMatchLayer4Configs(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in FirewallPolicyRuleMatchLayer4Configs, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFirewallPolicyRuleDirectionEnumSlice(c *Client, desired, actual []FirewallPolicyRuleDirectionEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FirewallPolicyRuleDirectionEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareFirewallPolicyRuleDirectionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FirewallPolicyRuleDirectionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFirewallPolicyRuleDirectionEnum(c *Client, desired, actual *FirewallPolicyRuleDirectionEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1116,22 +1037,22 @@ func flattenFirewallPolicyRule(c *Client, i interface{}) *FirewallPolicyRule {
 		return nil
 	}
 
-	r := &FirewallPolicyRule{}
-	r.Description = dcl.FlattenString(m["description"])
-	r.Priority = dcl.FlattenInteger(m["priority"])
-	r.Match = flattenFirewallPolicyRuleMatch(c, m["match"])
-	r.Action = dcl.FlattenString(m["action"])
-	r.Direction = flattenFirewallPolicyRuleDirectionEnum(m["direction"])
-	r.TargetResources = dcl.FlattenStringSlice(m["targetResources"])
-	r.EnableLogging = dcl.FlattenBool(m["enableLogging"])
-	r.RuleTupleCount = dcl.FlattenInteger(m["ruleTupleCount"])
-	r.TargetServiceAccounts = dcl.FlattenStringSlice(m["targetServiceAccounts"])
-	r.TargetSecureLabels = dcl.FlattenStringSlice(m["targetSecureLabels"])
-	r.Disabled = dcl.FlattenBool(m["disabled"])
-	r.Kind = dcl.FlattenString(m["kind"])
-	r.FirewallPolicy = dcl.FlattenString(m["firewallPolicy"])
+	res := &FirewallPolicyRule{}
+	res.Description = dcl.FlattenString(m["description"])
+	res.Priority = dcl.FlattenInteger(m["priority"])
+	res.Match = flattenFirewallPolicyRuleMatch(c, m["match"])
+	res.Action = dcl.FlattenString(m["action"])
+	res.Direction = flattenFirewallPolicyRuleDirectionEnum(m["direction"])
+	res.TargetResources = dcl.FlattenStringSlice(m["targetResources"])
+	res.EnableLogging = dcl.FlattenBool(m["enableLogging"])
+	res.RuleTupleCount = dcl.FlattenInteger(m["ruleTupleCount"])
+	res.TargetServiceAccounts = dcl.FlattenStringSlice(m["targetServiceAccounts"])
+	res.TargetSecureLabels = dcl.FlattenStringSlice(m["targetSecureLabels"])
+	res.Disabled = dcl.FlattenBool(m["disabled"])
+	res.Kind = dcl.FlattenString(m["kind"])
+	res.FirewallPolicy = dcl.FlattenString(m["firewallPolicy"])
 
-	return r
+	return res
 }
 
 // expandFirewallPolicyRuleMatchMap expands the contents of FirewallPolicyRuleMatch into a JSON
@@ -1218,10 +1139,11 @@ func flattenFirewallPolicyRuleMatchSlice(c *Client, i interface{}) []FirewallPol
 // expandFirewallPolicyRuleMatch expands an instance of FirewallPolicyRuleMatch into a JSON
 // request object.
 func expandFirewallPolicyRuleMatch(c *Client, f *FirewallPolicyRuleMatch) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.SrcIPRanges; !dcl.IsEmptyValueIndirect(v) {
 		m["srcIpRanges"] = v
 	}
@@ -1341,10 +1263,11 @@ func flattenFirewallPolicyRuleMatchLayer4ConfigsSlice(c *Client, i interface{}) 
 // expandFirewallPolicyRuleMatchLayer4Configs expands an instance of FirewallPolicyRuleMatchLayer4Configs into a JSON
 // request object.
 func expandFirewallPolicyRuleMatchLayer4Configs(c *Client, f *FirewallPolicyRuleMatchLayer4Configs) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.IPProtocol; !dcl.IsEmptyValueIndirect(v) {
 		m["ipProtocol"] = v
 	}
@@ -1432,5 +1355,36 @@ func (r *FirewallPolicyRule) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToFirewallPolicyRuleDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]firewallPolicyRuleDiff, error) {
+	var diffs []firewallPolicyRuleDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := firewallPolicyRuleDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTofirewallPolicyRuleApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTofirewallPolicyRuleApiOperation(op string, opts ...dcl.ApplyOption) (firewallPolicyRuleApiOperation, error) {
+	switch op {
+
+	case "updateFirewallPolicyRulePatchRuleOperation":
+		return &updateFirewallPolicyRulePatchRuleOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

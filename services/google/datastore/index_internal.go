@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -374,9 +373,6 @@ func canonicalizeIndexDesiredState(rawDesired, rawInitial *Index, opts ...dcl.Ap
 	if dcl.IsZeroValue(rawDesired.Ancestor) {
 		rawDesired.Ancestor = rawInitial.Ancestor
 	}
-	if dcl.IsZeroValue(rawDesired.IndexId) {
-		rawDesired.IndexId = rawInitial.IndexId
-	}
 	if dcl.StringCanonicalize(rawDesired.Kind, rawInitial.Kind) {
 		rawDesired.Kind = rawInitial.Kind
 	}
@@ -385,9 +381,6 @@ func canonicalizeIndexDesiredState(rawDesired, rawInitial *Index, opts ...dcl.Ap
 	}
 	if dcl.IsZeroValue(rawDesired.Properties) {
 		rawDesired.Properties = rawInitial.Properties
-	}
-	if dcl.IsZeroValue(rawDesired.State) {
-		rawDesired.State = rawInitial.State
 	}
 
 	return rawDesired, nil
@@ -459,6 +452,9 @@ func canonicalizeNewIndexProperties(c *Client, des, nw *IndexProperties) *IndexP
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
+	if dcl.IsZeroValue(nw.Direction) {
+		nw.Direction = des.Direction
+	}
 
 	return nw
 }
@@ -471,7 +467,7 @@ func canonicalizeNewIndexPropertiesSet(c *Client, des, nw []IndexProperties) []I
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareIndexProperties(c, &d, &n) {
+			if diffs, _ := compareIndexPropertiesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -494,7 +490,7 @@ func canonicalizeNewIndexPropertiesSlice(c *Client, des, nw []IndexProperties) [
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []IndexProperties
@@ -528,62 +524,85 @@ func diffIndex(c *Client, desired, actual *Index, opts ...dcl.ApplyOption) ([]in
 	}
 
 	var diffs []indexDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Ancestor, actual.Ancestor, dcl.Info{Type: "EnumType"}, fn.AddNest("Ancestor")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Ancestor, actual.Ancestor, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ancestor")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Ancestor",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToIndexDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.IndexId, actual.IndexId, dcl.Info{OutputOnly: true, Type: "ReferenceType"}, fn.AddNest("IndexId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IndexId, actual.IndexId, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IndexId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "IndexId",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToIndexDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Kind",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToIndexDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToIndexDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{ObjectFunction: compareIndexPropertiesNewStyle}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{ObjectFunction: compareIndexPropertiesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Properties",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToIndexDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, indexDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "State",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToIndexDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -630,125 +649,20 @@ func compareIndexPropertiesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType"}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareIndexProperties(c *Client, desired, actual *IndexProperties) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Direction, actual.Direction) && !dcl.IsZeroValue(desired.Direction) {
-		c.Config.Logger.Infof("Diff in Direction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Direction), dcl.SprintResource(actual.Direction))
-		return true
-	}
-	return false
-}
-
-func compareIndexPropertiesSlice(c *Client, desired, actual []IndexProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in IndexProperties, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareIndexProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in IndexProperties, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareIndexPropertiesMap(c *Client, desired, actual map[string]IndexProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in IndexProperties, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in IndexProperties, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareIndexProperties(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in IndexProperties, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareIndexAncestorEnumSlice(c *Client, desired, actual []IndexAncestorEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in IndexAncestorEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareIndexAncestorEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in IndexAncestorEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareIndexAncestorEnum(c *Client, desired, actual *IndexAncestorEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareIndexPropertiesDirectionEnumSlice(c *Client, desired, actual []IndexPropertiesDirectionEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in IndexPropertiesDirectionEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareIndexPropertiesDirectionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in IndexPropertiesDirectionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareIndexPropertiesDirectionEnum(c *Client, desired, actual *IndexPropertiesDirectionEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareIndexStateEnumSlice(c *Client, desired, actual []IndexStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in IndexStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareIndexStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in IndexStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareIndexStateEnum(c *Client, desired, actual *IndexStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -847,19 +761,19 @@ func flattenIndex(c *Client, i interface{}) *Index {
 		return nil
 	}
 
-	r := &Index{}
-	r.Ancestor = flattenIndexAncestorEnum(m["ancestor"])
+	res := &Index{}
+	res.Ancestor = flattenIndexAncestorEnum(m["ancestor"])
 	if _, ok := m["ancestor"]; !ok {
 		c.Config.Logger.Info("Using default value for ancestor")
-		r.Ancestor = IndexAncestorEnumRef("NONE")
+		res.Ancestor = IndexAncestorEnumRef("NONE")
 	}
-	r.IndexId = dcl.SelfLinkToName(dcl.FlattenString(m["indexId"]))
-	r.Kind = dcl.FlattenString(m["kind"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Properties = flattenIndexPropertiesSlice(c, m["properties"])
-	r.State = flattenIndexStateEnum(m["state"])
+	res.IndexId = dcl.SelfLinkToName(dcl.FlattenString(m["indexId"]))
+	res.Kind = dcl.FlattenString(m["kind"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Properties = flattenIndexPropertiesSlice(c, m["properties"])
+	res.State = flattenIndexStateEnum(m["state"])
 
-	return r
+	return res
 }
 
 // expandIndexPropertiesMap expands the contents of IndexProperties into a JSON
@@ -946,10 +860,11 @@ func flattenIndexPropertiesSlice(c *Client, i interface{}) []IndexProperties {
 // expandIndexProperties expands an instance of IndexProperties into a JSON
 // request object.
 func expandIndexProperties(c *Client, f *IndexProperties) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -1099,5 +1014,33 @@ func (r *Index) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToIndexDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]indexDiff, error) {
+	var diffs []indexDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := indexDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToindexApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToindexApiOperation(op string, opts ...dcl.ApplyOption) (indexApiOperation, error) {
+	switch op {
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

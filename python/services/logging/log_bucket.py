@@ -115,27 +115,6 @@ class LogBucket(object):
 
         return stub.ListLoggingLogBucket(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = log_bucket_pb2.LoggingLogBucket()
-        any_proto.Unpack(res_proto)
-
-        res = LogBucket()
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.retention_days = Primitive.from_proto(res_proto.retention_days)
-        res.locked = Primitive.from_proto(res_proto.locked)
-        res.lifecycle_state = LogBucketLifecycleStateEnum.from_proto(
-            res_proto.lifecycle_state
-        )
-        res.parent = Primitive.from_proto(res_proto.parent)
-        res.location = Primitive.from_proto(res_proto.location)
-        res.name = Primitive.from_proto(res_proto.name)
-        return res
-
     def to_proto(self):
         resource = log_bucket_pb2.LoggingLogBucket()
         if Primitive.to_proto(self.description):

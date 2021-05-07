@@ -97,21 +97,6 @@ class TargetHttpProxy(object):
 
         return stub.ListComputeTargetHttpProxy(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = target_http_proxy_pb2.ComputeTargetHttpProxy()
-        any_proto.Unpack(res_proto)
-
-        res = TargetHttpProxy()
-        res.id = Primitive.from_proto(res_proto.id)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.url_map = Primitive.from_proto(res_proto.url_map)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = target_http_proxy_pb2.ComputeTargetHttpProxy()
         if Primitive.to_proto(self.name):

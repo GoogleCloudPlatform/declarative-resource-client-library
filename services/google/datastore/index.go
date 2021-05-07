@@ -319,6 +319,7 @@ func (c *Client) ApplyIndex(ctx context.Context, rawDesired *Index, opts ...dcl.
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

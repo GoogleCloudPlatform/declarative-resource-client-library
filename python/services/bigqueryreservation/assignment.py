@@ -119,22 +119,6 @@ class Assignment(object):
 
         return stub.ListBigqueryreservationAssignment(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = assignment_pb2.BigqueryreservationAssignment()
-        any_proto.Unpack(res_proto)
-
-        res = Assignment()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.assignee = Primitive.from_proto(res_proto.assignee)
-        res.job_type = AssignmentJobTypeEnum.from_proto(res_proto.job_type)
-        res.state = AssignmentStateEnum.from_proto(res_proto.state)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        res.reservation = Primitive.from_proto(res_proto.reservation)
-        return res
-
     def to_proto(self):
         resource = assignment_pb2.BigqueryreservationAssignment()
         if Primitive.to_proto(self.assignee):

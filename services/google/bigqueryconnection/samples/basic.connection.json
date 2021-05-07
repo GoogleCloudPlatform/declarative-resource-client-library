@@ -4,7 +4,7 @@
   "description": "This is a test of bigquery connection",
   "cloudSql": {
     "instanceId": "{{ref:basic.sql.instance.json:connectionName}}",
-    "database": "db",
+    "database": "{{ref:basic.sql.database.json:name}}",
     "type": "MYSQL",
     "credential": {
       "username": "{{ref:basic.sql.user.json:name}}",

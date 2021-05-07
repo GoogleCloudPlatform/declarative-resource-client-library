@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from connector import channel
-from google3.cloud.graphite.mmv2.services.google.vpcaccess import connector_pb2
-from google3.cloud.graphite.mmv2.services.google.vpcaccess import connector_pb2_grpc
+from google3.cloud.graphite.mmv2.services.google.vpc_access import connector_pb2
+from google3.cloud.graphite.mmv2.services.google.vpc_access import connector_pb2_grpc
 
 from typing import List
 
@@ -117,24 +117,6 @@ class Connector(object):
         request.Location = location
 
         return stub.ListVpcaccessConnector(request).items
-
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = connector_pb2.VpcaccessConnector()
-        any_proto.Unpack(res_proto)
-
-        res = Connector()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.network = Primitive.from_proto(res_proto.network)
-        res.ip_cidr_range = Primitive.from_proto(res_proto.ip_cidr_range)
-        res.min_throughput = Primitive.from_proto(res_proto.min_throughput)
-        res.max_throughput = Primitive.from_proto(res_proto.max_throughput)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        res.state = ConnectorStateEnum.from_proto(res_proto.state)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        return res
 
     def to_proto(self):
         resource = connector_pb2.VpcaccessConnector()

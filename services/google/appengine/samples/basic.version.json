@@ -1,6 +1,6 @@
 {
   "name":  "{{id}}",
-  "app":   "{{ref:basic.serviceusage.service.json:project}}",
+  "app":   "{{ref:cloudbuild.serviceusage.service.json:project}}",
   "service": "default",
   "runtime": "python27",
   "deployment": {

@@ -117,27 +117,6 @@ class DefaultObjectAccessControl(object):
 
         return stub.ListStorageDefaultObjectAccessControl(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = (
-            default_object_access_control_pb2.StorageDefaultObjectAccessControl()
-        )
-        any_proto.Unpack(res_proto)
-
-        res = DefaultObjectAccessControl()
-        res.project = Primitive.from_proto(res_proto.project)
-        res.bucket = Primitive.from_proto(res_proto.bucket)
-        res.domain = Primitive.from_proto(res_proto.domain)
-        res.email = Primitive.from_proto(res_proto.email)
-        res.entity = Primitive.from_proto(res_proto.entity)
-        res.entity_id = Primitive.from_proto(res_proto.entity_id)
-        res.project_team = DefaultObjectAccessControlProjectTeam.from_proto(
-            res_proto.project_team
-        )
-        res.role = DefaultObjectAccessControlRoleEnum.from_proto(res_proto.role)
-        return res
-
     def to_proto(self):
         resource = default_object_access_control_pb2.StorageDefaultObjectAccessControl()
         if Primitive.to_proto(self.project):

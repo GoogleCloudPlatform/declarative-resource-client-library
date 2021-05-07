@@ -238,45 +238,6 @@ class InstanceGroupManager(object):
 
         return stub.ListComputeInstanceGroupManager(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = instance_group_manager_pb2.ComputeInstanceGroupManager()
-        any_proto.Unpack(res_proto)
-
-        res = InstanceGroupManager()
-        res.base_instance_name = Primitive.from_proto(res_proto.base_instance_name)
-        res.creation_timestamp = Primitive.from_proto(res_proto.creation_timestamp)
-        res.distribution_policy = InstanceGroupManagerDistributionPolicy.from_proto(
-            res_proto.distribution_policy
-        )
-        res.current_actions = InstanceGroupManagerCurrentActions.from_proto(
-            res_proto.current_actions
-        )
-        res.description = Primitive.from_proto(res_proto.description)
-        res.versions = InstanceGroupManagerVersionsArray.from_proto(res_proto.versions)
-        res.id = Primitive.from_proto(res_proto.id)
-        res.instance_group = Primitive.from_proto(res_proto.instance_group)
-        res.instance_template = Primitive.from_proto(res_proto.instance_template)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.named_ports = InstanceGroupManagerNamedPortsArray.from_proto(
-            res_proto.named_ports
-        )
-        res.status = InstanceGroupManagerStatus.from_proto(res_proto.status)
-        res.target_pools = Primitive.from_proto(res_proto.target_pools)
-        res.auto_healing_policies = InstanceGroupManagerAutoHealingPoliciesArray.from_proto(
-            res_proto.auto_healing_policies
-        )
-        res.update_policy = InstanceGroupManagerUpdatePolicy.from_proto(
-            res_proto.update_policy
-        )
-        res.target_size = Primitive.from_proto(res_proto.target_size)
-        res.zone = Primitive.from_proto(res_proto.zone)
-        res.region = Primitive.from_proto(res_proto.region)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = instance_group_manager_pb2.ComputeInstanceGroupManager()
         if Primitive.to_proto(self.base_instance_name):

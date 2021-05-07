@@ -139,25 +139,6 @@ class OAuthIdpConfig(object):
 
         return stub.ListIdentitytoolkitOAuthIdpConfig(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = o_auth_idp_config_pb2.IdentitytoolkitOAuthIdpConfig()
-        any_proto.Unpack(res_proto)
-
-        res = OAuthIdpConfig()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.client_id = Primitive.from_proto(res_proto.client_id)
-        res.issuer = Primitive.from_proto(res_proto.issuer)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.enabled = Primitive.from_proto(res_proto.enabled)
-        res.client_secret = Primitive.from_proto(res_proto.client_secret)
-        res.response_type = OAuthIdpConfigResponseType.from_proto(
-            res_proto.response_type
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = o_auth_idp_config_pb2.IdentitytoolkitOAuthIdpConfig()
         if Primitive.to_proto(self.name):

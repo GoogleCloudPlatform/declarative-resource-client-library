@@ -80,7 +80,7 @@ components:
           type: string
           x-dcl-go-name: RequestPath
         selfLink:
-          description: This health check's self-reerence.
+          description: This health check's self-reference.
           readOnly: true
           type: string
           x-dcl-go-name: SelfLink

@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -431,17 +430,11 @@ func canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial *Notific
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
-	}
 	if dcl.StringCanonicalize(rawDesired.Type, rawInitial.Type) {
 		rawDesired.Type = rawInitial.Type
 	}
 	if dcl.IsZeroValue(rawDesired.UserLabels) {
 		rawDesired.UserLabels = rawInitial.UserLabels
-	}
-	if dcl.IsZeroValue(rawDesired.VerificationStatus) {
-		rawDesired.VerificationStatus = rawInitial.VerificationStatus
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
@@ -531,95 +524,124 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 	}
 
 	var diffs []notificationChannelDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateNotificationChannelUpdateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp: &updateNotificationChannelUpdateOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNotificationChannelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateNotificationChannelUpdateOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp: &updateNotificationChannelUpdateOperation{}, Diffs: ds,
-			FieldName: "DisplayName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNotificationChannelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{OperationSelector: dcl.TriggersOperation("updateNotificationChannelUpdateOperation")}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp: &updateNotificationChannelUpdateOperation{}, Diffs: ds,
-			FieldName: "Enabled",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNotificationChannelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateNotificationChannelUpdateOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp: &updateNotificationChannelUpdateOperation{}, Diffs: ds,
-			FieldName: "Labels",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNotificationChannelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, notificationChannelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNotificationChannelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateNotificationChannelUpdateOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp: &updateNotificationChannelUpdateOperation{}, Diffs: ds,
-			FieldName: "Type",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNotificationChannelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UserLabels, actual.UserLabels, dcl.Info{}, fn.AddNest("UserLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UserLabels, actual.UserLabels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateNotificationChannelUpdateOperation")}, fn.AddNest("UserLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, notificationChannelDiff{
-			UpdateOp: &updateNotificationChannelUpdateOperation{}, Diffs: ds,
-			FieldName: "UserLabels",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNotificationChannelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerificationStatus, actual.VerificationStatus, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("VerificationStatus")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerificationStatus, actual.VerificationStatus, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerificationStatus")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, notificationChannelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "VerificationStatus",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNotificationChannelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, notificationChannelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNotificationChannelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -645,23 +667,6 @@ func diffNotificationChannel(c *Client, desired, actual *NotificationChannel, op
 	}
 
 	return deduped, nil
-}
-func compareNotificationChannelVerificationStatusEnumSlice(c *Client, desired, actual []NotificationChannelVerificationStatusEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NotificationChannelVerificationStatusEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareNotificationChannelVerificationStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NotificationChannelVerificationStatusEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareNotificationChannelVerificationStatusEnum(c *Client, desired, actual *NotificationChannelVerificationStatusEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -778,22 +783,22 @@ func flattenNotificationChannel(c *Client, i interface{}) *NotificationChannel {
 		return nil
 	}
 
-	r := &NotificationChannel{}
-	r.Description = dcl.FlattenString(m["description"])
-	r.DisplayName = dcl.FlattenString(m["displayName"])
-	r.Enabled = dcl.FlattenBool(m["enabled"])
+	res := &NotificationChannel{}
+	res.Description = dcl.FlattenString(m["description"])
+	res.DisplayName = dcl.FlattenString(m["displayName"])
+	res.Enabled = dcl.FlattenBool(m["enabled"])
 	if _, ok := m["enabled"]; !ok {
 		c.Config.Logger.Info("Using default value for enabled")
-		r.Enabled = dcl.Bool(true)
+		res.Enabled = dcl.Bool(true)
 	}
-	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	r.Type = dcl.FlattenString(m["type"])
-	r.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
-	r.VerificationStatus = flattenNotificationChannelVerificationStatusEnum(m["verificationStatus"])
-	r.Project = dcl.FlattenString(m["project"])
+	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	res.Type = dcl.FlattenString(m["type"])
+	res.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
+	res.VerificationStatus = flattenNotificationChannelVerificationStatusEnum(m["verificationStatus"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // flattenNotificationChannelVerificationStatusEnumSlice flattens the contents of NotificationChannelVerificationStatusEnum from a JSON
@@ -858,5 +863,36 @@ func (r *NotificationChannel) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToNotificationChannelDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]notificationChannelDiff, error) {
+	var diffs []notificationChannelDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := notificationChannelDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTonotificationChannelApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTonotificationChannelApiOperation(op string, opts ...dcl.ApplyOption) (notificationChannelApiOperation, error) {
+	switch op {
+
+	case "updateNotificationChannelUpdateOperation":
+		return &updateNotificationChannelUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

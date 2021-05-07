@@ -145,27 +145,6 @@ class GuestPolicy(object):
 
         return stub.ListOsconfigBetaGuestPolicy(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = guest_policy_pb2.OsconfigBetaGuestPolicy()
-        any_proto.Unpack(res_proto)
-
-        res = GuestPolicy()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.assignment = GuestPolicyAssignment.from_proto(res_proto.assignment)
-        res.packages = GuestPolicyPackagesArray.from_proto(res_proto.packages)
-        res.package_repositories = GuestPolicyPackageRepositoriesArray.from_proto(
-            res_proto.package_repositories
-        )
-        res.recipes = GuestPolicyRecipesArray.from_proto(res_proto.recipes)
-        res.etag = Primitive.from_proto(res_proto.etag)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = guest_policy_pb2.OsconfigBetaGuestPolicy()
         if Primitive.to_proto(self.name):

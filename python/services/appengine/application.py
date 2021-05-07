@@ -161,35 +161,6 @@ class Application(object):
 
         return stub.ListAppengineApplication(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = application_pb2.AppengineApplication()
-        any_proto.Unpack(res_proto)
-
-        res = Application()
-        res.auth_domain = Primitive.from_proto(res_proto.auth_domain)
-        res.code_bucket = Primitive.from_proto(res_proto.code_bucket)
-        res.database_type = ApplicationDatabaseTypeEnum.from_proto(
-            res_proto.database_type
-        )
-        res.default_bucket = Primitive.from_proto(res_proto.default_bucket)
-        res.default_hostname = Primitive.from_proto(res_proto.default_hostname)
-        res.dispatch_rules = ApplicationDispatchRulesArray.from_proto(
-            res_proto.dispatch_rules
-        )
-        res.feature_settings = ApplicationFeatureSettings.from_proto(
-            res_proto.feature_settings
-        )
-        res.gcr_domain = Primitive.from_proto(res_proto.gcr_domain)
-        res.iap = ApplicationIap.from_proto(res_proto.iap)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.location = Primitive.from_proto(res_proto.location)
-        res.serving_status = ApplicationServingStatusEnum.from_proto(
-            res_proto.serving_status
-        )
-        return res
-
     def to_proto(self):
         resource = application_pb2.AppengineApplication()
         if Primitive.to_proto(self.auth_domain):

@@ -274,6 +274,7 @@ components:
         machineType:
           description: A reference to a machine type which defines VM kind.
           type: string
+          x-dcl-forward-slash-allowed: true
           x-dcl-go-name: MachineType
           x-dcl-references:
           - field: name

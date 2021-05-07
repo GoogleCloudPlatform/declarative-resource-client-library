@@ -249,9 +249,6 @@ func canonicalizeFirewallPolicyAssociationDesiredState(rawDesired, rawInitial *F
 	if dcl.NameToSelfLink(rawDesired.FirewallPolicy, rawInitial.FirewallPolicy) {
 		rawDesired.FirewallPolicy = rawInitial.FirewallPolicy
 	}
-	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
-	}
 
 	return rawDesired, nil
 }
@@ -315,44 +312,59 @@ func diffFirewallPolicyAssociation(c *Client, desired, actual *FirewallPolicyAss
 	}
 
 	var diffs []firewallPolicyAssociationDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyAssociationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AttachmentTarget, actual.AttachmentTarget, dcl.Info{Type: "ReferenceType"}, fn.AddNest("AttachmentTarget")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AttachmentTarget, actual.AttachmentTarget, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AttachmentTarget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "AttachmentTarget",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyAssociationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.FirewallPolicy, actual.FirewallPolicy, dcl.Info{Type: "ReferenceType"}, fn.AddNest("FirewallPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FirewallPolicy, actual.FirewallPolicy, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FirewallPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "FirewallPolicy",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyAssociationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OutputOnly: true}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallPolicyAssociationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "DisplayName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallPolicyAssociationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -467,13 +479,13 @@ func flattenFirewallPolicyAssociation(c *Client, i interface{}) *FirewallPolicyA
 		return nil
 	}
 
-	r := &FirewallPolicyAssociation{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.AttachmentTarget = dcl.FlattenString(m["attachmentTarget"])
-	r.FirewallPolicy = dcl.FlattenString(m["firewallPolicyId"])
-	r.DisplayName = dcl.FlattenString(m["displayName"])
+	res := &FirewallPolicyAssociation{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.AttachmentTarget = dcl.FlattenString(m["attachmentTarget"])
+	res.FirewallPolicy = dcl.FlattenString(m["firewallPolicyId"])
+	res.DisplayName = dcl.FlattenString(m["displayName"])
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -507,5 +519,33 @@ func (r *FirewallPolicyAssociation) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToFirewallPolicyAssociationDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]firewallPolicyAssociationDiff, error) {
+	var diffs []firewallPolicyAssociationDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := firewallPolicyAssociationDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTofirewallPolicyAssociationApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTofirewallPolicyAssociationApiOperation(op string, opts ...dcl.ApplyOption) (firewallPolicyAssociationApiOperation, error) {
+	switch op {
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

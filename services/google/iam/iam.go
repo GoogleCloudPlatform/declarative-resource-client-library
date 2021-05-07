@@ -187,7 +187,7 @@ func (c *Client) GetBinding(ctx context.Context, r ResourceWithPolicy, role stri
 }
 
 // SetMember adds a member to the binding for its role if not already present.
-func (c *Client) SetMember(ctx context.Context, m Member) (*Policy, error) {
+func (c *Client) SetMember(ctx context.Context, m *Member) (*Policy, error) {
 	b, err := c.GetBinding(ctx, m.Resource, m.Role)
 	if err != nil {
 		return nil, err
@@ -236,12 +236,12 @@ func (c *Client) GetMember(ctx context.Context, r ResourceWithPolicy, role, memb
 
 // convenience methods for Member, Binding, and Policy.
 
-// ApplyMember is a convenience method to create a member if it does not exist.  It supports BlockAcquire and BlockCreation but
-// ignores other lifecycle parameters as they are not relevant to IAM members.
-func (c *Client) ApplyMember(ctx context.Context, member *Member, opts ...dcl.ApplyOption) (*Member, error) {
+// ApplyBinding is a convenience method to create a binding if it does not exist.  It supports BlockAcquire and BlockCreation but
+// ignores other lifecycle parameters as they are not relevant to IAM bindings.
+func (c *Client) ApplyBinding(ctx context.Context, binding *Binding, opts ...dcl.ApplyOption) (*Binding, error) {
 	lp := dcl.FetchLifecycleParams(opts)
-	exists, err := c.GetMember(ctx, member.Resource, member.Role, member.Member)
-	if err == nil && dcl.HasLifecycleParam(lp, dcl.BlockAcquire) {
+	exists, err := c.GetBinding(ctx, binding.Resource, binding.Role)
+	if exists != nil && dcl.HasLifecycleParam(lp, dcl.BlockAcquire) {
 		return exists, dcl.ApplyInfeasibleError{
 			Message: fmt.Sprintf("Resource already exists - apply blocked by lifecycle params: %#v.", exists),
 		}
@@ -251,7 +251,45 @@ func (c *Client) ApplyMember(ctx context.Context, member *Member, opts ...dcl.Ap
 			Message: fmt.Sprintf("Resource does not exist - apply blocked by lifecycle params: %#v.", opts),
 		}
 	}
-	c.SetMember(ctx, *member)
+	if _, err := c.SetBinding(ctx, binding); err != nil {
+		return nil, err
+	}
+	return binding, nil
+}
+
+// DeleteBinding deletes a binding from its specified resource.
+func (c *Client) DeleteBinding(ctx context.Context, binding *Binding) error {
+	policy, err := c.GetPolicy(ctx, binding.Resource)
+	if err != nil {
+		return err
+	}
+	var bindings []Binding
+	for _, b := range policy.Bindings {
+		if b.Role != binding.Role {
+			bindings = append(bindings, b)
+		}
+	}
+	policy.Bindings = bindings
+	_, err = c.SetPolicy(ctx, policy)
+	return err
+}
+
+// ApplyMember is a convenience method to create a member if it does not exist.  It supports BlockAcquire and BlockCreation but
+// ignores other lifecycle parameters as they are not relevant to IAM members.
+func (c *Client) ApplyMember(ctx context.Context, member *Member, opts ...dcl.ApplyOption) (*Member, error) {
+	lp := dcl.FetchLifecycleParams(opts)
+	exists, err := c.GetMember(ctx, member.Resource, member.Role, member.Member)
+	if exists != nil && dcl.HasLifecycleParam(lp, dcl.BlockAcquire) {
+		return exists, dcl.ApplyInfeasibleError{
+			Message: fmt.Sprintf("Resource already exists - apply blocked by lifecycle params: %#v.", exists),
+		}
+	}
+	if err != nil && dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
+		return nil, dcl.ApplyInfeasibleError{
+			Message: fmt.Sprintf("Resource does not exist - apply blocked by lifecycle params: %#v.", opts),
+		}
+	}
+	c.SetMember(ctx, member)
 	exists, err = c.GetMember(ctx, member.Resource, member.Role, member.Member)
 	if err != nil {
 		return nil, err

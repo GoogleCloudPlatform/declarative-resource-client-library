@@ -25,6 +25,7 @@ class UrlMap(object):
         default_service: str = None,
         default_url_redirect: dict = None,
         description: str = None,
+        self_link: str = None,
         header_action: dict = None,
         host_rule: list = None,
         name: str = None,
@@ -106,6 +107,7 @@ class UrlMap(object):
             response.default_url_redirect
         )
         self.description = Primitive.from_proto(response.description)
+        self.self_link = Primitive.from_proto(response.self_link)
         self.header_action = UrlMapHeaderAction.from_proto(response.header_action)
         self.host_rule = UrlMapHostRuleArray.from_proto(response.host_rule)
         self.name = Primitive.from_proto(response.name)
@@ -171,30 +173,6 @@ class UrlMap(object):
         request.Project = project
 
         return stub.ListComputeBetaUrlMap(request).items
-
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = url_map_pb2.ComputeBetaUrlMap()
-        any_proto.Unpack(res_proto)
-
-        res = UrlMap()
-        res.default_route_action = UrlMapDefaultRouteAction.from_proto(
-            res_proto.default_route_action
-        )
-        res.default_service = Primitive.from_proto(res_proto.default_service)
-        res.default_url_redirect = UrlMapDefaultUrlRedirect.from_proto(
-            res_proto.default_url_redirect
-        )
-        res.description = Primitive.from_proto(res_proto.description)
-        res.header_action = UrlMapHeaderAction.from_proto(res_proto.header_action)
-        res.host_rule = UrlMapHostRuleArray.from_proto(res_proto.host_rule)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.path_matcher = UrlMapPathMatcherArray.from_proto(res_proto.path_matcher)
-        res.region = Primitive.from_proto(res_proto.region)
-        res.test = UrlMapTestArray.from_proto(res_proto.test)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
 
     def to_proto(self):
         resource = url_map_pb2.ComputeBetaUrlMap()

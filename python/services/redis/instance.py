@@ -260,53 +260,6 @@ class Instance(object):
 
         return stub.ListRedisInstance(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = instance_pb2.RedisInstance()
-        any_proto.Unpack(res_proto)
-
-        res = Instance()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.location_id = Primitive.from_proto(res_proto.location_id)
-        res.alternative_location_id = Primitive.from_proto(
-            res_proto.alternative_location_id
-        )
-        res.redis_version = Primitive.from_proto(res_proto.redis_version)
-        res.reserved_ip_range = Primitive.from_proto(res_proto.reserved_ip_range)
-        res.host = Primitive.from_proto(res_proto.host)
-        res.port = Primitive.from_proto(res_proto.port)
-        res.current_location_id = Primitive.from_proto(res_proto.current_location_id)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.state = InstanceStateEnum.from_proto(res_proto.state)
-        res.status_message = Primitive.from_proto(res_proto.status_message)
-        res.redis_configs = Primitive.from_proto(res_proto.redis_configs)
-        res.tier = InstanceTierEnum.from_proto(res_proto.tier)
-        res.memory_size_gb = Primitive.from_proto(res_proto.memory_size_gb)
-        res.authorized_network = Primitive.from_proto(res_proto.authorized_network)
-        res.persistence_iam_identity = Primitive.from_proto(
-            res_proto.persistence_iam_identity
-        )
-        res.connect_mode = InstanceConnectModeEnum.from_proto(res_proto.connect_mode)
-        res.auth_enabled = Primitive.from_proto(res_proto.auth_enabled)
-        res.server_ca_certs = InstanceServerCaCertsArray.from_proto(
-            res_proto.server_ca_certs
-        )
-        res.transit_encryption_mode = InstanceTransitEncryptionModeEnum.from_proto(
-            res_proto.transit_encryption_mode
-        )
-        res.maintenance_policy = InstanceMaintenancePolicy.from_proto(
-            res_proto.maintenance_policy
-        )
-        res.maintenance_schedule = InstanceMaintenanceSchedule.from_proto(
-            res_proto.maintenance_schedule
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = instance_pb2.RedisInstance()
         if Primitive.to_proto(self.name):

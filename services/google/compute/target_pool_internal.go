@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -83,25 +82,11 @@ type targetPoolApiOperation interface {
 func newUpdateTargetPoolAddHCRequest(ctx context.Context, f *TargetPool, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	actual, err := c.GetTargetPool(ctx, f.urlNormalized())
-	if err != nil {
-		return nil, err
+	if v, err := dcl.DeriveFieldArray("projects/%s/global/httpHealthChecks/%s", f.HealthChecks, f.Project, f.HealthChecks); err != nil {
+		return nil, fmt.Errorf("error expanding HealthChecks into healthChecks: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["healthChecks"] = v
 	}
-	// To match the environment where the differ is called in Apply.
-	desired := *f
-
-	diff, _ := dcl.CompareStringSets(desired.HealthCheck, actual.HealthCheck)
-	c.Config.Logger.Warningf("Found diff: %v", diff)
-
-	tmp := *f
-	f = &tmp
-	f.HealthCheck = diff
-	v, err := dcl.DeriveFieldArray("projects/%s/global/httpHealthChecks/%s", f.HealthCheck, f.Project, f.HealthCheck)
-	c.Config.Logger.Warningf("Found expanded value: %v", v)
-	if err != nil {
-		return nil, err
-	}
-	req["healthChecks"] = v
 	return req, nil
 }
 
@@ -169,15 +154,9 @@ func (op *updateTargetPoolAddHCOperation) do(ctx context.Context, r *TargetPool,
 func newUpdateTargetPoolAddInstanceRequest(ctx context.Context, f *TargetPool, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	actual, err := c.GetTargetPool(ctx, f.urlNormalized())
-	if err != nil {
-		return nil, err
+	if v := f.Instances; !dcl.IsEmptyValueIndirect(v) {
+		req["instances"] = v
 	}
-	// To match the environment where the differ is called in Apply.
-	desired := *f
-
-	diff, _ := dcl.CompareStringSets(desired.Instance, actual.Instance)
-	req["instances"] = diff
 	return req, nil
 }
 
@@ -245,25 +224,11 @@ func (op *updateTargetPoolAddInstanceOperation) do(ctx context.Context, r *Targe
 func newUpdateTargetPoolRemoveHCRequest(ctx context.Context, f *TargetPool, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	actual, err := c.GetTargetPool(ctx, f.urlNormalized())
-	if err != nil {
-		return nil, err
+	if v, err := dcl.DeriveFieldArray("projects/%s/global/httpHealthChecks/%s", f.HealthChecks, f.Project, f.HealthChecks); err != nil {
+		return nil, fmt.Errorf("error expanding HealthChecks into healthChecks: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["healthChecks"] = v
 	}
-	// To match the environment where the differ is called in Apply.
-	desired := *f
-
-	_, diff := dcl.CompareStringSets(desired.HealthCheck, actual.HealthCheck)
-	c.Config.Logger.Warningf("Found diff: %v", diff)
-
-	tmp := *f
-	f = &tmp
-	f.HealthCheck = diff
-	v, err := dcl.DeriveFieldArray("projects/%s/global/httpHealthChecks/%s", f.HealthCheck, f.Project, f.HealthCheck)
-	c.Config.Logger.Warningf("Found expanded value: %v", v)
-	if err != nil {
-		return nil, err
-	}
-	req["healthChecks"] = v
 	return req, nil
 }
 
@@ -331,15 +296,9 @@ func (op *updateTargetPoolRemoveHCOperation) do(ctx context.Context, r *TargetPo
 func newUpdateTargetPoolRemoveInstanceRequest(ctx context.Context, f *TargetPool, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	actual, err := c.GetTargetPool(ctx, f.urlNormalized())
-	if err != nil {
-		return nil, err
+	if v := f.Instances; !dcl.IsEmptyValueIndirect(v) {
+		req["instances"] = v
 	}
-	// To match the environment where the differ is called in Apply.
-	desired := *f
-
-	_, diff := dcl.CompareStringSets(desired.Instance, actual.Instance)
-	req["instances"] = diff
 	return req, nil
 }
 
@@ -742,11 +701,11 @@ func canonicalizeTargetPoolDesiredState(rawDesired, rawInitial *TargetPool, opts
 	if dcl.IsZeroValue(rawDesired.FailoverRatio) {
 		rawDesired.FailoverRatio = rawInitial.FailoverRatio
 	}
-	if dcl.PartialSelfLinkToSelfLinkArray(rawDesired.HealthCheck, rawInitial.HealthCheck) {
-		rawDesired.HealthCheck = rawInitial.HealthCheck
+	if dcl.PartialSelfLinkToSelfLinkArray(rawDesired.HealthChecks, rawInitial.HealthChecks) {
+		rawDesired.HealthChecks = rawInitial.HealthChecks
 	}
-	if dcl.IsZeroValue(rawDesired.Instance) {
-		rawDesired.Instance = rawInitial.Instance
+	if dcl.IsZeroValue(rawDesired.Instances) {
+		rawDesired.Instances = rawInitial.Instances
 	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
@@ -790,16 +749,16 @@ func canonicalizeTargetPoolNewState(c *Client, rawNew, rawDesired *TargetPool) (
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.HealthCheck) && dcl.IsEmptyValueIndirect(rawDesired.HealthCheck) {
-		rawNew.HealthCheck = rawDesired.HealthCheck
+	if dcl.IsEmptyValueIndirect(rawNew.HealthChecks) && dcl.IsEmptyValueIndirect(rawDesired.HealthChecks) {
+		rawNew.HealthChecks = rawDesired.HealthChecks
 	} else {
-		if dcl.PartialSelfLinkToSelfLinkArray(rawDesired.HealthCheck, rawNew.HealthCheck) {
-			rawNew.HealthCheck = rawDesired.HealthCheck
+		if dcl.PartialSelfLinkToSelfLinkArray(rawDesired.HealthChecks, rawNew.HealthChecks) {
+			rawNew.HealthChecks = rawDesired.HealthChecks
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Instance) && dcl.IsEmptyValueIndirect(rawDesired.Instance) {
-		rawNew.Instance = rawDesired.Instance
+	if dcl.IsEmptyValueIndirect(rawNew.Instances) && dcl.IsEmptyValueIndirect(rawDesired.Instances) {
+		rawNew.Instances = rawDesired.Instances
 	} else {
 	}
 
@@ -865,99 +824,137 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []targetPoolDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.BackupPool, actual.BackupPool, dcl.Info{}, fn.AddNest("BackupPool")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BackupPool, actual.BackupPool, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTargetPoolSetBackupOperation")}, fn.AddNest("BackupPool")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{
-			UpdateOp: &updateTargetPoolSetBackupOperation{}, Diffs: ds,
-			FieldName: "BackupPool",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.FailoverRatio, actual.FailoverRatio, dcl.Info{}, fn.AddNest("FailoverRatio")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FailoverRatio, actual.FailoverRatio, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FailoverRatio")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "FailoverRatio",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{Type: "Set"}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HealthChecks, actual.HealthChecks, dcl.Info{Type: "Set", OperationSelector: targetPoolHealthCheck()}, fn.AddNest("HealthChecks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "HealthCheck",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Type: "Set"}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Instances, actual.Instances, dcl.Info{Type: "Set", OperationSelector: targetPoolInstances()}, fn.AddNest("Instances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Instance",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Region",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SessionAffinity, actual.SessionAffinity, dcl.Info{Type: "EnumType"}, fn.AddNest("SessionAffinity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SessionAffinity, actual.SessionAffinity, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SessionAffinity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SessionAffinity",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetPoolDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetPoolDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -984,23 +981,6 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 
 	return deduped, nil
 }
-func compareTargetPoolSessionAffinityEnumSlice(c *Client, desired, actual []TargetPoolSessionAffinityEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TargetPoolSessionAffinityEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareTargetPoolSessionAffinityEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TargetPoolSessionAffinityEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareTargetPoolSessionAffinityEnum(c *Client, desired, actual *TargetPoolSessionAffinityEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
 
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
@@ -1009,7 +989,7 @@ func (r *TargetPool) urlNormalized() *TargetPool {
 	normalized := dcl.Copy(*r).(TargetPool)
 	normalized.BackupPool = dcl.SelfLinkToName(r.BackupPool)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.HealthCheck = dcl.SelfLinkToNameArray(r.HealthCheck)
+	normalized.HealthChecks = dcl.SelfLinkToNameArray(r.HealthChecks)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Region = dcl.SelfLinkToName(r.Region)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
@@ -1120,12 +1100,12 @@ func expandTargetPool(c *Client, f *TargetPool) (map[string]interface{}, error) 
 	if v := f.FailoverRatio; !dcl.IsEmptyValueIndirect(v) {
 		m["failoverRatio"] = v
 	}
-	if v, err := dcl.DeriveFieldArray("projects/%s/global/httpHealthChecks/%s", f.HealthCheck, f.Project, f.HealthCheck); err != nil {
-		return nil, fmt.Errorf("error expanding HealthCheck into healthChecks: %w", err)
+	if v, err := dcl.DeriveFieldArray("projects/%s/global/httpHealthChecks/%s", f.HealthChecks, f.Project, f.HealthChecks); err != nil {
+		return nil, fmt.Errorf("error expanding HealthChecks into healthChecks: %w", err)
 	} else if v != nil {
 		m["healthChecks"] = v
 	}
-	if v := f.Instance; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Instances; !dcl.IsEmptyValueIndirect(v) {
 		m["instances"] = v
 	}
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
@@ -1158,19 +1138,19 @@ func flattenTargetPool(c *Client, i interface{}) *TargetPool {
 		return nil
 	}
 
-	r := &TargetPool{}
-	r.BackupPool = dcl.FlattenString(m["backupPool"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.FailoverRatio = dcl.FlattenDouble(m["failoverRatio"])
-	r.HealthCheck = dcl.FlattenStringSlice(m["healthChecks"])
-	r.Instance = dcl.FlattenStringSlice(m["instances"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Region = dcl.FlattenString(m["region"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
-	r.SessionAffinity = flattenTargetPoolSessionAffinityEnum(m["sessionAffinity"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &TargetPool{}
+	res.BackupPool = dcl.FlattenString(m["backupPool"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.FailoverRatio = dcl.FlattenDouble(m["failoverRatio"])
+	res.HealthChecks = dcl.FlattenStringSlice(m["healthChecks"])
+	res.Instances = dcl.FlattenStringSlice(m["instances"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Region = dcl.FlattenString(m["region"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.SessionAffinity = flattenTargetPoolSessionAffinityEnum(m["sessionAffinity"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // flattenTargetPoolSessionAffinityEnumSlice flattens the contents of TargetPoolSessionAffinityEnum from a JSON
@@ -1243,5 +1223,48 @@ func (r *TargetPool) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToTargetPoolDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]targetPoolDiff, error) {
+	var diffs []targetPoolDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := targetPoolDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTotargetPoolApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTotargetPoolApiOperation(op string, opts ...dcl.ApplyOption) (targetPoolApiOperation, error) {
+	switch op {
+
+	case "updateTargetPoolAddHCOperation":
+		return &updateTargetPoolAddHCOperation{}, nil
+
+	case "updateTargetPoolAddInstanceOperation":
+		return &updateTargetPoolAddInstanceOperation{}, nil
+
+	case "updateTargetPoolRemoveHCOperation":
+		return &updateTargetPoolRemoveHCOperation{}, nil
+
+	case "updateTargetPoolRemoveInstanceOperation":
+		return &updateTargetPoolRemoveInstanceOperation{}, nil
+
+	case "updateTargetPoolSetBackupOperation":
+		return &updateTargetPoolSetBackupOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

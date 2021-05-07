@@ -197,35 +197,6 @@ class NodePool(object):
 
         return stub.ListContainerNodePool(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = node_pool_pb2.ContainerNodePool()
-        any_proto.Unpack(res_proto)
-
-        res = NodePool()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.config = NodePoolConfig.from_proto(res_proto.config)
-        res.node_count = Primitive.from_proto(res_proto.node_count)
-        res.version = Primitive.from_proto(res_proto.version)
-        res.status = Primitive.from_proto(res_proto.status)
-        res.status_message = Primitive.from_proto(res_proto.status_message)
-        res.locations = Primitive.from_proto(res_proto.locations)
-        res.autoscaling = NodePoolAutoscaling.from_proto(res_proto.autoscaling)
-        res.management = NodePoolManagement.from_proto(res_proto.management)
-        res.max_pods_constraint = NodePoolMaxPodsConstraint.from_proto(
-            res_proto.max_pods_constraint
-        )
-        res.conditions = NodePoolConditionsArray.from_proto(res_proto.conditions)
-        res.pod_ipv4_cidr_size = Primitive.from_proto(res_proto.pod_ipv4_cidr_size)
-        res.upgrade_settings = NodePoolUpgradeSettings.from_proto(
-            res_proto.upgrade_settings
-        )
-        res.cluster = Primitive.from_proto(res_proto.cluster)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = node_pool_pb2.ContainerNodePool()
         if Primitive.to_proto(self.name):

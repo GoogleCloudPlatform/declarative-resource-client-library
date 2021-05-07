@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -475,12 +474,6 @@ func canonicalizeServicePerimeterDesiredState(rawDesired, rawInitial *ServicePer
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.CreateTime) {
-		rawDesired.CreateTime = rawInitial.CreateTime
-	}
-	if dcl.IsZeroValue(rawDesired.UpdateTime) {
-		rawDesired.UpdateTime = rawInitial.UpdateTime
-	}
 	if dcl.IsZeroValue(rawDesired.PerimeterType) {
 		rawDesired.PerimeterType = rawInitial.PerimeterType
 	}
@@ -596,6 +589,15 @@ func canonicalizeNewServicePerimeterStatus(c *Client, des, nw *ServicePerimeterS
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Resources) {
+		nw.Resources = des.Resources
+	}
+	if dcl.IsZeroValue(nw.AccessLevels) {
+		nw.AccessLevels = des.AccessLevels
+	}
+	if dcl.IsZeroValue(nw.RestrictedServices) {
+		nw.RestrictedServices = des.RestrictedServices
+	}
 	nw.VPCAccessibleServices = canonicalizeNewServicePerimeterStatusVPCAccessibleServices(c, des.VPCAccessibleServices, nw.VPCAccessibleServices)
 
 	return nw
@@ -609,7 +611,7 @@ func canonicalizeNewServicePerimeterStatusSet(c *Client, des, nw []ServicePerime
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServicePerimeterStatus(c, &d, &n) {
+			if diffs, _ := compareServicePerimeterStatusNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -632,7 +634,7 @@ func canonicalizeNewServicePerimeterStatusSlice(c *Client, des, nw []ServicePeri
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServicePerimeterStatus
@@ -674,6 +676,9 @@ func canonicalizeNewServicePerimeterStatusVPCAccessibleServices(c *Client, des, 
 	if dcl.BoolCanonicalize(des.EnableRestriction, nw.EnableRestriction) {
 		nw.EnableRestriction = des.EnableRestriction
 	}
+	if dcl.IsZeroValue(nw.AllowedServices) {
+		nw.AllowedServices = des.AllowedServices
+	}
 
 	return nw
 }
@@ -686,7 +691,7 @@ func canonicalizeNewServicePerimeterStatusVPCAccessibleServicesSet(c *Client, de
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServicePerimeterStatusVPCAccessibleServices(c, &d, &n) {
+			if diffs, _ := compareServicePerimeterStatusVPCAccessibleServicesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -709,7 +714,7 @@ func canonicalizeNewServicePerimeterStatusVPCAccessibleServicesSlice(c *Client, 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServicePerimeterStatusVPCAccessibleServices
@@ -752,6 +757,15 @@ func canonicalizeNewServicePerimeterSpec(c *Client, des, nw *ServicePerimeterSpe
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Resources) {
+		nw.Resources = des.Resources
+	}
+	if dcl.IsZeroValue(nw.AccessLevels) {
+		nw.AccessLevels = des.AccessLevels
+	}
+	if dcl.IsZeroValue(nw.RestrictedServices) {
+		nw.RestrictedServices = des.RestrictedServices
+	}
 	nw.VPCAccessibleServices = canonicalizeNewServicePerimeterSpecVPCAccessibleServices(c, des.VPCAccessibleServices, nw.VPCAccessibleServices)
 
 	return nw
@@ -765,7 +779,7 @@ func canonicalizeNewServicePerimeterSpecSet(c *Client, des, nw []ServicePerimete
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServicePerimeterSpec(c, &d, &n) {
+			if diffs, _ := compareServicePerimeterSpecNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -788,7 +802,7 @@ func canonicalizeNewServicePerimeterSpecSlice(c *Client, des, nw []ServicePerime
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServicePerimeterSpec
@@ -830,6 +844,9 @@ func canonicalizeNewServicePerimeterSpecVPCAccessibleServices(c *Client, des, nw
 	if dcl.BoolCanonicalize(des.EnableRestriction, nw.EnableRestriction) {
 		nw.EnableRestriction = des.EnableRestriction
 	}
+	if dcl.IsZeroValue(nw.AllowedServices) {
+		nw.AllowedServices = des.AllowedServices
+	}
 
 	return nw
 }
@@ -842,7 +859,7 @@ func canonicalizeNewServicePerimeterSpecVPCAccessibleServicesSet(c *Client, des,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareServicePerimeterSpecVPCAccessibleServices(c, &d, &n) {
+			if diffs, _ := compareServicePerimeterSpecVPCAccessibleServicesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -865,7 +882,7 @@ func canonicalizeNewServicePerimeterSpecVPCAccessibleServicesSlice(c *Client, de
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ServicePerimeterSpecVPCAccessibleServices
@@ -899,102 +916,137 @@ func diffServicePerimeter(c *Client, desired, actual *ServicePerimeter, opts ...
 	}
 
 	var diffs []servicePerimeterDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.Info{}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{
-			UpdateOp: &updateServicePerimeterUpdateOperation{}, Diffs: ds,
-			FieldName: "Title",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServicePerimeterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{
-			UpdateOp: &updateServicePerimeterUpdateOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServicePerimeterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServicePerimeterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UpdateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServicePerimeterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerimeterType, actual.PerimeterType, dcl.Info{Type: "EnumType"}, fn.AddNest("PerimeterType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerimeterType, actual.PerimeterType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PerimeterType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "PerimeterType",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServicePerimeterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareServicePerimeterStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareServicePerimeterStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{
-			UpdateOp: &updateServicePerimeterUpdateOperation{}, Diffs: ds,
-			FieldName: "Status",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServicePerimeterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Policy, actual.Policy, dcl.Info{}, fn.AddNest("Policy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Policy, actual.Policy, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("Policy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Policy",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServicePerimeterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServicePerimeterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UseExplicitDryRunSpec, actual.UseExplicitDryRunSpec, dcl.Info{}, fn.AddNest("UseExplicitDryRunSpec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UseExplicitDryRunSpec, actual.UseExplicitDryRunSpec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UseExplicitDryRunSpec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UseExplicitDryRunSpec",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServicePerimeterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServicePerimeterSpecNewStyle}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServicePerimeterSpecNewStyle, OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, servicePerimeterDiff{
-			UpdateOp: &updateServicePerimeterUpdateOperation{}, Diffs: ds,
-			FieldName: "Spec",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToServicePerimeterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1041,93 +1093,34 @@ func compareServicePerimeterStatusNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AccessLevels, actual.AccessLevels, dcl.Info{}, fn.AddNest("AccessLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AccessLevels, actual.AccessLevels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("AccessLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RestrictedServices, actual.RestrictedServices, dcl.Info{}, fn.AddNest("RestrictedServices")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RestrictedServices, actual.RestrictedServices, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("RestrictedServices")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VPCAccessibleServices, actual.VPCAccessibleServices, dcl.Info{ObjectFunction: compareServicePerimeterStatusVPCAccessibleServicesNewStyle}, fn.AddNest("VPCAccessibleServices")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VPCAccessibleServices, actual.VPCAccessibleServices, dcl.Info{ObjectFunction: compareServicePerimeterStatusVPCAccessibleServicesNewStyle, OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("VPCAccessibleServices")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServicePerimeterStatus(c *Client, desired, actual *ServicePerimeterStatus) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Resources, actual.Resources) && !dcl.IsZeroValue(desired.Resources) {
-		c.Config.Logger.Infof("Diff in Resources.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Resources), dcl.SprintResource(actual.Resources))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.AccessLevels, actual.AccessLevels) && !dcl.IsZeroValue(desired.AccessLevels) {
-		c.Config.Logger.Infof("Diff in AccessLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AccessLevels), dcl.SprintResource(actual.AccessLevels))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.RestrictedServices, actual.RestrictedServices) && !dcl.IsZeroValue(desired.RestrictedServices) {
-		c.Config.Logger.Infof("Diff in RestrictedServices.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RestrictedServices), dcl.SprintResource(actual.RestrictedServices))
-		return true
-	}
-	if compareServicePerimeterStatusVPCAccessibleServices(c, desired.VPCAccessibleServices, actual.VPCAccessibleServices) && !dcl.IsZeroValue(desired.VPCAccessibleServices) {
-		c.Config.Logger.Infof("Diff in VPCAccessibleServices.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.VPCAccessibleServices), dcl.SprintResource(actual.VPCAccessibleServices))
-		return true
-	}
-	return false
-}
-
-func compareServicePerimeterStatusSlice(c *Client, desired, actual []ServicePerimeterStatus) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServicePerimeterStatus, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServicePerimeterStatus(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServicePerimeterStatus, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServicePerimeterStatusMap(c *Client, desired, actual map[string]ServicePerimeterStatus) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServicePerimeterStatus, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServicePerimeterStatus, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServicePerimeterStatus(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServicePerimeterStatus, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServicePerimeterStatusVPCAccessibleServicesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1150,71 +1143,20 @@ func compareServicePerimeterStatusVPCAccessibleServicesNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.EnableRestriction, actual.EnableRestriction, dcl.Info{}, fn.AddNest("EnableRestriction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableRestriction, actual.EnableRestriction, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("EnableRestriction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowedServices, actual.AllowedServices, dcl.Info{}, fn.AddNest("AllowedServices")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowedServices, actual.AllowedServices, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("AllowedServices")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServicePerimeterStatusVPCAccessibleServices(c *Client, desired, actual *ServicePerimeterStatusVPCAccessibleServices) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.EnableRestriction, actual.EnableRestriction) && !dcl.IsZeroValue(desired.EnableRestriction) {
-		c.Config.Logger.Infof("Diff in EnableRestriction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableRestriction), dcl.SprintResource(actual.EnableRestriction))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.AllowedServices, actual.AllowedServices) && !dcl.IsZeroValue(desired.AllowedServices) {
-		c.Config.Logger.Infof("Diff in AllowedServices.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedServices), dcl.SprintResource(actual.AllowedServices))
-		return true
-	}
-	return false
-}
-
-func compareServicePerimeterStatusVPCAccessibleServicesSlice(c *Client, desired, actual []ServicePerimeterStatusVPCAccessibleServices) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServicePerimeterStatusVPCAccessibleServices, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServicePerimeterStatusVPCAccessibleServices(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServicePerimeterStatusVPCAccessibleServices, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServicePerimeterStatusVPCAccessibleServicesMap(c *Client, desired, actual map[string]ServicePerimeterStatusVPCAccessibleServices) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServicePerimeterStatusVPCAccessibleServices, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServicePerimeterStatusVPCAccessibleServices, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServicePerimeterStatusVPCAccessibleServices(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServicePerimeterStatusVPCAccessibleServices, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServicePerimeterSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1237,93 +1179,34 @@ func compareServicePerimeterSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AccessLevels, actual.AccessLevels, dcl.Info{}, fn.AddNest("AccessLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AccessLevels, actual.AccessLevels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("AccessLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RestrictedServices, actual.RestrictedServices, dcl.Info{}, fn.AddNest("RestrictedServices")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RestrictedServices, actual.RestrictedServices, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("RestrictedServices")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VPCAccessibleServices, actual.VPCAccessibleServices, dcl.Info{ObjectFunction: compareServicePerimeterSpecVPCAccessibleServicesNewStyle}, fn.AddNest("VPCAccessibleServices")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VPCAccessibleServices, actual.VPCAccessibleServices, dcl.Info{ObjectFunction: compareServicePerimeterSpecVPCAccessibleServicesNewStyle, OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("VPCAccessibleServices")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServicePerimeterSpec(c *Client, desired, actual *ServicePerimeterSpec) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Resources, actual.Resources) && !dcl.IsZeroValue(desired.Resources) {
-		c.Config.Logger.Infof("Diff in Resources.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Resources), dcl.SprintResource(actual.Resources))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.AccessLevels, actual.AccessLevels) && !dcl.IsZeroValue(desired.AccessLevels) {
-		c.Config.Logger.Infof("Diff in AccessLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AccessLevels), dcl.SprintResource(actual.AccessLevels))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.RestrictedServices, actual.RestrictedServices) && !dcl.IsZeroValue(desired.RestrictedServices) {
-		c.Config.Logger.Infof("Diff in RestrictedServices.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RestrictedServices), dcl.SprintResource(actual.RestrictedServices))
-		return true
-	}
-	if compareServicePerimeterSpecVPCAccessibleServices(c, desired.VPCAccessibleServices, actual.VPCAccessibleServices) && !dcl.IsZeroValue(desired.VPCAccessibleServices) {
-		c.Config.Logger.Infof("Diff in VPCAccessibleServices.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.VPCAccessibleServices), dcl.SprintResource(actual.VPCAccessibleServices))
-		return true
-	}
-	return false
-}
-
-func compareServicePerimeterSpecSlice(c *Client, desired, actual []ServicePerimeterSpec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServicePerimeterSpec, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServicePerimeterSpec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServicePerimeterSpec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServicePerimeterSpecMap(c *Client, desired, actual map[string]ServicePerimeterSpec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServicePerimeterSpec, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServicePerimeterSpec, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServicePerimeterSpec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServicePerimeterSpec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareServicePerimeterSpecVPCAccessibleServicesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1346,89 +1229,20 @@ func compareServicePerimeterSpecVPCAccessibleServicesNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.EnableRestriction, actual.EnableRestriction, dcl.Info{}, fn.AddNest("EnableRestriction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableRestriction, actual.EnableRestriction, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("EnableRestriction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowedServices, actual.AllowedServices, dcl.Info{}, fn.AddNest("AllowedServices")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowedServices, actual.AllowedServices, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("AllowedServices")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareServicePerimeterSpecVPCAccessibleServices(c *Client, desired, actual *ServicePerimeterSpecVPCAccessibleServices) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.EnableRestriction, actual.EnableRestriction) && !dcl.IsZeroValue(desired.EnableRestriction) {
-		c.Config.Logger.Infof("Diff in EnableRestriction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableRestriction), dcl.SprintResource(actual.EnableRestriction))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.AllowedServices, actual.AllowedServices) && !dcl.IsZeroValue(desired.AllowedServices) {
-		c.Config.Logger.Infof("Diff in AllowedServices.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedServices), dcl.SprintResource(actual.AllowedServices))
-		return true
-	}
-	return false
-}
-
-func compareServicePerimeterSpecVPCAccessibleServicesSlice(c *Client, desired, actual []ServicePerimeterSpecVPCAccessibleServices) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServicePerimeterSpecVPCAccessibleServices, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServicePerimeterSpecVPCAccessibleServices(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServicePerimeterSpecVPCAccessibleServices, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServicePerimeterSpecVPCAccessibleServicesMap(c *Client, desired, actual map[string]ServicePerimeterSpecVPCAccessibleServices) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServicePerimeterSpecVPCAccessibleServices, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ServicePerimeterSpecVPCAccessibleServices, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareServicePerimeterSpecVPCAccessibleServices(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ServicePerimeterSpecVPCAccessibleServices, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServicePerimeterPerimeterTypeEnumSlice(c *Client, desired, actual []ServicePerimeterPerimeterTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ServicePerimeterPerimeterTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareServicePerimeterPerimeterTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ServicePerimeterPerimeterTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareServicePerimeterPerimeterTypeEnum(c *Client, desired, actual *ServicePerimeterPerimeterTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1553,23 +1367,23 @@ func flattenServicePerimeter(c *Client, i interface{}) *ServicePerimeter {
 		return nil
 	}
 
-	r := &ServicePerimeter{}
-	r.Title = dcl.FlattenString(m["title"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.CreateTime = dcl.FlattenString(m["createTime"])
-	r.UpdateTime = dcl.FlattenString(m["updateTime"])
-	r.PerimeterType = flattenServicePerimeterPerimeterTypeEnum(m["perimeterType"])
+	res := &ServicePerimeter{}
+	res.Title = dcl.FlattenString(m["title"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.CreateTime = dcl.FlattenString(m["createTime"])
+	res.UpdateTime = dcl.FlattenString(m["updateTime"])
+	res.PerimeterType = flattenServicePerimeterPerimeterTypeEnum(m["perimeterType"])
 	if _, ok := m["perimeterType"]; !ok {
 		c.Config.Logger.Info("Using default value for perimeterType")
-		r.PerimeterType = ServicePerimeterPerimeterTypeEnumRef("PERIMETER_TYPE_REGULAR")
+		res.PerimeterType = ServicePerimeterPerimeterTypeEnumRef("PERIMETER_TYPE_REGULAR")
 	}
-	r.Status = flattenServicePerimeterStatus(c, m["status"])
-	r.Policy = dcl.FlattenString(m["policy"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.UseExplicitDryRunSpec = dcl.FlattenBool(m["useExplicitDryRunSpec"])
-	r.Spec = flattenServicePerimeterSpec(c, m["spec"])
+	res.Status = flattenServicePerimeterStatus(c, m["status"])
+	res.Policy = dcl.FlattenString(m["policy"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.UseExplicitDryRunSpec = dcl.FlattenBool(m["useExplicitDryRunSpec"])
+	res.Spec = flattenServicePerimeterSpec(c, m["spec"])
 
-	return r
+	return res
 }
 
 // expandServicePerimeterStatusMap expands the contents of ServicePerimeterStatus into a JSON
@@ -1656,10 +1470,11 @@ func flattenServicePerimeterStatusSlice(c *Client, i interface{}) []ServicePerim
 // expandServicePerimeterStatus expands an instance of ServicePerimeterStatus into a JSON
 // request object.
 func expandServicePerimeterStatus(c *Client, f *ServicePerimeterStatus) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Resources; !dcl.IsEmptyValueIndirect(v) {
 		m["resources"] = v
 	}
@@ -1779,10 +1594,11 @@ func flattenServicePerimeterStatusVPCAccessibleServicesSlice(c *Client, i interf
 // expandServicePerimeterStatusVPCAccessibleServices expands an instance of ServicePerimeterStatusVPCAccessibleServices into a JSON
 // request object.
 func expandServicePerimeterStatusVPCAccessibleServices(c *Client, f *ServicePerimeterStatusVPCAccessibleServices) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.EnableRestriction; !dcl.IsEmptyValueIndirect(v) {
 		m["enableRestriction"] = v
 	}
@@ -1892,10 +1708,11 @@ func flattenServicePerimeterSpecSlice(c *Client, i interface{}) []ServicePerimet
 // expandServicePerimeterSpec expands an instance of ServicePerimeterSpec into a JSON
 // request object.
 func expandServicePerimeterSpec(c *Client, f *ServicePerimeterSpec) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Resources; !dcl.IsEmptyValueIndirect(v) {
 		m["resources"] = v
 	}
@@ -2015,10 +1832,11 @@ func flattenServicePerimeterSpecVPCAccessibleServicesSlice(c *Client, i interfac
 // expandServicePerimeterSpecVPCAccessibleServices expands an instance of ServicePerimeterSpecVPCAccessibleServices into a JSON
 // request object.
 func expandServicePerimeterSpecVPCAccessibleServices(c *Client, f *ServicePerimeterSpecVPCAccessibleServices) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.EnableRestriction; !dcl.IsEmptyValueIndirect(v) {
 		m["enableRestriction"] = v
 	}
@@ -2106,5 +1924,36 @@ func (r *ServicePerimeter) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToServicePerimeterDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]servicePerimeterDiff, error) {
+	var diffs []servicePerimeterDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := servicePerimeterDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToservicePerimeterApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToservicePerimeterApiOperation(op string, opts ...dcl.ApplyOption) (servicePerimeterApiOperation, error) {
+	switch op {
+
+	case "updateServicePerimeterUpdateOperation":
+		return &updateServicePerimeterUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

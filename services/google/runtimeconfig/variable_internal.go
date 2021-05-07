@@ -438,9 +438,6 @@ func canonicalizeVariableDesiredState(rawDesired, rawInitial *Variable, opts ...
 	if dcl.StringCanonicalize(rawDesired.Value, rawInitial.Value) {
 		rawDesired.Value = rawInitial.Value
 	}
-	if dcl.StringCanonicalize(rawDesired.UpdateTime, rawInitial.UpdateTime) {
-		rawDesired.UpdateTime = rawInitial.UpdateTime
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
@@ -511,64 +508,85 @@ func diffVariable(c *Client, desired, actual *Variable, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []variableDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVariableDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.RuntimeConfig, actual.RuntimeConfig, dcl.Info{}, fn.AddNest("RuntimeConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RuntimeConfig, actual.RuntimeConfig, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RuntimeConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "RuntimeConfig",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVariableDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.Info{}, fn.AddNest("Text")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVariableUpdateOperation")}, fn.AddNest("Text")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, variableDiff{
-			UpdateOp: &updateVariableUpdateOperation{}, Diffs: ds,
-			FieldName: "Text",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVariableDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVariableUpdateOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, variableDiff{
-			UpdateOp: &updateVariableUpdateOperation{}, Diffs: ds,
-			FieldName: "Value",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVariableDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UpdateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVariableDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, variableDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVariableDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -707,15 +725,15 @@ func flattenVariable(c *Client, i interface{}) *Variable {
 		return nil
 	}
 
-	r := &Variable{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.RuntimeConfig = dcl.FlattenString(m["runtimeConfig"])
-	r.Text = dcl.FlattenString(m["text"])
-	r.Value = dcl.FlattenString(m["value"])
-	r.UpdateTime = dcl.FlattenString(m["updateTime"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &Variable{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.RuntimeConfig = dcl.FlattenString(m["runtimeConfig"])
+	res.Text = dcl.FlattenString(m["text"])
+	res.Value = dcl.FlattenString(m["value"])
+	res.UpdateTime = dcl.FlattenString(m["updateTime"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -757,5 +775,36 @@ func (r *Variable) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToVariableDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]variableDiff, error) {
+	var diffs []variableDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := variableDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTovariableApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTovariableApiOperation(op string, opts ...dcl.ApplyOption) (variableApiOperation, error) {
+	switch op {
+
+	case "updateVariableUpdateOperation":
+		return &updateVariableUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

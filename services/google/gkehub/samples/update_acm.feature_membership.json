@@ -4,7 +4,7 @@
   "location": "global",
   "feature": "{{ref:acm.feature.json:name}}",
   "configmanagement": {
-    "version": "1.6.3",
+    "version": "1.6.2",
     "configSync": {
       "sourceFormat": "unstructured",
       "git": {
@@ -12,9 +12,7 @@
         "syncBranch": "master",
         "policyDir": "config-connector",
         "syncWaitSecs": "20",
-        "syncRev": "HEAD",
-        "secretType": "gcpServiceAcccount",
-        "gcpServiceAccountEmail": "{{test_service_account}}"
+        "syncRev": "HEAD"
       }
     },
     "policyController": {
@@ -30,8 +28,7 @@
     },
     "hierarchyController": {
       "enabled": true,
-      "enablePodTreeLabels": true,
-      "enableHierarchicalResourceQuota": true
+      "enablePodTreeLabels": true
     }
   }
 }

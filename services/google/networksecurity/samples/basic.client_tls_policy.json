@@ -3,11 +3,17 @@
   "project": "{{project}}",
   "location": "global",
   "description": "A sample client tls policy.",
+  "sni": "example.com",
   "serverValidationCa": [
     {
       "certificateProviderInstance": {
         "pluginInstance": "google_cloud_private_spiffe"
       }
     }
-  ]
+  ],
+  "clientCertificate": {
+    "certificateProviderInstance": {
+        "pluginInstance": "google_cloud_private_spiffe"
+      }
+  }
 }

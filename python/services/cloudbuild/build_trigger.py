@@ -183,31 +183,6 @@ class BuildTrigger(object):
 
         return stub.ListCloudbuildBuildTrigger(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = build_trigger_pb2.CloudbuildBuildTrigger()
-        any_proto.Unpack(res_proto)
-
-        res = BuildTrigger()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.tags = Primitive.from_proto(res_proto.tags)
-        res.disabled = Primitive.from_proto(res_proto.disabled)
-        res.substitutions = Primitive.from_proto(res_proto.substitutions)
-        res.filename = Primitive.from_proto(res_proto.filename)
-        res.ignored_files = Primitive.from_proto(res_proto.ignored_files)
-        res.included_files = Primitive.from_proto(res_proto.included_files)
-        res.trigger_template = BuildTriggerTriggerTemplate.from_proto(
-            res_proto.trigger_template
-        )
-        res.github = BuildTriggerGithub.from_proto(res_proto.github)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.build = BuildTriggerBuild.from_proto(res_proto.build)
-        res.id = Primitive.from_proto(res_proto.id)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        return res
-
     def to_proto(self):
         resource = build_trigger_pb2.CloudbuildBuildTrigger()
         if Primitive.to_proto(self.name):

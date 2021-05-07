@@ -1,9 +1,6 @@
 {
   "type": "custom.googleapis.com/{{suffix}}",
   "project": "{{project}}",
-  "metricKind": "CUMULATIVE",
-  "valueType": "DISTRIBUTION",
-  "unit": "1",
   "descriptorLabels": [
     {
       "key": "mass",
@@ -16,5 +13,15 @@
       "description": "Identifying number for item"
     }
   ],
-  "displayName": "Sample metric"
+  "metricKind": "CUMULATIVE",
+  "valueType": "DISTRIBUTION",
+  "unit": "1",
+  "description": "A sample monitoring metric descriptor",
+  "displayName": "sample-descriptor",
+  "metadata": {
+    "launchStage": "GA",
+    "samplePeriod": "10s",
+    "ingestDelay": "10s"
+  },
+  "launchStage": "UNIMPLEMENTED"
 }

@@ -192,41 +192,6 @@ class Node(object):
 
         return stub.ListTPUNode(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = node_pb2.TPUNode()
-        any_proto.Unpack(res_proto)
-
-        res = Node()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.accelerator_type = Primitive.from_proto(res_proto.accelerator_type)
-        res.ip_address = Primitive.from_proto(res_proto.ip_address)
-        res.port = Primitive.from_proto(res_proto.port)
-        res.state = NodeStateEnum.from_proto(res_proto.state)
-        res.health_description = Primitive.from_proto(res_proto.health_description)
-        res.tensorflow_version = Primitive.from_proto(res_proto.tensorflow_version)
-        res.network = Primitive.from_proto(res_proto.network)
-        res.cidr_block = Primitive.from_proto(res_proto.cidr_block)
-        res.service_account = Primitive.from_proto(res_proto.service_account)
-        res.create_time = NodeCreateTime.from_proto(res_proto.create_time)
-        res.scheduling_config = NodeSchedulingConfig.from_proto(
-            res_proto.scheduling_config
-        )
-        res.network_endpoints = NodeNetworkEndpointsArray.from_proto(
-            res_proto.network_endpoints
-        )
-        res.health = NodeHealthEnum.from_proto(res_proto.health)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.use_service_networking = Primitive.from_proto(
-            res_proto.use_service_networking
-        )
-        res.symptoms = NodeSymptomsArray.from_proto(res_proto.symptoms)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = node_pb2.TPUNode()
         if Primitive.to_proto(self.name):

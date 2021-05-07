@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -649,12 +648,6 @@ func canonicalizeGuestPolicyDesiredState(rawDesired, rawInitial *GuestPolicy, op
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.IsZeroValue(rawDesired.CreateTime) {
-		rawDesired.CreateTime = rawInitial.CreateTime
-	}
-	if dcl.IsZeroValue(rawDesired.UpdateTime) {
-		rawDesired.UpdateTime = rawInitial.UpdateTime
-	}
 	rawDesired.Assignment = canonicalizeGuestPolicyAssignment(rawDesired.Assignment, rawInitial.Assignment, opts...)
 	if dcl.IsZeroValue(rawDesired.Packages) {
 		rawDesired.Packages = rawInitial.Packages
@@ -777,6 +770,15 @@ func canonicalizeNewGuestPolicyAssignment(c *Client, des, nw *GuestPolicyAssignm
 	}
 
 	nw.GroupLabels = canonicalizeNewGuestPolicyAssignmentGroupLabelsSlice(c, des.GroupLabels, nw.GroupLabels)
+	if dcl.IsZeroValue(nw.Zones) {
+		nw.Zones = des.Zones
+	}
+	if dcl.IsZeroValue(nw.Instances) {
+		nw.Instances = des.Instances
+	}
+	if dcl.IsZeroValue(nw.InstanceNamePrefixes) {
+		nw.InstanceNamePrefixes = des.InstanceNamePrefixes
+	}
 	nw.OsTypes = canonicalizeNewGuestPolicyAssignmentOsTypesSlice(c, des.OsTypes, nw.OsTypes)
 
 	return nw
@@ -790,7 +792,7 @@ func canonicalizeNewGuestPolicyAssignmentSet(c *Client, des, nw []GuestPolicyAss
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyAssignment(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyAssignmentNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -813,7 +815,7 @@ func canonicalizeNewGuestPolicyAssignmentSlice(c *Client, des, nw []GuestPolicyA
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyAssignment
@@ -849,6 +851,10 @@ func canonicalizeNewGuestPolicyAssignmentGroupLabels(c *Client, des, nw *GuestPo
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Labels) {
+		nw.Labels = des.Labels
+	}
+
 	return nw
 }
 
@@ -860,7 +866,7 @@ func canonicalizeNewGuestPolicyAssignmentGroupLabelsSet(c *Client, des, nw []Gue
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyAssignmentGroupLabels(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyAssignmentGroupLabelsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -883,7 +889,7 @@ func canonicalizeNewGuestPolicyAssignmentGroupLabelsSlice(c *Client, des, nw []G
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyAssignmentGroupLabels
@@ -946,7 +952,7 @@ func canonicalizeNewGuestPolicyAssignmentOsTypesSet(c *Client, des, nw []GuestPo
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyAssignmentOsTypes(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyAssignmentOsTypesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -969,7 +975,7 @@ func canonicalizeNewGuestPolicyAssignmentOsTypesSlice(c *Client, des, nw []Guest
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyAssignmentOsTypes
@@ -1014,6 +1020,12 @@ func canonicalizeNewGuestPolicyPackages(c *Client, des, nw *GuestPolicyPackages)
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
+	if dcl.IsZeroValue(nw.DesiredState) {
+		nw.DesiredState = des.DesiredState
+	}
+	if dcl.IsZeroValue(nw.Manager) {
+		nw.Manager = des.Manager
+	}
 
 	return nw
 }
@@ -1026,7 +1038,7 @@ func canonicalizeNewGuestPolicyPackagesSet(c *Client, des, nw []GuestPolicyPacka
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyPackages(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyPackagesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1049,7 +1061,7 @@ func canonicalizeNewGuestPolicyPackagesSlice(c *Client, des, nw []GuestPolicyPac
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyPackages
@@ -1102,7 +1114,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesSet(c *Client, des, nw []Guest
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyPackageRepositories(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyPackageRepositoriesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1125,7 +1137,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesSlice(c *Client, des, nw []Gue
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyPackageRepositories
@@ -1173,11 +1185,17 @@ func canonicalizeNewGuestPolicyPackageRepositoriesApt(c *Client, des, nw *GuestP
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.ArchiveType) {
+		nw.ArchiveType = des.ArchiveType
+	}
 	if dcl.StringCanonicalize(des.Uri, nw.Uri) {
 		nw.Uri = des.Uri
 	}
 	if dcl.StringCanonicalize(des.Distribution, nw.Distribution) {
 		nw.Distribution = des.Distribution
+	}
+	if dcl.IsZeroValue(nw.Components) {
+		nw.Components = des.Components
 	}
 	if dcl.StringCanonicalize(des.GpgKey, nw.GpgKey) {
 		nw.GpgKey = des.GpgKey
@@ -1194,7 +1212,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesAptSet(c *Client, des, nw []Gu
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyPackageRepositoriesApt(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyPackageRepositoriesAptNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1217,7 +1235,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesAptSlice(c *Client, des, nw []
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyPackageRepositoriesApt
@@ -1271,6 +1289,9 @@ func canonicalizeNewGuestPolicyPackageRepositoriesYum(c *Client, des, nw *GuestP
 	if dcl.StringCanonicalize(des.BaseUrl, nw.BaseUrl) {
 		nw.BaseUrl = des.BaseUrl
 	}
+	if dcl.IsZeroValue(nw.GpgKeys) {
+		nw.GpgKeys = des.GpgKeys
+	}
 
 	return nw
 }
@@ -1283,7 +1304,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesYumSet(c *Client, des, nw []Gu
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyPackageRepositoriesYum(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyPackageRepositoriesYumNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1306,7 +1327,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesYumSlice(c *Client, des, nw []
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyPackageRepositoriesYum
@@ -1360,6 +1381,9 @@ func canonicalizeNewGuestPolicyPackageRepositoriesZypper(c *Client, des, nw *Gue
 	if dcl.StringCanonicalize(des.BaseUrl, nw.BaseUrl) {
 		nw.BaseUrl = des.BaseUrl
 	}
+	if dcl.IsZeroValue(nw.GpgKeys) {
+		nw.GpgKeys = des.GpgKeys
+	}
 
 	return nw
 }
@@ -1372,7 +1396,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesZypperSet(c *Client, des, nw [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyPackageRepositoriesZypper(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyPackageRepositoriesZypperNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1395,7 +1419,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesZypperSlice(c *Client, des, nw
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyPackageRepositoriesZypper
@@ -1452,7 +1476,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesGooSet(c *Client, des, nw []Gu
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyPackageRepositoriesGoo(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyPackageRepositoriesGooNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1475,7 +1499,7 @@ func canonicalizeNewGuestPolicyPackageRepositoriesGooSlice(c *Client, des, nw []
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyPackageRepositoriesGoo
@@ -1535,6 +1559,9 @@ func canonicalizeNewGuestPolicyRecipes(c *Client, des, nw *GuestPolicyRecipes) *
 	nw.Artifacts = canonicalizeNewGuestPolicyRecipesArtifactsSlice(c, des.Artifacts, nw.Artifacts)
 	nw.InstallSteps = canonicalizeNewGuestPolicyRecipesInstallStepsSlice(c, des.InstallSteps, nw.InstallSteps)
 	nw.UpdateSteps = canonicalizeNewGuestPolicyRecipesUpdateStepsSlice(c, des.UpdateSteps, nw.UpdateSteps)
+	if dcl.IsZeroValue(nw.DesiredState) {
+		nw.DesiredState = des.DesiredState
+	}
 
 	return nw
 }
@@ -1547,7 +1574,7 @@ func canonicalizeNewGuestPolicyRecipesSet(c *Client, des, nw []GuestPolicyRecipe
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipes(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1570,7 +1597,7 @@ func canonicalizeNewGuestPolicyRecipesSlice(c *Client, des, nw []GuestPolicyReci
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipes
@@ -1631,7 +1658,7 @@ func canonicalizeNewGuestPolicyRecipesArtifactsSet(c *Client, des, nw []GuestPol
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesArtifacts(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesArtifactsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1654,7 +1681,7 @@ func canonicalizeNewGuestPolicyRecipesArtifactsSlice(c *Client, des, nw []GuestP
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesArtifacts
@@ -1711,7 +1738,7 @@ func canonicalizeNewGuestPolicyRecipesArtifactsRemoteSet(c *Client, des, nw []Gu
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesArtifactsRemote(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesArtifactsRemoteNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1734,7 +1761,7 @@ func canonicalizeNewGuestPolicyRecipesArtifactsRemoteSlice(c *Client, des, nw []
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesArtifactsRemote
@@ -1782,6 +1809,9 @@ func canonicalizeNewGuestPolicyRecipesArtifactsGcs(c *Client, des, nw *GuestPoli
 	if dcl.StringCanonicalize(des.Object, nw.Object) {
 		nw.Object = des.Object
 	}
+	if dcl.IsZeroValue(nw.Generation) {
+		nw.Generation = des.Generation
+	}
 
 	return nw
 }
@@ -1794,7 +1824,7 @@ func canonicalizeNewGuestPolicyRecipesArtifactsGcsSet(c *Client, des, nw []Guest
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesArtifactsGcs(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesArtifactsGcsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1817,7 +1847,7 @@ func canonicalizeNewGuestPolicyRecipesArtifactsGcsSlice(c *Client, des, nw []Gue
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesArtifactsGcs
@@ -1876,7 +1906,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsSet(c *Client, des, nw []Guest
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesInstallSteps(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesInstallStepsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1899,7 +1929,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsSlice(c *Client, des, nw []Gue
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesInstallSteps
@@ -1968,7 +1998,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsFileCopySet(c *Client, des, nw
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesInstallStepsFileCopy(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesInstallStepsFileCopyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1991,7 +2021,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, des, 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesInstallStepsFileCopy
@@ -2039,6 +2069,9 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, d
 	if dcl.StringCanonicalize(des.Destination, nw.Destination) {
 		nw.Destination = des.Destination
 	}
+	if dcl.IsZeroValue(nw.Type) {
+		nw.Type = des.Type
+	}
 
 	return nw
 }
@@ -2051,7 +2084,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsArchiveExtractionSet(c *Client
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesInstallStepsArchiveExtraction(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesInstallStepsArchiveExtractionNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2074,7 +2107,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Clie
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesInstallStepsArchiveExtraction
@@ -2119,6 +2152,12 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, des
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
+	if dcl.IsZeroValue(nw.Flags) {
+		nw.Flags = des.Flags
+	}
+	if dcl.IsZeroValue(nw.AllowedExitCodes) {
+		nw.AllowedExitCodes = des.AllowedExitCodes
+	}
 
 	return nw
 }
@@ -2131,7 +2170,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsMsiInstallationSet(c *Client, 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesInstallStepsMsiInstallation(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesInstallStepsMsiInstallationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2154,7 +2193,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesInstallStepsMsiInstallation
@@ -2205,7 +2244,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsDpkgInstallationSet(c *Client,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesInstallStepsDpkgInstallation(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesInstallStepsDpkgInstallationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2228,7 +2267,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Clien
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesInstallStepsDpkgInstallation
@@ -2279,7 +2318,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsRpmInstallationSet(c *Client, 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesInstallStepsRpmInstallation(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesInstallStepsRpmInstallationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2302,7 +2341,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesInstallStepsRpmInstallation
@@ -2353,6 +2392,12 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsFileExec(c *Client, des, nw *G
 	if dcl.StringCanonicalize(des.LocalPath, nw.LocalPath) {
 		nw.LocalPath = des.LocalPath
 	}
+	if dcl.IsZeroValue(nw.Args) {
+		nw.Args = des.Args
+	}
+	if dcl.IsZeroValue(nw.AllowedExitCodes) {
+		nw.AllowedExitCodes = des.AllowedExitCodes
+	}
 
 	return nw
 }
@@ -2365,7 +2410,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsFileExecSet(c *Client, des, nw
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesInstallStepsFileExec(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesInstallStepsFileExecNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2388,7 +2433,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, des, 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesInstallStepsFileExec
@@ -2433,6 +2478,12 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsScriptRun(c *Client, des, nw *
 	if dcl.StringCanonicalize(des.Script, nw.Script) {
 		nw.Script = des.Script
 	}
+	if dcl.IsZeroValue(nw.AllowedExitCodes) {
+		nw.AllowedExitCodes = des.AllowedExitCodes
+	}
+	if dcl.IsZeroValue(nw.Interpreter) {
+		nw.Interpreter = des.Interpreter
+	}
 
 	return nw
 }
@@ -2445,7 +2496,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsScriptRunSet(c *Client, des, n
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesInstallStepsScriptRun(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesInstallStepsScriptRunNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2468,7 +2519,7 @@ func canonicalizeNewGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, des,
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesInstallStepsScriptRun
@@ -2527,7 +2578,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsSet(c *Client, des, nw []GuestP
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesUpdateSteps(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesUpdateStepsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2550,7 +2601,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsSlice(c *Client, des, nw []Gues
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesUpdateSteps
@@ -2619,7 +2670,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsFileCopySet(c *Client, des, nw 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesUpdateStepsFileCopy(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesUpdateStepsFileCopyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2642,7 +2693,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, des, n
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesUpdateStepsFileCopy
@@ -2690,6 +2741,9 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, de
 	if dcl.StringCanonicalize(des.Destination, nw.Destination) {
 		nw.Destination = des.Destination
 	}
+	if dcl.IsZeroValue(nw.Type) {
+		nw.Type = des.Type
+	}
 
 	return nw
 }
@@ -2702,7 +2756,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsArchiveExtractionSet(c *Client,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesUpdateStepsArchiveExtraction(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesUpdateStepsArchiveExtractionNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2725,7 +2779,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Clien
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesUpdateStepsArchiveExtraction
@@ -2770,6 +2824,12 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, des,
 	if dcl.StringCanonicalize(des.ArtifactId, nw.ArtifactId) {
 		nw.ArtifactId = des.ArtifactId
 	}
+	if dcl.IsZeroValue(nw.Flags) {
+		nw.Flags = des.Flags
+	}
+	if dcl.IsZeroValue(nw.AllowedExitCodes) {
+		nw.AllowedExitCodes = des.AllowedExitCodes
+	}
 
 	return nw
 }
@@ -2782,7 +2842,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsMsiInstallationSet(c *Client, d
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesUpdateStepsMsiInstallation(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesUpdateStepsMsiInstallationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2805,7 +2865,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client,
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesUpdateStepsMsiInstallation
@@ -2856,7 +2916,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsDpkgInstallationSet(c *Client, 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesUpdateStepsDpkgInstallation(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesUpdateStepsDpkgInstallationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2879,7 +2939,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesUpdateStepsDpkgInstallation
@@ -2930,7 +2990,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsRpmInstallationSet(c *Client, d
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesUpdateStepsRpmInstallation(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesUpdateStepsRpmInstallationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2953,7 +3013,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client,
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesUpdateStepsRpmInstallation
@@ -3004,6 +3064,12 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsFileExec(c *Client, des, nw *Gu
 	if dcl.StringCanonicalize(des.LocalPath, nw.LocalPath) {
 		nw.LocalPath = des.LocalPath
 	}
+	if dcl.IsZeroValue(nw.Args) {
+		nw.Args = des.Args
+	}
+	if dcl.IsZeroValue(nw.AllowedExitCodes) {
+		nw.AllowedExitCodes = des.AllowedExitCodes
+	}
 
 	return nw
 }
@@ -3016,7 +3082,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsFileExecSet(c *Client, des, nw 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesUpdateStepsFileExec(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesUpdateStepsFileExecNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3039,7 +3105,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, des, n
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesUpdateStepsFileExec
@@ -3084,6 +3150,12 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsScriptRun(c *Client, des, nw *G
 	if dcl.StringCanonicalize(des.Script, nw.Script) {
 		nw.Script = des.Script
 	}
+	if dcl.IsZeroValue(nw.AllowedExitCodes) {
+		nw.AllowedExitCodes = des.AllowedExitCodes
+	}
+	if dcl.IsZeroValue(nw.Interpreter) {
+		nw.Interpreter = des.Interpreter
+	}
 
 	return nw
 }
@@ -3096,7 +3168,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsScriptRunSet(c *Client, des, nw
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareGuestPolicyRecipesUpdateStepsScriptRun(c, &d, &n) {
+			if diffs, _ := compareGuestPolicyRecipesUpdateStepsScriptRunNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3119,7 +3191,7 @@ func canonicalizeNewGuestPolicyRecipesUpdateStepsScriptRunSlice(c *Client, des, 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []GuestPolicyRecipesUpdateStepsScriptRun
@@ -3153,105 +3225,137 @@ func diffGuestPolicy(c *Client, desired, actual *GuestPolicy, opts ...dcl.ApplyO
 	}
 
 	var diffs []guestPolicyDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGuestPolicyUpdateGuestPolicyOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGuestPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGuestPolicyUpdateGuestPolicyOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGuestPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGuestPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UpdateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGuestPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Assignment, actual.Assignment, dcl.Info{ObjectFunction: compareGuestPolicyAssignmentNewStyle}, fn.AddNest("Assignment")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Assignment, actual.Assignment, dcl.Info{ObjectFunction: compareGuestPolicyAssignmentNewStyle, OperationSelector: dcl.TriggersOperation("updateGuestPolicyUpdateGuestPolicyOperation")}, fn.AddNest("Assignment")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
-			FieldName: "Assignment",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGuestPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Packages, actual.Packages, dcl.Info{ObjectFunction: compareGuestPolicyPackagesNewStyle}, fn.AddNest("Packages")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Packages, actual.Packages, dcl.Info{ObjectFunction: compareGuestPolicyPackagesNewStyle, OperationSelector: dcl.TriggersOperation("updateGuestPolicyUpdateGuestPolicyOperation")}, fn.AddNest("Packages")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
-			FieldName: "Packages",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGuestPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.PackageRepositories, actual.PackageRepositories, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesNewStyle}, fn.AddNest("PackageRepositories")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PackageRepositories, actual.PackageRepositories, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesNewStyle, OperationSelector: dcl.TriggersOperation("updateGuestPolicyUpdateGuestPolicyOperation")}, fn.AddNest("PackageRepositories")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
-			FieldName: "PackageRepositories",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGuestPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Recipes, actual.Recipes, dcl.Info{ObjectFunction: compareGuestPolicyRecipesNewStyle}, fn.AddNest("Recipes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Recipes, actual.Recipes, dcl.Info{ObjectFunction: compareGuestPolicyRecipesNewStyle, OperationSelector: dcl.TriggersOperation("updateGuestPolicyUpdateGuestPolicyOperation")}, fn.AddNest("Recipes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
-			FieldName: "Recipes",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGuestPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGuestPolicyUpdateGuestPolicyOperation")}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{
-			UpdateOp: &updateGuestPolicyUpdateGuestPolicyOperation{}, Diffs: ds,
-			FieldName: "Etag",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGuestPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, guestPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToGuestPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -3298,104 +3402,41 @@ func compareGuestPolicyAssignmentNewStyle(d, a interface{}, fn dcl.FieldName) ([
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.GroupLabels, actual.GroupLabels, dcl.Info{ObjectFunction: compareGuestPolicyAssignmentGroupLabelsNewStyle}, fn.AddNest("GroupLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupLabels, actual.GroupLabels, dcl.Info{ObjectFunction: compareGuestPolicyAssignmentGroupLabelsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GroupLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Zones, actual.Zones, dcl.Info{}, fn.AddNest("Zones")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zones, actual.Zones, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zones")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Instances, actual.Instances, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Instances")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Instances, actual.Instances, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Instances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceNamePrefixes, actual.InstanceNamePrefixes, dcl.Info{}, fn.AddNest("InstanceNamePrefixes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceNamePrefixes, actual.InstanceNamePrefixes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceNamePrefixes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OsTypes, actual.OsTypes, dcl.Info{ObjectFunction: compareGuestPolicyAssignmentOsTypesNewStyle}, fn.AddNest("OsTypes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OsTypes, actual.OsTypes, dcl.Info{ObjectFunction: compareGuestPolicyAssignmentOsTypesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OsTypes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyAssignment(c *Client, desired, actual *GuestPolicyAssignment) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareGuestPolicyAssignmentGroupLabelsSlice(c, desired.GroupLabels, actual.GroupLabels) && !dcl.IsZeroValue(desired.GroupLabels) {
-		c.Config.Logger.Infof("Diff in GroupLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupLabels), dcl.SprintResource(actual.GroupLabels))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Zones, actual.Zones) && !dcl.IsZeroValue(desired.Zones) {
-		c.Config.Logger.Infof("Diff in Zones.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zones), dcl.SprintResource(actual.Zones))
-		return true
-	}
-	if !dcl.StringSliceEqualsWithSelfLink(desired.Instances, actual.Instances) && !dcl.IsZeroValue(desired.Instances) {
-		c.Config.Logger.Infof("Diff in Instances.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Instances), dcl.SprintResource(actual.Instances))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.InstanceNamePrefixes, actual.InstanceNamePrefixes) && !dcl.IsZeroValue(desired.InstanceNamePrefixes) {
-		c.Config.Logger.Infof("Diff in InstanceNamePrefixes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceNamePrefixes), dcl.SprintResource(actual.InstanceNamePrefixes))
-		return true
-	}
-	if compareGuestPolicyAssignmentOsTypesSlice(c, desired.OsTypes, actual.OsTypes) && !dcl.IsZeroValue(desired.OsTypes) {
-		c.Config.Logger.Infof("Diff in OsTypes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OsTypes), dcl.SprintResource(actual.OsTypes))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyAssignmentSlice(c *Client, desired, actual []GuestPolicyAssignment) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyAssignment, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyAssignment(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignment, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyAssignmentMap(c *Client, desired, actual map[string]GuestPolicyAssignment) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyAssignment, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignment, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyAssignment(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignment, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyAssignmentGroupLabelsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -3418,60 +3459,13 @@ func compareGuestPolicyAssignmentGroupLabelsNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyAssignmentGroupLabels(c *Client, desired, actual *GuestPolicyAssignmentGroupLabels) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.MapEquals(desired.Labels, actual.Labels, []string(nil)) && !dcl.IsZeroValue(desired.Labels) {
-		c.Config.Logger.Infof("Diff in Labels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Labels), dcl.SprintResource(actual.Labels))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyAssignmentGroupLabelsSlice(c *Client, desired, actual []GuestPolicyAssignmentGroupLabels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyAssignmentGroupLabels, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyAssignmentGroupLabels(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentGroupLabels, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyAssignmentGroupLabelsMap(c *Client, desired, actual map[string]GuestPolicyAssignmentGroupLabels) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyAssignmentGroupLabels, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentGroupLabels, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyAssignmentGroupLabels(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentGroupLabels, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyAssignmentOsTypesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -3494,82 +3488,27 @@ func compareGuestPolicyAssignmentOsTypesNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.OsShortName, actual.OsShortName, dcl.Info{}, fn.AddNest("OsShortName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OsShortName, actual.OsShortName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OsShortName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OsVersion, actual.OsVersion, dcl.Info{}, fn.AddNest("OsVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OsVersion, actual.OsVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OsVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OsArchitecture, actual.OsArchitecture, dcl.Info{}, fn.AddNest("OsArchitecture")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OsArchitecture, actual.OsArchitecture, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OsArchitecture")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyAssignmentOsTypes(c *Client, desired, actual *GuestPolicyAssignmentOsTypes) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.OsShortName, actual.OsShortName) && !dcl.IsZeroValue(desired.OsShortName) {
-		c.Config.Logger.Infof("Diff in OsShortName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OsShortName), dcl.SprintResource(actual.OsShortName))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.OsVersion, actual.OsVersion) && !dcl.IsZeroValue(desired.OsVersion) {
-		c.Config.Logger.Infof("Diff in OsVersion.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OsVersion), dcl.SprintResource(actual.OsVersion))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.OsArchitecture, actual.OsArchitecture) && !dcl.IsZeroValue(desired.OsArchitecture) {
-		c.Config.Logger.Infof("Diff in OsArchitecture.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OsArchitecture), dcl.SprintResource(actual.OsArchitecture))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyAssignmentOsTypesSlice(c *Client, desired, actual []GuestPolicyAssignmentOsTypes) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyAssignmentOsTypes, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyAssignmentOsTypes(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentOsTypes, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyAssignmentOsTypesMap(c *Client, desired, actual map[string]GuestPolicyAssignmentOsTypes) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyAssignmentOsTypes, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentOsTypes, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyAssignmentOsTypes(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyAssignmentOsTypes, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyPackagesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -3592,82 +3531,27 @@ func compareGuestPolicyPackagesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DesiredState, actual.DesiredState, dcl.Info{Type: "EnumType"}, fn.AddNest("DesiredState")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DesiredState, actual.DesiredState, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DesiredState")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Manager, actual.Manager, dcl.Info{Type: "EnumType"}, fn.AddNest("Manager")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Manager, actual.Manager, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Manager")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyPackages(c *Client, desired, actual *GuestPolicyPackages) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !reflect.DeepEqual(desired.DesiredState, actual.DesiredState) && !dcl.IsZeroValue(desired.DesiredState) {
-		c.Config.Logger.Infof("Diff in DesiredState.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DesiredState), dcl.SprintResource(actual.DesiredState))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Manager, actual.Manager) && !dcl.IsZeroValue(desired.Manager) {
-		c.Config.Logger.Infof("Diff in Manager.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Manager), dcl.SprintResource(actual.Manager))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyPackagesSlice(c *Client, desired, actual []GuestPolicyPackages) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackages, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyPackages(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackages, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyPackagesMap(c *Client, desired, actual map[string]GuestPolicyPackages) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackages, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackages, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyPackages(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackages, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyPackageRepositoriesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -3690,93 +3574,34 @@ func compareGuestPolicyPackageRepositoriesNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Apt, actual.Apt, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesAptNewStyle}, fn.AddNest("Apt")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Apt, actual.Apt, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesAptNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Apt")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Yum, actual.Yum, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesYumNewStyle}, fn.AddNest("Yum")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Yum, actual.Yum, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesYumNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Yum")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Zypper, actual.Zypper, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesZypperNewStyle}, fn.AddNest("Zypper")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zypper, actual.Zypper, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesZypperNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zypper")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Goo, actual.Goo, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesGooNewStyle}, fn.AddNest("Goo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Goo, actual.Goo, dcl.Info{ObjectFunction: compareGuestPolicyPackageRepositoriesGooNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Goo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyPackageRepositories(c *Client, desired, actual *GuestPolicyPackageRepositories) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareGuestPolicyPackageRepositoriesApt(c, desired.Apt, actual.Apt) && !dcl.IsZeroValue(desired.Apt) {
-		c.Config.Logger.Infof("Diff in Apt.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Apt), dcl.SprintResource(actual.Apt))
-		return true
-	}
-	if compareGuestPolicyPackageRepositoriesYum(c, desired.Yum, actual.Yum) && !dcl.IsZeroValue(desired.Yum) {
-		c.Config.Logger.Infof("Diff in Yum.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Yum), dcl.SprintResource(actual.Yum))
-		return true
-	}
-	if compareGuestPolicyPackageRepositoriesZypper(c, desired.Zypper, actual.Zypper) && !dcl.IsZeroValue(desired.Zypper) {
-		c.Config.Logger.Infof("Diff in Zypper.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Zypper), dcl.SprintResource(actual.Zypper))
-		return true
-	}
-	if compareGuestPolicyPackageRepositoriesGoo(c, desired.Goo, actual.Goo) && !dcl.IsZeroValue(desired.Goo) {
-		c.Config.Logger.Infof("Diff in Goo.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Goo), dcl.SprintResource(actual.Goo))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyPackageRepositoriesSlice(c *Client, desired, actual []GuestPolicyPackageRepositories) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackageRepositories, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyPackageRepositories(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositories, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyPackageRepositoriesMap(c *Client, desired, actual map[string]GuestPolicyPackageRepositories) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackageRepositories, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositories, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyPackageRepositories(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositories, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyPackageRepositoriesAptNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -3799,104 +3624,41 @@ func compareGuestPolicyPackageRepositoriesAptNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ArchiveType, actual.ArchiveType, dcl.Info{Type: "EnumType"}, fn.AddNest("ArchiveType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArchiveType, actual.ArchiveType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Uri, actual.Uri, dcl.Info{}, fn.AddNest("Uri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Uri, actual.Uri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Distribution, actual.Distribution, dcl.Info{}, fn.AddNest("Distribution")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Distribution, actual.Distribution, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Distribution")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Components, actual.Components, dcl.Info{}, fn.AddNest("Components")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Components, actual.Components, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Components")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GpgKey, actual.GpgKey, dcl.Info{}, fn.AddNest("GpgKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GpgKey, actual.GpgKey, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GpgKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyPackageRepositoriesApt(c *Client, desired, actual *GuestPolicyPackageRepositoriesApt) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.ArchiveType, actual.ArchiveType) && !dcl.IsZeroValue(desired.ArchiveType) {
-		c.Config.Logger.Infof("Diff in ArchiveType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveType), dcl.SprintResource(actual.ArchiveType))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Uri, actual.Uri) && !dcl.IsZeroValue(desired.Uri) {
-		c.Config.Logger.Infof("Diff in Uri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uri), dcl.SprintResource(actual.Uri))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Distribution, actual.Distribution) && !dcl.IsZeroValue(desired.Distribution) {
-		c.Config.Logger.Infof("Diff in Distribution.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Distribution), dcl.SprintResource(actual.Distribution))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Components, actual.Components) && !dcl.IsZeroValue(desired.Components) {
-		c.Config.Logger.Infof("Diff in Components.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Components), dcl.SprintResource(actual.Components))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.GpgKey, actual.GpgKey) && !dcl.IsZeroValue(desired.GpgKey) {
-		c.Config.Logger.Infof("Diff in GpgKey.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GpgKey), dcl.SprintResource(actual.GpgKey))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyPackageRepositoriesAptSlice(c *Client, desired, actual []GuestPolicyPackageRepositoriesApt) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackageRepositoriesApt, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyPackageRepositoriesApt(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesApt, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyPackageRepositoriesAptMap(c *Client, desired, actual map[string]GuestPolicyPackageRepositoriesApt) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackageRepositoriesApt, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesApt, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyPackageRepositoriesApt(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesApt, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyPackageRepositoriesYumNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -3919,93 +3681,34 @@ func compareGuestPolicyPackageRepositoriesYumNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BaseUrl, actual.BaseUrl, dcl.Info{}, fn.AddNest("BaseUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BaseUrl, actual.BaseUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BaseUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GpgKeys, actual.GpgKeys, dcl.Info{}, fn.AddNest("GpgKeys")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GpgKeys, actual.GpgKeys, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GpgKeys")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyPackageRepositoriesYum(c *Client, desired, actual *GuestPolicyPackageRepositoriesYum) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Id, actual.Id) && !dcl.IsZeroValue(desired.Id) {
-		c.Config.Logger.Infof("Diff in Id.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) && !dcl.IsZeroValue(desired.DisplayName) {
-		c.Config.Logger.Infof("Diff in DisplayName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DisplayName), dcl.SprintResource(actual.DisplayName))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.BaseUrl, actual.BaseUrl) && !dcl.IsZeroValue(desired.BaseUrl) {
-		c.Config.Logger.Infof("Diff in BaseUrl.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BaseUrl), dcl.SprintResource(actual.BaseUrl))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.GpgKeys, actual.GpgKeys) && !dcl.IsZeroValue(desired.GpgKeys) {
-		c.Config.Logger.Infof("Diff in GpgKeys.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GpgKeys), dcl.SprintResource(actual.GpgKeys))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyPackageRepositoriesYumSlice(c *Client, desired, actual []GuestPolicyPackageRepositoriesYum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackageRepositoriesYum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyPackageRepositoriesYum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesYum, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyPackageRepositoriesYumMap(c *Client, desired, actual map[string]GuestPolicyPackageRepositoriesYum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackageRepositoriesYum, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesYum, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyPackageRepositoriesYum(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesYum, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyPackageRepositoriesZypperNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4028,93 +3731,34 @@ func compareGuestPolicyPackageRepositoriesZypperNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BaseUrl, actual.BaseUrl, dcl.Info{}, fn.AddNest("BaseUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BaseUrl, actual.BaseUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BaseUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GpgKeys, actual.GpgKeys, dcl.Info{}, fn.AddNest("GpgKeys")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GpgKeys, actual.GpgKeys, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GpgKeys")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyPackageRepositoriesZypper(c *Client, desired, actual *GuestPolicyPackageRepositoriesZypper) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Id, actual.Id) && !dcl.IsZeroValue(desired.Id) {
-		c.Config.Logger.Infof("Diff in Id.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) && !dcl.IsZeroValue(desired.DisplayName) {
-		c.Config.Logger.Infof("Diff in DisplayName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DisplayName), dcl.SprintResource(actual.DisplayName))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.BaseUrl, actual.BaseUrl) && !dcl.IsZeroValue(desired.BaseUrl) {
-		c.Config.Logger.Infof("Diff in BaseUrl.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BaseUrl), dcl.SprintResource(actual.BaseUrl))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.GpgKeys, actual.GpgKeys) && !dcl.IsZeroValue(desired.GpgKeys) {
-		c.Config.Logger.Infof("Diff in GpgKeys.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GpgKeys), dcl.SprintResource(actual.GpgKeys))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyPackageRepositoriesZypperSlice(c *Client, desired, actual []GuestPolicyPackageRepositoriesZypper) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackageRepositoriesZypper, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyPackageRepositoriesZypper(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesZypper, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyPackageRepositoriesZypperMap(c *Client, desired, actual map[string]GuestPolicyPackageRepositoriesZypper) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackageRepositoriesZypper, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesZypper, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyPackageRepositoriesZypper(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesZypper, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyPackageRepositoriesGooNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4137,71 +3781,20 @@ func compareGuestPolicyPackageRepositoriesGooNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyPackageRepositoriesGoo(c *Client, desired, actual *GuestPolicyPackageRepositoriesGoo) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Url, actual.Url) && !dcl.IsZeroValue(desired.Url) {
-		c.Config.Logger.Infof("Diff in Url.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Url), dcl.SprintResource(actual.Url))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyPackageRepositoriesGooSlice(c *Client, desired, actual []GuestPolicyPackageRepositoriesGoo) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackageRepositoriesGoo, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyPackageRepositoriesGoo(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesGoo, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyPackageRepositoriesGooMap(c *Client, desired, actual map[string]GuestPolicyPackageRepositoriesGoo) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackageRepositoriesGoo, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesGoo, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyPackageRepositoriesGoo(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesGoo, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4224,115 +3817,48 @@ func compareGuestPolicyRecipesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Artifacts, actual.Artifacts, dcl.Info{ObjectFunction: compareGuestPolicyRecipesArtifactsNewStyle}, fn.AddNest("Artifacts")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Artifacts, actual.Artifacts, dcl.Info{ObjectFunction: compareGuestPolicyRecipesArtifactsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Artifacts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstallSteps, actual.InstallSteps, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsNewStyle}, fn.AddNest("InstallSteps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstallSteps, actual.InstallSteps, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstallSteps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateSteps, actual.UpdateSteps, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsNewStyle}, fn.AddNest("UpdateSteps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateSteps, actual.UpdateSteps, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateSteps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DesiredState, actual.DesiredState, dcl.Info{Type: "EnumType"}, fn.AddNest("DesiredState")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DesiredState, actual.DesiredState, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DesiredState")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipes(c *Client, desired, actual *GuestPolicyRecipes) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Version, actual.Version) && !dcl.IsZeroValue(desired.Version) {
-		c.Config.Logger.Infof("Diff in Version.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Version), dcl.SprintResource(actual.Version))
-		return true
-	}
-	if compareGuestPolicyRecipesArtifactsSlice(c, desired.Artifacts, actual.Artifacts) && !dcl.IsZeroValue(desired.Artifacts) {
-		c.Config.Logger.Infof("Diff in Artifacts.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Artifacts), dcl.SprintResource(actual.Artifacts))
-		return true
-	}
-	if compareGuestPolicyRecipesInstallStepsSlice(c, desired.InstallSteps, actual.InstallSteps) && !dcl.IsZeroValue(desired.InstallSteps) {
-		c.Config.Logger.Infof("Diff in InstallSteps.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstallSteps), dcl.SprintResource(actual.InstallSteps))
-		return true
-	}
-	if compareGuestPolicyRecipesUpdateStepsSlice(c, desired.UpdateSteps, actual.UpdateSteps) && !dcl.IsZeroValue(desired.UpdateSteps) {
-		c.Config.Logger.Infof("Diff in UpdateSteps.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UpdateSteps), dcl.SprintResource(actual.UpdateSteps))
-		return true
-	}
-	if !reflect.DeepEqual(desired.DesiredState, actual.DesiredState) && !dcl.IsZeroValue(desired.DesiredState) {
-		c.Config.Logger.Infof("Diff in DesiredState.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DesiredState), dcl.SprintResource(actual.DesiredState))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesSlice(c *Client, desired, actual []GuestPolicyRecipes) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipes, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipes(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipes, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesMap(c *Client, desired, actual map[string]GuestPolicyRecipes) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipes, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipes, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipes(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipes, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesArtifactsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4355,93 +3881,34 @@ func compareGuestPolicyRecipesArtifactsNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Remote, actual.Remote, dcl.Info{ObjectFunction: compareGuestPolicyRecipesArtifactsRemoteNewStyle}, fn.AddNest("Remote")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Remote, actual.Remote, dcl.Info{ObjectFunction: compareGuestPolicyRecipesArtifactsRemoteNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Remote")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Gcs, actual.Gcs, dcl.Info{ObjectFunction: compareGuestPolicyRecipesArtifactsGcsNewStyle}, fn.AddNest("Gcs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Gcs, actual.Gcs, dcl.Info{ObjectFunction: compareGuestPolicyRecipesArtifactsGcsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Gcs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowInsecure, actual.AllowInsecure, dcl.Info{}, fn.AddNest("AllowInsecure")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowInsecure, actual.AllowInsecure, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowInsecure")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesArtifacts(c *Client, desired, actual *GuestPolicyRecipesArtifacts) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Id, actual.Id) && !dcl.IsZeroValue(desired.Id) {
-		c.Config.Logger.Infof("Diff in Id.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
-		return true
-	}
-	if compareGuestPolicyRecipesArtifactsRemote(c, desired.Remote, actual.Remote) && !dcl.IsZeroValue(desired.Remote) {
-		c.Config.Logger.Infof("Diff in Remote.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Remote), dcl.SprintResource(actual.Remote))
-		return true
-	}
-	if compareGuestPolicyRecipesArtifactsGcs(c, desired.Gcs, actual.Gcs) && !dcl.IsZeroValue(desired.Gcs) {
-		c.Config.Logger.Infof("Diff in Gcs.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Gcs), dcl.SprintResource(actual.Gcs))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.AllowInsecure, actual.AllowInsecure) && !dcl.IsZeroValue(desired.AllowInsecure) {
-		c.Config.Logger.Infof("Diff in AllowInsecure.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowInsecure), dcl.SprintResource(actual.AllowInsecure))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesArtifactsSlice(c *Client, desired, actual []GuestPolicyRecipesArtifacts) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesArtifacts, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesArtifacts(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifacts, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesArtifactsMap(c *Client, desired, actual map[string]GuestPolicyRecipesArtifacts) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesArtifacts, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifacts, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesArtifacts(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifacts, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesArtifactsRemoteNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4464,71 +3931,20 @@ func compareGuestPolicyRecipesArtifactsRemoteNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Uri, actual.Uri, dcl.Info{}, fn.AddNest("Uri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Uri, actual.Uri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Checksum, actual.Checksum, dcl.Info{}, fn.AddNest("Checksum")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Checksum, actual.Checksum, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Checksum")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesArtifactsRemote(c *Client, desired, actual *GuestPolicyRecipesArtifactsRemote) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Uri, actual.Uri) && !dcl.IsZeroValue(desired.Uri) {
-		c.Config.Logger.Infof("Diff in Uri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Uri), dcl.SprintResource(actual.Uri))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Checksum, actual.Checksum) && !dcl.IsZeroValue(desired.Checksum) {
-		c.Config.Logger.Infof("Diff in Checksum.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Checksum), dcl.SprintResource(actual.Checksum))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesArtifactsRemoteSlice(c *Client, desired, actual []GuestPolicyRecipesArtifactsRemote) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesArtifactsRemote, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesArtifactsRemote(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsRemote, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesArtifactsRemoteMap(c *Client, desired, actual map[string]GuestPolicyRecipesArtifactsRemote) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesArtifactsRemote, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsRemote, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesArtifactsRemote(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsRemote, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesArtifactsGcsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4551,82 +3967,27 @@ func compareGuestPolicyRecipesArtifactsGcsNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Bucket, actual.Bucket, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Bucket")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Bucket, actual.Bucket, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Bucket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Object, actual.Object, dcl.Info{}, fn.AddNest("Object")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Object, actual.Object, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Object")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Generation, actual.Generation, dcl.Info{}, fn.AddNest("Generation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Generation, actual.Generation, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Generation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesArtifactsGcs(c *Client, desired, actual *GuestPolicyRecipesArtifactsGcs) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.NameToSelfLink(desired.Bucket, actual.Bucket) && !dcl.IsZeroValue(desired.Bucket) {
-		c.Config.Logger.Infof("Diff in Bucket.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bucket), dcl.SprintResource(actual.Bucket))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Object, actual.Object) && !dcl.IsZeroValue(desired.Object) {
-		c.Config.Logger.Infof("Diff in Object.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Object), dcl.SprintResource(actual.Object))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Generation, actual.Generation) && !dcl.IsZeroValue(desired.Generation) {
-		c.Config.Logger.Infof("Diff in Generation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Generation), dcl.SprintResource(actual.Generation))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesArtifactsGcsSlice(c *Client, desired, actual []GuestPolicyRecipesArtifactsGcs) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesArtifactsGcs, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesArtifactsGcs(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsGcs, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesArtifactsGcsMap(c *Client, desired, actual map[string]GuestPolicyRecipesArtifactsGcs) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesArtifactsGcs, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsGcs, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesArtifactsGcs(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesArtifactsGcs, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesInstallStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4649,126 +4010,55 @@ func compareGuestPolicyRecipesInstallStepsNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.FileCopy, actual.FileCopy, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsFileCopyNewStyle}, fn.AddNest("FileCopy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileCopy, actual.FileCopy, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsFileCopyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileCopy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ArchiveExtraction, actual.ArchiveExtraction, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsArchiveExtractionNewStyle}, fn.AddNest("ArchiveExtraction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArchiveExtraction, actual.ArchiveExtraction, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsArchiveExtractionNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveExtraction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MsiInstallation, actual.MsiInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsMsiInstallationNewStyle}, fn.AddNest("MsiInstallation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MsiInstallation, actual.MsiInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsMsiInstallationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MsiInstallation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DpkgInstallation, actual.DpkgInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsDpkgInstallationNewStyle}, fn.AddNest("DpkgInstallation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DpkgInstallation, actual.DpkgInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsDpkgInstallationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DpkgInstallation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RpmInstallation, actual.RpmInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsRpmInstallationNewStyle}, fn.AddNest("RpmInstallation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RpmInstallation, actual.RpmInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsRpmInstallationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RpmInstallation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FileExec, actual.FileExec, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsFileExecNewStyle}, fn.AddNest("FileExec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileExec, actual.FileExec, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsFileExecNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileExec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ScriptRun, actual.ScriptRun, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsScriptRunNewStyle}, fn.AddNest("ScriptRun")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScriptRun, actual.ScriptRun, dcl.Info{ObjectFunction: compareGuestPolicyRecipesInstallStepsScriptRunNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScriptRun")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesInstallSteps(c *Client, desired, actual *GuestPolicyRecipesInstallSteps) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareGuestPolicyRecipesInstallStepsFileCopy(c, desired.FileCopy, actual.FileCopy) && !dcl.IsZeroValue(desired.FileCopy) {
-		c.Config.Logger.Infof("Diff in FileCopy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileCopy), dcl.SprintResource(actual.FileCopy))
-		return true
-	}
-	if compareGuestPolicyRecipesInstallStepsArchiveExtraction(c, desired.ArchiveExtraction, actual.ArchiveExtraction) && !dcl.IsZeroValue(desired.ArchiveExtraction) {
-		c.Config.Logger.Infof("Diff in ArchiveExtraction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveExtraction), dcl.SprintResource(actual.ArchiveExtraction))
-		return true
-	}
-	if compareGuestPolicyRecipesInstallStepsMsiInstallation(c, desired.MsiInstallation, actual.MsiInstallation) && !dcl.IsZeroValue(desired.MsiInstallation) {
-		c.Config.Logger.Infof("Diff in MsiInstallation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MsiInstallation), dcl.SprintResource(actual.MsiInstallation))
-		return true
-	}
-	if compareGuestPolicyRecipesInstallStepsDpkgInstallation(c, desired.DpkgInstallation, actual.DpkgInstallation) && !dcl.IsZeroValue(desired.DpkgInstallation) {
-		c.Config.Logger.Infof("Diff in DpkgInstallation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DpkgInstallation), dcl.SprintResource(actual.DpkgInstallation))
-		return true
-	}
-	if compareGuestPolicyRecipesInstallStepsRpmInstallation(c, desired.RpmInstallation, actual.RpmInstallation) && !dcl.IsZeroValue(desired.RpmInstallation) {
-		c.Config.Logger.Infof("Diff in RpmInstallation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RpmInstallation), dcl.SprintResource(actual.RpmInstallation))
-		return true
-	}
-	if compareGuestPolicyRecipesInstallStepsFileExec(c, desired.FileExec, actual.FileExec) && !dcl.IsZeroValue(desired.FileExec) {
-		c.Config.Logger.Infof("Diff in FileExec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileExec), dcl.SprintResource(actual.FileExec))
-		return true
-	}
-	if compareGuestPolicyRecipesInstallStepsScriptRun(c, desired.ScriptRun, actual.ScriptRun) && !dcl.IsZeroValue(desired.ScriptRun) {
-		c.Config.Logger.Infof("Diff in ScriptRun.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptRun), dcl.SprintResource(actual.ScriptRun))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsSlice(c *Client, desired, actual []GuestPolicyRecipesInstallSteps) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallSteps, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesInstallSteps(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallSteps, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsMap(c *Client, desired, actual map[string]GuestPolicyRecipesInstallSteps) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallSteps, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallSteps, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesInstallSteps(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallSteps, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesInstallStepsFileCopyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4791,93 +4081,34 @@ func compareGuestPolicyRecipesInstallStepsFileCopyNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Overwrite, actual.Overwrite, dcl.Info{}, fn.AddNest("Overwrite")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Overwrite, actual.Overwrite, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Overwrite")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Permissions, actual.Permissions, dcl.Info{}, fn.AddNest("Permissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permissions, actual.Permissions, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesInstallStepsFileCopy(c *Client, desired, actual *GuestPolicyRecipesInstallStepsFileCopy) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Destination, actual.Destination) && !dcl.IsZeroValue(desired.Destination) {
-		c.Config.Logger.Infof("Diff in Destination.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destination), dcl.SprintResource(actual.Destination))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Overwrite, actual.Overwrite) && !dcl.IsZeroValue(desired.Overwrite) {
-		c.Config.Logger.Infof("Diff in Overwrite.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Overwrite), dcl.SprintResource(actual.Overwrite))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Permissions, actual.Permissions) && !dcl.IsZeroValue(desired.Permissions) {
-		c.Config.Logger.Infof("Diff in Permissions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Permissions), dcl.SprintResource(actual.Permissions))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, desired, actual []GuestPolicyRecipesInstallStepsFileCopy) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsFileCopy, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesInstallStepsFileCopy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileCopy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsFileCopyMap(c *Client, desired, actual map[string]GuestPolicyRecipesInstallStepsFileCopy) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsFileCopy, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileCopy, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesInstallStepsFileCopy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileCopy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesInstallStepsArchiveExtractionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4900,82 +4131,27 @@ func compareGuestPolicyRecipesInstallStepsArchiveExtractionNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, desired, actual *GuestPolicyRecipesInstallStepsArchiveExtraction) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Destination, actual.Destination) && !dcl.IsZeroValue(desired.Destination) {
-		c.Config.Logger.Infof("Diff in Destination.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destination), dcl.SprintResource(actual.Destination))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Client, desired, actual []GuestPolicyRecipesInstallStepsArchiveExtraction) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsArchiveExtraction, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesInstallStepsArchiveExtraction(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsArchiveExtraction, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsArchiveExtractionMap(c *Client, desired, actual map[string]GuestPolicyRecipesInstallStepsArchiveExtraction) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsArchiveExtraction, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsArchiveExtraction, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesInstallStepsArchiveExtraction(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsArchiveExtraction, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesInstallStepsMsiInstallationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4998,82 +4174,27 @@ func compareGuestPolicyRecipesInstallStepsMsiInstallationNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Flags, actual.Flags, dcl.Info{}, fn.AddNest("Flags")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Flags, actual.Flags, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Flags")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, desired, actual *GuestPolicyRecipesInstallStepsMsiInstallation) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Flags, actual.Flags) && !dcl.IsZeroValue(desired.Flags) {
-		c.Config.Logger.Infof("Diff in Flags.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Flags), dcl.SprintResource(actual.Flags))
-		return true
-	}
-	if !dcl.IntSliceEquals(desired.AllowedExitCodes, actual.AllowedExitCodes) && !dcl.IsZeroValue(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("Diff in AllowedExitCodes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client, desired, actual []GuestPolicyRecipesInstallStepsMsiInstallation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsMsiInstallation, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesInstallStepsMsiInstallation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsMsiInstallation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsMsiInstallationMap(c *Client, desired, actual map[string]GuestPolicyRecipesInstallStepsMsiInstallation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsMsiInstallation, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsMsiInstallation, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesInstallStepsMsiInstallation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsMsiInstallation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesInstallStepsDpkgInstallationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5096,60 +4217,13 @@ func compareGuestPolicyRecipesInstallStepsDpkgInstallationNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, desired, actual *GuestPolicyRecipesInstallStepsDpkgInstallation) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Client, desired, actual []GuestPolicyRecipesInstallStepsDpkgInstallation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsDpkgInstallation, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesInstallStepsDpkgInstallation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsDpkgInstallation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsDpkgInstallationMap(c *Client, desired, actual map[string]GuestPolicyRecipesInstallStepsDpkgInstallation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsDpkgInstallation, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsDpkgInstallation, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesInstallStepsDpkgInstallation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsDpkgInstallation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesInstallStepsRpmInstallationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5172,60 +4246,13 @@ func compareGuestPolicyRecipesInstallStepsRpmInstallationNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, desired, actual *GuestPolicyRecipesInstallStepsRpmInstallation) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client, desired, actual []GuestPolicyRecipesInstallStepsRpmInstallation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsRpmInstallation, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesInstallStepsRpmInstallation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsRpmInstallation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsRpmInstallationMap(c *Client, desired, actual map[string]GuestPolicyRecipesInstallStepsRpmInstallation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsRpmInstallation, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsRpmInstallation, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesInstallStepsRpmInstallation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsRpmInstallation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesInstallStepsFileExecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5248,93 +4275,34 @@ func compareGuestPolicyRecipesInstallStepsFileExecNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LocalPath, actual.LocalPath, dcl.Info{}, fn.AddNest("LocalPath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalPath, actual.LocalPath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalPath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesInstallStepsFileExec(c *Client, desired, actual *GuestPolicyRecipesInstallStepsFileExec) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.LocalPath, actual.LocalPath) && !dcl.IsZeroValue(desired.LocalPath) {
-		c.Config.Logger.Infof("Diff in LocalPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalPath), dcl.SprintResource(actual.LocalPath))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if !dcl.IntSliceEquals(desired.AllowedExitCodes, actual.AllowedExitCodes) && !dcl.IsZeroValue(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("Diff in AllowedExitCodes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, desired, actual []GuestPolicyRecipesInstallStepsFileExec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsFileExec, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesInstallStepsFileExec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileExec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsFileExecMap(c *Client, desired, actual map[string]GuestPolicyRecipesInstallStepsFileExec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsFileExec, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileExec, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesInstallStepsFileExec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsFileExec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesInstallStepsScriptRunNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5357,82 +4325,27 @@ func compareGuestPolicyRecipesInstallStepsScriptRunNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Script, actual.Script, dcl.Info{}, fn.AddNest("Script")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Script, actual.Script, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Script")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Interpreter, actual.Interpreter, dcl.Info{Type: "EnumType"}, fn.AddNest("Interpreter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Interpreter, actual.Interpreter, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Interpreter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesInstallStepsScriptRun(c *Client, desired, actual *GuestPolicyRecipesInstallStepsScriptRun) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Script, actual.Script) && !dcl.IsZeroValue(desired.Script) {
-		c.Config.Logger.Infof("Diff in Script.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Script), dcl.SprintResource(actual.Script))
-		return true
-	}
-	if !dcl.IntSliceEquals(desired.AllowedExitCodes, actual.AllowedExitCodes) && !dcl.IsZeroValue(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("Diff in AllowedExitCodes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Interpreter, actual.Interpreter) && !dcl.IsZeroValue(desired.Interpreter) {
-		c.Config.Logger.Infof("Diff in Interpreter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Interpreter), dcl.SprintResource(actual.Interpreter))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, desired, actual []GuestPolicyRecipesInstallStepsScriptRun) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsScriptRun, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesInstallStepsScriptRun(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsScriptRun, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsScriptRunMap(c *Client, desired, actual map[string]GuestPolicyRecipesInstallStepsScriptRun) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsScriptRun, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsScriptRun, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesInstallStepsScriptRun(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsScriptRun, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesUpdateStepsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5455,126 +4368,55 @@ func compareGuestPolicyRecipesUpdateStepsNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.FileCopy, actual.FileCopy, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsFileCopyNewStyle}, fn.AddNest("FileCopy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileCopy, actual.FileCopy, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsFileCopyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileCopy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ArchiveExtraction, actual.ArchiveExtraction, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsArchiveExtractionNewStyle}, fn.AddNest("ArchiveExtraction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArchiveExtraction, actual.ArchiveExtraction, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsArchiveExtractionNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveExtraction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MsiInstallation, actual.MsiInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsMsiInstallationNewStyle}, fn.AddNest("MsiInstallation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MsiInstallation, actual.MsiInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsMsiInstallationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MsiInstallation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DpkgInstallation, actual.DpkgInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsDpkgInstallationNewStyle}, fn.AddNest("DpkgInstallation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DpkgInstallation, actual.DpkgInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsDpkgInstallationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DpkgInstallation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RpmInstallation, actual.RpmInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsRpmInstallationNewStyle}, fn.AddNest("RpmInstallation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RpmInstallation, actual.RpmInstallation, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsRpmInstallationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RpmInstallation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FileExec, actual.FileExec, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsFileExecNewStyle}, fn.AddNest("FileExec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileExec, actual.FileExec, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsFileExecNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileExec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ScriptRun, actual.ScriptRun, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsScriptRunNewStyle}, fn.AddNest("ScriptRun")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScriptRun, actual.ScriptRun, dcl.Info{ObjectFunction: compareGuestPolicyRecipesUpdateStepsScriptRunNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScriptRun")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesUpdateSteps(c *Client, desired, actual *GuestPolicyRecipesUpdateSteps) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareGuestPolicyRecipesUpdateStepsFileCopy(c, desired.FileCopy, actual.FileCopy) && !dcl.IsZeroValue(desired.FileCopy) {
-		c.Config.Logger.Infof("Diff in FileCopy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileCopy), dcl.SprintResource(actual.FileCopy))
-		return true
-	}
-	if compareGuestPolicyRecipesUpdateStepsArchiveExtraction(c, desired.ArchiveExtraction, actual.ArchiveExtraction) && !dcl.IsZeroValue(desired.ArchiveExtraction) {
-		c.Config.Logger.Infof("Diff in ArchiveExtraction.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveExtraction), dcl.SprintResource(actual.ArchiveExtraction))
-		return true
-	}
-	if compareGuestPolicyRecipesUpdateStepsMsiInstallation(c, desired.MsiInstallation, actual.MsiInstallation) && !dcl.IsZeroValue(desired.MsiInstallation) {
-		c.Config.Logger.Infof("Diff in MsiInstallation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MsiInstallation), dcl.SprintResource(actual.MsiInstallation))
-		return true
-	}
-	if compareGuestPolicyRecipesUpdateStepsDpkgInstallation(c, desired.DpkgInstallation, actual.DpkgInstallation) && !dcl.IsZeroValue(desired.DpkgInstallation) {
-		c.Config.Logger.Infof("Diff in DpkgInstallation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DpkgInstallation), dcl.SprintResource(actual.DpkgInstallation))
-		return true
-	}
-	if compareGuestPolicyRecipesUpdateStepsRpmInstallation(c, desired.RpmInstallation, actual.RpmInstallation) && !dcl.IsZeroValue(desired.RpmInstallation) {
-		c.Config.Logger.Infof("Diff in RpmInstallation.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RpmInstallation), dcl.SprintResource(actual.RpmInstallation))
-		return true
-	}
-	if compareGuestPolicyRecipesUpdateStepsFileExec(c, desired.FileExec, actual.FileExec) && !dcl.IsZeroValue(desired.FileExec) {
-		c.Config.Logger.Infof("Diff in FileExec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileExec), dcl.SprintResource(actual.FileExec))
-		return true
-	}
-	if compareGuestPolicyRecipesUpdateStepsScriptRun(c, desired.ScriptRun, actual.ScriptRun) && !dcl.IsZeroValue(desired.ScriptRun) {
-		c.Config.Logger.Infof("Diff in ScriptRun.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptRun), dcl.SprintResource(actual.ScriptRun))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsSlice(c *Client, desired, actual []GuestPolicyRecipesUpdateSteps) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateSteps, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesUpdateSteps(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateSteps, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsMap(c *Client, desired, actual map[string]GuestPolicyRecipesUpdateSteps) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateSteps, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateSteps, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesUpdateSteps(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateSteps, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesUpdateStepsFileCopyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5597,93 +4439,34 @@ func compareGuestPolicyRecipesUpdateStepsFileCopyNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Overwrite, actual.Overwrite, dcl.Info{}, fn.AddNest("Overwrite")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Overwrite, actual.Overwrite, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Overwrite")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Permissions, actual.Permissions, dcl.Info{}, fn.AddNest("Permissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permissions, actual.Permissions, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesUpdateStepsFileCopy(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsFileCopy) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Destination, actual.Destination) && !dcl.IsZeroValue(desired.Destination) {
-		c.Config.Logger.Infof("Diff in Destination.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destination), dcl.SprintResource(actual.Destination))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Overwrite, actual.Overwrite) && !dcl.IsZeroValue(desired.Overwrite) {
-		c.Config.Logger.Infof("Diff in Overwrite.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Overwrite), dcl.SprintResource(actual.Overwrite))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Permissions, actual.Permissions) && !dcl.IsZeroValue(desired.Permissions) {
-		c.Config.Logger.Infof("Diff in Permissions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Permissions), dcl.SprintResource(actual.Permissions))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, desired, actual []GuestPolicyRecipesUpdateStepsFileCopy) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsFileCopy, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesUpdateStepsFileCopy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileCopy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsFileCopyMap(c *Client, desired, actual map[string]GuestPolicyRecipesUpdateStepsFileCopy) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsFileCopy, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileCopy, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesUpdateStepsFileCopy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileCopy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesUpdateStepsArchiveExtractionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5706,82 +4489,27 @@ func compareGuestPolicyRecipesUpdateStepsArchiveExtractionNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsArchiveExtraction) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Destination, actual.Destination) && !dcl.IsZeroValue(desired.Destination) {
-		c.Config.Logger.Infof("Diff in Destination.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Destination), dcl.SprintResource(actual.Destination))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Client, desired, actual []GuestPolicyRecipesUpdateStepsArchiveExtraction) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsArchiveExtraction, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesUpdateStepsArchiveExtraction(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsArchiveExtraction, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsArchiveExtractionMap(c *Client, desired, actual map[string]GuestPolicyRecipesUpdateStepsArchiveExtraction) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsArchiveExtraction, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsArchiveExtraction, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesUpdateStepsArchiveExtraction(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsArchiveExtraction, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesUpdateStepsMsiInstallationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5804,82 +4532,27 @@ func compareGuestPolicyRecipesUpdateStepsMsiInstallationNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Flags, actual.Flags, dcl.Info{}, fn.AddNest("Flags")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Flags, actual.Flags, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Flags")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsMsiInstallation) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Flags, actual.Flags) && !dcl.IsZeroValue(desired.Flags) {
-		c.Config.Logger.Infof("Diff in Flags.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Flags), dcl.SprintResource(actual.Flags))
-		return true
-	}
-	if !dcl.IntSliceEquals(desired.AllowedExitCodes, actual.AllowedExitCodes) && !dcl.IsZeroValue(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("Diff in AllowedExitCodes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client, desired, actual []GuestPolicyRecipesUpdateStepsMsiInstallation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsMsiInstallation, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesUpdateStepsMsiInstallation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsMsiInstallation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsMsiInstallationMap(c *Client, desired, actual map[string]GuestPolicyRecipesUpdateStepsMsiInstallation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsMsiInstallation, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsMsiInstallation, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesUpdateStepsMsiInstallation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsMsiInstallation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesUpdateStepsDpkgInstallationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5902,60 +4575,13 @@ func compareGuestPolicyRecipesUpdateStepsDpkgInstallationNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsDpkgInstallation) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client, desired, actual []GuestPolicyRecipesUpdateStepsDpkgInstallation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsDpkgInstallation, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesUpdateStepsDpkgInstallation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsDpkgInstallation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsDpkgInstallationMap(c *Client, desired, actual map[string]GuestPolicyRecipesUpdateStepsDpkgInstallation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsDpkgInstallation, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsDpkgInstallation, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesUpdateStepsDpkgInstallation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsDpkgInstallation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesUpdateStepsRpmInstallationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5978,60 +4604,13 @@ func compareGuestPolicyRecipesUpdateStepsRpmInstallationNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsRpmInstallation) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client, desired, actual []GuestPolicyRecipesUpdateStepsRpmInstallation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsRpmInstallation, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesUpdateStepsRpmInstallation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsRpmInstallation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsRpmInstallationMap(c *Client, desired, actual map[string]GuestPolicyRecipesUpdateStepsRpmInstallation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsRpmInstallation, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsRpmInstallation, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesUpdateStepsRpmInstallation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsRpmInstallation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesUpdateStepsFileExecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6054,93 +4633,34 @@ func compareGuestPolicyRecipesUpdateStepsFileExecNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArtifactId, actual.ArtifactId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArtifactId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LocalPath, actual.LocalPath, dcl.Info{}, fn.AddNest("LocalPath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalPath, actual.LocalPath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalPath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesUpdateStepsFileExec(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsFileExec) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ArtifactId, actual.ArtifactId) && !dcl.IsZeroValue(desired.ArtifactId) {
-		c.Config.Logger.Infof("Diff in ArtifactId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArtifactId), dcl.SprintResource(actual.ArtifactId))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.LocalPath, actual.LocalPath) && !dcl.IsZeroValue(desired.LocalPath) {
-		c.Config.Logger.Infof("Diff in LocalPath.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalPath), dcl.SprintResource(actual.LocalPath))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if !dcl.IntSliceEquals(desired.AllowedExitCodes, actual.AllowedExitCodes) && !dcl.IsZeroValue(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("Diff in AllowedExitCodes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, desired, actual []GuestPolicyRecipesUpdateStepsFileExec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsFileExec, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesUpdateStepsFileExec(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileExec, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsFileExecMap(c *Client, desired, actual map[string]GuestPolicyRecipesUpdateStepsFileExec) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsFileExec, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileExec, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesUpdateStepsFileExec(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsFileExec, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareGuestPolicyRecipesUpdateStepsScriptRunNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6163,226 +4683,27 @@ func compareGuestPolicyRecipesUpdateStepsScriptRunNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Script, actual.Script, dcl.Info{}, fn.AddNest("Script")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Script, actual.Script, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Script")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowedExitCodes, actual.AllowedExitCodes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowedExitCodes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Interpreter, actual.Interpreter, dcl.Info{Type: "EnumType"}, fn.AddNest("Interpreter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Interpreter, actual.Interpreter, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Interpreter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareGuestPolicyRecipesUpdateStepsScriptRun(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsScriptRun) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Script, actual.Script) && !dcl.IsZeroValue(desired.Script) {
-		c.Config.Logger.Infof("Diff in Script.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Script), dcl.SprintResource(actual.Script))
-		return true
-	}
-	if !dcl.IntSliceEquals(desired.AllowedExitCodes, actual.AllowedExitCodes) && !dcl.IsZeroValue(desired.AllowedExitCodes) {
-		c.Config.Logger.Infof("Diff in AllowedExitCodes.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedExitCodes), dcl.SprintResource(actual.AllowedExitCodes))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Interpreter, actual.Interpreter) && !dcl.IsZeroValue(desired.Interpreter) {
-		c.Config.Logger.Infof("Diff in Interpreter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Interpreter), dcl.SprintResource(actual.Interpreter))
-		return true
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsScriptRunSlice(c *Client, desired, actual []GuestPolicyRecipesUpdateStepsScriptRun) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsScriptRun, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesUpdateStepsScriptRun(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsScriptRun, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsScriptRunMap(c *Client, desired, actual map[string]GuestPolicyRecipesUpdateStepsScriptRun) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsScriptRun, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsScriptRun, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareGuestPolicyRecipesUpdateStepsScriptRun(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsScriptRun, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyPackagesDesiredStateEnumSlice(c *Client, desired, actual []GuestPolicyPackagesDesiredStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackagesDesiredStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyPackagesDesiredStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackagesDesiredStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyPackagesDesiredStateEnum(c *Client, desired, actual *GuestPolicyPackagesDesiredStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareGuestPolicyPackagesManagerEnumSlice(c *Client, desired, actual []GuestPolicyPackagesManagerEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackagesManagerEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyPackagesManagerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackagesManagerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyPackagesManagerEnum(c *Client, desired, actual *GuestPolicyPackagesManagerEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareGuestPolicyPackageRepositoriesAptArchiveTypeEnumSlice(c *Client, desired, actual []GuestPolicyPackageRepositoriesAptArchiveTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyPackageRepositoriesAptArchiveTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyPackageRepositoriesAptArchiveTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyPackageRepositoriesAptArchiveTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyPackageRepositoriesAptArchiveTypeEnum(c *Client, desired, actual *GuestPolicyPackageRepositoriesAptArchiveTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumSlice(c *Client, desired, actual []GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum(c *Client, desired, actual *GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumSlice(c *Client, desired, actual []GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesInstallStepsScriptRunInterpreterEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesInstallStepsScriptRunInterpreterEnum(c *Client, desired, actual *GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumSlice(c *Client, desired, actual []GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumSlice(c *Client, desired, actual []GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum(c *Client, desired, actual *GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareGuestPolicyRecipesDesiredStateEnumSlice(c *Client, desired, actual []GuestPolicyRecipesDesiredStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in GuestPolicyRecipesDesiredStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareGuestPolicyRecipesDesiredStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in GuestPolicyRecipesDesiredStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareGuestPolicyRecipesDesiredStateEnum(c *Client, desired, actual *GuestPolicyRecipesDesiredStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -6509,19 +4830,19 @@ func flattenGuestPolicy(c *Client, i interface{}) *GuestPolicy {
 		return nil
 	}
 
-	r := &GuestPolicy{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.CreateTime = dcl.FlattenString(m["createTime"])
-	r.UpdateTime = dcl.FlattenString(m["updateTime"])
-	r.Assignment = flattenGuestPolicyAssignment(c, m["assignment"])
-	r.Packages = flattenGuestPolicyPackagesSlice(c, m["packages"])
-	r.PackageRepositories = flattenGuestPolicyPackageRepositoriesSlice(c, m["packageRepositories"])
-	r.Recipes = flattenGuestPolicyRecipesSlice(c, m["recipes"])
-	r.Etag = dcl.FlattenString(m["etag"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &GuestPolicy{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.CreateTime = dcl.FlattenString(m["createTime"])
+	res.UpdateTime = dcl.FlattenString(m["updateTime"])
+	res.Assignment = flattenGuestPolicyAssignment(c, m["assignment"])
+	res.Packages = flattenGuestPolicyPackagesSlice(c, m["packages"])
+	res.PackageRepositories = flattenGuestPolicyPackageRepositoriesSlice(c, m["packageRepositories"])
+	res.Recipes = flattenGuestPolicyRecipesSlice(c, m["recipes"])
+	res.Etag = dcl.FlattenString(m["etag"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // expandGuestPolicyAssignmentMap expands the contents of GuestPolicyAssignment into a JSON
@@ -6608,10 +4929,11 @@ func flattenGuestPolicyAssignmentSlice(c *Client, i interface{}) []GuestPolicyAs
 // expandGuestPolicyAssignment expands an instance of GuestPolicyAssignment into a JSON
 // request object.
 func expandGuestPolicyAssignment(c *Client, f *GuestPolicyAssignment) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandGuestPolicyAssignmentGroupLabelsSlice(c, f.GroupLabels); err != nil {
 		return nil, fmt.Errorf("error expanding GroupLabels into groupLabels: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -6739,10 +5061,11 @@ func flattenGuestPolicyAssignmentGroupLabelsSlice(c *Client, i interface{}) []Gu
 // expandGuestPolicyAssignmentGroupLabels expands an instance of GuestPolicyAssignmentGroupLabels into a JSON
 // request object.
 func expandGuestPolicyAssignmentGroupLabels(c *Client, f *GuestPolicyAssignmentGroupLabels) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
@@ -6848,10 +5171,11 @@ func flattenGuestPolicyAssignmentOsTypesSlice(c *Client, i interface{}) []GuestP
 // expandGuestPolicyAssignmentOsTypes expands an instance of GuestPolicyAssignmentOsTypes into a JSON
 // request object.
 func expandGuestPolicyAssignmentOsTypes(c *Client, f *GuestPolicyAssignmentOsTypes) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.OsShortName; !dcl.IsEmptyValueIndirect(v) {
 		m["osShortName"] = v
 	}
@@ -6965,10 +5289,11 @@ func flattenGuestPolicyPackagesSlice(c *Client, i interface{}) []GuestPolicyPack
 // expandGuestPolicyPackages expands an instance of GuestPolicyPackages into a JSON
 // request object.
 func expandGuestPolicyPackages(c *Client, f *GuestPolicyPackages) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -7082,10 +5407,11 @@ func flattenGuestPolicyPackageRepositoriesSlice(c *Client, i interface{}) []Gues
 // expandGuestPolicyPackageRepositories expands an instance of GuestPolicyPackageRepositories into a JSON
 // request object.
 func expandGuestPolicyPackageRepositories(c *Client, f *GuestPolicyPackageRepositories) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandGuestPolicyPackageRepositoriesApt(c, f.Apt); err != nil {
 		return nil, fmt.Errorf("error expanding Apt into apt: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -7211,10 +5537,11 @@ func flattenGuestPolicyPackageRepositoriesAptSlice(c *Client, i interface{}) []G
 // expandGuestPolicyPackageRepositoriesApt expands an instance of GuestPolicyPackageRepositoriesApt into a JSON
 // request object.
 func expandGuestPolicyPackageRepositoriesApt(c *Client, f *GuestPolicyPackageRepositoriesApt) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ArchiveType; !dcl.IsEmptyValueIndirect(v) {
 		m["archiveType"] = v
 	}
@@ -7336,10 +5663,11 @@ func flattenGuestPolicyPackageRepositoriesYumSlice(c *Client, i interface{}) []G
 // expandGuestPolicyPackageRepositoriesYum expands an instance of GuestPolicyPackageRepositoriesYum into a JSON
 // request object.
 func expandGuestPolicyPackageRepositoriesYum(c *Client, f *GuestPolicyPackageRepositoriesYum) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
@@ -7457,10 +5785,11 @@ func flattenGuestPolicyPackageRepositoriesZypperSlice(c *Client, i interface{}) 
 // expandGuestPolicyPackageRepositoriesZypper expands an instance of GuestPolicyPackageRepositoriesZypper into a JSON
 // request object.
 func expandGuestPolicyPackageRepositoriesZypper(c *Client, f *GuestPolicyPackageRepositoriesZypper) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
@@ -7578,10 +5907,11 @@ func flattenGuestPolicyPackageRepositoriesGooSlice(c *Client, i interface{}) []G
 // expandGuestPolicyPackageRepositoriesGoo expands an instance of GuestPolicyPackageRepositoriesGoo into a JSON
 // request object.
 func expandGuestPolicyPackageRepositoriesGoo(c *Client, f *GuestPolicyPackageRepositoriesGoo) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -7691,10 +6021,11 @@ func flattenGuestPolicyRecipesSlice(c *Client, i interface{}) []GuestPolicyRecip
 // expandGuestPolicyRecipes expands an instance of GuestPolicyRecipes into a JSON
 // request object.
 func expandGuestPolicyRecipes(c *Client, f *GuestPolicyRecipes) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -7826,10 +6157,11 @@ func flattenGuestPolicyRecipesArtifactsSlice(c *Client, i interface{}) []GuestPo
 // expandGuestPolicyRecipesArtifacts expands an instance of GuestPolicyRecipesArtifacts into a JSON
 // request object.
 func expandGuestPolicyRecipesArtifacts(c *Client, f *GuestPolicyRecipesArtifacts) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
@@ -7951,10 +6283,11 @@ func flattenGuestPolicyRecipesArtifactsRemoteSlice(c *Client, i interface{}) []G
 // expandGuestPolicyRecipesArtifactsRemote expands an instance of GuestPolicyRecipesArtifactsRemote into a JSON
 // request object.
 func expandGuestPolicyRecipesArtifactsRemote(c *Client, f *GuestPolicyRecipesArtifactsRemote) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Uri; !dcl.IsEmptyValueIndirect(v) {
 		m["uri"] = v
 	}
@@ -8064,10 +6397,11 @@ func flattenGuestPolicyRecipesArtifactsGcsSlice(c *Client, i interface{}) []Gues
 // expandGuestPolicyRecipesArtifactsGcs expands an instance of GuestPolicyRecipesArtifactsGcs into a JSON
 // request object.
 func expandGuestPolicyRecipesArtifactsGcs(c *Client, f *GuestPolicyRecipesArtifactsGcs) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Bucket; !dcl.IsEmptyValueIndirect(v) {
 		m["bucket"] = v
 	}
@@ -8181,10 +6515,11 @@ func flattenGuestPolicyRecipesInstallStepsSlice(c *Client, i interface{}) []Gues
 // expandGuestPolicyRecipesInstallSteps expands an instance of GuestPolicyRecipesInstallSteps into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallSteps(c *Client, f *GuestPolicyRecipesInstallSteps) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandGuestPolicyRecipesInstallStepsFileCopy(c, f.FileCopy); err != nil {
 		return nil, fmt.Errorf("error expanding FileCopy into fileCopy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -8328,10 +6663,11 @@ func flattenGuestPolicyRecipesInstallStepsFileCopySlice(c *Client, i interface{}
 // expandGuestPolicyRecipesInstallStepsFileCopy expands an instance of GuestPolicyRecipesInstallStepsFileCopy into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsFileCopy(c *Client, f *GuestPolicyRecipesInstallStepsFileCopy) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -8449,10 +6785,11 @@ func flattenGuestPolicyRecipesInstallStepsArchiveExtractionSlice(c *Client, i in
 // expandGuestPolicyRecipesInstallStepsArchiveExtraction expands an instance of GuestPolicyRecipesInstallStepsArchiveExtraction into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, f *GuestPolicyRecipesInstallStepsArchiveExtraction) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -8566,10 +6903,11 @@ func flattenGuestPolicyRecipesInstallStepsMsiInstallationSlice(c *Client, i inte
 // expandGuestPolicyRecipesInstallStepsMsiInstallation expands an instance of GuestPolicyRecipesInstallStepsMsiInstallation into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, f *GuestPolicyRecipesInstallStepsMsiInstallation) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -8683,10 +7021,11 @@ func flattenGuestPolicyRecipesInstallStepsDpkgInstallationSlice(c *Client, i int
 // expandGuestPolicyRecipesInstallStepsDpkgInstallation expands an instance of GuestPolicyRecipesInstallStepsDpkgInstallation into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, f *GuestPolicyRecipesInstallStepsDpkgInstallation) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -8792,10 +7131,11 @@ func flattenGuestPolicyRecipesInstallStepsRpmInstallationSlice(c *Client, i inte
 // expandGuestPolicyRecipesInstallStepsRpmInstallation expands an instance of GuestPolicyRecipesInstallStepsRpmInstallation into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, f *GuestPolicyRecipesInstallStepsRpmInstallation) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -8901,10 +7241,11 @@ func flattenGuestPolicyRecipesInstallStepsFileExecSlice(c *Client, i interface{}
 // expandGuestPolicyRecipesInstallStepsFileExec expands an instance of GuestPolicyRecipesInstallStepsFileExec into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsFileExec(c *Client, f *GuestPolicyRecipesInstallStepsFileExec) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -9022,10 +7363,11 @@ func flattenGuestPolicyRecipesInstallStepsScriptRunSlice(c *Client, i interface{
 // expandGuestPolicyRecipesInstallStepsScriptRun expands an instance of GuestPolicyRecipesInstallStepsScriptRun into a JSON
 // request object.
 func expandGuestPolicyRecipesInstallStepsScriptRun(c *Client, f *GuestPolicyRecipesInstallStepsScriptRun) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Script; !dcl.IsEmptyValueIndirect(v) {
 		m["script"] = v
 	}
@@ -9139,10 +7481,11 @@ func flattenGuestPolicyRecipesUpdateStepsSlice(c *Client, i interface{}) []Guest
 // expandGuestPolicyRecipesUpdateSteps expands an instance of GuestPolicyRecipesUpdateSteps into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateSteps(c *Client, f *GuestPolicyRecipesUpdateSteps) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandGuestPolicyRecipesUpdateStepsFileCopy(c, f.FileCopy); err != nil {
 		return nil, fmt.Errorf("error expanding FileCopy into fileCopy: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -9286,10 +7629,11 @@ func flattenGuestPolicyRecipesUpdateStepsFileCopySlice(c *Client, i interface{})
 // expandGuestPolicyRecipesUpdateStepsFileCopy expands an instance of GuestPolicyRecipesUpdateStepsFileCopy into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsFileCopy(c *Client, f *GuestPolicyRecipesUpdateStepsFileCopy) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -9407,10 +7751,11 @@ func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionSlice(c *Client, i int
 // expandGuestPolicyRecipesUpdateStepsArchiveExtraction expands an instance of GuestPolicyRecipesUpdateStepsArchiveExtraction into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, f *GuestPolicyRecipesUpdateStepsArchiveExtraction) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -9524,10 +7869,11 @@ func flattenGuestPolicyRecipesUpdateStepsMsiInstallationSlice(c *Client, i inter
 // expandGuestPolicyRecipesUpdateStepsMsiInstallation expands an instance of GuestPolicyRecipesUpdateStepsMsiInstallation into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, f *GuestPolicyRecipesUpdateStepsMsiInstallation) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -9641,10 +7987,11 @@ func flattenGuestPolicyRecipesUpdateStepsDpkgInstallationSlice(c *Client, i inte
 // expandGuestPolicyRecipesUpdateStepsDpkgInstallation expands an instance of GuestPolicyRecipesUpdateStepsDpkgInstallation into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, f *GuestPolicyRecipesUpdateStepsDpkgInstallation) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -9750,10 +8097,11 @@ func flattenGuestPolicyRecipesUpdateStepsRpmInstallationSlice(c *Client, i inter
 // expandGuestPolicyRecipesUpdateStepsRpmInstallation expands an instance of GuestPolicyRecipesUpdateStepsRpmInstallation into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, f *GuestPolicyRecipesUpdateStepsRpmInstallation) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -9859,10 +8207,11 @@ func flattenGuestPolicyRecipesUpdateStepsFileExecSlice(c *Client, i interface{})
 // expandGuestPolicyRecipesUpdateStepsFileExec expands an instance of GuestPolicyRecipesUpdateStepsFileExec into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsFileExec(c *Client, f *GuestPolicyRecipesUpdateStepsFileExec) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ArtifactId; !dcl.IsEmptyValueIndirect(v) {
 		m["artifactId"] = v
 	}
@@ -9980,10 +8329,11 @@ func flattenGuestPolicyRecipesUpdateStepsScriptRunSlice(c *Client, i interface{}
 // expandGuestPolicyRecipesUpdateStepsScriptRun expands an instance of GuestPolicyRecipesUpdateStepsScriptRun into a JSON
 // request object.
 func expandGuestPolicyRecipesUpdateStepsScriptRun(c *Client, f *GuestPolicyRecipesUpdateStepsScriptRun) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Script; !dcl.IsEmptyValueIndirect(v) {
 		m["script"] = v
 	}
@@ -10292,5 +8642,36 @@ func (r *GuestPolicy) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToGuestPolicyDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]guestPolicyDiff, error) {
+	var diffs []guestPolicyDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := guestPolicyDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToguestPolicyApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToguestPolicyApiOperation(op string, opts ...dcl.ApplyOption) (guestPolicyApiOperation, error) {
+	switch op {
+
+	case "updateGuestPolicyUpdateGuestPolicyOperation":
+		return &updateGuestPolicyUpdateGuestPolicyOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

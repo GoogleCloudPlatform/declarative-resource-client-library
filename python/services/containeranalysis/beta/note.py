@@ -217,31 +217,6 @@ class Note(object):
 
         return stub.ListContaineranalysisBetaNote(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = note_pb2.ContaineranalysisBetaNote()
-        any_proto.Unpack(res_proto)
-
-        res = Note()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.short_description = Primitive.from_proto(res_proto.short_description)
-        res.long_description = Primitive.from_proto(res_proto.long_description)
-        res.related_url = NoteRelatedUrlArray.from_proto(res_proto.related_url)
-        res.expiration_time = Primitive.from_proto(res_proto.expiration_time)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.related_note_names = Primitive.from_proto(res_proto.related_note_names)
-        res.vulnerability = NoteVulnerability.from_proto(res_proto.vulnerability)
-        res.build = NoteBuild.from_proto(res_proto.build)
-        res.image = NoteImage.from_proto(res_proto.image)
-        res.package = NotePackage.from_proto(res_proto.package)
-        res.discovery = NoteDiscovery.from_proto(res_proto.discovery)
-        res.deployment = NoteDeployment.from_proto(res_proto.deployment)
-        res.attestation = NoteAttestation.from_proto(res_proto.attestation)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = note_pb2.ContaineranalysisBetaNote()
         if Primitive.to_proto(self.name):

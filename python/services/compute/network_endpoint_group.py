@@ -214,35 +214,6 @@ class NetworkEndpointGroup(object):
 
         return stub.ListComputeNetworkEndpointGroup(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = network_endpoint_group_pb2.ComputeNetworkEndpointGroup()
-        any_proto.Unpack(res_proto)
-
-        res = NetworkEndpointGroup()
-        res.id = Primitive.from_proto(res_proto.id)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.self_link_with_id = Primitive.from_proto(res_proto.self_link_with_id)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.network_endpoint_type = NetworkEndpointGroupNetworkEndpointTypeEnum.from_proto(
-            res_proto.network_endpoint_type
-        )
-        res.size = Primitive.from_proto(res_proto.size)
-        res.location = Primitive.from_proto(res_proto.location)
-        res.network = Primitive.from_proto(res_proto.network)
-        res.subnetwork = Primitive.from_proto(res_proto.subnetwork)
-        res.default_port = Primitive.from_proto(res_proto.default_port)
-        res.annotations = Primitive.from_proto(res_proto.annotations)
-        res.cloud_run = NetworkEndpointGroupCloudRun.from_proto(res_proto.cloud_run)
-        res.app_engine = NetworkEndpointGroupAppEngine.from_proto(res_proto.app_engine)
-        res.cloud_function = NetworkEndpointGroupCloudFunction.from_proto(
-            res_proto.cloud_function
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = network_endpoint_group_pb2.ComputeNetworkEndpointGroup()
         if Primitive.to_proto(self.name):

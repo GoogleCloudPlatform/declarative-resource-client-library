@@ -100,20 +100,6 @@ class FirewallRule(object):
 
         return stub.ListAppengineFirewallRule(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = firewall_rule_pb2.AppengineFirewallRule()
-        any_proto.Unpack(res_proto)
-
-        res = FirewallRule()
-        res.action = FirewallRuleActionEnum.from_proto(res_proto.action)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.priority = Primitive.from_proto(res_proto.priority)
-        res.source_range = Primitive.from_proto(res_proto.source_range)
-        res.app = Primitive.from_proto(res_proto.app)
-        return res
-
     def to_proto(self):
         resource = firewall_rule_pb2.AppengineFirewallRule()
         if FirewallRuleActionEnum.to_proto(self.action):

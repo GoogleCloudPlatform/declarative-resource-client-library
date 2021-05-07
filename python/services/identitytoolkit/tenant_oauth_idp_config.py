@@ -156,26 +156,6 @@ class TenantOAuthIdpConfig(object):
 
         return stub.ListIdentitytoolkitTenantOAuthIdpConfig(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = tenant_o_auth_idp_config_pb2.IdentitytoolkitTenantOAuthIdpConfig()
-        any_proto.Unpack(res_proto)
-
-        res = TenantOAuthIdpConfig()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.client_id = Primitive.from_proto(res_proto.client_id)
-        res.issuer = Primitive.from_proto(res_proto.issuer)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.enabled = Primitive.from_proto(res_proto.enabled)
-        res.client_secret = Primitive.from_proto(res_proto.client_secret)
-        res.response_type = TenantOAuthIdpConfigResponseType.from_proto(
-            res_proto.response_type
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        res.tenant = Primitive.from_proto(res_proto.tenant)
-        return res
-
     def to_proto(self):
         resource = tenant_o_auth_idp_config_pb2.IdentitytoolkitTenantOAuthIdpConfig()
         if Primitive.to_proto(self.name):

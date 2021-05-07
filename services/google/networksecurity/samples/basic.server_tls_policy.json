@@ -2,5 +2,19 @@
   "name": "{{policy}}",
   "project": "{{project}}",
   "location": "global",
-  "allowOpen": true
+  "allowOpen": true,
+  "mtlsPolicy": {
+    "clientValidationCa": [
+      {
+        "certificateProviderInstance": {
+          "pluginInstance": "google_cloud_private_spiffe"
+        }
+      }
+    ]
+  },
+  "serverCertificate": {
+    "certificateProviderInstance": {
+        "pluginInstance": "google_cloud_private_spiffe"
+    }
+  }
 }

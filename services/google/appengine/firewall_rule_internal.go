@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -450,53 +449,72 @@ func diffFirewallRule(c *Client, desired, actual *FirewallRule, opts ...dcl.Appl
 	}
 
 	var diffs []firewallRuleDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType"}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Action",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Priority, actual.Priority, dcl.Info{}, fn.AddNest("Priority")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Priority, actual.Priority, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Priority")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Priority",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceRange, actual.SourceRange, dcl.Info{}, fn.AddNest("SourceRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceRange, actual.SourceRange, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SourceRange",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.App, actual.App, dcl.Info{Type: "ReferenceType"}, fn.AddNest("App")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.App, actual.App, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("App")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, firewallRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "App",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFirewallRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -522,23 +540,6 @@ func diffFirewallRule(c *Client, desired, actual *FirewallRule, opts ...dcl.Appl
 	}
 
 	return deduped, nil
-}
-func compareFirewallRuleActionEnumSlice(c *Client, desired, actual []FirewallRuleActionEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FirewallRuleActionEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareFirewallRuleActionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FirewallRuleActionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFirewallRuleActionEnum(c *Client, desired, actual *FirewallRuleActionEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -641,14 +642,14 @@ func flattenFirewallRule(c *Client, i interface{}) *FirewallRule {
 		return nil
 	}
 
-	r := &FirewallRule{}
-	r.Action = flattenFirewallRuleActionEnum(m["action"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.Priority = dcl.FlattenInteger(m["priority"])
-	r.SourceRange = dcl.FlattenString(m["sourceRange"])
-	r.App = dcl.FlattenString(m["app"])
+	res := &FirewallRule{}
+	res.Action = flattenFirewallRuleActionEnum(m["action"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.Priority = dcl.FlattenInteger(m["priority"])
+	res.SourceRange = dcl.FlattenString(m["sourceRange"])
+	res.App = dcl.FlattenString(m["app"])
 
-	return r
+	return res
 }
 
 // flattenFirewallRuleActionEnumSlice flattens the contents of FirewallRuleActionEnum from a JSON
@@ -713,5 +714,36 @@ func (r *FirewallRule) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToFirewallRuleDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]firewallRuleDiff, error) {
+	var diffs []firewallRuleDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := firewallRuleDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTofirewallRuleApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTofirewallRuleApiOperation(op string, opts ...dcl.ApplyOption) (firewallRuleApiOperation, error) {
+	switch op {
+
+	case "updateFirewallRulePatchFirewallRuleOperation":
+		return &updateFirewallRulePatchFirewallRuleOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

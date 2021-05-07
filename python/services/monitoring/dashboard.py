@@ -136,22 +136,6 @@ class Dashboard(object):
 
         return stub.ListMonitoringDashboard(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = dashboard_pb2.MonitoringDashboard()
-        any_proto.Unpack(res_proto)
-
-        res = Dashboard()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.grid_layout = DashboardGridLayout.from_proto(res_proto.grid_layout)
-        res.mosaic_layout = DashboardMosaicLayout.from_proto(res_proto.mosaic_layout)
-        res.row_layout = DashboardRowLayout.from_proto(res_proto.row_layout)
-        res.column_layout = DashboardColumnLayout.from_proto(res_proto.column_layout)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = dashboard_pb2.MonitoringDashboard()
         if Primitive.to_proto(self.name):

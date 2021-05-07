@@ -114,22 +114,6 @@ class Reservation(object):
 
         return stub.ListBigqueryreservationReservation(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = reservation_pb2.BigqueryreservationReservation()
-        any_proto.Unpack(res_proto)
-
-        res = Reservation()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.slot_capacity = Primitive.from_proto(res_proto.slot_capacity)
-        res.ignore_idle_slots = Primitive.from_proto(res_proto.ignore_idle_slots)
-        res.creation_time = Primitive.from_proto(res_proto.creation_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = reservation_pb2.BigqueryreservationReservation()
         if Primitive.to_proto(self.name):

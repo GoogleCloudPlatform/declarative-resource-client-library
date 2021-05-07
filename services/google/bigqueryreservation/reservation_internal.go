@@ -407,12 +407,6 @@ func canonicalizeReservationDesiredState(rawDesired, rawInitial *Reservation, op
 	if dcl.BoolCanonicalize(rawDesired.IgnoreIdleSlots, rawInitial.IgnoreIdleSlots) {
 		rawDesired.IgnoreIdleSlots = rawInitial.IgnoreIdleSlots
 	}
-	if dcl.IsZeroValue(rawDesired.CreationTime) {
-		rawDesired.CreationTime = rawInitial.CreationTime
-	}
-	if dcl.IsZeroValue(rawDesired.UpdateTime) {
-		rawDesired.UpdateTime = rawInitial.UpdateTime
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
@@ -479,73 +473,98 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 	}
 
 	var diffs []reservationDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SlotCapacity, actual.SlotCapacity, dcl.Info{}, fn.AddNest("SlotCapacity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SlotCapacity, actual.SlotCapacity, dcl.Info{OperationSelector: dcl.TriggersOperation("updateReservationUpdateReservationOperation")}, fn.AddNest("SlotCapacity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{
-			UpdateOp: &updateReservationUpdateReservationOperation{}, Diffs: ds,
-			FieldName: "SlotCapacity",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreIdleSlots, actual.IgnoreIdleSlots, dcl.Info{}, fn.AddNest("IgnoreIdleSlots")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreIdleSlots, actual.IgnoreIdleSlots, dcl.Info{OperationSelector: dcl.TriggersOperation("updateReservationUpdateReservationOperation")}, fn.AddNest("IgnoreIdleSlots")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{
-			UpdateOp: &updateReservationUpdateReservationOperation{}, Diffs: ds,
-			FieldName: "IgnoreIdleSlots",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreationTime, actual.CreationTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreationTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTime, actual.CreationTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreationTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UpdateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -684,16 +703,16 @@ func flattenReservation(c *Client, i interface{}) *Reservation {
 		return nil
 	}
 
-	r := &Reservation{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.SlotCapacity = dcl.FlattenInteger(m["slotCapacity"])
-	r.IgnoreIdleSlots = dcl.FlattenBool(m["ignoreIdleSlots"])
-	r.CreationTime = dcl.FlattenString(m["creationTime"])
-	r.UpdateTime = dcl.FlattenString(m["updateTime"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Location = dcl.FlattenString(m["location"])
+	res := &Reservation{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.SlotCapacity = dcl.FlattenInteger(m["slotCapacity"])
+	res.IgnoreIdleSlots = dcl.FlattenBool(m["ignoreIdleSlots"])
+	res.CreationTime = dcl.FlattenString(m["creationTime"])
+	res.UpdateTime = dcl.FlattenString(m["updateTime"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Location = dcl.FlattenString(m["location"])
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -735,5 +754,36 @@ func (r *Reservation) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToReservationDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]reservationDiff, error) {
+	var diffs []reservationDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := reservationDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToreservationApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToreservationApiOperation(op string, opts ...dcl.ApplyOption) (reservationApiOperation, error) {
+	switch op {
+
+	case "updateReservationUpdateReservationOperation":
+		return &updateReservationUpdateReservationOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

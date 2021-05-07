@@ -428,66 +428,6 @@ class Instance(object):
 
         return stub.ListSqlBetaInstance(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = instance_pb2.SqlBetaInstance()
-        any_proto.Unpack(res_proto)
-
-        res = Instance()
-        res.backend_type = InstanceBackendTypeEnum.from_proto(res_proto.backend_type)
-        res.connection_name = Primitive.from_proto(res_proto.connection_name)
-        res.database_version = InstanceDatabaseVersionEnum.from_proto(
-            res_proto.database_version
-        )
-        res.etag = Primitive.from_proto(res_proto.etag)
-        res.gce_zone = Primitive.from_proto(res_proto.gce_zone)
-        res.instance_type = InstanceInstanceTypeEnum.from_proto(res_proto.instance_type)
-        res.master_instance_name = Primitive.from_proto(res_proto.master_instance_name)
-        res.max_disk_size = InstanceMaxDiskSize.from_proto(res_proto.max_disk_size)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.region = Primitive.from_proto(res_proto.region)
-        res.root_password = Primitive.from_proto(res_proto.root_password)
-        res.current_disk_size = InstanceCurrentDiskSize.from_proto(
-            res_proto.current_disk_size
-        )
-        res.disk_encryption_configuration = InstanceDiskEncryptionConfiguration.from_proto(
-            res_proto.disk_encryption_configuration
-        )
-        res.failover_replica = InstanceFailoverReplica.from_proto(
-            res_proto.failover_replica
-        )
-        res.ip_addresses = InstanceIPAddressesArray.from_proto(res_proto.ip_addresses)
-        res.master_instance = InstanceMasterInstance.from_proto(
-            res_proto.master_instance
-        )
-        res.replica_configuration = InstanceReplicaConfiguration.from_proto(
-            res_proto.replica_configuration
-        )
-        res.scheduled_maintenance = InstanceScheduledMaintenance.from_proto(
-            res_proto.scheduled_maintenance
-        )
-        res.settings = InstanceSettings.from_proto(res_proto.settings)
-        res.state = Primitive.from_proto(res_proto.state)
-        res.replica_instances = InstanceReplicaInstancesArray.from_proto(
-            res_proto.replica_instances
-        )
-        res.server_ca_cert = InstanceServerCaCert.from_proto(res_proto.server_ca_cert)
-        res.ipv6_address = Primitive.from_proto(res_proto.ipv6_address)
-        res.service_account_email_address = Primitive.from_proto(
-            res_proto.service_account_email_address
-        )
-        res.on_premises_configuration = InstanceOnPremisesConfiguration.from_proto(
-            res_proto.on_premises_configuration
-        )
-        res.suspension_reason = Primitive.from_proto(res_proto.suspension_reason)
-        res.disk_encryption_status = InstanceDiskEncryptionStatus.from_proto(
-            res_proto.disk_encryption_status
-        )
-        res.instance_uid = Primitive.from_proto(res_proto.instance_uid)
-        return res
-
     def to_proto(self):
         resource = instance_pb2.SqlBetaInstance()
         if InstanceBackendTypeEnum.to_proto(self.backend_type):

@@ -133,23 +133,6 @@ class NetworkEndpoint(object):
 
         return stub.ListComputeBetaNetworkEndpoint(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = network_endpoint_pb2.ComputeBetaNetworkEndpoint()
-        any_proto.Unpack(res_proto)
-
-        res = NetworkEndpoint()
-        res.port = Primitive.from_proto(res_proto.port)
-        res.ip_address = Primitive.from_proto(res_proto.ip_address)
-        res.fqdn = Primitive.from_proto(res_proto.fqdn)
-        res.instance = Primitive.from_proto(res_proto.instance)
-        res.annotations = Primitive.from_proto(res_proto.annotations)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        res.group = Primitive.from_proto(res_proto.group)
-        return res
-
     def to_proto(self):
         resource = network_endpoint_pb2.ComputeBetaNetworkEndpoint()
         if Primitive.to_proto(self.port):

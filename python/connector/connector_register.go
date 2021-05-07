@@ -22,6 +22,8 @@ import (
 
 	apigee_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee/connector"
 
+	apikeys_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apikeys/connector"
+
 	appengine_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/appengine/connector"
 
 	assuredworkloads_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/connector"
@@ -39,6 +41,8 @@ import (
 	cloudresourcemanager_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/connector"
 
 	cloudscheduler_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudscheduler/connector"
+
+	composer_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/composer/connector"
 
 	compute_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/services/redis"
 
@@ -88,6 +92,8 @@ import (
 
 	runtimeconfig_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/runtimeconfig/connector"
 
+	servicemanagement_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement/connector"
+
 	servicenetworking_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicenetworking/connector"
 
 	sourcerepo_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/sourcerepo/connector"
@@ -121,6 +127,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	apigee_connector.RegisterServers(grpcServer)
 
+	apikeys_connector.RegisterServers(grpcServer)
+
 	appengine_connector.RegisterServers(grpcServer)
 
 	assuredworkloads_connector.RegisterServers(grpcServer)
@@ -138,6 +146,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	cloudresourcemanager_connector.RegisterServers(grpcServer)
 
 	cloudscheduler_connector.RegisterServers(grpcServer)
+
+	composer_connector.RegisterServers(grpcServer)
 
 	compute_connector.RegisterServers(grpcServer)
 
@@ -186,6 +196,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	run_connector.RegisterServers(grpcServer)
 
 	runtimeconfig_connector.RegisterServers(grpcServer)
+
+	servicemanagement_connector.RegisterServers(grpcServer)
 
 	servicenetworking_connector.RegisterServers(grpcServer)
 

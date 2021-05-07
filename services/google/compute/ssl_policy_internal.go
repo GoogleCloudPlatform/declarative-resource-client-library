@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -450,12 +449,6 @@ func canonicalizeSslPolicyDesiredState(rawDesired, rawInitial *SslPolicy, opts .
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Id) {
-		rawDesired.Id = rawInitial.Id
-	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
-	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -468,14 +461,8 @@ func canonicalizeSslPolicyDesiredState(rawDesired, rawInitial *SslPolicy, opts .
 	if dcl.IsZeroValue(rawDesired.MinTlsVersion) {
 		rawDesired.MinTlsVersion = rawInitial.MinTlsVersion
 	}
-	if dcl.IsZeroValue(rawDesired.EnabledFeature) {
-		rawDesired.EnabledFeature = rawInitial.EnabledFeature
-	}
 	if dcl.IsZeroValue(rawDesired.CustomFeature) {
 		rawDesired.CustomFeature = rawInitial.CustomFeature
-	}
-	if dcl.IsZeroValue(rawDesired.Warning) {
-		rawDesired.Warning = rawInitial.Warning
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
@@ -595,7 +582,7 @@ func canonicalizeNewSslPolicyWarningSet(c *Client, des, nw []SslPolicyWarning) [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareSslPolicyWarning(c, &d, &n) {
+			if diffs, _ := compareSslPolicyWarningNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -618,7 +605,7 @@ func canonicalizeNewSslPolicyWarningSlice(c *Client, des, nw []SslPolicyWarning)
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []SslPolicyWarning
@@ -675,7 +662,7 @@ func canonicalizeNewSslPolicyWarningDataSet(c *Client, des, nw []SslPolicyWarnin
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareSslPolicyWarningData(c, &d, &n) {
+			if diffs, _ := compareSslPolicyWarningDataNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -698,7 +685,7 @@ func canonicalizeNewSslPolicyWarningDataSlice(c *Client, des, nw []SslPolicyWarn
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []SslPolicyWarningData
@@ -732,101 +719,137 @@ func diffSslPolicy(c *Client, desired, actual *SslPolicy, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []sslPolicyDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Id",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Profile, actual.Profile, dcl.Info{Type: "EnumType"}, fn.AddNest("Profile")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Profile, actual.Profile, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateSslPolicyPatchOperation")}, fn.AddNest("Profile")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{
-			UpdateOp: &updateSslPolicyPatchOperation{}, Diffs: ds,
-			FieldName: "Profile",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinTlsVersion, actual.MinTlsVersion, dcl.Info{Type: "EnumType"}, fn.AddNest("MinTlsVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinTlsVersion, actual.MinTlsVersion, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateSslPolicyPatchOperation")}, fn.AddNest("MinTlsVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{
-			UpdateOp: &updateSslPolicyPatchOperation{}, Diffs: ds,
-			FieldName: "MinTlsVersion",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnabledFeature, actual.EnabledFeature, dcl.Info{OutputOnly: true, Type: "Set"}, fn.AddNest("EnabledFeature")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnabledFeature, actual.EnabledFeature, dcl.Info{OutputOnly: true, Type: "Set", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnabledFeature")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "EnabledFeature",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CustomFeature, actual.CustomFeature, dcl.Info{Type: "Set"}, fn.AddNest("CustomFeature")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CustomFeature, actual.CustomFeature, dcl.Info{Type: "Set", OperationSelector: dcl.TriggersOperation("updateSslPolicyPatchOperation")}, fn.AddNest("CustomFeature")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{
-			UpdateOp: &updateSslPolicyPatchOperation{}, Diffs: ds,
-			FieldName: "CustomFeature",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareSslPolicyWarningNewStyle}, fn.AddNest("Warning")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareSslPolicyWarningNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Warning")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Warning",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -873,82 +896,27 @@ func compareSslPolicyWarningNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Data, actual.Data, dcl.Info{ObjectFunction: compareSslPolicyWarningDataNewStyle}, fn.AddNest("Data")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Data, actual.Data, dcl.Info{ObjectFunction: compareSslPolicyWarningDataNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Data")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareSslPolicyWarning(c *Client, desired, actual *SslPolicyWarning) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Code, actual.Code) && !dcl.IsZeroValue(desired.Code) {
-		c.Config.Logger.Infof("Diff in Code.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Code), dcl.SprintResource(actual.Code))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Message, actual.Message) && !dcl.IsZeroValue(desired.Message) {
-		c.Config.Logger.Infof("Diff in Message.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Message), dcl.SprintResource(actual.Message))
-		return true
-	}
-	if compareSslPolicyWarningDataSlice(c, desired.Data, actual.Data) && !dcl.IsZeroValue(desired.Data) {
-		c.Config.Logger.Infof("Diff in Data.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Data), dcl.SprintResource(actual.Data))
-		return true
-	}
-	return false
-}
-
-func compareSslPolicyWarningSlice(c *Client, desired, actual []SslPolicyWarning) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in SslPolicyWarning, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareSslPolicyWarning(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SslPolicyWarning, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareSslPolicyWarningMap(c *Client, desired, actual map[string]SslPolicyWarning) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in SslPolicyWarning, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in SslPolicyWarning, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareSslPolicyWarning(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SslPolicyWarning, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareSslPolicyWarningDataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -971,107 +939,20 @@ func compareSslPolicyWarningDataNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareSslPolicyWarningData(c *Client, desired, actual *SslPolicyWarningData) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Key, actual.Key) && !dcl.IsZeroValue(desired.Key) {
-		c.Config.Logger.Infof("Diff in Key.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Key), dcl.SprintResource(actual.Key))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-
-func compareSslPolicyWarningDataSlice(c *Client, desired, actual []SslPolicyWarningData) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in SslPolicyWarningData, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareSslPolicyWarningData(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SslPolicyWarningData, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareSslPolicyWarningDataMap(c *Client, desired, actual map[string]SslPolicyWarningData) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in SslPolicyWarningData, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in SslPolicyWarningData, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareSslPolicyWarningData(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in SslPolicyWarningData, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareSslPolicyProfileEnumSlice(c *Client, desired, actual []SslPolicyProfileEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in SslPolicyProfileEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareSslPolicyProfileEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SslPolicyProfileEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareSslPolicyProfileEnum(c *Client, desired, actual *SslPolicyProfileEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareSslPolicyMinTlsVersionEnumSlice(c *Client, desired, actual []SslPolicyMinTlsVersionEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in SslPolicyMinTlsVersionEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareSslPolicyMinTlsVersionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in SslPolicyMinTlsVersionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareSslPolicyMinTlsVersionEnum(c *Client, desired, actual *SslPolicyMinTlsVersionEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1192,27 +1073,27 @@ func flattenSslPolicy(c *Client, i interface{}) *SslPolicy {
 		return nil
 	}
 
-	r := &SslPolicy{}
-	r.Id = dcl.FlattenInteger(m["id"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.Profile = flattenSslPolicyProfileEnum(m["profile"])
+	res := &SslPolicy{}
+	res.Id = dcl.FlattenInteger(m["id"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.Profile = flattenSslPolicyProfileEnum(m["profile"])
 	if _, ok := m["profile"]; !ok {
 		c.Config.Logger.Info("Using default value for profile")
-		r.Profile = SslPolicyProfileEnumRef("COMPATIBLE")
+		res.Profile = SslPolicyProfileEnumRef("COMPATIBLE")
 	}
-	r.MinTlsVersion = flattenSslPolicyMinTlsVersionEnum(m["minTlsVersion"])
+	res.MinTlsVersion = flattenSslPolicyMinTlsVersionEnum(m["minTlsVersion"])
 	if _, ok := m["minTlsVersion"]; !ok {
 		c.Config.Logger.Info("Using default value for minTlsVersion")
-		r.MinTlsVersion = SslPolicyMinTlsVersionEnumRef("TLS_1_0")
+		res.MinTlsVersion = SslPolicyMinTlsVersionEnumRef("TLS_1_0")
 	}
-	r.EnabledFeature = dcl.FlattenStringSlice(m["enabledFeatures"])
-	r.CustomFeature = dcl.FlattenStringSlice(m["customFeatures"])
-	r.Warning = flattenSslPolicyWarningSlice(c, m["warnings"])
-	r.Project = dcl.FlattenString(m["project"])
+	res.EnabledFeature = dcl.FlattenStringSlice(m["enabledFeatures"])
+	res.CustomFeature = dcl.FlattenStringSlice(m["customFeatures"])
+	res.Warning = flattenSslPolicyWarningSlice(c, m["warnings"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // expandSslPolicyWarningMap expands the contents of SslPolicyWarning into a JSON
@@ -1299,10 +1180,11 @@ func flattenSslPolicyWarningSlice(c *Client, i interface{}) []SslPolicyWarning {
 // expandSslPolicyWarning expands an instance of SslPolicyWarning into a JSON
 // request object.
 func expandSslPolicyWarning(c *Client, f *SslPolicyWarning) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Code; !dcl.IsEmptyValueIndirect(v) {
 		m["code"] = v
 	}
@@ -1418,10 +1300,11 @@ func flattenSslPolicyWarningDataSlice(c *Client, i interface{}) []SslPolicyWarni
 // expandSslPolicyWarningData expands an instance of SslPolicyWarningData into a JSON
 // request object.
 func expandSslPolicyWarningData(c *Client, f *SslPolicyWarningData) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Key; !dcl.IsEmptyValueIndirect(v) {
 		m["key"] = v
 	}
@@ -1540,5 +1423,36 @@ func (r *SslPolicy) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToSslPolicyDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]sslPolicyDiff, error) {
+	var diffs []sslPolicyDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := sslPolicyDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTosslPolicyApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTosslPolicyApiOperation(op string, opts ...dcl.ApplyOption) (sslPolicyApiOperation, error) {
+	switch op {
+
+	case "updateSslPolicyPatchOperation":
+		return &updateSslPolicyPatchOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

@@ -175,33 +175,6 @@ class RouterPeer(object):
 
         return stub.ListComputeRouterPeer(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = router_peer_pb2.ComputeRouterPeer()
-        any_proto.Unpack(res_proto)
-
-        res = RouterPeer()
-        res.creation_timestamp = Primitive.from_proto(res_proto.creation_timestamp)
-        res.router = Primitive.from_proto(res_proto.router)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.interface_name = Primitive.from_proto(res_proto.interface_name)
-        res.ip_address = Primitive.from_proto(res_proto.ip_address)
-        res.peer_ip_address = Primitive.from_proto(res_proto.peer_ip_address)
-        res.peer_asn = Primitive.from_proto(res_proto.peer_asn)
-        res.advertised_route_priority = Primitive.from_proto(
-            res_proto.advertised_route_priority
-        )
-        res.advertise_mode = Primitive.from_proto(res_proto.advertise_mode)
-        res.management_type = Primitive.from_proto(res_proto.management_type)
-        res.advertised_groups = Primitive.from_proto(res_proto.advertised_groups)
-        res.advertised_ip_ranges = RouterPeerAdvertisedIPRangesArray.from_proto(
-            res_proto.advertised_ip_ranges
-        )
-        res.region = Primitive.from_proto(res_proto.region)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = router_peer_pb2.ComputeRouterPeer()
         if Primitive.to_proto(self.router):

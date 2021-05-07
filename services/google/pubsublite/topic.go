@@ -104,7 +104,7 @@ func (r *TopicRetentionConfig) HashCode() string {
 // can identify it.
 func (r *Topic) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "pubsublite",
+		Service: "pubsub_lite",
 		Type:    "Topic",
 		Version: "pubsublite",
 	}
@@ -283,6 +283,7 @@ func (c *Client) ApplyTopic(ctx context.Context, rawDesired *Topic, opts ...dcl.
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

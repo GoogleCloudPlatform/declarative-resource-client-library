@@ -128,26 +128,6 @@ class NotificationChannel(object):
 
         return stub.ListMonitoringNotificationChannel(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = notification_channel_pb2.MonitoringNotificationChannel()
-        any_proto.Unpack(res_proto)
-
-        res = NotificationChannel()
-        res.description = Primitive.from_proto(res_proto.description)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.enabled = Primitive.from_proto(res_proto.enabled)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.type = Primitive.from_proto(res_proto.type)
-        res.user_labels = Primitive.from_proto(res_proto.user_labels)
-        res.verification_status = NotificationChannelVerificationStatusEnum.from_proto(
-            res_proto.verification_status
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = notification_channel_pb2.MonitoringNotificationChannel()
         if Primitive.to_proto(self.description):

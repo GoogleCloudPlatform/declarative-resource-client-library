@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -1056,7 +1055,7 @@ func canonicalizeNewAlertPolicyDocumentationSet(c *Client, des, nw []AlertPolicy
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyDocumentation(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyDocumentationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1079,7 +1078,7 @@ func canonicalizeNewAlertPolicyDocumentationSlice(c *Client, des, nw []AlertPoli
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyDocumentation
@@ -1136,6 +1135,9 @@ func canonicalizeNewAlertPolicyConditions(c *Client, des, nw *AlertPolicyConditi
 	if dcl.StringCanonicalize(des.DisplayName, nw.DisplayName) {
 		nw.DisplayName = des.DisplayName
 	}
+	if dcl.IsZeroValue(nw.ResourceStateFilter) {
+		nw.ResourceStateFilter = des.ResourceStateFilter
+	}
 	nw.ConditionThreshold = canonicalizeNewAlertPolicyConditionsConditionThreshold(c, des.ConditionThreshold, nw.ConditionThreshold)
 	nw.ConditionAbsent = canonicalizeNewAlertPolicyConditionsConditionAbsent(c, des.ConditionAbsent, nw.ConditionAbsent)
 	nw.ConditionMatchedLog = canonicalizeNewAlertPolicyConditionsConditionMatchedLog(c, des.ConditionMatchedLog, nw.ConditionMatchedLog)
@@ -1157,7 +1159,7 @@ func canonicalizeNewAlertPolicyConditionsSet(c *Client, des, nw []AlertPolicyCon
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditions(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1180,7 +1182,7 @@ func canonicalizeNewAlertPolicyConditionsSlice(c *Client, des, nw []AlertPolicyC
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditions
@@ -1243,6 +1245,12 @@ func canonicalizeNewAlertPolicyConditionsConditionThreshold(c *Client, des, nw *
 		nw.DenominatorFilter = des.DenominatorFilter
 	}
 	nw.DenominatorAggregations = canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsSlice(c, des.DenominatorAggregations, nw.DenominatorAggregations)
+	if dcl.IsZeroValue(nw.Comparison) {
+		nw.Comparison = des.Comparison
+	}
+	if dcl.IsZeroValue(nw.ThresholdValue) {
+		nw.ThresholdValue = des.ThresholdValue
+	}
 	if dcl.StringCanonicalize(des.Duration, nw.Duration) {
 		nw.Duration = des.Duration
 	}
@@ -1259,7 +1267,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdSet(c *Client, des, n
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThreshold(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1282,7 +1290,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdSlice(c *Client, des,
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThreshold
@@ -1332,6 +1340,15 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregations(c *Clien
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
+	if dcl.IsZeroValue(nw.PerSeriesAligner) {
+		nw.PerSeriesAligner = des.PerSeriesAligner
+	}
+	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
+		nw.CrossSeriesReducer = des.CrossSeriesReducer
+	}
+	if dcl.IsZeroValue(nw.GroupByFields) {
+		nw.GroupByFields = des.GroupByFields
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -1346,7 +1363,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsSet(c *Cl
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdAggregations(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdAggregationsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1369,7 +1386,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsSlice(c *
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdAggregations
@@ -1405,6 +1422,10 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceFra
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Threshold) {
+		nw.Threshold = des.Threshold
+	}
+
 	return nw
 }
 
@@ -1416,7 +1437,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceFra
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParamsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1439,7 +1460,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceFra
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams
@@ -1488,7 +1509,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1511,7 +1532,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams
@@ -1562,7 +1583,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1585,7 +1606,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions
@@ -1627,6 +1648,16 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
+		nw.NumFiniteBuckets = des.NumFiniteBuckets
+	}
+	if dcl.IsZeroValue(nw.Width) {
+		nw.Width = des.Width
+	}
+	if dcl.IsZeroValue(nw.Offset) {
+		nw.Offset = des.Offset
+	}
+
 	return nw
 }
 
@@ -1638,7 +1669,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1661,7 +1692,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
@@ -1703,6 +1734,16 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
+		nw.NumFiniteBuckets = des.NumFiniteBuckets
+	}
+	if dcl.IsZeroValue(nw.GrowthFactor) {
+		nw.GrowthFactor = des.GrowthFactor
+	}
+	if dcl.IsZeroValue(nw.Scale) {
+		nw.Scale = des.Scale
+	}
+
 	return nw
 }
 
@@ -1714,7 +1755,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1737,7 +1778,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
@@ -1773,6 +1814,10 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Bounds) {
+		nw.Bounds = des.Bounds
+	}
+
 	return nw
 }
 
@@ -1784,7 +1829,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1807,7 +1852,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
@@ -1843,6 +1888,10 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.MinimumValue) {
+		nw.MinimumValue = des.MinimumValue
+	}
+
 	return nw
 }
 
@@ -1854,7 +1903,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1877,7 +1926,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdAggregationsReduceMak
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling
@@ -1927,6 +1976,15 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
+	if dcl.IsZeroValue(nw.PerSeriesAligner) {
+		nw.PerSeriesAligner = des.PerSeriesAligner
+	}
+	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
+		nw.CrossSeriesReducer = des.CrossSeriesReducer
+	}
+	if dcl.IsZeroValue(nw.GroupByFields) {
+		nw.GroupByFields = des.GroupByFields
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -1941,7 +1999,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdDenominatorAggregations(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1964,7 +2022,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregations
@@ -2000,6 +2058,10 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Threshold) {
+		nw.Threshold = des.Threshold
+	}
+
 	return nw
 }
 
@@ -2011,7 +2073,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParamsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2034,7 +2096,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams
@@ -2083,7 +2145,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2106,7 +2168,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams
@@ -2157,7 +2219,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2180,7 +2242,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions
@@ -2222,6 +2284,16 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
+		nw.NumFiniteBuckets = des.NumFiniteBuckets
+	}
+	if dcl.IsZeroValue(nw.Width) {
+		nw.Width = des.Width
+	}
+	if dcl.IsZeroValue(nw.Offset) {
+		nw.Offset = des.Offset
+	}
+
 	return nw
 }
 
@@ -2233,7 +2305,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2256,7 +2328,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
@@ -2298,6 +2370,16 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
+		nw.NumFiniteBuckets = des.NumFiniteBuckets
+	}
+	if dcl.IsZeroValue(nw.GrowthFactor) {
+		nw.GrowthFactor = des.GrowthFactor
+	}
+	if dcl.IsZeroValue(nw.Scale) {
+		nw.Scale = des.Scale
+	}
+
 	return nw
 }
 
@@ -2309,7 +2391,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2332,7 +2414,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
@@ -2368,6 +2450,10 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Bounds) {
+		nw.Bounds = des.Bounds
+	}
+
 	return nw
 }
 
@@ -2379,7 +2465,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2402,7 +2488,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
@@ -2438,6 +2524,10 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.MinimumValue) {
+		nw.MinimumValue = des.MinimumValue
+	}
+
 	return nw
 }
 
@@ -2449,7 +2539,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2472,7 +2562,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdDenominatorAggregatio
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling
@@ -2511,6 +2601,13 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdTrigger(c *Client, de
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Count) {
+		nw.Count = des.Count
+	}
+	if dcl.IsZeroValue(nw.Percent) {
+		nw.Percent = des.Percent
+	}
+
 	return nw
 }
 
@@ -2522,7 +2619,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdTriggerSet(c *Client,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionThresholdTrigger(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionThresholdTriggerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2545,7 +2642,7 @@ func canonicalizeNewAlertPolicyConditionsConditionThresholdTriggerSlice(c *Clien
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionThresholdTrigger
@@ -2604,7 +2701,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentSet(c *Client, des, nw [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionAbsent(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionAbsentNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2627,7 +2724,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentSlice(c *Client, des, nw
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionAbsent
@@ -2677,6 +2774,15 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregations(c *Client, 
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
+	if dcl.IsZeroValue(nw.PerSeriesAligner) {
+		nw.PerSeriesAligner = des.PerSeriesAligner
+	}
+	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
+		nw.CrossSeriesReducer = des.CrossSeriesReducer
+	}
+	if dcl.IsZeroValue(nw.GroupByFields) {
+		nw.GroupByFields = des.GroupByFields
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -2691,7 +2797,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsSet(c *Clien
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionAbsentAggregations(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionAbsentAggregationsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2714,7 +2820,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsSlice(c *Cli
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionAbsentAggregations
@@ -2750,6 +2856,10 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceFracti
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Threshold) {
+		nw.Threshold = des.Threshold
+	}
+
 	return nw
 }
 
@@ -2761,7 +2871,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceFracti
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParamsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2784,7 +2894,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceFracti
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams
@@ -2833,7 +2943,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2856,7 +2966,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams
@@ -2907,7 +3017,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2930,7 +3040,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions
@@ -2972,6 +3082,16 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
+		nw.NumFiniteBuckets = des.NumFiniteBuckets
+	}
+	if dcl.IsZeroValue(nw.Width) {
+		nw.Width = des.Width
+	}
+	if dcl.IsZeroValue(nw.Offset) {
+		nw.Offset = des.Offset
+	}
+
 	return nw
 }
 
@@ -2983,7 +3103,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3006,7 +3126,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
@@ -3048,6 +3168,16 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
+		nw.NumFiniteBuckets = des.NumFiniteBuckets
+	}
+	if dcl.IsZeroValue(nw.GrowthFactor) {
+		nw.GrowthFactor = des.GrowthFactor
+	}
+	if dcl.IsZeroValue(nw.Scale) {
+		nw.Scale = des.Scale
+	}
+
 	return nw
 }
 
@@ -3059,7 +3189,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3082,7 +3212,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
@@ -3118,6 +3248,10 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Bounds) {
+		nw.Bounds = des.Bounds
+	}
+
 	return nw
 }
 
@@ -3129,7 +3263,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3152,7 +3286,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
@@ -3188,6 +3322,10 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.MinimumValue) {
+		nw.MinimumValue = des.MinimumValue
+	}
+
 	return nw
 }
 
@@ -3199,7 +3337,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3222,7 +3360,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDi
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling
@@ -3261,6 +3399,13 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentDuration(c *Client, des,
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Seconds) {
+		nw.Seconds = des.Seconds
+	}
+	if dcl.IsZeroValue(nw.Nanos) {
+		nw.Nanos = des.Nanos
+	}
+
 	return nw
 }
 
@@ -3272,7 +3417,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentDurationSet(c *Client, d
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionAbsentDuration(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionAbsentDurationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3295,7 +3440,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentDurationSlice(c *Client,
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionAbsentDuration
@@ -3334,6 +3479,13 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentTrigger(c *Client, des, 
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Count) {
+		nw.Count = des.Count
+	}
+	if dcl.IsZeroValue(nw.Percent) {
+		nw.Percent = des.Percent
+	}
+
 	return nw
 }
 
@@ -3345,7 +3497,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentTriggerSet(c *Client, de
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionAbsentTrigger(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionAbsentTriggerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3368,7 +3520,7 @@ func canonicalizeNewAlertPolicyConditionsConditionAbsentTriggerSlice(c *Client, 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionAbsentTrigger
@@ -3410,6 +3562,9 @@ func canonicalizeNewAlertPolicyConditionsConditionMatchedLog(c *Client, des, nw 
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
 		nw.Filter = des.Filter
 	}
+	if dcl.IsZeroValue(nw.LabelExtractors) {
+		nw.LabelExtractors = des.LabelExtractors
+	}
 
 	return nw
 }
@@ -3422,7 +3577,7 @@ func canonicalizeNewAlertPolicyConditionsConditionMatchedLogSet(c *Client, des, 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionMatchedLog(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionMatchedLogNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3445,7 +3600,7 @@ func canonicalizeNewAlertPolicyConditionsConditionMatchedLogSlice(c *Client, des
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionMatchedLog
@@ -3496,7 +3651,7 @@ func canonicalizeNewAlertPolicyConditionsConditionClusterOutlierSet(c *Client, d
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionClusterOutlier(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionClusterOutlierNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3519,7 +3674,7 @@ func canonicalizeNewAlertPolicyConditionsConditionClusterOutlierSlice(c *Client,
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionClusterOutlier
@@ -3570,6 +3725,12 @@ func canonicalizeNewAlertPolicyConditionsConditionRate(c *Client, des, nw *Alert
 		nw.Filter = des.Filter
 	}
 	nw.Aggregations = canonicalizeNewAlertPolicyConditionsConditionRateAggregationsSlice(c, des.Aggregations, nw.Aggregations)
+	if dcl.IsZeroValue(nw.Comparison) {
+		nw.Comparison = des.Comparison
+	}
+	if dcl.IsZeroValue(nw.ThresholdValue) {
+		nw.ThresholdValue = des.ThresholdValue
+	}
 	nw.TimeWindow = canonicalizeNewAlertPolicyConditionsConditionRateTimeWindow(c, des.TimeWindow, nw.TimeWindow)
 	nw.Trigger = canonicalizeNewAlertPolicyConditionsConditionRateTrigger(c, des.Trigger, nw.Trigger)
 
@@ -3584,7 +3745,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateSet(c *Client, des, nw []A
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionRate(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionRateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3607,7 +3768,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateSlice(c *Client, des, nw [
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionRate
@@ -3657,6 +3818,15 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregations(c *Client, de
 	if dcl.StringCanonicalize(des.AlignmentPeriod, nw.AlignmentPeriod) {
 		nw.AlignmentPeriod = des.AlignmentPeriod
 	}
+	if dcl.IsZeroValue(nw.PerSeriesAligner) {
+		nw.PerSeriesAligner = des.PerSeriesAligner
+	}
+	if dcl.IsZeroValue(nw.CrossSeriesReducer) {
+		nw.CrossSeriesReducer = des.CrossSeriesReducer
+	}
+	if dcl.IsZeroValue(nw.GroupByFields) {
+		nw.GroupByFields = des.GroupByFields
+	}
 	nw.ReduceFractionLessThanParams = canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(c, des.ReduceFractionLessThanParams, nw.ReduceFractionLessThanParams)
 	nw.ReduceMakeDistributionParams = canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(c, des.ReduceMakeDistributionParams, nw.ReduceMakeDistributionParams)
 
@@ -3671,7 +3841,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsSet(c *Client,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionRateAggregations(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionRateAggregationsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3694,7 +3864,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsSlice(c *Clien
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionRateAggregations
@@ -3730,6 +3900,10 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceFraction
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Threshold) {
+		nw.Threshold = des.Threshold
+	}
+
 	return nw
 }
 
@@ -3741,7 +3915,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceFraction
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParamsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3764,7 +3938,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceFraction
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams
@@ -3813,7 +3987,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3836,7 +4010,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams
@@ -3887,7 +4061,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3910,7 +4084,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions
@@ -3952,6 +4126,16 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
+		nw.NumFiniteBuckets = des.NumFiniteBuckets
+	}
+	if dcl.IsZeroValue(nw.Width) {
+		nw.Width = des.Width
+	}
+	if dcl.IsZeroValue(nw.Offset) {
+		nw.Offset = des.Offset
+	}
+
 	return nw
 }
 
@@ -3963,7 +4147,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3986,7 +4170,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
@@ -4028,6 +4212,16 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.NumFiniteBuckets) {
+		nw.NumFiniteBuckets = des.NumFiniteBuckets
+	}
+	if dcl.IsZeroValue(nw.GrowthFactor) {
+		nw.GrowthFactor = des.GrowthFactor
+	}
+	if dcl.IsZeroValue(nw.Scale) {
+		nw.Scale = des.Scale
+	}
+
 	return nw
 }
 
@@ -4039,7 +4233,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4062,7 +4256,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
@@ -4098,6 +4292,10 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Bounds) {
+		nw.Bounds = des.Bounds
+	}
+
 	return nw
 }
 
@@ -4109,7 +4307,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4132,7 +4330,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
@@ -4168,6 +4366,10 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.MinimumValue) {
+		nw.MinimumValue = des.MinimumValue
+	}
+
 	return nw
 }
 
@@ -4179,7 +4381,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4202,7 +4404,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateAggregationsReduceMakeDist
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling
@@ -4241,6 +4443,13 @@ func canonicalizeNewAlertPolicyConditionsConditionRateTimeWindow(c *Client, des,
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Seconds) {
+		nw.Seconds = des.Seconds
+	}
+	if dcl.IsZeroValue(nw.Nanos) {
+		nw.Nanos = des.Nanos
+	}
+
 	return nw
 }
 
@@ -4252,7 +4461,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateTimeWindowSet(c *Client, d
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionRateTimeWindow(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionRateTimeWindowNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4275,7 +4484,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateTimeWindowSlice(c *Client,
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionRateTimeWindow
@@ -4314,6 +4523,13 @@ func canonicalizeNewAlertPolicyConditionsConditionRateTrigger(c *Client, des, nw
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Count) {
+		nw.Count = des.Count
+	}
+	if dcl.IsZeroValue(nw.Percent) {
+		nw.Percent = des.Percent
+	}
+
 	return nw
 }
 
@@ -4325,7 +4541,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateTriggerSet(c *Client, des,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionRateTrigger(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionRateTriggerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4348,7 +4564,7 @@ func canonicalizeNewAlertPolicyConditionsConditionRateTriggerSlice(c *Client, de
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionRateTrigger
@@ -4415,7 +4631,7 @@ func canonicalizeNewAlertPolicyConditionsConditionUpMonSet(c *Client, des, nw []
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionUpMon(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionUpMonNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4438,7 +4654,7 @@ func canonicalizeNewAlertPolicyConditionsConditionUpMonSlice(c *Client, des, nw 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionUpMon
@@ -4477,6 +4693,13 @@ func canonicalizeNewAlertPolicyConditionsConditionUpMonDuration(c *Client, des, 
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Seconds) {
+		nw.Seconds = des.Seconds
+	}
+	if dcl.IsZeroValue(nw.Nanos) {
+		nw.Nanos = des.Nanos
+	}
+
 	return nw
 }
 
@@ -4488,7 +4711,7 @@ func canonicalizeNewAlertPolicyConditionsConditionUpMonDurationSet(c *Client, de
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionUpMonDuration(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionUpMonDurationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4511,7 +4734,7 @@ func canonicalizeNewAlertPolicyConditionsConditionUpMonDurationSlice(c *Client, 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionUpMonDuration
@@ -4550,6 +4773,13 @@ func canonicalizeNewAlertPolicyConditionsConditionUpMonTrigger(c *Client, des, n
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Count) {
+		nw.Count = des.Count
+	}
+	if dcl.IsZeroValue(nw.Percent) {
+		nw.Percent = des.Percent
+	}
+
 	return nw
 }
 
@@ -4561,7 +4791,7 @@ func canonicalizeNewAlertPolicyConditionsConditionUpMonTriggerSet(c *Client, des
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionUpMonTrigger(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionUpMonTriggerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4584,7 +4814,7 @@ func canonicalizeNewAlertPolicyConditionsConditionUpMonTriggerSlice(c *Client, d
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionUpMonTrigger
@@ -4643,6 +4873,12 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCount(c *Client, des, n
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
 		nw.Filter = des.Filter
 	}
+	if dcl.IsZeroValue(nw.Comparison) {
+		nw.Comparison = des.Comparison
+	}
+	if dcl.IsZeroValue(nw.ProcessCountThreshold) {
+		nw.ProcessCountThreshold = des.ProcessCountThreshold
+	}
 	nw.Trigger = canonicalizeNewAlertPolicyConditionsConditionProcessCountTrigger(c, des.Trigger, nw.Trigger)
 	nw.Duration = canonicalizeNewAlertPolicyConditionsConditionProcessCountDuration(c, des.Duration, nw.Duration)
 
@@ -4657,7 +4893,7 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCountSet(c *Client, des
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionProcessCount(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionProcessCountNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4680,7 +4916,7 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCountSlice(c *Client, d
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionProcessCount
@@ -4719,6 +4955,13 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCountTrigger(c *Client,
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Count) {
+		nw.Count = des.Count
+	}
+	if dcl.IsZeroValue(nw.Percent) {
+		nw.Percent = des.Percent
+	}
+
 	return nw
 }
 
@@ -4730,7 +4973,7 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCountTriggerSet(c *Clie
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionProcessCountTrigger(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionProcessCountTriggerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4753,7 +4996,7 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCountTriggerSlice(c *Cl
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionProcessCountTrigger
@@ -4792,6 +5035,13 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCountDuration(c *Client
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Seconds) {
+		nw.Seconds = des.Seconds
+	}
+	if dcl.IsZeroValue(nw.Nanos) {
+		nw.Nanos = des.Nanos
+	}
+
 	return nw
 }
 
@@ -4803,7 +5053,7 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCountDurationSet(c *Cli
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionProcessCountDuration(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionProcessCountDurationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4826,7 +5076,7 @@ func canonicalizeNewAlertPolicyConditionsConditionProcessCountDurationSlice(c *C
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionProcessCountDuration
@@ -4883,7 +5133,7 @@ func canonicalizeNewAlertPolicyConditionsConditionTimeSeriesQueryLanguageSet(c *
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionTimeSeriesQueryLanguage(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionTimeSeriesQueryLanguageNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4906,7 +5156,7 @@ func canonicalizeNewAlertPolicyConditionsConditionTimeSeriesQueryLanguageSlice(c
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionTimeSeriesQueryLanguage
@@ -4961,7 +5211,7 @@ func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageSet(c *
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionMonitoringQueryLanguage(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionMonitoringQueryLanguageNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -4984,7 +5234,7 @@ func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageSlice(c
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionMonitoringQueryLanguage
@@ -5023,6 +5273,13 @@ func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageDuratio
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Seconds) {
+		nw.Seconds = des.Seconds
+	}
+	if dcl.IsZeroValue(nw.Nanos) {
+		nw.Nanos = des.Nanos
+	}
+
 	return nw
 }
 
@@ -5034,7 +5291,7 @@ func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageDuratio
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionMonitoringQueryLanguageDurationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -5057,7 +5314,7 @@ func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageDuratio
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionMonitoringQueryLanguageDuration
@@ -5096,6 +5353,13 @@ func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Count) {
+		nw.Count = des.Count
+	}
+	if dcl.IsZeroValue(nw.Percent) {
+		nw.Percent = des.Percent
+	}
+
 	return nw
 }
 
@@ -5107,7 +5371,7 @@ func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -5130,7 +5394,7 @@ func canonicalizeNewAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger
@@ -5181,7 +5445,7 @@ func canonicalizeNewAlertPolicyEnabledSet(c *Client, des, nw []AlertPolicyEnable
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyEnabled(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyEnabledNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -5204,7 +5468,7 @@ func canonicalizeNewAlertPolicyEnabledSlice(c *Client, des, nw []AlertPolicyEnab
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyEnabled
@@ -5246,6 +5510,9 @@ func canonicalizeNewAlertPolicyValidity(c *Client, des, nw *AlertPolicyValidity)
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Code) {
+		nw.Code = des.Code
+	}
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
@@ -5262,7 +5529,7 @@ func canonicalizeNewAlertPolicyValiditySet(c *Client, des, nw []AlertPolicyValid
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyValidity(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyValidityNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -5285,7 +5552,7 @@ func canonicalizeNewAlertPolicyValiditySlice(c *Client, des, nw []AlertPolicyVal
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyValidity
@@ -5342,7 +5609,7 @@ func canonicalizeNewAlertPolicyValidityDetailsSet(c *Client, des, nw []AlertPoli
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyValidityDetails(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyValidityDetailsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -5365,7 +5632,7 @@ func canonicalizeNewAlertPolicyValidityDetailsSlice(c *Client, des, nw []AlertPo
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyValidityDetails
@@ -5418,7 +5685,7 @@ func canonicalizeNewAlertPolicyCreationRecordSet(c *Client, des, nw []AlertPolic
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyCreationRecord(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyCreationRecordNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -5441,7 +5708,7 @@ func canonicalizeNewAlertPolicyCreationRecordSlice(c *Client, des, nw []AlertPol
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyCreationRecord
@@ -5480,6 +5747,13 @@ func canonicalizeNewAlertPolicyCreationRecordMutateTime(c *Client, des, nw *Aler
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Seconds) {
+		nw.Seconds = des.Seconds
+	}
+	if dcl.IsZeroValue(nw.Nanos) {
+		nw.Nanos = des.Nanos
+	}
+
 	return nw
 }
 
@@ -5491,7 +5765,7 @@ func canonicalizeNewAlertPolicyCreationRecordMutateTimeSet(c *Client, des, nw []
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyCreationRecordMutateTime(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyCreationRecordMutateTimeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -5514,7 +5788,7 @@ func canonicalizeNewAlertPolicyCreationRecordMutateTimeSlice(c *Client, des, nw 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyCreationRecordMutateTime
@@ -5567,7 +5841,7 @@ func canonicalizeNewAlertPolicyMutationRecordSet(c *Client, des, nw []AlertPolic
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyMutationRecord(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyMutationRecordNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -5590,7 +5864,7 @@ func canonicalizeNewAlertPolicyMutationRecordSlice(c *Client, des, nw []AlertPol
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyMutationRecord
@@ -5629,6 +5903,13 @@ func canonicalizeNewAlertPolicyMutationRecordMutateTime(c *Client, des, nw *Aler
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Seconds) {
+		nw.Seconds = des.Seconds
+	}
+	if dcl.IsZeroValue(nw.Nanos) {
+		nw.Nanos = des.Nanos
+	}
+
 	return nw
 }
 
@@ -5640,7 +5921,7 @@ func canonicalizeNewAlertPolicyMutationRecordMutateTimeSet(c *Client, des, nw []
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyMutationRecordMutateTime(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyMutationRecordMutateTimeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -5663,7 +5944,7 @@ func canonicalizeNewAlertPolicyMutationRecordMutateTimeSlice(c *Client, des, nw 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyMutationRecordMutateTime
@@ -5699,6 +5980,10 @@ func canonicalizeNewAlertPolicyIncidentStrategy(c *Client, des, nw *AlertPolicyI
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Type) {
+		nw.Type = des.Type
+	}
+
 	return nw
 }
 
@@ -5710,7 +5995,7 @@ func canonicalizeNewAlertPolicyIncidentStrategySet(c *Client, des, nw []AlertPol
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyIncidentStrategy(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyIncidentStrategyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -5733,7 +6018,7 @@ func canonicalizeNewAlertPolicyIncidentStrategySlice(c *Client, des, nw []AlertP
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyIncidentStrategy
@@ -5769,6 +6054,10 @@ func canonicalizeNewAlertPolicyMetadata(c *Client, des, nw *AlertPolicyMetadata)
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.SloNames) {
+		nw.SloNames = des.SloNames
+	}
+
 	return nw
 }
 
@@ -5780,7 +6069,7 @@ func canonicalizeNewAlertPolicyMetadataSet(c *Client, des, nw []AlertPolicyMetad
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAlertPolicyMetadata(c, &d, &n) {
+			if diffs, _ := compareAlertPolicyMetadataNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -5803,7 +6092,7 @@ func canonicalizeNewAlertPolicyMetadataSlice(c *Client, des, nw []AlertPolicyMet
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AlertPolicyMetadata
@@ -5837,143 +6126,202 @@ func diffAlertPolicy(c *Client, desired, actual *AlertPolicy, opts ...dcl.ApplyO
 	}
 
 	var diffs []alertPolicyDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "DisplayName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Documentation, actual.Documentation, dcl.Info{ObjectFunction: compareAlertPolicyDocumentationNewStyle}, fn.AddNest("Documentation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Documentation, actual.Documentation, dcl.Info{ObjectFunction: compareAlertPolicyDocumentationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Documentation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Documentation",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UserLabels, actual.UserLabels, dcl.Info{}, fn.AddNest("UserLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UserLabels, actual.UserLabels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UserLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UserLabels",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsNewStyle}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Conditions",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Combiner, actual.Combiner, dcl.Info{Type: "EnumType"}, fn.AddNest("Combiner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Combiner, actual.Combiner, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Combiner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Combiner",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Disabled",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{ObjectFunction: compareAlertPolicyEnabledNewStyle}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{ObjectFunction: compareAlertPolicyEnabledNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Enabled",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Validity, actual.Validity, dcl.Info{ObjectFunction: compareAlertPolicyValidityNewStyle}, fn.AddNest("Validity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Validity, actual.Validity, dcl.Info{ObjectFunction: compareAlertPolicyValidityNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Validity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Validity",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NotificationChannels, actual.NotificationChannels, dcl.Info{}, fn.AddNest("NotificationChannels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NotificationChannels, actual.NotificationChannels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NotificationChannels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "NotificationChannels",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreationRecord, actual.CreationRecord, dcl.Info{ObjectFunction: compareAlertPolicyCreationRecordNewStyle}, fn.AddNest("CreationRecord")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationRecord, actual.CreationRecord, dcl.Info{ObjectFunction: compareAlertPolicyCreationRecordNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationRecord")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreationRecord",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.MutationRecord, actual.MutationRecord, dcl.Info{ObjectFunction: compareAlertPolicyMutationRecordNewStyle}, fn.AddNest("MutationRecord")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MutationRecord, actual.MutationRecord, dcl.Info{ObjectFunction: compareAlertPolicyMutationRecordNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MutationRecord")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "MutationRecord",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.IncidentStrategy, actual.IncidentStrategy, dcl.Info{ObjectFunction: compareAlertPolicyIncidentStrategyNewStyle}, fn.AddNest("IncidentStrategy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IncidentStrategy, actual.IncidentStrategy, dcl.Info{ObjectFunction: compareAlertPolicyIncidentStrategyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IncidentStrategy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "IncidentStrategy",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareAlertPolicyMetadataNewStyle}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareAlertPolicyMetadataNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Metadata",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, alertPolicyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAlertPolicyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -6020,71 +6368,20 @@ func compareAlertPolicyDocumentationNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MimeType, actual.MimeType, dcl.Info{}, fn.AddNest("MimeType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MimeType, actual.MimeType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MimeType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyDocumentation(c *Client, desired, actual *AlertPolicyDocumentation) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Content, actual.Content) && !dcl.IsZeroValue(desired.Content) {
-		c.Config.Logger.Infof("Diff in Content.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Content), dcl.SprintResource(actual.Content))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MimeType, actual.MimeType) && !dcl.IsZeroValue(desired.MimeType) {
-		c.Config.Logger.Infof("Diff in MimeType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MimeType), dcl.SprintResource(actual.MimeType))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyDocumentationSlice(c *Client, desired, actual []AlertPolicyDocumentation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyDocumentation, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyDocumentation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyDocumentation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyDocumentationMap(c *Client, desired, actual map[string]AlertPolicyDocumentation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyDocumentation, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyDocumentation, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyDocumentation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyDocumentation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6107,181 +6404,90 @@ func compareAlertPolicyConditionsNewStyle(d, a interface{}, fn dcl.FieldName) ([
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceStateFilter, actual.ResourceStateFilter, dcl.Info{Type: "EnumType"}, fn.AddNest("ResourceStateFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceStateFilter, actual.ResourceStateFilter, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceStateFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionThreshold, actual.ConditionThreshold, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdNewStyle}, fn.AddNest("ConditionThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionThreshold, actual.ConditionThreshold, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionAbsent, actual.ConditionAbsent, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentNewStyle}, fn.AddNest("ConditionAbsent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionAbsent, actual.ConditionAbsent, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionAbsent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionMatchedLog, actual.ConditionMatchedLog, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMatchedLogNewStyle}, fn.AddNest("ConditionMatchedLog")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionMatchedLog, actual.ConditionMatchedLog, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMatchedLogNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionMatchedLog")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionClusterOutlier, actual.ConditionClusterOutlier, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionClusterOutlierNewStyle}, fn.AddNest("ConditionClusterOutlier")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionClusterOutlier, actual.ConditionClusterOutlier, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionClusterOutlierNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionClusterOutlier")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionRate, actual.ConditionRate, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateNewStyle}, fn.AddNest("ConditionRate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionRate, actual.ConditionRate, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionRate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionUpMon, actual.ConditionUpMon, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonNewStyle}, fn.AddNest("ConditionUpMon")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionUpMon, actual.ConditionUpMon, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionUpMon")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionProcessCount, actual.ConditionProcessCount, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountNewStyle}, fn.AddNest("ConditionProcessCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionProcessCount, actual.ConditionProcessCount, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionProcessCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionTimeSeriesQueryLanguage, actual.ConditionTimeSeriesQueryLanguage, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionTimeSeriesQueryLanguageNewStyle}, fn.AddNest("ConditionTimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionTimeSeriesQueryLanguage, actual.ConditionTimeSeriesQueryLanguage, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionTimeSeriesQueryLanguageNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionTimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionMonitoringQueryLanguage, actual.ConditionMonitoringQueryLanguage, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageNewStyle}, fn.AddNest("ConditionMonitoringQueryLanguage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionMonitoringQueryLanguage, actual.ConditionMonitoringQueryLanguage, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionMonitoringQueryLanguage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditions(c *Client, desired, actual *AlertPolicyConditions) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.DisplayName, actual.DisplayName) && !dcl.IsZeroValue(desired.DisplayName) {
-		c.Config.Logger.Infof("Diff in DisplayName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DisplayName), dcl.SprintResource(actual.DisplayName))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ResourceStateFilter, actual.ResourceStateFilter) && !dcl.IsZeroValue(desired.ResourceStateFilter) {
-		c.Config.Logger.Infof("Diff in ResourceStateFilter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceStateFilter), dcl.SprintResource(actual.ResourceStateFilter))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThreshold(c, desired.ConditionThreshold, actual.ConditionThreshold) && !dcl.IsZeroValue(desired.ConditionThreshold) {
-		c.Config.Logger.Infof("Diff in ConditionThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConditionThreshold), dcl.SprintResource(actual.ConditionThreshold))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionAbsent(c, desired.ConditionAbsent, actual.ConditionAbsent) && !dcl.IsZeroValue(desired.ConditionAbsent) {
-		c.Config.Logger.Infof("Diff in ConditionAbsent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConditionAbsent), dcl.SprintResource(actual.ConditionAbsent))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionMatchedLog(c, desired.ConditionMatchedLog, actual.ConditionMatchedLog) && !dcl.IsZeroValue(desired.ConditionMatchedLog) {
-		c.Config.Logger.Infof("Diff in ConditionMatchedLog.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConditionMatchedLog), dcl.SprintResource(actual.ConditionMatchedLog))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionClusterOutlier(c, desired.ConditionClusterOutlier, actual.ConditionClusterOutlier) && !dcl.IsZeroValue(desired.ConditionClusterOutlier) {
-		c.Config.Logger.Infof("Diff in ConditionClusterOutlier.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConditionClusterOutlier), dcl.SprintResource(actual.ConditionClusterOutlier))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionRate(c, desired.ConditionRate, actual.ConditionRate) && !dcl.IsZeroValue(desired.ConditionRate) {
-		c.Config.Logger.Infof("Diff in ConditionRate.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConditionRate), dcl.SprintResource(actual.ConditionRate))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionUpMon(c, desired.ConditionUpMon, actual.ConditionUpMon) && !dcl.IsZeroValue(desired.ConditionUpMon) {
-		c.Config.Logger.Infof("Diff in ConditionUpMon.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConditionUpMon), dcl.SprintResource(actual.ConditionUpMon))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionProcessCount(c, desired.ConditionProcessCount, actual.ConditionProcessCount) && !dcl.IsZeroValue(desired.ConditionProcessCount) {
-		c.Config.Logger.Infof("Diff in ConditionProcessCount.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConditionProcessCount), dcl.SprintResource(actual.ConditionProcessCount))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionTimeSeriesQueryLanguage(c, desired.ConditionTimeSeriesQueryLanguage, actual.ConditionTimeSeriesQueryLanguage) && !dcl.IsZeroValue(desired.ConditionTimeSeriesQueryLanguage) {
-		c.Config.Logger.Infof("Diff in ConditionTimeSeriesQueryLanguage.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConditionTimeSeriesQueryLanguage), dcl.SprintResource(actual.ConditionTimeSeriesQueryLanguage))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionMonitoringQueryLanguage(c, desired.ConditionMonitoringQueryLanguage, actual.ConditionMonitoringQueryLanguage) && !dcl.IsZeroValue(desired.ConditionMonitoringQueryLanguage) {
-		c.Config.Logger.Infof("Diff in ConditionMonitoringQueryLanguage.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConditionMonitoringQueryLanguage), dcl.SprintResource(actual.ConditionMonitoringQueryLanguage))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsSlice(c *Client, desired, actual []AlertPolicyConditions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditions, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsMap(c *Client, desired, actual map[string]AlertPolicyConditions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditions, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditions, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6304,137 +6510,62 @@ func compareAlertPolicyConditionsConditionThresholdNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsNewStyle}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DenominatorFilter, actual.DenominatorFilter, dcl.Info{}, fn.AddNest("DenominatorFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DenominatorFilter, actual.DenominatorFilter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DenominatorFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DenominatorAggregations, actual.DenominatorAggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsNewStyle}, fn.AddNest("DenominatorAggregations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DenominatorAggregations, actual.DenominatorAggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DenominatorAggregations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Comparison, actual.Comparison, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparison")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Comparison, actual.Comparison, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Comparison")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ThresholdValue, actual.ThresholdValue, dcl.Info{}, fn.AddNest("ThresholdValue")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ThresholdValue, actual.ThresholdValue, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ThresholdValue")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdTriggerNewStyle}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThreshold(c *Client, desired, actual *AlertPolicyConditionsConditionThreshold) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdAggregationsSlice(c, desired.Aggregations, actual.Aggregations) && !dcl.IsZeroValue(desired.Aggregations) {
-		c.Config.Logger.Infof("Diff in Aggregations.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregations), dcl.SprintResource(actual.Aggregations))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.DenominatorFilter, actual.DenominatorFilter) && !dcl.IsZeroValue(desired.DenominatorFilter) {
-		c.Config.Logger.Infof("Diff in DenominatorFilter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DenominatorFilter), dcl.SprintResource(actual.DenominatorFilter))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsSlice(c, desired.DenominatorAggregations, actual.DenominatorAggregations) && !dcl.IsZeroValue(desired.DenominatorAggregations) {
-		c.Config.Logger.Infof("Diff in DenominatorAggregations.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DenominatorAggregations), dcl.SprintResource(actual.DenominatorAggregations))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Comparison, actual.Comparison) && !dcl.IsZeroValue(desired.Comparison) {
-		c.Config.Logger.Infof("Diff in Comparison.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparison), dcl.SprintResource(actual.Comparison))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ThresholdValue, actual.ThresholdValue) && !dcl.IsZeroValue(desired.ThresholdValue) {
-		c.Config.Logger.Infof("Diff in ThresholdValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ThresholdValue), dcl.SprintResource(actual.ThresholdValue))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Duration, actual.Duration) && !dcl.IsZeroValue(desired.Duration) {
-		c.Config.Logger.Infof("Diff in Duration.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Duration), dcl.SprintResource(actual.Duration))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdTrigger(c, desired.Trigger, actual.Trigger) && !dcl.IsZeroValue(desired.Trigger) {
-		c.Config.Logger.Infof("Diff in Trigger.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Trigger), dcl.SprintResource(actual.Trigger))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThreshold) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThreshold, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThreshold(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThreshold, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThreshold) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThreshold, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThreshold, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThreshold(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThreshold, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdAggregationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6457,115 +6588,48 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregations(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregations) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdAggregations) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregations, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdAggregations(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregations, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdAggregations) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregations, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregations, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdAggregations(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregations, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6588,60 +6652,13 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLes
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParamsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6664,71 +6681,20 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6751,82 +6717,27 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6849,82 +6760,27 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6947,82 +6803,27 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7045,60 +6846,13 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7121,60 +6875,13 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7197,115 +6904,48 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregations(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregations) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdDenominatorAggregations) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregations, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregations(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregations, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregations) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregations, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregations, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregations(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregations, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7328,60 +6968,13 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParamsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7404,71 +6997,20 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7491,82 +7033,27 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7589,82 +7076,27 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7687,82 +7119,27 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7785,60 +7162,13 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7861,60 +7191,13 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionThresholdTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -7937,71 +7220,20 @@ func compareAlertPolicyConditionsConditionThresholdTriggerNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionThresholdTrigger(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdTrigger) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Count, actual.Count) && !dcl.IsZeroValue(desired.Count) {
-		c.Config.Logger.Infof("Diff in Count.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Count), dcl.SprintResource(actual.Count))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdTriggerSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdTrigger) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdTrigger, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdTrigger(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdTrigger, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdTriggerMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionThresholdTrigger) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdTrigger, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdTrigger, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionThresholdTrigger(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdTrigger, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionAbsentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8024,93 +7256,34 @@ func compareAlertPolicyConditionsConditionAbsentNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsNewStyle}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentDurationNewStyle}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentDurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentTriggerNewStyle}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionAbsent(c *Client, desired, actual *AlertPolicyConditionsConditionAbsent) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionAbsentAggregationsSlice(c, desired.Aggregations, actual.Aggregations) && !dcl.IsZeroValue(desired.Aggregations) {
-		c.Config.Logger.Infof("Diff in Aggregations.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregations), dcl.SprintResource(actual.Aggregations))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionAbsentDuration(c, desired.Duration, actual.Duration) && !dcl.IsZeroValue(desired.Duration) {
-		c.Config.Logger.Infof("Diff in Duration.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Duration), dcl.SprintResource(actual.Duration))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionAbsentTrigger(c, desired.Trigger, actual.Trigger) && !dcl.IsZeroValue(desired.Trigger) {
-		c.Config.Logger.Infof("Diff in Trigger.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Trigger), dcl.SprintResource(actual.Trigger))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentSlice(c *Client, desired, actual []AlertPolicyConditionsConditionAbsent) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsent, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionAbsent(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsent, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionAbsent) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsent, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsent, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionAbsent(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsent, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionAbsentAggregationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8133,115 +7306,48 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregations(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregations) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionAbsentAggregations) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregations, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionAbsentAggregations(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregations, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionAbsentAggregations) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregations, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregations, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionAbsentAggregations(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregations, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8264,60 +7370,13 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessTh
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParamsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8340,71 +7399,20 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8427,82 +7435,27 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8525,82 +7478,27 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8623,82 +7521,27 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8721,60 +7564,13 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8797,60 +7593,13 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionAbsentDurationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8873,71 +7622,20 @@ func compareAlertPolicyConditionsConditionAbsentDurationNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionAbsentDuration(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentDuration) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentDurationSlice(c *Client, desired, actual []AlertPolicyConditionsConditionAbsentDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentDuration, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionAbsentDuration(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentDuration, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentDurationMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionAbsentDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentDuration, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentDuration, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionAbsentDuration(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentDuration, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionAbsentTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -8960,71 +7658,20 @@ func compareAlertPolicyConditionsConditionAbsentTriggerNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionAbsentTrigger(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentTrigger) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Count, actual.Count) && !dcl.IsZeroValue(desired.Count) {
-		c.Config.Logger.Infof("Diff in Count.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Count), dcl.SprintResource(actual.Count))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentTriggerSlice(c *Client, desired, actual []AlertPolicyConditionsConditionAbsentTrigger) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentTrigger, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionAbsentTrigger(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentTrigger, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentTriggerMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionAbsentTrigger) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentTrigger, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentTrigger, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionAbsentTrigger(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentTrigger, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionMatchedLogNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9047,71 +7694,20 @@ func compareAlertPolicyConditionsConditionMatchedLogNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LabelExtractors, actual.LabelExtractors, dcl.Info{}, fn.AddNest("LabelExtractors")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LabelExtractors, actual.LabelExtractors, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LabelExtractors")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionMatchedLog(c *Client, desired, actual *AlertPolicyConditionsConditionMatchedLog) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	if !dcl.MapEquals(desired.LabelExtractors, actual.LabelExtractors, []string(nil)) && !dcl.IsZeroValue(desired.LabelExtractors) {
-		c.Config.Logger.Infof("Diff in LabelExtractors.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LabelExtractors), dcl.SprintResource(actual.LabelExtractors))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionMatchedLogSlice(c *Client, desired, actual []AlertPolicyConditionsConditionMatchedLog) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionMatchedLog, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionMatchedLog(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionMatchedLog, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionMatchedLogMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionMatchedLog) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionMatchedLog, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionMatchedLog, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionMatchedLog(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionMatchedLog, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionClusterOutlierNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9134,60 +7730,13 @@ func compareAlertPolicyConditionsConditionClusterOutlierNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionClusterOutlier(c *Client, desired, actual *AlertPolicyConditionsConditionClusterOutlier) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionClusterOutlierSlice(c *Client, desired, actual []AlertPolicyConditionsConditionClusterOutlier) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionClusterOutlier, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionClusterOutlier(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionClusterOutlier, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionClusterOutlierMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionClusterOutlier) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionClusterOutlier, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionClusterOutlier, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionClusterOutlier(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionClusterOutlier, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionRateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9210,115 +7759,48 @@ func compareAlertPolicyConditionsConditionRateNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsNewStyle}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Comparison, actual.Comparison, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparison")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Comparison, actual.Comparison, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Comparison")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ThresholdValue, actual.ThresholdValue, dcl.Info{}, fn.AddNest("ThresholdValue")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ThresholdValue, actual.ThresholdValue, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ThresholdValue")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeWindow, actual.TimeWindow, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateTimeWindowNewStyle}, fn.AddNest("TimeWindow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeWindow, actual.TimeWindow, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateTimeWindowNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TimeWindow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateTriggerNewStyle}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionRate(c *Client, desired, actual *AlertPolicyConditionsConditionRate) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionRateAggregationsSlice(c, desired.Aggregations, actual.Aggregations) && !dcl.IsZeroValue(desired.Aggregations) {
-		c.Config.Logger.Infof("Diff in Aggregations.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Aggregations), dcl.SprintResource(actual.Aggregations))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Comparison, actual.Comparison) && !dcl.IsZeroValue(desired.Comparison) {
-		c.Config.Logger.Infof("Diff in Comparison.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparison), dcl.SprintResource(actual.Comparison))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ThresholdValue, actual.ThresholdValue) && !dcl.IsZeroValue(desired.ThresholdValue) {
-		c.Config.Logger.Infof("Diff in ThresholdValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ThresholdValue), dcl.SprintResource(actual.ThresholdValue))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionRateTimeWindow(c, desired.TimeWindow, actual.TimeWindow) && !dcl.IsZeroValue(desired.TimeWindow) {
-		c.Config.Logger.Infof("Diff in TimeWindow.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeWindow), dcl.SprintResource(actual.TimeWindow))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionRateTrigger(c, desired.Trigger, actual.Trigger) && !dcl.IsZeroValue(desired.Trigger) {
-		c.Config.Logger.Infof("Diff in Trigger.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Trigger), dcl.SprintResource(actual.Trigger))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRate) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRate, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRate(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRate, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionRate) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRate, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRate, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionRate(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRate, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionRateAggregationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9341,115 +7823,48 @@ func compareAlertPolicyConditionsConditionRateAggregationsNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType"}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType"}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParamsNewStyle}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsNewStyle}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionRateAggregations(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregations) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.AlignmentPeriod, actual.AlignmentPeriod) && !dcl.IsZeroValue(desired.AlignmentPeriod) {
-		c.Config.Logger.Infof("Diff in AlignmentPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AlignmentPeriod), dcl.SprintResource(actual.AlignmentPeriod))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PerSeriesAligner, actual.PerSeriesAligner) && !dcl.IsZeroValue(desired.PerSeriesAligner) {
-		c.Config.Logger.Infof("Diff in PerSeriesAligner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PerSeriesAligner), dcl.SprintResource(actual.PerSeriesAligner))
-		return true
-	}
-	if !reflect.DeepEqual(desired.CrossSeriesReducer, actual.CrossSeriesReducer) && !dcl.IsZeroValue(desired.CrossSeriesReducer) {
-		c.Config.Logger.Infof("Diff in CrossSeriesReducer.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CrossSeriesReducer), dcl.SprintResource(actual.CrossSeriesReducer))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.GroupByFields, actual.GroupByFields) && !dcl.IsZeroValue(desired.GroupByFields) {
-		c.Config.Logger.Infof("Diff in GroupByFields.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GroupByFields), dcl.SprintResource(actual.GroupByFields))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(c, desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams) && !dcl.IsZeroValue(desired.ReduceFractionLessThanParams) {
-		c.Config.Logger.Infof("Diff in ReduceFractionLessThanParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceFractionLessThanParams), dcl.SprintResource(actual.ReduceFractionLessThanParams))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(c, desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams) && !dcl.IsZeroValue(desired.ReduceMakeDistributionParams) {
-		c.Config.Logger.Infof("Diff in ReduceMakeDistributionParams.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReduceMakeDistributionParams), dcl.SprintResource(actual.ReduceMakeDistributionParams))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRateAggregations) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregations, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRateAggregations(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregations, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionRateAggregations) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregations, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregations, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionRateAggregations(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregations, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9472,60 +7887,13 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThan
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Threshold, actual.Threshold) && !dcl.IsZeroValue(desired.Threshold) {
-		c.Config.Logger.Infof("Diff in Threshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Threshold), dcl.SprintResource(actual.Threshold))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParamsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParamsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9548,71 +7916,20 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(c, desired.BucketOptions, actual.BucketOptions) && !dcl.IsZeroValue(desired.BucketOptions) {
-		c.Config.Logger.Infof("Diff in BucketOptions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.BucketOptions), dcl.SprintResource(actual.BucketOptions))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(c, desired.ExemplarSampling, actual.ExemplarSampling) && !dcl.IsZeroValue(desired.ExemplarSampling) {
-		c.Config.Logger.Infof("Diff in ExemplarSampling.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemplarSampling), dcl.SprintResource(actual.ExemplarSampling))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9635,82 +7952,27 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, desired.LinearBuckets, actual.LinearBuckets) && !dcl.IsZeroValue(desired.LinearBuckets) {
-		c.Config.Logger.Infof("Diff in LinearBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinearBuckets), dcl.SprintResource(actual.LinearBuckets))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, desired.ExponentialBuckets, actual.ExponentialBuckets) && !dcl.IsZeroValue(desired.ExponentialBuckets) {
-		c.Config.Logger.Infof("Diff in ExponentialBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExponentialBuckets), dcl.SprintResource(actual.ExponentialBuckets))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, desired.ExplicitBuckets, actual.ExplicitBuckets) && !dcl.IsZeroValue(desired.ExplicitBuckets) {
-		c.Config.Logger.Infof("Diff in ExplicitBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExplicitBuckets), dcl.SprintResource(actual.ExplicitBuckets))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9733,82 +7995,27 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Offset, actual.Offset, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Offset")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Width, actual.Width) && !dcl.IsZeroValue(desired.Width) {
-		c.Config.Logger.Infof("Diff in Width.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Width), dcl.SprintResource(actual.Width))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Offset, actual.Offset) && !dcl.IsZeroValue(desired.Offset) {
-		c.Config.Logger.Infof("Diff in Offset.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Offset), dcl.SprintResource(actual.Offset))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9831,82 +8038,27 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumFiniteBuckets, actual.NumFiniteBuckets, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumFiniteBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GrowthFactor, actual.GrowthFactor, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GrowthFactor")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.NumFiniteBuckets, actual.NumFiniteBuckets) && !dcl.IsZeroValue(desired.NumFiniteBuckets) {
-		c.Config.Logger.Infof("Diff in NumFiniteBuckets.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumFiniteBuckets), dcl.SprintResource(actual.NumFiniteBuckets))
-		return true
-	}
-	if !reflect.DeepEqual(desired.GrowthFactor, actual.GrowthFactor) && !dcl.IsZeroValue(desired.GrowthFactor) {
-		c.Config.Logger.Infof("Diff in GrowthFactor.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GrowthFactor), dcl.SprintResource(actual.GrowthFactor))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Scale, actual.Scale) && !dcl.IsZeroValue(desired.Scale) {
-		c.Config.Logger.Infof("Diff in Scale.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Scale), dcl.SprintResource(actual.Scale))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -9929,60 +8081,13 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Bounds, actual.Bounds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Bounds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.FloatSliceEquals(desired.Bounds, actual.Bounds) && !dcl.IsZeroValue(desired.Bounds) {
-		c.Config.Logger.Infof("Diff in Bounds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Bounds), dcl.SprintResource(actual.Bounds))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -10005,60 +8110,13 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinimumValue, actual.MinimumValue, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinimumValue")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.MinimumValue, actual.MinimumValue) && !dcl.IsZeroValue(desired.MinimumValue) {
-		c.Config.Logger.Infof("Diff in MinimumValue.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinimumValue), dcl.SprintResource(actual.MinimumValue))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSamplingSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSamplingMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionRateTimeWindowNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -10081,71 +8139,20 @@ func compareAlertPolicyConditionsConditionRateTimeWindowNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionRateTimeWindow(c *Client, desired, actual *AlertPolicyConditionsConditionRateTimeWindow) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateTimeWindowSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRateTimeWindow) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateTimeWindow, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRateTimeWindow(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateTimeWindow, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateTimeWindowMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionRateTimeWindow) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateTimeWindow, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateTimeWindow, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionRateTimeWindow(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateTimeWindow, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionRateTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -10168,71 +8175,20 @@ func compareAlertPolicyConditionsConditionRateTriggerNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionRateTrigger(c *Client, desired, actual *AlertPolicyConditionsConditionRateTrigger) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Count, actual.Count) && !dcl.IsZeroValue(desired.Count) {
-		c.Config.Logger.Infof("Diff in Count.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Count), dcl.SprintResource(actual.Count))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateTriggerSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRateTrigger) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateTrigger, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRateTrigger(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateTrigger, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateTriggerMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionRateTrigger) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateTrigger, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateTrigger, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionRateTrigger(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateTrigger, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionUpMonNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -10255,104 +8211,41 @@ func compareAlertPolicyConditionsConditionUpMonNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EndpointId, actual.EndpointId, dcl.Info{}, fn.AddNest("EndpointId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EndpointId, actual.EndpointId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EndpointId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CheckId, actual.CheckId, dcl.Info{}, fn.AddNest("CheckId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CheckId, actual.CheckId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CheckId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonDurationNewStyle}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonDurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonTriggerNewStyle}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionUpMon(c *Client, desired, actual *AlertPolicyConditionsConditionUpMon) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.EndpointId, actual.EndpointId) && !dcl.IsZeroValue(desired.EndpointId) {
-		c.Config.Logger.Infof("Diff in EndpointId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EndpointId), dcl.SprintResource(actual.EndpointId))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.CheckId, actual.CheckId) && !dcl.IsZeroValue(desired.CheckId) {
-		c.Config.Logger.Infof("Diff in CheckId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CheckId), dcl.SprintResource(actual.CheckId))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionUpMonDuration(c, desired.Duration, actual.Duration) && !dcl.IsZeroValue(desired.Duration) {
-		c.Config.Logger.Infof("Diff in Duration.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Duration), dcl.SprintResource(actual.Duration))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionUpMonTrigger(c, desired.Trigger, actual.Trigger) && !dcl.IsZeroValue(desired.Trigger) {
-		c.Config.Logger.Infof("Diff in Trigger.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Trigger), dcl.SprintResource(actual.Trigger))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionUpMonSlice(c *Client, desired, actual []AlertPolicyConditionsConditionUpMon) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionUpMon, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionUpMon(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionUpMon, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionUpMonMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionUpMon) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionUpMon, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionUpMon, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionUpMon(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionUpMon, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionUpMonDurationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -10375,71 +8268,20 @@ func compareAlertPolicyConditionsConditionUpMonDurationNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionUpMonDuration(c *Client, desired, actual *AlertPolicyConditionsConditionUpMonDuration) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionUpMonDurationSlice(c *Client, desired, actual []AlertPolicyConditionsConditionUpMonDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionUpMonDuration, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionUpMonDuration(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionUpMonDuration, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionUpMonDurationMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionUpMonDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionUpMonDuration, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionUpMonDuration, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionUpMonDuration(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionUpMonDuration, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionUpMonTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -10462,71 +8304,20 @@ func compareAlertPolicyConditionsConditionUpMonTriggerNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionUpMonTrigger(c *Client, desired, actual *AlertPolicyConditionsConditionUpMonTrigger) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Count, actual.Count) && !dcl.IsZeroValue(desired.Count) {
-		c.Config.Logger.Infof("Diff in Count.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Count), dcl.SprintResource(actual.Count))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionUpMonTriggerSlice(c *Client, desired, actual []AlertPolicyConditionsConditionUpMonTrigger) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionUpMonTrigger, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionUpMonTrigger(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionUpMonTrigger, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionUpMonTriggerMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionUpMonTrigger) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionUpMonTrigger, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionUpMonTrigger, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionUpMonTrigger(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionUpMonTrigger, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionProcessCountNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -10549,126 +8340,55 @@ func compareAlertPolicyConditionsConditionProcessCountNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Process, actual.Process, dcl.Info{}, fn.AddNest("Process")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Process, actual.Process, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Process")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.User, actual.User, dcl.Info{}, fn.AddNest("User")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.User, actual.User, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("User")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Comparison, actual.Comparison, dcl.Info{Type: "EnumType"}, fn.AddNest("Comparison")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Comparison, actual.Comparison, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Comparison")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ProcessCountThreshold, actual.ProcessCountThreshold, dcl.Info{}, fn.AddNest("ProcessCountThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProcessCountThreshold, actual.ProcessCountThreshold, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProcessCountThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountTriggerNewStyle}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountDurationNewStyle}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountDurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionProcessCount(c *Client, desired, actual *AlertPolicyConditionsConditionProcessCount) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Process, actual.Process) && !dcl.IsZeroValue(desired.Process) {
-		c.Config.Logger.Infof("Diff in Process.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Process), dcl.SprintResource(actual.Process))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.User, actual.User) && !dcl.IsZeroValue(desired.User) {
-		c.Config.Logger.Infof("Diff in User.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.User), dcl.SprintResource(actual.User))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Comparison, actual.Comparison) && !dcl.IsZeroValue(desired.Comparison) {
-		c.Config.Logger.Infof("Diff in Comparison.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comparison), dcl.SprintResource(actual.Comparison))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ProcessCountThreshold, actual.ProcessCountThreshold) && !dcl.IsZeroValue(desired.ProcessCountThreshold) {
-		c.Config.Logger.Infof("Diff in ProcessCountThreshold.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProcessCountThreshold), dcl.SprintResource(actual.ProcessCountThreshold))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionProcessCountTrigger(c, desired.Trigger, actual.Trigger) && !dcl.IsZeroValue(desired.Trigger) {
-		c.Config.Logger.Infof("Diff in Trigger.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Trigger), dcl.SprintResource(actual.Trigger))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionProcessCountDuration(c, desired.Duration, actual.Duration) && !dcl.IsZeroValue(desired.Duration) {
-		c.Config.Logger.Infof("Diff in Duration.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Duration), dcl.SprintResource(actual.Duration))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionProcessCountSlice(c *Client, desired, actual []AlertPolicyConditionsConditionProcessCount) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionProcessCount, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionProcessCount(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionProcessCount, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionProcessCountMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionProcessCount) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionProcessCount, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionProcessCount, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionProcessCount(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionProcessCount, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionProcessCountTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -10691,71 +8411,20 @@ func compareAlertPolicyConditionsConditionProcessCountTriggerNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionProcessCountTrigger(c *Client, desired, actual *AlertPolicyConditionsConditionProcessCountTrigger) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Count, actual.Count) && !dcl.IsZeroValue(desired.Count) {
-		c.Config.Logger.Infof("Diff in Count.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Count), dcl.SprintResource(actual.Count))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionProcessCountTriggerSlice(c *Client, desired, actual []AlertPolicyConditionsConditionProcessCountTrigger) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionProcessCountTrigger, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionProcessCountTrigger(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionProcessCountTrigger, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionProcessCountTriggerMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionProcessCountTrigger) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionProcessCountTrigger, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionProcessCountTrigger, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionProcessCountTrigger(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionProcessCountTrigger, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionProcessCountDurationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -10778,71 +8447,20 @@ func compareAlertPolicyConditionsConditionProcessCountDurationNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionProcessCountDuration(c *Client, desired, actual *AlertPolicyConditionsConditionProcessCountDuration) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionProcessCountDurationSlice(c *Client, desired, actual []AlertPolicyConditionsConditionProcessCountDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionProcessCountDuration, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionProcessCountDuration(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionProcessCountDuration, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionProcessCountDurationMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionProcessCountDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionProcessCountDuration, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionProcessCountDuration, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionProcessCountDuration(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionProcessCountDuration, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionTimeSeriesQueryLanguageNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -10865,71 +8483,20 @@ func compareAlertPolicyConditionsConditionTimeSeriesQueryLanguageNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Query, actual.Query, dcl.Info{}, fn.AddNest("Query")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Query, actual.Query, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Query")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Summary, actual.Summary, dcl.Info{}, fn.AddNest("Summary")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Summary, actual.Summary, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Summary")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionTimeSeriesQueryLanguage(c *Client, desired, actual *AlertPolicyConditionsConditionTimeSeriesQueryLanguage) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Query, actual.Query) && !dcl.IsZeroValue(desired.Query) {
-		c.Config.Logger.Infof("Diff in Query.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Query), dcl.SprintResource(actual.Query))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Summary, actual.Summary) && !dcl.IsZeroValue(desired.Summary) {
-		c.Config.Logger.Infof("Diff in Summary.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Summary), dcl.SprintResource(actual.Summary))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionTimeSeriesQueryLanguageSlice(c *Client, desired, actual []AlertPolicyConditionsConditionTimeSeriesQueryLanguage) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionTimeSeriesQueryLanguage, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionTimeSeriesQueryLanguage(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionTimeSeriesQueryLanguage, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionTimeSeriesQueryLanguageMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionTimeSeriesQueryLanguage) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionTimeSeriesQueryLanguage, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionTimeSeriesQueryLanguage, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionTimeSeriesQueryLanguage(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionTimeSeriesQueryLanguage, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionMonitoringQueryLanguageNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -10952,82 +8519,27 @@ func compareAlertPolicyConditionsConditionMonitoringQueryLanguageNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Query, actual.Query, dcl.Info{}, fn.AddNest("Query")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Query, actual.Query, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Query")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageDurationNewStyle}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageDurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerNewStyle}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionMonitoringQueryLanguage(c *Client, desired, actual *AlertPolicyConditionsConditionMonitoringQueryLanguage) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Query, actual.Query) && !dcl.IsZeroValue(desired.Query) {
-		c.Config.Logger.Infof("Diff in Query.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Query), dcl.SprintResource(actual.Query))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(c, desired.Duration, actual.Duration) && !dcl.IsZeroValue(desired.Duration) {
-		c.Config.Logger.Infof("Diff in Duration.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Duration), dcl.SprintResource(actual.Duration))
-		return true
-	}
-	if compareAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(c, desired.Trigger, actual.Trigger) && !dcl.IsZeroValue(desired.Trigger) {
-		c.Config.Logger.Infof("Diff in Trigger.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Trigger), dcl.SprintResource(actual.Trigger))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionMonitoringQueryLanguageSlice(c *Client, desired, actual []AlertPolicyConditionsConditionMonitoringQueryLanguage) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguage, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionMonitoringQueryLanguage(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguage, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionMonitoringQueryLanguageMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionMonitoringQueryLanguage) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguage, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguage, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionMonitoringQueryLanguage(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguage, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionMonitoringQueryLanguageDurationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -11050,71 +8562,20 @@ func compareAlertPolicyConditionsConditionMonitoringQueryLanguageDurationNewStyl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(c *Client, desired, actual *AlertPolicyConditionsConditionMonitoringQueryLanguageDuration) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionMonitoringQueryLanguageDurationSlice(c *Client, desired, actual []AlertPolicyConditionsConditionMonitoringQueryLanguageDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguageDuration, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguageDuration, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionMonitoringQueryLanguageDurationMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionMonitoringQueryLanguageDuration) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguageDuration, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguageDuration, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguageDuration, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -11137,71 +8598,20 @@ func compareAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(c *Client, desired, actual *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Count, actual.Count) && !dcl.IsZeroValue(desired.Count) {
-		c.Config.Logger.Infof("Diff in Count.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Count), dcl.SprintResource(actual.Count))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerSlice(c *Client, desired, actual []AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerMap(c *Client, desired, actual map[string]AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyEnabledNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -11224,60 +8634,13 @@ func compareAlertPolicyEnabledNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyEnabled(c *Client, desired, actual *AlertPolicyEnabled) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyEnabledSlice(c *Client, desired, actual []AlertPolicyEnabled) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyEnabled, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyEnabled(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyEnabled, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyEnabledMap(c *Client, desired, actual map[string]AlertPolicyEnabled) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyEnabled, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyEnabled, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyEnabled(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyEnabled, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyValidityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -11300,82 +8663,27 @@ func compareAlertPolicyValidityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareAlertPolicyValidityDetailsNewStyle}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareAlertPolicyValidityDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyValidity(c *Client, desired, actual *AlertPolicyValidity) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Code, actual.Code) && !dcl.IsZeroValue(desired.Code) {
-		c.Config.Logger.Infof("Diff in Code.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Code), dcl.SprintResource(actual.Code))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Message, actual.Message) && !dcl.IsZeroValue(desired.Message) {
-		c.Config.Logger.Infof("Diff in Message.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Message), dcl.SprintResource(actual.Message))
-		return true
-	}
-	if compareAlertPolicyValidityDetailsSlice(c, desired.Details, actual.Details) && !dcl.IsZeroValue(desired.Details) {
-		c.Config.Logger.Infof("Diff in Details.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Details), dcl.SprintResource(actual.Details))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyValiditySlice(c *Client, desired, actual []AlertPolicyValidity) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyValidity, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyValidity(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyValidity, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyValidityMap(c *Client, desired, actual map[string]AlertPolicyValidity) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyValidity, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyValidity, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyValidity(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyValidity, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyValidityDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -11398,71 +8706,20 @@ func compareAlertPolicyValidityDetailsNewStyle(d, a interface{}, fn dcl.FieldNam
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyValidityDetails(c *Client, desired, actual *AlertPolicyValidityDetails) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.TypeUrl, actual.TypeUrl) && !dcl.IsZeroValue(desired.TypeUrl) {
-		c.Config.Logger.Infof("Diff in TypeUrl.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TypeUrl), dcl.SprintResource(actual.TypeUrl))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyValidityDetailsSlice(c *Client, desired, actual []AlertPolicyValidityDetails) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyValidityDetails, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyValidityDetails(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyValidityDetails, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyValidityDetailsMap(c *Client, desired, actual map[string]AlertPolicyValidityDetails) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyValidityDetails, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyValidityDetails, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyValidityDetails(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyValidityDetails, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyCreationRecordNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -11485,71 +8742,20 @@ func compareAlertPolicyCreationRecordNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MutateTime, actual.MutateTime, dcl.Info{ObjectFunction: compareAlertPolicyCreationRecordMutateTimeNewStyle}, fn.AddNest("MutateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MutateTime, actual.MutateTime, dcl.Info{ObjectFunction: compareAlertPolicyCreationRecordMutateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MutateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MutatedBy, actual.MutatedBy, dcl.Info{}, fn.AddNest("MutatedBy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MutatedBy, actual.MutatedBy, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MutatedBy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyCreationRecord(c *Client, desired, actual *AlertPolicyCreationRecord) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareAlertPolicyCreationRecordMutateTime(c, desired.MutateTime, actual.MutateTime) && !dcl.IsZeroValue(desired.MutateTime) {
-		c.Config.Logger.Infof("Diff in MutateTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MutateTime), dcl.SprintResource(actual.MutateTime))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MutatedBy, actual.MutatedBy) && !dcl.IsZeroValue(desired.MutatedBy) {
-		c.Config.Logger.Infof("Diff in MutatedBy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MutatedBy), dcl.SprintResource(actual.MutatedBy))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyCreationRecordSlice(c *Client, desired, actual []AlertPolicyCreationRecord) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyCreationRecord, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyCreationRecord(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyCreationRecord, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyCreationRecordMap(c *Client, desired, actual map[string]AlertPolicyCreationRecord) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyCreationRecord, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyCreationRecord, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyCreationRecord(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyCreationRecord, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyCreationRecordMutateTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -11572,71 +8778,20 @@ func compareAlertPolicyCreationRecordMutateTimeNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyCreationRecordMutateTime(c *Client, desired, actual *AlertPolicyCreationRecordMutateTime) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyCreationRecordMutateTimeSlice(c *Client, desired, actual []AlertPolicyCreationRecordMutateTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyCreationRecordMutateTime, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyCreationRecordMutateTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyCreationRecordMutateTime, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyCreationRecordMutateTimeMap(c *Client, desired, actual map[string]AlertPolicyCreationRecordMutateTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyCreationRecordMutateTime, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyCreationRecordMutateTime, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyCreationRecordMutateTime(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyCreationRecordMutateTime, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyMutationRecordNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -11659,71 +8814,20 @@ func compareAlertPolicyMutationRecordNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MutateTime, actual.MutateTime, dcl.Info{ObjectFunction: compareAlertPolicyMutationRecordMutateTimeNewStyle}, fn.AddNest("MutateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MutateTime, actual.MutateTime, dcl.Info{ObjectFunction: compareAlertPolicyMutationRecordMutateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MutateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MutatedBy, actual.MutatedBy, dcl.Info{}, fn.AddNest("MutatedBy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MutatedBy, actual.MutatedBy, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MutatedBy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyMutationRecord(c *Client, desired, actual *AlertPolicyMutationRecord) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareAlertPolicyMutationRecordMutateTime(c, desired.MutateTime, actual.MutateTime) && !dcl.IsZeroValue(desired.MutateTime) {
-		c.Config.Logger.Infof("Diff in MutateTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MutateTime), dcl.SprintResource(actual.MutateTime))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MutatedBy, actual.MutatedBy) && !dcl.IsZeroValue(desired.MutatedBy) {
-		c.Config.Logger.Infof("Diff in MutatedBy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MutatedBy), dcl.SprintResource(actual.MutatedBy))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyMutationRecordSlice(c *Client, desired, actual []AlertPolicyMutationRecord) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyMutationRecord, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyMutationRecord(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyMutationRecord, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyMutationRecordMap(c *Client, desired, actual map[string]AlertPolicyMutationRecord) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyMutationRecord, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyMutationRecord, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyMutationRecord(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyMutationRecord, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyMutationRecordMutateTimeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -11746,71 +8850,20 @@ func compareAlertPolicyMutationRecordMutateTimeNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Seconds, actual.Seconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Seconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nanos, actual.Nanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyMutationRecordMutateTime(c *Client, desired, actual *AlertPolicyMutationRecordMutateTime) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Seconds, actual.Seconds) && !dcl.IsZeroValue(desired.Seconds) {
-		c.Config.Logger.Infof("Diff in Seconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Seconds), dcl.SprintResource(actual.Seconds))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Nanos, actual.Nanos) && !dcl.IsZeroValue(desired.Nanos) {
-		c.Config.Logger.Infof("Diff in Nanos.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Nanos), dcl.SprintResource(actual.Nanos))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyMutationRecordMutateTimeSlice(c *Client, desired, actual []AlertPolicyMutationRecordMutateTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyMutationRecordMutateTime, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyMutationRecordMutateTime(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyMutationRecordMutateTime, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyMutationRecordMutateTimeMap(c *Client, desired, actual map[string]AlertPolicyMutationRecordMutateTime) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyMutationRecordMutateTime, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyMutationRecordMutateTime, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyMutationRecordMutateTime(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyMutationRecordMutateTime, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyIncidentStrategyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -11833,60 +8886,13 @@ func compareAlertPolicyIncidentStrategyNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyIncidentStrategy(c *Client, desired, actual *AlertPolicyIncidentStrategy) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyIncidentStrategySlice(c *Client, desired, actual []AlertPolicyIncidentStrategy) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyIncidentStrategy, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyIncidentStrategy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyIncidentStrategy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyIncidentStrategyMap(c *Client, desired, actual map[string]AlertPolicyIncidentStrategy) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyIncidentStrategy, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyIncidentStrategy, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyIncidentStrategy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyIncidentStrategy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAlertPolicyMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -11909,312 +8915,13 @@ func compareAlertPolicyMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SloNames, actual.SloNames, dcl.Info{}, fn.AddNest("SloNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SloNames, actual.SloNames, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SloNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAlertPolicyMetadata(c *Client, desired, actual *AlertPolicyMetadata) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.SloNames, actual.SloNames) && !dcl.IsZeroValue(desired.SloNames) {
-		c.Config.Logger.Infof("Diff in SloNames.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SloNames), dcl.SprintResource(actual.SloNames))
-		return true
-	}
-	return false
-}
-
-func compareAlertPolicyMetadataSlice(c *Client, desired, actual []AlertPolicyMetadata) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyMetadata, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyMetadata(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyMetadata, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyMetadataMap(c *Client, desired, actual map[string]AlertPolicyMetadata) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyMetadata, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AlertPolicyMetadata, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAlertPolicyMetadata(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AlertPolicyMetadata, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsResourceStateFilterEnumSlice(c *Client, desired, actual []AlertPolicyConditionsResourceStateFilterEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsResourceStateFilterEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsResourceStateFilterEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsResourceStateFilterEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsResourceStateFilterEnum(c *Client, desired, actual *AlertPolicyConditionsResourceStateFilterEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnumSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnumSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnumSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnumSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAlertPolicyConditionsConditionThresholdComparisonEnumSlice(c *Client, desired, actual []AlertPolicyConditionsConditionThresholdComparisonEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionThresholdComparisonEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionThresholdComparisonEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionThresholdComparisonEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionThresholdComparisonEnum(c *Client, desired, actual *AlertPolicyConditionsConditionThresholdComparisonEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnumSlice(c *Client, desired, actual []AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnumSlice(c *Client, desired, actual []AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum(c *Client, desired, actual *AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnumSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnumSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum(c *Client, desired, actual *AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAlertPolicyConditionsConditionRateComparisonEnumSlice(c *Client, desired, actual []AlertPolicyConditionsConditionRateComparisonEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionRateComparisonEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionRateComparisonEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionRateComparisonEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionRateComparisonEnum(c *Client, desired, actual *AlertPolicyConditionsConditionRateComparisonEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAlertPolicyConditionsConditionProcessCountComparisonEnumSlice(c *Client, desired, actual []AlertPolicyConditionsConditionProcessCountComparisonEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyConditionsConditionProcessCountComparisonEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyConditionsConditionProcessCountComparisonEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyConditionsConditionProcessCountComparisonEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyConditionsConditionProcessCountComparisonEnum(c *Client, desired, actual *AlertPolicyConditionsConditionProcessCountComparisonEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAlertPolicyCombinerEnumSlice(c *Client, desired, actual []AlertPolicyCombinerEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyCombinerEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyCombinerEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyCombinerEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyCombinerEnum(c *Client, desired, actual *AlertPolicyCombinerEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAlertPolicyIncidentStrategyTypeEnumSlice(c *Client, desired, actual []AlertPolicyIncidentStrategyTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AlertPolicyIncidentStrategyTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAlertPolicyIncidentStrategyTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AlertPolicyIncidentStrategyTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAlertPolicyIncidentStrategyTypeEnum(c *Client, desired, actual *AlertPolicyIncidentStrategyTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -12363,24 +9070,24 @@ func flattenAlertPolicy(c *Client, i interface{}) *AlertPolicy {
 		return nil
 	}
 
-	r := &AlertPolicy{}
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	r.DisplayName = dcl.FlattenString(m["displayName"])
-	r.Documentation = flattenAlertPolicyDocumentation(c, m["documentation"])
-	r.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
-	r.Conditions = flattenAlertPolicyConditionsSlice(c, m["conditions"])
-	r.Combiner = flattenAlertPolicyCombinerEnum(m["combiner"])
-	r.Disabled = dcl.FlattenBool(m["disabled"])
-	r.Enabled = flattenAlertPolicyEnabled(c, m["enabled"])
-	r.Validity = flattenAlertPolicyValidity(c, m["validity"])
-	r.NotificationChannels = dcl.FlattenStringSlice(m["notificationChannels"])
-	r.CreationRecord = flattenAlertPolicyCreationRecord(c, m["creationRecord"])
-	r.MutationRecord = flattenAlertPolicyMutationRecord(c, m["mutationRecord"])
-	r.IncidentStrategy = flattenAlertPolicyIncidentStrategy(c, m["incidentStrategy"])
-	r.Metadata = flattenAlertPolicyMetadata(c, m["metadata"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &AlertPolicy{}
+	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	res.DisplayName = dcl.FlattenString(m["displayName"])
+	res.Documentation = flattenAlertPolicyDocumentation(c, m["documentation"])
+	res.UserLabels = dcl.FlattenKeyValuePairs(m["userLabels"])
+	res.Conditions = flattenAlertPolicyConditionsSlice(c, m["conditions"])
+	res.Combiner = flattenAlertPolicyCombinerEnum(m["combiner"])
+	res.Disabled = dcl.FlattenBool(m["disabled"])
+	res.Enabled = flattenAlertPolicyEnabled(c, m["enabled"])
+	res.Validity = flattenAlertPolicyValidity(c, m["validity"])
+	res.NotificationChannels = dcl.FlattenStringSlice(m["notificationChannels"])
+	res.CreationRecord = flattenAlertPolicyCreationRecord(c, m["creationRecord"])
+	res.MutationRecord = flattenAlertPolicyMutationRecord(c, m["mutationRecord"])
+	res.IncidentStrategy = flattenAlertPolicyIncidentStrategy(c, m["incidentStrategy"])
+	res.Metadata = flattenAlertPolicyMetadata(c, m["metadata"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // expandAlertPolicyDocumentationMap expands the contents of AlertPolicyDocumentation into a JSON
@@ -12467,10 +9174,11 @@ func flattenAlertPolicyDocumentationSlice(c *Client, i interface{}) []AlertPolic
 // expandAlertPolicyDocumentation expands an instance of AlertPolicyDocumentation into a JSON
 // request object.
 func expandAlertPolicyDocumentation(c *Client, f *AlertPolicyDocumentation) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Content; !dcl.IsEmptyValueIndirect(v) {
 		m["content"] = v
 	}
@@ -12580,10 +9288,11 @@ func flattenAlertPolicyConditionsSlice(c *Client, i interface{}) []AlertPolicyCo
 // expandAlertPolicyConditions expands an instance of AlertPolicyConditions into a JSON
 // request object.
 func expandAlertPolicyConditions(c *Client, f *AlertPolicyConditions) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -12751,10 +9460,11 @@ func flattenAlertPolicyConditionsConditionThresholdSlice(c *Client, i interface{
 // expandAlertPolicyConditionsConditionThreshold expands an instance of AlertPolicyConditionsConditionThreshold into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThreshold(c *Client, f *AlertPolicyConditionsConditionThreshold) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
@@ -12894,10 +9604,11 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsSlice(c *Client, 
 // expandAlertPolicyConditionsConditionThresholdAggregations expands an instance of AlertPolicyConditionsConditionThresholdAggregations into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdAggregations(c *Client, f *AlertPolicyConditionsConditionThresholdAggregations) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -13027,10 +9738,11 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLes
 // expandAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams expands an instance of AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(c *Client, f *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -13136,10 +9848,11 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 // expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams expands an instance of AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(c *Client, f *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -13253,10 +9966,11 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 // expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions expands an instance of AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, f *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -13376,10 +10090,11 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 // expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -13493,10 +10208,11 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 // expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -13610,10 +10326,11 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 // expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -13719,10 +10436,11 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 // expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling expands an instance of AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, f *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -13828,10 +10546,11 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsSlice(
 // expandAlertPolicyConditionsConditionThresholdDenominatorAggregations expands an instance of AlertPolicyConditionsConditionThresholdDenominatorAggregations into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdDenominatorAggregations(c *Client, f *AlertPolicyConditionsConditionThresholdDenominatorAggregations) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -13961,10 +10680,11 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 // expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams expands an instance of AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(c *Client, f *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -14070,10 +10790,11 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 // expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams expands an instance of AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(c *Client, f *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -14187,10 +10908,11 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 // expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions expands an instance of AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, f *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -14310,10 +11032,11 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 // expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -14427,10 +11150,11 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 // expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -14544,10 +11268,11 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 // expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -14653,10 +11378,11 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 // expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling expands an instance of AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, f *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -14762,10 +11488,11 @@ func flattenAlertPolicyConditionsConditionThresholdTriggerSlice(c *Client, i int
 // expandAlertPolicyConditionsConditionThresholdTrigger expands an instance of AlertPolicyConditionsConditionThresholdTrigger into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionThresholdTrigger(c *Client, f *AlertPolicyConditionsConditionThresholdTrigger) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Count; !dcl.IsEmptyValueIndirect(v) {
 		m["count"] = v
 	}
@@ -14875,10 +11602,11 @@ func flattenAlertPolicyConditionsConditionAbsentSlice(c *Client, i interface{}) 
 // expandAlertPolicyConditionsConditionAbsent expands an instance of AlertPolicyConditionsConditionAbsent into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionAbsent(c *Client, f *AlertPolicyConditionsConditionAbsent) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
@@ -15002,10 +11730,11 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsSlice(c *Client, i i
 // expandAlertPolicyConditionsConditionAbsentAggregations expands an instance of AlertPolicyConditionsConditionAbsentAggregations into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionAbsentAggregations(c *Client, f *AlertPolicyConditionsConditionAbsentAggregations) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -15135,10 +11864,11 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessTh
 // expandAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams expands an instance of AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(c *Client, f *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -15244,10 +11974,11 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 // expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams expands an instance of AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(c *Client, f *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -15361,10 +12092,11 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 // expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions expands an instance of AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, f *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -15484,10 +12216,11 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 // expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -15601,10 +12334,11 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 // expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -15718,10 +12452,11 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 // expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -15827,10 +12562,11 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 // expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling expands an instance of AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, f *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -15936,10 +12672,11 @@ func flattenAlertPolicyConditionsConditionAbsentDurationSlice(c *Client, i inter
 // expandAlertPolicyConditionsConditionAbsentDuration expands an instance of AlertPolicyConditionsConditionAbsentDuration into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionAbsentDuration(c *Client, f *AlertPolicyConditionsConditionAbsentDuration) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -16049,10 +12786,11 @@ func flattenAlertPolicyConditionsConditionAbsentTriggerSlice(c *Client, i interf
 // expandAlertPolicyConditionsConditionAbsentTrigger expands an instance of AlertPolicyConditionsConditionAbsentTrigger into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionAbsentTrigger(c *Client, f *AlertPolicyConditionsConditionAbsentTrigger) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Count; !dcl.IsEmptyValueIndirect(v) {
 		m["count"] = v
 	}
@@ -16162,10 +12900,11 @@ func flattenAlertPolicyConditionsConditionMatchedLogSlice(c *Client, i interface
 // expandAlertPolicyConditionsConditionMatchedLog expands an instance of AlertPolicyConditionsConditionMatchedLog into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionMatchedLog(c *Client, f *AlertPolicyConditionsConditionMatchedLog) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
@@ -16275,10 +13014,11 @@ func flattenAlertPolicyConditionsConditionClusterOutlierSlice(c *Client, i inter
 // expandAlertPolicyConditionsConditionClusterOutlier expands an instance of AlertPolicyConditionsConditionClusterOutlier into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionClusterOutlier(c *Client, f *AlertPolicyConditionsConditionClusterOutlier) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
@@ -16384,10 +13124,11 @@ func flattenAlertPolicyConditionsConditionRateSlice(c *Client, i interface{}) []
 // expandAlertPolicyConditionsConditionRate expands an instance of AlertPolicyConditionsConditionRate into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionRate(c *Client, f *AlertPolicyConditionsConditionRate) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
@@ -16519,10 +13260,11 @@ func flattenAlertPolicyConditionsConditionRateAggregationsSlice(c *Client, i int
 // expandAlertPolicyConditionsConditionRateAggregations expands an instance of AlertPolicyConditionsConditionRateAggregations into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionRateAggregations(c *Client, f *AlertPolicyConditionsConditionRateAggregations) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.AlignmentPeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["alignmentPeriod"] = v
 	}
@@ -16652,10 +13394,11 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThan
 // expandAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams expands an instance of AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(c *Client, f *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Threshold; !dcl.IsEmptyValueIndirect(v) {
 		m["threshold"] = v
 	}
@@ -16761,10 +13504,11 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 // expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams expands an instance of AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(c *Client, f *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(c, f.BucketOptions); err != nil {
 		return nil, fmt.Errorf("error expanding BucketOptions into bucketOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -16878,10 +13622,11 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 // expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions expands an instance of AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(c *Client, f *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, f.LinearBuckets); err != nil {
 		return nil, fmt.Errorf("error expanding LinearBuckets into linearBuckets: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -17001,10 +13746,11 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 // expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets expands an instance of AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c *Client, f *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -17118,10 +13864,11 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 // expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets expands an instance of AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c *Client, f *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.NumFiniteBuckets; !dcl.IsEmptyValueIndirect(v) {
 		m["numFiniteBuckets"] = v
 	}
@@ -17235,10 +13982,11 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 // expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets expands an instance of AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c *Client, f *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Bounds; !dcl.IsEmptyValueIndirect(v) {
 		m["bounds"] = v
 	}
@@ -17344,10 +14092,11 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 // expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling expands an instance of AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(c *Client, f *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MinimumValue; !dcl.IsEmptyValueIndirect(v) {
 		m["minimumValue"] = v
 	}
@@ -17453,10 +14202,11 @@ func flattenAlertPolicyConditionsConditionRateTimeWindowSlice(c *Client, i inter
 // expandAlertPolicyConditionsConditionRateTimeWindow expands an instance of AlertPolicyConditionsConditionRateTimeWindow into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionRateTimeWindow(c *Client, f *AlertPolicyConditionsConditionRateTimeWindow) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -17566,10 +14316,11 @@ func flattenAlertPolicyConditionsConditionRateTriggerSlice(c *Client, i interfac
 // expandAlertPolicyConditionsConditionRateTrigger expands an instance of AlertPolicyConditionsConditionRateTrigger into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionRateTrigger(c *Client, f *AlertPolicyConditionsConditionRateTrigger) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Count; !dcl.IsEmptyValueIndirect(v) {
 		m["count"] = v
 	}
@@ -17679,10 +14430,11 @@ func flattenAlertPolicyConditionsConditionUpMonSlice(c *Client, i interface{}) [
 // expandAlertPolicyConditionsConditionUpMon expands an instance of AlertPolicyConditionsConditionUpMon into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionUpMon(c *Client, f *AlertPolicyConditionsConditionUpMon) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
 		m["filter"] = v
 	}
@@ -17808,10 +14560,11 @@ func flattenAlertPolicyConditionsConditionUpMonDurationSlice(c *Client, i interf
 // expandAlertPolicyConditionsConditionUpMonDuration expands an instance of AlertPolicyConditionsConditionUpMonDuration into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionUpMonDuration(c *Client, f *AlertPolicyConditionsConditionUpMonDuration) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -17921,10 +14674,11 @@ func flattenAlertPolicyConditionsConditionUpMonTriggerSlice(c *Client, i interfa
 // expandAlertPolicyConditionsConditionUpMonTrigger expands an instance of AlertPolicyConditionsConditionUpMonTrigger into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionUpMonTrigger(c *Client, f *AlertPolicyConditionsConditionUpMonTrigger) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Count; !dcl.IsEmptyValueIndirect(v) {
 		m["count"] = v
 	}
@@ -18034,10 +14788,11 @@ func flattenAlertPolicyConditionsConditionProcessCountSlice(c *Client, i interfa
 // expandAlertPolicyConditionsConditionProcessCount expands an instance of AlertPolicyConditionsConditionProcessCount into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionProcessCount(c *Client, f *AlertPolicyConditionsConditionProcessCount) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Process; !dcl.IsEmptyValueIndirect(v) {
 		m["process"] = v
 	}
@@ -18171,10 +14926,11 @@ func flattenAlertPolicyConditionsConditionProcessCountTriggerSlice(c *Client, i 
 // expandAlertPolicyConditionsConditionProcessCountTrigger expands an instance of AlertPolicyConditionsConditionProcessCountTrigger into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionProcessCountTrigger(c *Client, f *AlertPolicyConditionsConditionProcessCountTrigger) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Count; !dcl.IsEmptyValueIndirect(v) {
 		m["count"] = v
 	}
@@ -18284,10 +15040,11 @@ func flattenAlertPolicyConditionsConditionProcessCountDurationSlice(c *Client, i
 // expandAlertPolicyConditionsConditionProcessCountDuration expands an instance of AlertPolicyConditionsConditionProcessCountDuration into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionProcessCountDuration(c *Client, f *AlertPolicyConditionsConditionProcessCountDuration) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -18397,10 +15154,11 @@ func flattenAlertPolicyConditionsConditionTimeSeriesQueryLanguageSlice(c *Client
 // expandAlertPolicyConditionsConditionTimeSeriesQueryLanguage expands an instance of AlertPolicyConditionsConditionTimeSeriesQueryLanguage into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionTimeSeriesQueryLanguage(c *Client, f *AlertPolicyConditionsConditionTimeSeriesQueryLanguage) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Query; !dcl.IsEmptyValueIndirect(v) {
 		m["query"] = v
 	}
@@ -18510,10 +15268,11 @@ func flattenAlertPolicyConditionsConditionMonitoringQueryLanguageSlice(c *Client
 // expandAlertPolicyConditionsConditionMonitoringQueryLanguage expands an instance of AlertPolicyConditionsConditionMonitoringQueryLanguage into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionMonitoringQueryLanguage(c *Client, f *AlertPolicyConditionsConditionMonitoringQueryLanguage) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Query; !dcl.IsEmptyValueIndirect(v) {
 		m["query"] = v
 	}
@@ -18631,10 +15390,11 @@ func flattenAlertPolicyConditionsConditionMonitoringQueryLanguageDurationSlice(c
 // expandAlertPolicyConditionsConditionMonitoringQueryLanguageDuration expands an instance of AlertPolicyConditionsConditionMonitoringQueryLanguageDuration into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(c *Client, f *AlertPolicyConditionsConditionMonitoringQueryLanguageDuration) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -18744,10 +15504,11 @@ func flattenAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerSlice(c 
 // expandAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger expands an instance of AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger into a JSON
 // request object.
 func expandAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(c *Client, f *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Count; !dcl.IsEmptyValueIndirect(v) {
 		m["count"] = v
 	}
@@ -18857,10 +15618,11 @@ func flattenAlertPolicyEnabledSlice(c *Client, i interface{}) []AlertPolicyEnabl
 // expandAlertPolicyEnabled expands an instance of AlertPolicyEnabled into a JSON
 // request object.
 func expandAlertPolicyEnabled(c *Client, f *AlertPolicyEnabled) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
 		m["value"] = v
 	}
@@ -18966,10 +15728,11 @@ func flattenAlertPolicyValiditySlice(c *Client, i interface{}) []AlertPolicyVali
 // expandAlertPolicyValidity expands an instance of AlertPolicyValidity into a JSON
 // request object.
 func expandAlertPolicyValidity(c *Client, f *AlertPolicyValidity) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Code; !dcl.IsEmptyValueIndirect(v) {
 		m["code"] = v
 	}
@@ -19085,10 +15848,11 @@ func flattenAlertPolicyValidityDetailsSlice(c *Client, i interface{}) []AlertPol
 // expandAlertPolicyValidityDetails expands an instance of AlertPolicyValidityDetails into a JSON
 // request object.
 func expandAlertPolicyValidityDetails(c *Client, f *AlertPolicyValidityDetails) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.TypeUrl; !dcl.IsEmptyValueIndirect(v) {
 		m["typeUrl"] = v
 	}
@@ -19198,10 +15962,11 @@ func flattenAlertPolicyCreationRecordSlice(c *Client, i interface{}) []AlertPoli
 // expandAlertPolicyCreationRecord expands an instance of AlertPolicyCreationRecord into a JSON
 // request object.
 func expandAlertPolicyCreationRecord(c *Client, f *AlertPolicyCreationRecord) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandAlertPolicyCreationRecordMutateTime(c, f.MutateTime); err != nil {
 		return nil, fmt.Errorf("error expanding MutateTime into mutateTime: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -19313,10 +16078,11 @@ func flattenAlertPolicyCreationRecordMutateTimeSlice(c *Client, i interface{}) [
 // expandAlertPolicyCreationRecordMutateTime expands an instance of AlertPolicyCreationRecordMutateTime into a JSON
 // request object.
 func expandAlertPolicyCreationRecordMutateTime(c *Client, f *AlertPolicyCreationRecordMutateTime) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -19426,10 +16192,11 @@ func flattenAlertPolicyMutationRecordSlice(c *Client, i interface{}) []AlertPoli
 // expandAlertPolicyMutationRecord expands an instance of AlertPolicyMutationRecord into a JSON
 // request object.
 func expandAlertPolicyMutationRecord(c *Client, f *AlertPolicyMutationRecord) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandAlertPolicyMutationRecordMutateTime(c, f.MutateTime); err != nil {
 		return nil, fmt.Errorf("error expanding MutateTime into mutateTime: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -19541,10 +16308,11 @@ func flattenAlertPolicyMutationRecordMutateTimeSlice(c *Client, i interface{}) [
 // expandAlertPolicyMutationRecordMutateTime expands an instance of AlertPolicyMutationRecordMutateTime into a JSON
 // request object.
 func expandAlertPolicyMutationRecordMutateTime(c *Client, f *AlertPolicyMutationRecordMutateTime) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Seconds; !dcl.IsEmptyValueIndirect(v) {
 		m["seconds"] = v
 	}
@@ -19654,10 +16422,11 @@ func flattenAlertPolicyIncidentStrategySlice(c *Client, i interface{}) []AlertPo
 // expandAlertPolicyIncidentStrategy expands an instance of AlertPolicyIncidentStrategy into a JSON
 // request object.
 func expandAlertPolicyIncidentStrategy(c *Client, f *AlertPolicyIncidentStrategy) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
@@ -19763,10 +16532,11 @@ func flattenAlertPolicyMetadataSlice(c *Client, i interface{}) []AlertPolicyMeta
 // expandAlertPolicyMetadata expands an instance of AlertPolicyMetadata into a JSON
 // request object.
 func expandAlertPolicyMetadata(c *Client, f *AlertPolicyMetadata) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.SloNames; !dcl.IsEmptyValueIndirect(v) {
 		m["sloNames"] = v
 	}
@@ -20253,5 +17023,36 @@ func (r *AlertPolicy) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToAlertPolicyDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]alertPolicyDiff, error) {
+	var diffs []alertPolicyDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := alertPolicyDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToalertPolicyApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToalertPolicyApiOperation(op string, opts ...dcl.ApplyOption) (alertPolicyApiOperation, error) {
+	switch op {
+
+	case "updateAlertPolicyUpdateAlertPolicyOperation":
+		return &updateAlertPolicyUpdateAlertPolicyOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

@@ -81,23 +81,6 @@ class Folder(object):
 
         return stub.ListCloudresourcemanagerFolder(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = folder_pb2.CloudresourcemanagerFolder()
-        any_proto.Unpack(res_proto)
-
-        res = Folder()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.parent = Primitive.from_proto(res_proto.parent)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.state = FolderStateEnum.from_proto(res_proto.state)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.delete_time = Primitive.from_proto(res_proto.delete_time)
-        res.etag = Primitive.from_proto(res_proto.etag)
-        return res
-
     def to_proto(self):
         resource = folder_pb2.CloudresourcemanagerFolder()
         if Primitive.to_proto(self.parent):

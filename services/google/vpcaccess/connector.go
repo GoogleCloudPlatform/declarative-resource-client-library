@@ -68,7 +68,7 @@ func (v ConnectorStateEnum) Validate() error {
 // can identify it.
 func (r *Connector) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "vpcaccess",
+		Service: "vpc_access",
 		Type:    "Connector",
 		Version: "vpcaccess",
 	}
@@ -253,6 +253,7 @@ func (c *Client) ApplyConnector(ctx context.Context, rawDesired *Connector, opts
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

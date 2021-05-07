@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -435,9 +434,6 @@ func canonicalizeAddressDesiredState(rawDesired, rawInitial *Address, opts ...dc
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Id) {
-		rawDesired.Id = rawInitial.Id
-	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -450,14 +446,8 @@ func canonicalizeAddressDesiredState(rawDesired, rawInitial *Address, opts ...dc
 	if dcl.IsZeroValue(rawDesired.PrefixLength) {
 		rawDesired.PrefixLength = rawInitial.PrefixLength
 	}
-	if dcl.IsZeroValue(rawDesired.Status) {
-		rawDesired.Status = rawInitial.Status
-	}
 	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
 		rawDesired.Region = rawInitial.Region
-	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 	if dcl.IsZeroValue(rawDesired.NetworkTier) {
 		rawDesired.NetworkTier = rawInitial.NetworkTier
@@ -479,15 +469,6 @@ func canonicalizeAddressDesiredState(rawDesired, rawInitial *Address, opts ...dc
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
-	}
-	if dcl.IsZeroValue(rawDesired.CreationTimestamp) {
-		rawDesired.CreationTimestamp = rawInitial.CreationTimestamp
-	}
-	if dcl.IsZeroValue(rawDesired.Users) {
-		rawDesired.Users = rawInitial.Users
-	}
-	if dcl.StringCanonicalize(rawDesired.LabelFingerprint, rawInitial.LabelFingerprint) {
-		rawDesired.LabelFingerprint = rawInitial.LabelFingerprint
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
 		rawDesired.Location = rawInitial.Location
@@ -636,180 +617,254 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []addressDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Id",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Address, actual.Address, dcl.Info{}, fn.AddNest("Address")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Address, actual.Address, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Address")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Address",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.PrefixLength, actual.PrefixLength, dcl.Info{}, fn.AddNest("PrefixLength")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PrefixLength, actual.PrefixLength, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrefixLength")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "PrefixLength",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Status",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Region",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkTier, actual.NetworkTier, dcl.Info{Type: "EnumType"}, fn.AddNest("NetworkTier")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkTier, actual.NetworkTier, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkTier")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "NetworkTier",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPVersion, actual.IPVersion, dcl.Info{Type: "EnumType"}, fn.AddNest("IPVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPVersion, actual.IPVersion, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "IPVersion",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AddressType, actual.AddressType, dcl.Info{Type: "EnumType"}, fn.AddNest("AddressType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AddressType, actual.AddressType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AddressType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "AddressType",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Purpose, actual.Purpose, dcl.Info{Type: "EnumType"}, fn.AddNest("Purpose")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Purpose, actual.Purpose, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Purpose")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Purpose",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Subnetwork",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Network",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreationTimestamp",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Users, actual.Users, dcl.Info{OutputOnly: true}, fn.AddNest("Users")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Users, actual.Users, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Users")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Users",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, dcl.Info{OutputOnly: true}, fn.AddNest("LabelFingerprint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, dcl.Info{OutputOnly: true, OperationSelector: dcl.TriggersOperation("updateAddressSetLabelsOperation")}, fn.AddNest("LabelFingerprint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{
-			UpdateOp: &updateAddressSetLabelsOperation{}, Diffs: ds,
-			FieldName: "LabelFingerprint",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, addressDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -835,95 +890,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 	}
 
 	return deduped, nil
-}
-func compareAddressStatusEnumSlice(c *Client, desired, actual []AddressStatusEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AddressStatusEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAddressStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AddressStatusEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAddressStatusEnum(c *Client, desired, actual *AddressStatusEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAddressNetworkTierEnumSlice(c *Client, desired, actual []AddressNetworkTierEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AddressNetworkTierEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAddressNetworkTierEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AddressNetworkTierEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAddressNetworkTierEnum(c *Client, desired, actual *AddressNetworkTierEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAddressIPVersionEnumSlice(c *Client, desired, actual []AddressIPVersionEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AddressIPVersionEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAddressIPVersionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AddressIPVersionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAddressIPVersionEnum(c *Client, desired, actual *AddressIPVersionEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAddressAddressTypeEnumSlice(c *Client, desired, actual []AddressAddressTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AddressAddressTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAddressAddressTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AddressAddressTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAddressAddressTypeEnum(c *Client, desired, actual *AddressAddressTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAddressPurposeEnumSlice(c *Client, desired, actual []AddressPurposeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AddressPurposeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAddressPurposeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AddressPurposeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAddressPurposeEnum(c *Client, desired, actual *AddressPurposeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1084,32 +1050,32 @@ func flattenAddress(c *Client, i interface{}) *Address {
 		return nil
 	}
 
-	r := &Address{}
-	r.Id = dcl.FlattenInteger(m["id"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.Address = dcl.FlattenString(m["address"])
-	r.PrefixLength = dcl.FlattenInteger(m["prefixLength"])
-	r.Status = flattenAddressStatusEnum(m["status"])
-	r.Region = dcl.FlattenString(m["region"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
-	r.NetworkTier = flattenAddressNetworkTierEnum(m["networkTier"])
-	r.IPVersion = flattenAddressIPVersionEnum(m["ipVersion"])
-	r.AddressType = flattenAddressAddressTypeEnum(m["addressType"])
+	res := &Address{}
+	res.Id = dcl.FlattenInteger(m["id"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.Address = dcl.FlattenString(m["address"])
+	res.PrefixLength = dcl.FlattenInteger(m["prefixLength"])
+	res.Status = flattenAddressStatusEnum(m["status"])
+	res.Region = dcl.FlattenString(m["region"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.NetworkTier = flattenAddressNetworkTierEnum(m["networkTier"])
+	res.IPVersion = flattenAddressIPVersionEnum(m["ipVersion"])
+	res.AddressType = flattenAddressAddressTypeEnum(m["addressType"])
 	if _, ok := m["addressType"]; !ok {
 		c.Config.Logger.Info("Using default value for addressType")
-		r.AddressType = AddressAddressTypeEnumRef("EXTERNAL")
+		res.AddressType = AddressAddressTypeEnumRef("EXTERNAL")
 	}
-	r.Purpose = flattenAddressPurposeEnum(m["purpose"])
-	r.Subnetwork = dcl.FlattenString(m["subnetwork"])
-	r.Network = dcl.FlattenString(m["network"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
-	r.Users = dcl.FlattenStringSlice(m["users"])
-	r.LabelFingerprint = dcl.FlattenString(m["labelFingerprint"])
-	r.Location = dcl.FlattenString(m["location"])
+	res.Purpose = flattenAddressPurposeEnum(m["purpose"])
+	res.Subnetwork = dcl.FlattenString(m["subnetwork"])
+	res.Network = dcl.FlattenString(m["network"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
+	res.Users = dcl.FlattenStringSlice(m["users"])
+	res.LabelFingerprint = dcl.FlattenString(m["labelFingerprint"])
+	res.Location = dcl.FlattenString(m["location"])
 
-	return r
+	return res
 }
 
 // flattenAddressStatusEnumSlice flattens the contents of AddressStatusEnum from a JSON
@@ -1306,5 +1272,36 @@ func (r *Address) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToAddressDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]addressDiff, error) {
+	var diffs []addressDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := addressDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToaddressApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToaddressApiOperation(op string, opts ...dcl.ApplyOption) (addressApiOperation, error) {
+	switch op {
+
+	case "updateAddressSetLabelsOperation":
+		return &updateAddressSetLabelsOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

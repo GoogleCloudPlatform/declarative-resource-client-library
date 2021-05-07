@@ -245,48 +245,6 @@ class Instance(object):
 
         return stub.ListDatafusionBetaInstance(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = instance_pb2.DatafusionBetaInstance()
-        any_proto.Unpack(res_proto)
-
-        res = Instance()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.type = InstanceTypeEnum.from_proto(res_proto.type)
-        res.enable_stackdriver_logging = Primitive.from_proto(
-            res_proto.enable_stackdriver_logging
-        )
-        res.enable_stackdriver_monitoring = Primitive.from_proto(
-            res_proto.enable_stackdriver_monitoring
-        )
-        res.private_instance = Primitive.from_proto(res_proto.private_instance)
-        res.network_config = InstanceNetworkConfig.from_proto(res_proto.network_config)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.options = Primitive.from_proto(res_proto.options)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.state = InstanceStateEnum.from_proto(res_proto.state)
-        res.state_message = Primitive.from_proto(res_proto.state_message)
-        res.service_endpoint = Primitive.from_proto(res_proto.service_endpoint)
-        res.zone = Primitive.from_proto(res_proto.zone)
-        res.version = Primitive.from_proto(res_proto.version)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.available_version = InstanceAvailableVersionArray.from_proto(
-            res_proto.available_version
-        )
-        res.api_endpoint = Primitive.from_proto(res_proto.api_endpoint)
-        res.gcs_bucket = Primitive.from_proto(res_proto.gcs_bucket)
-        res.p4_service_account = Primitive.from_proto(res_proto.p4_service_account)
-        res.tenant_project_id = Primitive.from_proto(res_proto.tenant_project_id)
-        res.dataproc_service_account = Primitive.from_proto(
-            res_proto.dataproc_service_account
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = instance_pb2.DatafusionBetaInstance()
         if Primitive.to_proto(self.name):

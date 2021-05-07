@@ -153,27 +153,6 @@ class ServerTlsPolicy(object):
 
         return stub.ListNetworksecurityBetaServerTlsPolicy(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = server_tls_policy_pb2.NetworksecurityBetaServerTlsPolicy()
-        any_proto.Unpack(res_proto)
-
-        res = ServerTlsPolicy()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.allow_open = Primitive.from_proto(res_proto.allow_open)
-        res.server_certificate = ServerTlsPolicyServerCertificate.from_proto(
-            res_proto.server_certificate
-        )
-        res.mtls_policy = ServerTlsPolicyMtlsPolicy.from_proto(res_proto.mtls_policy)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = server_tls_policy_pb2.NetworksecurityBetaServerTlsPolicy()
         if Primitive.to_proto(self.name):

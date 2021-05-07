@@ -124,26 +124,6 @@ class WorkerPool(object):
 
         return stub.ListCloudbuildBetaWorkerPool(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = worker_pool_pb2.CloudbuildBetaWorkerPool()
-        any_proto.Unpack(res_proto)
-
-        res = WorkerPool()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.state = WorkerPoolStateEnum.from_proto(res_proto.state)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.delete_time = Primitive.from_proto(res_proto.delete_time)
-        res.worker_config = WorkerPoolWorkerConfig.from_proto(res_proto.worker_config)
-        res.network_config = WorkerPoolNetworkConfig.from_proto(
-            res_proto.network_config
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = worker_pool_pb2.CloudbuildBetaWorkerPool()
         if Primitive.to_proto(self.name):

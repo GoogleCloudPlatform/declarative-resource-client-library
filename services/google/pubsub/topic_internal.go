@@ -494,6 +494,10 @@ func canonicalizeNewTopicMessageStoragePolicy(c *Client, des, nw *TopicMessageSt
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.AllowedPersistenceRegions) {
+		nw.AllowedPersistenceRegions = des.AllowedPersistenceRegions
+	}
+
 	return nw
 }
 
@@ -505,7 +509,7 @@ func canonicalizeNewTopicMessageStoragePolicySet(c *Client, des, nw []TopicMessa
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareTopicMessageStoragePolicy(c, &d, &n) {
+			if diffs, _ := compareTopicMessageStoragePolicyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -528,7 +532,7 @@ func canonicalizeNewTopicMessageStoragePolicySlice(c *Client, des, nw []TopicMes
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []TopicMessageStoragePolicy
@@ -562,56 +566,72 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]to
 	}
 
 	var diffs []topicDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTopicUpdateOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTopicDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTopicUpdateOperation")}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, topicDiff{
-			UpdateOp: &updateTopicUpdateOperation{}, Diffs: ds,
-			FieldName: "KmsKeyName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTopicDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTopicUpdateOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, topicDiff{
-			UpdateOp: &updateTopicUpdateOperation{}, Diffs: ds,
-			FieldName: "Labels",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTopicDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.MessageStoragePolicy, actual.MessageStoragePolicy, dcl.Info{ObjectFunction: compareTopicMessageStoragePolicyNewStyle}, fn.AddNest("MessageStoragePolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MessageStoragePolicy, actual.MessageStoragePolicy, dcl.Info{ObjectFunction: compareTopicMessageStoragePolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateTopicUpdateOperation")}, fn.AddNest("MessageStoragePolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, topicDiff{
-			UpdateOp: &updateTopicUpdateOperation{}, Diffs: ds,
-			FieldName: "MessageStoragePolicy",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTopicDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, topicDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTopicDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -658,60 +678,13 @@ func compareTopicMessageStoragePolicyNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AllowedPersistenceRegions, actual.AllowedPersistenceRegions, dcl.Info{Type: "Set"}, fn.AddNest("AllowedPersistenceRegions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowedPersistenceRegions, actual.AllowedPersistenceRegions, dcl.Info{Type: "Set", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowedPersistenceRegions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareTopicMessageStoragePolicy(c *Client, desired, actual *TopicMessageStoragePolicy) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if toAdd, toRemove := dcl.CompareStringSets(desired.AllowedPersistenceRegions, actual.AllowedPersistenceRegions); len(toAdd)+len(toRemove) > 0 {
-		c.Config.Logger.Infof("Diff in AllowedPersistenceRegions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AllowedPersistenceRegions), dcl.SprintResource(actual.AllowedPersistenceRegions))
-		return true
-	}
-	return false
-}
-
-func compareTopicMessageStoragePolicySlice(c *Client, desired, actual []TopicMessageStoragePolicy) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TopicMessageStoragePolicy, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareTopicMessageStoragePolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TopicMessageStoragePolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareTopicMessageStoragePolicyMap(c *Client, desired, actual map[string]TopicMessageStoragePolicy) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TopicMessageStoragePolicy, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in TopicMessageStoragePolicy, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareTopicMessageStoragePolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in TopicMessageStoragePolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -818,14 +791,14 @@ func flattenTopic(c *Client, i interface{}) *Topic {
 		return nil
 	}
 
-	r := &Topic{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
-	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	r.MessageStoragePolicy = flattenTopicMessageStoragePolicy(c, m["messageStoragePolicy"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &Topic{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
+	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	res.MessageStoragePolicy = flattenTopicMessageStoragePolicy(c, m["messageStoragePolicy"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // expandTopicMessageStoragePolicyMap expands the contents of TopicMessageStoragePolicy into a JSON
@@ -912,10 +885,11 @@ func flattenTopicMessageStoragePolicySlice(c *Client, i interface{}) []TopicMess
 // expandTopicMessageStoragePolicy expands an instance of TopicMessageStoragePolicy into a JSON
 // request object.
 func expandTopicMessageStoragePolicy(c *Client, f *TopicMessageStoragePolicy) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.AllowedPersistenceRegions; !dcl.IsEmptyValueIndirect(v) {
 		m["allowedPersistenceRegions"] = v
 	}
@@ -968,5 +942,36 @@ func (r *Topic) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToTopicDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]topicDiff, error) {
+	var diffs []topicDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := topicDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTotopicApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTotopicApiOperation(op string, opts ...dcl.ApplyOption) (topicApiOperation, error) {
+	switch op {
+
+	case "updateTopicUpdateOperation":
+		return &updateTopicUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

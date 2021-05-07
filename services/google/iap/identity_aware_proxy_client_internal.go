@@ -344,9 +344,6 @@ func canonicalizeIdentityAwareProxyClientDesiredState(rawDesired, rawInitial *Id
 	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.StringCanonicalize(rawDesired.Secret, rawInitial.Secret) {
-		rawDesired.Secret = rawInitial.Secret
-	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
@@ -412,53 +409,72 @@ func diffIdentityAwareProxyClient(c *Client, desired, actual *IdentityAwareProxy
 	}
 
 	var diffs []identityAwareProxyClientDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToIdentityAwareProxyClientDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{OutputOnly: true}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Secret",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToIdentityAwareProxyClientDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "DisplayName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToIdentityAwareProxyClientDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToIdentityAwareProxyClientDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Brand, actual.Brand, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Brand")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Brand, actual.Brand, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Brand")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, identityAwareProxyClientDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Brand",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToIdentityAwareProxyClientDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -583,14 +599,14 @@ func flattenIdentityAwareProxyClient(c *Client, i interface{}) *IdentityAwarePro
 		return nil
 	}
 
-	r := &IdentityAwareProxyClient{}
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	r.Secret = dcl.FlattenString(m["secret"])
-	r.DisplayName = dcl.FlattenString(m["displayName"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Brand = dcl.FlattenString(m["brand"])
+	res := &IdentityAwareProxyClient{}
+	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	res.Secret = dcl.FlattenString(m["secret"])
+	res.DisplayName = dcl.FlattenString(m["displayName"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Brand = dcl.FlattenString(m["brand"])
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -632,5 +648,33 @@ func (r *IdentityAwareProxyClient) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToIdentityAwareProxyClientDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]identityAwareProxyClientDiff, error) {
+	var diffs []identityAwareProxyClientDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := identityAwareProxyClientDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToidentityAwareProxyClientApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToidentityAwareProxyClientApiOperation(op string, opts ...dcl.ApplyOption) (identityAwareProxyClientApiOperation, error) {
+	switch op {
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

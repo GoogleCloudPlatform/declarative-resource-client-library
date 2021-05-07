@@ -102,22 +102,6 @@ class Topic(object):
 
         return stub.ListPubsubTopic(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = topic_pb2.PubsubTopic()
-        any_proto.Unpack(res_proto)
-
-        res = Topic()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.kms_key_name = Primitive.from_proto(res_proto.kms_key_name)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.message_storage_policy = TopicMessageStoragePolicy.from_proto(
-            res_proto.message_storage_policy
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = topic_pb2.PubsubTopic()
         if Primitive.to_proto(self.name):

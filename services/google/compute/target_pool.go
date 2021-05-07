@@ -25,8 +25,8 @@ type TargetPool struct {
 	BackupPool      *string                        `json:"backupPool"`
 	Description     *string                        `json:"description"`
 	FailoverRatio   *float64                       `json:"failoverRatio"`
-	HealthCheck     []string                       `json:"healthCheck"`
-	Instance        []string                       `json:"instance"`
+	HealthChecks    []string                       `json:"healthChecks"`
+	Instances       []string                       `json:"instances"`
 	Name            *string                        `json:"name"`
 	Region          *string                        `json:"region"`
 	SelfLink        *string                        `json:"selfLink"`
@@ -248,6 +248,7 @@ func (c *Client) ApplyTargetPool(ctx context.Context, rawDesired *TargetPool, op
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

@@ -119,27 +119,6 @@ class SslPolicy(object):
 
         return stub.ListComputeBetaSslPolicy(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = ssl_policy_pb2.ComputeBetaSslPolicy()
-        any_proto.Unpack(res_proto)
-
-        res = SslPolicy()
-        res.id = Primitive.from_proto(res_proto.id)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.profile = SslPolicyProfileEnum.from_proto(res_proto.profile)
-        res.min_tls_version = SslPolicyMinTlsVersionEnum.from_proto(
-            res_proto.min_tls_version
-        )
-        res.enabled_feature = Primitive.from_proto(res_proto.enabled_feature)
-        res.custom_feature = Primitive.from_proto(res_proto.custom_feature)
-        res.warning = SslPolicyWarningArray.from_proto(res_proto.warning)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = ssl_policy_pb2.ComputeBetaSslPolicy()
         if Primitive.to_proto(self.name):

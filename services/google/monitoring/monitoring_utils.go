@@ -14,9 +14,7 @@
 // Package monitoring provides methods and types for managing monitoring GCP resources.
 package monitoring
 
-import ()
-
-func canonicalizeMetricDescriptorValueType(m, n *MetricDescriptorValueTypeEnum) bool {
+func equalsMetricDescriptorValueType(m, n *MetricDescriptorValueTypeEnum) bool {
 	if m == nil && n == nil {
 		return true
 	}
@@ -29,7 +27,7 @@ func canonicalizeMetricDescriptorValueType(m, n *MetricDescriptorValueTypeEnum) 
 	return *m == *n
 }
 
-func canonicalizeMetricDescriptorDescriptorLabelsValueType(m, n *MetricDescriptorDescriptorLabelsValueTypeEnum) bool {
+func equalsMetricDescriptorDescriptorLabelsValueType(m, n *MetricDescriptorDescriptorLabelsValueTypeEnum) bool {
 	if m == nil && n == nil {
 		return true
 	}
@@ -40,4 +38,24 @@ func canonicalizeMetricDescriptorDescriptorLabelsValueType(m, n *MetricDescripto
 		return *m == v
 	}
 	return *m == *n
+}
+
+func canonicalizeMetricDescriptorValueType(m, n interface{}) bool {
+	if m == nil && n == nil {
+		return true
+	}
+
+	mVal, _ := m.(*MetricDescriptorValueTypeEnum)
+	nVal, _ := n.(*MetricDescriptorValueTypeEnum)
+	return equalsMetricDescriptorValueType(mVal, nVal)
+}
+
+func canonicalizeMetricDescriptorDescriptorLabelsValueType(m, n interface{}) bool {
+	if m == nil && n == nil {
+		return true
+	}
+
+	mVal, _ := m.(*MetricDescriptorDescriptorLabelsValueTypeEnum)
+	nVal, _ := n.(*MetricDescriptorDescriptorLabelsValueTypeEnum)
+	return equalsMetricDescriptorDescriptorLabelsValueType(mVal, nVal)
 }

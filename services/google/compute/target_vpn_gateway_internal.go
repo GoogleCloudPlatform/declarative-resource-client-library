@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -340,9 +339,6 @@ func canonicalizeTargetVpnGatewayDesiredState(rawDesired, rawInitial *TargetVpnG
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Id) {
-		rawDesired.Id = rawInitial.Id
-	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -354,18 +350,6 @@ func canonicalizeTargetVpnGatewayDesiredState(rawDesired, rawInitial *TargetVpnG
 	}
 	if dcl.StringCanonicalize(rawDesired.Network, rawInitial.Network) {
 		rawDesired.Network = rawInitial.Network
-	}
-	if dcl.IsZeroValue(rawDesired.Tunnel) {
-		rawDesired.Tunnel = rawInitial.Tunnel
-	}
-	if dcl.IsZeroValue(rawDesired.Status) {
-		rawDesired.Status = rawInitial.Status
-	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
-	}
-	if dcl.IsZeroValue(rawDesired.ForwardingRule) {
-		rawDesired.ForwardingRule = rawInitial.ForwardingRule
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
@@ -463,98 +447,137 @@ func diffTargetVpnGateway(c *Client, desired, actual *TargetVpnGateway, opts ...
 	}
 
 	var diffs []targetVpnGatewayDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Id",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Region",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Network",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Tunnel, actual.Tunnel, dcl.Info{OutputOnly: true}, fn.AddNest("Tunnel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tunnel, actual.Tunnel, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tunnel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Tunnel",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Status",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ForwardingRule, actual.ForwardingRule, dcl.Info{OutputOnly: true}, fn.AddNest("ForwardingRule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ForwardingRule, actual.ForwardingRule, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ForwardingRule")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ForwardingRule",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, targetVpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTargetVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -580,23 +603,6 @@ func diffTargetVpnGateway(c *Client, desired, actual *TargetVpnGateway, opts ...
 	}
 
 	return deduped, nil
-}
-func compareTargetVpnGatewayStatusEnumSlice(c *Client, desired, actual []TargetVpnGatewayStatusEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TargetVpnGatewayStatusEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareTargetVpnGatewayStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TargetVpnGatewayStatusEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareTargetVpnGatewayStatusEnum(c *Client, desired, actual *TargetVpnGatewayStatusEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -708,19 +714,19 @@ func flattenTargetVpnGateway(c *Client, i interface{}) *TargetVpnGateway {
 		return nil
 	}
 
-	r := &TargetVpnGateway{}
-	r.Id = dcl.FlattenInteger(m["id"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.Region = dcl.FlattenString(m["region"])
-	r.Network = dcl.FlattenString(m["network"])
-	r.Tunnel = dcl.FlattenStringSlice(m["tunnels"])
-	r.Status = flattenTargetVpnGatewayStatusEnum(m["status"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
-	r.ForwardingRule = dcl.FlattenStringSlice(m["forwardingRules"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &TargetVpnGateway{}
+	res.Id = dcl.FlattenInteger(m["id"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.Region = dcl.FlattenString(m["region"])
+	res.Network = dcl.FlattenString(m["network"])
+	res.Tunnel = dcl.FlattenStringSlice(m["tunnels"])
+	res.Status = flattenTargetVpnGatewayStatusEnum(m["status"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.ForwardingRule = dcl.FlattenStringSlice(m["forwardingRules"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // flattenTargetVpnGatewayStatusEnumSlice flattens the contents of TargetVpnGatewayStatusEnum from a JSON
@@ -793,5 +799,33 @@ func (r *TargetVpnGateway) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToTargetVpnGatewayDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]targetVpnGatewayDiff, error) {
+	var diffs []targetVpnGatewayDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := targetVpnGatewayDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTotargetVpnGatewayApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTotargetVpnGatewayApiOperation(op string, opts ...dcl.ApplyOption) (targetVpnGatewayApiOperation, error) {
+	switch op {
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

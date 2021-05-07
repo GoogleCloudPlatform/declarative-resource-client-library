@@ -103,22 +103,6 @@ class DomainMapping(object):
 
         return stub.ListAppengineDomainMapping(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = domain_mapping_pb2.AppengineDomainMapping()
-        any_proto.Unpack(res_proto)
-
-        res = DomainMapping()
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.ssl_settings = DomainMappingSslSettings.from_proto(res_proto.ssl_settings)
-        res.resource_records = DomainMappingResourceRecordsArray.from_proto(
-            res_proto.resource_records
-        )
-        res.app = Primitive.from_proto(res_proto.app)
-        return res
-
     def to_proto(self):
         resource = domain_mapping_pb2.AppengineDomainMapping()
         if Primitive.to_proto(self.self_link):

@@ -95,23 +95,6 @@ class SslCert(object):
 
         return stub.ListSqlBetaSslCert(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = ssl_cert_pb2.SqlBetaSslCert()
-        any_proto.Unpack(res_proto)
-
-        res = SslCert()
-        res.cert_serial_number = Primitive.from_proto(res_proto.cert_serial_number)
-        res.cert = Primitive.from_proto(res_proto.cert)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.common_name = Primitive.from_proto(res_proto.common_name)
-        res.expiration_time = Primitive.from_proto(res_proto.expiration_time)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.instance = Primitive.from_proto(res_proto.instance)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = ssl_cert_pb2.SqlBetaSslCert()
         if Primitive.to_proto(self.common_name):

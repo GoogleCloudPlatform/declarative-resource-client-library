@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -429,20 +428,11 @@ func canonicalizeWorkloadDesiredState(rawDesired, rawInitial *Workload, opts ...
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
-	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
-	if dcl.IsZeroValue(rawDesired.Resources) {
-		rawDesired.Resources = rawInitial.Resources
-	}
 	if dcl.IsZeroValue(rawDesired.ComplianceRegime) {
 		rawDesired.ComplianceRegime = rawInitial.ComplianceRegime
-	}
-	if dcl.IsZeroValue(rawDesired.CreateTime) {
-		rawDesired.CreateTime = rawInitial.CreateTime
 	}
 	if dcl.StringCanonicalize(rawDesired.BillingAccount, rawInitial.BillingAccount) {
 		rawDesired.BillingAccount = rawInitial.BillingAccount
@@ -544,6 +534,13 @@ func canonicalizeNewWorkloadResources(c *Client, des, nw *WorkloadResources) *Wo
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.ResourceId) {
+		nw.ResourceId = des.ResourceId
+	}
+	if dcl.IsZeroValue(nw.ResourceType) {
+		nw.ResourceType = des.ResourceType
+	}
+
 	return nw
 }
 
@@ -555,7 +552,7 @@ func canonicalizeNewWorkloadResourcesSet(c *Client, des, nw []WorkloadResources)
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareWorkloadResources(c, &d, &n) {
+			if diffs, _ := compareWorkloadResourcesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -578,7 +575,7 @@ func canonicalizeNewWorkloadResourcesSlice(c *Client, des, nw []WorkloadResource
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []WorkloadResources
@@ -617,6 +614,9 @@ func canonicalizeNewWorkloadKmsSettings(c *Client, des, nw *WorkloadKmsSettings)
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.NextRotationTime) {
+		nw.NextRotationTime = des.NextRotationTime
+	}
 	if dcl.StringCanonicalize(des.RotationPeriod, nw.RotationPeriod) {
 		nw.RotationPeriod = des.RotationPeriod
 	}
@@ -632,7 +632,7 @@ func canonicalizeNewWorkloadKmsSettingsSet(c *Client, des, nw []WorkloadKmsSetti
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareWorkloadKmsSettings(c, &d, &n) {
+			if diffs, _ := compareWorkloadKmsSettingsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -655,7 +655,7 @@ func canonicalizeNewWorkloadKmsSettingsSlice(c *Client, des, nw []WorkloadKmsSet
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []WorkloadKmsSettings
@@ -689,109 +689,150 @@ func diffWorkload(c *Client, desired, actual *Workload, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []workloadDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkloadDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateWorkloadUpdateWorkloadOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{
-			UpdateOp: &updateWorkloadUpdateWorkloadOperation{}, Diffs: ds,
-			FieldName: "DisplayName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkloadDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{OutputOnly: true, ObjectFunction: compareWorkloadResourcesNewStyle}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{OutputOnly: true, ObjectFunction: compareWorkloadResourcesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Resources",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkloadDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ComplianceRegime, actual.ComplianceRegime, dcl.Info{Type: "EnumType"}, fn.AddNest("ComplianceRegime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ComplianceRegime, actual.ComplianceRegime, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ComplianceRegime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ComplianceRegime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkloadDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkloadDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.BillingAccount, actual.BillingAccount, dcl.Info{}, fn.AddNest("BillingAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BillingAccount, actual.BillingAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BillingAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "BillingAccount",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkloadDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateWorkloadUpdateWorkloadOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{
-			UpdateOp: &updateWorkloadUpdateWorkloadOperation{}, Diffs: ds,
-			FieldName: "Labels",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkloadDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ProvisionedResourcesParent, actual.ProvisionedResourcesParent, dcl.Info{Ignore: true}, fn.AddNest("ProvisionedResourcesParent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProvisionedResourcesParent, actual.ProvisionedResourcesParent, dcl.Info{Ignore: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProvisionedResourcesParent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ProvisionedResourcesParent",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkloadDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.KmsSettings, actual.KmsSettings, dcl.Info{Ignore: true, ObjectFunction: compareWorkloadKmsSettingsNewStyle}, fn.AddNest("KmsSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KmsSettings, actual.KmsSettings, dcl.Info{Ignore: true, ObjectFunction: compareWorkloadKmsSettingsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "KmsSettings",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkloadDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Organization, actual.Organization, dcl.Info{}, fn.AddNest("Organization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Organization, actual.Organization, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Organization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Organization",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkloadDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, workloadDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToWorkloadDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -838,71 +879,20 @@ func compareWorkloadResourcesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceId, actual.ResourceId, dcl.Info{}, fn.AddNest("ResourceId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceId, actual.ResourceId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceType, actual.ResourceType, dcl.Info{Type: "EnumType"}, fn.AddNest("ResourceType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceType, actual.ResourceType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareWorkloadResources(c *Client, desired, actual *WorkloadResources) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.ResourceId, actual.ResourceId) && !dcl.IsZeroValue(desired.ResourceId) {
-		c.Config.Logger.Infof("Diff in ResourceId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceId), dcl.SprintResource(actual.ResourceId))
-		return true
-	}
-	if !reflect.DeepEqual(desired.ResourceType, actual.ResourceType) && !dcl.IsZeroValue(desired.ResourceType) {
-		c.Config.Logger.Infof("Diff in ResourceType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResourceType), dcl.SprintResource(actual.ResourceType))
-		return true
-	}
-	return false
-}
-
-func compareWorkloadResourcesSlice(c *Client, desired, actual []WorkloadResources) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkloadResources, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkloadResources(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkloadResources, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkloadResourcesMap(c *Client, desired, actual map[string]WorkloadResources) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkloadResources, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in WorkloadResources, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareWorkloadResources(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in WorkloadResources, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareWorkloadKmsSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -925,107 +915,20 @@ func compareWorkloadKmsSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NextRotationTime, actual.NextRotationTime, dcl.Info{}, fn.AddNest("NextRotationTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextRotationTime, actual.NextRotationTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NextRotationTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RotationPeriod, actual.RotationPeriod, dcl.Info{}, fn.AddNest("RotationPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RotationPeriod, actual.RotationPeriod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RotationPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareWorkloadKmsSettings(c *Client, desired, actual *WorkloadKmsSettings) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.NextRotationTime, actual.NextRotationTime) && !dcl.IsZeroValue(desired.NextRotationTime) {
-		c.Config.Logger.Infof("Diff in NextRotationTime.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NextRotationTime), dcl.SprintResource(actual.NextRotationTime))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.RotationPeriod, actual.RotationPeriod) && !dcl.IsZeroValue(desired.RotationPeriod) {
-		c.Config.Logger.Infof("Diff in RotationPeriod.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RotationPeriod), dcl.SprintResource(actual.RotationPeriod))
-		return true
-	}
-	return false
-}
-
-func compareWorkloadKmsSettingsSlice(c *Client, desired, actual []WorkloadKmsSettings) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkloadKmsSettings, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkloadKmsSettings(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkloadKmsSettings, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkloadKmsSettingsMap(c *Client, desired, actual map[string]WorkloadKmsSettings) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkloadKmsSettings, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in WorkloadKmsSettings, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareWorkloadKmsSettings(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in WorkloadKmsSettings, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkloadResourcesResourceTypeEnumSlice(c *Client, desired, actual []WorkloadResourcesResourceTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkloadResourcesResourceTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkloadResourcesResourceTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkloadResourcesResourceTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkloadResourcesResourceTypeEnum(c *Client, desired, actual *WorkloadResourcesResourceTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareWorkloadComplianceRegimeEnumSlice(c *Client, desired, actual []WorkloadComplianceRegimeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in WorkloadComplianceRegimeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareWorkloadComplianceRegimeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in WorkloadComplianceRegimeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareWorkloadComplianceRegimeEnum(c *Client, desired, actual *WorkloadComplianceRegimeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1158,20 +1061,20 @@ func flattenWorkload(c *Client, i interface{}) *Workload {
 		return nil
 	}
 
-	r := &Workload{}
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	r.DisplayName = dcl.FlattenString(m["displayName"])
-	r.Resources = flattenWorkloadResourcesSlice(c, m["resources"])
-	r.ComplianceRegime = flattenWorkloadComplianceRegimeEnum(m["complianceRegime"])
-	r.CreateTime = dcl.FlattenString(m["createTime"])
-	r.BillingAccount = dcl.FlattenString(m["billingAccount"])
-	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	r.ProvisionedResourcesParent = dcl.FlattenSecretValue(m["provisionedResourcesParent"])
-	r.KmsSettings = flattenWorkloadKmsSettings(c, m["kmsSettings"])
-	r.Organization = dcl.FlattenString(m["organization"])
-	r.Location = dcl.FlattenString(m["location"])
+	res := &Workload{}
+	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	res.DisplayName = dcl.FlattenString(m["displayName"])
+	res.Resources = flattenWorkloadResourcesSlice(c, m["resources"])
+	res.ComplianceRegime = flattenWorkloadComplianceRegimeEnum(m["complianceRegime"])
+	res.CreateTime = dcl.FlattenString(m["createTime"])
+	res.BillingAccount = dcl.FlattenString(m["billingAccount"])
+	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	res.ProvisionedResourcesParent = dcl.FlattenSecretValue(m["provisionedResourcesParent"])
+	res.KmsSettings = flattenWorkloadKmsSettings(c, m["kmsSettings"])
+	res.Organization = dcl.FlattenString(m["organization"])
+	res.Location = dcl.FlattenString(m["location"])
 
-	return r
+	return res
 }
 
 // expandWorkloadResourcesMap expands the contents of WorkloadResources into a JSON
@@ -1258,10 +1161,11 @@ func flattenWorkloadResourcesSlice(c *Client, i interface{}) []WorkloadResources
 // expandWorkloadResources expands an instance of WorkloadResources into a JSON
 // request object.
 func expandWorkloadResources(c *Client, f *WorkloadResources) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ResourceId; !dcl.IsEmptyValueIndirect(v) {
 		m["resourceId"] = v
 	}
@@ -1371,10 +1275,11 @@ func flattenWorkloadKmsSettingsSlice(c *Client, i interface{}) []WorkloadKmsSett
 // expandWorkloadKmsSettings expands an instance of WorkloadKmsSettings into a JSON
 // request object.
 func expandWorkloadKmsSettings(c *Client, f *WorkloadKmsSettings) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.NextRotationTime; !dcl.IsEmptyValueIndirect(v) {
 		m["nextRotationTime"] = v
 	}
@@ -1501,5 +1406,36 @@ func (r *Workload) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToWorkloadDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]workloadDiff, error) {
+	var diffs []workloadDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := workloadDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToworkloadApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToworkloadApiOperation(op string, opts ...dcl.ApplyOption) (workloadApiOperation, error) {
+	switch op {
+
+	case "updateWorkloadUpdateWorkloadOperation":
+		return &updateWorkloadUpdateWorkloadOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

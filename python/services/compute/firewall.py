@@ -216,38 +216,6 @@ class Firewall(object):
 
         return stub.ListComputeFirewall(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = firewall_pb2.ComputeFirewall()
-        any_proto.Unpack(res_proto)
-
-        res = Firewall()
-        res.creation_timestamp = Primitive.from_proto(res_proto.creation_timestamp)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.direction = FirewallDirectionEnum.from_proto(res_proto.direction)
-        res.disabled = Primitive.from_proto(res_proto.disabled)
-        res.id = Primitive.from_proto(res_proto.id)
-        res.log_config = FirewallLogConfig.from_proto(res_proto.log_config)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.network = Primitive.from_proto(res_proto.network)
-        res.priority = Primitive.from_proto(res_proto.priority)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.allowed = FirewallAllowedArray.from_proto(res_proto.allowed)
-        res.denied = FirewallDeniedArray.from_proto(res_proto.denied)
-        res.destination_ranges = Primitive.from_proto(res_proto.destination_ranges)
-        res.source_ranges = Primitive.from_proto(res_proto.source_ranges)
-        res.source_service_accounts = Primitive.from_proto(
-            res_proto.source_service_accounts
-        )
-        res.source_tags = Primitive.from_proto(res_proto.source_tags)
-        res.target_service_accounts = Primitive.from_proto(
-            res_proto.target_service_accounts
-        )
-        res.target_tags = Primitive.from_proto(res_proto.target_tags)
-        return res
-
     def to_proto(self):
         resource = firewall_pb2.ComputeFirewall()
         if Primitive.to_proto(self.description):

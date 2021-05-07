@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -582,6 +581,19 @@ func canonicalizeNewBucketCors(c *Client, des, nw *BucketCors) *BucketCors {
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.MaxAgeSeconds) {
+		nw.MaxAgeSeconds = des.MaxAgeSeconds
+	}
+	if dcl.IsZeroValue(nw.Method) {
+		nw.Method = des.Method
+	}
+	if dcl.IsZeroValue(nw.Origin) {
+		nw.Origin = des.Origin
+	}
+	if dcl.IsZeroValue(nw.ResponseHeader) {
+		nw.ResponseHeader = des.ResponseHeader
+	}
+
 	return nw
 }
 
@@ -593,7 +605,7 @@ func canonicalizeNewBucketCorsSet(c *Client, des, nw []BucketCors) []BucketCors 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareBucketCors(c, &d, &n) {
+			if diffs, _ := compareBucketCorsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -616,7 +628,7 @@ func canonicalizeNewBucketCorsSlice(c *Client, des, nw []BucketCors) []BucketCor
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []BucketCors
@@ -665,7 +677,7 @@ func canonicalizeNewBucketLifecycleSet(c *Client, des, nw []BucketLifecycle) []B
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareBucketLifecycle(c, &d, &n) {
+			if diffs, _ := compareBucketLifecycleNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -688,7 +700,7 @@ func canonicalizeNewBucketLifecycleSlice(c *Client, des, nw []BucketLifecycle) [
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []BucketLifecycle
@@ -737,7 +749,7 @@ func canonicalizeNewBucketLifecycleRuleSet(c *Client, des, nw []BucketLifecycleR
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareBucketLifecycleRule(c, &d, &n) {
+			if diffs, _ := compareBucketLifecycleRuleNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -760,7 +772,7 @@ func canonicalizeNewBucketLifecycleRuleSlice(c *Client, des, nw []BucketLifecycl
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []BucketLifecycleRule
@@ -802,6 +814,9 @@ func canonicalizeNewBucketLifecycleRuleAction(c *Client, des, nw *BucketLifecycl
 	if dcl.StringCanonicalize(des.StorageClass, nw.StorageClass) {
 		nw.StorageClass = des.StorageClass
 	}
+	if dcl.IsZeroValue(nw.Type) {
+		nw.Type = des.Type
+	}
 
 	return nw
 }
@@ -814,7 +829,7 @@ func canonicalizeNewBucketLifecycleRuleActionSet(c *Client, des, nw []BucketLife
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareBucketLifecycleRuleAction(c, &d, &n) {
+			if diffs, _ := compareBucketLifecycleRuleActionNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -837,7 +852,7 @@ func canonicalizeNewBucketLifecycleRuleActionSlice(c *Client, des, nw []BucketLi
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []BucketLifecycleRuleAction
@@ -885,6 +900,22 @@ func canonicalizeNewBucketLifecycleRuleCondition(c *Client, des, nw *BucketLifec
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Age) {
+		nw.Age = des.Age
+	}
+	if dcl.IsZeroValue(nw.CreatedBefore) {
+		nw.CreatedBefore = des.CreatedBefore
+	}
+	if dcl.IsZeroValue(nw.WithState) {
+		nw.WithState = des.WithState
+	}
+	if dcl.IsZeroValue(nw.MatchesStorageClass) {
+		nw.MatchesStorageClass = des.MatchesStorageClass
+	}
+	if dcl.IsZeroValue(nw.NumNewerVersions) {
+		nw.NumNewerVersions = des.NumNewerVersions
+	}
+
 	return nw
 }
 
@@ -896,7 +927,7 @@ func canonicalizeNewBucketLifecycleRuleConditionSet(c *Client, des, nw []BucketL
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareBucketLifecycleRuleCondition(c, &d, &n) {
+			if diffs, _ := compareBucketLifecycleRuleConditionNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -919,7 +950,7 @@ func canonicalizeNewBucketLifecycleRuleConditionSlice(c *Client, des, nw []Bucke
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []BucketLifecycleRuleCondition
@@ -976,7 +1007,7 @@ func canonicalizeNewBucketLoggingSet(c *Client, des, nw []BucketLogging) []Bucke
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareBucketLogging(c, &d, &n) {
+			if diffs, _ := compareBucketLoggingNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -999,7 +1030,7 @@ func canonicalizeNewBucketLoggingSlice(c *Client, des, nw []BucketLogging) []Buc
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []BucketLogging
@@ -1050,7 +1081,7 @@ func canonicalizeNewBucketVersioningSet(c *Client, des, nw []BucketVersioning) [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareBucketVersioning(c, &d, &n) {
+			if diffs, _ := compareBucketVersioningNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1073,7 +1104,7 @@ func canonicalizeNewBucketVersioningSlice(c *Client, des, nw []BucketVersioning)
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []BucketVersioning
@@ -1130,7 +1161,7 @@ func canonicalizeNewBucketWebsiteSet(c *Client, des, nw []BucketWebsite) []Bucke
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareBucketWebsite(c, &d, &n) {
+			if diffs, _ := compareBucketWebsiteNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1153,7 +1184,7 @@ func canonicalizeNewBucketWebsiteSlice(c *Client, des, nw []BucketWebsite) []Buc
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []BucketWebsite
@@ -1187,95 +1218,124 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 	}
 
 	var diffs []bucketDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, bucketDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, bucketDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, bucketDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Cors, actual.Cors, dcl.Info{ObjectFunction: compareBucketCorsNewStyle}, fn.AddNest("Cors")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Cors, actual.Cors, dcl.Info{ObjectFunction: compareBucketCorsNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Cors")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, bucketDiff{
-			UpdateOp: &updateBucketUpdateOperation{}, Diffs: ds,
-			FieldName: "Cors",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Lifecycle, actual.Lifecycle, dcl.Info{ObjectFunction: compareBucketLifecycleNewStyle}, fn.AddNest("Lifecycle")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Lifecycle, actual.Lifecycle, dcl.Info{ObjectFunction: compareBucketLifecycleNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Lifecycle")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, bucketDiff{
-			UpdateOp: &updateBucketUpdateOperation{}, Diffs: ds,
-			FieldName: "Lifecycle",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Logging, actual.Logging, dcl.Info{ObjectFunction: compareBucketLoggingNewStyle}, fn.AddNest("Logging")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Logging, actual.Logging, dcl.Info{ObjectFunction: compareBucketLoggingNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Logging")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, bucketDiff{
-			UpdateOp: &updateBucketUpdateOperation{}, Diffs: ds,
-			FieldName: "Logging",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.StorageClass, actual.StorageClass, dcl.Info{Type: "EnumType"}, fn.AddNest("StorageClass")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StorageClass, actual.StorageClass, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("StorageClass")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, bucketDiff{
-			UpdateOp: &updateBucketUpdateOperation{}, Diffs: ds,
-			FieldName: "StorageClass",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Versioning, actual.Versioning, dcl.Info{ObjectFunction: compareBucketVersioningNewStyle}, fn.AddNest("Versioning")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Versioning, actual.Versioning, dcl.Info{ObjectFunction: compareBucketVersioningNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Versioning")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, bucketDiff{
-			UpdateOp: &updateBucketUpdateOperation{}, Diffs: ds,
-			FieldName: "Versioning",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Website, actual.Website, dcl.Info{ObjectFunction: compareBucketWebsiteNewStyle}, fn.AddNest("Website")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Website, actual.Website, dcl.Info{ObjectFunction: compareBucketWebsiteNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Website")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, bucketDiff{
-			UpdateOp: &updateBucketUpdateOperation{}, Diffs: ds,
-			FieldName: "Website",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1322,93 +1382,34 @@ func compareBucketCorsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MaxAgeSeconds, actual.MaxAgeSeconds, dcl.Info{}, fn.AddNest("MaxAgeSeconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxAgeSeconds, actual.MaxAgeSeconds, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("MaxAgeSeconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Method, actual.Method, dcl.Info{}, fn.AddNest("Method")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Method, actual.Method, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Method")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Origin, actual.Origin, dcl.Info{}, fn.AddNest("Origin")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Origin, actual.Origin, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Origin")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResponseHeader, actual.ResponseHeader, dcl.Info{}, fn.AddNest("ResponseHeader")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResponseHeader, actual.ResponseHeader, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("ResponseHeader")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareBucketCors(c *Client, desired, actual *BucketCors) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.MaxAgeSeconds, actual.MaxAgeSeconds) && !dcl.IsZeroValue(desired.MaxAgeSeconds) {
-		c.Config.Logger.Infof("Diff in MaxAgeSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxAgeSeconds), dcl.SprintResource(actual.MaxAgeSeconds))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Method, actual.Method) && !dcl.IsZeroValue(desired.Method) {
-		c.Config.Logger.Infof("Diff in Method.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Method), dcl.SprintResource(actual.Method))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Origin, actual.Origin) && !dcl.IsZeroValue(desired.Origin) {
-		c.Config.Logger.Infof("Diff in Origin.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Origin), dcl.SprintResource(actual.Origin))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.ResponseHeader, actual.ResponseHeader) && !dcl.IsZeroValue(desired.ResponseHeader) {
-		c.Config.Logger.Infof("Diff in ResponseHeader.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ResponseHeader), dcl.SprintResource(actual.ResponseHeader))
-		return true
-	}
-	return false
-}
-
-func compareBucketCorsSlice(c *Client, desired, actual []BucketCors) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketCors, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareBucketCors(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketCors, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareBucketCorsMap(c *Client, desired, actual map[string]BucketCors) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketCors, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in BucketCors, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareBucketCors(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in BucketCors, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareBucketLifecycleNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1431,60 +1432,13 @@ func compareBucketLifecycleNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Rule, actual.Rule, dcl.Info{ObjectFunction: compareBucketLifecycleRuleNewStyle}, fn.AddNest("Rule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Rule, actual.Rule, dcl.Info{ObjectFunction: compareBucketLifecycleRuleNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Rule")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareBucketLifecycle(c *Client, desired, actual *BucketLifecycle) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareBucketLifecycleRuleSlice(c, desired.Rule, actual.Rule) && !dcl.IsZeroValue(desired.Rule) {
-		c.Config.Logger.Infof("Diff in Rule.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Rule), dcl.SprintResource(actual.Rule))
-		return true
-	}
-	return false
-}
-
-func compareBucketLifecycleSlice(c *Client, desired, actual []BucketLifecycle) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycle, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareBucketLifecycle(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketLifecycle, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareBucketLifecycleMap(c *Client, desired, actual map[string]BucketLifecycle) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycle, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in BucketLifecycle, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareBucketLifecycle(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in BucketLifecycle, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareBucketLifecycleRuleNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1507,71 +1461,20 @@ func compareBucketLifecycleRuleNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{ObjectFunction: compareBucketLifecycleRuleActionNewStyle}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{ObjectFunction: compareBucketLifecycleRuleActionNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Condition, actual.Condition, dcl.Info{ObjectFunction: compareBucketLifecycleRuleConditionNewStyle}, fn.AddNest("Condition")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Condition, actual.Condition, dcl.Info{ObjectFunction: compareBucketLifecycleRuleConditionNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Condition")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareBucketLifecycleRule(c *Client, desired, actual *BucketLifecycleRule) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareBucketLifecycleRuleAction(c, desired.Action, actual.Action) && !dcl.IsZeroValue(desired.Action) {
-		c.Config.Logger.Infof("Diff in Action.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Action), dcl.SprintResource(actual.Action))
-		return true
-	}
-	if compareBucketLifecycleRuleCondition(c, desired.Condition, actual.Condition) && !dcl.IsZeroValue(desired.Condition) {
-		c.Config.Logger.Infof("Diff in Condition.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Condition), dcl.SprintResource(actual.Condition))
-		return true
-	}
-	return false
-}
-
-func compareBucketLifecycleRuleSlice(c *Client, desired, actual []BucketLifecycleRule) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycleRule, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareBucketLifecycleRule(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRule, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareBucketLifecycleRuleMap(c *Client, desired, actual map[string]BucketLifecycleRule) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycleRule, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRule, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareBucketLifecycleRule(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRule, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareBucketLifecycleRuleActionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1594,71 +1497,20 @@ func compareBucketLifecycleRuleActionNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.StorageClass, actual.StorageClass, dcl.Info{}, fn.AddNest("StorageClass")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StorageClass, actual.StorageClass, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("StorageClass")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareBucketLifecycleRuleAction(c *Client, desired, actual *BucketLifecycleRuleAction) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.StorageClass, actual.StorageClass) && !dcl.IsZeroValue(desired.StorageClass) {
-		c.Config.Logger.Infof("Diff in StorageClass.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.StorageClass), dcl.SprintResource(actual.StorageClass))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	return false
-}
-
-func compareBucketLifecycleRuleActionSlice(c *Client, desired, actual []BucketLifecycleRuleAction) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycleRuleAction, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareBucketLifecycleRuleAction(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRuleAction, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareBucketLifecycleRuleActionMap(c *Client, desired, actual map[string]BucketLifecycleRuleAction) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycleRuleAction, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRuleAction, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareBucketLifecycleRuleAction(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRuleAction, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareBucketLifecycleRuleConditionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1681,104 +1533,41 @@ func compareBucketLifecycleRuleConditionNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Age, actual.Age, dcl.Info{}, fn.AddNest("Age")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Age, actual.Age, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Age")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreatedBefore, actual.CreatedBefore, dcl.Info{}, fn.AddNest("CreatedBefore")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreatedBefore, actual.CreatedBefore, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("CreatedBefore")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WithState, actual.WithState, dcl.Info{Type: "EnumType"}, fn.AddNest("WithState")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WithState, actual.WithState, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("WithState")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MatchesStorageClass, actual.MatchesStorageClass, dcl.Info{}, fn.AddNest("MatchesStorageClass")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MatchesStorageClass, actual.MatchesStorageClass, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("MatchesStorageClass")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumNewerVersions, actual.NumNewerVersions, dcl.Info{}, fn.AddNest("NumNewerVersions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumNewerVersions, actual.NumNewerVersions, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("NumNewerVersions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareBucketLifecycleRuleCondition(c *Client, desired, actual *BucketLifecycleRuleCondition) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Age, actual.Age) && !dcl.IsZeroValue(desired.Age) {
-		c.Config.Logger.Infof("Diff in Age.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Age), dcl.SprintResource(actual.Age))
-		return true
-	}
-	if !reflect.DeepEqual(desired.CreatedBefore, actual.CreatedBefore) && !dcl.IsZeroValue(desired.CreatedBefore) {
-		c.Config.Logger.Infof("Diff in CreatedBefore.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CreatedBefore), dcl.SprintResource(actual.CreatedBefore))
-		return true
-	}
-	if !reflect.DeepEqual(desired.WithState, actual.WithState) && !dcl.IsZeroValue(desired.WithState) {
-		c.Config.Logger.Infof("Diff in WithState.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.WithState), dcl.SprintResource(actual.WithState))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.MatchesStorageClass, actual.MatchesStorageClass) && !dcl.IsZeroValue(desired.MatchesStorageClass) {
-		c.Config.Logger.Infof("Diff in MatchesStorageClass.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MatchesStorageClass), dcl.SprintResource(actual.MatchesStorageClass))
-		return true
-	}
-	if !reflect.DeepEqual(desired.NumNewerVersions, actual.NumNewerVersions) && !dcl.IsZeroValue(desired.NumNewerVersions) {
-		c.Config.Logger.Infof("Diff in NumNewerVersions.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NumNewerVersions), dcl.SprintResource(actual.NumNewerVersions))
-		return true
-	}
-	return false
-}
-
-func compareBucketLifecycleRuleConditionSlice(c *Client, desired, actual []BucketLifecycleRuleCondition) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycleRuleCondition, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareBucketLifecycleRuleCondition(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRuleCondition, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareBucketLifecycleRuleConditionMap(c *Client, desired, actual map[string]BucketLifecycleRuleCondition) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycleRuleCondition, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRuleCondition, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareBucketLifecycleRuleCondition(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRuleCondition, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareBucketLoggingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1801,71 +1590,20 @@ func compareBucketLoggingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LogBucket, actual.LogBucket, dcl.Info{}, fn.AddNest("LogBucket")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LogBucket, actual.LogBucket, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("LogBucket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LogObjectPrefix, actual.LogObjectPrefix, dcl.Info{}, fn.AddNest("LogObjectPrefix")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LogObjectPrefix, actual.LogObjectPrefix, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("LogObjectPrefix")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareBucketLogging(c *Client, desired, actual *BucketLogging) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.LogBucket, actual.LogBucket) && !dcl.IsZeroValue(desired.LogBucket) {
-		c.Config.Logger.Infof("Diff in LogBucket.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogBucket), dcl.SprintResource(actual.LogBucket))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.LogObjectPrefix, actual.LogObjectPrefix) && !dcl.IsZeroValue(desired.LogObjectPrefix) {
-		c.Config.Logger.Infof("Diff in LogObjectPrefix.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogObjectPrefix), dcl.SprintResource(actual.LogObjectPrefix))
-		return true
-	}
-	return false
-}
-
-func compareBucketLoggingSlice(c *Client, desired, actual []BucketLogging) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLogging, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareBucketLogging(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketLogging, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareBucketLoggingMap(c *Client, desired, actual map[string]BucketLogging) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLogging, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in BucketLogging, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareBucketLogging(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in BucketLogging, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareBucketVersioningNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1888,60 +1626,13 @@ func compareBucketVersioningNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareBucketVersioning(c *Client, desired, actual *BucketVersioning) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
-		c.Config.Logger.Infof("Diff in Enabled.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enabled), dcl.SprintResource(actual.Enabled))
-		return true
-	}
-	return false
-}
-
-func compareBucketVersioningSlice(c *Client, desired, actual []BucketVersioning) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketVersioning, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareBucketVersioning(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketVersioning, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareBucketVersioningMap(c *Client, desired, actual map[string]BucketVersioning) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketVersioning, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in BucketVersioning, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareBucketVersioning(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in BucketVersioning, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareBucketWebsiteNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1964,125 +1655,20 @@ func compareBucketWebsiteNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MainPageSuffix, actual.MainPageSuffix, dcl.Info{}, fn.AddNest("MainPageSuffix")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainPageSuffix, actual.MainPageSuffix, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("MainPageSuffix")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NotFoundPage, actual.NotFoundPage, dcl.Info{}, fn.AddNest("NotFoundPage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NotFoundPage, actual.NotFoundPage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("NotFoundPage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareBucketWebsite(c *Client, desired, actual *BucketWebsite) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MainPageSuffix, actual.MainPageSuffix) && !dcl.IsZeroValue(desired.MainPageSuffix) {
-		c.Config.Logger.Infof("Diff in MainPageSuffix.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainPageSuffix), dcl.SprintResource(actual.MainPageSuffix))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.NotFoundPage, actual.NotFoundPage) && !dcl.IsZeroValue(desired.NotFoundPage) {
-		c.Config.Logger.Infof("Diff in NotFoundPage.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NotFoundPage), dcl.SprintResource(actual.NotFoundPage))
-		return true
-	}
-	return false
-}
-
-func compareBucketWebsiteSlice(c *Client, desired, actual []BucketWebsite) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketWebsite, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareBucketWebsite(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketWebsite, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareBucketWebsiteMap(c *Client, desired, actual map[string]BucketWebsite) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketWebsite, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in BucketWebsite, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareBucketWebsite(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in BucketWebsite, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareBucketLifecycleRuleActionTypeEnumSlice(c *Client, desired, actual []BucketLifecycleRuleActionTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycleRuleActionTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareBucketLifecycleRuleActionTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRuleActionTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareBucketLifecycleRuleActionTypeEnum(c *Client, desired, actual *BucketLifecycleRuleActionTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareBucketLifecycleRuleConditionWithStateEnumSlice(c *Client, desired, actual []BucketLifecycleRuleConditionWithStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketLifecycleRuleConditionWithStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareBucketLifecycleRuleConditionWithStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketLifecycleRuleConditionWithStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareBucketLifecycleRuleConditionWithStateEnum(c *Client, desired, actual *BucketLifecycleRuleConditionWithStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareBucketStorageClassEnumSlice(c *Client, desired, actual []BucketStorageClassEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BucketStorageClassEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareBucketStorageClassEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BucketStorageClassEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareBucketStorageClassEnum(c *Client, desired, actual *BucketStorageClassEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -2206,18 +1792,18 @@ func flattenBucket(c *Client, i interface{}) *Bucket {
 		return nil
 	}
 
-	r := &Bucket{}
-	r.Project = dcl.FlattenString(m["project"])
-	r.Location = dcl.FlattenString(m["location"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Cors = flattenBucketCorsSlice(c, m["cors"])
-	r.Lifecycle = flattenBucketLifecycle(c, m["lifecycle"])
-	r.Logging = flattenBucketLogging(c, m["logging"])
-	r.StorageClass = flattenBucketStorageClassEnum(m["storageClass"])
-	r.Versioning = flattenBucketVersioning(c, m["versioning"])
-	r.Website = flattenBucketWebsite(c, m["website"])
+	res := &Bucket{}
+	res.Project = dcl.FlattenString(m["project"])
+	res.Location = dcl.FlattenString(m["location"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Cors = flattenBucketCorsSlice(c, m["cors"])
+	res.Lifecycle = flattenBucketLifecycle(c, m["lifecycle"])
+	res.Logging = flattenBucketLogging(c, m["logging"])
+	res.StorageClass = flattenBucketStorageClassEnum(m["storageClass"])
+	res.Versioning = flattenBucketVersioning(c, m["versioning"])
+	res.Website = flattenBucketWebsite(c, m["website"])
 
-	return r
+	return res
 }
 
 // expandBucketCorsMap expands the contents of BucketCors into a JSON
@@ -2304,10 +1890,11 @@ func flattenBucketCorsSlice(c *Client, i interface{}) []BucketCors {
 // expandBucketCors expands an instance of BucketCors into a JSON
 // request object.
 func expandBucketCors(c *Client, f *BucketCors) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MaxAgeSeconds; !dcl.IsEmptyValueIndirect(v) {
 		m["maxAgeSeconds"] = v
 	}
@@ -2425,10 +2012,11 @@ func flattenBucketLifecycleSlice(c *Client, i interface{}) []BucketLifecycle {
 // expandBucketLifecycle expands an instance of BucketLifecycle into a JSON
 // request object.
 func expandBucketLifecycle(c *Client, f *BucketLifecycle) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandBucketLifecycleRuleSlice(c, f.Rule); err != nil {
 		return nil, fmt.Errorf("error expanding Rule into rule: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2536,10 +2124,11 @@ func flattenBucketLifecycleRuleSlice(c *Client, i interface{}) []BucketLifecycle
 // expandBucketLifecycleRule expands an instance of BucketLifecycleRule into a JSON
 // request object.
 func expandBucketLifecycleRule(c *Client, f *BucketLifecycleRule) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandBucketLifecycleRuleAction(c, f.Action); err != nil {
 		return nil, fmt.Errorf("error expanding Action into action: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2653,10 +2242,11 @@ func flattenBucketLifecycleRuleActionSlice(c *Client, i interface{}) []BucketLif
 // expandBucketLifecycleRuleAction expands an instance of BucketLifecycleRuleAction into a JSON
 // request object.
 func expandBucketLifecycleRuleAction(c *Client, f *BucketLifecycleRuleAction) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.StorageClass; !dcl.IsEmptyValueIndirect(v) {
 		m["storageClass"] = v
 	}
@@ -2766,10 +2356,11 @@ func flattenBucketLifecycleRuleConditionSlice(c *Client, i interface{}) []Bucket
 // expandBucketLifecycleRuleCondition expands an instance of BucketLifecycleRuleCondition into a JSON
 // request object.
 func expandBucketLifecycleRuleCondition(c *Client, f *BucketLifecycleRuleCondition) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Age; !dcl.IsEmptyValueIndirect(v) {
 		m["age"] = v
 	}
@@ -2893,10 +2484,11 @@ func flattenBucketLoggingSlice(c *Client, i interface{}) []BucketLogging {
 // expandBucketLogging expands an instance of BucketLogging into a JSON
 // request object.
 func expandBucketLogging(c *Client, f *BucketLogging) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.LogBucket; !dcl.IsEmptyValueIndirect(v) {
 		m["logBucket"] = v
 	}
@@ -3006,10 +2598,11 @@ func flattenBucketVersioningSlice(c *Client, i interface{}) []BucketVersioning {
 // expandBucketVersioning expands an instance of BucketVersioning into a JSON
 // request object.
 func expandBucketVersioning(c *Client, f *BucketVersioning) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Enabled; !dcl.IsEmptyValueIndirect(v) {
 		m["enabled"] = v
 	}
@@ -3115,10 +2708,11 @@ func flattenBucketWebsiteSlice(c *Client, i interface{}) []BucketWebsite {
 // expandBucketWebsite expands an instance of BucketWebsite into a JSON
 // request object.
 func expandBucketWebsite(c *Client, f *BucketWebsite) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MainPageSuffix; !dcl.IsEmptyValueIndirect(v) {
 		m["mainPageSuffix"] = v
 	}
@@ -3268,5 +2862,36 @@ func (r *Bucket) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToBucketDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]bucketDiff, error) {
+	var diffs []bucketDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := bucketDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTobucketApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTobucketApiOperation(op string, opts ...dcl.ApplyOption) (bucketApiOperation, error) {
+	switch op {
+
+	case "updateBucketUpdateOperation":
+		return &updateBucketUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

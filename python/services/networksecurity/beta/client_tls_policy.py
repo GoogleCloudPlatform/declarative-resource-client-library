@@ -155,29 +155,6 @@ class ClientTlsPolicy(object):
 
         return stub.ListNetworksecurityBetaClientTlsPolicy(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = client_tls_policy_pb2.NetworksecurityBetaClientTlsPolicy()
-        any_proto.Unpack(res_proto)
-
-        res = ClientTlsPolicy()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.sni = Primitive.from_proto(res_proto.sni)
-        res.client_certificate = ClientTlsPolicyClientCertificate.from_proto(
-            res_proto.client_certificate
-        )
-        res.server_validation_ca = ClientTlsPolicyServerValidationCaArray.from_proto(
-            res_proto.server_validation_ca
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = client_tls_policy_pb2.NetworksecurityBetaClientTlsPolicy()
         if Primitive.to_proto(self.name):

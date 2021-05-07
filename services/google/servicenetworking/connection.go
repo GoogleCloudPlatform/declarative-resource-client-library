@@ -37,7 +37,7 @@ func (r *Connection) String() string {
 // can identify it.
 func (r *Connection) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "servicenetworking",
+		Service: "service_networking",
 		Type:    "Connection",
 		Version: "servicenetworking",
 	}
@@ -224,6 +224,7 @@ func (c *Client) ApplyConnection(ctx context.Context, rawDesired *Connection, op
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

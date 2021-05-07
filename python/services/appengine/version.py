@@ -473,67 +473,6 @@ class Version(object):
 
         return stub.ListAppengineVersion(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = version_pb2.AppengineVersion()
-        any_proto.Unpack(res_proto)
-
-        res = Version()
-        res.consumer_name = Primitive.from_proto(res_proto.consumer_name)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.automatic_scaling = VersionAutomaticScaling.from_proto(
-            res_proto.automatic_scaling
-        )
-        res.basic_scaling = VersionBasicScaling.from_proto(res_proto.basic_scaling)
-        res.manual_scaling = VersionManualScaling.from_proto(res_proto.manual_scaling)
-        res.inbound_services = VersionInboundServicesEnumArray.from_proto(
-            res_proto.inbound_services
-        )
-        res.instance_class = Primitive.from_proto(res_proto.instance_class)
-        res.network = VersionNetwork.from_proto(res_proto.network)
-        res.zones = Primitive.from_proto(res_proto.zones)
-        res.resources = VersionResources.from_proto(res_proto.resources)
-        res.runtime = Primitive.from_proto(res_proto.runtime)
-        res.runtime_channel = Primitive.from_proto(res_proto.runtime_channel)
-        res.threadsafe = Primitive.from_proto(res_proto.threadsafe)
-        res.vm = Primitive.from_proto(res_proto.vm)
-        res.beta_settings = Primitive.from_proto(res_proto.beta_settings)
-        res.env = Primitive.from_proto(res_proto.env)
-        res.serving_status = VersionServingStatusEnum.from_proto(
-            res_proto.serving_status
-        )
-        res.created_by = Primitive.from_proto(res_proto.created_by)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.disk_usage_bytes = Primitive.from_proto(res_proto.disk_usage_bytes)
-        res.runtime_api_version = Primitive.from_proto(res_proto.runtime_api_version)
-        res.runtime_main_executable_path = Primitive.from_proto(
-            res_proto.runtime_main_executable_path
-        )
-        res.handlers = VersionHandlersArray.from_proto(res_proto.handlers)
-        res.error_handlers = VersionErrorHandlersArray.from_proto(
-            res_proto.error_handlers
-        )
-        res.libraries = VersionLibrariesArray.from_proto(res_proto.libraries)
-        res.api_config = VersionApiConfig.from_proto(res_proto.api_config)
-        res.env_variables = Primitive.from_proto(res_proto.env_variables)
-        res.default_expiration = Primitive.from_proto(res_proto.default_expiration)
-        res.deployment = VersionDeployment.from_proto(res_proto.deployment)
-        res.health_check = VersionHealthCheck.from_proto(res_proto.health_check)
-        res.readiness_check = VersionReadinessCheck.from_proto(
-            res_proto.readiness_check
-        )
-        res.liveness_check = VersionLivenessCheck.from_proto(res_proto.liveness_check)
-        res.nobuild_files_regex = Primitive.from_proto(res_proto.nobuild_files_regex)
-        res.version_url = Primitive.from_proto(res_proto.version_url)
-        res.entrypoint = VersionEntrypoint.from_proto(res_proto.entrypoint)
-        res.vpc_access_connector = VersionVPCAccessConnector.from_proto(
-            res_proto.vpc_access_connector
-        )
-        res.app = Primitive.from_proto(res_proto.app)
-        res.service = Primitive.from_proto(res_proto.service)
-        return res
-
     def to_proto(self):
         resource = version_pb2.AppengineVersion()
         if Primitive.to_proto(self.consumer_name):

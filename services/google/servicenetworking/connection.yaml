@@ -79,8 +79,8 @@ components:
       x-dcl-parent-container: project
       x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Servicenetworking Connection resource
-  title: Servicenetworking/Connection
+  description: DCL Specification for the ServiceNetworking Connection resource
+  title: ServiceNetworking/Connection
   x-dcl-has-iam: false
 paths:
   apply:

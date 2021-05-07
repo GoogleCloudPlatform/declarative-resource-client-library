@@ -331,53 +331,6 @@ class Image(object):
 
         return stub.ListComputeImage(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = image_pb2.ComputeImage()
-        any_proto.Unpack(res_proto)
-
-        res = Image()
-        res.archive_size_bytes = Primitive.from_proto(res_proto.archive_size_bytes)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.disk_size_gb = Primitive.from_proto(res_proto.disk_size_gb)
-        res.family = Primitive.from_proto(res_proto.family)
-        res.guest_os_feature = ImageGuestOsFeatureArray.from_proto(
-            res_proto.guest_os_feature
-        )
-        res.image_encryption_key = ImageImageEncryptionKey.from_proto(
-            res_proto.image_encryption_key
-        )
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.license = Primitive.from_proto(res_proto.license)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.raw_disk = ImageRawDisk.from_proto(res_proto.raw_disk)
-        res.shielded_instance_initial_state = ImageShieldedInstanceInitialState.from_proto(
-            res_proto.shielded_instance_initial_state
-        )
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.source_disk = Primitive.from_proto(res_proto.source_disk)
-        res.source_disk_encryption_key = ImageSourceDiskEncryptionKey.from_proto(
-            res_proto.source_disk_encryption_key
-        )
-        res.source_disk_id = Primitive.from_proto(res_proto.source_disk_id)
-        res.source_image = Primitive.from_proto(res_proto.source_image)
-        res.source_image_encryption_key = ImageSourceImageEncryptionKey.from_proto(
-            res_proto.source_image_encryption_key
-        )
-        res.source_image_id = Primitive.from_proto(res_proto.source_image_id)
-        res.source_snapshot = Primitive.from_proto(res_proto.source_snapshot)
-        res.source_snapshot_encryption_key = ImageSourceSnapshotEncryptionKey.from_proto(
-            res_proto.source_snapshot_encryption_key
-        )
-        res.source_snapshot_id = Primitive.from_proto(res_proto.source_snapshot_id)
-        res.source_type = ImageSourceTypeEnum.from_proto(res_proto.source_type)
-        res.status = ImageStatusEnum.from_proto(res_proto.status)
-        res.storage_location = Primitive.from_proto(res_proto.storage_location)
-        res.deprecated = ImageDeprecated.from_proto(res_proto.deprecated)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = image_pb2.ComputeImage()
         if Primitive.to_proto(self.description):

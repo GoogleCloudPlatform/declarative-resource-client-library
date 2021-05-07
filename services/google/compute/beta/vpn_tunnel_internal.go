@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -422,9 +421,6 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
 	}
-	if dcl.IsZeroValue(rawDesired.Id) {
-		rawDesired.Id = rawInitial.Id
-	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -461,20 +457,8 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 	if dcl.StringCanonicalize(rawDesired.SharedSecret, rawInitial.SharedSecret) {
 		rawDesired.SharedSecret = rawInitial.SharedSecret
 	}
-	if dcl.StringCanonicalize(rawDesired.SharedSecretHash, rawInitial.SharedSecretHash) {
-		rawDesired.SharedSecretHash = rawInitial.SharedSecretHash
-	}
-	if dcl.IsZeroValue(rawDesired.Status) {
-		rawDesired.Status = rawInitial.Status
-	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
-	}
 	if dcl.IsZeroValue(rawDesired.IkeVersion) {
 		rawDesired.IkeVersion = rawInitial.IkeVersion
-	}
-	if dcl.StringCanonicalize(rawDesired.DetailedStatus, rawInitial.DetailedStatus) {
-		rawDesired.DetailedStatus = rawInitial.DetailedStatus
 	}
 	if dcl.IsZeroValue(rawDesired.LocalTrafficSelector) {
 		rawDesired.LocalTrafficSelector = rawInitial.LocalTrafficSelector
@@ -656,207 +640,293 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 	}
 
 	var diffs []vpnTunnelDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVpnTunnelSetLabelsOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{
-			UpdateOp: &updateVpnTunnelSetLabelsOperation{}, Diffs: ds,
-			FieldName: "Labels",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Id",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Region",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetVpnGateway, actual.TargetVpnGateway, dcl.Info{Type: "ReferenceType"}, fn.AddNest("TargetVpnGateway")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetVpnGateway, actual.TargetVpnGateway, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetVpnGateway")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "TargetVpnGateway",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.VpnGateway, actual.VpnGateway, dcl.Info{Type: "ReferenceType"}, fn.AddNest("VpnGateway")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VpnGateway, actual.VpnGateway, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VpnGateway")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "VpnGateway",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.VpnGatewayInterface, actual.VpnGatewayInterface, dcl.Info{}, fn.AddNest("VpnGatewayInterface")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VpnGatewayInterface, actual.VpnGatewayInterface, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VpnGatewayInterface")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "VpnGatewayInterface",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.PeerExternalGateway, actual.PeerExternalGateway, dcl.Info{}, fn.AddNest("PeerExternalGateway")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeerExternalGateway, actual.PeerExternalGateway, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeerExternalGateway")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "PeerExternalGateway",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.PeerExternalGatewayInterface, actual.PeerExternalGatewayInterface, dcl.Info{}, fn.AddNest("PeerExternalGatewayInterface")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeerExternalGatewayInterface, actual.PeerExternalGatewayInterface, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeerExternalGatewayInterface")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "PeerExternalGatewayInterface",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.PeerGcpGateway, actual.PeerGcpGateway, dcl.Info{}, fn.AddNest("PeerGcpGateway")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeerGcpGateway, actual.PeerGcpGateway, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeerGcpGateway")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "PeerGcpGateway",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Router, actual.Router, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Router")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Router, actual.Router, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Router")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Router",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.PeerIP, actual.PeerIP, dcl.Info{}, fn.AddNest("PeerIP")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeerIP, actual.PeerIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeerIP")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "PeerIP",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SharedSecret, actual.SharedSecret, dcl.Info{Ignore: true}, fn.AddNest("SharedSecret")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SharedSecret, actual.SharedSecret, dcl.Info{Ignore: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SharedSecret")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SharedSecret",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SharedSecretHash, actual.SharedSecretHash, dcl.Info{OutputOnly: true}, fn.AddNest("SharedSecretHash")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SharedSecretHash, actual.SharedSecretHash, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SharedSecretHash")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SharedSecretHash",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Status",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.IkeVersion, actual.IkeVersion, dcl.Info{}, fn.AddNest("IkeVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IkeVersion, actual.IkeVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IkeVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "IkeVersion",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DetailedStatus, actual.DetailedStatus, dcl.Info{OutputOnly: true}, fn.AddNest("DetailedStatus")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DetailedStatus, actual.DetailedStatus, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DetailedStatus")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "DetailedStatus",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.LocalTrafficSelector, actual.LocalTrafficSelector, dcl.Info{Type: "Set"}, fn.AddNest("LocalTrafficSelector")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalTrafficSelector, actual.LocalTrafficSelector, dcl.Info{Type: "Set", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalTrafficSelector")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "LocalTrafficSelector",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.RemoteTrafficSelector, actual.RemoteTrafficSelector, dcl.Info{Type: "Set"}, fn.AddNest("RemoteTrafficSelector")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RemoteTrafficSelector, actual.RemoteTrafficSelector, dcl.Info{Type: "Set", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RemoteTrafficSelector")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "RemoteTrafficSelector",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnTunnelDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnTunnelDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -882,23 +952,6 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 	}
 
 	return deduped, nil
-}
-func compareVpnTunnelStatusEnumSlice(c *Client, desired, actual []VpnTunnelStatusEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VpnTunnelStatusEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVpnTunnelStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VpnTunnelStatusEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVpnTunnelStatusEnum(c *Client, desired, actual *VpnTunnelStatusEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1065,35 +1118,35 @@ func flattenVpnTunnel(c *Client, i interface{}) *VpnTunnel {
 		return nil
 	}
 
-	r := &VpnTunnel{}
-	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	r.Id = dcl.FlattenInteger(m["id"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.Region = dcl.FlattenString(m["region"])
-	r.TargetVpnGateway = dcl.FlattenString(m["targetVpnGateway"])
-	r.VpnGateway = dcl.FlattenString(m["vpnGateway"])
-	r.VpnGatewayInterface = dcl.FlattenInteger(m["vpnGatewayInterface"])
-	r.PeerExternalGateway = dcl.FlattenString(m["peerExternalGateway"])
-	r.PeerExternalGatewayInterface = dcl.FlattenInteger(m["peerExternalGatewayInterface"])
-	r.PeerGcpGateway = dcl.FlattenString(m["peerGcpGateway"])
-	r.Router = dcl.FlattenString(m["router"])
-	r.PeerIP = dcl.FlattenString(m["peerIp"])
-	r.SharedSecret = dcl.FlattenSecretValue(m["sharedSecret"])
-	r.SharedSecretHash = dcl.FlattenString(m["sharedSecretHash"])
-	r.Status = flattenVpnTunnelStatusEnum(m["status"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
-	r.IkeVersion = dcl.FlattenInteger(m["ikeVersion"])
+	res := &VpnTunnel{}
+	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	res.Id = dcl.FlattenInteger(m["id"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.Region = dcl.FlattenString(m["region"])
+	res.TargetVpnGateway = dcl.FlattenString(m["targetVpnGateway"])
+	res.VpnGateway = dcl.FlattenString(m["vpnGateway"])
+	res.VpnGatewayInterface = dcl.FlattenInteger(m["vpnGatewayInterface"])
+	res.PeerExternalGateway = dcl.FlattenString(m["peerExternalGateway"])
+	res.PeerExternalGatewayInterface = dcl.FlattenInteger(m["peerExternalGatewayInterface"])
+	res.PeerGcpGateway = dcl.FlattenString(m["peerGcpGateway"])
+	res.Router = dcl.FlattenString(m["router"])
+	res.PeerIP = dcl.FlattenString(m["peerIp"])
+	res.SharedSecret = dcl.FlattenSecretValue(m["sharedSecret"])
+	res.SharedSecretHash = dcl.FlattenString(m["sharedSecretHash"])
+	res.Status = flattenVpnTunnelStatusEnum(m["status"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.IkeVersion = dcl.FlattenInteger(m["ikeVersion"])
 	if _, ok := m["ikeVersion"]; !ok {
 		c.Config.Logger.Info("Using default value for ikeVersion")
-		r.IkeVersion = dcl.Int64(2)
+		res.IkeVersion = dcl.Int64(2)
 	}
-	r.DetailedStatus = dcl.FlattenString(m["detailedStatus"])
-	r.LocalTrafficSelector = dcl.FlattenStringSlice(m["localTrafficSelector"])
-	r.RemoteTrafficSelector = dcl.FlattenStringSlice(m["remoteTrafficSelector"])
-	r.Project = dcl.FlattenString(m["project"])
+	res.DetailedStatus = dcl.FlattenString(m["detailedStatus"])
+	res.LocalTrafficSelector = dcl.FlattenStringSlice(m["localTrafficSelector"])
+	res.RemoteTrafficSelector = dcl.FlattenStringSlice(m["remoteTrafficSelector"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // flattenVpnTunnelStatusEnumSlice flattens the contents of VpnTunnelStatusEnum from a JSON
@@ -1166,5 +1219,36 @@ func (r *VpnTunnel) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToVpnTunnelDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]vpnTunnelDiff, error) {
+	var diffs []vpnTunnelDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := vpnTunnelDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTovpnTunnelApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTovpnTunnelApiOperation(op string, opts ...dcl.ApplyOption) (vpnTunnelApiOperation, error) {
+	switch op {
+
+	case "updateVpnTunnelSetLabelsOperation":
+		return &updateVpnTunnelSetLabelsOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

@@ -49,11 +49,11 @@ func ProtoToTargetPool(p *computepb.ComputeTargetPool) *compute.TargetPool {
 		SessionAffinity: ProtoToComputeTargetPoolSessionAffinityEnum(p.GetSessionAffinity()),
 		Project:         dcl.StringOrNil(p.Project),
 	}
-	for _, r := range p.GetHealthCheck() {
-		obj.HealthCheck = append(obj.HealthCheck, r)
+	for _, r := range p.GetHealthChecks() {
+		obj.HealthChecks = append(obj.HealthChecks, r)
 	}
-	for _, r := range p.GetInstance() {
-		obj.Instance = append(obj.Instance, r)
+	for _, r := range p.GetInstances() {
+		obj.Instances = append(obj.Instances, r)
 	}
 	return obj
 }
@@ -81,11 +81,11 @@ func TargetPoolToProto(resource *compute.TargetPool) *computepb.ComputeTargetPoo
 		SessionAffinity: ComputeTargetPoolSessionAffinityEnumToProto(resource.SessionAffinity),
 		Project:         dcl.ValueOrEmptyString(resource.Project),
 	}
-	for _, r := range resource.HealthCheck {
-		p.HealthCheck = append(p.HealthCheck, r)
+	for _, r := range resource.HealthChecks {
+		p.HealthChecks = append(p.HealthChecks, r)
 	}
-	for _, r := range resource.Instance {
-		p.Instance = append(p.Instance, r)
+	for _, r := range resource.Instances {
+		p.Instances = append(p.Instances, r)
 	}
 
 	return p

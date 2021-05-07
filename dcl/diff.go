@@ -14,6 +14,7 @@
 package dcl
 
 import (
+	"encoding/json"
 	"fmt"
 	"reflect"
 )
@@ -26,7 +27,14 @@ type Info struct {
 	IgnoredPrefixes []string
 	Type            string
 
+	// ObjectFunction is the function used to diff a Nested Object.
 	ObjectFunction func(desired, actual interface{}, fn FieldName) ([]*FieldDiff, error)
+
+	// CustomDiff is used to handle diffing a field when normal diff functions will not suffice.
+	CustomDiff func(desired, actual interface{}) bool
+
+	// OperationSelector takes in the field's diff and returns the name of the operation (or Recreate) that should be triggered.
+	OperationSelector func(d *FieldDiff) []string
 }
 
 // FieldName is used to add information about a field's name for logging purposes.
@@ -63,6 +71,10 @@ type FieldDiff struct {
 
 	ToAdd    []interface{}
 	ToRemove []interface{}
+
+	// The name of the operation that should result (may be Recreate)
+	// In the case of sets, more than one operation may be returned.
+	ResultingOperation []string
 }
 
 func (d *FieldDiff) String() string {
@@ -95,10 +107,21 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 		return nil, nil
 	}
 
+	if info.OperationSelector == nil {
+		return nil, fmt.Errorf("an operation selector function must exist")
+	}
+
 	desiredType := ValueType(desired)
 
 	if desiredType == "invalid" {
 		return nil, nil
+	}
+
+	if info.CustomDiff != nil {
+		if !info.CustomDiff(desired, actual) {
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
+		}
+		return diffs, nil
 	}
 
 	if desiredType == "slice" {
@@ -116,6 +139,7 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 			return nil, err
 		}
 		diffs = append(diffs, arrDiffs...)
+		addOperationToDiffs(diffs, info)
 		return diffs, nil
 	}
 
@@ -126,12 +150,14 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 		}
 		if !StringEqualsWithSelfLink(dStr, aStr) {
 			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: dStr, Actual: aStr})
+			addOperationToDiffs(diffs, info)
 			return diffs, nil
 		}
 		return nil, nil
 	} else if info.Type == "EnumType" {
 		if !reflect.DeepEqual(desired, actual) {
 			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
+			addOperationToDiffs(diffs, info)
 			return diffs, nil
 		}
 		return nil, nil
@@ -148,8 +174,16 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 		}
 
 	case "map":
-		if !MapEquals(desired, actual, info.IgnoredPrefixes) {
-			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
+		dMap, aMap, err := maps(desired, actual)
+		if err != nil {
+			return nil, err
+		}
+		mapDiffs, err := mapCompare(dMap, aMap, info.IgnoredPrefixes, info, fn)
+		if err != nil {
+			return nil, err
+		}
+		if len(mapDiffs) > 0 {
+			diffs = append(diffs, mapDiffs...)
 		}
 
 	case "int", "float64", "int64":
@@ -173,6 +207,7 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 
 		if actual == nil || ValueType(actual) == "invalid" {
 			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
+			addOperationToDiffs(diffs, info)
 			return diffs, nil
 		}
 
@@ -185,6 +220,7 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 		return nil, fmt.Errorf("no diffing logic exists for type: %q", desiredType)
 	}
 
+	addOperationToDiffs(diffs, info)
 	return diffs, nil
 }
 
@@ -313,12 +349,21 @@ func boolean(d interface{}) (*bool, error) {
 	return dPtr, nil
 }
 
-func mapVal(d interface{}) (map[string]string, error) {
-	dMap, dOk := d.(map[string]string)
-	if !dOk {
-		return nil, fmt.Errorf("value is not a map[string]string")
+func maps(d, a interface{}) (map[string]interface{}, map[string]interface{}, error) {
+	dMap, _ := mapCast(d)
+	aMap, _ := mapCast(a)
+	return dMap, aMap, nil
+}
+
+func mapCast(m interface{}) (map[string]interface{}, error) {
+	j, err := json.Marshal(m)
+	if err != nil {
+		return nil, err
 	}
-	return dMap, nil
+
+	var mi map[string]interface{}
+	json.Unmarshal(j, &mi)
+	return mi, nil
 }
 
 func slices(d, i interface{}) ([]interface{}, []interface{}, error) {
@@ -351,4 +396,51 @@ func slice(slice interface{}) ([]interface{}, error) {
 	}
 
 	return ret, nil
+}
+
+func addOperationToDiffs(fds []*FieldDiff, i Info) {
+	for _, fd := range fds {
+		fd.ResultingOperation = i.OperationSelector(fd)
+	}
+}
+
+func mapCompare(d, a map[string]interface{}, ignorePrefixes []string, info Info, fn FieldName) ([]*FieldDiff, error) {
+	var diffs []*FieldDiff
+	for k, v := range d {
+		if isIgnored(k, ignorePrefixes) {
+			continue
+		}
+
+		av, ok := a[k]
+		if !ok {
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Message: fmt.Sprintf("%v is missing from actual", k)})
+			continue
+		}
+
+		objDiffs, err := Diff(v, av, info, fn)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objDiffs...)
+	}
+
+	for k, v := range a {
+		if isIgnored(k, ignorePrefixes) {
+			continue
+		}
+
+		dv, ok := d[k]
+		if !ok {
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Message: fmt.Sprintf("%v is missing from desired", k)})
+			continue
+		}
+
+		objDiffs, err := Diff(dv, v, info, fn)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, objDiffs...)
+	}
+
+	return diffs, nil
 }

@@ -29,14 +29,14 @@ components:
           x-dcl-go-name: AuthEnabled
         authorizedNetwork:
           description: Optional. The full name of the Google Compute Engine (/compute/docs/networks-and-firewalls#networks)
-            to which the instance is connected. If left unspecified, the \\\`default\\\`
+            to which the instance is connected. If left unspecified, the \`default\`
             network will be used.
           type: string
           x-dcl-go-name: AuthorizedNetwork
         connectMode:
           description: 'Optional. The connect mode of Redis instance. If not provided,
-            default one will be used. Current default: DIRECT\\\_PEERING. Possible
-            values: CONNECT_MODE_UNSPECIFIED, DIRECT_PEERING, PRIVATE_SERVICE_ACCESS'
+            default one will be used. Current default: DIRECT\_PEERING. Possible values:
+            CONNECT_MODE_UNSPECIFIED, DIRECT_PEERING, PRIVATE_SERVICE_ACCESS'
           enum:
           - CONNECT_MODE_UNSPECIFIED
           - DIRECT_PEERING
@@ -101,8 +101,7 @@ components:
               x-dcl-go-name: CreateTime
             description:
               description: Optional. Description of what this policy is for. Create/Update
-                methods return INVALID\\\\\\_ARGUMENT if the length is greater than
-                512.
+                methods return INVALID\\\_ARGUMENT if the length is greater than 512.
               type: string
               x-dcl-go-name: Description
             updateTime:
@@ -114,7 +113,7 @@ components:
             weeklyMaintenanceWindow:
               description: Optional. Maintenance window that is applied to resources
                 covered by this policy. Minimum 1. For the current version, the maximum
-                number of weekly\\\\\\_window is expected to be one.
+                number of weekly\\\_window is expected to be one.
               items:
                 properties:
                   day:
@@ -226,8 +225,8 @@ components:
           x-dcl-go-name: MemorySizeGb
         name:
           description: 'Required. Unique name of the resource in this scope including
-            project and location using the form: \\\`projects/{project\\\_id}/locations/{location\\\_id}/instances/{instance\\\_id}\\\`
-            Note: Redis instances are managed and addressed at regional level so location\\\_id
+            project and location using the form: \`projects/{project\_id}/locations/{location\_id}/instances/{instance\_id}\`
+            Note: Redis instances are managed and addressed at regional level so location\_id
             here refers to a GCP region; however, users get to choose which specific
             zone (or collection of zones for cross zone instances) an instance should
             be provisioned in. Refer to fields for more details.'
@@ -263,25 +262,24 @@ components:
             type: string
           description: 'Optional. Redis configuration parameters, according to http://redis.io/topics/config.
             Currently, the only supported parameters are: Redis version 3.2 and newer:
-            \\\* maxmemory-policy \\\* notify-keyspace-events Redis version 4.0 and
-            newer: \\\* activedefrag \\\* lfu-decay-time \\\* lfu-log-factor \\\*
-            maxmemory-gb Redis version 5.0 and newer: \\\* stream-node-max-bytes \\\*
-            stream-node-max-entries'
+            \* maxmemory-policy \* notify-keyspace-events Redis version 4.0 and newer:
+            \* activedefrag \* lfu-decay-time \* lfu-log-factor \* maxmemory-gb Redis
+            version 5.0 and newer: \* stream-node-max-bytes \* stream-node-max-entries'
           type: object
           x-dcl-go-name: RedisConfigs
         redisVersion:
           description: 'Optional. The version of Redis software. If not provided,
             latest supported version will be used. Updating the version will perform
             an upgrade/downgrade to the new version. Currently, the supported values
-            are: \\\* \\\`REDIS\\\_4\\\_0\\\` for Redis 4.0 compatibility \\\* \\\`REDIS\\\_3\\\_2\\\`
-            for Redis 3.2 compatibility (default) \\\* \\\`REDIS\\\_5\\\_0\\\` for
-            Redis 5.0 compatibility'
+            are: \* \`REDIS\_4\_0\` for Redis 4.0 compatibility \* \`REDIS\_3\_2\`
+            for Redis 3.2 compatibility (default) \* \`REDIS\_5\_0\` for Redis 5.0
+            compatibility'
           type: string
           x-dcl-go-name: RedisVersion
         reservedIPRange:
-          description: Optional. For DIRECT\\\_PEERING mode, the CIDR range of internal
+          description: Optional. For DIRECT\_PEERING mode, the CIDR range of internal
             addresses that are reserved for this instance. Range must be unique and
-            non-overlapping with existing subnets in an authorized network. For PRIVATE\\\_SERVICE\\\_ACCESS
+            non-overlapping with existing subnets in an authorized network. For PRIVATE\_SERVICE\_ACCESS
             mode, the name of one allocated IP address ranges associated with this
             private service access connection. If not provided, the service will choose
             an unused /29 block, for example, 10.0.0.0/29 or 192.168.0.0/29.
@@ -298,7 +296,7 @@ components:
                 x-kubernetes-immutable: true
               createTime:
                 description: Output only. The time when the certificate was created
-                  in (https://tools.ietf.org/html/rfc3339) format, for example \\\\\\`2020-05-18T00:00:00.094Z\\\\\\`.
+                  in (https://tools.ietf.org/html/rfc3339) format, for example \\\`2020-05-18T00:00:00.094Z\\\`.
                 format: date-time
                 readOnly: true
                 type: string
@@ -306,7 +304,7 @@ components:
                 x-kubernetes-immutable: true
               expireTime:
                 description: Output only. The time when the certificate expires in
-                  (https://tools.ietf.org/html/rfc3339) format, for example \\\\\\`2020-05-18T00:00:00.094Z\\\\\\`.
+                  (https://tools.ietf.org/html/rfc3339) format, for example \\\`2020-05-18T00:00:00.094Z\\\`.
                 format: date-time
                 readOnly: true
                 type: string

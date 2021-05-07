@@ -185,30 +185,6 @@ class FirewallPolicyRule(object):
 
         return stub.ListComputeBetaFirewallPolicyRule(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = firewall_policy_rule_pb2.ComputeBetaFirewallPolicyRule()
-        any_proto.Unpack(res_proto)
-
-        res = FirewallPolicyRule()
-        res.description = Primitive.from_proto(res_proto.description)
-        res.priority = Primitive.from_proto(res_proto.priority)
-        res.match = FirewallPolicyRuleMatch.from_proto(res_proto.match)
-        res.action = Primitive.from_proto(res_proto.action)
-        res.direction = FirewallPolicyRuleDirectionEnum.from_proto(res_proto.direction)
-        res.target_resources = Primitive.from_proto(res_proto.target_resources)
-        res.enable_logging = Primitive.from_proto(res_proto.enable_logging)
-        res.rule_tuple_count = Primitive.from_proto(res_proto.rule_tuple_count)
-        res.target_service_accounts = Primitive.from_proto(
-            res_proto.target_service_accounts
-        )
-        res.target_secure_labels = Primitive.from_proto(res_proto.target_secure_labels)
-        res.disabled = Primitive.from_proto(res_proto.disabled)
-        res.kind = Primitive.from_proto(res_proto.kind)
-        res.firewall_policy = Primitive.from_proto(res_proto.firewall_policy)
-        return res
-
     def to_proto(self):
         resource = firewall_policy_rule_pb2.ComputeBetaFirewallPolicyRule()
         if Primitive.to_proto(self.description):

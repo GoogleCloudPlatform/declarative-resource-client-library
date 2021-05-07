@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -372,9 +371,6 @@ func canonicalizeReservationDesiredState(rawDesired, rawInitial *Reservation, op
 	if dcl.IsZeroValue(rawDesired.Id) {
 		rawDesired.Id = rawInitial.Id
 	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
-	}
 	if dcl.StringCanonicalize(rawDesired.Zone, rawInitial.Zone) {
 		rawDesired.Zone = rawInitial.Zone
 	}
@@ -390,9 +386,6 @@ func canonicalizeReservationDesiredState(rawDesired, rawInitial *Reservation, op
 	}
 	if dcl.BoolCanonicalize(rawDesired.SpecificReservationRequired, rawInitial.SpecificReservationRequired) {
 		rawDesired.SpecificReservationRequired = rawInitial.SpecificReservationRequired
-	}
-	if dcl.IsZeroValue(rawDesired.Status) {
-		rawDesired.Status = rawInitial.Status
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
@@ -501,6 +494,12 @@ func canonicalizeNewReservationSpecificReservation(c *Client, des, nw *Reservati
 	}
 
 	nw.InstanceProperties = canonicalizeNewReservationSpecificReservationInstanceProperties(c, des.InstanceProperties, nw.InstanceProperties)
+	if dcl.IsZeroValue(nw.Count) {
+		nw.Count = des.Count
+	}
+	if dcl.IsZeroValue(nw.InUseCount) {
+		nw.InUseCount = des.InUseCount
+	}
 
 	return nw
 }
@@ -513,7 +512,7 @@ func canonicalizeNewReservationSpecificReservationSet(c *Client, des, nw []Reser
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareReservationSpecificReservation(c, &d, &n) {
+			if diffs, _ := compareReservationSpecificReservationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -536,7 +535,7 @@ func canonicalizeNewReservationSpecificReservationSlice(c *Client, des, nw []Res
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ReservationSpecificReservation
@@ -601,7 +600,7 @@ func canonicalizeNewReservationSpecificReservationInstancePropertiesSet(c *Clien
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareReservationSpecificReservationInstanceProperties(c, &d, &n) {
+			if diffs, _ := compareReservationSpecificReservationInstancePropertiesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -624,7 +623,7 @@ func canonicalizeNewReservationSpecificReservationInstancePropertiesSlice(c *Cli
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ReservationSpecificReservationInstanceProperties
@@ -666,6 +665,9 @@ func canonicalizeNewReservationSpecificReservationInstancePropertiesGuestAcceler
 	if dcl.StringCanonicalize(des.AcceleratorType, nw.AcceleratorType) {
 		nw.AcceleratorType = des.AcceleratorType
 	}
+	if dcl.IsZeroValue(nw.AcceleratorCount) {
+		nw.AcceleratorCount = des.AcceleratorCount
+	}
 
 	return nw
 }
@@ -678,7 +680,7 @@ func canonicalizeNewReservationSpecificReservationInstancePropertiesGuestAcceler
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareReservationSpecificReservationInstancePropertiesGuestAccelerators(c, &d, &n) {
+			if diffs, _ := compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -701,7 +703,7 @@ func canonicalizeNewReservationSpecificReservationInstancePropertiesGuestAcceler
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ReservationSpecificReservationInstancePropertiesGuestAccelerators
@@ -740,6 +742,13 @@ func canonicalizeNewReservationSpecificReservationInstancePropertiesLocalSsds(c 
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.DiskSizeGb) {
+		nw.DiskSizeGb = des.DiskSizeGb
+	}
+	if dcl.IsZeroValue(nw.Interface) {
+		nw.Interface = des.Interface
+	}
+
 	return nw
 }
 
@@ -751,7 +760,7 @@ func canonicalizeNewReservationSpecificReservationInstancePropertiesLocalSsdsSet
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareReservationSpecificReservationInstancePropertiesLocalSsds(c, &d, &n) {
+			if diffs, _ := compareReservationSpecificReservationInstancePropertiesLocalSsdsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -774,7 +783,7 @@ func canonicalizeNewReservationSpecificReservationInstancePropertiesLocalSsdsSli
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ReservationSpecificReservationInstancePropertiesLocalSsds
@@ -808,98 +817,137 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 	}
 
 	var diffs []reservationDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Id",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Zone",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SpecificReservation, actual.SpecificReservation, dcl.Info{ObjectFunction: compareReservationSpecificReservationNewStyle}, fn.AddNest("SpecificReservation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SpecificReservation, actual.SpecificReservation, dcl.Info{ObjectFunction: compareReservationSpecificReservationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SpecificReservation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SpecificReservation",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Commitment, actual.Commitment, dcl.Info{}, fn.AddNest("Commitment")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Commitment, actual.Commitment, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Commitment")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Commitment",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SpecificReservationRequired, actual.SpecificReservationRequired, dcl.Info{}, fn.AddNest("SpecificReservationRequired")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SpecificReservationRequired, actual.SpecificReservationRequired, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SpecificReservationRequired")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SpecificReservationRequired",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Status",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, reservationDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToReservationDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -946,82 +994,27 @@ func compareReservationSpecificReservationNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceProperties, actual.InstanceProperties, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesNewStyle}, fn.AddNest("InstanceProperties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceProperties, actual.InstanceProperties, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceProperties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InUseCount, actual.InUseCount, dcl.Info{}, fn.AddNest("InUseCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InUseCount, actual.InUseCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InUseCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareReservationSpecificReservation(c *Client, desired, actual *ReservationSpecificReservation) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareReservationSpecificReservationInstanceProperties(c, desired.InstanceProperties, actual.InstanceProperties) && !dcl.IsZeroValue(desired.InstanceProperties) {
-		c.Config.Logger.Infof("Diff in InstanceProperties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceProperties), dcl.SprintResource(actual.InstanceProperties))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Count, actual.Count) && !dcl.IsZeroValue(desired.Count) {
-		c.Config.Logger.Infof("Diff in Count.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Count), dcl.SprintResource(actual.Count))
-		return true
-	}
-	if !reflect.DeepEqual(desired.InUseCount, actual.InUseCount) && !dcl.IsZeroValue(desired.InUseCount) {
-		c.Config.Logger.Infof("Diff in InUseCount.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InUseCount), dcl.SprintResource(actual.InUseCount))
-		return true
-	}
-	return false
-}
-
-func compareReservationSpecificReservationSlice(c *Client, desired, actual []ReservationSpecificReservation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationSpecificReservation, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareReservationSpecificReservation(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservation, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareReservationSpecificReservationMap(c *Client, desired, actual map[string]ReservationSpecificReservation) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationSpecificReservation, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservation, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareReservationSpecificReservation(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservation, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareReservationSpecificReservationInstancePropertiesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1044,93 +1037,34 @@ func compareReservationSpecificReservationInstancePropertiesNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GuestAccelerators, actual.GuestAccelerators, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsNewStyle}, fn.AddNest("GuestAccelerators")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GuestAccelerators, actual.GuestAccelerators, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestAccelerators")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.Info{}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.Info{CustomDiff: canonicalizeReservationCPUPlatform, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LocalSsds, actual.LocalSsds, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesLocalSsdsNewStyle}, fn.AddNest("LocalSsds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalSsds, actual.LocalSsds, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesLocalSsdsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalSsds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareReservationSpecificReservationInstanceProperties(c *Client, desired, actual *ReservationSpecificReservationInstanceProperties) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MachineType, actual.MachineType) && !dcl.IsZeroValue(desired.MachineType) {
-		c.Config.Logger.Infof("Diff in MachineType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MachineType), dcl.SprintResource(actual.MachineType))
-		return true
-	}
-	if compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsSlice(c, desired.GuestAccelerators, actual.GuestAccelerators) && !dcl.IsZeroValue(desired.GuestAccelerators) {
-		c.Config.Logger.Infof("Diff in GuestAccelerators.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GuestAccelerators), dcl.SprintResource(actual.GuestAccelerators))
-		return true
-	}
-	if !canonicalizeReservationCPUPlatform(desired.MinCpuPlatform, actual.MinCpuPlatform) && !dcl.IsZeroValue(desired.MinCpuPlatform) {
-		c.Config.Logger.Infof("Diff in MinCpuPlatform.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinCpuPlatform), dcl.SprintResource(actual.MinCpuPlatform))
-		return true
-	}
-	if compareReservationSpecificReservationInstancePropertiesLocalSsdsSlice(c, desired.LocalSsds, actual.LocalSsds) && !dcl.IsZeroValue(desired.LocalSsds) {
-		c.Config.Logger.Infof("Diff in LocalSsds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LocalSsds), dcl.SprintResource(actual.LocalSsds))
-		return true
-	}
-	return false
-}
-
-func compareReservationSpecificReservationInstancePropertiesSlice(c *Client, desired, actual []ReservationSpecificReservationInstanceProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstanceProperties, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareReservationSpecificReservationInstanceProperties(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstanceProperties, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareReservationSpecificReservationInstancePropertiesMap(c *Client, desired, actual map[string]ReservationSpecificReservationInstanceProperties) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstanceProperties, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstanceProperties, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareReservationSpecificReservationInstanceProperties(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstanceProperties, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1153,71 +1087,20 @@ func compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsNew
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{}, fn.AddNest("AcceleratorType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.Info{}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareReservationSpecificReservationInstancePropertiesGuestAccelerators(c *Client, desired, actual *ReservationSpecificReservationInstancePropertiesGuestAccelerators) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.AcceleratorType, actual.AcceleratorType) && !dcl.IsZeroValue(desired.AcceleratorType) {
-		c.Config.Logger.Infof("Diff in AcceleratorType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AcceleratorType), dcl.SprintResource(actual.AcceleratorType))
-		return true
-	}
-	if !reflect.DeepEqual(desired.AcceleratorCount, actual.AcceleratorCount) && !dcl.IsZeroValue(desired.AcceleratorCount) {
-		c.Config.Logger.Infof("Diff in AcceleratorCount.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AcceleratorCount), dcl.SprintResource(actual.AcceleratorCount))
-		return true
-	}
-	return false
-}
-
-func compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsSlice(c *Client, desired, actual []ReservationSpecificReservationInstancePropertiesGuestAccelerators) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstancePropertiesGuestAccelerators, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareReservationSpecificReservationInstancePropertiesGuestAccelerators(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesGuestAccelerators, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsMap(c *Client, desired, actual map[string]ReservationSpecificReservationInstancePropertiesGuestAccelerators) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstancePropertiesGuestAccelerators, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesGuestAccelerators, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareReservationSpecificReservationInstancePropertiesGuestAccelerators(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesGuestAccelerators, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareReservationSpecificReservationInstancePropertiesLocalSsdsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1240,107 +1123,20 @@ func compareReservationSpecificReservationInstancePropertiesLocalSsdsNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Interface, actual.Interface, dcl.Info{Type: "EnumType"}, fn.AddNest("Interface")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Interface, actual.Interface, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Interface")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareReservationSpecificReservationInstancePropertiesLocalSsds(c *Client, desired, actual *ReservationSpecificReservationInstancePropertiesLocalSsds) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.DiskSizeGb, actual.DiskSizeGb) && !dcl.IsZeroValue(desired.DiskSizeGb) {
-		c.Config.Logger.Infof("Diff in DiskSizeGb.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DiskSizeGb), dcl.SprintResource(actual.DiskSizeGb))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Interface, actual.Interface) && !dcl.IsZeroValue(desired.Interface) {
-		c.Config.Logger.Infof("Diff in Interface.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Interface), dcl.SprintResource(actual.Interface))
-		return true
-	}
-	return false
-}
-
-func compareReservationSpecificReservationInstancePropertiesLocalSsdsSlice(c *Client, desired, actual []ReservationSpecificReservationInstancePropertiesLocalSsds) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstancePropertiesLocalSsds, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareReservationSpecificReservationInstancePropertiesLocalSsds(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesLocalSsds, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareReservationSpecificReservationInstancePropertiesLocalSsdsMap(c *Client, desired, actual map[string]ReservationSpecificReservationInstancePropertiesLocalSsds) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstancePropertiesLocalSsds, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesLocalSsds, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareReservationSpecificReservationInstancePropertiesLocalSsds(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesLocalSsds, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnumSlice(c *Client, desired, actual []ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum(c *Client, desired, actual *ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareReservationStatusEnumSlice(c *Client, desired, actual []ReservationStatusEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ReservationStatusEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareReservationStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ReservationStatusEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareReservationStatusEnum(c *Client, desired, actual *ReservationStatusEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1454,19 +1250,19 @@ func flattenReservation(c *Client, i interface{}) *Reservation {
 		return nil
 	}
 
-	r := &Reservation{}
-	r.Id = dcl.FlattenInteger(m["id"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
-	r.Zone = dcl.FlattenString(m["zone"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.SpecificReservation = flattenReservationSpecificReservation(c, m["specificReservation"])
-	r.Commitment = dcl.FlattenString(m["commitment"])
-	r.SpecificReservationRequired = dcl.FlattenBool(m["specificReservationRequired"])
-	r.Status = flattenReservationStatusEnum(m["status"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &Reservation{}
+	res.Id = dcl.FlattenInteger(m["id"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.Zone = dcl.FlattenString(m["zone"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.SpecificReservation = flattenReservationSpecificReservation(c, m["specificReservation"])
+	res.Commitment = dcl.FlattenString(m["commitment"])
+	res.SpecificReservationRequired = dcl.FlattenBool(m["specificReservationRequired"])
+	res.Status = flattenReservationStatusEnum(m["status"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // expandReservationSpecificReservationMap expands the contents of ReservationSpecificReservation into a JSON
@@ -1553,10 +1349,11 @@ func flattenReservationSpecificReservationSlice(c *Client, i interface{}) []Rese
 // expandReservationSpecificReservation expands an instance of ReservationSpecificReservation into a JSON
 // request object.
 func expandReservationSpecificReservation(c *Client, f *ReservationSpecificReservation) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandReservationSpecificReservationInstanceProperties(c, f.InstanceProperties); err != nil {
 		return nil, fmt.Errorf("error expanding InstanceProperties into instanceProperties: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1672,10 +1469,11 @@ func flattenReservationSpecificReservationInstancePropertiesSlice(c *Client, i i
 // expandReservationSpecificReservationInstanceProperties expands an instance of ReservationSpecificReservationInstanceProperties into a JSON
 // request object.
 func expandReservationSpecificReservationInstanceProperties(c *Client, f *ReservationSpecificReservationInstanceProperties) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MachineType; !dcl.IsEmptyValueIndirect(v) {
 		m["machineType"] = v
 	}
@@ -1797,10 +1595,11 @@ func flattenReservationSpecificReservationInstancePropertiesGuestAcceleratorsSli
 // expandReservationSpecificReservationInstancePropertiesGuestAccelerators expands an instance of ReservationSpecificReservationInstancePropertiesGuestAccelerators into a JSON
 // request object.
 func expandReservationSpecificReservationInstancePropertiesGuestAccelerators(c *Client, f *ReservationSpecificReservationInstancePropertiesGuestAccelerators) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.AcceleratorType; !dcl.IsEmptyValueIndirect(v) {
 		m["acceleratorType"] = v
 	}
@@ -1910,10 +1709,11 @@ func flattenReservationSpecificReservationInstancePropertiesLocalSsdsSlice(c *Cl
 // expandReservationSpecificReservationInstancePropertiesLocalSsds expands an instance of ReservationSpecificReservationInstancePropertiesLocalSsds into a JSON
 // request object.
 func expandReservationSpecificReservationInstancePropertiesLocalSsds(c *Client, f *ReservationSpecificReservationInstancePropertiesLocalSsds) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.DiskSizeGb; !dcl.IsEmptyValueIndirect(v) {
 		m["diskSizeGb"] = v
 	}
@@ -2040,5 +1840,33 @@ func (r *Reservation) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToReservationDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]reservationDiff, error) {
+	var diffs []reservationDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := reservationDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToreservationApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToreservationApiOperation(op string, opts ...dcl.ApplyOption) (reservationApiOperation, error) {
+	switch op {
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

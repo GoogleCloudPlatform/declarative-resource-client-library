@@ -8,7 +8,11 @@
     "configSync": {
       "sourceFormat": "hierarchy",
       "git": {
-        "syncRepo": "https://github.com/GoogleCloudPlatform/magic-modules"
+        "syncRepo": "https://github.com/GoogleCloudPlatform/cloud-foundation-toolkit",
+        "syncBranch": "master",
+        "policyDir": "config-connector",
+        "syncWaitSecs": "20",
+        "syncRev": "HEAD"
       }
     }
   }

@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -361,9 +360,6 @@ func canonicalizeAssignmentDesiredState(rawDesired, rawInitial *Assignment, opts
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
-	}
 	if dcl.StringCanonicalize(rawDesired.Assignee, rawInitial.Assignee) {
 		rawDesired.Assignee = rawInitial.Assignee
 	}
@@ -442,71 +438,98 @@ func diffAssignment(c *Client, desired, actual *Assignment, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []assignmentDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAssignmentDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Assignee, actual.Assignee, dcl.Info{}, fn.AddNest("Assignee")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Assignee, actual.Assignee, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Assignee")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Assignee",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAssignmentDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.JobType, actual.JobType, dcl.Info{Type: "EnumType"}, fn.AddNest("JobType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JobType, actual.JobType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JobType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "JobType",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAssignmentDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "State",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAssignmentDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAssignmentDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAssignmentDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Reservation, actual.Reservation, dcl.Info{}, fn.AddNest("Reservation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Reservation, actual.Reservation, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Reservation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, assignmentDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Reservation",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAssignmentDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -532,41 +555,6 @@ func diffAssignment(c *Client, desired, actual *Assignment, opts ...dcl.ApplyOpt
 	}
 
 	return deduped, nil
-}
-func compareAssignmentJobTypeEnumSlice(c *Client, desired, actual []AssignmentJobTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AssignmentJobTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAssignmentJobTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AssignmentJobTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAssignmentJobTypeEnum(c *Client, desired, actual *AssignmentJobTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAssignmentStateEnumSlice(c *Client, desired, actual []AssignmentStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AssignmentStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAssignmentStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AssignmentStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAssignmentStateEnum(c *Client, desired, actual *AssignmentStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -672,16 +660,16 @@ func flattenAssignment(c *Client, i interface{}) *Assignment {
 		return nil
 	}
 
-	r := &Assignment{}
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	r.Assignee = dcl.FlattenString(m["assignee"])
-	r.JobType = flattenAssignmentJobTypeEnum(m["jobType"])
-	r.State = flattenAssignmentStateEnum(m["state"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Location = dcl.FlattenString(m["location"])
-	r.Reservation = dcl.FlattenString(m["reservation"])
+	res := &Assignment{}
+	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	res.Assignee = dcl.FlattenString(m["assignee"])
+	res.JobType = flattenAssignmentJobTypeEnum(m["jobType"])
+	res.State = flattenAssignmentStateEnum(m["state"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Location = dcl.FlattenString(m["location"])
+	res.Reservation = dcl.FlattenString(m["reservation"])
 
-	return r
+	return res
 }
 
 // flattenAssignmentJobTypeEnumSlice flattens the contents of AssignmentJobTypeEnum from a JSON
@@ -777,5 +765,33 @@ func (r *Assignment) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToAssignmentDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]assignmentDiff, error) {
+	var diffs []assignmentDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := assignmentDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToassignmentApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToassignmentApiOperation(op string, opts ...dcl.ApplyOption) (assignmentApiOperation, error) {
+	switch op {
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

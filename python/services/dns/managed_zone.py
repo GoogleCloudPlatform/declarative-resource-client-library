@@ -188,33 +188,6 @@ class ManagedZone(object):
 
         return stub.ListDnsManagedZone(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = managed_zone_pb2.DnsManagedZone()
-        any_proto.Unpack(res_proto)
-
-        res = ManagedZone()
-        res.description = Primitive.from_proto(res_proto.description)
-        res.dns_name = Primitive.from_proto(res_proto.dns_name)
-        res.dnssec_config = ManagedZoneDnssecConfig.from_proto(res_proto.dnssec_config)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.name_servers = Primitive.from_proto(res_proto.name_servers)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.visibility = ManagedZoneVisibilityEnum.from_proto(res_proto.visibility)
-        res.private_visibility_config = ManagedZonePrivateVisibilityConfig.from_proto(
-            res_proto.private_visibility_config
-        )
-        res.forwarding_config = ManagedZoneForwardingConfig.from_proto(
-            res_proto.forwarding_config
-        )
-        res.reverse_lookup = Primitive.from_proto(res_proto.reverse_lookup)
-        res.peering_config = ManagedZonePeeringConfig.from_proto(
-            res_proto.peering_config
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = managed_zone_pb2.DnsManagedZone()
         if Primitive.to_proto(self.description):

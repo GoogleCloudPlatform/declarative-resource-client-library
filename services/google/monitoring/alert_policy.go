@@ -2030,6 +2030,7 @@ func (c *Client) ApplyAlertPolicy(ctx context.Context, rawDesired *AlertPolicy, 
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

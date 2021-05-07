@@ -4,6 +4,8 @@
   "machineType": "zones/{{zone}}/machineTypes/e2-medium",
   "disks": [
     {
+      "type": "PERSISTENT",
+      "autoDelete": true,
       "boot": true,
       "initializeParams": {
         "sourceImage": "{{ref:basic.image.json:selfLink}}"
@@ -13,6 +15,15 @@
   "networkInterfaces": [
     {
       "subnetwork": "{{ref:basic.subnetwork.json:selfLink}}"
+    },
+    {
+      "network": "global/networks/default",
+      "accessConfigs": [
+        {
+          "type": "ONE_TO_ONE_NAT",
+          "name": "External NAT"
+        }
+      ]
     }
   ],
   "zone": "{{zone}}"

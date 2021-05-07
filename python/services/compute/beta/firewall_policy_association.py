@@ -98,21 +98,6 @@ class FirewallPolicyAssociation(object):
 
         return stub.ListComputeBetaFirewallPolicyAssociation(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = (
-            firewall_policy_association_pb2.ComputeBetaFirewallPolicyAssociation()
-        )
-        any_proto.Unpack(res_proto)
-
-        res = FirewallPolicyAssociation()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.attachment_target = Primitive.from_proto(res_proto.attachment_target)
-        res.firewall_policy = Primitive.from_proto(res_proto.firewall_policy)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        return res
-
     def to_proto(self):
         resource = (
             firewall_policy_association_pb2.ComputeBetaFirewallPolicyAssociation()

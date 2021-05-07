@@ -140,24 +140,6 @@ class AuthorizationPolicy(object):
 
         return stub.ListNetworksecurityAlphaAuthorizationPolicy(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = authorization_policy_pb2.NetworksecurityAlphaAuthorizationPolicy()
-        any_proto.Unpack(res_proto)
-
-        res = AuthorizationPolicy()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.action = AuthorizationPolicyActionEnum.from_proto(res_proto.action)
-        res.rules = AuthorizationPolicyRulesArray.from_proto(res_proto.rules)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = authorization_policy_pb2.NetworksecurityAlphaAuthorizationPolicy()
         if Primitive.to_proto(self.name):

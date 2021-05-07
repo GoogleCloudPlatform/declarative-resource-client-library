@@ -203,33 +203,6 @@ class UptimeCheckConfig(object):
 
         return stub.ListMonitoringUptimeCheckConfig(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = uptime_check_config_pb2.MonitoringUptimeCheckConfig()
-        any_proto.Unpack(res_proto)
-
-        res = UptimeCheckConfig()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.monitored_resource = UptimeCheckConfigMonitoredResource.from_proto(
-            res_proto.monitored_resource
-        )
-        res.resource_group = UptimeCheckConfigResourceGroup.from_proto(
-            res_proto.resource_group
-        )
-        res.http_check = UptimeCheckConfigHttpCheck.from_proto(res_proto.http_check)
-        res.tcp_check = UptimeCheckConfigTcpCheck.from_proto(res_proto.tcp_check)
-        res.period = Primitive.from_proto(res_proto.period)
-        res.timeout = Primitive.from_proto(res_proto.timeout)
-        res.content_matchers = UptimeCheckConfigContentMatchersArray.from_proto(
-            res_proto.content_matchers
-        )
-        res.private_checkers = Primitive.from_proto(res_proto.private_checkers)
-        res.selected_regions = Primitive.from_proto(res_proto.selected_regions)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = uptime_check_config_pb2.MonitoringUptimeCheckConfig()
         if Primitive.to_proto(self.name):

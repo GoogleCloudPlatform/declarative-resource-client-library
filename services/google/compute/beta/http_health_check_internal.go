@@ -496,14 +496,8 @@ func canonicalizeHttpHealthCheckDesiredState(rawDesired, rawInitial *HttpHealthC
 	if dcl.IsZeroValue(rawDesired.UnhealthyThreshold) {
 		rawDesired.UnhealthyThreshold = rawInitial.UnhealthyThreshold
 	}
-	if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawInitial.CreationTimestamp) {
-		rawDesired.CreationTimestamp = rawInitial.CreationTimestamp
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
-	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 
 	return rawDesired, nil
@@ -611,124 +605,163 @@ func diffHttpHealthCheck(c *Client, desired, actual *HttpHealthCheck, opts ...dc
 	}
 
 	var diffs []httpHealthCheckDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.CheckIntervalSec, actual.CheckIntervalSec, dcl.Info{}, fn.AddNest("CheckIntervalSec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CheckIntervalSec, actual.CheckIntervalSec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpHealthCheckUpdateOperation")}, fn.AddNest("CheckIntervalSec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpHealthCheckDiff{
-			UpdateOp: &updateHttpHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "CheckIntervalSec",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpHealthCheckUpdateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpHealthCheckDiff{
-			UpdateOp: &updateHttpHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.HealthyThreshold, actual.HealthyThreshold, dcl.Info{}, fn.AddNest("HealthyThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HealthyThreshold, actual.HealthyThreshold, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpHealthCheckUpdateOperation")}, fn.AddNest("HealthyThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpHealthCheckDiff{
-			UpdateOp: &updateHttpHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "HealthyThreshold",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpHealthCheckUpdateOperation")}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpHealthCheckDiff{
-			UpdateOp: &updateHttpHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "Host",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpHealthCheckDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpHealthCheckUpdateOperation")}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpHealthCheckDiff{
-			UpdateOp: &updateHttpHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "Port",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestPath, actual.RequestPath, dcl.Info{}, fn.AddNest("RequestPath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestPath, actual.RequestPath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpHealthCheckUpdateOperation")}, fn.AddNest("RequestPath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpHealthCheckDiff{
-			UpdateOp: &updateHttpHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "RequestPath",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeoutSec, actual.TimeoutSec, dcl.Info{}, fn.AddNest("TimeoutSec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeoutSec, actual.TimeoutSec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpHealthCheckUpdateOperation")}, fn.AddNest("TimeoutSec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpHealthCheckDiff{
-			UpdateOp: &updateHttpHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "TimeoutSec",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UnhealthyThreshold, actual.UnhealthyThreshold, dcl.Info{}, fn.AddNest("UnhealthyThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UnhealthyThreshold, actual.UnhealthyThreshold, dcl.Info{OperationSelector: dcl.TriggersOperation("updateHttpHealthCheckUpdateOperation")}, fn.AddNest("UnhealthyThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpHealthCheckDiff{
-			UpdateOp: &updateHttpHealthCheckUpdateOperation{}, Diffs: ds,
-			FieldName: "UnhealthyThreshold",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpHealthCheckDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreationTimestamp",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpHealthCheckDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, httpHealthCheckDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHttpHealthCheckDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -881,45 +914,45 @@ func flattenHttpHealthCheck(c *Client, i interface{}) *HttpHealthCheck {
 		return nil
 	}
 
-	r := &HttpHealthCheck{}
-	r.CheckIntervalSec = dcl.FlattenInteger(m["checkIntervalSec"])
+	res := &HttpHealthCheck{}
+	res.CheckIntervalSec = dcl.FlattenInteger(m["checkIntervalSec"])
 	if _, ok := m["checkIntervalSec"]; !ok {
 		c.Config.Logger.Info("Using default value for checkIntervalSec")
-		r.CheckIntervalSec = dcl.Int64(5)
+		res.CheckIntervalSec = dcl.Int64(5)
 	}
-	r.Description = dcl.FlattenString(m["description"])
-	r.HealthyThreshold = dcl.FlattenInteger(m["healthyThreshold"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.HealthyThreshold = dcl.FlattenInteger(m["healthyThreshold"])
 	if _, ok := m["healthyThreshold"]; !ok {
 		c.Config.Logger.Info("Using default value for healthyThreshold")
-		r.HealthyThreshold = dcl.Int64(2)
+		res.HealthyThreshold = dcl.Int64(2)
 	}
-	r.Host = dcl.FlattenString(m["host"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Port = dcl.FlattenInteger(m["port"])
+	res.Host = dcl.FlattenString(m["host"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Port = dcl.FlattenInteger(m["port"])
 	if _, ok := m["port"]; !ok {
 		c.Config.Logger.Info("Using default value for port")
-		r.Port = dcl.Int64(80)
+		res.Port = dcl.Int64(80)
 	}
-	r.RequestPath = dcl.FlattenString(m["requestPath"])
+	res.RequestPath = dcl.FlattenString(m["requestPath"])
 	if _, ok := m["requestPath"]; !ok {
 		c.Config.Logger.Info("Using default value for requestPath")
-		r.RequestPath = dcl.String("/")
+		res.RequestPath = dcl.String("/")
 	}
-	r.TimeoutSec = dcl.FlattenInteger(m["timeoutSec"])
+	res.TimeoutSec = dcl.FlattenInteger(m["timeoutSec"])
 	if _, ok := m["timeoutSec"]; !ok {
 		c.Config.Logger.Info("Using default value for timeoutSec")
-		r.TimeoutSec = dcl.Int64(5)
+		res.TimeoutSec = dcl.Int64(5)
 	}
-	r.UnhealthyThreshold = dcl.FlattenInteger(m["unhealthyThreshold"])
+	res.UnhealthyThreshold = dcl.FlattenInteger(m["unhealthyThreshold"])
 	if _, ok := m["unhealthyThreshold"]; !ok {
 		c.Config.Logger.Info("Using default value for unhealthyThreshold")
-		r.UnhealthyThreshold = dcl.Int64(2)
+		res.UnhealthyThreshold = dcl.Int64(2)
 	}
-	r.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -953,5 +986,36 @@ func (r *HttpHealthCheck) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToHttpHealthCheckDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]httpHealthCheckDiff, error) {
+	var diffs []httpHealthCheckDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := httpHealthCheckDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTohttpHealthCheckApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTohttpHealthCheckApiOperation(op string, opts ...dcl.ApplyOption) (httpHealthCheckApiOperation, error) {
+	switch op {
+
+	case "updateHttpHealthCheckUpdateOperation":
+		return &updateHttpHealthCheckUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

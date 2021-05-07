@@ -124,22 +124,6 @@ class AccessLevel(object):
 
         return stub.ListAccesscontextmanagerAccessLevel(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = access_level_pb2.AccesscontextmanagerAccessLevel()
-        any_proto.Unpack(res_proto)
-
-        res = AccessLevel()
-        res.title = Primitive.from_proto(res_proto.title)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.basic = AccessLevelBasic.from_proto(res_proto.basic)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.policy = Primitive.from_proto(res_proto.policy)
-        return res
-
     def to_proto(self):
         resource = access_level_pb2.AccesscontextmanagerAccessLevel()
         if Primitive.to_proto(self.title):

@@ -223,37 +223,6 @@ class EndpointConfigSelector(object):
 
         return stub.ListNetworkservicesBetaEndpointConfigSelector(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = (
-            endpoint_config_selector_pb2.NetworkservicesBetaEndpointConfigSelector()
-        )
-        any_proto.Unpack(res_proto)
-
-        res = EndpointConfigSelector()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.type = EndpointConfigSelectorTypeEnum.from_proto(res_proto.type)
-        res.authorization_policy = Primitive.from_proto(res_proto.authorization_policy)
-        res.http_filters = EndpointConfigSelectorHttpFilters.from_proto(
-            res_proto.http_filters
-        )
-        res.endpoint_matcher = EndpointConfigSelectorEndpointMatcher.from_proto(
-            res_proto.endpoint_matcher
-        )
-        res.traffic_port_selector = EndpointConfigSelectorTrafficPortSelector.from_proto(
-            res_proto.traffic_port_selector
-        )
-        res.description = Primitive.from_proto(res_proto.description)
-        res.server_tls_policy = Primitive.from_proto(res_proto.server_tls_policy)
-        res.client_tls_policy = Primitive.from_proto(res_proto.client_tls_policy)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = (
             endpoint_config_selector_pb2.NetworkservicesBetaEndpointConfigSelector()

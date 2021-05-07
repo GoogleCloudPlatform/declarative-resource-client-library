@@ -51,7 +51,7 @@ components:
           type: number
           x-dcl-go-name: FailoverRatio
           x-kubernetes-immutable: true
-        healthCheck:
+        healthChecks:
           description: The URL of the HttpHealthCheck resource. A member instance
             in this pool is considered healthy if and only if the health checks pass.
             An empty list means all member instances will be considered healthy at
@@ -61,9 +61,9 @@ components:
             type: string
             x-dcl-go-type: string
           type: array
-          x-dcl-go-name: HealthCheck
+          x-dcl-go-name: HealthChecks
           x-dcl-list-type: set
-        instance:
+        instances:
           description: A list of resource URLs to the virtual machine instances serving
             this pool. They must live in zones contained in the same region as this
             pool.
@@ -71,7 +71,7 @@ components:
             type: string
             x-dcl-go-type: string
           type: array
-          x-dcl-go-name: Instance
+          x-dcl-go-name: Instances
           x-dcl-list-type: set
         name:
           description: Name of the resource. Provided by the client when the resource

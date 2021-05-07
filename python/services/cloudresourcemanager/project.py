@@ -100,23 +100,6 @@ class Project(object):
 
         return stub.ListCloudresourcemanagerProject(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = project_pb2.CloudresourcemanagerProject()
-        any_proto.Unpack(res_proto)
-
-        res = Project()
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.lifecycle_state = ProjectLifecycleStateEnum.from_proto(
-            res_proto.lifecycle_state
-        )
-        res.displayName = Primitive.from_proto(res_proto.displayName)
-        res.parent = ProjectParent.from_proto(res_proto.parent)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.project_number = Primitive.from_proto(res_proto.project_number)
-        return res
-
     def to_proto(self):
         resource = project_pb2.CloudresourcemanagerProject()
         if Primitive.to_proto(self.labels):

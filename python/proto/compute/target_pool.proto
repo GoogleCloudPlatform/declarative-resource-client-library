@@ -33,8 +33,8 @@ message ComputeTargetPool {
   string backup_pool = 1;
   string description = 2;
   double failover_ratio = 3;
-  repeated string health_check = 4;
-  repeated string instance = 5;
+  repeated string health_checks = 4;
+  repeated string instances = 5;
   string name = 6;
   string region = 7;
   string self_link = 8;

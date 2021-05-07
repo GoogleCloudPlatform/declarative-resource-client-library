@@ -496,6 +496,7 @@ func (c *Client) ApplyAutoscaler(ctx context.Context, rawDesired *Autoscaler, op
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

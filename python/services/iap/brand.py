@@ -91,20 +91,6 @@ class Brand(object):
 
         return stub.ListIapBrand(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = brand_pb2.IapBrand()
-        any_proto.Unpack(res_proto)
-
-        res = Brand()
-        res.application_title = Primitive.from_proto(res_proto.application_title)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.org_internal_only = Primitive.from_proto(res_proto.org_internal_only)
-        res.support_email = Primitive.from_proto(res_proto.support_email)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = brand_pb2.IapBrand()
         if Primitive.to_proto(self.application_title):

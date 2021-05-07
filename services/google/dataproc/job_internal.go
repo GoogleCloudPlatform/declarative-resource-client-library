@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -795,25 +794,6 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 	rawDesired.SparkRJob = canonicalizeJobSparkRJob(rawDesired.SparkRJob, rawInitial.SparkRJob, opts...)
 	rawDesired.SparkSqlJob = canonicalizeJobSparkSqlJob(rawDesired.SparkSqlJob, rawInitial.SparkSqlJob, opts...)
 	rawDesired.PrestoJob = canonicalizeJobPrestoJob(rawDesired.PrestoJob, rawInitial.PrestoJob, opts...)
-	rawDesired.Status = canonicalizeJobStatus(rawDesired.Status, rawInitial.Status, opts...)
-	if dcl.IsZeroValue(rawDesired.StatusHistory) {
-		rawDesired.StatusHistory = rawInitial.StatusHistory
-	}
-	if dcl.IsZeroValue(rawDesired.YarnApplications) {
-		rawDesired.YarnApplications = rawInitial.YarnApplications
-	}
-	if dcl.StringCanonicalize(rawDesired.SubmittedBy, rawInitial.SubmittedBy) {
-		rawDesired.SubmittedBy = rawInitial.SubmittedBy
-	}
-	if dcl.StringCanonicalize(rawDesired.DriverInputResourceUri, rawInitial.DriverInputResourceUri) {
-		rawDesired.DriverInputResourceUri = rawInitial.DriverInputResourceUri
-	}
-	if dcl.StringCanonicalize(rawDesired.DriverOutputResourceUri, rawInitial.DriverOutputResourceUri) {
-		rawDesired.DriverOutputResourceUri = rawInitial.DriverOutputResourceUri
-	}
-	if dcl.StringCanonicalize(rawDesired.DriverControlFilesUri, rawInitial.DriverControlFilesUri) {
-		rawDesired.DriverControlFilesUri = rawInitial.DriverControlFilesUri
-	}
 	if dcl.BoolCanonicalize(rawDesired.Interactive, rawInitial.Interactive) {
 		rawDesired.Interactive = rawInitial.Interactive
 	}
@@ -821,12 +801,6 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 		rawDesired.Labels = rawInitial.Labels
 	}
 	rawDesired.Scheduling = canonicalizeJobScheduling(rawDesired.Scheduling, rawInitial.Scheduling, opts...)
-	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
-	}
-	if dcl.BoolCanonicalize(rawDesired.Done, rawInitial.Done) {
-		rawDesired.Done = rawInitial.Done
-	}
 	rawDesired.DriverRunner = canonicalizeJobDriverRunner(rawDesired.DriverRunner, rawInitial.DriverRunner, opts...)
 	if dcl.NameToSelfLink(rawDesired.Region, rawInitial.Region) {
 		rawDesired.Region = rawInitial.Region
@@ -1040,7 +1014,7 @@ func canonicalizeNewJobReferenceSet(c *Client, des, nw []JobReference) []JobRefe
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobReference(c, &d, &n) {
+			if diffs, _ := compareJobReferenceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1063,7 +1037,7 @@ func canonicalizeNewJobReferenceSlice(c *Client, des, nw []JobReference) []JobRe
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobReference
@@ -1090,9 +1064,6 @@ func canonicalizeJobPlacement(des, initial *JobPlacement, opts ...dcl.ApplyOptio
 	if dcl.StringCanonicalize(des.ClusterName, initial.ClusterName) || dcl.IsZeroValue(des.ClusterName) {
 		des.ClusterName = initial.ClusterName
 	}
-	if dcl.StringCanonicalize(des.ClusterUuid, initial.ClusterUuid) || dcl.IsZeroValue(des.ClusterUuid) {
-		des.ClusterUuid = initial.ClusterUuid
-	}
 	if dcl.IsZeroValue(des.ClusterLabels) {
 		des.ClusterLabels = initial.ClusterLabels
 	}
@@ -1111,6 +1082,9 @@ func canonicalizeNewJobPlacement(c *Client, des, nw *JobPlacement) *JobPlacement
 	if dcl.StringCanonicalize(des.ClusterUuid, nw.ClusterUuid) {
 		nw.ClusterUuid = des.ClusterUuid
 	}
+	if dcl.IsZeroValue(nw.ClusterLabels) {
+		nw.ClusterLabels = des.ClusterLabels
+	}
 
 	return nw
 }
@@ -1123,7 +1097,7 @@ func canonicalizeNewJobPlacementSet(c *Client, des, nw []JobPlacement) []JobPlac
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobPlacement(c, &d, &n) {
+			if diffs, _ := compareJobPlacementNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1146,7 +1120,7 @@ func canonicalizeNewJobPlacementSlice(c *Client, des, nw []JobPlacement) []JobPl
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobPlacement
@@ -1207,6 +1181,21 @@ func canonicalizeNewJobHadoopJob(c *Client, des, nw *JobHadoopJob) *JobHadoopJob
 	if dcl.StringCanonicalize(des.MainClass, nw.MainClass) {
 		nw.MainClass = des.MainClass
 	}
+	if dcl.IsZeroValue(nw.Args) {
+		nw.Args = des.Args
+	}
+	if dcl.IsZeroValue(nw.JarFileUris) {
+		nw.JarFileUris = des.JarFileUris
+	}
+	if dcl.IsZeroValue(nw.FileUris) {
+		nw.FileUris = des.FileUris
+	}
+	if dcl.IsZeroValue(nw.ArchiveUris) {
+		nw.ArchiveUris = des.ArchiveUris
+	}
+	if dcl.IsZeroValue(nw.Properties) {
+		nw.Properties = des.Properties
+	}
 	nw.LoggingConfig = canonicalizeNewJobHadoopJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -1220,7 +1209,7 @@ func canonicalizeNewJobHadoopJobSet(c *Client, des, nw []JobHadoopJob) []JobHado
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobHadoopJob(c, &d, &n) {
+			if diffs, _ := compareJobHadoopJobNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1243,7 +1232,7 @@ func canonicalizeNewJobHadoopJobSlice(c *Client, des, nw []JobHadoopJob) []JobHa
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobHadoopJob
@@ -1279,6 +1268,10 @@ func canonicalizeNewJobHadoopJobLoggingConfig(c *Client, des, nw *JobHadoopJobLo
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.DriverLogLevels) {
+		nw.DriverLogLevels = des.DriverLogLevels
+	}
+
 	return nw
 }
 
@@ -1290,7 +1283,7 @@ func canonicalizeNewJobHadoopJobLoggingConfigSet(c *Client, des, nw []JobHadoopJ
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobHadoopJobLoggingConfig(c, &d, &n) {
+			if diffs, _ := compareJobHadoopJobLoggingConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1313,7 +1306,7 @@ func canonicalizeNewJobHadoopJobLoggingConfigSlice(c *Client, des, nw []JobHadoo
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobHadoopJobLoggingConfig
@@ -1374,6 +1367,21 @@ func canonicalizeNewJobSparkJob(c *Client, des, nw *JobSparkJob) *JobSparkJob {
 	if dcl.StringCanonicalize(des.MainClass, nw.MainClass) {
 		nw.MainClass = des.MainClass
 	}
+	if dcl.IsZeroValue(nw.Args) {
+		nw.Args = des.Args
+	}
+	if dcl.IsZeroValue(nw.JarFileUris) {
+		nw.JarFileUris = des.JarFileUris
+	}
+	if dcl.IsZeroValue(nw.FileUris) {
+		nw.FileUris = des.FileUris
+	}
+	if dcl.IsZeroValue(nw.ArchiveUris) {
+		nw.ArchiveUris = des.ArchiveUris
+	}
+	if dcl.IsZeroValue(nw.Properties) {
+		nw.Properties = des.Properties
+	}
 	nw.LoggingConfig = canonicalizeNewJobSparkJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -1387,7 +1395,7 @@ func canonicalizeNewJobSparkJobSet(c *Client, des, nw []JobSparkJob) []JobSparkJ
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobSparkJob(c, &d, &n) {
+			if diffs, _ := compareJobSparkJobNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1410,7 +1418,7 @@ func canonicalizeNewJobSparkJobSlice(c *Client, des, nw []JobSparkJob) []JobSpar
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobSparkJob
@@ -1446,6 +1454,10 @@ func canonicalizeNewJobSparkJobLoggingConfig(c *Client, des, nw *JobSparkJobLogg
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.DriverLogLevels) {
+		nw.DriverLogLevels = des.DriverLogLevels
+	}
+
 	return nw
 }
 
@@ -1457,7 +1469,7 @@ func canonicalizeNewJobSparkJobLoggingConfigSet(c *Client, des, nw []JobSparkJob
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobSparkJobLoggingConfig(c, &d, &n) {
+			if diffs, _ := compareJobSparkJobLoggingConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1480,7 +1492,7 @@ func canonicalizeNewJobSparkJobLoggingConfigSlice(c *Client, des, nw []JobSparkJ
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobSparkJobLoggingConfig
@@ -1538,6 +1550,24 @@ func canonicalizeNewJobPysparkJob(c *Client, des, nw *JobPysparkJob) *JobPyspark
 	if dcl.StringCanonicalize(des.MainPythonFileUri, nw.MainPythonFileUri) {
 		nw.MainPythonFileUri = des.MainPythonFileUri
 	}
+	if dcl.IsZeroValue(nw.Args) {
+		nw.Args = des.Args
+	}
+	if dcl.IsZeroValue(nw.PythonFileUris) {
+		nw.PythonFileUris = des.PythonFileUris
+	}
+	if dcl.IsZeroValue(nw.JarFileUris) {
+		nw.JarFileUris = des.JarFileUris
+	}
+	if dcl.IsZeroValue(nw.FileUris) {
+		nw.FileUris = des.FileUris
+	}
+	if dcl.IsZeroValue(nw.ArchiveUris) {
+		nw.ArchiveUris = des.ArchiveUris
+	}
+	if dcl.IsZeroValue(nw.Properties) {
+		nw.Properties = des.Properties
+	}
 	nw.LoggingConfig = canonicalizeNewJobPysparkJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -1551,7 +1581,7 @@ func canonicalizeNewJobPysparkJobSet(c *Client, des, nw []JobPysparkJob) []JobPy
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobPysparkJob(c, &d, &n) {
+			if diffs, _ := compareJobPysparkJobNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1574,7 +1604,7 @@ func canonicalizeNewJobPysparkJobSlice(c *Client, des, nw []JobPysparkJob) []Job
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobPysparkJob
@@ -1610,6 +1640,10 @@ func canonicalizeNewJobPysparkJobLoggingConfig(c *Client, des, nw *JobPysparkJob
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.DriverLogLevels) {
+		nw.DriverLogLevels = des.DriverLogLevels
+	}
+
 	return nw
 }
 
@@ -1621,7 +1655,7 @@ func canonicalizeNewJobPysparkJobLoggingConfigSet(c *Client, des, nw []JobPyspar
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobPysparkJobLoggingConfig(c, &d, &n) {
+			if diffs, _ := compareJobPysparkJobLoggingConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1644,7 +1678,7 @@ func canonicalizeNewJobPysparkJobLoggingConfigSlice(c *Client, des, nw []JobPysp
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobPysparkJobLoggingConfig
@@ -1700,6 +1734,15 @@ func canonicalizeNewJobHiveJob(c *Client, des, nw *JobHiveJob) *JobHiveJob {
 	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) {
 		nw.ContinueOnFailure = des.ContinueOnFailure
 	}
+	if dcl.IsZeroValue(nw.ScriptVariables) {
+		nw.ScriptVariables = des.ScriptVariables
+	}
+	if dcl.IsZeroValue(nw.Properties) {
+		nw.Properties = des.Properties
+	}
+	if dcl.IsZeroValue(nw.JarFileUris) {
+		nw.JarFileUris = des.JarFileUris
+	}
 
 	return nw
 }
@@ -1712,7 +1755,7 @@ func canonicalizeNewJobHiveJobSet(c *Client, des, nw []JobHiveJob) []JobHiveJob 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobHiveJob(c, &d, &n) {
+			if diffs, _ := compareJobHiveJobNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1735,7 +1778,7 @@ func canonicalizeNewJobHiveJobSlice(c *Client, des, nw []JobHiveJob) []JobHiveJo
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobHiveJob
@@ -1771,6 +1814,10 @@ func canonicalizeNewJobHiveJobQueryList(c *Client, des, nw *JobHiveJobQueryList)
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Queries) {
+		nw.Queries = des.Queries
+	}
+
 	return nw
 }
 
@@ -1782,7 +1829,7 @@ func canonicalizeNewJobHiveJobQueryListSet(c *Client, des, nw []JobHiveJobQueryL
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobHiveJobQueryList(c, &d, &n) {
+			if diffs, _ := compareJobHiveJobQueryListNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1805,7 +1852,7 @@ func canonicalizeNewJobHiveJobQueryListSlice(c *Client, des, nw []JobHiveJobQuer
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobHiveJobQueryList
@@ -1862,6 +1909,15 @@ func canonicalizeNewJobPigJob(c *Client, des, nw *JobPigJob) *JobPigJob {
 	if dcl.BoolCanonicalize(des.ContinueOnFailure, nw.ContinueOnFailure) {
 		nw.ContinueOnFailure = des.ContinueOnFailure
 	}
+	if dcl.IsZeroValue(nw.ScriptVariables) {
+		nw.ScriptVariables = des.ScriptVariables
+	}
+	if dcl.IsZeroValue(nw.Properties) {
+		nw.Properties = des.Properties
+	}
+	if dcl.IsZeroValue(nw.JarFileUris) {
+		nw.JarFileUris = des.JarFileUris
+	}
 	nw.LoggingConfig = canonicalizeNewJobPigJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -1875,7 +1931,7 @@ func canonicalizeNewJobPigJobSet(c *Client, des, nw []JobPigJob) []JobPigJob {
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobPigJob(c, &d, &n) {
+			if diffs, _ := compareJobPigJobNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1898,7 +1954,7 @@ func canonicalizeNewJobPigJobSlice(c *Client, des, nw []JobPigJob) []JobPigJob {
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobPigJob
@@ -1934,6 +1990,10 @@ func canonicalizeNewJobPigJobQueryList(c *Client, des, nw *JobPigJobQueryList) *
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Queries) {
+		nw.Queries = des.Queries
+	}
+
 	return nw
 }
 
@@ -1945,7 +2005,7 @@ func canonicalizeNewJobPigJobQueryListSet(c *Client, des, nw []JobPigJobQueryLis
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobPigJobQueryList(c, &d, &n) {
+			if diffs, _ := compareJobPigJobQueryListNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1968,7 +2028,7 @@ func canonicalizeNewJobPigJobQueryListSlice(c *Client, des, nw []JobPigJobQueryL
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobPigJobQueryList
@@ -2004,6 +2064,10 @@ func canonicalizeNewJobPigJobLoggingConfig(c *Client, des, nw *JobPigJobLoggingC
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.DriverLogLevels) {
+		nw.DriverLogLevels = des.DriverLogLevels
+	}
+
 	return nw
 }
 
@@ -2015,7 +2079,7 @@ func canonicalizeNewJobPigJobLoggingConfigSet(c *Client, des, nw []JobPigJobLogg
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobPigJobLoggingConfig(c, &d, &n) {
+			if diffs, _ := compareJobPigJobLoggingConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2038,7 +2102,7 @@ func canonicalizeNewJobPigJobLoggingConfigSlice(c *Client, des, nw []JobPigJobLo
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobPigJobLoggingConfig
@@ -2090,6 +2154,18 @@ func canonicalizeNewJobSparkRJob(c *Client, des, nw *JobSparkRJob) *JobSparkRJob
 	if dcl.StringCanonicalize(des.MainRFileUri, nw.MainRFileUri) {
 		nw.MainRFileUri = des.MainRFileUri
 	}
+	if dcl.IsZeroValue(nw.Args) {
+		nw.Args = des.Args
+	}
+	if dcl.IsZeroValue(nw.FileUris) {
+		nw.FileUris = des.FileUris
+	}
+	if dcl.IsZeroValue(nw.ArchiveUris) {
+		nw.ArchiveUris = des.ArchiveUris
+	}
+	if dcl.IsZeroValue(nw.Properties) {
+		nw.Properties = des.Properties
+	}
 	nw.LoggingConfig = canonicalizeNewJobSparkRJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -2103,7 +2179,7 @@ func canonicalizeNewJobSparkRJobSet(c *Client, des, nw []JobSparkRJob) []JobSpar
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobSparkRJob(c, &d, &n) {
+			if diffs, _ := compareJobSparkRJobNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2126,7 +2202,7 @@ func canonicalizeNewJobSparkRJobSlice(c *Client, des, nw []JobSparkRJob) []JobSp
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobSparkRJob
@@ -2162,6 +2238,10 @@ func canonicalizeNewJobSparkRJobLoggingConfig(c *Client, des, nw *JobSparkRJobLo
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.DriverLogLevels) {
+		nw.DriverLogLevels = des.DriverLogLevels
+	}
+
 	return nw
 }
 
@@ -2173,7 +2253,7 @@ func canonicalizeNewJobSparkRJobLoggingConfigSet(c *Client, des, nw []JobSparkRJ
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobSparkRJobLoggingConfig(c, &d, &n) {
+			if diffs, _ := compareJobSparkRJobLoggingConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2196,7 +2276,7 @@ func canonicalizeNewJobSparkRJobLoggingConfigSlice(c *Client, des, nw []JobSpark
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobSparkRJobLoggingConfig
@@ -2247,6 +2327,15 @@ func canonicalizeNewJobSparkSqlJob(c *Client, des, nw *JobSparkSqlJob) *JobSpark
 		nw.QueryFileUri = des.QueryFileUri
 	}
 	nw.QueryList = canonicalizeNewJobSparkSqlJobQueryList(c, des.QueryList, nw.QueryList)
+	if dcl.IsZeroValue(nw.ScriptVariables) {
+		nw.ScriptVariables = des.ScriptVariables
+	}
+	if dcl.IsZeroValue(nw.Properties) {
+		nw.Properties = des.Properties
+	}
+	if dcl.IsZeroValue(nw.JarFileUris) {
+		nw.JarFileUris = des.JarFileUris
+	}
 	nw.LoggingConfig = canonicalizeNewJobSparkSqlJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -2260,7 +2349,7 @@ func canonicalizeNewJobSparkSqlJobSet(c *Client, des, nw []JobSparkSqlJob) []Job
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobSparkSqlJob(c, &d, &n) {
+			if diffs, _ := compareJobSparkSqlJobNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2283,7 +2372,7 @@ func canonicalizeNewJobSparkSqlJobSlice(c *Client, des, nw []JobSparkSqlJob) []J
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobSparkSqlJob
@@ -2319,6 +2408,10 @@ func canonicalizeNewJobSparkSqlJobQueryList(c *Client, des, nw *JobSparkSqlJobQu
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Queries) {
+		nw.Queries = des.Queries
+	}
+
 	return nw
 }
 
@@ -2330,7 +2423,7 @@ func canonicalizeNewJobSparkSqlJobQueryListSet(c *Client, des, nw []JobSparkSqlJ
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobSparkSqlJobQueryList(c, &d, &n) {
+			if diffs, _ := compareJobSparkSqlJobQueryListNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2353,7 +2446,7 @@ func canonicalizeNewJobSparkSqlJobQueryListSlice(c *Client, des, nw []JobSparkSq
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobSparkSqlJobQueryList
@@ -2389,6 +2482,10 @@ func canonicalizeNewJobSparkSqlJobLoggingConfig(c *Client, des, nw *JobSparkSqlJ
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.DriverLogLevels) {
+		nw.DriverLogLevels = des.DriverLogLevels
+	}
+
 	return nw
 }
 
@@ -2400,7 +2497,7 @@ func canonicalizeNewJobSparkSqlJobLoggingConfigSet(c *Client, des, nw []JobSpark
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobSparkSqlJobLoggingConfig(c, &d, &n) {
+			if diffs, _ := compareJobSparkSqlJobLoggingConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2423,7 +2520,7 @@ func canonicalizeNewJobSparkSqlJobLoggingConfigSlice(c *Client, des, nw []JobSpa
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobSparkSqlJobLoggingConfig
@@ -2483,6 +2580,12 @@ func canonicalizeNewJobPrestoJob(c *Client, des, nw *JobPrestoJob) *JobPrestoJob
 	if dcl.StringCanonicalize(des.OutputFormat, nw.OutputFormat) {
 		nw.OutputFormat = des.OutputFormat
 	}
+	if dcl.IsZeroValue(nw.ClientTags) {
+		nw.ClientTags = des.ClientTags
+	}
+	if dcl.IsZeroValue(nw.Properties) {
+		nw.Properties = des.Properties
+	}
 	nw.LoggingConfig = canonicalizeNewJobPrestoJobLoggingConfig(c, des.LoggingConfig, nw.LoggingConfig)
 
 	return nw
@@ -2496,7 +2599,7 @@ func canonicalizeNewJobPrestoJobSet(c *Client, des, nw []JobPrestoJob) []JobPres
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobPrestoJob(c, &d, &n) {
+			if diffs, _ := compareJobPrestoJobNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2519,7 +2622,7 @@ func canonicalizeNewJobPrestoJobSlice(c *Client, des, nw []JobPrestoJob) []JobPr
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobPrestoJob
@@ -2555,6 +2658,10 @@ func canonicalizeNewJobPrestoJobQueryList(c *Client, des, nw *JobPrestoJobQueryL
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Queries) {
+		nw.Queries = des.Queries
+	}
+
 	return nw
 }
 
@@ -2566,7 +2673,7 @@ func canonicalizeNewJobPrestoJobQueryListSet(c *Client, des, nw []JobPrestoJobQu
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobPrestoJobQueryList(c, &d, &n) {
+			if diffs, _ := compareJobPrestoJobQueryListNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2589,7 +2696,7 @@ func canonicalizeNewJobPrestoJobQueryListSlice(c *Client, des, nw []JobPrestoJob
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobPrestoJobQueryList
@@ -2625,6 +2732,10 @@ func canonicalizeNewJobPrestoJobLoggingConfig(c *Client, des, nw *JobPrestoJobLo
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.DriverLogLevels) {
+		nw.DriverLogLevels = des.DriverLogLevels
+	}
+
 	return nw
 }
 
@@ -2636,7 +2747,7 @@ func canonicalizeNewJobPrestoJobLoggingConfigSet(c *Client, des, nw []JobPrestoJ
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobPrestoJobLoggingConfig(c, &d, &n) {
+			if diffs, _ := compareJobPrestoJobLoggingConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2659,7 +2770,7 @@ func canonicalizeNewJobPrestoJobLoggingConfigSlice(c *Client, des, nw []JobPrest
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobPrestoJobLoggingConfig
@@ -2683,19 +2794,6 @@ func canonicalizeJobStatus(des, initial *JobStatus, opts ...dcl.ApplyOption) *Jo
 		return des
 	}
 
-	if dcl.IsZeroValue(des.State) {
-		des.State = initial.State
-	}
-	if dcl.StringCanonicalize(des.Details, initial.Details) || dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	}
-	if dcl.IsZeroValue(des.StateStartTime) {
-		des.StateStartTime = initial.StateStartTime
-	}
-	if dcl.IsZeroValue(des.Substate) {
-		des.Substate = initial.Substate
-	}
-
 	return des
 }
 
@@ -2704,8 +2802,17 @@ func canonicalizeNewJobStatus(c *Client, des, nw *JobStatus) *JobStatus {
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.State) {
+		nw.State = des.State
+	}
 	if dcl.StringCanonicalize(des.Details, nw.Details) {
 		nw.Details = des.Details
+	}
+	if dcl.IsZeroValue(nw.StateStartTime) {
+		nw.StateStartTime = des.StateStartTime
+	}
+	if dcl.IsZeroValue(nw.Substate) {
+		nw.Substate = des.Substate
 	}
 
 	return nw
@@ -2719,7 +2826,7 @@ func canonicalizeNewJobStatusSet(c *Client, des, nw []JobStatus) []JobStatus {
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobStatus(c, &d, &n) {
+			if diffs, _ := compareJobStatusNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2742,7 +2849,7 @@ func canonicalizeNewJobStatusSlice(c *Client, des, nw []JobStatus) []JobStatus {
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobStatus
@@ -2766,19 +2873,6 @@ func canonicalizeJobStatusHistory(des, initial *JobStatusHistory, opts ...dcl.Ap
 		return des
 	}
 
-	if dcl.IsZeroValue(des.State) {
-		des.State = initial.State
-	}
-	if dcl.StringCanonicalize(des.Details, initial.Details) || dcl.IsZeroValue(des.Details) {
-		des.Details = initial.Details
-	}
-	if dcl.IsZeroValue(des.StateStartTime) {
-		des.StateStartTime = initial.StateStartTime
-	}
-	if dcl.IsZeroValue(des.Substate) {
-		des.Substate = initial.Substate
-	}
-
 	return des
 }
 
@@ -2787,8 +2881,17 @@ func canonicalizeNewJobStatusHistory(c *Client, des, nw *JobStatusHistory) *JobS
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.State) {
+		nw.State = des.State
+	}
 	if dcl.StringCanonicalize(des.Details, nw.Details) {
 		nw.Details = des.Details
+	}
+	if dcl.IsZeroValue(nw.StateStartTime) {
+		nw.StateStartTime = des.StateStartTime
+	}
+	if dcl.IsZeroValue(nw.Substate) {
+		nw.Substate = des.Substate
 	}
 
 	return nw
@@ -2802,7 +2905,7 @@ func canonicalizeNewJobStatusHistorySet(c *Client, des, nw []JobStatusHistory) [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobStatusHistory(c, &d, &n) {
+			if diffs, _ := compareJobStatusHistoryNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2825,7 +2928,7 @@ func canonicalizeNewJobStatusHistorySlice(c *Client, des, nw []JobStatusHistory)
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobStatusHistory
@@ -2849,19 +2952,6 @@ func canonicalizeJobYarnApplications(des, initial *JobYarnApplications, opts ...
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		des.Name = initial.Name
-	}
-	if dcl.IsZeroValue(des.State) {
-		des.State = initial.State
-	}
-	if dcl.IsZeroValue(des.Progress) {
-		des.Progress = initial.Progress
-	}
-	if dcl.StringCanonicalize(des.TrackingUrl, initial.TrackingUrl) || dcl.IsZeroValue(des.TrackingUrl) {
-		des.TrackingUrl = initial.TrackingUrl
-	}
-
 	return des
 }
 
@@ -2872,6 +2962,12 @@ func canonicalizeNewJobYarnApplications(c *Client, des, nw *JobYarnApplications)
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
+	}
+	if dcl.IsZeroValue(nw.State) {
+		nw.State = des.State
+	}
+	if dcl.IsZeroValue(nw.Progress) {
+		nw.Progress = des.Progress
 	}
 	if dcl.StringCanonicalize(des.TrackingUrl, nw.TrackingUrl) {
 		nw.TrackingUrl = des.TrackingUrl
@@ -2888,7 +2984,7 @@ func canonicalizeNewJobYarnApplicationsSet(c *Client, des, nw []JobYarnApplicati
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobYarnApplications(c, &d, &n) {
+			if diffs, _ := compareJobYarnApplicationsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2911,7 +3007,7 @@ func canonicalizeNewJobYarnApplicationsSlice(c *Client, des, nw []JobYarnApplica
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobYarnApplications
@@ -2950,6 +3046,13 @@ func canonicalizeNewJobScheduling(c *Client, des, nw *JobScheduling) *JobSchedul
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.MaxFailuresPerHour) {
+		nw.MaxFailuresPerHour = des.MaxFailuresPerHour
+	}
+	if dcl.IsZeroValue(nw.MaxFailuresTotal) {
+		nw.MaxFailuresTotal = des.MaxFailuresTotal
+	}
+
 	return nw
 }
 
@@ -2961,7 +3064,7 @@ func canonicalizeNewJobSchedulingSet(c *Client, des, nw []JobScheduling) []JobSc
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobScheduling(c, &d, &n) {
+			if diffs, _ := compareJobSchedulingNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -2984,7 +3087,7 @@ func canonicalizeNewJobSchedulingSlice(c *Client, des, nw []JobScheduling) []Job
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobScheduling
@@ -3033,7 +3136,7 @@ func canonicalizeNewJobDriverRunnerSet(c *Client, des, nw []JobDriverRunner) []J
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobDriverRunner(c, &d, &n) {
+			if diffs, _ := compareJobDriverRunnerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3056,7 +3159,7 @@ func canonicalizeNewJobDriverRunnerSlice(c *Client, des, nw []JobDriverRunner) [
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobDriverRunner
@@ -3099,7 +3202,7 @@ func canonicalizeNewJobDriverRunnerMasterDriverRunnerSet(c *Client, des, nw []Jo
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobDriverRunnerMasterDriverRunner(c, &d, &n) {
+			if diffs, _ := compareJobDriverRunnerMasterDriverRunnerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3122,7 +3225,7 @@ func canonicalizeNewJobDriverRunnerMasterDriverRunnerSlice(c *Client, des, nw []
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobDriverRunnerMasterDriverRunner
@@ -3161,6 +3264,13 @@ func canonicalizeNewJobDriverRunnerYarnDriverRunner(c *Client, des, nw *JobDrive
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.MemoryMb) {
+		nw.MemoryMb = des.MemoryMb
+	}
+	if dcl.IsZeroValue(nw.Vcores) {
+		nw.Vcores = des.Vcores
+	}
+
 	return nw
 }
 
@@ -3172,7 +3282,7 @@ func canonicalizeNewJobDriverRunnerYarnDriverRunnerSet(c *Client, des, nw []JobD
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareJobDriverRunnerYarnDriverRunner(c, &d, &n) {
+			if diffs, _ := compareJobDriverRunnerYarnDriverRunnerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3195,7 +3305,7 @@ func canonicalizeNewJobDriverRunnerYarnDriverRunnerSlice(c *Client, des, nw []Jo
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []JobDriverRunnerYarnDriverRunner
@@ -3229,234 +3339,332 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 	}
 
 	var diffs []jobDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Reference, actual.Reference, dcl.Info{ObjectFunction: compareJobReferenceNewStyle}, fn.AddNest("Reference")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Reference, actual.Reference, dcl.Info{ObjectFunction: compareJobReferenceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Reference")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Reference",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Placement, actual.Placement, dcl.Info{ObjectFunction: compareJobPlacementNewStyle}, fn.AddNest("Placement")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Placement, actual.Placement, dcl.Info{ObjectFunction: compareJobPlacementNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Placement")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Placement",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.HadoopJob, actual.HadoopJob, dcl.Info{ObjectFunction: compareJobHadoopJobNewStyle}, fn.AddNest("HadoopJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HadoopJob, actual.HadoopJob, dcl.Info{ObjectFunction: compareJobHadoopJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HadoopJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "HadoopJob",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkJob, actual.SparkJob, dcl.Info{ObjectFunction: compareJobSparkJobNewStyle}, fn.AddNest("SparkJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkJob, actual.SparkJob, dcl.Info{ObjectFunction: compareJobSparkJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SparkJob",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.PysparkJob, actual.PysparkJob, dcl.Info{ObjectFunction: compareJobPysparkJobNewStyle}, fn.AddNest("PysparkJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PysparkJob, actual.PysparkJob, dcl.Info{ObjectFunction: compareJobPysparkJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PysparkJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "PysparkJob",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.HiveJob, actual.HiveJob, dcl.Info{ObjectFunction: compareJobHiveJobNewStyle}, fn.AddNest("HiveJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HiveJob, actual.HiveJob, dcl.Info{ObjectFunction: compareJobHiveJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HiveJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "HiveJob",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.PigJob, actual.PigJob, dcl.Info{ObjectFunction: compareJobPigJobNewStyle}, fn.AddNest("PigJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PigJob, actual.PigJob, dcl.Info{ObjectFunction: compareJobPigJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PigJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "PigJob",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkRJob, actual.SparkRJob, dcl.Info{ObjectFunction: compareJobSparkRJobNewStyle}, fn.AddNest("SparkRJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkRJob, actual.SparkRJob, dcl.Info{ObjectFunction: compareJobSparkRJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkRJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SparkRJob",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkSqlJob, actual.SparkSqlJob, dcl.Info{ObjectFunction: compareJobSparkSqlJobNewStyle}, fn.AddNest("SparkSqlJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkSqlJob, actual.SparkSqlJob, dcl.Info{ObjectFunction: compareJobSparkSqlJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkSqlJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SparkSqlJob",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.PrestoJob, actual.PrestoJob, dcl.Info{ObjectFunction: compareJobPrestoJobNewStyle}, fn.AddNest("PrestoJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PrestoJob, actual.PrestoJob, dcl.Info{ObjectFunction: compareJobPrestoJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrestoJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "PrestoJob",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareJobStatusNewStyle}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareJobStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Status",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.StatusHistory, actual.StatusHistory, dcl.Info{OutputOnly: true, ObjectFunction: compareJobStatusHistoryNewStyle}, fn.AddNest("StatusHistory")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StatusHistory, actual.StatusHistory, dcl.Info{OutputOnly: true, ObjectFunction: compareJobStatusHistoryNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StatusHistory")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "StatusHistory",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.YarnApplications, actual.YarnApplications, dcl.Info{OutputOnly: true, ObjectFunction: compareJobYarnApplicationsNewStyle}, fn.AddNest("YarnApplications")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.YarnApplications, actual.YarnApplications, dcl.Info{OutputOnly: true, ObjectFunction: compareJobYarnApplicationsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("YarnApplications")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "YarnApplications",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SubmittedBy, actual.SubmittedBy, dcl.Info{OutputOnly: true}, fn.AddNest("SubmittedBy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SubmittedBy, actual.SubmittedBy, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SubmittedBy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SubmittedBy",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DriverInputResourceUri, actual.DriverInputResourceUri, dcl.Info{OutputOnly: true}, fn.AddNest("DriverInputResourceUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverInputResourceUri, actual.DriverInputResourceUri, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverInputResourceUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "DriverInputResourceUri",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DriverOutputResourceUri, actual.DriverOutputResourceUri, dcl.Info{OutputOnly: true}, fn.AddNest("DriverOutputResourceUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverOutputResourceUri, actual.DriverOutputResourceUri, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverOutputResourceUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "DriverOutputResourceUri",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DriverControlFilesUri, actual.DriverControlFilesUri, dcl.Info{OutputOnly: true}, fn.AddNest("DriverControlFilesUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverControlFilesUri, actual.DriverControlFilesUri, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverControlFilesUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "DriverControlFilesUri",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Interactive, actual.Interactive, dcl.Info{}, fn.AddNest("Interactive")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Interactive, actual.Interactive, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Interactive")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Interactive",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobPatchOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{
-			UpdateOp: &updateJobPatchOperation{}, Diffs: ds,
-			FieldName: "Labels",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scheduling, actual.Scheduling, dcl.Info{ObjectFunction: compareJobSchedulingNewStyle}, fn.AddNest("Scheduling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scheduling, actual.Scheduling, dcl.Info{ObjectFunction: compareJobSchedulingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scheduling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Scheduling",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Done, actual.Done, dcl.Info{OutputOnly: true}, fn.AddNest("Done")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Done, actual.Done, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Done")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Done",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DriverRunner, actual.DriverRunner, dcl.Info{ObjectFunction: compareJobDriverRunnerNewStyle}, fn.AddNest("DriverRunner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverRunner, actual.DriverRunner, dcl.Info{ObjectFunction: compareJobDriverRunnerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverRunner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "DriverRunner",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Region",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, jobDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -3503,71 +3711,20 @@ func compareJobReferenceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JobId, actual.JobId, dcl.Info{}, fn.AddNest("JobId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JobId, actual.JobId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JobId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobReference(c *Client, desired, actual *JobReference) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ProjectId, actual.ProjectId) && !dcl.IsZeroValue(desired.ProjectId) {
-		c.Config.Logger.Infof("Diff in ProjectId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ProjectId), dcl.SprintResource(actual.ProjectId))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.JobId, actual.JobId) && !dcl.IsZeroValue(desired.JobId) {
-		c.Config.Logger.Infof("Diff in JobId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JobId), dcl.SprintResource(actual.JobId))
-		return true
-	}
-	return false
-}
-
-func compareJobReferenceSlice(c *Client, desired, actual []JobReference) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobReference, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobReference(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobReference, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobReferenceMap(c *Client, desired, actual map[string]JobReference) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobReference, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobReference, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobReference(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobReference, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobPlacementNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -3590,78 +3747,27 @@ func compareJobPlacementNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterName, actual.ClusterName, dcl.Info{}, fn.AddNest("ClusterName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterName, actual.ClusterName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterUuid, actual.ClusterUuid, dcl.Info{OutputOnly: true}, fn.AddNest("ClusterUuid")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterUuid, actual.ClusterUuid, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterUuid")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterLabels, actual.ClusterLabels, dcl.Info{}, fn.AddNest("ClusterLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterLabels, actual.ClusterLabels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobPlacement(c *Client, desired, actual *JobPlacement) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.ClusterName, actual.ClusterName) && !dcl.IsZeroValue(desired.ClusterName) {
-		c.Config.Logger.Infof("Diff in ClusterName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterName), dcl.SprintResource(actual.ClusterName))
-		return true
-	}
-	if !dcl.MapEquals(desired.ClusterLabels, actual.ClusterLabels, []string(nil)) && !dcl.IsZeroValue(desired.ClusterLabels) {
-		c.Config.Logger.Infof("Diff in ClusterLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClusterLabels), dcl.SprintResource(actual.ClusterLabels))
-		return true
-	}
-	return false
-}
-
-func compareJobPlacementSlice(c *Client, desired, actual []JobPlacement) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPlacement, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobPlacement(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPlacement, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobPlacementMap(c *Client, desired, actual map[string]JobPlacement) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPlacement, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobPlacement, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobPlacement(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPlacement, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobHadoopJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -3684,137 +3790,62 @@ func compareJobHadoopJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MainJarFileUri, actual.MainJarFileUri, dcl.Info{}, fn.AddNest("MainJarFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainJarFileUri, actual.MainJarFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainJarFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MainClass, actual.MainClass, dcl.Info{}, fn.AddNest("MainClass")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainClass, actual.MainClass, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainClass")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobHadoopJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobHadoopJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobHadoopJob(c *Client, desired, actual *JobHadoopJob) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MainJarFileUri, actual.MainJarFileUri) && !dcl.IsZeroValue(desired.MainJarFileUri) {
-		c.Config.Logger.Infof("Diff in MainJarFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainJarFileUri), dcl.SprintResource(actual.MainJarFileUri))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MainClass, actual.MainClass) && !dcl.IsZeroValue(desired.MainClass) {
-		c.Config.Logger.Infof("Diff in MainClass.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainClass), dcl.SprintResource(actual.MainClass))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
-		c.Config.Logger.Infof("Diff in JarFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
-		c.Config.Logger.Infof("Diff in FileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
-		c.Config.Logger.Infof("Diff in ArchiveUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
-		return true
-	}
-	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if compareJobHadoopJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
-		return true
-	}
-	return false
-}
-
-func compareJobHadoopJobSlice(c *Client, desired, actual []JobHadoopJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobHadoopJob, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobHadoopJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobHadoopJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobHadoopJobMap(c *Client, desired, actual map[string]JobHadoopJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobHadoopJob, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobHadoopJob, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobHadoopJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobHadoopJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobHadoopJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -3837,60 +3868,13 @@ func compareJobHadoopJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobHadoopJobLoggingConfig(c *Client, desired, actual *JobHadoopJobLoggingConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-
-func compareJobHadoopJobLoggingConfigSlice(c *Client, desired, actual []JobHadoopJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobHadoopJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobHadoopJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobHadoopJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobHadoopJobLoggingConfigMap(c *Client, desired, actual map[string]JobHadoopJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobHadoopJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobHadoopJobLoggingConfig, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobHadoopJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobHadoopJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobSparkJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -3913,137 +3897,62 @@ func compareJobSparkJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MainJarFileUri, actual.MainJarFileUri, dcl.Info{}, fn.AddNest("MainJarFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainJarFileUri, actual.MainJarFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainJarFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MainClass, actual.MainClass, dcl.Info{}, fn.AddNest("MainClass")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainClass, actual.MainClass, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainClass")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobSparkJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobSparkJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobSparkJob(c *Client, desired, actual *JobSparkJob) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MainJarFileUri, actual.MainJarFileUri) && !dcl.IsZeroValue(desired.MainJarFileUri) {
-		c.Config.Logger.Infof("Diff in MainJarFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainJarFileUri), dcl.SprintResource(actual.MainJarFileUri))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MainClass, actual.MainClass) && !dcl.IsZeroValue(desired.MainClass) {
-		c.Config.Logger.Infof("Diff in MainClass.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainClass), dcl.SprintResource(actual.MainClass))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
-		c.Config.Logger.Infof("Diff in JarFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
-		c.Config.Logger.Infof("Diff in FileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
-		c.Config.Logger.Infof("Diff in ArchiveUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
-		return true
-	}
-	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if compareJobSparkJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
-		return true
-	}
-	return false
-}
-
-func compareJobSparkJobSlice(c *Client, desired, actual []JobSparkJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkJob, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobSparkJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobSparkJobMap(c *Client, desired, actual map[string]JobSparkJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkJob, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobSparkJob, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobSparkJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobSparkJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4066,60 +3975,13 @@ func compareJobSparkJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobSparkJobLoggingConfig(c *Client, desired, actual *JobSparkJobLoggingConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-
-func compareJobSparkJobLoggingConfigSlice(c *Client, desired, actual []JobSparkJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobSparkJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobSparkJobLoggingConfigMap(c *Client, desired, actual map[string]JobSparkJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobSparkJobLoggingConfig, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobSparkJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobPysparkJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4142,137 +4004,62 @@ func compareJobPysparkJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MainPythonFileUri, actual.MainPythonFileUri, dcl.Info{}, fn.AddNest("MainPythonFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainPythonFileUri, actual.MainPythonFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainPythonFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PythonFileUris, actual.PythonFileUris, dcl.Info{}, fn.AddNest("PythonFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PythonFileUris, actual.PythonFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PythonFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobPysparkJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobPysparkJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobPysparkJob(c *Client, desired, actual *JobPysparkJob) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MainPythonFileUri, actual.MainPythonFileUri) && !dcl.IsZeroValue(desired.MainPythonFileUri) {
-		c.Config.Logger.Infof("Diff in MainPythonFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainPythonFileUri), dcl.SprintResource(actual.MainPythonFileUri))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.PythonFileUris, actual.PythonFileUris) && !dcl.IsZeroValue(desired.PythonFileUris) {
-		c.Config.Logger.Infof("Diff in PythonFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PythonFileUris), dcl.SprintResource(actual.PythonFileUris))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
-		c.Config.Logger.Infof("Diff in JarFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
-		c.Config.Logger.Infof("Diff in FileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
-		c.Config.Logger.Infof("Diff in ArchiveUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
-		return true
-	}
-	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if compareJobPysparkJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
-		return true
-	}
-	return false
-}
-
-func compareJobPysparkJobSlice(c *Client, desired, actual []JobPysparkJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPysparkJob, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobPysparkJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPysparkJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobPysparkJobMap(c *Client, desired, actual map[string]JobPysparkJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPysparkJob, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobPysparkJob, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobPysparkJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPysparkJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobPysparkJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4295,60 +4082,13 @@ func compareJobPysparkJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldNam
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobPysparkJobLoggingConfig(c *Client, desired, actual *JobPysparkJobLoggingConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-
-func compareJobPysparkJobLoggingConfigSlice(c *Client, desired, actual []JobPysparkJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPysparkJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobPysparkJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPysparkJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobPysparkJobLoggingConfigMap(c *Client, desired, actual map[string]JobPysparkJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPysparkJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobPysparkJobLoggingConfig, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobPysparkJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPysparkJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobHiveJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4371,115 +4111,48 @@ func compareJobHiveJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobHiveJobQueryListNewStyle}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobHiveJobQueryListNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.Info{}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.Info{}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobHiveJob(c *Client, desired, actual *JobHiveJob) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) {
-		c.Config.Logger.Infof("Diff in QueryFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
-		return true
-	}
-	if compareJobHiveJobQueryList(c, desired.QueryList, actual.QueryList) && !dcl.IsZeroValue(desired.QueryList) {
-		c.Config.Logger.Infof("Diff in QueryList.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryList), dcl.SprintResource(actual.QueryList))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
-		c.Config.Logger.Infof("Diff in ContinueOnFailure.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
-		return true
-	}
-	if !dcl.MapEquals(desired.ScriptVariables, actual.ScriptVariables, []string(nil)) && !dcl.IsZeroValue(desired.ScriptVariables) {
-		c.Config.Logger.Infof("Diff in ScriptVariables.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
-		return true
-	}
-	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
-		c.Config.Logger.Infof("Diff in JarFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
-		return true
-	}
-	return false
-}
-
-func compareJobHiveJobSlice(c *Client, desired, actual []JobHiveJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobHiveJob, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobHiveJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobHiveJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobHiveJobMap(c *Client, desired, actual map[string]JobHiveJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobHiveJob, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobHiveJob, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobHiveJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobHiveJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobHiveJobQueryListNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4502,60 +4175,13 @@ func compareJobHiveJobQueryListNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobHiveJobQueryList(c *Client, desired, actual *JobHiveJobQueryList) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
-		c.Config.Logger.Infof("Diff in Queries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
-		return true
-	}
-	return false
-}
-
-func compareJobHiveJobQueryListSlice(c *Client, desired, actual []JobHiveJobQueryList) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobHiveJobQueryList, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobHiveJobQueryList(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobHiveJobQueryList, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobHiveJobQueryListMap(c *Client, desired, actual map[string]JobHiveJobQueryList) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobHiveJobQueryList, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobHiveJobQueryList, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobHiveJobQueryList(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobHiveJobQueryList, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobPigJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4578,126 +4204,55 @@ func compareJobPigJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldD
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobPigJobQueryListNewStyle}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobPigJobQueryListNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.Info{}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.Info{}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobPigJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobPigJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobPigJob(c *Client, desired, actual *JobPigJob) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) {
-		c.Config.Logger.Infof("Diff in QueryFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
-		return true
-	}
-	if compareJobPigJobQueryList(c, desired.QueryList, actual.QueryList) && !dcl.IsZeroValue(desired.QueryList) {
-		c.Config.Logger.Infof("Diff in QueryList.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryList), dcl.SprintResource(actual.QueryList))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
-		c.Config.Logger.Infof("Diff in ContinueOnFailure.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
-		return true
-	}
-	if !dcl.MapEquals(desired.ScriptVariables, actual.ScriptVariables, []string(nil)) && !dcl.IsZeroValue(desired.ScriptVariables) {
-		c.Config.Logger.Infof("Diff in ScriptVariables.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
-		return true
-	}
-	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
-		c.Config.Logger.Infof("Diff in JarFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
-		return true
-	}
-	if compareJobPigJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
-		return true
-	}
-	return false
-}
-
-func compareJobPigJobSlice(c *Client, desired, actual []JobPigJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPigJob, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobPigJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPigJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobPigJobMap(c *Client, desired, actual map[string]JobPigJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPigJob, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobPigJob, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobPigJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPigJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobPigJobQueryListNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4720,60 +4275,13 @@ func compareJobPigJobQueryListNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobPigJobQueryList(c *Client, desired, actual *JobPigJobQueryList) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
-		c.Config.Logger.Infof("Diff in Queries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
-		return true
-	}
-	return false
-}
-
-func compareJobPigJobQueryListSlice(c *Client, desired, actual []JobPigJobQueryList) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPigJobQueryList, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobPigJobQueryList(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPigJobQueryList, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobPigJobQueryListMap(c *Client, desired, actual map[string]JobPigJobQueryList) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPigJobQueryList, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobPigJobQueryList, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobPigJobQueryList(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPigJobQueryList, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobPigJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4796,60 +4304,13 @@ func compareJobPigJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobPigJobLoggingConfig(c *Client, desired, actual *JobPigJobLoggingConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-
-func compareJobPigJobLoggingConfigSlice(c *Client, desired, actual []JobPigJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPigJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobPigJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPigJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobPigJobLoggingConfigMap(c *Client, desired, actual map[string]JobPigJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPigJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobPigJobLoggingConfig, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobPigJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPigJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobSparkRJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -4872,115 +4333,48 @@ func compareJobSparkRJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MainRFileUri, actual.MainRFileUri, dcl.Info{}, fn.AddNest("MainRFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainRFileUri, actual.MainRFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainRFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobSparkRJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobSparkRJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobSparkRJob(c *Client, desired, actual *JobSparkRJob) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.MainRFileUri, actual.MainRFileUri) && !dcl.IsZeroValue(desired.MainRFileUri) {
-		c.Config.Logger.Infof("Diff in MainRFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MainRFileUri), dcl.SprintResource(actual.MainRFileUri))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Args, actual.Args) && !dcl.IsZeroValue(desired.Args) {
-		c.Config.Logger.Infof("Diff in Args.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Args), dcl.SprintResource(actual.Args))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.FileUris, actual.FileUris) && !dcl.IsZeroValue(desired.FileUris) {
-		c.Config.Logger.Infof("Diff in FileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FileUris), dcl.SprintResource(actual.FileUris))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.ArchiveUris, actual.ArchiveUris) && !dcl.IsZeroValue(desired.ArchiveUris) {
-		c.Config.Logger.Infof("Diff in ArchiveUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ArchiveUris), dcl.SprintResource(actual.ArchiveUris))
-		return true
-	}
-	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if compareJobSparkRJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
-		return true
-	}
-	return false
-}
-
-func compareJobSparkRJobSlice(c *Client, desired, actual []JobSparkRJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkRJob, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobSparkRJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkRJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobSparkRJobMap(c *Client, desired, actual map[string]JobSparkRJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkRJob, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobSparkRJob, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobSparkRJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkRJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobSparkRJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5003,60 +4397,13 @@ func compareJobSparkRJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobSparkRJobLoggingConfig(c *Client, desired, actual *JobSparkRJobLoggingConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-
-func compareJobSparkRJobLoggingConfigSlice(c *Client, desired, actual []JobSparkRJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkRJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobSparkRJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkRJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobSparkRJobLoggingConfigMap(c *Client, desired, actual map[string]JobSparkRJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkRJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobSparkRJobLoggingConfig, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobSparkRJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkRJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobSparkSqlJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5079,115 +4426,48 @@ func compareJobSparkSqlJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobSparkSqlJobQueryListNewStyle}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobSparkSqlJobQueryListNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.Info{}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobSparkSqlJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobSparkSqlJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobSparkSqlJob(c *Client, desired, actual *JobSparkSqlJob) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) {
-		c.Config.Logger.Infof("Diff in QueryFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
-		return true
-	}
-	if compareJobSparkSqlJobQueryList(c, desired.QueryList, actual.QueryList) && !dcl.IsZeroValue(desired.QueryList) {
-		c.Config.Logger.Infof("Diff in QueryList.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryList), dcl.SprintResource(actual.QueryList))
-		return true
-	}
-	if !dcl.MapEquals(desired.ScriptVariables, actual.ScriptVariables, []string(nil)) && !dcl.IsZeroValue(desired.ScriptVariables) {
-		c.Config.Logger.Infof("Diff in ScriptVariables.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScriptVariables), dcl.SprintResource(actual.ScriptVariables))
-		return true
-	}
-	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.JarFileUris, actual.JarFileUris) && !dcl.IsZeroValue(desired.JarFileUris) {
-		c.Config.Logger.Infof("Diff in JarFileUris.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.JarFileUris), dcl.SprintResource(actual.JarFileUris))
-		return true
-	}
-	if compareJobSparkSqlJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
-		return true
-	}
-	return false
-}
-
-func compareJobSparkSqlJobSlice(c *Client, desired, actual []JobSparkSqlJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkSqlJob, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobSparkSqlJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobSparkSqlJobMap(c *Client, desired, actual map[string]JobSparkSqlJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkSqlJob, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJob, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobSparkSqlJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobSparkSqlJobQueryListNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5210,60 +4490,13 @@ func compareJobSparkSqlJobQueryListNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobSparkSqlJobQueryList(c *Client, desired, actual *JobSparkSqlJobQueryList) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
-		c.Config.Logger.Infof("Diff in Queries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
-		return true
-	}
-	return false
-}
-
-func compareJobSparkSqlJobQueryListSlice(c *Client, desired, actual []JobSparkSqlJobQueryList) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkSqlJobQueryList, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobSparkSqlJobQueryList(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJobQueryList, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobSparkSqlJobQueryListMap(c *Client, desired, actual map[string]JobSparkSqlJobQueryList) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkSqlJobQueryList, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJobQueryList, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobSparkSqlJobQueryList(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJobQueryList, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobSparkSqlJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5286,60 +4519,13 @@ func compareJobSparkSqlJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobSparkSqlJobLoggingConfig(c *Client, desired, actual *JobSparkSqlJobLoggingConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-
-func compareJobSparkSqlJobLoggingConfigSlice(c *Client, desired, actual []JobSparkSqlJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkSqlJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobSparkSqlJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobSparkSqlJobLoggingConfigMap(c *Client, desired, actual map[string]JobSparkSqlJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobSparkSqlJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJobLoggingConfig, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobSparkSqlJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobSparkSqlJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobPrestoJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5362,126 +4548,55 @@ func compareJobPrestoJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobPrestoJobQueryListNewStyle}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobPrestoJobQueryListNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.Info{}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OutputFormat, actual.OutputFormat, dcl.Info{}, fn.AddNest("OutputFormat")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OutputFormat, actual.OutputFormat, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OutputFormat")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClientTags, actual.ClientTags, dcl.Info{}, fn.AddNest("ClientTags")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClientTags, actual.ClientTags, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClientTags")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobPrestoJobLoggingConfigNewStyle}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobPrestoJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobPrestoJob(c *Client, desired, actual *JobPrestoJob) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.QueryFileUri, actual.QueryFileUri) && !dcl.IsZeroValue(desired.QueryFileUri) {
-		c.Config.Logger.Infof("Diff in QueryFileUri.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryFileUri), dcl.SprintResource(actual.QueryFileUri))
-		return true
-	}
-	if compareJobPrestoJobQueryList(c, desired.QueryList, actual.QueryList) && !dcl.IsZeroValue(desired.QueryList) {
-		c.Config.Logger.Infof("Diff in QueryList.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.QueryList), dcl.SprintResource(actual.QueryList))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.ContinueOnFailure, actual.ContinueOnFailure) && !dcl.IsZeroValue(desired.ContinueOnFailure) {
-		c.Config.Logger.Infof("Diff in ContinueOnFailure.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ContinueOnFailure), dcl.SprintResource(actual.ContinueOnFailure))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.OutputFormat, actual.OutputFormat) && !dcl.IsZeroValue(desired.OutputFormat) {
-		c.Config.Logger.Infof("Diff in OutputFormat.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.OutputFormat), dcl.SprintResource(actual.OutputFormat))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.ClientTags, actual.ClientTags) && !dcl.IsZeroValue(desired.ClientTags) {
-		c.Config.Logger.Infof("Diff in ClientTags.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ClientTags), dcl.SprintResource(actual.ClientTags))
-		return true
-	}
-	if !dcl.MapEquals(desired.Properties, actual.Properties, []string(nil)) && !dcl.IsZeroValue(desired.Properties) {
-		c.Config.Logger.Infof("Diff in Properties.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Properties), dcl.SprintResource(actual.Properties))
-		return true
-	}
-	if compareJobPrestoJobLoggingConfig(c, desired.LoggingConfig, actual.LoggingConfig) && !dcl.IsZeroValue(desired.LoggingConfig) {
-		c.Config.Logger.Infof("Diff in LoggingConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoggingConfig), dcl.SprintResource(actual.LoggingConfig))
-		return true
-	}
-	return false
-}
-
-func compareJobPrestoJobSlice(c *Client, desired, actual []JobPrestoJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPrestoJob, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobPrestoJob(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPrestoJob, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobPrestoJobMap(c *Client, desired, actual map[string]JobPrestoJob) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPrestoJob, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobPrestoJob, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobPrestoJob(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPrestoJob, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobPrestoJobQueryListNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5504,60 +4619,13 @@ func compareJobPrestoJobQueryListNewStyle(d, a interface{}, fn dcl.FieldName) ([
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobPrestoJobQueryList(c *Client, desired, actual *JobPrestoJobQueryList) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.Queries, actual.Queries) && !dcl.IsZeroValue(desired.Queries) {
-		c.Config.Logger.Infof("Diff in Queries.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Queries), dcl.SprintResource(actual.Queries))
-		return true
-	}
-	return false
-}
-
-func compareJobPrestoJobQueryListSlice(c *Client, desired, actual []JobPrestoJobQueryList) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPrestoJobQueryList, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobPrestoJobQueryList(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPrestoJobQueryList, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobPrestoJobQueryListMap(c *Client, desired, actual map[string]JobPrestoJobQueryList) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPrestoJobQueryList, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobPrestoJobQueryList, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobPrestoJobQueryList(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPrestoJobQueryList, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobPrestoJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5580,60 +4648,13 @@ func compareJobPrestoJobLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobPrestoJobLoggingConfig(c *Client, desired, actual *JobPrestoJobLoggingConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.MapEquals(desired.DriverLogLevels, actual.DriverLogLevels, []string(nil)) && !dcl.IsZeroValue(desired.DriverLogLevels) {
-		c.Config.Logger.Infof("Diff in DriverLogLevels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DriverLogLevels), dcl.SprintResource(actual.DriverLogLevels))
-		return true
-	}
-	return false
-}
-
-func compareJobPrestoJobLoggingConfigSlice(c *Client, desired, actual []JobPrestoJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPrestoJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobPrestoJobLoggingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobPrestoJobLoggingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobPrestoJobLoggingConfigMap(c *Client, desired, actual map[string]JobPrestoJobLoggingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobPrestoJobLoggingConfig, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobPrestoJobLoggingConfig, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobPrestoJobLoggingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobPrestoJobLoggingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5656,77 +4677,34 @@ func compareJobStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldD
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{OutputOnly: true}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StateStartTime, actual.StateStartTime, dcl.Info{OutputOnly: true}, fn.AddNest("StateStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StateStartTime, actual.StateStartTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StateStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Substate, actual.Substate, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Substate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Substate, actual.Substate, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Substate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobStatus(c *Client, desired, actual *JobStatus) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	return false
-}
-
-func compareJobStatusSlice(c *Client, desired, actual []JobStatus) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobStatus, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobStatus(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobStatus, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobStatusMap(c *Client, desired, actual map[string]JobStatus) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobStatus, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobStatus, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobStatus(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobStatus, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobStatusHistoryNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5749,77 +4727,34 @@ func compareJobStatusHistoryNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{OutputOnly: true}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StateStartTime, actual.StateStartTime, dcl.Info{OutputOnly: true}, fn.AddNest("StateStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StateStartTime, actual.StateStartTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StateStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Substate, actual.Substate, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Substate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Substate, actual.Substate, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Substate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobStatusHistory(c *Client, desired, actual *JobStatusHistory) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	return false
-}
-
-func compareJobStatusHistorySlice(c *Client, desired, actual []JobStatusHistory) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobStatusHistory, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobStatusHistory(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobStatusHistory, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobStatusHistoryMap(c *Client, desired, actual map[string]JobStatusHistory) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobStatusHistory, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobStatusHistory, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobStatusHistory(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobStatusHistory, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobYarnApplicationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5842,77 +4777,34 @@ func compareJobYarnApplicationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Progress, actual.Progress, dcl.Info{OutputOnly: true}, fn.AddNest("Progress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Progress, actual.Progress, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Progress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TrackingUrl, actual.TrackingUrl, dcl.Info{OutputOnly: true}, fn.AddNest("TrackingUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TrackingUrl, actual.TrackingUrl, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TrackingUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobYarnApplications(c *Client, desired, actual *JobYarnApplications) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	return false
-}
-
-func compareJobYarnApplicationsSlice(c *Client, desired, actual []JobYarnApplications) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobYarnApplications, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobYarnApplications(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobYarnApplications, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobYarnApplicationsMap(c *Client, desired, actual map[string]JobYarnApplications) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobYarnApplications, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobYarnApplications, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobYarnApplications(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobYarnApplications, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobSchedulingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -5935,71 +4827,20 @@ func compareJobSchedulingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MaxFailuresPerHour, actual.MaxFailuresPerHour, dcl.Info{}, fn.AddNest("MaxFailuresPerHour")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxFailuresPerHour, actual.MaxFailuresPerHour, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxFailuresPerHour")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxFailuresTotal, actual.MaxFailuresTotal, dcl.Info{}, fn.AddNest("MaxFailuresTotal")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxFailuresTotal, actual.MaxFailuresTotal, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxFailuresTotal")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobScheduling(c *Client, desired, actual *JobScheduling) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.MaxFailuresPerHour, actual.MaxFailuresPerHour) && !dcl.IsZeroValue(desired.MaxFailuresPerHour) {
-		c.Config.Logger.Infof("Diff in MaxFailuresPerHour.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxFailuresPerHour), dcl.SprintResource(actual.MaxFailuresPerHour))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MaxFailuresTotal, actual.MaxFailuresTotal) && !dcl.IsZeroValue(desired.MaxFailuresTotal) {
-		c.Config.Logger.Infof("Diff in MaxFailuresTotal.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxFailuresTotal), dcl.SprintResource(actual.MaxFailuresTotal))
-		return true
-	}
-	return false
-}
-
-func compareJobSchedulingSlice(c *Client, desired, actual []JobScheduling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobScheduling, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobScheduling(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobScheduling, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobSchedulingMap(c *Client, desired, actual map[string]JobScheduling) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobScheduling, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobScheduling, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobScheduling(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobScheduling, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobDriverRunnerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6022,120 +4863,26 @@ func compareJobDriverRunnerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MasterDriverRunner, actual.MasterDriverRunner, dcl.Info{ObjectFunction: compareJobDriverRunnerMasterDriverRunnerNewStyle}, fn.AddNest("MasterDriverRunner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MasterDriverRunner, actual.MasterDriverRunner, dcl.Info{ObjectFunction: compareJobDriverRunnerMasterDriverRunnerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterDriverRunner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.YarnDriverRunner, actual.YarnDriverRunner, dcl.Info{ObjectFunction: compareJobDriverRunnerYarnDriverRunnerNewStyle}, fn.AddNest("YarnDriverRunner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.YarnDriverRunner, actual.YarnDriverRunner, dcl.Info{ObjectFunction: compareJobDriverRunnerYarnDriverRunnerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("YarnDriverRunner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobDriverRunner(c *Client, desired, actual *JobDriverRunner) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareJobDriverRunnerMasterDriverRunner(c, desired.MasterDriverRunner, actual.MasterDriverRunner) && !dcl.IsZeroValue(desired.MasterDriverRunner) {
-		c.Config.Logger.Infof("Diff in MasterDriverRunner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MasterDriverRunner), dcl.SprintResource(actual.MasterDriverRunner))
-		return true
-	}
-	if compareJobDriverRunnerYarnDriverRunner(c, desired.YarnDriverRunner, actual.YarnDriverRunner) && !dcl.IsZeroValue(desired.YarnDriverRunner) {
-		c.Config.Logger.Infof("Diff in YarnDriverRunner.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.YarnDriverRunner), dcl.SprintResource(actual.YarnDriverRunner))
-		return true
-	}
-	return false
-}
-
-func compareJobDriverRunnerSlice(c *Client, desired, actual []JobDriverRunner) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobDriverRunner, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobDriverRunner(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobDriverRunner, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobDriverRunnerMap(c *Client, desired, actual map[string]JobDriverRunner) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobDriverRunner, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobDriverRunner, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobDriverRunner(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobDriverRunner, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobDriverRunnerMasterDriverRunnerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
 	return diffs, nil
-}
-
-func compareJobDriverRunnerMasterDriverRunner(c *Client, desired, actual *JobDriverRunnerMasterDriverRunner) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	return false
-}
-
-func compareJobDriverRunnerMasterDriverRunnerSlice(c *Client, desired, actual []JobDriverRunnerMasterDriverRunner) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobDriverRunnerMasterDriverRunner, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobDriverRunnerMasterDriverRunner(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobDriverRunnerMasterDriverRunner, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobDriverRunnerMasterDriverRunnerMap(c *Client, desired, actual map[string]JobDriverRunnerMasterDriverRunner) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobDriverRunnerMasterDriverRunner, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobDriverRunnerMasterDriverRunner, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobDriverRunnerMasterDriverRunner(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobDriverRunnerMasterDriverRunner, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareJobDriverRunnerYarnDriverRunnerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -6158,161 +4905,20 @@ func compareJobDriverRunnerYarnDriverRunnerNewStyle(d, a interface{}, fn dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MemoryMb, actual.MemoryMb, dcl.Info{}, fn.AddNest("MemoryMb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MemoryMb, actual.MemoryMb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MemoryMb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Vcores, actual.Vcores, dcl.Info{}, fn.AddNest("Vcores")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Vcores, actual.Vcores, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Vcores")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareJobDriverRunnerYarnDriverRunner(c *Client, desired, actual *JobDriverRunnerYarnDriverRunner) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.MemoryMb, actual.MemoryMb) && !dcl.IsZeroValue(desired.MemoryMb) {
-		c.Config.Logger.Infof("Diff in MemoryMb.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MemoryMb), dcl.SprintResource(actual.MemoryMb))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Vcores, actual.Vcores) && !dcl.IsZeroValue(desired.Vcores) {
-		c.Config.Logger.Infof("Diff in Vcores.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Vcores), dcl.SprintResource(actual.Vcores))
-		return true
-	}
-	return false
-}
-
-func compareJobDriverRunnerYarnDriverRunnerSlice(c *Client, desired, actual []JobDriverRunnerYarnDriverRunner) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobDriverRunnerYarnDriverRunner, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobDriverRunnerYarnDriverRunner(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobDriverRunnerYarnDriverRunner, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobDriverRunnerYarnDriverRunnerMap(c *Client, desired, actual map[string]JobDriverRunnerYarnDriverRunner) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobDriverRunnerYarnDriverRunner, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in JobDriverRunnerYarnDriverRunner, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareJobDriverRunnerYarnDriverRunner(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in JobDriverRunnerYarnDriverRunner, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobStatusStateEnumSlice(c *Client, desired, actual []JobStatusStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobStatusStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobStatusStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobStatusStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobStatusStateEnum(c *Client, desired, actual *JobStatusStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareJobStatusSubstateEnumSlice(c *Client, desired, actual []JobStatusSubstateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobStatusSubstateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobStatusSubstateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobStatusSubstateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobStatusSubstateEnum(c *Client, desired, actual *JobStatusSubstateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareJobStatusHistoryStateEnumSlice(c *Client, desired, actual []JobStatusHistoryStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobStatusHistoryStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobStatusHistoryStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobStatusHistoryStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobStatusHistoryStateEnum(c *Client, desired, actual *JobStatusHistoryStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareJobStatusHistorySubstateEnumSlice(c *Client, desired, actual []JobStatusHistorySubstateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobStatusHistorySubstateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobStatusHistorySubstateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobStatusHistorySubstateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobStatusHistorySubstateEnum(c *Client, desired, actual *JobStatusHistorySubstateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareJobYarnApplicationsStateEnumSlice(c *Client, desired, actual []JobYarnApplicationsStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in JobYarnApplicationsStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareJobYarnApplicationsStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in JobYarnApplicationsStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareJobYarnApplicationsStateEnum(c *Client, desired, actual *JobYarnApplicationsStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -6513,34 +5119,34 @@ func flattenJob(c *Client, i interface{}) *Job {
 		return nil
 	}
 
-	r := &Job{}
-	r.Reference = flattenJobReference(c, m["reference"])
-	r.Placement = flattenJobPlacement(c, m["placement"])
-	r.HadoopJob = flattenJobHadoopJob(c, m["hadoopJob"])
-	r.SparkJob = flattenJobSparkJob(c, m["sparkJob"])
-	r.PysparkJob = flattenJobPysparkJob(c, m["pysparkJob"])
-	r.HiveJob = flattenJobHiveJob(c, m["hiveJob"])
-	r.PigJob = flattenJobPigJob(c, m["pigJob"])
-	r.SparkRJob = flattenJobSparkRJob(c, m["sparkRJob"])
-	r.SparkSqlJob = flattenJobSparkSqlJob(c, m["sparkSqlJob"])
-	r.PrestoJob = flattenJobPrestoJob(c, m["prestoJob"])
-	r.Status = flattenJobStatus(c, m["status"])
-	r.StatusHistory = flattenJobStatusHistorySlice(c, m["statusHistory"])
-	r.YarnApplications = flattenJobYarnApplicationsSlice(c, m["yarnApplications"])
-	r.SubmittedBy = dcl.FlattenString(m["submittedBy"])
-	r.DriverInputResourceUri = dcl.FlattenString(m["driverInputResourceUri"])
-	r.DriverOutputResourceUri = dcl.FlattenString(m["driverOutputResourceUri"])
-	r.DriverControlFilesUri = dcl.FlattenString(m["driverControlFilesUri"])
-	r.Interactive = dcl.FlattenBool(m["interactive"])
-	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	r.Scheduling = flattenJobScheduling(c, m["scheduling"])
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["jobUuid"]))
-	r.Done = dcl.FlattenBool(m["done"])
-	r.DriverRunner = flattenJobDriverRunner(c, m["driverRunner"])
-	r.Region = dcl.FlattenString(m["region"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &Job{}
+	res.Reference = flattenJobReference(c, m["reference"])
+	res.Placement = flattenJobPlacement(c, m["placement"])
+	res.HadoopJob = flattenJobHadoopJob(c, m["hadoopJob"])
+	res.SparkJob = flattenJobSparkJob(c, m["sparkJob"])
+	res.PysparkJob = flattenJobPysparkJob(c, m["pysparkJob"])
+	res.HiveJob = flattenJobHiveJob(c, m["hiveJob"])
+	res.PigJob = flattenJobPigJob(c, m["pigJob"])
+	res.SparkRJob = flattenJobSparkRJob(c, m["sparkRJob"])
+	res.SparkSqlJob = flattenJobSparkSqlJob(c, m["sparkSqlJob"])
+	res.PrestoJob = flattenJobPrestoJob(c, m["prestoJob"])
+	res.Status = flattenJobStatus(c, m["status"])
+	res.StatusHistory = flattenJobStatusHistorySlice(c, m["statusHistory"])
+	res.YarnApplications = flattenJobYarnApplicationsSlice(c, m["yarnApplications"])
+	res.SubmittedBy = dcl.FlattenString(m["submittedBy"])
+	res.DriverInputResourceUri = dcl.FlattenString(m["driverInputResourceUri"])
+	res.DriverOutputResourceUri = dcl.FlattenString(m["driverOutputResourceUri"])
+	res.DriverControlFilesUri = dcl.FlattenString(m["driverControlFilesUri"])
+	res.Interactive = dcl.FlattenBool(m["interactive"])
+	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	res.Scheduling = flattenJobScheduling(c, m["scheduling"])
+	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["jobUuid"]))
+	res.Done = dcl.FlattenBool(m["done"])
+	res.DriverRunner = flattenJobDriverRunner(c, m["driverRunner"])
+	res.Region = dcl.FlattenString(m["region"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // expandJobReferenceMap expands the contents of JobReference into a JSON
@@ -6627,10 +5233,11 @@ func flattenJobReferenceSlice(c *Client, i interface{}) []JobReference {
 // expandJobReference expands an instance of JobReference into a JSON
 // request object.
 func expandJobReference(c *Client, f *JobReference) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ProjectId; !dcl.IsEmptyValueIndirect(v) {
 		m["projectId"] = v
 	}
@@ -6740,10 +5347,11 @@ func flattenJobPlacementSlice(c *Client, i interface{}) []JobPlacement {
 // expandJobPlacement expands an instance of JobPlacement into a JSON
 // request object.
 func expandJobPlacement(c *Client, f *JobPlacement) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.ClusterName; !dcl.IsEmptyValueIndirect(v) {
 		m["clusterName"] = v
 	}
@@ -6857,10 +5465,11 @@ func flattenJobHadoopJobSlice(c *Client, i interface{}) []JobHadoopJob {
 // expandJobHadoopJob expands an instance of JobHadoopJob into a JSON
 // request object.
 func expandJobHadoopJob(c *Client, f *JobHadoopJob) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MainJarFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["mainJarFileUri"] = v
 	}
@@ -6996,10 +5605,11 @@ func flattenJobHadoopJobLoggingConfigSlice(c *Client, i interface{}) []JobHadoop
 // expandJobHadoopJobLoggingConfig expands an instance of JobHadoopJobLoggingConfig into a JSON
 // request object.
 func expandJobHadoopJobLoggingConfig(c *Client, f *JobHadoopJobLoggingConfig) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -7105,10 +5715,11 @@ func flattenJobSparkJobSlice(c *Client, i interface{}) []JobSparkJob {
 // expandJobSparkJob expands an instance of JobSparkJob into a JSON
 // request object.
 func expandJobSparkJob(c *Client, f *JobSparkJob) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MainJarFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["mainJarFileUri"] = v
 	}
@@ -7244,10 +5855,11 @@ func flattenJobSparkJobLoggingConfigSlice(c *Client, i interface{}) []JobSparkJo
 // expandJobSparkJobLoggingConfig expands an instance of JobSparkJobLoggingConfig into a JSON
 // request object.
 func expandJobSparkJobLoggingConfig(c *Client, f *JobSparkJobLoggingConfig) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -7353,10 +5965,11 @@ func flattenJobPysparkJobSlice(c *Client, i interface{}) []JobPysparkJob {
 // expandJobPysparkJob expands an instance of JobPysparkJob into a JSON
 // request object.
 func expandJobPysparkJob(c *Client, f *JobPysparkJob) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MainPythonFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["mainPythonFileUri"] = v
 	}
@@ -7492,10 +6105,11 @@ func flattenJobPysparkJobLoggingConfigSlice(c *Client, i interface{}) []JobPyspa
 // expandJobPysparkJobLoggingConfig expands an instance of JobPysparkJobLoggingConfig into a JSON
 // request object.
 func expandJobPysparkJobLoggingConfig(c *Client, f *JobPysparkJobLoggingConfig) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -7601,10 +6215,11 @@ func flattenJobHiveJobSlice(c *Client, i interface{}) []JobHiveJob {
 // expandJobHiveJob expands an instance of JobHiveJob into a JSON
 // request object.
 func expandJobHiveJob(c *Client, f *JobHiveJob) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.QueryFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["queryFileUri"] = v
 	}
@@ -7732,10 +6347,11 @@ func flattenJobHiveJobQueryListSlice(c *Client, i interface{}) []JobHiveJobQuery
 // expandJobHiveJobQueryList expands an instance of JobHiveJobQueryList into a JSON
 // request object.
 func expandJobHiveJobQueryList(c *Client, f *JobHiveJobQueryList) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
 		m["queries"] = v
 	}
@@ -7841,10 +6457,11 @@ func flattenJobPigJobSlice(c *Client, i interface{}) []JobPigJob {
 // expandJobPigJob expands an instance of JobPigJob into a JSON
 // request object.
 func expandJobPigJob(c *Client, f *JobPigJob) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.QueryFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["queryFileUri"] = v
 	}
@@ -7978,10 +6595,11 @@ func flattenJobPigJobQueryListSlice(c *Client, i interface{}) []JobPigJobQueryLi
 // expandJobPigJobQueryList expands an instance of JobPigJobQueryList into a JSON
 // request object.
 func expandJobPigJobQueryList(c *Client, f *JobPigJobQueryList) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
 		m["queries"] = v
 	}
@@ -8087,10 +6705,11 @@ func flattenJobPigJobLoggingConfigSlice(c *Client, i interface{}) []JobPigJobLog
 // expandJobPigJobLoggingConfig expands an instance of JobPigJobLoggingConfig into a JSON
 // request object.
 func expandJobPigJobLoggingConfig(c *Client, f *JobPigJobLoggingConfig) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -8196,10 +6815,11 @@ func flattenJobSparkRJobSlice(c *Client, i interface{}) []JobSparkRJob {
 // expandJobSparkRJob expands an instance of JobSparkRJob into a JSON
 // request object.
 func expandJobSparkRJob(c *Client, f *JobSparkRJob) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MainRFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["mainRFileUri"] = v
 	}
@@ -8327,10 +6947,11 @@ func flattenJobSparkRJobLoggingConfigSlice(c *Client, i interface{}) []JobSparkR
 // expandJobSparkRJobLoggingConfig expands an instance of JobSparkRJobLoggingConfig into a JSON
 // request object.
 func expandJobSparkRJobLoggingConfig(c *Client, f *JobSparkRJobLoggingConfig) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -8436,10 +7057,11 @@ func flattenJobSparkSqlJobSlice(c *Client, i interface{}) []JobSparkSqlJob {
 // expandJobSparkSqlJob expands an instance of JobSparkSqlJob into a JSON
 // request object.
 func expandJobSparkSqlJob(c *Client, f *JobSparkSqlJob) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.QueryFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["queryFileUri"] = v
 	}
@@ -8569,10 +7191,11 @@ func flattenJobSparkSqlJobQueryListSlice(c *Client, i interface{}) []JobSparkSql
 // expandJobSparkSqlJobQueryList expands an instance of JobSparkSqlJobQueryList into a JSON
 // request object.
 func expandJobSparkSqlJobQueryList(c *Client, f *JobSparkSqlJobQueryList) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
 		m["queries"] = v
 	}
@@ -8678,10 +7301,11 @@ func flattenJobSparkSqlJobLoggingConfigSlice(c *Client, i interface{}) []JobSpar
 // expandJobSparkSqlJobLoggingConfig expands an instance of JobSparkSqlJobLoggingConfig into a JSON
 // request object.
 func expandJobSparkSqlJobLoggingConfig(c *Client, f *JobSparkSqlJobLoggingConfig) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -8787,10 +7411,11 @@ func flattenJobPrestoJobSlice(c *Client, i interface{}) []JobPrestoJob {
 // expandJobPrestoJob expands an instance of JobPrestoJob into a JSON
 // request object.
 func expandJobPrestoJob(c *Client, f *JobPrestoJob) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.QueryFileUri; !dcl.IsEmptyValueIndirect(v) {
 		m["queryFileUri"] = v
 	}
@@ -8924,10 +7549,11 @@ func flattenJobPrestoJobQueryListSlice(c *Client, i interface{}) []JobPrestoJobQ
 // expandJobPrestoJobQueryList expands an instance of JobPrestoJobQueryList into a JSON
 // request object.
 func expandJobPrestoJobQueryList(c *Client, f *JobPrestoJobQueryList) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Queries; !dcl.IsEmptyValueIndirect(v) {
 		m["queries"] = v
 	}
@@ -9033,10 +7659,11 @@ func flattenJobPrestoJobLoggingConfigSlice(c *Client, i interface{}) []JobPresto
 // expandJobPrestoJobLoggingConfig expands an instance of JobPrestoJobLoggingConfig into a JSON
 // request object.
 func expandJobPrestoJobLoggingConfig(c *Client, f *JobPrestoJobLoggingConfig) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.DriverLogLevels; !dcl.IsEmptyValueIndirect(v) {
 		m["driverLogLevels"] = v
 	}
@@ -9142,10 +7769,11 @@ func flattenJobStatusSlice(c *Client, i interface{}) []JobStatus {
 // expandJobStatus expands an instance of JobStatus into a JSON
 // request object.
 func expandJobStatus(c *Client, f *JobStatus) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
 		m["state"] = v
 	}
@@ -9263,10 +7891,11 @@ func flattenJobStatusHistorySlice(c *Client, i interface{}) []JobStatusHistory {
 // expandJobStatusHistory expands an instance of JobStatusHistory into a JSON
 // request object.
 func expandJobStatusHistory(c *Client, f *JobStatusHistory) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
 		m["state"] = v
 	}
@@ -9384,10 +8013,11 @@ func flattenJobYarnApplicationsSlice(c *Client, i interface{}) []JobYarnApplicat
 // expandJobYarnApplications expands an instance of JobYarnApplications into a JSON
 // request object.
 func expandJobYarnApplications(c *Client, f *JobYarnApplications) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -9505,10 +8135,11 @@ func flattenJobSchedulingSlice(c *Client, i interface{}) []JobScheduling {
 // expandJobScheduling expands an instance of JobScheduling into a JSON
 // request object.
 func expandJobScheduling(c *Client, f *JobScheduling) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MaxFailuresPerHour; !dcl.IsEmptyValueIndirect(v) {
 		m["maxFailuresPerHour"] = v
 	}
@@ -9618,10 +8249,11 @@ func flattenJobDriverRunnerSlice(c *Client, i interface{}) []JobDriverRunner {
 // expandJobDriverRunner expands an instance of JobDriverRunner into a JSON
 // request object.
 func expandJobDriverRunner(c *Client, f *JobDriverRunner) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandJobDriverRunnerMasterDriverRunner(c, f.MasterDriverRunner); err != nil {
 		return nil, fmt.Errorf("error expanding MasterDriverRunner into masterDriverRunner: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -9735,10 +8367,11 @@ func flattenJobDriverRunnerMasterDriverRunnerSlice(c *Client, i interface{}) []J
 // expandJobDriverRunnerMasterDriverRunner expands an instance of JobDriverRunnerMasterDriverRunner into a JSON
 // request object.
 func expandJobDriverRunnerMasterDriverRunner(c *Client, f *JobDriverRunnerMasterDriverRunner) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 
 	return m, nil
 }
@@ -9840,10 +8473,11 @@ func flattenJobDriverRunnerYarnDriverRunnerSlice(c *Client, i interface{}) []Job
 // expandJobDriverRunnerYarnDriverRunner expands an instance of JobDriverRunnerYarnDriverRunner into a JSON
 // request object.
 func expandJobDriverRunnerYarnDriverRunner(c *Client, f *JobDriverRunnerYarnDriverRunner) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.MemoryMb; !dcl.IsEmptyValueIndirect(v) {
 		m["memoryMb"] = v
 	}
@@ -10063,5 +8697,36 @@ func (r *Job) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToJobDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]jobDiff, error) {
+	var diffs []jobDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := jobDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTojobApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTojobApiOperation(op string, opts ...dcl.ApplyOption) (jobApiOperation, error) {
+	switch op {
+
+	case "updateJobPatchOperation":
+		return &updateJobPatchOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

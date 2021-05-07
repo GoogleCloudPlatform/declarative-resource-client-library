@@ -27,6 +27,7 @@ type UrlMap struct {
 	DefaultService     *string                   `json:"defaultService"`
 	DefaultUrlRedirect *UrlMapDefaultUrlRedirect `json:"defaultUrlRedirect"`
 	Description        *string                   `json:"description"`
+	SelfLink           *string                   `json:"selfLink"`
 	HeaderAction       *UrlMapHeaderAction       `json:"headerAction"`
 	HostRule           []UrlMapHostRule          `json:"hostRule"`
 	Name               *string                   `json:"name"`
@@ -1626,6 +1627,7 @@ func (c *Client) ApplyUrlMap(ctx context.Context, rawDesired *UrlMap, opts ...dc
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

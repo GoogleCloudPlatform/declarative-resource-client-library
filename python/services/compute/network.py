@@ -112,25 +112,6 @@ class Network(object):
 
         return stub.ListComputeNetwork(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = network_pb2.ComputeNetwork()
-        any_proto.Unpack(res_proto)
-
-        res = Network()
-        res.description = Primitive.from_proto(res_proto.description)
-        res.gateway_ipv4 = Primitive.from_proto(res_proto.gateway_ipv4)
-        res.ipv4_range = Primitive.from_proto(res_proto.ipv4_range)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.auto_create_subnetworks = Primitive.from_proto(
-            res_proto.auto_create_subnetworks
-        )
-        res.routing_config = NetworkRoutingConfig.from_proto(res_proto.routing_config)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        return res
-
     def to_proto(self):
         resource = network_pb2.ComputeNetwork()
         if Primitive.to_proto(self.description):

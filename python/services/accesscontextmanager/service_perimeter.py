@@ -161,29 +161,6 @@ class ServicePerimeter(object):
 
         return stub.ListAccesscontextmanagerServicePerimeter(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = service_perimeter_pb2.AccesscontextmanagerServicePerimeter()
-        any_proto.Unpack(res_proto)
-
-        res = ServicePerimeter()
-        res.title = Primitive.from_proto(res_proto.title)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.perimeter_type = ServicePerimeterPerimeterTypeEnum.from_proto(
-            res_proto.perimeter_type
-        )
-        res.status = ServicePerimeterStatus.from_proto(res_proto.status)
-        res.policy = Primitive.from_proto(res_proto.policy)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.use_explicit_dry_run_spec = Primitive.from_proto(
-            res_proto.use_explicit_dry_run_spec
-        )
-        res.spec = ServicePerimeterSpec.from_proto(res_proto.spec)
-        return res
-
     def to_proto(self):
         resource = service_perimeter_pb2.AccesscontextmanagerServicePerimeter()
         if Primitive.to_proto(self.title):

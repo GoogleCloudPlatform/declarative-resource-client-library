@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -421,9 +420,6 @@ func canonicalizeAttestorDesiredState(rawDesired, rawInitial *Attestor, opts ...
 		rawDesired.Description = rawInitial.Description
 	}
 	rawDesired.UserOwnedGrafeasNote = canonicalizeAttestorUserOwnedGrafeasNote(rawDesired.UserOwnedGrafeasNote, rawInitial.UserOwnedGrafeasNote, opts...)
-	if dcl.IsZeroValue(rawDesired.UpdateTime) {
-		rawDesired.UpdateTime = rawInitial.UpdateTime
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
@@ -483,9 +479,6 @@ func canonicalizeAttestorUserOwnedGrafeasNote(des, initial *AttestorUserOwnedGra
 	if dcl.IsZeroValue(des.PublicKeys) {
 		des.PublicKeys = initial.PublicKeys
 	}
-	if dcl.StringCanonicalize(des.DelegationServiceAccountEmail, initial.DelegationServiceAccountEmail) || dcl.IsZeroValue(des.DelegationServiceAccountEmail) {
-		des.DelegationServiceAccountEmail = initial.DelegationServiceAccountEmail
-	}
 
 	return des
 }
@@ -514,7 +507,7 @@ func canonicalizeNewAttestorUserOwnedGrafeasNoteSet(c *Client, des, nw []Attesto
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAttestorUserOwnedGrafeasNote(c, &d, &n) {
+			if diffs, _ := compareAttestorUserOwnedGrafeasNoteNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -537,7 +530,7 @@ func canonicalizeNewAttestorUserOwnedGrafeasNoteSlice(c *Client, des, nw []Attes
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AttestorUserOwnedGrafeasNote
@@ -602,7 +595,7 @@ func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysSet(c *Client, des, nw
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAttestorUserOwnedGrafeasNotePublicKeys(c, &d, &n) {
+			if diffs, _ := compareAttestorUserOwnedGrafeasNotePublicKeysNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -625,7 +618,7 @@ func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysSlice(c *Client, des, 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AttestorUserOwnedGrafeasNotePublicKeys
@@ -667,6 +660,9 @@ func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c *Clien
 	if dcl.StringCanonicalize(des.PublicKeyPem, nw.PublicKeyPem) {
 		nw.PublicKeyPem = des.PublicKeyPem
 	}
+	if dcl.IsZeroValue(nw.SignatureAlgorithm) {
+		nw.SignatureAlgorithm = des.SignatureAlgorithm
+	}
 
 	return nw
 }
@@ -679,7 +675,7 @@ func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySet(c *Cl
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c, &d, &n) {
+			if diffs, _ := compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -702,7 +698,7 @@ func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySlice(c *
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey
@@ -736,53 +732,72 @@ func diffAttestor(c *Client, desired, actual *Attestor, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []attestorDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAttestorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAttestorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UserOwnedGrafeasNote, actual.UserOwnedGrafeasNote, dcl.Info{ObjectFunction: compareAttestorUserOwnedGrafeasNoteNewStyle}, fn.AddNest("UserOwnedGrafeasNote")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UserOwnedGrafeasNote, actual.UserOwnedGrafeasNote, dcl.Info{ObjectFunction: compareAttestorUserOwnedGrafeasNoteNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UserOwnedGrafeasNote")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UserOwnedGrafeasNote",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAttestorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "UpdateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAttestorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, attestorDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAttestorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -829,78 +844,27 @@ func compareAttestorUserOwnedGrafeasNoteNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NoteReference, actual.NoteReference, dcl.Info{Type: "ReferenceType"}, fn.AddNest("NoteReference")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NoteReference, actual.NoteReference, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NoteReference")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicKeys, actual.PublicKeys, dcl.Info{ObjectFunction: compareAttestorUserOwnedGrafeasNotePublicKeysNewStyle}, fn.AddNest("PublicKeys")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicKeys, actual.PublicKeys, dcl.Info{ObjectFunction: compareAttestorUserOwnedGrafeasNotePublicKeysNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicKeys")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegationServiceAccountEmail, actual.DelegationServiceAccountEmail, dcl.Info{OutputOnly: true}, fn.AddNest("DelegationServiceAccountEmail")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegationServiceAccountEmail, actual.DelegationServiceAccountEmail, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegationServiceAccountEmail")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAttestorUserOwnedGrafeasNote(c *Client, desired, actual *AttestorUserOwnedGrafeasNote) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.NameToSelfLink(desired.NoteReference, actual.NoteReference) && !dcl.IsZeroValue(desired.NoteReference) {
-		c.Config.Logger.Infof("Diff in NoteReference.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NoteReference), dcl.SprintResource(actual.NoteReference))
-		return true
-	}
-	if compareAttestorUserOwnedGrafeasNotePublicKeysSlice(c, desired.PublicKeys, actual.PublicKeys) && !dcl.IsZeroValue(desired.PublicKeys) {
-		c.Config.Logger.Infof("Diff in PublicKeys.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PublicKeys), dcl.SprintResource(actual.PublicKeys))
-		return true
-	}
-	return false
-}
-
-func compareAttestorUserOwnedGrafeasNoteSlice(c *Client, desired, actual []AttestorUserOwnedGrafeasNote) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AttestorUserOwnedGrafeasNote, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAttestorUserOwnedGrafeasNote(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AttestorUserOwnedGrafeasNote, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAttestorUserOwnedGrafeasNoteMap(c *Client, desired, actual map[string]AttestorUserOwnedGrafeasNote) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AttestorUserOwnedGrafeasNote, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AttestorUserOwnedGrafeasNote, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAttestorUserOwnedGrafeasNote(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AttestorUserOwnedGrafeasNote, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAttestorUserOwnedGrafeasNotePublicKeysNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -923,93 +887,34 @@ func compareAttestorUserOwnedGrafeasNotePublicKeysNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Comment, actual.Comment, dcl.Info{}, fn.AddNest("Comment")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Comment, actual.Comment, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Comment")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AsciiArmoredPgpPublicKey, actual.AsciiArmoredPgpPublicKey, dcl.Info{}, fn.AddNest("AsciiArmoredPgpPublicKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AsciiArmoredPgpPublicKey, actual.AsciiArmoredPgpPublicKey, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AsciiArmoredPgpPublicKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PkixPublicKey, actual.PkixPublicKey, dcl.Info{ObjectFunction: compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyNewStyle}, fn.AddNest("PkixPublicKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PkixPublicKey, actual.PkixPublicKey, dcl.Info{ObjectFunction: compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PkixPublicKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAttestorUserOwnedGrafeasNotePublicKeys(c *Client, desired, actual *AttestorUserOwnedGrafeasNotePublicKeys) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Comment, actual.Comment) && !dcl.IsZeroValue(desired.Comment) {
-		c.Config.Logger.Infof("Diff in Comment.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Comment), dcl.SprintResource(actual.Comment))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Id, actual.Id) && !dcl.IsZeroValue(desired.Id) {
-		c.Config.Logger.Infof("Diff in Id.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Id), dcl.SprintResource(actual.Id))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.AsciiArmoredPgpPublicKey, actual.AsciiArmoredPgpPublicKey) && !dcl.IsZeroValue(desired.AsciiArmoredPgpPublicKey) {
-		c.Config.Logger.Infof("Diff in AsciiArmoredPgpPublicKey.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AsciiArmoredPgpPublicKey), dcl.SprintResource(actual.AsciiArmoredPgpPublicKey))
-		return true
-	}
-	if compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c, desired.PkixPublicKey, actual.PkixPublicKey) && !dcl.IsZeroValue(desired.PkixPublicKey) {
-		c.Config.Logger.Infof("Diff in PkixPublicKey.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PkixPublicKey), dcl.SprintResource(actual.PkixPublicKey))
-		return true
-	}
-	return false
-}
-
-func compareAttestorUserOwnedGrafeasNotePublicKeysSlice(c *Client, desired, actual []AttestorUserOwnedGrafeasNotePublicKeys) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AttestorUserOwnedGrafeasNotePublicKeys, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAttestorUserOwnedGrafeasNotePublicKeys(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AttestorUserOwnedGrafeasNotePublicKeys, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAttestorUserOwnedGrafeasNotePublicKeysMap(c *Client, desired, actual map[string]AttestorUserOwnedGrafeasNotePublicKeys) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AttestorUserOwnedGrafeasNotePublicKeys, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AttestorUserOwnedGrafeasNotePublicKeys, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAttestorUserOwnedGrafeasNotePublicKeys(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AttestorUserOwnedGrafeasNotePublicKeys, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1032,89 +937,20 @@ func compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PublicKeyPem, actual.PublicKeyPem, dcl.Info{}, fn.AddNest("PublicKeyPem")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicKeyPem, actual.PublicKeyPem, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicKeyPem")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SignatureAlgorithm, actual.SignatureAlgorithm, dcl.Info{Type: "EnumType"}, fn.AddNest("SignatureAlgorithm")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SignatureAlgorithm, actual.SignatureAlgorithm, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SignatureAlgorithm")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c *Client, desired, actual *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.PublicKeyPem, actual.PublicKeyPem) && !dcl.IsZeroValue(desired.PublicKeyPem) {
-		c.Config.Logger.Infof("Diff in PublicKeyPem.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PublicKeyPem), dcl.SprintResource(actual.PublicKeyPem))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SignatureAlgorithm, actual.SignatureAlgorithm) && !dcl.IsZeroValue(desired.SignatureAlgorithm) {
-		c.Config.Logger.Infof("Diff in SignatureAlgorithm.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SignatureAlgorithm), dcl.SprintResource(actual.SignatureAlgorithm))
-		return true
-	}
-	return false
-}
-
-func compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySlice(c *Client, desired, actual []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyMap(c *Client, desired, actual map[string]AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnumSlice(c *Client, desired, actual []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(c *Client, desired, actual *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1221,14 +1057,14 @@ func flattenAttestor(c *Client, i interface{}) *Attestor {
 		return nil
 	}
 
-	r := &Attestor{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.UserOwnedGrafeasNote = flattenAttestorUserOwnedGrafeasNote(c, m["userOwnedGrafeasNote"])
-	r.UpdateTime = dcl.FlattenString(m["updateTime"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &Attestor{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.UserOwnedGrafeasNote = flattenAttestorUserOwnedGrafeasNote(c, m["userOwnedGrafeasNote"])
+	res.UpdateTime = dcl.FlattenString(m["updateTime"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // expandAttestorUserOwnedGrafeasNoteMap expands the contents of AttestorUserOwnedGrafeasNote into a JSON
@@ -1315,10 +1151,11 @@ func flattenAttestorUserOwnedGrafeasNoteSlice(c *Client, i interface{}) []Attest
 // expandAttestorUserOwnedGrafeasNote expands an instance of AttestorUserOwnedGrafeasNote into a JSON
 // request object.
 func expandAttestorUserOwnedGrafeasNote(c *Client, f *AttestorUserOwnedGrafeasNote) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.NoteReference; !dcl.IsEmptyValueIndirect(v) {
 		m["noteReference"] = v
 	}
@@ -1434,10 +1271,11 @@ func flattenAttestorUserOwnedGrafeasNotePublicKeysSlice(c *Client, i interface{}
 // expandAttestorUserOwnedGrafeasNotePublicKeys expands an instance of AttestorUserOwnedGrafeasNotePublicKeys into a JSON
 // request object.
 func expandAttestorUserOwnedGrafeasNotePublicKeys(c *Client, f *AttestorUserOwnedGrafeasNotePublicKeys) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Comment; !dcl.IsEmptyValueIndirect(v) {
 		m["comment"] = v
 	}
@@ -1557,10 +1395,11 @@ func flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySlice(c *Client, 
 // expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey expands an instance of AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey into a JSON
 // request object.
 func expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c *Client, f *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.PublicKeyPem; !dcl.IsEmptyValueIndirect(v) {
 		m["publicKeyPem"] = v
 	}
@@ -1648,5 +1487,36 @@ func (r *Attestor) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToAttestorDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]attestorDiff, error) {
+	var diffs []attestorDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := attestorDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToattestorApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToattestorApiOperation(op string, opts ...dcl.ApplyOption) (attestorApiOperation, error) {
+	switch op {
+
+	case "updateAttestorUpdateAttestorOperation":
+		return &updateAttestorUpdateAttestorOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

@@ -240,41 +240,6 @@ class HealthCheck(object):
 
         return stub.ListComputeHealthCheck(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = health_check_pb2.ComputeHealthCheck()
-        any_proto.Unpack(res_proto)
-
-        res = HealthCheck()
-        res.check_interval_sec = Primitive.from_proto(res_proto.check_interval_sec)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.healthy_threshold = Primitive.from_proto(res_proto.healthy_threshold)
-        res.http2_health_check = HealthCheckHttp2HealthCheck.from_proto(
-            res_proto.http2_health_check
-        )
-        res.http_health_check = HealthCheckHttpHealthCheck.from_proto(
-            res_proto.http_health_check
-        )
-        res.https_health_check = HealthCheckHttpsHealthCheck.from_proto(
-            res_proto.https_health_check
-        )
-        res.name = Primitive.from_proto(res_proto.name)
-        res.ssl_health_check = HealthCheckSslHealthCheck.from_proto(
-            res_proto.ssl_health_check
-        )
-        res.tcp_health_check = HealthCheckTcpHealthCheck.from_proto(
-            res_proto.tcp_health_check
-        )
-        res.type = HealthCheckTypeEnum.from_proto(res_proto.type)
-        res.unhealthy_threshold = Primitive.from_proto(res_proto.unhealthy_threshold)
-        res.timeout_sec = Primitive.from_proto(res_proto.timeout_sec)
-        res.region = Primitive.from_proto(res_proto.region)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = health_check_pb2.ComputeHealthCheck()
         if Primitive.to_proto(self.check_interval_sec):

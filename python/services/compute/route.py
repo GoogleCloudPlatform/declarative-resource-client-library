@@ -188,32 +188,6 @@ class Route(object):
 
         return stub.ListComputeRoute(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = route_pb2.ComputeRoute()
-        any_proto.Unpack(res_proto)
-
-        res = Route()
-        res.id = Primitive.from_proto(res_proto.id)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.network = Primitive.from_proto(res_proto.network)
-        res.tag = Primitive.from_proto(res_proto.tag)
-        res.dest_range = Primitive.from_proto(res_proto.dest_range)
-        res.priority = Primitive.from_proto(res_proto.priority)
-        res.next_hop_instance = Primitive.from_proto(res_proto.next_hop_instance)
-        res.next_hop_ip = Primitive.from_proto(res_proto.next_hop_ip)
-        res.next_hop_network = Primitive.from_proto(res_proto.next_hop_network)
-        res.next_hop_gateway = Primitive.from_proto(res_proto.next_hop_gateway)
-        res.next_hop_peering = Primitive.from_proto(res_proto.next_hop_peering)
-        res.next_hop_ilb = Primitive.from_proto(res_proto.next_hop_ilb)
-        res.warning = RouteWarningArray.from_proto(res_proto.warning)
-        res.next_hop_vpn_tunnel = Primitive.from_proto(res_proto.next_hop_vpn_tunnel)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = route_pb2.ComputeRoute()
         if Primitive.to_proto(self.name):

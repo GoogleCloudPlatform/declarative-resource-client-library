@@ -225,6 +225,12 @@ func PartialSelfLinkToSelfLinkArray(l, r []string) bool {
 	return true
 }
 
+func WithoutTrailingDotArrayInterface(l, r interface{}) bool {
+	lVal, _ := l.([]string)
+	rVal, _ := r.([]string)
+	return WithoutTrailingDotArray(lVal, rVal)
+}
+
 // WithoutTrailingDotArray returns true if WithoutTrailingDot returns true for each
 // pair of elements in the lists.
 func WithoutTrailingDotArray(l, r []string) bool {
@@ -470,6 +476,35 @@ func StringSliceEquals(v, q []string) bool {
 	return true
 }
 
+// UnorderedStringSliceEquals returns true if a, b contains same set of elements irrespective of their ordering.
+func UnorderedStringSliceEquals(a, b []string) bool {
+	aMap := make(map[string]int)
+	bMap := make(map[string]int)
+
+	for _, val := range a {
+		aMap[val]++
+	}
+	for _, val := range b {
+		bMap[val]++
+	}
+
+	if len(aMap) != len(bMap) {
+		return false
+	}
+
+	for k, v := range aMap {
+		bv, ok := bMap[k]
+		if !ok {
+			return false
+		}
+		if v != bv {
+			return false
+		}
+	}
+
+	return true
+}
+
 // StringSliceEqualsWithSelfLink returns true if v, q arrays of strings are equal according to StringEqualsWithSelfLink
 func StringSliceEqualsWithSelfLink(v, q []string) bool {
 	if len(v) != len(q) {
@@ -598,9 +633,8 @@ func IsEmptyValueIndirect(i interface{}) bool {
 
 	iv := reflect.Indirect(reflect.ValueOf(i))
 
-	// All non-nil bools are not empty values.
-	_, ok := i.(*bool)
-	if ok {
+	// All non-nil bool values are not empty.
+	if iv.Kind() == reflect.Bool {
 		return false
 	}
 
@@ -628,6 +662,20 @@ func hasEmptyStructField(i interface{}) bool {
 		}
 	}
 	return false
+}
+
+// MatchingSemverInterface matches two interfaces according to MatchingSemver
+func MatchingSemverInterface(lp, rp interface{}) bool {
+	if lp == nil && rp == nil {
+		return true
+	}
+	if lp == nil || rp == nil {
+		return false
+	}
+
+	lpVal, _ := lp.(*string)
+	rpVal, _ := rp.(*string)
+	return MatchingSemver(lpVal, rpVal)
 }
 
 // MatchingSemver returns whether the two strings should be considered equivalent

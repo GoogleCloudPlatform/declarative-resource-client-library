@@ -329,6 +329,8 @@ components:
                 x-dcl-references:
                 - field: selfLink
                   resource: Compute/BackendBucket
+                - field: selfLink
+                  resource: Compute/BackendService
                 x-kubernetes-immutable: true
               headerAction:
                 $ref: '#/components/schemas/HeaderAction'
@@ -1784,6 +1786,12 @@ components:
             in the request body.'
           type: string
           x-dcl-go-name: Region
+          x-kubernetes-immutable: true
+        selfLink:
+          description: Server-defined URL for the resource.
+          readOnly: true
+          type: string
+          x-dcl-go-name: SelfLink
           x-kubernetes-immutable: true
         test:
           description: The list of expected URL mapping tests. Request to update this

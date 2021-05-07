@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -450,15 +449,6 @@ func canonicalizeNetworkEndpointGroupDesiredState(rawDesired, rawInitial *Networ
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Id) {
-		rawDesired.Id = rawInitial.Id
-	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
-	}
-	if dcl.StringCanonicalize(rawDesired.SelfLinkWithId, rawInitial.SelfLinkWithId) {
-		rawDesired.SelfLinkWithId = rawInitial.SelfLinkWithId
-	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -647,7 +637,7 @@ func canonicalizeNewNetworkEndpointGroupCloudRunSet(c *Client, des, nw []Network
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareNetworkEndpointGroupCloudRun(c, &d, &n) {
+			if diffs, _ := compareNetworkEndpointGroupCloudRunNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -670,7 +660,7 @@ func canonicalizeNewNetworkEndpointGroupCloudRunSlice(c *Client, des, nw []Netwo
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []NetworkEndpointGroupCloudRun
@@ -733,7 +723,7 @@ func canonicalizeNewNetworkEndpointGroupAppEngineSet(c *Client, des, nw []Networ
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareNetworkEndpointGroupAppEngine(c, &d, &n) {
+			if diffs, _ := compareNetworkEndpointGroupAppEngineNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -756,7 +746,7 @@ func canonicalizeNewNetworkEndpointGroupAppEngineSlice(c *Client, des, nw []Netw
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []NetworkEndpointGroupAppEngine
@@ -813,7 +803,7 @@ func canonicalizeNewNetworkEndpointGroupCloudFunctionSet(c *Client, des, nw []Ne
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareNetworkEndpointGroupCloudFunction(c, &d, &n) {
+			if diffs, _ := compareNetworkEndpointGroupCloudFunctionNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -836,7 +826,7 @@ func canonicalizeNewNetworkEndpointGroupCloudFunctionSlice(c *Client, des, nw []
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []NetworkEndpointGroupCloudFunction
@@ -870,152 +860,215 @@ func diffNetworkEndpointGroup(c *Client, desired, actual *NetworkEndpointGroup, 
 	}
 
 	var diffs []networkEndpointGroupDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Id",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLinkWithId, actual.SelfLinkWithId, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLinkWithId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLinkWithId, actual.SelfLinkWithId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLinkWithId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLinkWithId",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkEndpointType, actual.NetworkEndpointType, dcl.Info{Type: "EnumType"}, fn.AddNest("NetworkEndpointType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkEndpointType, actual.NetworkEndpointType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkEndpointType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "NetworkEndpointType",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Size, actual.Size, dcl.Info{}, fn.AddNest("Size")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Size, actual.Size, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Size")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Size",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Network",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Subnetwork",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultPort, actual.DefaultPort, dcl.Info{}, fn.AddNest("DefaultPort")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultPort, actual.DefaultPort, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultPort")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "DefaultPort",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Annotations",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudRun, actual.CloudRun, dcl.Info{ObjectFunction: compareNetworkEndpointGroupCloudRunNewStyle}, fn.AddNest("CloudRun")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudRun, actual.CloudRun, dcl.Info{ObjectFunction: compareNetworkEndpointGroupCloudRunNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudRun")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CloudRun",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AppEngine, actual.AppEngine, dcl.Info{ObjectFunction: compareNetworkEndpointGroupAppEngineNewStyle}, fn.AddNest("AppEngine")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AppEngine, actual.AppEngine, dcl.Info{ObjectFunction: compareNetworkEndpointGroupAppEngineNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AppEngine")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "AppEngine",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudFunction, actual.CloudFunction, dcl.Info{ObjectFunction: compareNetworkEndpointGroupCloudFunctionNewStyle}, fn.AddNest("CloudFunction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudFunction, actual.CloudFunction, dcl.Info{ObjectFunction: compareNetworkEndpointGroupCloudFunctionNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudFunction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CloudFunction",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkEndpointGroupDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkEndpointGroupDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1062,82 +1115,27 @@ func compareNetworkEndpointGroupCloudRunNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UrlMask, actual.UrlMask, dcl.Info{}, fn.AddNest("UrlMask")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UrlMask, actual.UrlMask, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UrlMask")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareNetworkEndpointGroupCloudRun(c *Client, desired, actual *NetworkEndpointGroupCloudRun) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Service, actual.Service) && !dcl.IsZeroValue(desired.Service) {
-		c.Config.Logger.Infof("Diff in Service.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Service), dcl.SprintResource(actual.Service))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Tag, actual.Tag) && !dcl.IsZeroValue(desired.Tag) {
-		c.Config.Logger.Infof("Diff in Tag.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Tag), dcl.SprintResource(actual.Tag))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.UrlMask, actual.UrlMask) && !dcl.IsZeroValue(desired.UrlMask) {
-		c.Config.Logger.Infof("Diff in UrlMask.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlMask), dcl.SprintResource(actual.UrlMask))
-		return true
-	}
-	return false
-}
-
-func compareNetworkEndpointGroupCloudRunSlice(c *Client, desired, actual []NetworkEndpointGroupCloudRun) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NetworkEndpointGroupCloudRun, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareNetworkEndpointGroupCloudRun(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NetworkEndpointGroupCloudRun, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareNetworkEndpointGroupCloudRunMap(c *Client, desired, actual map[string]NetworkEndpointGroupCloudRun) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NetworkEndpointGroupCloudRun, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in NetworkEndpointGroupCloudRun, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareNetworkEndpointGroupCloudRun(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in NetworkEndpointGroupCloudRun, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareNetworkEndpointGroupAppEngineNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1160,82 +1158,27 @@ func compareNetworkEndpointGroupAppEngineNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UrlMask, actual.UrlMask, dcl.Info{}, fn.AddNest("UrlMask")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UrlMask, actual.UrlMask, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UrlMask")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareNetworkEndpointGroupAppEngine(c *Client, desired, actual *NetworkEndpointGroupAppEngine) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Service, actual.Service) && !dcl.IsZeroValue(desired.Service) {
-		c.Config.Logger.Infof("Diff in Service.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Service), dcl.SprintResource(actual.Service))
-		return true
-	}
-	if !dcl.NameToSelfLink(desired.Version, actual.Version) && !dcl.IsZeroValue(desired.Version) {
-		c.Config.Logger.Infof("Diff in Version.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Version), dcl.SprintResource(actual.Version))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.UrlMask, actual.UrlMask) && !dcl.IsZeroValue(desired.UrlMask) {
-		c.Config.Logger.Infof("Diff in UrlMask.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlMask), dcl.SprintResource(actual.UrlMask))
-		return true
-	}
-	return false
-}
-
-func compareNetworkEndpointGroupAppEngineSlice(c *Client, desired, actual []NetworkEndpointGroupAppEngine) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NetworkEndpointGroupAppEngine, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareNetworkEndpointGroupAppEngine(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NetworkEndpointGroupAppEngine, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareNetworkEndpointGroupAppEngineMap(c *Client, desired, actual map[string]NetworkEndpointGroupAppEngine) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NetworkEndpointGroupAppEngine, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in NetworkEndpointGroupAppEngine, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareNetworkEndpointGroupAppEngine(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in NetworkEndpointGroupAppEngine, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareNetworkEndpointGroupCloudFunctionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1258,89 +1201,20 @@ func compareNetworkEndpointGroupCloudFunctionNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Function, actual.Function, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Function")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Function, actual.Function, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Function")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UrlMask, actual.UrlMask, dcl.Info{}, fn.AddNest("UrlMask")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UrlMask, actual.UrlMask, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UrlMask")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareNetworkEndpointGroupCloudFunction(c *Client, desired, actual *NetworkEndpointGroupCloudFunction) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.NameToSelfLink(desired.Function, actual.Function) && !dcl.IsZeroValue(desired.Function) {
-		c.Config.Logger.Infof("Diff in Function.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Function), dcl.SprintResource(actual.Function))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.UrlMask, actual.UrlMask) && !dcl.IsZeroValue(desired.UrlMask) {
-		c.Config.Logger.Infof("Diff in UrlMask.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UrlMask), dcl.SprintResource(actual.UrlMask))
-		return true
-	}
-	return false
-}
-
-func compareNetworkEndpointGroupCloudFunctionSlice(c *Client, desired, actual []NetworkEndpointGroupCloudFunction) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NetworkEndpointGroupCloudFunction, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareNetworkEndpointGroupCloudFunction(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NetworkEndpointGroupCloudFunction, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareNetworkEndpointGroupCloudFunctionMap(c *Client, desired, actual map[string]NetworkEndpointGroupCloudFunction) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NetworkEndpointGroupCloudFunction, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in NetworkEndpointGroupCloudFunction, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareNetworkEndpointGroupCloudFunction(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in NetworkEndpointGroupCloudFunction, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareNetworkEndpointGroupNetworkEndpointTypeEnumSlice(c *Client, desired, actual []NetworkEndpointGroupNetworkEndpointTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NetworkEndpointGroupNetworkEndpointTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareNetworkEndpointGroupNetworkEndpointTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NetworkEndpointGroupNetworkEndpointTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareNetworkEndpointGroupNetworkEndpointTypeEnum(c *Client, desired, actual *NetworkEndpointGroupNetworkEndpointTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1480,25 +1354,25 @@ func flattenNetworkEndpointGroup(c *Client, i interface{}) *NetworkEndpointGroup
 		return nil
 	}
 
-	r := &NetworkEndpointGroup{}
-	r.Id = dcl.FlattenInteger(m["id"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
-	r.SelfLinkWithId = dcl.FlattenString(m["selfLinkWithId"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.NetworkEndpointType = flattenNetworkEndpointGroupNetworkEndpointTypeEnum(m["networkEndpointType"])
-	r.Size = dcl.FlattenInteger(m["size"])
-	r.Location = dcl.FlattenString(m["location"])
-	r.Network = dcl.FlattenString(m["network"])
-	r.Subnetwork = dcl.FlattenString(m["subnetwork"])
-	r.DefaultPort = dcl.FlattenInteger(m["defaultPort"])
-	r.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
-	r.CloudRun = flattenNetworkEndpointGroupCloudRun(c, m["cloudRun"])
-	r.AppEngine = flattenNetworkEndpointGroupAppEngine(c, m["appEngine"])
-	r.CloudFunction = flattenNetworkEndpointGroupCloudFunction(c, m["cloudFunction"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &NetworkEndpointGroup{}
+	res.Id = dcl.FlattenInteger(m["id"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.SelfLinkWithId = dcl.FlattenString(m["selfLinkWithId"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.NetworkEndpointType = flattenNetworkEndpointGroupNetworkEndpointTypeEnum(m["networkEndpointType"])
+	res.Size = dcl.FlattenInteger(m["size"])
+	res.Location = dcl.FlattenString(m["location"])
+	res.Network = dcl.FlattenString(m["network"])
+	res.Subnetwork = dcl.FlattenString(m["subnetwork"])
+	res.DefaultPort = dcl.FlattenInteger(m["defaultPort"])
+	res.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
+	res.CloudRun = flattenNetworkEndpointGroupCloudRun(c, m["cloudRun"])
+	res.AppEngine = flattenNetworkEndpointGroupAppEngine(c, m["appEngine"])
+	res.CloudFunction = flattenNetworkEndpointGroupCloudFunction(c, m["cloudFunction"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // expandNetworkEndpointGroupCloudRunMap expands the contents of NetworkEndpointGroupCloudRun into a JSON
@@ -1585,10 +1459,11 @@ func flattenNetworkEndpointGroupCloudRunSlice(c *Client, i interface{}) []Networ
 // expandNetworkEndpointGroupCloudRun expands an instance of NetworkEndpointGroupCloudRun into a JSON
 // request object.
 func expandNetworkEndpointGroupCloudRun(c *Client, f *NetworkEndpointGroupCloudRun) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
 		m["service"] = v
 	}
@@ -1702,10 +1577,11 @@ func flattenNetworkEndpointGroupAppEngineSlice(c *Client, i interface{}) []Netwo
 // expandNetworkEndpointGroupAppEngine expands an instance of NetworkEndpointGroupAppEngine into a JSON
 // request object.
 func expandNetworkEndpointGroupAppEngine(c *Client, f *NetworkEndpointGroupAppEngine) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
 		m["service"] = v
 	}
@@ -1819,10 +1695,11 @@ func flattenNetworkEndpointGroupCloudFunctionSlice(c *Client, i interface{}) []N
 // expandNetworkEndpointGroupCloudFunction expands an instance of NetworkEndpointGroupCloudFunction into a JSON
 // request object.
 func expandNetworkEndpointGroupCloudFunction(c *Client, f *NetworkEndpointGroupCloudFunction) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Function; !dcl.IsEmptyValueIndirect(v) {
 		m["function"] = v
 	}
@@ -1918,5 +1795,33 @@ func (r *NetworkEndpointGroup) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToNetworkEndpointGroupDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]networkEndpointGroupDiff, error) {
+	var diffs []networkEndpointGroupDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := networkEndpointGroupDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTonetworkEndpointGroupApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTonetworkEndpointGroupApiOperation(op string, opts ...dcl.ApplyOption) (networkEndpointGroupApiOperation, error) {
+	switch op {
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

@@ -23,6 +23,7 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterComputeAddressServiceServer(s, &AddressServer{})
 	sdkgrpc.RegisterComputeAutoscalerServiceServer(s, &AutoscalerServer{})
 	sdkgrpc.RegisterComputeBackendBucketServiceServer(s, &BackendBucketServer{})
+	sdkgrpc.RegisterComputeBackendServiceServiceServer(s, &BackendServiceServer{})
 	sdkgrpc.RegisterComputeDiskServiceServer(s, &DiskServer{})
 	sdkgrpc.RegisterComputeFirewallServiceServer(s, &FirewallServer{})
 	sdkgrpc.RegisterComputeFirewallPolicyServiceServer(s, &FirewallPolicyServer{})

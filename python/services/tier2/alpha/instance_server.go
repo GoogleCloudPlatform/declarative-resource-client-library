@@ -85,30 +85,6 @@ func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsRequestedTenantProjectS
 	return nil
 }
 
-// ProtoToInstanceInitiateCreateRecipeStepsActionEnum converts a InstanceInitiateCreateRecipeStepsActionEnum enum from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnum) *alpha.InstanceInitiateCreateRecipeStepsActionEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnum_name[int32(e)]; ok {
-		e := alpha.InstanceInitiateCreateRecipeStepsActionEnum(n[len("InstanceInitiateCreateRecipeStepsActionEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum converts a InstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum enum from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum(e alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum) *alpha.InstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
-		e := alpha.InstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToInstanceCreateRecipeStepsActionEnum converts a InstanceCreateRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstanceCreateRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceCreateRecipeStepsActionEnum) *alpha.InstanceCreateRecipeStepsActionEnum {
 	if e == 0 {
@@ -205,30 +181,6 @@ func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsRequestedTenantProjectSc
 	return nil
 }
 
-// ProtoToInstanceInitiateResetRecipeStepsActionEnum converts a InstanceInitiateResetRecipeStepsActionEnum enum from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsActionEnum) *alpha.InstanceInitiateResetRecipeStepsActionEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsActionEnum_name[int32(e)]; ok {
-		e := alpha.InstanceInitiateResetRecipeStepsActionEnum(n[len("InstanceInitiateResetRecipeStepsActionEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum converts a InstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum enum from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum(e alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum) *alpha.InstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
-		e := alpha.InstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToInstanceResetRecipeStepsActionEnum converts a InstanceResetRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstanceResetRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceResetRecipeStepsActionEnum) *alpha.InstanceResetRecipeStepsActionEnum {
 	if e == 0 {
@@ -272,30 +224,6 @@ func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectS
 	}
 	if n, ok := alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
 		e := alpha.InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsActionEnum converts a InstanceInitiateRepairRecipeStepsActionEnum enum from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnum) *alpha.InstanceInitiateRepairRecipeStepsActionEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnum_name[int32(e)]; ok {
-		e := alpha.InstanceInitiateRepairRecipeStepsActionEnum(n[len("InstanceInitiateRepairRecipeStepsActionEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum converts a InstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum enum from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum(e alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum) *alpha.InstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
-		e := alpha.InstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum"):])
 		return &e
 	}
 	return nil
@@ -349,30 +277,6 @@ func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsRequestedTenantProjectS
 	return nil
 }
 
-// ProtoToInstanceInitiateDeleteRecipeStepsActionEnum converts a InstanceInitiateDeleteRecipeStepsActionEnum enum from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnum) *alpha.InstanceInitiateDeleteRecipeStepsActionEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnum_name[int32(e)]; ok {
-		e := alpha.InstanceInitiateDeleteRecipeStepsActionEnum(n[len("InstanceInitiateDeleteRecipeStepsActionEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum converts a InstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum enum from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum(e alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum) *alpha.InstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
-		e := alpha.InstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToInstancePreprocessUpdateRecipeStepsActionEnum converts a InstancePreprocessUpdateRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsActionEnum(e alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsActionEnum) *alpha.InstancePreprocessUpdateRecipeStepsActionEnum {
 	if e == 0 {
@@ -392,30 +296,6 @@ func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectS
 	}
 	if n, ok := alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
 		e := alpha.InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsActionEnum converts a InstanceInitiateUpdateRecipeStepsActionEnum enum from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnum) *alpha.InstanceInitiateUpdateRecipeStepsActionEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnum_name[int32(e)]; ok {
-		e := alpha.InstanceInitiateUpdateRecipeStepsActionEnum(n[len("InstanceInitiateUpdateRecipeStepsActionEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum converts a InstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum enum from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum(e alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum) *alpha.InstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
-		e := alpha.InstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum"):])
 		return &e
 	}
 	return nil
@@ -517,6 +397,126 @@ func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum
 	return nil
 }
 
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsActionEnum converts a InstancePreprocessReportInstanceHealthRecipeStepsActionEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnum(e alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnum) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsActionEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessReportInstanceHealthRecipeStepsActionEnum(n[len("InstancePreprocessReportInstanceHealthRecipeStepsActionEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum converts a InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(e alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsActionEnum converts a InstanceReportInstanceHealthRecipeStepsActionEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum) *alpha.InstanceReportInstanceHealthRecipeStepsActionEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum_name[int32(e)]; ok {
+		e := alpha.InstanceReportInstanceHealthRecipeStepsActionEnum(n[len("InstanceReportInstanceHealthRecipeStepsActionEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum converts a InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(e alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum) *alpha.InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsActionEnum converts a InstancePreprocessGetRecipeStepsActionEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsActionEnum(e alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsActionEnum) *alpha.InstancePreprocessGetRecipeStepsActionEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsActionEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessGetRecipeStepsActionEnum(n[len("InstancePreprocessGetRecipeStepsActionEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum converts a InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum(e alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum) *alpha.InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsActionEnum converts a InstanceNotifyKeyAvailableRecipeStepsActionEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum) *alpha.InstanceNotifyKeyAvailableRecipeStepsActionEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum_name[int32(e)]; ok {
+		e := alpha.InstanceNotifyKeyAvailableRecipeStepsActionEnum(n[len("InstanceNotifyKeyAvailableRecipeStepsActionEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum converts a InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum(e alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum) *alpha.InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsActionEnum converts a InstanceNotifyKeyUnavailableRecipeStepsActionEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnum) *alpha.InstanceNotifyKeyUnavailableRecipeStepsActionEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnum_name[int32(e)]; ok {
+		e := alpha.InstanceNotifyKeyUnavailableRecipeStepsActionEnum(n[len("InstanceNotifyKeyUnavailableRecipeStepsActionEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum converts a InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum(e alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum) *alpha.InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstanceReadonlyRecipeStepsActionEnum converts a InstanceReadonlyRecipeStepsActionEnum enum from its proto representation.
 func ProtoToTier2AlphaInstanceReadonlyRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceReadonlyRecipeStepsActionEnum) *alpha.InstanceReadonlyRecipeStepsActionEnum {
 	if e == 0 {
@@ -541,6 +541,78 @@ func ProtoToTier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum
 	return nil
 }
 
+// ProtoToInstanceReconcileRecipeStepsActionEnum converts a InstanceReconcileRecipeStepsActionEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsActionEnum(e alphapb.Tier2AlphaInstanceReconcileRecipeStepsActionEnum) *alpha.InstanceReconcileRecipeStepsActionEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceReconcileRecipeStepsActionEnum_name[int32(e)]; ok {
+		e := alpha.InstanceReconcileRecipeStepsActionEnum(n[len("InstanceReconcileRecipeStepsActionEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum converts a InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum(e alphapb.Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum) *alpha.InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
+		e := alpha.InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsActionEnum converts a InstancePreprocessPassthroughRecipeStepsActionEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum(e alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum) *alpha.InstancePreprocessPassthroughRecipeStepsActionEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessPassthroughRecipeStepsActionEnum(n[len("InstancePreprocessPassthroughRecipeStepsActionEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum converts a InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum(e alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum) *alpha.InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsActionEnum converts a InstancePreprocessReconcileRecipeStepsActionEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum(e alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum) *alpha.InstancePreprocessReconcileRecipeStepsActionEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessReconcileRecipeStepsActionEnum(n[len("InstancePreprocessReconcileRecipeStepsActionEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum converts a InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum enum from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum(e alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum) *alpha.InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum_name[int32(e)]; ok {
+		e := alpha.InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum(n[len("InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstanceSku converts a InstanceSku resource from its proto representation.
 func ProtoToTier2AlphaInstanceSku(p *alphapb.Tier2AlphaInstanceSku) *alpha.InstanceSku {
 	if p == nil {
@@ -549,6 +621,35 @@ func ProtoToTier2AlphaInstanceSku(p *alphapb.Tier2AlphaInstanceSku) *alpha.Insta
 	obj := &alpha.InstanceSku{
 		Tier: ProtoToTier2AlphaInstanceSkuTierEnum(p.GetTier()),
 		Size: ProtoToTier2AlphaInstanceSkuSizeEnum(p.GetSize()),
+	}
+	return obj
+}
+
+// ProtoToInstanceReferences converts a InstanceReferences resource from its proto representation.
+func ProtoToTier2AlphaInstanceReferences(p *alphapb.Tier2AlphaInstanceReferences) *alpha.InstanceReferences {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReferences{
+		Name:           dcl.StringOrNil(p.Name),
+		Type:           dcl.StringOrNil(p.Type),
+		SourceResource: dcl.StringOrNil(p.SourceResource),
+		CreateTime:     dcl.StringOrNil(p.GetCreateTime()),
+	}
+	for _, r := range p.GetDetails() {
+		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstanceReferencesDetails(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceReferencesDetails converts a InstanceReferencesDetails resource from its proto representation.
+func ProtoToTier2AlphaInstanceReferencesDetails(p *alphapb.Tier2AlphaInstanceReferencesDetails) *alpha.InstanceReferencesDetails {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReferencesDetails{
+		TypeUrl: dcl.StringOrNil(p.TypeUrl),
+		Value:   dcl.StringOrNil(p.Value),
 	}
 	return obj
 }
@@ -677,7 +778,7 @@ func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfo(p *alph
 	obj := &alpha.InstancePreprocessCreateRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions(r))
@@ -709,12 +810,12 @@ func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermi
 	return obj
 }
 
-// ProtoToInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs converts a InstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs) *alpha.InstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs {
+// ProtoToInstanceGoogleprotobufstruct converts a InstanceGoogleprotobufstruct resource from its proto representation.
+func ProtoToTier2AlphaInstanceGoogleprotobufstruct(p *alphapb.Tier2AlphaInstanceGoogleprotobufstruct) *alpha.InstanceGoogleprotobufstruct {
 	if p == nil {
 		return nil
 	}
-	obj := &alpha.InstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs{}
+	obj := &alpha.InstanceGoogleprotobufstruct{}
 	return obj
 }
 
@@ -739,6 +840,9 @@ func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateK
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
+	}
 	return obj
 }
 
@@ -760,217 +864,21 @@ func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateK
 	}
 	obj := &alpha.InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
 
-// ProtoToInstanceInitiateCreateRecipe converts a InstanceInitiateCreateRecipe resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipe(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipe) *alpha.InstanceInitiateCreateRecipe {
+// ProtoToInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 	if p == nil {
 		return nil
 	}
-	obj := &alpha.InstanceInitiateCreateRecipe{
-		HonorCancelRequest:                dcl.Bool(p.HonorCancelRequest),
-		IgnoreRecipeAfter:                 dcl.Int64OrNil(p.IgnoreRecipeAfter),
-		VerifyDeadlineSecondsBelow:        dcl.Float64OrNil(p.VerifyDeadlineSecondsBelow),
-		PopulateOperationResult:           dcl.Bool(p.PopulateOperationResult),
-		ReadonlyRecipeStartTime:           dcl.StringOrNil(p.GetReadonlyRecipeStartTime()),
-		DelayToStoreResourcesInClhDbNanos: dcl.Int64OrNil(p.DelayToStoreResourcesInClhDbNanos),
-	}
-	for _, r := range p.GetSteps() {
-		obj.Steps = append(obj.Steps, *ProtoToTier2AlphaInstanceInitiateCreateRecipeSteps(r))
-	}
-	for _, r := range p.GetResourceNamesStoredInClhWithDelay() {
-		obj.ResourceNamesStoredInClhWithDelay = append(obj.ResourceNamesStoredInClhWithDelay, r)
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeSteps converts a InstanceInitiateCreateRecipeSteps resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeSteps(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeSteps) *alpha.InstanceInitiateCreateRecipeSteps {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeSteps{
-		RelativeTime:                   dcl.Int64OrNil(p.RelativeTime),
-		SleepDuration:                  dcl.Int64OrNil(p.SleepDuration),
-		Action:                         ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsActionEnum(p.GetAction()),
-		Status:                         ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsStatus(p.GetStatus()),
-		ErrorSpace:                     dcl.StringOrNil(p.ErrorSpace),
-		P4ServiceAccount:               dcl.StringOrNil(p.P4ServiceAccount),
-		ResourceMetadataSize:           dcl.Int64OrNil(p.ResourceMetadataSize),
-		Description:                    dcl.StringOrNil(p.Description),
-		UpdatedRepeatOperationDelaySec: dcl.Float64OrNil(p.UpdatedRepeatOperationDelaySec),
-		PreprocessUpdate:               ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsPreprocessUpdate(p.GetPreprocessUpdate()),
-		PublicOperationMetadata:        dcl.StringOrNil(p.PublicOperationMetadata),
-		RequestedTenantProject:         ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
-		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
-		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
-	}
-	for _, r := range p.GetQuotaRequestDeltas() {
-		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsQuotaRequestDeltas(r))
-	}
-	for _, r := range p.GetPermissionsInfo() {
-		obj.PermissionsInfo = append(obj.PermissionsInfo, *ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfo(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsStatus converts a InstanceInitiateCreateRecipeStepsStatus resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsStatus(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsStatus) *alpha.InstanceInitiateCreateRecipeStepsStatus {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeStepsStatus{
-		Code:    dcl.Int64OrNil(p.Code),
-		Message: dcl.StringOrNil(p.Message),
-	}
-	for _, r := range p.GetDetails() {
-		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsStatusDetails(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsStatusDetails converts a InstanceInitiateCreateRecipeStepsStatusDetails resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsStatusDetails(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsStatusDetails) *alpha.InstanceInitiateCreateRecipeStepsStatusDetails {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeStepsStatusDetails{
-		TypeUrl: dcl.StringOrNil(p.TypeUrl),
-		Value:   dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsQuotaRequestDeltas converts a InstanceInitiateCreateRecipeStepsQuotaRequestDeltas resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsQuotaRequestDeltas(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsQuotaRequestDeltas) *alpha.InstanceInitiateCreateRecipeStepsQuotaRequestDeltas {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsPreprocessUpdate converts a InstanceInitiateCreateRecipeStepsPreprocessUpdate resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsPreprocessUpdate(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPreprocessUpdate) *alpha.InstanceInitiateCreateRecipeStepsPreprocessUpdate {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeStepsPreprocessUpdate{
-		LatencySloBucketName:    dcl.StringOrNil(p.LatencySloBucketName),
-		PublicOperationMetadata: dcl.StringOrNil(p.PublicOperationMetadata),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsRequestedTenantProject converts a InstanceInitiateCreateRecipeStepsRequestedTenantProject resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProject(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProject) *alpha.InstanceInitiateCreateRecipeStepsRequestedTenantProject {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeStepsRequestedTenantProject{
-		Tag:    dcl.StringOrNil(p.Tag),
-		Folder: dcl.StringOrNil(p.Folder),
-		Scope:  ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum(p.GetScope()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsPermissionsInfo converts a InstanceInitiateCreateRecipeStepsPermissionsInfo resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfo(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfo) *alpha.InstanceInitiateCreateRecipeStepsPermissionsInfo {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
-	}
-	for _, r := range p.GetIamPermissions() {
-		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName converts a InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName) *alpha.InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName{
-		Type:   dcl.StringOrNil(p.Type),
-		Id:     dcl.StringOrNil(p.Id),
-		Region: dcl.StringOrNil(p.Region),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions converts a InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions) *alpha.InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions{
-		Permission: dcl.StringOrNil(p.Permission),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs converts a InstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs) *alpha.InstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsKeyNotificationsUpdate converts a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdate resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdate) *alpha.InstanceInitiateCreateRecipeStepsKeyNotificationsUpdate {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeStepsKeyNotificationsUpdate{
-		KeyNotificationsInfo: ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p.GetKeyNotificationsInfo()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo converts a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alpha.InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
-		DataVersion: dcl.Int64OrNil(p.DataVersion),
-		Delegate:    dcl.StringOrNil(p.Delegate),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+	obj := &alpha.InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -1099,7 +1007,7 @@ func ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 	obj := &alpha.InstanceCreateRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1131,15 +1039,6 @@ func ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissions(p *
 	return obj
 }
 
-// ProtoToInstanceCreateRecipeStepsPermissionsInfoApiAttrs converts a InstanceCreateRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstanceCreateRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoApiAttrs) *alpha.InstanceCreateRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceCreateRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstanceCreateRecipeStepsKeyNotificationsUpdate converts a InstanceCreateRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdate) *alpha.InstanceCreateRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -1160,6 +1059,9 @@ func ProtoToTier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		KeyConfigs:  ProtoToTier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -1182,6 +1084,21 @@ func ProtoToTier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 	obj := &alpha.InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -1310,7 +1227,7 @@ func ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 	obj := &alpha.InstanceDeleteRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1342,15 +1259,6 @@ func ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(p *
 	return obj
 }
 
-// ProtoToInstanceDeleteRecipeStepsPermissionsInfoApiAttrs converts a InstanceDeleteRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstanceDeleteRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoApiAttrs) *alpha.InstanceDeleteRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceDeleteRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstanceDeleteRecipeStepsKeyNotificationsUpdate converts a InstanceDeleteRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdate) *alpha.InstanceDeleteRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -1371,6 +1279,9 @@ func ProtoToTier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 		KeyConfigs:  ProtoToTier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -1393,6 +1304,21 @@ func ProtoToTier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 	obj := &alpha.InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -1521,7 +1447,7 @@ func ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 	obj := &alpha.InstanceUpdateRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1553,15 +1479,6 @@ func ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(p *
 	return obj
 }
 
-// ProtoToInstanceUpdateRecipeStepsPermissionsInfoApiAttrs converts a InstanceUpdateRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstanceUpdateRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoApiAttrs) *alpha.InstanceUpdateRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceUpdateRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstanceUpdateRecipeStepsKeyNotificationsUpdate converts a InstanceUpdateRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdate) *alpha.InstanceUpdateRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -1582,6 +1499,9 @@ func ProtoToTier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		KeyConfigs:  ProtoToTier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -1604,6 +1524,21 @@ func ProtoToTier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 	obj := &alpha.InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -1732,7 +1667,7 @@ func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfo(p *alpha
 	obj := &alpha.InstancePreprocessResetRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(r))
@@ -1764,15 +1699,6 @@ func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermis
 	return obj
 }
 
-// ProtoToInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs converts a InstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs) *alpha.InstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstancePreprocessResetRecipeStepsKeyNotificationsUpdate converts a InstancePreprocessResetRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdate) *alpha.InstancePreprocessResetRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -1793,6 +1719,9 @@ func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKe
 		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -1815,217 +1744,21 @@ func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKe
 	}
 	obj := &alpha.InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
 
-// ProtoToInstanceInitiateResetRecipe converts a InstanceInitiateResetRecipe resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipe(p *alphapb.Tier2AlphaInstanceInitiateResetRecipe) *alpha.InstanceInitiateResetRecipe {
+// ProtoToInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 	if p == nil {
 		return nil
 	}
-	obj := &alpha.InstanceInitiateResetRecipe{
-		HonorCancelRequest:                dcl.Bool(p.HonorCancelRequest),
-		IgnoreRecipeAfter:                 dcl.Int64OrNil(p.IgnoreRecipeAfter),
-		VerifyDeadlineSecondsBelow:        dcl.Float64OrNil(p.VerifyDeadlineSecondsBelow),
-		PopulateOperationResult:           dcl.Bool(p.PopulateOperationResult),
-		ReadonlyRecipeStartTime:           dcl.StringOrNil(p.GetReadonlyRecipeStartTime()),
-		DelayToStoreResourcesInClhDbNanos: dcl.Int64OrNil(p.DelayToStoreResourcesInClhDbNanos),
-	}
-	for _, r := range p.GetSteps() {
-		obj.Steps = append(obj.Steps, *ProtoToTier2AlphaInstanceInitiateResetRecipeSteps(r))
-	}
-	for _, r := range p.GetResourceNamesStoredInClhWithDelay() {
-		obj.ResourceNamesStoredInClhWithDelay = append(obj.ResourceNamesStoredInClhWithDelay, r)
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeSteps converts a InstanceInitiateResetRecipeSteps resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeSteps(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeSteps) *alpha.InstanceInitiateResetRecipeSteps {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeSteps{
-		RelativeTime:                   dcl.Int64OrNil(p.RelativeTime),
-		SleepDuration:                  dcl.Int64OrNil(p.SleepDuration),
-		Action:                         ProtoToTier2AlphaInstanceInitiateResetRecipeStepsActionEnum(p.GetAction()),
-		Status:                         ProtoToTier2AlphaInstanceInitiateResetRecipeStepsStatus(p.GetStatus()),
-		ErrorSpace:                     dcl.StringOrNil(p.ErrorSpace),
-		P4ServiceAccount:               dcl.StringOrNil(p.P4ServiceAccount),
-		ResourceMetadataSize:           dcl.Int64OrNil(p.ResourceMetadataSize),
-		Description:                    dcl.StringOrNil(p.Description),
-		UpdatedRepeatOperationDelaySec: dcl.Float64OrNil(p.UpdatedRepeatOperationDelaySec),
-		PreprocessUpdate:               ProtoToTier2AlphaInstanceInitiateResetRecipeStepsPreprocessUpdate(p.GetPreprocessUpdate()),
-		PublicOperationMetadata:        dcl.StringOrNil(p.PublicOperationMetadata),
-		RequestedTenantProject:         ProtoToTier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
-		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
-		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
-	}
-	for _, r := range p.GetQuotaRequestDeltas() {
-		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceInitiateResetRecipeStepsQuotaRequestDeltas(r))
-	}
-	for _, r := range p.GetPermissionsInfo() {
-		obj.PermissionsInfo = append(obj.PermissionsInfo, *ProtoToTier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfo(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsStatus converts a InstanceInitiateResetRecipeStepsStatus resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsStatus(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsStatus) *alpha.InstanceInitiateResetRecipeStepsStatus {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeStepsStatus{
-		Code:    dcl.Int64OrNil(p.Code),
-		Message: dcl.StringOrNil(p.Message),
-	}
-	for _, r := range p.GetDetails() {
-		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstanceInitiateResetRecipeStepsStatusDetails(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsStatusDetails converts a InstanceInitiateResetRecipeStepsStatusDetails resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsStatusDetails(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsStatusDetails) *alpha.InstanceInitiateResetRecipeStepsStatusDetails {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeStepsStatusDetails{
-		TypeUrl: dcl.StringOrNil(p.TypeUrl),
-		Value:   dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsQuotaRequestDeltas converts a InstanceInitiateResetRecipeStepsQuotaRequestDeltas resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsQuotaRequestDeltas(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsQuotaRequestDeltas) *alpha.InstanceInitiateResetRecipeStepsQuotaRequestDeltas {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsPreprocessUpdate converts a InstanceInitiateResetRecipeStepsPreprocessUpdate resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsPreprocessUpdate(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPreprocessUpdate) *alpha.InstanceInitiateResetRecipeStepsPreprocessUpdate {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeStepsPreprocessUpdate{
-		LatencySloBucketName:    dcl.StringOrNil(p.LatencySloBucketName),
-		PublicOperationMetadata: dcl.StringOrNil(p.PublicOperationMetadata),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsRequestedTenantProject converts a InstanceInitiateResetRecipeStepsRequestedTenantProject resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProject(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProject) *alpha.InstanceInitiateResetRecipeStepsRequestedTenantProject {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeStepsRequestedTenantProject{
-		Tag:    dcl.StringOrNil(p.Tag),
-		Folder: dcl.StringOrNil(p.Folder),
-		Scope:  ProtoToTier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum(p.GetScope()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsPermissionsInfo converts a InstanceInitiateResetRecipeStepsPermissionsInfo resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfo(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfo) *alpha.InstanceInitiateResetRecipeStepsPermissionsInfo {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
-	}
-	for _, r := range p.GetIamPermissions() {
-		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsPermissionsInfoPolicyName converts a InstanceInitiateResetRecipeStepsPermissionsInfoPolicyName resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoPolicyName(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoPolicyName) *alpha.InstanceInitiateResetRecipeStepsPermissionsInfoPolicyName {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeStepsPermissionsInfoPolicyName{
-		Type:   dcl.StringOrNil(p.Type),
-		Id:     dcl.StringOrNil(p.Id),
-		Region: dcl.StringOrNil(p.Region),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions converts a InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions) *alpha.InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions{
-		Permission: dcl.StringOrNil(p.Permission),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs converts a InstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs) *alpha.InstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsKeyNotificationsUpdate converts a InstanceInitiateResetRecipeStepsKeyNotificationsUpdate resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdate) *alpha.InstanceInitiateResetRecipeStepsKeyNotificationsUpdate {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeStepsKeyNotificationsUpdate{
-		KeyNotificationsInfo: ProtoToTier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p.GetKeyNotificationsInfo()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo converts a InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alpha.InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
-		DataVersion: dcl.Int64OrNil(p.DataVersion),
-		Delegate:    dcl.StringOrNil(p.Delegate),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+	obj := &alpha.InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -2154,7 +1887,7 @@ func ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfo(p *alphapb.Tier2Al
 	obj := &alpha.InstanceResetRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissions(r))
@@ -2186,15 +1919,6 @@ func ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissions(p *a
 	return obj
 }
 
-// ProtoToInstanceResetRecipeStepsPermissionsInfoApiAttrs converts a InstanceResetRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstanceResetRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoApiAttrs) *alpha.InstanceResetRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceResetRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstanceResetRecipeStepsKeyNotificationsUpdate converts a InstanceResetRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdate) *alpha.InstanceResetRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -2215,6 +1939,9 @@ func ProtoToTier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 		KeyConfigs:  ProtoToTier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -2237,6 +1964,21 @@ func ProtoToTier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 	}
 	obj := &alpha.InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -2365,7 +2107,7 @@ func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfo(p *alph
 	obj := &alpha.InstancePreprocessRepairRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(r))
@@ -2397,15 +2139,6 @@ func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermi
 	return obj
 }
 
-// ProtoToInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs converts a InstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs) *alpha.InstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate converts a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate) *alpha.InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -2426,6 +2159,9 @@ func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateK
 		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -2448,217 +2184,21 @@ func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateK
 	}
 	obj := &alpha.InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
 
-// ProtoToInstanceInitiateRepairRecipe converts a InstanceInitiateRepairRecipe resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipe(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipe) *alpha.InstanceInitiateRepairRecipe {
+// ProtoToInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 	if p == nil {
 		return nil
 	}
-	obj := &alpha.InstanceInitiateRepairRecipe{
-		HonorCancelRequest:                dcl.Bool(p.HonorCancelRequest),
-		IgnoreRecipeAfter:                 dcl.Int64OrNil(p.IgnoreRecipeAfter),
-		VerifyDeadlineSecondsBelow:        dcl.Float64OrNil(p.VerifyDeadlineSecondsBelow),
-		PopulateOperationResult:           dcl.Bool(p.PopulateOperationResult),
-		ReadonlyRecipeStartTime:           dcl.StringOrNil(p.GetReadonlyRecipeStartTime()),
-		DelayToStoreResourcesInClhDbNanos: dcl.Int64OrNil(p.DelayToStoreResourcesInClhDbNanos),
-	}
-	for _, r := range p.GetSteps() {
-		obj.Steps = append(obj.Steps, *ProtoToTier2AlphaInstanceInitiateRepairRecipeSteps(r))
-	}
-	for _, r := range p.GetResourceNamesStoredInClhWithDelay() {
-		obj.ResourceNamesStoredInClhWithDelay = append(obj.ResourceNamesStoredInClhWithDelay, r)
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeSteps converts a InstanceInitiateRepairRecipeSteps resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeSteps(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeSteps) *alpha.InstanceInitiateRepairRecipeSteps {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeSteps{
-		RelativeTime:                   dcl.Int64OrNil(p.RelativeTime),
-		SleepDuration:                  dcl.Int64OrNil(p.SleepDuration),
-		Action:                         ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsActionEnum(p.GetAction()),
-		Status:                         ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsStatus(p.GetStatus()),
-		ErrorSpace:                     dcl.StringOrNil(p.ErrorSpace),
-		P4ServiceAccount:               dcl.StringOrNil(p.P4ServiceAccount),
-		ResourceMetadataSize:           dcl.Int64OrNil(p.ResourceMetadataSize),
-		Description:                    dcl.StringOrNil(p.Description),
-		UpdatedRepeatOperationDelaySec: dcl.Float64OrNil(p.UpdatedRepeatOperationDelaySec),
-		PreprocessUpdate:               ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsPreprocessUpdate(p.GetPreprocessUpdate()),
-		PublicOperationMetadata:        dcl.StringOrNil(p.PublicOperationMetadata),
-		RequestedTenantProject:         ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
-		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
-		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
-	}
-	for _, r := range p.GetQuotaRequestDeltas() {
-		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsQuotaRequestDeltas(r))
-	}
-	for _, r := range p.GetPermissionsInfo() {
-		obj.PermissionsInfo = append(obj.PermissionsInfo, *ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfo(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsStatus converts a InstanceInitiateRepairRecipeStepsStatus resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsStatus(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsStatus) *alpha.InstanceInitiateRepairRecipeStepsStatus {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeStepsStatus{
-		Code:    dcl.Int64OrNil(p.Code),
-		Message: dcl.StringOrNil(p.Message),
-	}
-	for _, r := range p.GetDetails() {
-		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsStatusDetails(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsStatusDetails converts a InstanceInitiateRepairRecipeStepsStatusDetails resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsStatusDetails(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsStatusDetails) *alpha.InstanceInitiateRepairRecipeStepsStatusDetails {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeStepsStatusDetails{
-		TypeUrl: dcl.StringOrNil(p.TypeUrl),
-		Value:   dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsQuotaRequestDeltas converts a InstanceInitiateRepairRecipeStepsQuotaRequestDeltas resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsQuotaRequestDeltas(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsQuotaRequestDeltas) *alpha.InstanceInitiateRepairRecipeStepsQuotaRequestDeltas {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsPreprocessUpdate converts a InstanceInitiateRepairRecipeStepsPreprocessUpdate resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsPreprocessUpdate(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPreprocessUpdate) *alpha.InstanceInitiateRepairRecipeStepsPreprocessUpdate {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeStepsPreprocessUpdate{
-		LatencySloBucketName:    dcl.StringOrNil(p.LatencySloBucketName),
-		PublicOperationMetadata: dcl.StringOrNil(p.PublicOperationMetadata),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsRequestedTenantProject converts a InstanceInitiateRepairRecipeStepsRequestedTenantProject resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProject(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProject) *alpha.InstanceInitiateRepairRecipeStepsRequestedTenantProject {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeStepsRequestedTenantProject{
-		Tag:    dcl.StringOrNil(p.Tag),
-		Folder: dcl.StringOrNil(p.Folder),
-		Scope:  ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum(p.GetScope()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsPermissionsInfo converts a InstanceInitiateRepairRecipeStepsPermissionsInfo resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfo(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfo) *alpha.InstanceInitiateRepairRecipeStepsPermissionsInfo {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
-	}
-	for _, r := range p.GetIamPermissions() {
-		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName converts a InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName) *alpha.InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName{
-		Type:   dcl.StringOrNil(p.Type),
-		Id:     dcl.StringOrNil(p.Id),
-		Region: dcl.StringOrNil(p.Region),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions converts a InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions) *alpha.InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions{
-		Permission: dcl.StringOrNil(p.Permission),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs converts a InstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs) *alpha.InstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsKeyNotificationsUpdate converts a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdate resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdate) *alpha.InstanceInitiateRepairRecipeStepsKeyNotificationsUpdate {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeStepsKeyNotificationsUpdate{
-		KeyNotificationsInfo: ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p.GetKeyNotificationsInfo()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo converts a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alpha.InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
-		DataVersion: dcl.Int64OrNil(p.DataVersion),
-		Delegate:    dcl.StringOrNil(p.Delegate),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+	obj := &alpha.InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -2787,7 +2327,7 @@ func ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 	obj := &alpha.InstanceRepairRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissions(r))
@@ -2819,15 +2359,6 @@ func ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissions(p *
 	return obj
 }
 
-// ProtoToInstanceRepairRecipeStepsPermissionsInfoApiAttrs converts a InstanceRepairRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstanceRepairRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoApiAttrs) *alpha.InstanceRepairRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceRepairRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstanceRepairRecipeStepsKeyNotificationsUpdate converts a InstanceRepairRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdate) *alpha.InstanceRepairRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -2848,6 +2379,9 @@ func ProtoToTier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 		KeyConfigs:  ProtoToTier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -2870,6 +2404,21 @@ func ProtoToTier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 	obj := &alpha.InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -2998,7 +2547,7 @@ func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfo(p *alph
 	obj := &alpha.InstancePreprocessDeleteRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(r))
@@ -3030,15 +2579,6 @@ func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermi
 	return obj
 }
 
-// ProtoToInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs converts a InstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs) *alpha.InstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate converts a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate) *alpha.InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -3059,6 +2599,9 @@ func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateK
 		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -3081,217 +2624,21 @@ func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateK
 	}
 	obj := &alpha.InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
 
-// ProtoToInstanceInitiateDeleteRecipe converts a InstanceInitiateDeleteRecipe resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipe(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipe) *alpha.InstanceInitiateDeleteRecipe {
+// ProtoToInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 	if p == nil {
 		return nil
 	}
-	obj := &alpha.InstanceInitiateDeleteRecipe{
-		HonorCancelRequest:                dcl.Bool(p.HonorCancelRequest),
-		IgnoreRecipeAfter:                 dcl.Int64OrNil(p.IgnoreRecipeAfter),
-		VerifyDeadlineSecondsBelow:        dcl.Float64OrNil(p.VerifyDeadlineSecondsBelow),
-		PopulateOperationResult:           dcl.Bool(p.PopulateOperationResult),
-		ReadonlyRecipeStartTime:           dcl.StringOrNil(p.GetReadonlyRecipeStartTime()),
-		DelayToStoreResourcesInClhDbNanos: dcl.Int64OrNil(p.DelayToStoreResourcesInClhDbNanos),
-	}
-	for _, r := range p.GetSteps() {
-		obj.Steps = append(obj.Steps, *ProtoToTier2AlphaInstanceInitiateDeleteRecipeSteps(r))
-	}
-	for _, r := range p.GetResourceNamesStoredInClhWithDelay() {
-		obj.ResourceNamesStoredInClhWithDelay = append(obj.ResourceNamesStoredInClhWithDelay, r)
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeSteps converts a InstanceInitiateDeleteRecipeSteps resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeSteps(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeSteps) *alpha.InstanceInitiateDeleteRecipeSteps {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeSteps{
-		RelativeTime:                   dcl.Int64OrNil(p.RelativeTime),
-		SleepDuration:                  dcl.Int64OrNil(p.SleepDuration),
-		Action:                         ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsActionEnum(p.GetAction()),
-		Status:                         ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsStatus(p.GetStatus()),
-		ErrorSpace:                     dcl.StringOrNil(p.ErrorSpace),
-		P4ServiceAccount:               dcl.StringOrNil(p.P4ServiceAccount),
-		ResourceMetadataSize:           dcl.Int64OrNil(p.ResourceMetadataSize),
-		Description:                    dcl.StringOrNil(p.Description),
-		UpdatedRepeatOperationDelaySec: dcl.Float64OrNil(p.UpdatedRepeatOperationDelaySec),
-		PreprocessUpdate:               ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsPreprocessUpdate(p.GetPreprocessUpdate()),
-		PublicOperationMetadata:        dcl.StringOrNil(p.PublicOperationMetadata),
-		RequestedTenantProject:         ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
-		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
-		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
-	}
-	for _, r := range p.GetQuotaRequestDeltas() {
-		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsQuotaRequestDeltas(r))
-	}
-	for _, r := range p.GetPermissionsInfo() {
-		obj.PermissionsInfo = append(obj.PermissionsInfo, *ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfo(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsStatus converts a InstanceInitiateDeleteRecipeStepsStatus resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsStatus(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsStatus) *alpha.InstanceInitiateDeleteRecipeStepsStatus {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeStepsStatus{
-		Code:    dcl.Int64OrNil(p.Code),
-		Message: dcl.StringOrNil(p.Message),
-	}
-	for _, r := range p.GetDetails() {
-		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsStatusDetails(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsStatusDetails converts a InstanceInitiateDeleteRecipeStepsStatusDetails resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsStatusDetails(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsStatusDetails) *alpha.InstanceInitiateDeleteRecipeStepsStatusDetails {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeStepsStatusDetails{
-		TypeUrl: dcl.StringOrNil(p.TypeUrl),
-		Value:   dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsQuotaRequestDeltas converts a InstanceInitiateDeleteRecipeStepsQuotaRequestDeltas resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsQuotaRequestDeltas(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsQuotaRequestDeltas) *alpha.InstanceInitiateDeleteRecipeStepsQuotaRequestDeltas {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsPreprocessUpdate converts a InstanceInitiateDeleteRecipeStepsPreprocessUpdate resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsPreprocessUpdate(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPreprocessUpdate) *alpha.InstanceInitiateDeleteRecipeStepsPreprocessUpdate {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeStepsPreprocessUpdate{
-		LatencySloBucketName:    dcl.StringOrNil(p.LatencySloBucketName),
-		PublicOperationMetadata: dcl.StringOrNil(p.PublicOperationMetadata),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsRequestedTenantProject converts a InstanceInitiateDeleteRecipeStepsRequestedTenantProject resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProject(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProject) *alpha.InstanceInitiateDeleteRecipeStepsRequestedTenantProject {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeStepsRequestedTenantProject{
-		Tag:    dcl.StringOrNil(p.Tag),
-		Folder: dcl.StringOrNil(p.Folder),
-		Scope:  ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum(p.GetScope()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsPermissionsInfo converts a InstanceInitiateDeleteRecipeStepsPermissionsInfo resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfo(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfo) *alpha.InstanceInitiateDeleteRecipeStepsPermissionsInfo {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
-	}
-	for _, r := range p.GetIamPermissions() {
-		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName converts a InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName) *alpha.InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName{
-		Type:   dcl.StringOrNil(p.Type),
-		Id:     dcl.StringOrNil(p.Id),
-		Region: dcl.StringOrNil(p.Region),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions converts a InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions) *alpha.InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions{
-		Permission: dcl.StringOrNil(p.Permission),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs converts a InstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs) *alpha.InstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate converts a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate) *alpha.InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate{
-		KeyNotificationsInfo: ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p.GetKeyNotificationsInfo()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo converts a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alpha.InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
-		DataVersion: dcl.Int64OrNil(p.DataVersion),
-		Delegate:    dcl.StringOrNil(p.Delegate),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+	obj := &alpha.InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -3420,7 +2767,7 @@ func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfo(p *alph
 	obj := &alpha.InstancePreprocessUpdateRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(r))
@@ -3452,15 +2799,6 @@ func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermi
 	return obj
 }
 
-// ProtoToInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs converts a InstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs) *alpha.InstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate converts a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate) *alpha.InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -3481,6 +2819,9 @@ func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateK
 		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -3503,217 +2844,21 @@ func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateK
 	}
 	obj := &alpha.InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
 
-// ProtoToInstanceInitiateUpdateRecipe converts a InstanceInitiateUpdateRecipe resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipe(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipe) *alpha.InstanceInitiateUpdateRecipe {
+// ProtoToInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 	if p == nil {
 		return nil
 	}
-	obj := &alpha.InstanceInitiateUpdateRecipe{
-		HonorCancelRequest:                dcl.Bool(p.HonorCancelRequest),
-		IgnoreRecipeAfter:                 dcl.Int64OrNil(p.IgnoreRecipeAfter),
-		VerifyDeadlineSecondsBelow:        dcl.Float64OrNil(p.VerifyDeadlineSecondsBelow),
-		PopulateOperationResult:           dcl.Bool(p.PopulateOperationResult),
-		ReadonlyRecipeStartTime:           dcl.StringOrNil(p.GetReadonlyRecipeStartTime()),
-		DelayToStoreResourcesInClhDbNanos: dcl.Int64OrNil(p.DelayToStoreResourcesInClhDbNanos),
-	}
-	for _, r := range p.GetSteps() {
-		obj.Steps = append(obj.Steps, *ProtoToTier2AlphaInstanceInitiateUpdateRecipeSteps(r))
-	}
-	for _, r := range p.GetResourceNamesStoredInClhWithDelay() {
-		obj.ResourceNamesStoredInClhWithDelay = append(obj.ResourceNamesStoredInClhWithDelay, r)
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeSteps converts a InstanceInitiateUpdateRecipeSteps resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeSteps(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeSteps) *alpha.InstanceInitiateUpdateRecipeSteps {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeSteps{
-		RelativeTime:                   dcl.Int64OrNil(p.RelativeTime),
-		SleepDuration:                  dcl.Int64OrNil(p.SleepDuration),
-		Action:                         ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsActionEnum(p.GetAction()),
-		Status:                         ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsStatus(p.GetStatus()),
-		ErrorSpace:                     dcl.StringOrNil(p.ErrorSpace),
-		P4ServiceAccount:               dcl.StringOrNil(p.P4ServiceAccount),
-		ResourceMetadataSize:           dcl.Int64OrNil(p.ResourceMetadataSize),
-		Description:                    dcl.StringOrNil(p.Description),
-		UpdatedRepeatOperationDelaySec: dcl.Float64OrNil(p.UpdatedRepeatOperationDelaySec),
-		PreprocessUpdate:               ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsPreprocessUpdate(p.GetPreprocessUpdate()),
-		PublicOperationMetadata:        dcl.StringOrNil(p.PublicOperationMetadata),
-		RequestedTenantProject:         ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
-		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
-		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
-	}
-	for _, r := range p.GetQuotaRequestDeltas() {
-		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsQuotaRequestDeltas(r))
-	}
-	for _, r := range p.GetPermissionsInfo() {
-		obj.PermissionsInfo = append(obj.PermissionsInfo, *ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfo(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsStatus converts a InstanceInitiateUpdateRecipeStepsStatus resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsStatus(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsStatus) *alpha.InstanceInitiateUpdateRecipeStepsStatus {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeStepsStatus{
-		Code:    dcl.Int64OrNil(p.Code),
-		Message: dcl.StringOrNil(p.Message),
-	}
-	for _, r := range p.GetDetails() {
-		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsStatusDetails(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsStatusDetails converts a InstanceInitiateUpdateRecipeStepsStatusDetails resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsStatusDetails(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsStatusDetails) *alpha.InstanceInitiateUpdateRecipeStepsStatusDetails {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeStepsStatusDetails{
-		TypeUrl: dcl.StringOrNil(p.TypeUrl),
-		Value:   dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsQuotaRequestDeltas converts a InstanceInitiateUpdateRecipeStepsQuotaRequestDeltas resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsQuotaRequestDeltas(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsQuotaRequestDeltas) *alpha.InstanceInitiateUpdateRecipeStepsQuotaRequestDeltas {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsPreprocessUpdate converts a InstanceInitiateUpdateRecipeStepsPreprocessUpdate resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsPreprocessUpdate(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPreprocessUpdate) *alpha.InstanceInitiateUpdateRecipeStepsPreprocessUpdate {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeStepsPreprocessUpdate{
-		LatencySloBucketName:    dcl.StringOrNil(p.LatencySloBucketName),
-		PublicOperationMetadata: dcl.StringOrNil(p.PublicOperationMetadata),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsRequestedTenantProject converts a InstanceInitiateUpdateRecipeStepsRequestedTenantProject resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProject(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProject) *alpha.InstanceInitiateUpdateRecipeStepsRequestedTenantProject {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeStepsRequestedTenantProject{
-		Tag:    dcl.StringOrNil(p.Tag),
-		Folder: dcl.StringOrNil(p.Folder),
-		Scope:  ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum(p.GetScope()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsPermissionsInfo converts a InstanceInitiateUpdateRecipeStepsPermissionsInfo resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfo(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfo) *alpha.InstanceInitiateUpdateRecipeStepsPermissionsInfo {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeStepsPermissionsInfo{
-		PolicyName:   ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
-		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
-	}
-	for _, r := range p.GetIamPermissions() {
-		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName converts a InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName) *alpha.InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName{
-		Type:   dcl.StringOrNil(p.Type),
-		Id:     dcl.StringOrNil(p.Id),
-		Region: dcl.StringOrNil(p.Region),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions converts a InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions) *alpha.InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions{
-		Permission: dcl.StringOrNil(p.Permission),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs converts a InstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs) *alpha.InstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate converts a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate) *alpha.InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate{
-		KeyNotificationsInfo: ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p.GetKeyNotificationsInfo()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo converts a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alpha.InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
-		DataVersion: dcl.Int64OrNil(p.DataVersion),
-		Delegate:    dcl.StringOrNil(p.Delegate),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+	obj := &alpha.InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -3842,7 +2987,7 @@ func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfo(p *alph
 	obj := &alpha.InstancePreprocessFreezeRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(r))
@@ -3874,15 +3019,6 @@ func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermi
 	return obj
 }
 
-// ProtoToInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs converts a InstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs) *alpha.InstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate converts a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate) *alpha.InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -3903,6 +3039,9 @@ func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateK
 		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -3925,6 +3064,21 @@ func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateK
 	}
 	obj := &alpha.InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -4053,7 +3207,7 @@ func ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfo(p *alphapb.Tier2A
 	obj := &alpha.InstanceFreezeRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4085,15 +3239,6 @@ func ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(p *
 	return obj
 }
 
-// ProtoToInstanceFreezeRecipeStepsPermissionsInfoApiAttrs converts a InstanceFreezeRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstanceFreezeRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoApiAttrs) *alpha.InstanceFreezeRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceFreezeRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstanceFreezeRecipeStepsKeyNotificationsUpdate converts a InstanceFreezeRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdate) *alpha.InstanceFreezeRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -4114,6 +3259,9 @@ func ProtoToTier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 		KeyConfigs:  ProtoToTier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -4136,6 +3284,21 @@ func ProtoToTier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 	obj := &alpha.InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -4264,7 +3427,7 @@ func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(p *al
 	obj := &alpha.InstancePreprocessUnfreezeRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4296,15 +3459,6 @@ func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPer
 	return obj
 }
 
-// ProtoToInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs converts a InstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs) *alpha.InstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate converts a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate) *alpha.InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -4325,6 +3479,9 @@ func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdat
 		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -4347,6 +3504,21 @@ func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdat
 	}
 	obj := &alpha.InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -4475,7 +3647,7 @@ func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfo(p *alphapb.Tier
 	obj := &alpha.InstanceUnfreezeRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4507,15 +3679,6 @@ func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(p
 	return obj
 }
 
-// ProtoToInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs converts a InstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs) *alpha.InstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstanceUnfreezeRecipeStepsKeyNotificationsUpdate converts a InstanceUnfreezeRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdate) *alpha.InstanceUnfreezeRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -4536,6 +3699,9 @@ func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 		KeyConfigs:  ProtoToTier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -4558,6 +3724,1121 @@ func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 	}
 	obj := &alpha.InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipe converts a InstancePreprocessReportInstanceHealthRecipe resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipe(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipe) *alpha.InstancePreprocessReportInstanceHealthRecipe {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipe{
+		HonorCancelRequest:                dcl.Bool(p.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.Int64OrNil(p.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.Float64OrNil(p.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.Bool(p.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.StringOrNil(p.GetReadonlyRecipeStartTime()),
+		DelayToStoreResourcesInClhDbNanos: dcl.Int64OrNil(p.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range p.GetSteps() {
+		obj.Steps = append(obj.Steps, *ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeSteps(r))
+	}
+	for _, r := range p.GetResourceNamesStoredInClhWithDelay() {
+		obj.ResourceNamesStoredInClhWithDelay = append(obj.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeSteps converts a InstancePreprocessReportInstanceHealthRecipeSteps resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeSteps(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeSteps) *alpha.InstancePreprocessReportInstanceHealthRecipeSteps {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeSteps{
+		RelativeTime:                   dcl.Int64OrNil(p.RelativeTime),
+		SleepDuration:                  dcl.Int64OrNil(p.SleepDuration),
+		Action:                         ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnum(p.GetAction()),
+		Status:                         ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatus(p.GetStatus()),
+		ErrorSpace:                     dcl.StringOrNil(p.ErrorSpace),
+		P4ServiceAccount:               dcl.StringOrNil(p.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.Int64OrNil(p.ResourceMetadataSize),
+		Description:                    dcl.StringOrNil(p.Description),
+		UpdatedRepeatOperationDelaySec: dcl.Float64OrNil(p.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(p.GetPreprocessUpdate()),
+		PublicOperationMetadata:        dcl.StringOrNil(p.PublicOperationMetadata),
+		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
+		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
+		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+	}
+	for _, r := range p.GetQuotaRequestDeltas() {
+		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(r))
+	}
+	for _, r := range p.GetPermissionsInfo() {
+		obj.PermissionsInfo = append(obj.PermissionsInfo, *ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsStatus converts a InstancePreprocessReportInstanceHealthRecipeStepsStatus resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatus(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatus) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsStatus {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsStatus{
+		Code:    dcl.Int64OrNil(p.Code),
+		Message: dcl.StringOrNil(p.Message),
+	}
+	for _, r := range p.GetDetails() {
+		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails converts a InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails{
+		TypeUrl: dcl.StringOrNil(p.TypeUrl),
+		Value:   dcl.StringOrNil(p.Value),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas converts a InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.StringOrNil(p.MetricName),
+		Amount:     dcl.Int64OrNil(p.Amount),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate converts a InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.StringOrNil(p.LatencySloBucketName),
+		PublicOperationMetadata: dcl.StringOrNil(p.PublicOperationMetadata),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject converts a InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject{
+		Tag:    dcl.StringOrNil(p.Tag),
+		Folder: dcl.StringOrNil(p.Folder),
+		Scope:  ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(p.GetScope()),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo converts a InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo{
+		PolicyName:   ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath: dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+	}
+	for _, r := range p.GetIamPermissions() {
+		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName converts a InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.StringOrNil(p.Type),
+		Id:     dcl.StringOrNil(p.Id),
+		Region: dcl.StringOrNil(p.Region),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions converts a InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p.GetKeyNotificationsInfo()),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
+		DataVersion: dcl.Int64OrNil(p.DataVersion),
+		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipe converts a InstanceReportInstanceHealthRecipe resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipe(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipe) *alpha.InstanceReportInstanceHealthRecipe {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipe{
+		HonorCancelRequest:                dcl.Bool(p.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.Int64OrNil(p.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.Float64OrNil(p.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.Bool(p.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.StringOrNil(p.GetReadonlyRecipeStartTime()),
+		DelayToStoreResourcesInClhDbNanos: dcl.Int64OrNil(p.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range p.GetSteps() {
+		obj.Steps = append(obj.Steps, *ProtoToTier2AlphaInstanceReportInstanceHealthRecipeSteps(r))
+	}
+	for _, r := range p.GetResourceNamesStoredInClhWithDelay() {
+		obj.ResourceNamesStoredInClhWithDelay = append(obj.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeSteps converts a InstanceReportInstanceHealthRecipeSteps resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeSteps(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeSteps) *alpha.InstanceReportInstanceHealthRecipeSteps {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeSteps{
+		RelativeTime:                   dcl.Int64OrNil(p.RelativeTime),
+		SleepDuration:                  dcl.Int64OrNil(p.SleepDuration),
+		Action:                         ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum(p.GetAction()),
+		Status:                         ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsStatus(p.GetStatus()),
+		ErrorSpace:                     dcl.StringOrNil(p.ErrorSpace),
+		P4ServiceAccount:               dcl.StringOrNil(p.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.Int64OrNil(p.ResourceMetadataSize),
+		Description:                    dcl.StringOrNil(p.Description),
+		UpdatedRepeatOperationDelaySec: dcl.Float64OrNil(p.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(p.GetPreprocessUpdate()),
+		PublicOperationMetadata:        dcl.StringOrNil(p.PublicOperationMetadata),
+		RequestedTenantProject:         ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
+		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
+		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+	}
+	for _, r := range p.GetQuotaRequestDeltas() {
+		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(r))
+	}
+	for _, r := range p.GetPermissionsInfo() {
+		obj.PermissionsInfo = append(obj.PermissionsInfo, *ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfo(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsStatus converts a InstanceReportInstanceHealthRecipeStepsStatus resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsStatus(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatus) *alpha.InstanceReportInstanceHealthRecipeStepsStatus {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsStatus{
+		Code:    dcl.Int64OrNil(p.Code),
+		Message: dcl.StringOrNil(p.Message),
+	}
+	for _, r := range p.GetDetails() {
+		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsStatusDetails(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsStatusDetails converts a InstanceReportInstanceHealthRecipeStepsStatusDetails resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsStatusDetails(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatusDetails) *alpha.InstanceReportInstanceHealthRecipeStepsStatusDetails {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsStatusDetails{
+		TypeUrl: dcl.StringOrNil(p.TypeUrl),
+		Value:   dcl.StringOrNil(p.Value),
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas converts a InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas) *alpha.InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.StringOrNil(p.MetricName),
+		Amount:     dcl.Int64OrNil(p.Amount),
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsPreprocessUpdate converts a InstanceReportInstanceHealthRecipeStepsPreprocessUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPreprocessUpdate) *alpha.InstanceReportInstanceHealthRecipeStepsPreprocessUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.StringOrNil(p.LatencySloBucketName),
+		PublicOperationMetadata: dcl.StringOrNil(p.PublicOperationMetadata),
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsRequestedTenantProject converts a InstanceReportInstanceHealthRecipeStepsRequestedTenantProject resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProject) *alpha.InstanceReportInstanceHealthRecipeStepsRequestedTenantProject {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsRequestedTenantProject{
+		Tag:    dcl.StringOrNil(p.Tag),
+		Folder: dcl.StringOrNil(p.Folder),
+		Scope:  ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(p.GetScope()),
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsPermissionsInfo converts a InstanceReportInstanceHealthRecipeStepsPermissionsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfo(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfo) *alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfo{
+		PolicyName:   ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath: dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+	}
+	for _, r := range p.GetIamPermissions() {
+		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName converts a InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) *alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.StringOrNil(p.Type),
+		Id:     dcl.StringOrNil(p.Id),
+		Region: dcl.StringOrNil(p.Region),
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions converts a InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) *alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate) *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p.GetKeyNotificationsInfo()),
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
+		DataVersion: dcl.Int64OrNil(p.DataVersion),
+		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipe converts a InstancePreprocessGetRecipe resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipe(p *alphapb.Tier2AlphaInstancePreprocessGetRecipe) *alpha.InstancePreprocessGetRecipe {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipe{
+		HonorCancelRequest:                dcl.Bool(p.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.Int64OrNil(p.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.Float64OrNil(p.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.Bool(p.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.StringOrNil(p.GetReadonlyRecipeStartTime()),
+		DelayToStoreResourcesInClhDbNanos: dcl.Int64OrNil(p.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range p.GetSteps() {
+		obj.Steps = append(obj.Steps, *ProtoToTier2AlphaInstancePreprocessGetRecipeSteps(r))
+	}
+	for _, r := range p.GetResourceNamesStoredInClhWithDelay() {
+		obj.ResourceNamesStoredInClhWithDelay = append(obj.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeSteps converts a InstancePreprocessGetRecipeSteps resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeSteps(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeSteps) *alpha.InstancePreprocessGetRecipeSteps {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeSteps{
+		RelativeTime:                   dcl.Int64OrNil(p.RelativeTime),
+		SleepDuration:                  dcl.Int64OrNil(p.SleepDuration),
+		Action:                         ProtoToTier2AlphaInstancePreprocessGetRecipeStepsActionEnum(p.GetAction()),
+		Status:                         ProtoToTier2AlphaInstancePreprocessGetRecipeStepsStatus(p.GetStatus()),
+		ErrorSpace:                     dcl.StringOrNil(p.ErrorSpace),
+		P4ServiceAccount:               dcl.StringOrNil(p.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.Int64OrNil(p.ResourceMetadataSize),
+		Description:                    dcl.StringOrNil(p.Description),
+		UpdatedRepeatOperationDelaySec: dcl.Float64OrNil(p.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPreprocessUpdate(p.GetPreprocessUpdate()),
+		PublicOperationMetadata:        dcl.StringOrNil(p.PublicOperationMetadata),
+		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
+		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
+		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+	}
+	for _, r := range p.GetQuotaRequestDeltas() {
+		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltas(r))
+	}
+	for _, r := range p.GetPermissionsInfo() {
+		obj.PermissionsInfo = append(obj.PermissionsInfo, *ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfo(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsStatus converts a InstancePreprocessGetRecipeStepsStatus resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsStatus(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsStatus) *alpha.InstancePreprocessGetRecipeStepsStatus {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsStatus{
+		Code:    dcl.Int64OrNil(p.Code),
+		Message: dcl.StringOrNil(p.Message),
+	}
+	for _, r := range p.GetDetails() {
+		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstancePreprocessGetRecipeStepsStatusDetails(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsStatusDetails converts a InstancePreprocessGetRecipeStepsStatusDetails resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsStatusDetails(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsStatusDetails) *alpha.InstancePreprocessGetRecipeStepsStatusDetails {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsStatusDetails{
+		TypeUrl: dcl.StringOrNil(p.TypeUrl),
+		Value:   dcl.StringOrNil(p.Value),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsQuotaRequestDeltas converts a InstancePreprocessGetRecipeStepsQuotaRequestDeltas resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltas(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltas) *alpha.InstancePreprocessGetRecipeStepsQuotaRequestDeltas {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.StringOrNil(p.MetricName),
+		Amount:     dcl.Int64OrNil(p.Amount),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsPreprocessUpdate converts a InstancePreprocessGetRecipeStepsPreprocessUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPreprocessUpdate(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPreprocessUpdate) *alpha.InstancePreprocessGetRecipeStepsPreprocessUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.StringOrNil(p.LatencySloBucketName),
+		PublicOperationMetadata: dcl.StringOrNil(p.PublicOperationMetadata),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsRequestedTenantProject converts a InstancePreprocessGetRecipeStepsRequestedTenantProject resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProject(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProject) *alpha.InstancePreprocessGetRecipeStepsRequestedTenantProject {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsRequestedTenantProject{
+		Tag:    dcl.StringOrNil(p.Tag),
+		Folder: dcl.StringOrNil(p.Folder),
+		Scope:  ProtoToTier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum(p.GetScope()),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsPermissionsInfo converts a InstancePreprocessGetRecipeStepsPermissionsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfo(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfo) *alpha.InstancePreprocessGetRecipeStepsPermissionsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsPermissionsInfo{
+		PolicyName:   ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath: dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+	}
+	for _, r := range p.GetIamPermissions() {
+		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName converts a InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName) *alpha.InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.StringOrNil(p.Type),
+		Id:     dcl.StringOrNil(p.Id),
+		Region: dcl.StringOrNil(p.Region),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions converts a InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions) *alpha.InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsKeyNotificationsUpdate converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdate) *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p.GetKeyNotificationsInfo()),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
+		DataVersion: dcl.Int64OrNil(p.DataVersion),
+		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipe converts a InstanceNotifyKeyAvailableRecipe resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipe(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipe) *alpha.InstanceNotifyKeyAvailableRecipe {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipe{
+		HonorCancelRequest:                dcl.Bool(p.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.Int64OrNil(p.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.Float64OrNil(p.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.Bool(p.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.StringOrNil(p.GetReadonlyRecipeStartTime()),
+		DelayToStoreResourcesInClhDbNanos: dcl.Int64OrNil(p.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range p.GetSteps() {
+		obj.Steps = append(obj.Steps, *ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeSteps(r))
+	}
+	for _, r := range p.GetResourceNamesStoredInClhWithDelay() {
+		obj.ResourceNamesStoredInClhWithDelay = append(obj.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeSteps converts a InstanceNotifyKeyAvailableRecipeSteps resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeSteps(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeSteps) *alpha.InstanceNotifyKeyAvailableRecipeSteps {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeSteps{
+		RelativeTime:                   dcl.Int64OrNil(p.RelativeTime),
+		SleepDuration:                  dcl.Int64OrNil(p.SleepDuration),
+		Action:                         ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum(p.GetAction()),
+		Status:                         ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatus(p.GetStatus()),
+		ErrorSpace:                     dcl.StringOrNil(p.ErrorSpace),
+		P4ServiceAccount:               dcl.StringOrNil(p.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.Int64OrNil(p.ResourceMetadataSize),
+		Description:                    dcl.StringOrNil(p.Description),
+		UpdatedRepeatOperationDelaySec: dcl.Float64OrNil(p.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(p.GetPreprocessUpdate()),
+		PublicOperationMetadata:        dcl.StringOrNil(p.PublicOperationMetadata),
+		RequestedTenantProject:         ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
+		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
+		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+	}
+	for _, r := range p.GetQuotaRequestDeltas() {
+		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(r))
+	}
+	for _, r := range p.GetPermissionsInfo() {
+		obj.PermissionsInfo = append(obj.PermissionsInfo, *ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsStatus converts a InstanceNotifyKeyAvailableRecipeStepsStatus resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatus(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatus) *alpha.InstanceNotifyKeyAvailableRecipeStepsStatus {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsStatus{
+		Code:    dcl.Int64OrNil(p.Code),
+		Message: dcl.StringOrNil(p.Message),
+	}
+	for _, r := range p.GetDetails() {
+		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatusDetails(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsStatusDetails converts a InstanceNotifyKeyAvailableRecipeStepsStatusDetails resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatusDetails(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatusDetails) *alpha.InstanceNotifyKeyAvailableRecipeStepsStatusDetails {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsStatusDetails{
+		TypeUrl: dcl.StringOrNil(p.TypeUrl),
+		Value:   dcl.StringOrNil(p.Value),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas converts a InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas) *alpha.InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.StringOrNil(p.MetricName),
+		Amount:     dcl.Int64OrNil(p.Amount),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate converts a InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate) *alpha.InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.StringOrNil(p.LatencySloBucketName),
+		PublicOperationMetadata: dcl.StringOrNil(p.PublicOperationMetadata),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject converts a InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject) *alpha.InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject{
+		Tag:    dcl.StringOrNil(p.Tag),
+		Folder: dcl.StringOrNil(p.Folder),
+		Scope:  ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum(p.GetScope()),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo converts a InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo) *alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo{
+		PolicyName:   ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath: dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+	}
+	for _, r := range p.GetIamPermissions() {
+		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName converts a InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName) *alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.StringOrNil(p.Type),
+		Id:     dcl.StringOrNil(p.Id),
+		Region: dcl.StringOrNil(p.Region),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions converts a InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions) *alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate) *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p.GetKeyNotificationsInfo()),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
+		DataVersion: dcl.Int64OrNil(p.DataVersion),
+		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipe converts a InstanceNotifyKeyUnavailableRecipe resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipe(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipe) *alpha.InstanceNotifyKeyUnavailableRecipe {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipe{
+		HonorCancelRequest:                dcl.Bool(p.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.Int64OrNil(p.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.Float64OrNil(p.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.Bool(p.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.StringOrNil(p.GetReadonlyRecipeStartTime()),
+		DelayToStoreResourcesInClhDbNanos: dcl.Int64OrNil(p.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range p.GetSteps() {
+		obj.Steps = append(obj.Steps, *ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeSteps(r))
+	}
+	for _, r := range p.GetResourceNamesStoredInClhWithDelay() {
+		obj.ResourceNamesStoredInClhWithDelay = append(obj.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeSteps converts a InstanceNotifyKeyUnavailableRecipeSteps resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeSteps(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeSteps) *alpha.InstanceNotifyKeyUnavailableRecipeSteps {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeSteps{
+		RelativeTime:                   dcl.Int64OrNil(p.RelativeTime),
+		SleepDuration:                  dcl.Int64OrNil(p.SleepDuration),
+		Action:                         ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnum(p.GetAction()),
+		Status:                         ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatus(p.GetStatus()),
+		ErrorSpace:                     dcl.StringOrNil(p.ErrorSpace),
+		P4ServiceAccount:               dcl.StringOrNil(p.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.Int64OrNil(p.ResourceMetadataSize),
+		Description:                    dcl.StringOrNil(p.Description),
+		UpdatedRepeatOperationDelaySec: dcl.Float64OrNil(p.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(p.GetPreprocessUpdate()),
+		PublicOperationMetadata:        dcl.StringOrNil(p.PublicOperationMetadata),
+		RequestedTenantProject:         ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
+		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
+		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+	}
+	for _, r := range p.GetQuotaRequestDeltas() {
+		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(r))
+	}
+	for _, r := range p.GetPermissionsInfo() {
+		obj.PermissionsInfo = append(obj.PermissionsInfo, *ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsStatus converts a InstanceNotifyKeyUnavailableRecipeStepsStatus resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatus(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatus) *alpha.InstanceNotifyKeyUnavailableRecipeStepsStatus {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsStatus{
+		Code:    dcl.Int64OrNil(p.Code),
+		Message: dcl.StringOrNil(p.Message),
+	}
+	for _, r := range p.GetDetails() {
+		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatusDetails(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsStatusDetails converts a InstanceNotifyKeyUnavailableRecipeStepsStatusDetails resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatusDetails(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatusDetails) *alpha.InstanceNotifyKeyUnavailableRecipeStepsStatusDetails {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsStatusDetails{
+		TypeUrl: dcl.StringOrNil(p.TypeUrl),
+		Value:   dcl.StringOrNil(p.Value),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas converts a InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas) *alpha.InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.StringOrNil(p.MetricName),
+		Amount:     dcl.Int64OrNil(p.Amount),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate converts a InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate) *alpha.InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.StringOrNil(p.LatencySloBucketName),
+		PublicOperationMetadata: dcl.StringOrNil(p.PublicOperationMetadata),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject converts a InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject) *alpha.InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject{
+		Tag:    dcl.StringOrNil(p.Tag),
+		Folder: dcl.StringOrNil(p.Folder),
+		Scope:  ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum(p.GetScope()),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo converts a InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo) *alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo{
+		PolicyName:   ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath: dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+	}
+	for _, r := range p.GetIamPermissions() {
+		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName converts a InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName) *alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.StringOrNil(p.Type),
+		Id:     dcl.StringOrNil(p.Id),
+		Region: dcl.StringOrNil(p.Region),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions converts a InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions) *alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate) *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p.GetKeyNotificationsInfo()),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
+		DataVersion: dcl.Int64OrNil(p.DataVersion),
+		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -4686,7 +4967,7 @@ func ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfo(p *alphapb.Tier
 	obj := &alpha.InstanceReadonlyRecipeStepsPermissionsInfo{
 		PolicyName:   ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
 		ResourcePath: dcl.StringOrNil(p.ResourcePath),
-		ApiAttrs:     ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoApiAttrs(p.GetApiAttrs()),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
 	}
 	for _, r := range p.GetIamPermissions() {
 		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(r))
@@ -4718,15 +4999,6 @@ func ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(p
 	return obj
 }
 
-// ProtoToInstanceReadonlyRecipeStepsPermissionsInfoApiAttrs converts a InstanceReadonlyRecipeStepsPermissionsInfoApiAttrs resource from its proto representation.
-func ProtoToTier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoApiAttrs(p *alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoApiAttrs) *alpha.InstanceReadonlyRecipeStepsPermissionsInfoApiAttrs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceReadonlyRecipeStepsPermissionsInfoApiAttrs{}
-	return obj
-}
-
 // ProtoToInstanceReadonlyRecipeStepsKeyNotificationsUpdate converts a InstanceReadonlyRecipeStepsKeyNotificationsUpdate resource from its proto representation.
 func ProtoToTier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdate) *alpha.InstanceReadonlyRecipeStepsKeyNotificationsUpdate {
 	if p == nil {
@@ -4747,6 +5019,9 @@ func ProtoToTier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotifi
 		KeyConfigs:  ProtoToTier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
 	}
 	return obj
 }
@@ -4769,6 +5044,681 @@ func ProtoToTier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotifi
 	}
 	obj := &alpha.InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipe converts a InstanceReconcileRecipe resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipe(p *alphapb.Tier2AlphaInstanceReconcileRecipe) *alpha.InstanceReconcileRecipe {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipe{
+		HonorCancelRequest:                dcl.Bool(p.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.Int64OrNil(p.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.Float64OrNil(p.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.Bool(p.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.StringOrNil(p.GetReadonlyRecipeStartTime()),
+		DelayToStoreResourcesInClhDbNanos: dcl.Int64OrNil(p.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range p.GetSteps() {
+		obj.Steps = append(obj.Steps, *ProtoToTier2AlphaInstanceReconcileRecipeSteps(r))
+	}
+	for _, r := range p.GetResourceNamesStoredInClhWithDelay() {
+		obj.ResourceNamesStoredInClhWithDelay = append(obj.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeSteps converts a InstanceReconcileRecipeSteps resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeSteps(p *alphapb.Tier2AlphaInstanceReconcileRecipeSteps) *alpha.InstanceReconcileRecipeSteps {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeSteps{
+		RelativeTime:                   dcl.Int64OrNil(p.RelativeTime),
+		SleepDuration:                  dcl.Int64OrNil(p.SleepDuration),
+		Action:                         ProtoToTier2AlphaInstanceReconcileRecipeStepsActionEnum(p.GetAction()),
+		Status:                         ProtoToTier2AlphaInstanceReconcileRecipeStepsStatus(p.GetStatus()),
+		ErrorSpace:                     dcl.StringOrNil(p.ErrorSpace),
+		P4ServiceAccount:               dcl.StringOrNil(p.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.Int64OrNil(p.ResourceMetadataSize),
+		Description:                    dcl.StringOrNil(p.Description),
+		UpdatedRepeatOperationDelaySec: dcl.Float64OrNil(p.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               ProtoToTier2AlphaInstanceReconcileRecipeStepsPreprocessUpdate(p.GetPreprocessUpdate()),
+		PublicOperationMetadata:        dcl.StringOrNil(p.PublicOperationMetadata),
+		RequestedTenantProject:         ProtoToTier2AlphaInstanceReconcileRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
+		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
+		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+	}
+	for _, r := range p.GetQuotaRequestDeltas() {
+		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltas(r))
+	}
+	for _, r := range p.GetPermissionsInfo() {
+		obj.PermissionsInfo = append(obj.PermissionsInfo, *ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfo(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsStatus converts a InstanceReconcileRecipeStepsStatus resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsStatus(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsStatus) *alpha.InstanceReconcileRecipeStepsStatus {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsStatus{
+		Code:    dcl.Int64OrNil(p.Code),
+		Message: dcl.StringOrNil(p.Message),
+	}
+	for _, r := range p.GetDetails() {
+		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstanceReconcileRecipeStepsStatusDetails(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsStatusDetails converts a InstanceReconcileRecipeStepsStatusDetails resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsStatusDetails(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsStatusDetails) *alpha.InstanceReconcileRecipeStepsStatusDetails {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsStatusDetails{
+		TypeUrl: dcl.StringOrNil(p.TypeUrl),
+		Value:   dcl.StringOrNil(p.Value),
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsQuotaRequestDeltas converts a InstanceReconcileRecipeStepsQuotaRequestDeltas resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltas(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltas) *alpha.InstanceReconcileRecipeStepsQuotaRequestDeltas {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.StringOrNil(p.MetricName),
+		Amount:     dcl.Int64OrNil(p.Amount),
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsPreprocessUpdate converts a InstanceReconcileRecipeStepsPreprocessUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsPreprocessUpdate(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsPreprocessUpdate) *alpha.InstanceReconcileRecipeStepsPreprocessUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.StringOrNil(p.LatencySloBucketName),
+		PublicOperationMetadata: dcl.StringOrNil(p.PublicOperationMetadata),
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsRequestedTenantProject converts a InstanceReconcileRecipeStepsRequestedTenantProject resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsRequestedTenantProject(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProject) *alpha.InstanceReconcileRecipeStepsRequestedTenantProject {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsRequestedTenantProject{
+		Tag:    dcl.StringOrNil(p.Tag),
+		Folder: dcl.StringOrNil(p.Folder),
+		Scope:  ProtoToTier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum(p.GetScope()),
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsPermissionsInfo converts a InstanceReconcileRecipeStepsPermissionsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfo(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfo) *alpha.InstanceReconcileRecipeStepsPermissionsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsPermissionsInfo{
+		PolicyName:   ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath: dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+	}
+	for _, r := range p.GetIamPermissions() {
+		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsPermissionsInfoPolicyName converts a InstanceReconcileRecipeStepsPermissionsInfoPolicyName resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyName(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyName) *alpha.InstanceReconcileRecipeStepsPermissionsInfoPolicyName {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.StringOrNil(p.Type),
+		Id:     dcl.StringOrNil(p.Id),
+		Region: dcl.StringOrNil(p.Region),
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsPermissionsInfoIamPermissions converts a InstanceReconcileRecipeStepsPermissionsInfoIamPermissions resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissions) *alpha.InstanceReconcileRecipeStepsPermissionsInfoIamPermissions {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsKeyNotificationsUpdate converts a InstanceReconcileRecipeStepsKeyNotificationsUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdate) *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p.GetKeyNotificationsInfo()),
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo converts a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
+		DataVersion: dcl.Int64OrNil(p.DataVersion),
+		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipe converts a InstancePreprocessPassthroughRecipe resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipe(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipe) *alpha.InstancePreprocessPassthroughRecipe {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipe{
+		HonorCancelRequest:                dcl.Bool(p.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.Int64OrNil(p.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.Float64OrNil(p.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.Bool(p.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.StringOrNil(p.GetReadonlyRecipeStartTime()),
+		DelayToStoreResourcesInClhDbNanos: dcl.Int64OrNil(p.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range p.GetSteps() {
+		obj.Steps = append(obj.Steps, *ProtoToTier2AlphaInstancePreprocessPassthroughRecipeSteps(r))
+	}
+	for _, r := range p.GetResourceNamesStoredInClhWithDelay() {
+		obj.ResourceNamesStoredInClhWithDelay = append(obj.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeSteps converts a InstancePreprocessPassthroughRecipeSteps resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeSteps(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeSteps) *alpha.InstancePreprocessPassthroughRecipeSteps {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeSteps{
+		RelativeTime:                   dcl.Int64OrNil(p.RelativeTime),
+		SleepDuration:                  dcl.Int64OrNil(p.SleepDuration),
+		Action:                         ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum(p.GetAction()),
+		Status:                         ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsStatus(p.GetStatus()),
+		ErrorSpace:                     dcl.StringOrNil(p.ErrorSpace),
+		P4ServiceAccount:               dcl.StringOrNil(p.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.Int64OrNil(p.ResourceMetadataSize),
+		Description:                    dcl.StringOrNil(p.Description),
+		UpdatedRepeatOperationDelaySec: dcl.Float64OrNil(p.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(p.GetPreprocessUpdate()),
+		PublicOperationMetadata:        dcl.StringOrNil(p.PublicOperationMetadata),
+		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
+		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
+		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+	}
+	for _, r := range p.GetQuotaRequestDeltas() {
+		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(r))
+	}
+	for _, r := range p.GetPermissionsInfo() {
+		obj.PermissionsInfo = append(obj.PermissionsInfo, *ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfo(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsStatus converts a InstancePreprocessPassthroughRecipeStepsStatus resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsStatus(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatus) *alpha.InstancePreprocessPassthroughRecipeStepsStatus {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsStatus{
+		Code:    dcl.Int64OrNil(p.Code),
+		Message: dcl.StringOrNil(p.Message),
+	}
+	for _, r := range p.GetDetails() {
+		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsStatusDetails(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsStatusDetails converts a InstancePreprocessPassthroughRecipeStepsStatusDetails resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsStatusDetails(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatusDetails) *alpha.InstancePreprocessPassthroughRecipeStepsStatusDetails {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsStatusDetails{
+		TypeUrl: dcl.StringOrNil(p.TypeUrl),
+		Value:   dcl.StringOrNil(p.Value),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas converts a InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas) *alpha.InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.StringOrNil(p.MetricName),
+		Amount:     dcl.Int64OrNil(p.Amount),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsPreprocessUpdate converts a InstancePreprocessPassthroughRecipeStepsPreprocessUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPreprocessUpdate) *alpha.InstancePreprocessPassthroughRecipeStepsPreprocessUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.StringOrNil(p.LatencySloBucketName),
+		PublicOperationMetadata: dcl.StringOrNil(p.PublicOperationMetadata),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsRequestedTenantProject converts a InstancePreprocessPassthroughRecipeStepsRequestedTenantProject resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProject) *alpha.InstancePreprocessPassthroughRecipeStepsRequestedTenantProject {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsRequestedTenantProject{
+		Tag:    dcl.StringOrNil(p.Tag),
+		Folder: dcl.StringOrNil(p.Folder),
+		Scope:  ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum(p.GetScope()),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsPermissionsInfo converts a InstancePreprocessPassthroughRecipeStepsPermissionsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfo(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfo) *alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfo{
+		PolicyName:   ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath: dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+	}
+	for _, r := range p.GetIamPermissions() {
+		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName converts a InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName) *alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.StringOrNil(p.Type),
+		Id:     dcl.StringOrNil(p.Id),
+		Region: dcl.StringOrNil(p.Region),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions converts a InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions) *alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate) *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p.GetKeyNotificationsInfo()),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
+		DataVersion: dcl.Int64OrNil(p.DataVersion),
+		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipe converts a InstancePreprocessReconcileRecipe resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipe(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipe) *alpha.InstancePreprocessReconcileRecipe {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipe{
+		HonorCancelRequest:                dcl.Bool(p.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.Int64OrNil(p.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.Float64OrNil(p.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.Bool(p.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.StringOrNil(p.GetReadonlyRecipeStartTime()),
+		DelayToStoreResourcesInClhDbNanos: dcl.Int64OrNil(p.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range p.GetSteps() {
+		obj.Steps = append(obj.Steps, *ProtoToTier2AlphaInstancePreprocessReconcileRecipeSteps(r))
+	}
+	for _, r := range p.GetResourceNamesStoredInClhWithDelay() {
+		obj.ResourceNamesStoredInClhWithDelay = append(obj.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeSteps converts a InstancePreprocessReconcileRecipeSteps resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeSteps(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeSteps) *alpha.InstancePreprocessReconcileRecipeSteps {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeSteps{
+		RelativeTime:                   dcl.Int64OrNil(p.RelativeTime),
+		SleepDuration:                  dcl.Int64OrNil(p.SleepDuration),
+		Action:                         ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum(p.GetAction()),
+		Status:                         ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsStatus(p.GetStatus()),
+		ErrorSpace:                     dcl.StringOrNil(p.ErrorSpace),
+		P4ServiceAccount:               dcl.StringOrNil(p.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.Int64OrNil(p.ResourceMetadataSize),
+		Description:                    dcl.StringOrNil(p.Description),
+		UpdatedRepeatOperationDelaySec: dcl.Float64OrNil(p.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPreprocessUpdate(p.GetPreprocessUpdate()),
+		PublicOperationMetadata:        dcl.StringOrNil(p.PublicOperationMetadata),
+		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
+		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
+		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+	}
+	for _, r := range p.GetQuotaRequestDeltas() {
+		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(r))
+	}
+	for _, r := range p.GetPermissionsInfo() {
+		obj.PermissionsInfo = append(obj.PermissionsInfo, *ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfo(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsStatus converts a InstancePreprocessReconcileRecipeStepsStatus resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsStatus(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsStatus) *alpha.InstancePreprocessReconcileRecipeStepsStatus {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsStatus{
+		Code:    dcl.Int64OrNil(p.Code),
+		Message: dcl.StringOrNil(p.Message),
+	}
+	for _, r := range p.GetDetails() {
+		obj.Details = append(obj.Details, *ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsStatusDetails(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsStatusDetails converts a InstancePreprocessReconcileRecipeStepsStatusDetails resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsStatusDetails(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsStatusDetails) *alpha.InstancePreprocessReconcileRecipeStepsStatusDetails {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsStatusDetails{
+		TypeUrl: dcl.StringOrNil(p.TypeUrl),
+		Value:   dcl.StringOrNil(p.Value),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas converts a InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas) *alpha.InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.StringOrNil(p.MetricName),
+		Amount:     dcl.Int64OrNil(p.Amount),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsPreprocessUpdate converts a InstancePreprocessReconcileRecipeStepsPreprocessUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPreprocessUpdate(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPreprocessUpdate) *alpha.InstancePreprocessReconcileRecipeStepsPreprocessUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.StringOrNil(p.LatencySloBucketName),
+		PublicOperationMetadata: dcl.StringOrNil(p.PublicOperationMetadata),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsRequestedTenantProject converts a InstancePreprocessReconcileRecipeStepsRequestedTenantProject resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProject(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProject) *alpha.InstancePreprocessReconcileRecipeStepsRequestedTenantProject {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsRequestedTenantProject{
+		Tag:    dcl.StringOrNil(p.Tag),
+		Folder: dcl.StringOrNil(p.Folder),
+		Scope:  ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum(p.GetScope()),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsPermissionsInfo converts a InstancePreprocessReconcileRecipeStepsPermissionsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfo(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfo) *alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfo{
+		PolicyName:   ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(p.GetPolicyName()),
+		ResourcePath: dcl.StringOrNil(p.ResourcePath),
+		ApiAttrs:     ProtoToTier2AlphaInstanceGoogleprotobufstruct(p.GetApiAttrs()),
+	}
+	for _, r := range p.GetIamPermissions() {
+		obj.IamPermissions = append(obj.IamPermissions, *ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName converts a InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName) *alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.StringOrNil(p.Type),
+		Id:     dcl.StringOrNil(p.Id),
+		Region: dcl.StringOrNil(p.Region),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions converts a InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions) *alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.StringOrNil(p.Permission),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate) *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p.GetKeyNotificationsInfo()),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
+		DataVersion: dcl.Int64OrNil(p.DataVersion),
+		Delegate:    dcl.StringOrNil(p.Delegate),
+	}
+	for _, r := range p.GetKeyNotificationConfigs() {
+		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
+	}
+	return obj
+}
+
+// ProtoToInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource from its proto representation.
+func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
+		Grant:            dcl.StringOrNil(p.Grant),
+		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -4793,43 +5743,55 @@ func ProtoToTier2AlphaInstanceHistory(p *alphapb.Tier2AlphaInstanceHistory) *alp
 // ProtoToInstance converts a Instance resource from its proto representation.
 func ProtoToInstance(p *alphapb.Tier2AlphaInstance) *alpha.Instance {
 	obj := &alpha.Instance{
-		Name:                       dcl.StringOrNil(p.Name),
-		DisplayName:                dcl.StringOrNil(p.DisplayName),
-		Zone:                       dcl.StringOrNil(p.Zone),
-		Sku:                        ProtoToTier2AlphaInstanceSku(p.GetSku()),
-		AuthorizedNetworkId:        dcl.StringOrNil(p.AuthorizedNetworkId),
-		ReservedIPRange:            dcl.StringOrNil(p.ReservedIpRange),
-		HostName:                   dcl.StringOrNil(p.HostName),
-		PortNumber:                 dcl.Int64OrNil(p.PortNumber),
-		CurrentZone:                dcl.StringOrNil(p.CurrentZone),
-		CreationTime:               dcl.StringOrNil(p.GetCreationTime()),
-		State:                      ProtoToTier2AlphaInstanceStateEnum(p.GetState()),
-		StatusMessage:              dcl.StringOrNil(p.StatusMessage),
-		ExtraField:                 dcl.StringOrNil(p.ExtraField),
-		PreprocessCreateRecipe:     ProtoToTier2AlphaInstancePreprocessCreateRecipe(p.GetPreprocessCreateRecipe()),
-		InitiateCreateRecipe:       ProtoToTier2AlphaInstanceInitiateCreateRecipe(p.GetInitiateCreateRecipe()),
-		CreateRecipe:               ProtoToTier2AlphaInstanceCreateRecipe(p.GetCreateRecipe()),
-		DeleteRecipe:               ProtoToTier2AlphaInstanceDeleteRecipe(p.GetDeleteRecipe()),
-		UpdateRecipe:               ProtoToTier2AlphaInstanceUpdateRecipe(p.GetUpdateRecipe()),
-		PreprocessResetRecipe:      ProtoToTier2AlphaInstancePreprocessResetRecipe(p.GetPreprocessResetRecipe()),
-		InitiateResetRecipe:        ProtoToTier2AlphaInstanceInitiateResetRecipe(p.GetInitiateResetRecipe()),
-		ResetRecipe:                ProtoToTier2AlphaInstanceResetRecipe(p.GetResetRecipe()),
-		PreprocessRepairRecipe:     ProtoToTier2AlphaInstancePreprocessRepairRecipe(p.GetPreprocessRepairRecipe()),
-		InitiateRepairRecipe:       ProtoToTier2AlphaInstanceInitiateRepairRecipe(p.GetInitiateRepairRecipe()),
-		RepairRecipe:               ProtoToTier2AlphaInstanceRepairRecipe(p.GetRepairRecipe()),
-		PreprocessDeleteRecipe:     ProtoToTier2AlphaInstancePreprocessDeleteRecipe(p.GetPreprocessDeleteRecipe()),
-		InitiateDeleteRecipe:       ProtoToTier2AlphaInstanceInitiateDeleteRecipe(p.GetInitiateDeleteRecipe()),
-		PreprocessUpdateRecipe:     ProtoToTier2AlphaInstancePreprocessUpdateRecipe(p.GetPreprocessUpdateRecipe()),
-		InitiateUpdateRecipe:       ProtoToTier2AlphaInstanceInitiateUpdateRecipe(p.GetInitiateUpdateRecipe()),
-		PreprocessFreezeRecipe:     ProtoToTier2AlphaInstancePreprocessFreezeRecipe(p.GetPreprocessFreezeRecipe()),
-		FreezeRecipe:               ProtoToTier2AlphaInstanceFreezeRecipe(p.GetFreezeRecipe()),
-		PreprocessUnfreezeRecipe:   ProtoToTier2AlphaInstancePreprocessUnfreezeRecipe(p.GetPreprocessUnfreezeRecipe()),
-		UnfreezeRecipe:             ProtoToTier2AlphaInstanceUnfreezeRecipe(p.GetUnfreezeRecipe()),
-		ReadonlyRecipe:             ProtoToTier2AlphaInstanceReadonlyRecipe(p.GetReadonlyRecipe()),
-		EnableCallHistory:          dcl.Bool(p.EnableCallHistory),
-		PublicResourceViewOverride: dcl.StringOrNil(p.PublicResourceViewOverride),
-		Project:                    dcl.StringOrNil(p.Project),
-		Location:                   dcl.StringOrNil(p.Location),
+		Name:                                 dcl.StringOrNil(p.Name),
+		DisplayName:                          dcl.StringOrNil(p.DisplayName),
+		Zone:                                 dcl.StringOrNil(p.Zone),
+		AlternativeZone:                      dcl.StringOrNil(p.AlternativeZone),
+		Sku:                                  ProtoToTier2AlphaInstanceSku(p.GetSku()),
+		AuthorizedNetworkId:                  dcl.StringOrNil(p.AuthorizedNetworkId),
+		ReservedIPRange:                      dcl.StringOrNil(p.ReservedIpRange),
+		Host:                                 dcl.StringOrNil(p.Host),
+		Port:                                 dcl.Int64OrNil(p.Port),
+		CurrentZone:                          dcl.StringOrNil(p.CurrentZone),
+		CreateTime:                           dcl.StringOrNil(p.GetCreateTime()),
+		State:                                ProtoToTier2AlphaInstanceStateEnum(p.GetState()),
+		StatusMessage:                        dcl.StringOrNil(p.StatusMessage),
+		UpdateTime:                           dcl.StringOrNil(p.GetUpdateTime()),
+		MutateUserId:                         dcl.Int64OrNil(p.MutateUserId),
+		ReadUserId:                           dcl.Int64OrNil(p.ReadUserId),
+		PreprocessCreateRecipe:               ProtoToTier2AlphaInstancePreprocessCreateRecipe(p.GetPreprocessCreateRecipe()),
+		CreateRecipe:                         ProtoToTier2AlphaInstanceCreateRecipe(p.GetCreateRecipe()),
+		DeleteRecipe:                         ProtoToTier2AlphaInstanceDeleteRecipe(p.GetDeleteRecipe()),
+		UpdateRecipe:                         ProtoToTier2AlphaInstanceUpdateRecipe(p.GetUpdateRecipe()),
+		PreprocessResetRecipe:                ProtoToTier2AlphaInstancePreprocessResetRecipe(p.GetPreprocessResetRecipe()),
+		ResetRecipe:                          ProtoToTier2AlphaInstanceResetRecipe(p.GetResetRecipe()),
+		PreprocessRepairRecipe:               ProtoToTier2AlphaInstancePreprocessRepairRecipe(p.GetPreprocessRepairRecipe()),
+		RepairRecipe:                         ProtoToTier2AlphaInstanceRepairRecipe(p.GetRepairRecipe()),
+		PreprocessDeleteRecipe:               ProtoToTier2AlphaInstancePreprocessDeleteRecipe(p.GetPreprocessDeleteRecipe()),
+		PreprocessUpdateRecipe:               ProtoToTier2AlphaInstancePreprocessUpdateRecipe(p.GetPreprocessUpdateRecipe()),
+		PreprocessFreezeRecipe:               ProtoToTier2AlphaInstancePreprocessFreezeRecipe(p.GetPreprocessFreezeRecipe()),
+		FreezeRecipe:                         ProtoToTier2AlphaInstanceFreezeRecipe(p.GetFreezeRecipe()),
+		PreprocessUnfreezeRecipe:             ProtoToTier2AlphaInstancePreprocessUnfreezeRecipe(p.GetPreprocessUnfreezeRecipe()),
+		UnfreezeRecipe:                       ProtoToTier2AlphaInstanceUnfreezeRecipe(p.GetUnfreezeRecipe()),
+		PreprocessReportInstanceHealthRecipe: ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipe(p.GetPreprocessReportInstanceHealthRecipe()),
+		ReportInstanceHealthRecipe:           ProtoToTier2AlphaInstanceReportInstanceHealthRecipe(p.GetReportInstanceHealthRecipe()),
+		PreprocessGetRecipe:                  ProtoToTier2AlphaInstancePreprocessGetRecipe(p.GetPreprocessGetRecipe()),
+		NotifyKeyAvailableRecipe:             ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipe(p.GetNotifyKeyAvailableRecipe()),
+		NotifyKeyUnavailableRecipe:           ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipe(p.GetNotifyKeyUnavailableRecipe()),
+		ReadonlyRecipe:                       ProtoToTier2AlphaInstanceReadonlyRecipe(p.GetReadonlyRecipe()),
+		ReconcileRecipe:                      ProtoToTier2AlphaInstanceReconcileRecipe(p.GetReconcileRecipe()),
+		PreprocessPassthroughRecipe:          ProtoToTier2AlphaInstancePreprocessPassthroughRecipe(p.GetPreprocessPassthroughRecipe()),
+		PreprocessReconcileRecipe:            ProtoToTier2AlphaInstancePreprocessReconcileRecipe(p.GetPreprocessReconcileRecipe()),
+		EnableCallHistory:                    dcl.Bool(p.EnableCallHistory),
+		PublicResourceViewOverride:           dcl.StringOrNil(p.PublicResourceViewOverride),
+		ExtraInfo:                            dcl.StringOrNil(p.ExtraInfo),
+		Uid:                                  dcl.StringOrNil(p.Uid),
+		Etag:                                 dcl.StringOrNil(p.Etag),
+		Project:                              dcl.StringOrNil(p.Project),
+		Location:                             dcl.StringOrNil(p.Location),
+	}
+	for _, r := range p.GetReferences() {
+		obj.References = append(obj.References, *ProtoToTier2AlphaInstanceReferences(r))
 	}
 	for _, r := range p.GetHistory() {
 		obj.History = append(obj.History, *ProtoToTier2AlphaInstanceHistory(r))
@@ -4890,28 +5852,6 @@ func Tier2AlphaInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnu
 		return alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum(0)
-}
-
-// InstanceInitiateCreateRecipeStepsActionEnumToProto converts a InstanceInitiateCreateRecipeStepsActionEnum enum to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnumToProto(e *alpha.InstanceInitiateCreateRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnum {
-	if e == nil {
-		return alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnum(0)
-	}
-	if v, ok := alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnum_value["InstanceInitiateCreateRecipeStepsActionEnum"+string(*e)]; ok {
-		return alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnum(v)
-	}
-	return alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnum(0)
-}
-
-// InstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnumToProto converts a InstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum enum to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnumToProto(e *alpha.InstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum) alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum {
-	if e == nil {
-		return alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum(0)
-	}
-	if v, ok := alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum_value["InstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum"+string(*e)]; ok {
-		return alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum(v)
-	}
-	return alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
 // InstanceCreateRecipeStepsActionEnumToProto converts a InstanceCreateRecipeStepsActionEnum enum to its proto representation.
@@ -5002,28 +5942,6 @@ func Tier2AlphaInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum
 	return alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
-// InstanceInitiateResetRecipeStepsActionEnumToProto converts a InstanceInitiateResetRecipeStepsActionEnum enum to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsActionEnumToProto(e *alpha.InstanceInitiateResetRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsActionEnum {
-	if e == nil {
-		return alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsActionEnum(0)
-	}
-	if v, ok := alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsActionEnum_value["InstanceInitiateResetRecipeStepsActionEnum"+string(*e)]; ok {
-		return alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsActionEnum(v)
-	}
-	return alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsActionEnum(0)
-}
-
-// InstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnumToProto converts a InstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum enum to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnumToProto(e *alpha.InstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum) alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum {
-	if e == nil {
-		return alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum(0)
-	}
-	if v, ok := alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum_value["InstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum"+string(*e)]; ok {
-		return alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum(v)
-	}
-	return alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum(0)
-}
-
 // InstanceResetRecipeStepsActionEnumToProto converts a InstanceResetRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstanceResetRecipeStepsActionEnumToProto(e *alpha.InstanceResetRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceResetRecipeStepsActionEnum {
 	if e == nil {
@@ -5066,28 +5984,6 @@ func Tier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnu
 		return alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum(0)
-}
-
-// InstanceInitiateRepairRecipeStepsActionEnumToProto converts a InstanceInitiateRepairRecipeStepsActionEnum enum to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnumToProto(e *alpha.InstanceInitiateRepairRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnum {
-	if e == nil {
-		return alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnum(0)
-	}
-	if v, ok := alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnum_value["InstanceInitiateRepairRecipeStepsActionEnum"+string(*e)]; ok {
-		return alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnum(v)
-	}
-	return alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnum(0)
-}
-
-// InstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnumToProto converts a InstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum enum to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnumToProto(e *alpha.InstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum) alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum {
-	if e == nil {
-		return alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum(0)
-	}
-	if v, ok := alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum_value["InstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum"+string(*e)]; ok {
-		return alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum(v)
-	}
-	return alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
 // InstanceRepairRecipeStepsActionEnumToProto converts a InstanceRepairRecipeStepsActionEnum enum to its proto representation.
@@ -5134,28 +6030,6 @@ func Tier2AlphaInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnu
 	return alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
-// InstanceInitiateDeleteRecipeStepsActionEnumToProto converts a InstanceInitiateDeleteRecipeStepsActionEnum enum to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnumToProto(e *alpha.InstanceInitiateDeleteRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnum {
-	if e == nil {
-		return alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnum(0)
-	}
-	if v, ok := alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnum_value["InstanceInitiateDeleteRecipeStepsActionEnum"+string(*e)]; ok {
-		return alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnum(v)
-	}
-	return alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnum(0)
-}
-
-// InstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnumToProto converts a InstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum enum to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnumToProto(e *alpha.InstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum) alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum {
-	if e == nil {
-		return alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum(0)
-	}
-	if v, ok := alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum_value["InstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum"+string(*e)]; ok {
-		return alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum(v)
-	}
-	return alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum(0)
-}
-
 // InstancePreprocessUpdateRecipeStepsActionEnumToProto converts a InstancePreprocessUpdateRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstancePreprocessUpdateRecipeStepsActionEnumToProto(e *alpha.InstancePreprocessUpdateRecipeStepsActionEnum) alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsActionEnum {
 	if e == nil {
@@ -5176,28 +6050,6 @@ func Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnu
 		return alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum(v)
 	}
 	return alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum(0)
-}
-
-// InstanceInitiateUpdateRecipeStepsActionEnumToProto converts a InstanceInitiateUpdateRecipeStepsActionEnum enum to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnumToProto(e *alpha.InstanceInitiateUpdateRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnum {
-	if e == nil {
-		return alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnum(0)
-	}
-	if v, ok := alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnum_value["InstanceInitiateUpdateRecipeStepsActionEnum"+string(*e)]; ok {
-		return alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnum(v)
-	}
-	return alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnum(0)
-}
-
-// InstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnumToProto converts a InstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum enum to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnumToProto(e *alpha.InstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum) alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum {
-	if e == nil {
-		return alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum(0)
-	}
-	if v, ok := alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum_value["InstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum"+string(*e)]; ok {
-		return alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum(v)
-	}
-	return alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
 // InstancePreprocessFreezeRecipeStepsActionEnumToProto converts a InstancePreprocessFreezeRecipeStepsActionEnum enum to its proto representation.
@@ -5288,6 +6140,116 @@ func Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnumToProto
 	return alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstancePreprocessReportInstanceHealthRecipeStepsActionEnumToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsActionEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnumToProto(e *alpha.InstancePreprocessReportInstanceHealthRecipeStepsActionEnum) alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnum_value["InstancePreprocessReportInstanceHealthRecipeStepsActionEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnum(0)
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumToProto(e *alpha.InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum) alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum_value["InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstanceReportInstanceHealthRecipeStepsActionEnumToProto converts a InstanceReportInstanceHealthRecipeStepsActionEnum enum to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnumToProto(e *alpha.InstanceReportInstanceHealthRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum_value["InstanceReportInstanceHealthRecipeStepsActionEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum(0)
+}
+
+// InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumToProto converts a InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum enum to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumToProto(e *alpha.InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum) alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum_value["InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstancePreprocessGetRecipeStepsActionEnumToProto converts a InstancePreprocessGetRecipeStepsActionEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsActionEnumToProto(e *alpha.InstancePreprocessGetRecipeStepsActionEnum) alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsActionEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsActionEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsActionEnum_value["InstancePreprocessGetRecipeStepsActionEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsActionEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsActionEnum(0)
+}
+
+// InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumToProto converts a InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumToProto(e *alpha.InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum) alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum_value["InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsActionEnumToProto converts a InstanceNotifyKeyAvailableRecipeStepsActionEnum enum to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnumToProto(e *alpha.InstanceNotifyKeyAvailableRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum_value["InstanceNotifyKeyAvailableRecipeStepsActionEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum(0)
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumToProto converts a InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum enum to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumToProto(e *alpha.InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum) alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum_value["InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsActionEnumToProto converts a InstanceNotifyKeyUnavailableRecipeStepsActionEnum enum to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnumToProto(e *alpha.InstanceNotifyKeyUnavailableRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnum_value["InstanceNotifyKeyUnavailableRecipeStepsActionEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnum(0)
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumToProto converts a InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum enum to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumToProto(e *alpha.InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum) alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum_value["InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
 // InstanceReadonlyRecipeStepsActionEnumToProto converts a InstanceReadonlyRecipeStepsActionEnum enum to its proto representation.
 func Tier2AlphaInstanceReadonlyRecipeStepsActionEnumToProto(e *alpha.InstanceReadonlyRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceReadonlyRecipeStepsActionEnum {
 	if e == nil {
@@ -5310,6 +6272,72 @@ func Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnumToProto
 	return alphapb.Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum(0)
 }
 
+// InstanceReconcileRecipeStepsActionEnumToProto converts a InstanceReconcileRecipeStepsActionEnum enum to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsActionEnumToProto(e *alpha.InstanceReconcileRecipeStepsActionEnum) alphapb.Tier2AlphaInstanceReconcileRecipeStepsActionEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceReconcileRecipeStepsActionEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceReconcileRecipeStepsActionEnum_value["InstanceReconcileRecipeStepsActionEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceReconcileRecipeStepsActionEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceReconcileRecipeStepsActionEnum(0)
+}
+
+// InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumToProto converts a InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum enum to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumToProto(e *alpha.InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum) alphapb.Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum_value["InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstancePreprocessPassthroughRecipeStepsActionEnumToProto converts a InstancePreprocessPassthroughRecipeStepsActionEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnumToProto(e *alpha.InstancePreprocessPassthroughRecipeStepsActionEnum) alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum_value["InstancePreprocessPassthroughRecipeStepsActionEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum(0)
+}
+
+// InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumToProto converts a InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumToProto(e *alpha.InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum) alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum_value["InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
+// InstancePreprocessReconcileRecipeStepsActionEnumToProto converts a InstancePreprocessReconcileRecipeStepsActionEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnumToProto(e *alpha.InstancePreprocessReconcileRecipeStepsActionEnum) alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum_value["InstancePreprocessReconcileRecipeStepsActionEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum(0)
+}
+
+// InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumToProto converts a InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum enum to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumToProto(e *alpha.InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum) alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum {
+	if e == nil {
+		return alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum(0)
+	}
+	if v, ok := alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum_value["InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum"+string(*e)]; ok {
+		return alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum(v)
+	}
+	return alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum(0)
+}
+
 // InstanceSkuToProto converts a InstanceSku resource to its proto representation.
 func Tier2AlphaInstanceSkuToProto(o *alpha.InstanceSku) *alphapb.Tier2AlphaInstanceSku {
 	if o == nil {
@@ -5318,6 +6346,35 @@ func Tier2AlphaInstanceSkuToProto(o *alpha.InstanceSku) *alphapb.Tier2AlphaInsta
 	p := &alphapb.Tier2AlphaInstanceSku{
 		Tier: Tier2AlphaInstanceSkuTierEnumToProto(o.Tier),
 		Size: Tier2AlphaInstanceSkuSizeEnumToProto(o.Size),
+	}
+	return p
+}
+
+// InstanceReferencesToProto converts a InstanceReferences resource to its proto representation.
+func Tier2AlphaInstanceReferencesToProto(o *alpha.InstanceReferences) *alphapb.Tier2AlphaInstanceReferences {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReferences{
+		Name:           dcl.ValueOrEmptyString(o.Name),
+		Type:           dcl.ValueOrEmptyString(o.Type),
+		SourceResource: dcl.ValueOrEmptyString(o.SourceResource),
+		CreateTime:     dcl.ValueOrEmptyString(o.CreateTime),
+	}
+	for _, r := range o.Details {
+		p.Details = append(p.Details, Tier2AlphaInstanceReferencesDetailsToProto(&r))
+	}
+	return p
+}
+
+// InstanceReferencesDetailsToProto converts a InstanceReferencesDetails resource to its proto representation.
+func Tier2AlphaInstanceReferencesDetailsToProto(o *alpha.InstanceReferencesDetails) *alphapb.Tier2AlphaInstanceReferencesDetails {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReferencesDetails{
+		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
+		Value:   dcl.ValueOrEmptyString(o.Value),
 	}
 	return p
 }
@@ -5446,7 +6503,7 @@ func Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoToProto(o *alph
 	p := &alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -5478,12 +6535,12 @@ func Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsT
 	return p
 }
 
-// InstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrsToProto converts a InstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs {
+// InstanceGoogleprotobufstructToProto converts a InstanceGoogleprotobufstruct resource to its proto representation.
+func Tier2AlphaInstanceGoogleprotobufstructToProto(o *alpha.InstanceGoogleprotobufstruct) *alphapb.Tier2AlphaInstanceGoogleprotobufstruct {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs{}
+	p := &alphapb.Tier2AlphaInstanceGoogleprotobufstruct{}
 	return p
 }
 
@@ -5508,6 +6565,9 @@ func Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotif
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
+	}
 	return p
 }
 
@@ -5529,217 +6589,21 @@ func Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotif
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
 
-// InstanceInitiateCreateRecipeToProto converts a InstanceInitiateCreateRecipe resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeToProto(o *alpha.InstanceInitiateCreateRecipe) *alphapb.Tier2AlphaInstanceInitiateCreateRecipe {
+// InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipe{
-		HonorCancelRequest:                dcl.ValueOrEmptyBool(o.HonorCancelRequest),
-		IgnoreRecipeAfter:                 dcl.ValueOrEmptyInt64(o.IgnoreRecipeAfter),
-		VerifyDeadlineSecondsBelow:        dcl.ValueOrEmptyDouble(o.VerifyDeadlineSecondsBelow),
-		PopulateOperationResult:           dcl.ValueOrEmptyBool(o.PopulateOperationResult),
-		ReadonlyRecipeStartTime:           dcl.ValueOrEmptyString(o.ReadonlyRecipeStartTime),
-		DelayToStoreResourcesInClhDbNanos: dcl.ValueOrEmptyInt64(o.DelayToStoreResourcesInClhDbNanos),
-	}
-	for _, r := range o.Steps {
-		p.Steps = append(p.Steps, Tier2AlphaInstanceInitiateCreateRecipeStepsToProto(&r))
-	}
-	for _, r := range o.ResourceNamesStoredInClhWithDelay {
-		p.ResourceNamesStoredInClhWithDelay = append(p.ResourceNamesStoredInClhWithDelay, r)
-	}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsToProto converts a InstanceInitiateCreateRecipeSteps resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsToProto(o *alpha.InstanceInitiateCreateRecipeSteps) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeSteps {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeSteps{
-		RelativeTime:                   dcl.ValueOrEmptyInt64(o.RelativeTime),
-		SleepDuration:                  dcl.ValueOrEmptyInt64(o.SleepDuration),
-		Action:                         Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnumToProto(o.Action),
-		Status:                         Tier2AlphaInstanceInitiateCreateRecipeStepsStatusToProto(o.Status),
-		ErrorSpace:                     dcl.ValueOrEmptyString(o.ErrorSpace),
-		P4ServiceAccount:               dcl.ValueOrEmptyString(o.P4ServiceAccount),
-		ResourceMetadataSize:           dcl.ValueOrEmptyInt64(o.ResourceMetadataSize),
-		Description:                    dcl.ValueOrEmptyString(o.Description),
-		UpdatedRepeatOperationDelaySec: dcl.ValueOrEmptyDouble(o.UpdatedRepeatOperationDelaySec),
-		PreprocessUpdate:               Tier2AlphaInstanceInitiateCreateRecipeStepsPreprocessUpdateToProto(o.PreprocessUpdate),
-		PublicOperationMetadata:        dcl.ValueOrEmptyString(o.PublicOperationMetadata),
-		RequestedTenantProject:         Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
-		KeyNotificationsUpdate:         Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
-		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
-	}
-	for _, r := range o.QuotaRequestDeltas {
-		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceInitiateCreateRecipeStepsQuotaRequestDeltasToProto(&r))
-	}
-	for _, r := range o.PermissionsInfo {
-		p.PermissionsInfo = append(p.PermissionsInfo, Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsStatusToProto converts a InstanceInitiateCreateRecipeStepsStatus resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsStatusToProto(o *alpha.InstanceInitiateCreateRecipeStepsStatus) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsStatus {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsStatus{
-		Code:    dcl.ValueOrEmptyInt64(o.Code),
-		Message: dcl.ValueOrEmptyString(o.Message),
-	}
-	for _, r := range o.Details {
-		p.Details = append(p.Details, Tier2AlphaInstanceInitiateCreateRecipeStepsStatusDetailsToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsStatusDetailsToProto converts a InstanceInitiateCreateRecipeStepsStatusDetails resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsStatusDetailsToProto(o *alpha.InstanceInitiateCreateRecipeStepsStatusDetails) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsStatusDetails {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsStatusDetails{
-		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
-		Value:   dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsQuotaRequestDeltasToProto converts a InstanceInitiateCreateRecipeStepsQuotaRequestDeltas resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsQuotaRequestDeltasToProto(o *alpha.InstanceInitiateCreateRecipeStepsQuotaRequestDeltas) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsQuotaRequestDeltas {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
-	}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsPreprocessUpdateToProto converts a InstanceInitiateCreateRecipeStepsPreprocessUpdate resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsPreprocessUpdateToProto(o *alpha.InstanceInitiateCreateRecipeStepsPreprocessUpdate) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPreprocessUpdate {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPreprocessUpdate{
-		LatencySloBucketName:    dcl.ValueOrEmptyString(o.LatencySloBucketName),
-		PublicOperationMetadata: dcl.ValueOrEmptyString(o.PublicOperationMetadata),
-	}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsRequestedTenantProjectToProto converts a InstanceInitiateCreateRecipeStepsRequestedTenantProject resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectToProto(o *alpha.InstanceInitiateCreateRecipeStepsRequestedTenantProject) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProject {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProject{
-		Tag:    dcl.ValueOrEmptyString(o.Tag),
-		Folder: dcl.ValueOrEmptyString(o.Folder),
-		Scope:  Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnumToProto(o.Scope),
-	}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsPermissionsInfoToProto converts a InstanceInitiateCreateRecipeStepsPermissionsInfo resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoToProto(o *alpha.InstanceInitiateCreateRecipeStepsPermissionsInfo) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfo {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
-	}
-	for _, r := range o.IamPermissions {
-		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyNameToProto converts a InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyNameToProto(o *alpha.InstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName{
-		Type:   dcl.ValueOrEmptyString(o.Type),
-		Id:     dcl.ValueOrEmptyString(o.Id),
-		Region: dcl.ValueOrEmptyString(o.Region),
-	}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissionsToProto converts a InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissionsToProto(o *alpha.InstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions{
-		Permission: dcl.ValueOrEmptyString(o.Permission),
-	}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrsToProto converts a InstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateToProto converts a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdate resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceInitiateCreateRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdate {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdate{
-		KeyNotificationsInfo: Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o.KeyNotificationsInfo),
-	}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto converts a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o *alpha.InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
-		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
-		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
-	}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+	p := &alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -5868,7 +6732,7 @@ func Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 	p := &alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -5900,15 +6764,6 @@ func Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissionsToProto(o *
 	return p
 }
 
-// InstanceCreateRecipeStepsPermissionsInfoApiAttrsToProto converts a InstanceCreateRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstanceCreateRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstanceCreateRecipeStepsKeyNotificationsUpdateToProto converts a InstanceCreateRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceCreateRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -5929,6 +6784,9 @@ func Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		KeyConfigs:  Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -5951,6 +6809,21 @@ func Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	}
 	p := &alphapb.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -6079,7 +6952,7 @@ func Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 	p := &alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -6111,15 +6984,6 @@ func Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsToProto(o *
 	return p
 }
 
-// InstanceDeleteRecipeStepsPermissionsInfoApiAttrsToProto converts a InstanceDeleteRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstanceDeleteRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstanceDeleteRecipeStepsKeyNotificationsUpdateToProto converts a InstanceDeleteRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceDeleteRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -6140,6 +7004,9 @@ func Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		KeyConfigs:  Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -6162,6 +7029,21 @@ func Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	}
 	p := &alphapb.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -6290,7 +7172,7 @@ func Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 	p := &alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -6322,15 +7204,6 @@ func Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsToProto(o *
 	return p
 }
 
-// InstanceUpdateRecipeStepsPermissionsInfoApiAttrsToProto converts a InstanceUpdateRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstanceUpdateRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstanceUpdateRecipeStepsKeyNotificationsUpdateToProto converts a InstanceUpdateRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceUpdateRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -6351,6 +7224,9 @@ func Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		KeyConfigs:  Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -6373,6 +7249,21 @@ func Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	}
 	p := &alphapb.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -6501,7 +7392,7 @@ func Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoToProto(o *alpha
 	p := &alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -6533,15 +7424,6 @@ func Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsTo
 	return p
 }
 
-// InstancePreprocessResetRecipeStepsPermissionsInfoApiAttrsToProto converts a InstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstancePreprocessResetRecipeStepsKeyNotificationsUpdateToProto converts a InstancePreprocessResetRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstancePreprocessResetRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -6562,6 +7444,9 @@ func Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotifi
 		KeyConfigs:  Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -6584,217 +7469,21 @@ func Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotifi
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
 
-// InstanceInitiateResetRecipeToProto converts a InstanceInitiateResetRecipe resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeToProto(o *alpha.InstanceInitiateResetRecipe) *alphapb.Tier2AlphaInstanceInitiateResetRecipe {
+// InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipe{
-		HonorCancelRequest:                dcl.ValueOrEmptyBool(o.HonorCancelRequest),
-		IgnoreRecipeAfter:                 dcl.ValueOrEmptyInt64(o.IgnoreRecipeAfter),
-		VerifyDeadlineSecondsBelow:        dcl.ValueOrEmptyDouble(o.VerifyDeadlineSecondsBelow),
-		PopulateOperationResult:           dcl.ValueOrEmptyBool(o.PopulateOperationResult),
-		ReadonlyRecipeStartTime:           dcl.ValueOrEmptyString(o.ReadonlyRecipeStartTime),
-		DelayToStoreResourcesInClhDbNanos: dcl.ValueOrEmptyInt64(o.DelayToStoreResourcesInClhDbNanos),
-	}
-	for _, r := range o.Steps {
-		p.Steps = append(p.Steps, Tier2AlphaInstanceInitiateResetRecipeStepsToProto(&r))
-	}
-	for _, r := range o.ResourceNamesStoredInClhWithDelay {
-		p.ResourceNamesStoredInClhWithDelay = append(p.ResourceNamesStoredInClhWithDelay, r)
-	}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsToProto converts a InstanceInitiateResetRecipeSteps resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsToProto(o *alpha.InstanceInitiateResetRecipeSteps) *alphapb.Tier2AlphaInstanceInitiateResetRecipeSteps {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeSteps{
-		RelativeTime:                   dcl.ValueOrEmptyInt64(o.RelativeTime),
-		SleepDuration:                  dcl.ValueOrEmptyInt64(o.SleepDuration),
-		Action:                         Tier2AlphaInstanceInitiateResetRecipeStepsActionEnumToProto(o.Action),
-		Status:                         Tier2AlphaInstanceInitiateResetRecipeStepsStatusToProto(o.Status),
-		ErrorSpace:                     dcl.ValueOrEmptyString(o.ErrorSpace),
-		P4ServiceAccount:               dcl.ValueOrEmptyString(o.P4ServiceAccount),
-		ResourceMetadataSize:           dcl.ValueOrEmptyInt64(o.ResourceMetadataSize),
-		Description:                    dcl.ValueOrEmptyString(o.Description),
-		UpdatedRepeatOperationDelaySec: dcl.ValueOrEmptyDouble(o.UpdatedRepeatOperationDelaySec),
-		PreprocessUpdate:               Tier2AlphaInstanceInitiateResetRecipeStepsPreprocessUpdateToProto(o.PreprocessUpdate),
-		PublicOperationMetadata:        dcl.ValueOrEmptyString(o.PublicOperationMetadata),
-		RequestedTenantProject:         Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
-		KeyNotificationsUpdate:         Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
-		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
-	}
-	for _, r := range o.QuotaRequestDeltas {
-		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceInitiateResetRecipeStepsQuotaRequestDeltasToProto(&r))
-	}
-	for _, r := range o.PermissionsInfo {
-		p.PermissionsInfo = append(p.PermissionsInfo, Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsStatusToProto converts a InstanceInitiateResetRecipeStepsStatus resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsStatusToProto(o *alpha.InstanceInitiateResetRecipeStepsStatus) *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsStatus {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsStatus{
-		Code:    dcl.ValueOrEmptyInt64(o.Code),
-		Message: dcl.ValueOrEmptyString(o.Message),
-	}
-	for _, r := range o.Details {
-		p.Details = append(p.Details, Tier2AlphaInstanceInitiateResetRecipeStepsStatusDetailsToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsStatusDetailsToProto converts a InstanceInitiateResetRecipeStepsStatusDetails resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsStatusDetailsToProto(o *alpha.InstanceInitiateResetRecipeStepsStatusDetails) *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsStatusDetails {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsStatusDetails{
-		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
-		Value:   dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsQuotaRequestDeltasToProto converts a InstanceInitiateResetRecipeStepsQuotaRequestDeltas resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsQuotaRequestDeltasToProto(o *alpha.InstanceInitiateResetRecipeStepsQuotaRequestDeltas) *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsQuotaRequestDeltas {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
-	}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsPreprocessUpdateToProto converts a InstanceInitiateResetRecipeStepsPreprocessUpdate resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsPreprocessUpdateToProto(o *alpha.InstanceInitiateResetRecipeStepsPreprocessUpdate) *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPreprocessUpdate {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPreprocessUpdate{
-		LatencySloBucketName:    dcl.ValueOrEmptyString(o.LatencySloBucketName),
-		PublicOperationMetadata: dcl.ValueOrEmptyString(o.PublicOperationMetadata),
-	}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsRequestedTenantProjectToProto converts a InstanceInitiateResetRecipeStepsRequestedTenantProject resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectToProto(o *alpha.InstanceInitiateResetRecipeStepsRequestedTenantProject) *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProject {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProject{
-		Tag:    dcl.ValueOrEmptyString(o.Tag),
-		Folder: dcl.ValueOrEmptyString(o.Folder),
-		Scope:  Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnumToProto(o.Scope),
-	}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsPermissionsInfoToProto converts a InstanceInitiateResetRecipeStepsPermissionsInfo resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoToProto(o *alpha.InstanceInitiateResetRecipeStepsPermissionsInfo) *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfo {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
-	}
-	for _, r := range o.IamPermissions {
-		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsPermissionsInfoPolicyNameToProto converts a InstanceInitiateResetRecipeStepsPermissionsInfoPolicyName resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoPolicyNameToProto(o *alpha.InstanceInitiateResetRecipeStepsPermissionsInfoPolicyName) *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoPolicyName {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoPolicyName{
-		Type:   dcl.ValueOrEmptyString(o.Type),
-		Id:     dcl.ValueOrEmptyString(o.Id),
-		Region: dcl.ValueOrEmptyString(o.Region),
-	}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissionsToProto converts a InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissionsToProto(o *alpha.InstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions) *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions{
-		Permission: dcl.ValueOrEmptyString(o.Permission),
-	}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsPermissionsInfoApiAttrsToProto converts a InstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsKeyNotificationsUpdateToProto converts a InstanceInitiateResetRecipeStepsKeyNotificationsUpdate resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceInitiateResetRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdate {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdate{
-		KeyNotificationsInfo: Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o.KeyNotificationsInfo),
-	}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto converts a InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o *alpha.InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
-		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
-		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
-	}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+	p := &alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -6923,7 +7612,7 @@ func Tier2AlphaInstanceResetRecipeStepsPermissionsInfoToProto(o *alpha.InstanceR
 	p := &alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceResetRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -6955,15 +7644,6 @@ func Tier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissionsToProto(o *a
 	return p
 }
 
-// InstanceResetRecipeStepsPermissionsInfoApiAttrsToProto converts a InstanceResetRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstanceResetRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstanceResetRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceResetRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstanceResetRecipeStepsKeyNotificationsUpdateToProto converts a InstanceResetRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceResetRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -6984,6 +7664,9 @@ func Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 		KeyConfigs:  Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -7006,6 +7689,21 @@ func Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	}
 	p := &alphapb.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -7134,7 +7832,7 @@ func Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoToProto(o *alph
 	p := &alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -7166,15 +7864,6 @@ func Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsT
 	return p
 }
 
-// InstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrsToProto converts a InstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateToProto converts a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -7195,6 +7884,9 @@ func Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotif
 		KeyConfigs:  Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -7217,217 +7909,21 @@ func Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotif
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
 
-// InstanceInitiateRepairRecipeToProto converts a InstanceInitiateRepairRecipe resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeToProto(o *alpha.InstanceInitiateRepairRecipe) *alphapb.Tier2AlphaInstanceInitiateRepairRecipe {
+// InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipe{
-		HonorCancelRequest:                dcl.ValueOrEmptyBool(o.HonorCancelRequest),
-		IgnoreRecipeAfter:                 dcl.ValueOrEmptyInt64(o.IgnoreRecipeAfter),
-		VerifyDeadlineSecondsBelow:        dcl.ValueOrEmptyDouble(o.VerifyDeadlineSecondsBelow),
-		PopulateOperationResult:           dcl.ValueOrEmptyBool(o.PopulateOperationResult),
-		ReadonlyRecipeStartTime:           dcl.ValueOrEmptyString(o.ReadonlyRecipeStartTime),
-		DelayToStoreResourcesInClhDbNanos: dcl.ValueOrEmptyInt64(o.DelayToStoreResourcesInClhDbNanos),
-	}
-	for _, r := range o.Steps {
-		p.Steps = append(p.Steps, Tier2AlphaInstanceInitiateRepairRecipeStepsToProto(&r))
-	}
-	for _, r := range o.ResourceNamesStoredInClhWithDelay {
-		p.ResourceNamesStoredInClhWithDelay = append(p.ResourceNamesStoredInClhWithDelay, r)
-	}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsToProto converts a InstanceInitiateRepairRecipeSteps resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsToProto(o *alpha.InstanceInitiateRepairRecipeSteps) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeSteps {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeSteps{
-		RelativeTime:                   dcl.ValueOrEmptyInt64(o.RelativeTime),
-		SleepDuration:                  dcl.ValueOrEmptyInt64(o.SleepDuration),
-		Action:                         Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnumToProto(o.Action),
-		Status:                         Tier2AlphaInstanceInitiateRepairRecipeStepsStatusToProto(o.Status),
-		ErrorSpace:                     dcl.ValueOrEmptyString(o.ErrorSpace),
-		P4ServiceAccount:               dcl.ValueOrEmptyString(o.P4ServiceAccount),
-		ResourceMetadataSize:           dcl.ValueOrEmptyInt64(o.ResourceMetadataSize),
-		Description:                    dcl.ValueOrEmptyString(o.Description),
-		UpdatedRepeatOperationDelaySec: dcl.ValueOrEmptyDouble(o.UpdatedRepeatOperationDelaySec),
-		PreprocessUpdate:               Tier2AlphaInstanceInitiateRepairRecipeStepsPreprocessUpdateToProto(o.PreprocessUpdate),
-		PublicOperationMetadata:        dcl.ValueOrEmptyString(o.PublicOperationMetadata),
-		RequestedTenantProject:         Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
-		KeyNotificationsUpdate:         Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
-		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
-	}
-	for _, r := range o.QuotaRequestDeltas {
-		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceInitiateRepairRecipeStepsQuotaRequestDeltasToProto(&r))
-	}
-	for _, r := range o.PermissionsInfo {
-		p.PermissionsInfo = append(p.PermissionsInfo, Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsStatusToProto converts a InstanceInitiateRepairRecipeStepsStatus resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsStatusToProto(o *alpha.InstanceInitiateRepairRecipeStepsStatus) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsStatus {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsStatus{
-		Code:    dcl.ValueOrEmptyInt64(o.Code),
-		Message: dcl.ValueOrEmptyString(o.Message),
-	}
-	for _, r := range o.Details {
-		p.Details = append(p.Details, Tier2AlphaInstanceInitiateRepairRecipeStepsStatusDetailsToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsStatusDetailsToProto converts a InstanceInitiateRepairRecipeStepsStatusDetails resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsStatusDetailsToProto(o *alpha.InstanceInitiateRepairRecipeStepsStatusDetails) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsStatusDetails {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsStatusDetails{
-		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
-		Value:   dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsQuotaRequestDeltasToProto converts a InstanceInitiateRepairRecipeStepsQuotaRequestDeltas resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsQuotaRequestDeltasToProto(o *alpha.InstanceInitiateRepairRecipeStepsQuotaRequestDeltas) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsQuotaRequestDeltas {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
-	}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsPreprocessUpdateToProto converts a InstanceInitiateRepairRecipeStepsPreprocessUpdate resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsPreprocessUpdateToProto(o *alpha.InstanceInitiateRepairRecipeStepsPreprocessUpdate) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPreprocessUpdate {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPreprocessUpdate{
-		LatencySloBucketName:    dcl.ValueOrEmptyString(o.LatencySloBucketName),
-		PublicOperationMetadata: dcl.ValueOrEmptyString(o.PublicOperationMetadata),
-	}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsRequestedTenantProjectToProto converts a InstanceInitiateRepairRecipeStepsRequestedTenantProject resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectToProto(o *alpha.InstanceInitiateRepairRecipeStepsRequestedTenantProject) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProject {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProject{
-		Tag:    dcl.ValueOrEmptyString(o.Tag),
-		Folder: dcl.ValueOrEmptyString(o.Folder),
-		Scope:  Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnumToProto(o.Scope),
-	}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsPermissionsInfoToProto converts a InstanceInitiateRepairRecipeStepsPermissionsInfo resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoToProto(o *alpha.InstanceInitiateRepairRecipeStepsPermissionsInfo) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfo {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
-	}
-	for _, r := range o.IamPermissions {
-		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyNameToProto converts a InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyNameToProto(o *alpha.InstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName{
-		Type:   dcl.ValueOrEmptyString(o.Type),
-		Id:     dcl.ValueOrEmptyString(o.Id),
-		Region: dcl.ValueOrEmptyString(o.Region),
-	}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissionsToProto converts a InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissionsToProto(o *alpha.InstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions{
-		Permission: dcl.ValueOrEmptyString(o.Permission),
-	}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrsToProto converts a InstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateToProto converts a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdate resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceInitiateRepairRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdate {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdate{
-		KeyNotificationsInfo: Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o.KeyNotificationsInfo),
-	}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto converts a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o *alpha.InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
-		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
-		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
-	}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+	p := &alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -7556,7 +8052,7 @@ func Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 	p := &alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -7588,15 +8084,6 @@ func Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissionsToProto(o *
 	return p
 }
 
-// InstanceRepairRecipeStepsPermissionsInfoApiAttrsToProto converts a InstanceRepairRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstanceRepairRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstanceRepairRecipeStepsKeyNotificationsUpdateToProto converts a InstanceRepairRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceRepairRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -7617,6 +8104,9 @@ func Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		KeyConfigs:  Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -7639,6 +8129,21 @@ func Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	}
 	p := &alphapb.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -7767,7 +8272,7 @@ func Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoToProto(o *alph
 	p := &alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -7799,15 +8304,6 @@ func Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsT
 	return p
 }
 
-// InstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrsToProto converts a InstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateToProto converts a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -7828,6 +8324,9 @@ func Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotif
 		KeyConfigs:  Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -7850,217 +8349,21 @@ func Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotif
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
 
-// InstanceInitiateDeleteRecipeToProto converts a InstanceInitiateDeleteRecipe resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeToProto(o *alpha.InstanceInitiateDeleteRecipe) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipe {
+// InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipe{
-		HonorCancelRequest:                dcl.ValueOrEmptyBool(o.HonorCancelRequest),
-		IgnoreRecipeAfter:                 dcl.ValueOrEmptyInt64(o.IgnoreRecipeAfter),
-		VerifyDeadlineSecondsBelow:        dcl.ValueOrEmptyDouble(o.VerifyDeadlineSecondsBelow),
-		PopulateOperationResult:           dcl.ValueOrEmptyBool(o.PopulateOperationResult),
-		ReadonlyRecipeStartTime:           dcl.ValueOrEmptyString(o.ReadonlyRecipeStartTime),
-		DelayToStoreResourcesInClhDbNanos: dcl.ValueOrEmptyInt64(o.DelayToStoreResourcesInClhDbNanos),
-	}
-	for _, r := range o.Steps {
-		p.Steps = append(p.Steps, Tier2AlphaInstanceInitiateDeleteRecipeStepsToProto(&r))
-	}
-	for _, r := range o.ResourceNamesStoredInClhWithDelay {
-		p.ResourceNamesStoredInClhWithDelay = append(p.ResourceNamesStoredInClhWithDelay, r)
-	}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsToProto converts a InstanceInitiateDeleteRecipeSteps resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsToProto(o *alpha.InstanceInitiateDeleteRecipeSteps) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeSteps {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeSteps{
-		RelativeTime:                   dcl.ValueOrEmptyInt64(o.RelativeTime),
-		SleepDuration:                  dcl.ValueOrEmptyInt64(o.SleepDuration),
-		Action:                         Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnumToProto(o.Action),
-		Status:                         Tier2AlphaInstanceInitiateDeleteRecipeStepsStatusToProto(o.Status),
-		ErrorSpace:                     dcl.ValueOrEmptyString(o.ErrorSpace),
-		P4ServiceAccount:               dcl.ValueOrEmptyString(o.P4ServiceAccount),
-		ResourceMetadataSize:           dcl.ValueOrEmptyInt64(o.ResourceMetadataSize),
-		Description:                    dcl.ValueOrEmptyString(o.Description),
-		UpdatedRepeatOperationDelaySec: dcl.ValueOrEmptyDouble(o.UpdatedRepeatOperationDelaySec),
-		PreprocessUpdate:               Tier2AlphaInstanceInitiateDeleteRecipeStepsPreprocessUpdateToProto(o.PreprocessUpdate),
-		PublicOperationMetadata:        dcl.ValueOrEmptyString(o.PublicOperationMetadata),
-		RequestedTenantProject:         Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
-		KeyNotificationsUpdate:         Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
-		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
-	}
-	for _, r := range o.QuotaRequestDeltas {
-		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceInitiateDeleteRecipeStepsQuotaRequestDeltasToProto(&r))
-	}
-	for _, r := range o.PermissionsInfo {
-		p.PermissionsInfo = append(p.PermissionsInfo, Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsStatusToProto converts a InstanceInitiateDeleteRecipeStepsStatus resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsStatusToProto(o *alpha.InstanceInitiateDeleteRecipeStepsStatus) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsStatus {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsStatus{
-		Code:    dcl.ValueOrEmptyInt64(o.Code),
-		Message: dcl.ValueOrEmptyString(o.Message),
-	}
-	for _, r := range o.Details {
-		p.Details = append(p.Details, Tier2AlphaInstanceInitiateDeleteRecipeStepsStatusDetailsToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsStatusDetailsToProto converts a InstanceInitiateDeleteRecipeStepsStatusDetails resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsStatusDetailsToProto(o *alpha.InstanceInitiateDeleteRecipeStepsStatusDetails) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsStatusDetails {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsStatusDetails{
-		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
-		Value:   dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsQuotaRequestDeltasToProto converts a InstanceInitiateDeleteRecipeStepsQuotaRequestDeltas resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsQuotaRequestDeltasToProto(o *alpha.InstanceInitiateDeleteRecipeStepsQuotaRequestDeltas) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsQuotaRequestDeltas {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
-	}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsPreprocessUpdateToProto converts a InstanceInitiateDeleteRecipeStepsPreprocessUpdate resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsPreprocessUpdateToProto(o *alpha.InstanceInitiateDeleteRecipeStepsPreprocessUpdate) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPreprocessUpdate {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPreprocessUpdate{
-		LatencySloBucketName:    dcl.ValueOrEmptyString(o.LatencySloBucketName),
-		PublicOperationMetadata: dcl.ValueOrEmptyString(o.PublicOperationMetadata),
-	}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsRequestedTenantProjectToProto converts a InstanceInitiateDeleteRecipeStepsRequestedTenantProject resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectToProto(o *alpha.InstanceInitiateDeleteRecipeStepsRequestedTenantProject) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProject {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProject{
-		Tag:    dcl.ValueOrEmptyString(o.Tag),
-		Folder: dcl.ValueOrEmptyString(o.Folder),
-		Scope:  Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnumToProto(o.Scope),
-	}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsPermissionsInfoToProto converts a InstanceInitiateDeleteRecipeStepsPermissionsInfo resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoToProto(o *alpha.InstanceInitiateDeleteRecipeStepsPermissionsInfo) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfo {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
-	}
-	for _, r := range o.IamPermissions {
-		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyNameToProto converts a InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyNameToProto(o *alpha.InstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName{
-		Type:   dcl.ValueOrEmptyString(o.Type),
-		Id:     dcl.ValueOrEmptyString(o.Id),
-		Region: dcl.ValueOrEmptyString(o.Region),
-	}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissionsToProto converts a InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissionsToProto(o *alpha.InstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions{
-		Permission: dcl.ValueOrEmptyString(o.Permission),
-	}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrsToProto converts a InstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateToProto converts a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate{
-		KeyNotificationsInfo: Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o.KeyNotificationsInfo),
-	}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto converts a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o *alpha.InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
-		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
-		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
-	}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+	p := &alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -8189,7 +8492,7 @@ func Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoToProto(o *alph
 	p := &alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -8221,15 +8524,6 @@ func Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsT
 	return p
 }
 
-// InstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrsToProto converts a InstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateToProto converts a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -8250,6 +8544,9 @@ func Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotif
 		KeyConfigs:  Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -8272,217 +8569,21 @@ func Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotif
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
 
-// InstanceInitiateUpdateRecipeToProto converts a InstanceInitiateUpdateRecipe resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeToProto(o *alpha.InstanceInitiateUpdateRecipe) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipe {
+// InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipe{
-		HonorCancelRequest:                dcl.ValueOrEmptyBool(o.HonorCancelRequest),
-		IgnoreRecipeAfter:                 dcl.ValueOrEmptyInt64(o.IgnoreRecipeAfter),
-		VerifyDeadlineSecondsBelow:        dcl.ValueOrEmptyDouble(o.VerifyDeadlineSecondsBelow),
-		PopulateOperationResult:           dcl.ValueOrEmptyBool(o.PopulateOperationResult),
-		ReadonlyRecipeStartTime:           dcl.ValueOrEmptyString(o.ReadonlyRecipeStartTime),
-		DelayToStoreResourcesInClhDbNanos: dcl.ValueOrEmptyInt64(o.DelayToStoreResourcesInClhDbNanos),
-	}
-	for _, r := range o.Steps {
-		p.Steps = append(p.Steps, Tier2AlphaInstanceInitiateUpdateRecipeStepsToProto(&r))
-	}
-	for _, r := range o.ResourceNamesStoredInClhWithDelay {
-		p.ResourceNamesStoredInClhWithDelay = append(p.ResourceNamesStoredInClhWithDelay, r)
-	}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsToProto converts a InstanceInitiateUpdateRecipeSteps resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsToProto(o *alpha.InstanceInitiateUpdateRecipeSteps) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeSteps {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeSteps{
-		RelativeTime:                   dcl.ValueOrEmptyInt64(o.RelativeTime),
-		SleepDuration:                  dcl.ValueOrEmptyInt64(o.SleepDuration),
-		Action:                         Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnumToProto(o.Action),
-		Status:                         Tier2AlphaInstanceInitiateUpdateRecipeStepsStatusToProto(o.Status),
-		ErrorSpace:                     dcl.ValueOrEmptyString(o.ErrorSpace),
-		P4ServiceAccount:               dcl.ValueOrEmptyString(o.P4ServiceAccount),
-		ResourceMetadataSize:           dcl.ValueOrEmptyInt64(o.ResourceMetadataSize),
-		Description:                    dcl.ValueOrEmptyString(o.Description),
-		UpdatedRepeatOperationDelaySec: dcl.ValueOrEmptyDouble(o.UpdatedRepeatOperationDelaySec),
-		PreprocessUpdate:               Tier2AlphaInstanceInitiateUpdateRecipeStepsPreprocessUpdateToProto(o.PreprocessUpdate),
-		PublicOperationMetadata:        dcl.ValueOrEmptyString(o.PublicOperationMetadata),
-		RequestedTenantProject:         Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
-		KeyNotificationsUpdate:         Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
-		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
-	}
-	for _, r := range o.QuotaRequestDeltas {
-		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceInitiateUpdateRecipeStepsQuotaRequestDeltasToProto(&r))
-	}
-	for _, r := range o.PermissionsInfo {
-		p.PermissionsInfo = append(p.PermissionsInfo, Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsStatusToProto converts a InstanceInitiateUpdateRecipeStepsStatus resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsStatusToProto(o *alpha.InstanceInitiateUpdateRecipeStepsStatus) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsStatus {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsStatus{
-		Code:    dcl.ValueOrEmptyInt64(o.Code),
-		Message: dcl.ValueOrEmptyString(o.Message),
-	}
-	for _, r := range o.Details {
-		p.Details = append(p.Details, Tier2AlphaInstanceInitiateUpdateRecipeStepsStatusDetailsToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsStatusDetailsToProto converts a InstanceInitiateUpdateRecipeStepsStatusDetails resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsStatusDetailsToProto(o *alpha.InstanceInitiateUpdateRecipeStepsStatusDetails) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsStatusDetails {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsStatusDetails{
-		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
-		Value:   dcl.ValueOrEmptyString(o.Value),
-	}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsQuotaRequestDeltasToProto converts a InstanceInitiateUpdateRecipeStepsQuotaRequestDeltas resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsQuotaRequestDeltasToProto(o *alpha.InstanceInitiateUpdateRecipeStepsQuotaRequestDeltas) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsQuotaRequestDeltas {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
-	}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsPreprocessUpdateToProto converts a InstanceInitiateUpdateRecipeStepsPreprocessUpdate resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsPreprocessUpdateToProto(o *alpha.InstanceInitiateUpdateRecipeStepsPreprocessUpdate) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPreprocessUpdate {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPreprocessUpdate{
-		LatencySloBucketName:    dcl.ValueOrEmptyString(o.LatencySloBucketName),
-		PublicOperationMetadata: dcl.ValueOrEmptyString(o.PublicOperationMetadata),
-	}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsRequestedTenantProjectToProto converts a InstanceInitiateUpdateRecipeStepsRequestedTenantProject resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectToProto(o *alpha.InstanceInitiateUpdateRecipeStepsRequestedTenantProject) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProject {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProject{
-		Tag:    dcl.ValueOrEmptyString(o.Tag),
-		Folder: dcl.ValueOrEmptyString(o.Folder),
-		Scope:  Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnumToProto(o.Scope),
-	}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsPermissionsInfoToProto converts a InstanceInitiateUpdateRecipeStepsPermissionsInfo resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoToProto(o *alpha.InstanceInitiateUpdateRecipeStepsPermissionsInfo) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfo {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfo{
-		PolicyName:   Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
-		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
-	}
-	for _, r := range o.IamPermissions {
-		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
-	}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyNameToProto converts a InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyNameToProto(o *alpha.InstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName{
-		Type:   dcl.ValueOrEmptyString(o.Type),
-		Id:     dcl.ValueOrEmptyString(o.Id),
-		Region: dcl.ValueOrEmptyString(o.Region),
-	}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissionsToProto converts a InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissionsToProto(o *alpha.InstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions{
-		Permission: dcl.ValueOrEmptyString(o.Permission),
-	}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrsToProto converts a InstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateToProto converts a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate{
-		KeyNotificationsInfo: Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o.KeyNotificationsInfo),
-	}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto converts a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o *alpha.InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
-		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
-		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
-	}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+	p := &alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -8611,7 +8712,7 @@ func Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoToProto(o *alph
 	p := &alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -8643,15 +8744,6 @@ func Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsT
 	return p
 }
 
-// InstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrsToProto converts a InstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateToProto converts a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -8672,6 +8764,9 @@ func Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotif
 		KeyConfigs:  Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -8694,6 +8789,21 @@ func Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotif
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -8822,7 +8932,7 @@ func Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoToProto(o *alpha.Instance
 	p := &alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -8854,15 +8964,6 @@ func Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsToProto(o *
 	return p
 }
 
-// InstanceFreezeRecipeStepsPermissionsInfoApiAttrsToProto converts a InstanceFreezeRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstanceFreezeRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstanceFreezeRecipeStepsKeyNotificationsUpdateToProto converts a InstanceFreezeRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceFreezeRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -8883,6 +8984,9 @@ func Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		KeyConfigs:  Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -8905,6 +9009,21 @@ func Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	}
 	p := &alphapb.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -9033,7 +9152,7 @@ func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoToProto(o *al
 	p := &alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -9065,15 +9184,6 @@ func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermission
 	return p
 }
 
-// InstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrsToProto converts a InstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateToProto converts a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -9094,6 +9204,9 @@ func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNot
 		KeyConfigs:  Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -9116,6 +9229,21 @@ func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNot
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -9244,7 +9372,7 @@ func Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoToProto(o *alpha.Instan
 	p := &alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -9276,15 +9404,6 @@ func Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsToProto(o
 	return p
 }
 
-// InstanceUnfreezeRecipeStepsPermissionsInfoApiAttrsToProto converts a InstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstanceUnfreezeRecipeStepsKeyNotificationsUpdateToProto converts a InstanceUnfreezeRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceUnfreezeRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -9305,6 +9424,9 @@ func Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifications
 		KeyConfigs:  Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -9327,6 +9449,1121 @@ func Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifications
 	}
 	p := &alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeToProto converts a InstancePreprocessReportInstanceHealthRecipe resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipe) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipe {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipe{
+		HonorCancelRequest:                dcl.ValueOrEmptyBool(o.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.ValueOrEmptyInt64(o.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.ValueOrEmptyDouble(o.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.ValueOrEmptyBool(o.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.ValueOrEmptyString(o.ReadonlyRecipeStartTime),
+		DelayToStoreResourcesInClhDbNanos: dcl.ValueOrEmptyInt64(o.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range o.Steps {
+		p.Steps = append(p.Steps, Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsToProto(&r))
+	}
+	for _, r := range o.ResourceNamesStoredInClhWithDelay {
+		p.ResourceNamesStoredInClhWithDelay = append(p.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsToProto converts a InstancePreprocessReportInstanceHealthRecipeSteps resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeSteps) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeSteps {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeSteps{
+		RelativeTime:                   dcl.ValueOrEmptyInt64(o.RelativeTime),
+		SleepDuration:                  dcl.ValueOrEmptyInt64(o.SleepDuration),
+		Action:                         Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnumToProto(o.Action),
+		Status:                         Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatusToProto(o.Status),
+		ErrorSpace:                     dcl.ValueOrEmptyString(o.ErrorSpace),
+		P4ServiceAccount:               dcl.ValueOrEmptyString(o.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.ValueOrEmptyInt64(o.ResourceMetadataSize),
+		Description:                    dcl.ValueOrEmptyString(o.Description),
+		UpdatedRepeatOperationDelaySec: dcl.ValueOrEmptyDouble(o.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdateToProto(o.PreprocessUpdate),
+		PublicOperationMetadata:        dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+		RequestedTenantProject:         Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
+		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
+		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+	}
+	for _, r := range o.QuotaRequestDeltas {
+		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasToProto(&r))
+	}
+	for _, r := range o.PermissionsInfo {
+		p.PermissionsInfo = append(p.PermissionsInfo, Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsStatusToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsStatus resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatusToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsStatus) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatus {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatus{
+		Code:    dcl.ValueOrEmptyInt64(o.Code),
+		Message: dcl.ValueOrEmptyString(o.Message),
+	}
+	for _, r := range o.Details {
+		p.Details = append(p.Details, Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatusDetailsToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsStatusDetailsToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatusDetailsToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails{
+		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
+		Value:   dcl.ValueOrEmptyString(o.Value),
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.ValueOrEmptyString(o.MetricName),
+		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdateToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdateToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.ValueOrEmptyString(o.LatencySloBucketName),
+		PublicOperationMetadata: dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject{
+		Tag:    dcl.ValueOrEmptyString(o.Tag),
+		Folder: dcl.ValueOrEmptyString(o.Folder),
+		Scope:  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumToProto(o.Scope),
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo{
+		PolicyName:   Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+	}
+	for _, r := range o.IamPermissions {
+		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.ValueOrEmptyString(o.Type),
+		Id:     dcl.ValueOrEmptyString(o.Id),
+		Region: dcl.ValueOrEmptyString(o.Region),
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o.KeyNotificationsInfo),
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
+		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
+		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeToProto converts a InstanceReportInstanceHealthRecipe resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeToProto(o *alpha.InstanceReportInstanceHealthRecipe) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipe {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipe{
+		HonorCancelRequest:                dcl.ValueOrEmptyBool(o.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.ValueOrEmptyInt64(o.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.ValueOrEmptyDouble(o.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.ValueOrEmptyBool(o.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.ValueOrEmptyString(o.ReadonlyRecipeStartTime),
+		DelayToStoreResourcesInClhDbNanos: dcl.ValueOrEmptyInt64(o.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range o.Steps {
+		p.Steps = append(p.Steps, Tier2AlphaInstanceReportInstanceHealthRecipeStepsToProto(&r))
+	}
+	for _, r := range o.ResourceNamesStoredInClhWithDelay {
+		p.ResourceNamesStoredInClhWithDelay = append(p.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsToProto converts a InstanceReportInstanceHealthRecipeSteps resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsToProto(o *alpha.InstanceReportInstanceHealthRecipeSteps) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeSteps {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeSteps{
+		RelativeTime:                   dcl.ValueOrEmptyInt64(o.RelativeTime),
+		SleepDuration:                  dcl.ValueOrEmptyInt64(o.SleepDuration),
+		Action:                         Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnumToProto(o.Action),
+		Status:                         Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatusToProto(o.Status),
+		ErrorSpace:                     dcl.ValueOrEmptyString(o.ErrorSpace),
+		P4ServiceAccount:               dcl.ValueOrEmptyString(o.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.ValueOrEmptyInt64(o.ResourceMetadataSize),
+		Description:                    dcl.ValueOrEmptyString(o.Description),
+		UpdatedRepeatOperationDelaySec: dcl.ValueOrEmptyDouble(o.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               Tier2AlphaInstanceReportInstanceHealthRecipeStepsPreprocessUpdateToProto(o.PreprocessUpdate),
+		PublicOperationMetadata:        dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+		RequestedTenantProject:         Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
+		KeyNotificationsUpdate:         Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
+		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+	}
+	for _, r := range o.QuotaRequestDeltas {
+		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasToProto(&r))
+	}
+	for _, r := range o.PermissionsInfo {
+		p.PermissionsInfo = append(p.PermissionsInfo, Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoToProto(&r))
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsStatusToProto converts a InstanceReportInstanceHealthRecipeStepsStatus resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatusToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsStatus) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatus {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatus{
+		Code:    dcl.ValueOrEmptyInt64(o.Code),
+		Message: dcl.ValueOrEmptyString(o.Message),
+	}
+	for _, r := range o.Details {
+		p.Details = append(p.Details, Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatusDetailsToProto(&r))
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsStatusDetailsToProto converts a InstanceReportInstanceHealthRecipeStepsStatusDetails resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatusDetailsToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsStatusDetails) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatusDetails {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatusDetails{
+		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
+		Value:   dcl.ValueOrEmptyString(o.Value),
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasToProto converts a InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.ValueOrEmptyString(o.MetricName),
+		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsPreprocessUpdateToProto converts a InstanceReportInstanceHealthRecipeStepsPreprocessUpdate resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsPreprocessUpdateToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsPreprocessUpdate) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPreprocessUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.ValueOrEmptyString(o.LatencySloBucketName),
+		PublicOperationMetadata: dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectToProto converts a InstanceReportInstanceHealthRecipeStepsRequestedTenantProject resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsRequestedTenantProject) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProject {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProject{
+		Tag:    dcl.ValueOrEmptyString(o.Tag),
+		Folder: dcl.ValueOrEmptyString(o.Folder),
+		Scope:  Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumToProto(o.Scope),
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsPermissionsInfoToProto converts a InstanceReportInstanceHealthRecipeStepsPermissionsInfo resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfo) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfo{
+		PolicyName:   Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+	}
+	for _, r := range o.IamPermissions {
+		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameToProto converts a InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.ValueOrEmptyString(o.Type),
+		Id:     dcl.ValueOrEmptyString(o.Id),
+		Region: dcl.ValueOrEmptyString(o.Region),
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsToProto converts a InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateToProto converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o.KeyNotificationsInfo),
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
+		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
+		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeToProto converts a InstancePreprocessGetRecipe resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeToProto(o *alpha.InstancePreprocessGetRecipe) *alphapb.Tier2AlphaInstancePreprocessGetRecipe {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipe{
+		HonorCancelRequest:                dcl.ValueOrEmptyBool(o.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.ValueOrEmptyInt64(o.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.ValueOrEmptyDouble(o.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.ValueOrEmptyBool(o.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.ValueOrEmptyString(o.ReadonlyRecipeStartTime),
+		DelayToStoreResourcesInClhDbNanos: dcl.ValueOrEmptyInt64(o.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range o.Steps {
+		p.Steps = append(p.Steps, Tier2AlphaInstancePreprocessGetRecipeStepsToProto(&r))
+	}
+	for _, r := range o.ResourceNamesStoredInClhWithDelay {
+		p.ResourceNamesStoredInClhWithDelay = append(p.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsToProto converts a InstancePreprocessGetRecipeSteps resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsToProto(o *alpha.InstancePreprocessGetRecipeSteps) *alphapb.Tier2AlphaInstancePreprocessGetRecipeSteps {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeSteps{
+		RelativeTime:                   dcl.ValueOrEmptyInt64(o.RelativeTime),
+		SleepDuration:                  dcl.ValueOrEmptyInt64(o.SleepDuration),
+		Action:                         Tier2AlphaInstancePreprocessGetRecipeStepsActionEnumToProto(o.Action),
+		Status:                         Tier2AlphaInstancePreprocessGetRecipeStepsStatusToProto(o.Status),
+		ErrorSpace:                     dcl.ValueOrEmptyString(o.ErrorSpace),
+		P4ServiceAccount:               dcl.ValueOrEmptyString(o.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.ValueOrEmptyInt64(o.ResourceMetadataSize),
+		Description:                    dcl.ValueOrEmptyString(o.Description),
+		UpdatedRepeatOperationDelaySec: dcl.ValueOrEmptyDouble(o.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               Tier2AlphaInstancePreprocessGetRecipeStepsPreprocessUpdateToProto(o.PreprocessUpdate),
+		PublicOperationMetadata:        dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+		RequestedTenantProject:         Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
+		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
+		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+	}
+	for _, r := range o.QuotaRequestDeltas {
+		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltasToProto(&r))
+	}
+	for _, r := range o.PermissionsInfo {
+		p.PermissionsInfo = append(p.PermissionsInfo, Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsStatusToProto converts a InstancePreprocessGetRecipeStepsStatus resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsStatusToProto(o *alpha.InstancePreprocessGetRecipeStepsStatus) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsStatus {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsStatus{
+		Code:    dcl.ValueOrEmptyInt64(o.Code),
+		Message: dcl.ValueOrEmptyString(o.Message),
+	}
+	for _, r := range o.Details {
+		p.Details = append(p.Details, Tier2AlphaInstancePreprocessGetRecipeStepsStatusDetailsToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsStatusDetailsToProto converts a InstancePreprocessGetRecipeStepsStatusDetails resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsStatusDetailsToProto(o *alpha.InstancePreprocessGetRecipeStepsStatusDetails) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsStatusDetails {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsStatusDetails{
+		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
+		Value:   dcl.ValueOrEmptyString(o.Value),
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsQuotaRequestDeltasToProto converts a InstancePreprocessGetRecipeStepsQuotaRequestDeltas resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltasToProto(o *alpha.InstancePreprocessGetRecipeStepsQuotaRequestDeltas) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltas {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.ValueOrEmptyString(o.MetricName),
+		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsPreprocessUpdateToProto converts a InstancePreprocessGetRecipeStepsPreprocessUpdate resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsPreprocessUpdateToProto(o *alpha.InstancePreprocessGetRecipeStepsPreprocessUpdate) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPreprocessUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.ValueOrEmptyString(o.LatencySloBucketName),
+		PublicOperationMetadata: dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsRequestedTenantProjectToProto converts a InstancePreprocessGetRecipeStepsRequestedTenantProject resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectToProto(o *alpha.InstancePreprocessGetRecipeStepsRequestedTenantProject) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProject {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProject{
+		Tag:    dcl.ValueOrEmptyString(o.Tag),
+		Folder: dcl.ValueOrEmptyString(o.Folder),
+		Scope:  Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumToProto(o.Scope),
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsPermissionsInfoToProto converts a InstancePreprocessGetRecipeStepsPermissionsInfo resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoToProto(o *alpha.InstancePreprocessGetRecipeStepsPermissionsInfo) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfo{
+		PolicyName:   Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+	}
+	for _, r := range o.IamPermissions {
+		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameToProto converts a InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameToProto(o *alpha.InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.ValueOrEmptyString(o.Type),
+		Id:     dcl.ValueOrEmptyString(o.Id),
+		Region: dcl.ValueOrEmptyString(o.Region),
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsToProto converts a InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsToProto(o *alpha.InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsKeyNotificationsUpdateToProto converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdate resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o.KeyNotificationsInfo),
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
+		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
+		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeToProto converts a InstanceNotifyKeyAvailableRecipe resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeToProto(o *alpha.InstanceNotifyKeyAvailableRecipe) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipe {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipe{
+		HonorCancelRequest:                dcl.ValueOrEmptyBool(o.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.ValueOrEmptyInt64(o.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.ValueOrEmptyDouble(o.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.ValueOrEmptyBool(o.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.ValueOrEmptyString(o.ReadonlyRecipeStartTime),
+		DelayToStoreResourcesInClhDbNanos: dcl.ValueOrEmptyInt64(o.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range o.Steps {
+		p.Steps = append(p.Steps, Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsToProto(&r))
+	}
+	for _, r := range o.ResourceNamesStoredInClhWithDelay {
+		p.ResourceNamesStoredInClhWithDelay = append(p.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsToProto converts a InstanceNotifyKeyAvailableRecipeSteps resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsToProto(o *alpha.InstanceNotifyKeyAvailableRecipeSteps) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeSteps {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeSteps{
+		RelativeTime:                   dcl.ValueOrEmptyInt64(o.RelativeTime),
+		SleepDuration:                  dcl.ValueOrEmptyInt64(o.SleepDuration),
+		Action:                         Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnumToProto(o.Action),
+		Status:                         Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatusToProto(o.Status),
+		ErrorSpace:                     dcl.ValueOrEmptyString(o.ErrorSpace),
+		P4ServiceAccount:               dcl.ValueOrEmptyString(o.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.ValueOrEmptyInt64(o.ResourceMetadataSize),
+		Description:                    dcl.ValueOrEmptyString(o.Description),
+		UpdatedRepeatOperationDelaySec: dcl.ValueOrEmptyDouble(o.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdateToProto(o.PreprocessUpdate),
+		PublicOperationMetadata:        dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+		RequestedTenantProject:         Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
+		KeyNotificationsUpdate:         Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
+		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+	}
+	for _, r := range o.QuotaRequestDeltas {
+		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasToProto(&r))
+	}
+	for _, r := range o.PermissionsInfo {
+		p.PermissionsInfo = append(p.PermissionsInfo, Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoToProto(&r))
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsStatusToProto converts a InstanceNotifyKeyAvailableRecipeStepsStatus resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatusToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsStatus) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatus {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatus{
+		Code:    dcl.ValueOrEmptyInt64(o.Code),
+		Message: dcl.ValueOrEmptyString(o.Message),
+	}
+	for _, r := range o.Details {
+		p.Details = append(p.Details, Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatusDetailsToProto(&r))
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsStatusDetailsToProto converts a InstanceNotifyKeyAvailableRecipeStepsStatusDetails resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatusDetailsToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsStatusDetails) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatusDetails {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatusDetails{
+		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
+		Value:   dcl.ValueOrEmptyString(o.Value),
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasToProto converts a InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.ValueOrEmptyString(o.MetricName),
+		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdateToProto converts a InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdateToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.ValueOrEmptyString(o.LatencySloBucketName),
+		PublicOperationMetadata: dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectToProto converts a InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject{
+		Tag:    dcl.ValueOrEmptyString(o.Tag),
+		Folder: dcl.ValueOrEmptyString(o.Folder),
+		Scope:  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumToProto(o.Scope),
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoToProto converts a InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo{
+		PolicyName:   Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+	}
+	for _, r := range o.IamPermissions {
+		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameToProto converts a InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.ValueOrEmptyString(o.Type),
+		Id:     dcl.ValueOrEmptyString(o.Id),
+		Region: dcl.ValueOrEmptyString(o.Region),
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsToProto converts a InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateToProto converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o.KeyNotificationsInfo),
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
+		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
+		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeToProto converts a InstanceNotifyKeyUnavailableRecipe resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeToProto(o *alpha.InstanceNotifyKeyUnavailableRecipe) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipe {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipe{
+		HonorCancelRequest:                dcl.ValueOrEmptyBool(o.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.ValueOrEmptyInt64(o.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.ValueOrEmptyDouble(o.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.ValueOrEmptyBool(o.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.ValueOrEmptyString(o.ReadonlyRecipeStartTime),
+		DelayToStoreResourcesInClhDbNanos: dcl.ValueOrEmptyInt64(o.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range o.Steps {
+		p.Steps = append(p.Steps, Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsToProto(&r))
+	}
+	for _, r := range o.ResourceNamesStoredInClhWithDelay {
+		p.ResourceNamesStoredInClhWithDelay = append(p.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsToProto converts a InstanceNotifyKeyUnavailableRecipeSteps resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeSteps) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeSteps {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeSteps{
+		RelativeTime:                   dcl.ValueOrEmptyInt64(o.RelativeTime),
+		SleepDuration:                  dcl.ValueOrEmptyInt64(o.SleepDuration),
+		Action:                         Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnumToProto(o.Action),
+		Status:                         Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatusToProto(o.Status),
+		ErrorSpace:                     dcl.ValueOrEmptyString(o.ErrorSpace),
+		P4ServiceAccount:               dcl.ValueOrEmptyString(o.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.ValueOrEmptyInt64(o.ResourceMetadataSize),
+		Description:                    dcl.ValueOrEmptyString(o.Description),
+		UpdatedRepeatOperationDelaySec: dcl.ValueOrEmptyDouble(o.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdateToProto(o.PreprocessUpdate),
+		PublicOperationMetadata:        dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+		RequestedTenantProject:         Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
+		KeyNotificationsUpdate:         Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
+		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+	}
+	for _, r := range o.QuotaRequestDeltas {
+		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasToProto(&r))
+	}
+	for _, r := range o.PermissionsInfo {
+		p.PermissionsInfo = append(p.PermissionsInfo, Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoToProto(&r))
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsStatusToProto converts a InstanceNotifyKeyUnavailableRecipeStepsStatus resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatusToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsStatus) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatus {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatus{
+		Code:    dcl.ValueOrEmptyInt64(o.Code),
+		Message: dcl.ValueOrEmptyString(o.Message),
+	}
+	for _, r := range o.Details {
+		p.Details = append(p.Details, Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatusDetailsToProto(&r))
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsStatusDetailsToProto converts a InstanceNotifyKeyUnavailableRecipeStepsStatusDetails resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatusDetailsToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsStatusDetails) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatusDetails {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatusDetails{
+		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
+		Value:   dcl.ValueOrEmptyString(o.Value),
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasToProto converts a InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.ValueOrEmptyString(o.MetricName),
+		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdateToProto converts a InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdateToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.ValueOrEmptyString(o.LatencySloBucketName),
+		PublicOperationMetadata: dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectToProto converts a InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject{
+		Tag:    dcl.ValueOrEmptyString(o.Tag),
+		Folder: dcl.ValueOrEmptyString(o.Folder),
+		Scope:  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumToProto(o.Scope),
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoToProto converts a InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo{
+		PolicyName:   Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+	}
+	for _, r := range o.IamPermissions {
+		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameToProto converts a InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.ValueOrEmptyString(o.Type),
+		Id:     dcl.ValueOrEmptyString(o.Id),
+		Region: dcl.ValueOrEmptyString(o.Region),
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsToProto converts a InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateToProto converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o.KeyNotificationsInfo),
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
+		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
+		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -9455,7 +10692,7 @@ func Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoToProto(o *alpha.Instan
 	p := &alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfo{
 		PolicyName:   Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
 		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
-		ApiAttrs:     Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoApiAttrsToProto(o.ApiAttrs),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
 	}
 	for _, r := range o.IamPermissions {
 		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
@@ -9487,15 +10724,6 @@ func Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsToProto(o
 	return p
 }
 
-// InstanceReadonlyRecipeStepsPermissionsInfoApiAttrsToProto converts a InstanceReadonlyRecipeStepsPermissionsInfoApiAttrs resource to its proto representation.
-func Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoApiAttrsToProto(o *alpha.InstanceReadonlyRecipeStepsPermissionsInfoApiAttrs) *alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoApiAttrs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoApiAttrs{}
-	return p
-}
-
 // InstanceReadonlyRecipeStepsKeyNotificationsUpdateToProto converts a InstanceReadonlyRecipeStepsKeyNotificationsUpdate resource to its proto representation.
 func Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceReadonlyRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdate {
 	if o == nil {
@@ -9516,6 +10744,9 @@ func Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotifications
 		KeyConfigs:  Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
 	}
 	return p
 }
@@ -9538,6 +10769,681 @@ func Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotifications
 	}
 	p := &alphapb.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
 		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceReconcileRecipeToProto converts a InstanceReconcileRecipe resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeToProto(o *alpha.InstanceReconcileRecipe) *alphapb.Tier2AlphaInstanceReconcileRecipe {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipe{
+		HonorCancelRequest:                dcl.ValueOrEmptyBool(o.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.ValueOrEmptyInt64(o.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.ValueOrEmptyDouble(o.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.ValueOrEmptyBool(o.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.ValueOrEmptyString(o.ReadonlyRecipeStartTime),
+		DelayToStoreResourcesInClhDbNanos: dcl.ValueOrEmptyInt64(o.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range o.Steps {
+		p.Steps = append(p.Steps, Tier2AlphaInstanceReconcileRecipeStepsToProto(&r))
+	}
+	for _, r := range o.ResourceNamesStoredInClhWithDelay {
+		p.ResourceNamesStoredInClhWithDelay = append(p.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsToProto converts a InstanceReconcileRecipeSteps resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsToProto(o *alpha.InstanceReconcileRecipeSteps) *alphapb.Tier2AlphaInstanceReconcileRecipeSteps {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeSteps{
+		RelativeTime:                   dcl.ValueOrEmptyInt64(o.RelativeTime),
+		SleepDuration:                  dcl.ValueOrEmptyInt64(o.SleepDuration),
+		Action:                         Tier2AlphaInstanceReconcileRecipeStepsActionEnumToProto(o.Action),
+		Status:                         Tier2AlphaInstanceReconcileRecipeStepsStatusToProto(o.Status),
+		ErrorSpace:                     dcl.ValueOrEmptyString(o.ErrorSpace),
+		P4ServiceAccount:               dcl.ValueOrEmptyString(o.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.ValueOrEmptyInt64(o.ResourceMetadataSize),
+		Description:                    dcl.ValueOrEmptyString(o.Description),
+		UpdatedRepeatOperationDelaySec: dcl.ValueOrEmptyDouble(o.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               Tier2AlphaInstanceReconcileRecipeStepsPreprocessUpdateToProto(o.PreprocessUpdate),
+		PublicOperationMetadata:        dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+		RequestedTenantProject:         Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
+		KeyNotificationsUpdate:         Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
+		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+	}
+	for _, r := range o.QuotaRequestDeltas {
+		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltasToProto(&r))
+	}
+	for _, r := range o.PermissionsInfo {
+		p.PermissionsInfo = append(p.PermissionsInfo, Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoToProto(&r))
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsStatusToProto converts a InstanceReconcileRecipeStepsStatus resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsStatusToProto(o *alpha.InstanceReconcileRecipeStepsStatus) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsStatus {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsStatus{
+		Code:    dcl.ValueOrEmptyInt64(o.Code),
+		Message: dcl.ValueOrEmptyString(o.Message),
+	}
+	for _, r := range o.Details {
+		p.Details = append(p.Details, Tier2AlphaInstanceReconcileRecipeStepsStatusDetailsToProto(&r))
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsStatusDetailsToProto converts a InstanceReconcileRecipeStepsStatusDetails resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsStatusDetailsToProto(o *alpha.InstanceReconcileRecipeStepsStatusDetails) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsStatusDetails {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsStatusDetails{
+		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
+		Value:   dcl.ValueOrEmptyString(o.Value),
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsQuotaRequestDeltasToProto converts a InstanceReconcileRecipeStepsQuotaRequestDeltas resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltasToProto(o *alpha.InstanceReconcileRecipeStepsQuotaRequestDeltas) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltas {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.ValueOrEmptyString(o.MetricName),
+		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsPreprocessUpdateToProto converts a InstanceReconcileRecipeStepsPreprocessUpdate resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsPreprocessUpdateToProto(o *alpha.InstanceReconcileRecipeStepsPreprocessUpdate) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsPreprocessUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.ValueOrEmptyString(o.LatencySloBucketName),
+		PublicOperationMetadata: dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsRequestedTenantProjectToProto converts a InstanceReconcileRecipeStepsRequestedTenantProject resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectToProto(o *alpha.InstanceReconcileRecipeStepsRequestedTenantProject) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProject {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProject{
+		Tag:    dcl.ValueOrEmptyString(o.Tag),
+		Folder: dcl.ValueOrEmptyString(o.Folder),
+		Scope:  Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumToProto(o.Scope),
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsPermissionsInfoToProto converts a InstanceReconcileRecipeStepsPermissionsInfo resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoToProto(o *alpha.InstanceReconcileRecipeStepsPermissionsInfo) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfo{
+		PolicyName:   Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+	}
+	for _, r := range o.IamPermissions {
+		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsPermissionsInfoPolicyNameToProto converts a InstanceReconcileRecipeStepsPermissionsInfoPolicyName resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyNameToProto(o *alpha.InstanceReconcileRecipeStepsPermissionsInfoPolicyName) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyName {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.ValueOrEmptyString(o.Type),
+		Id:     dcl.ValueOrEmptyString(o.Id),
+		Region: dcl.ValueOrEmptyString(o.Region),
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsPermissionsInfoIamPermissionsToProto converts a InstanceReconcileRecipeStepsPermissionsInfoIamPermissions resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsToProto(o *alpha.InstanceReconcileRecipeStepsPermissionsInfoIamPermissions) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissions {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsKeyNotificationsUpdateToProto converts a InstanceReconcileRecipeStepsKeyNotificationsUpdate resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o.KeyNotificationsInfo),
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto converts a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
+		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
+		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeToProto converts a InstancePreprocessPassthroughRecipe resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeToProto(o *alpha.InstancePreprocessPassthroughRecipe) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipe {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipe{
+		HonorCancelRequest:                dcl.ValueOrEmptyBool(o.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.ValueOrEmptyInt64(o.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.ValueOrEmptyDouble(o.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.ValueOrEmptyBool(o.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.ValueOrEmptyString(o.ReadonlyRecipeStartTime),
+		DelayToStoreResourcesInClhDbNanos: dcl.ValueOrEmptyInt64(o.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range o.Steps {
+		p.Steps = append(p.Steps, Tier2AlphaInstancePreprocessPassthroughRecipeStepsToProto(&r))
+	}
+	for _, r := range o.ResourceNamesStoredInClhWithDelay {
+		p.ResourceNamesStoredInClhWithDelay = append(p.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsToProto converts a InstancePreprocessPassthroughRecipeSteps resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsToProto(o *alpha.InstancePreprocessPassthroughRecipeSteps) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeSteps {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeSteps{
+		RelativeTime:                   dcl.ValueOrEmptyInt64(o.RelativeTime),
+		SleepDuration:                  dcl.ValueOrEmptyInt64(o.SleepDuration),
+		Action:                         Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnumToProto(o.Action),
+		Status:                         Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatusToProto(o.Status),
+		ErrorSpace:                     dcl.ValueOrEmptyString(o.ErrorSpace),
+		P4ServiceAccount:               dcl.ValueOrEmptyString(o.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.ValueOrEmptyInt64(o.ResourceMetadataSize),
+		Description:                    dcl.ValueOrEmptyString(o.Description),
+		UpdatedRepeatOperationDelaySec: dcl.ValueOrEmptyDouble(o.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               Tier2AlphaInstancePreprocessPassthroughRecipeStepsPreprocessUpdateToProto(o.PreprocessUpdate),
+		PublicOperationMetadata:        dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+		RequestedTenantProject:         Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
+		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
+		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+	}
+	for _, r := range o.QuotaRequestDeltas {
+		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasToProto(&r))
+	}
+	for _, r := range o.PermissionsInfo {
+		p.PermissionsInfo = append(p.PermissionsInfo, Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsStatusToProto converts a InstancePreprocessPassthroughRecipeStepsStatus resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatusToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsStatus) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatus {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatus{
+		Code:    dcl.ValueOrEmptyInt64(o.Code),
+		Message: dcl.ValueOrEmptyString(o.Message),
+	}
+	for _, r := range o.Details {
+		p.Details = append(p.Details, Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatusDetailsToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsStatusDetailsToProto converts a InstancePreprocessPassthroughRecipeStepsStatusDetails resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatusDetailsToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsStatusDetails) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatusDetails {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatusDetails{
+		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
+		Value:   dcl.ValueOrEmptyString(o.Value),
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasToProto converts a InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.ValueOrEmptyString(o.MetricName),
+		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsPreprocessUpdateToProto converts a InstancePreprocessPassthroughRecipeStepsPreprocessUpdate resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsPreprocessUpdateToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsPreprocessUpdate) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPreprocessUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.ValueOrEmptyString(o.LatencySloBucketName),
+		PublicOperationMetadata: dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectToProto converts a InstancePreprocessPassthroughRecipeStepsRequestedTenantProject resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsRequestedTenantProject) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProject {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProject{
+		Tag:    dcl.ValueOrEmptyString(o.Tag),
+		Folder: dcl.ValueOrEmptyString(o.Folder),
+		Scope:  Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumToProto(o.Scope),
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsPermissionsInfoToProto converts a InstancePreprocessPassthroughRecipeStepsPermissionsInfo resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfo) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfo{
+		PolicyName:   Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+	}
+	for _, r := range o.IamPermissions {
+		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameToProto converts a InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.ValueOrEmptyString(o.Type),
+		Id:     dcl.ValueOrEmptyString(o.Id),
+		Region: dcl.ValueOrEmptyString(o.Region),
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsToProto converts a InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateToProto converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o.KeyNotificationsInfo),
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
+		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
+		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeToProto converts a InstancePreprocessReconcileRecipe resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeToProto(o *alpha.InstancePreprocessReconcileRecipe) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipe {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipe{
+		HonorCancelRequest:                dcl.ValueOrEmptyBool(o.HonorCancelRequest),
+		IgnoreRecipeAfter:                 dcl.ValueOrEmptyInt64(o.IgnoreRecipeAfter),
+		VerifyDeadlineSecondsBelow:        dcl.ValueOrEmptyDouble(o.VerifyDeadlineSecondsBelow),
+		PopulateOperationResult:           dcl.ValueOrEmptyBool(o.PopulateOperationResult),
+		ReadonlyRecipeStartTime:           dcl.ValueOrEmptyString(o.ReadonlyRecipeStartTime),
+		DelayToStoreResourcesInClhDbNanos: dcl.ValueOrEmptyInt64(o.DelayToStoreResourcesInClhDbNanos),
+	}
+	for _, r := range o.Steps {
+		p.Steps = append(p.Steps, Tier2AlphaInstancePreprocessReconcileRecipeStepsToProto(&r))
+	}
+	for _, r := range o.ResourceNamesStoredInClhWithDelay {
+		p.ResourceNamesStoredInClhWithDelay = append(p.ResourceNamesStoredInClhWithDelay, r)
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsToProto converts a InstancePreprocessReconcileRecipeSteps resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsToProto(o *alpha.InstancePreprocessReconcileRecipeSteps) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeSteps {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeSteps{
+		RelativeTime:                   dcl.ValueOrEmptyInt64(o.RelativeTime),
+		SleepDuration:                  dcl.ValueOrEmptyInt64(o.SleepDuration),
+		Action:                         Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnumToProto(o.Action),
+		Status:                         Tier2AlphaInstancePreprocessReconcileRecipeStepsStatusToProto(o.Status),
+		ErrorSpace:                     dcl.ValueOrEmptyString(o.ErrorSpace),
+		P4ServiceAccount:               dcl.ValueOrEmptyString(o.P4ServiceAccount),
+		ResourceMetadataSize:           dcl.ValueOrEmptyInt64(o.ResourceMetadataSize),
+		Description:                    dcl.ValueOrEmptyString(o.Description),
+		UpdatedRepeatOperationDelaySec: dcl.ValueOrEmptyDouble(o.UpdatedRepeatOperationDelaySec),
+		PreprocessUpdate:               Tier2AlphaInstancePreprocessReconcileRecipeStepsPreprocessUpdateToProto(o.PreprocessUpdate),
+		PublicOperationMetadata:        dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+		RequestedTenantProject:         Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
+		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
+		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+	}
+	for _, r := range o.QuotaRequestDeltas {
+		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltasToProto(&r))
+	}
+	for _, r := range o.PermissionsInfo {
+		p.PermissionsInfo = append(p.PermissionsInfo, Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsStatusToProto converts a InstancePreprocessReconcileRecipeStepsStatus resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsStatusToProto(o *alpha.InstancePreprocessReconcileRecipeStepsStatus) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsStatus {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsStatus{
+		Code:    dcl.ValueOrEmptyInt64(o.Code),
+		Message: dcl.ValueOrEmptyString(o.Message),
+	}
+	for _, r := range o.Details {
+		p.Details = append(p.Details, Tier2AlphaInstancePreprocessReconcileRecipeStepsStatusDetailsToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsStatusDetailsToProto converts a InstancePreprocessReconcileRecipeStepsStatusDetails resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsStatusDetailsToProto(o *alpha.InstancePreprocessReconcileRecipeStepsStatusDetails) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsStatusDetails {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsStatusDetails{
+		TypeUrl: dcl.ValueOrEmptyString(o.TypeUrl),
+		Value:   dcl.ValueOrEmptyString(o.Value),
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsQuotaRequestDeltasToProto converts a InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltasToProto(o *alpha.InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas{
+		MetricName: dcl.ValueOrEmptyString(o.MetricName),
+		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsPreprocessUpdateToProto converts a InstancePreprocessReconcileRecipeStepsPreprocessUpdate resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsPreprocessUpdateToProto(o *alpha.InstancePreprocessReconcileRecipeStepsPreprocessUpdate) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPreprocessUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPreprocessUpdate{
+		LatencySloBucketName:    dcl.ValueOrEmptyString(o.LatencySloBucketName),
+		PublicOperationMetadata: dcl.ValueOrEmptyString(o.PublicOperationMetadata),
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsRequestedTenantProjectToProto converts a InstancePreprocessReconcileRecipeStepsRequestedTenantProject resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectToProto(o *alpha.InstancePreprocessReconcileRecipeStepsRequestedTenantProject) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProject {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProject{
+		Tag:    dcl.ValueOrEmptyString(o.Tag),
+		Folder: dcl.ValueOrEmptyString(o.Folder),
+		Scope:  Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumToProto(o.Scope),
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsPermissionsInfoToProto converts a InstancePreprocessReconcileRecipeStepsPermissionsInfo resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoToProto(o *alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfo) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfo{
+		PolicyName:   Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameToProto(o.PolicyName),
+		ResourcePath: dcl.ValueOrEmptyString(o.ResourcePath),
+		ApiAttrs:     Tier2AlphaInstanceGoogleprotobufstructToProto(o.ApiAttrs),
+	}
+	for _, r := range o.IamPermissions {
+		p.IamPermissions = append(p.IamPermissions, Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameToProto converts a InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameToProto(o *alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName{
+		Type:   dcl.ValueOrEmptyString(o.Type),
+		Id:     dcl.ValueOrEmptyString(o.Id),
+		Region: dcl.ValueOrEmptyString(o.Region),
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsToProto converts a InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsToProto(o *alpha.InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions{
+		Permission: dcl.ValueOrEmptyString(o.Permission),
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateToProto converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateToProto(o *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate{
+		KeyNotificationsInfo: Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o.KeyNotificationsInfo),
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoToProto(o *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
+		KeyConfigs:  Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
+		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
+		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
+	}
+	for _, r := range o.KeyNotificationConfigs {
+		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
+		KeyConfig: Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
+	}
+	return p
+}
+
+// InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs resource to its proto representation.
+func Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(o *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{
+		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
+		Grant:            dcl.ValueOrEmptyString(o.Grant),
+		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -9562,43 +11468,55 @@ func Tier2AlphaInstanceHistoryToProto(o *alpha.InstanceHistory) *alphapb.Tier2Al
 // InstanceToProto converts a Instance resource to its proto representation.
 func InstanceToProto(resource *alpha.Instance) *alphapb.Tier2AlphaInstance {
 	p := &alphapb.Tier2AlphaInstance{
-		Name:                       dcl.ValueOrEmptyString(resource.Name),
-		DisplayName:                dcl.ValueOrEmptyString(resource.DisplayName),
-		Zone:                       dcl.ValueOrEmptyString(resource.Zone),
-		Sku:                        Tier2AlphaInstanceSkuToProto(resource.Sku),
-		AuthorizedNetworkId:        dcl.ValueOrEmptyString(resource.AuthorizedNetworkId),
-		ReservedIpRange:            dcl.ValueOrEmptyString(resource.ReservedIPRange),
-		HostName:                   dcl.ValueOrEmptyString(resource.HostName),
-		PortNumber:                 dcl.ValueOrEmptyInt64(resource.PortNumber),
-		CurrentZone:                dcl.ValueOrEmptyString(resource.CurrentZone),
-		CreationTime:               dcl.ValueOrEmptyString(resource.CreationTime),
-		State:                      Tier2AlphaInstanceStateEnumToProto(resource.State),
-		StatusMessage:              dcl.ValueOrEmptyString(resource.StatusMessage),
-		ExtraField:                 dcl.ValueOrEmptyString(resource.ExtraField),
-		PreprocessCreateRecipe:     Tier2AlphaInstancePreprocessCreateRecipeToProto(resource.PreprocessCreateRecipe),
-		InitiateCreateRecipe:       Tier2AlphaInstanceInitiateCreateRecipeToProto(resource.InitiateCreateRecipe),
-		CreateRecipe:               Tier2AlphaInstanceCreateRecipeToProto(resource.CreateRecipe),
-		DeleteRecipe:               Tier2AlphaInstanceDeleteRecipeToProto(resource.DeleteRecipe),
-		UpdateRecipe:               Tier2AlphaInstanceUpdateRecipeToProto(resource.UpdateRecipe),
-		PreprocessResetRecipe:      Tier2AlphaInstancePreprocessResetRecipeToProto(resource.PreprocessResetRecipe),
-		InitiateResetRecipe:        Tier2AlphaInstanceInitiateResetRecipeToProto(resource.InitiateResetRecipe),
-		ResetRecipe:                Tier2AlphaInstanceResetRecipeToProto(resource.ResetRecipe),
-		PreprocessRepairRecipe:     Tier2AlphaInstancePreprocessRepairRecipeToProto(resource.PreprocessRepairRecipe),
-		InitiateRepairRecipe:       Tier2AlphaInstanceInitiateRepairRecipeToProto(resource.InitiateRepairRecipe),
-		RepairRecipe:               Tier2AlphaInstanceRepairRecipeToProto(resource.RepairRecipe),
-		PreprocessDeleteRecipe:     Tier2AlphaInstancePreprocessDeleteRecipeToProto(resource.PreprocessDeleteRecipe),
-		InitiateDeleteRecipe:       Tier2AlphaInstanceInitiateDeleteRecipeToProto(resource.InitiateDeleteRecipe),
-		PreprocessUpdateRecipe:     Tier2AlphaInstancePreprocessUpdateRecipeToProto(resource.PreprocessUpdateRecipe),
-		InitiateUpdateRecipe:       Tier2AlphaInstanceInitiateUpdateRecipeToProto(resource.InitiateUpdateRecipe),
-		PreprocessFreezeRecipe:     Tier2AlphaInstancePreprocessFreezeRecipeToProto(resource.PreprocessFreezeRecipe),
-		FreezeRecipe:               Tier2AlphaInstanceFreezeRecipeToProto(resource.FreezeRecipe),
-		PreprocessUnfreezeRecipe:   Tier2AlphaInstancePreprocessUnfreezeRecipeToProto(resource.PreprocessUnfreezeRecipe),
-		UnfreezeRecipe:             Tier2AlphaInstanceUnfreezeRecipeToProto(resource.UnfreezeRecipe),
-		ReadonlyRecipe:             Tier2AlphaInstanceReadonlyRecipeToProto(resource.ReadonlyRecipe),
-		EnableCallHistory:          dcl.ValueOrEmptyBool(resource.EnableCallHistory),
-		PublicResourceViewOverride: dcl.ValueOrEmptyString(resource.PublicResourceViewOverride),
-		Project:                    dcl.ValueOrEmptyString(resource.Project),
-		Location:                   dcl.ValueOrEmptyString(resource.Location),
+		Name:                                 dcl.ValueOrEmptyString(resource.Name),
+		DisplayName:                          dcl.ValueOrEmptyString(resource.DisplayName),
+		Zone:                                 dcl.ValueOrEmptyString(resource.Zone),
+		AlternativeZone:                      dcl.ValueOrEmptyString(resource.AlternativeZone),
+		Sku:                                  Tier2AlphaInstanceSkuToProto(resource.Sku),
+		AuthorizedNetworkId:                  dcl.ValueOrEmptyString(resource.AuthorizedNetworkId),
+		ReservedIpRange:                      dcl.ValueOrEmptyString(resource.ReservedIPRange),
+		Host:                                 dcl.ValueOrEmptyString(resource.Host),
+		Port:                                 dcl.ValueOrEmptyInt64(resource.Port),
+		CurrentZone:                          dcl.ValueOrEmptyString(resource.CurrentZone),
+		CreateTime:                           dcl.ValueOrEmptyString(resource.CreateTime),
+		State:                                Tier2AlphaInstanceStateEnumToProto(resource.State),
+		StatusMessage:                        dcl.ValueOrEmptyString(resource.StatusMessage),
+		UpdateTime:                           dcl.ValueOrEmptyString(resource.UpdateTime),
+		MutateUserId:                         dcl.ValueOrEmptyInt64(resource.MutateUserId),
+		ReadUserId:                           dcl.ValueOrEmptyInt64(resource.ReadUserId),
+		PreprocessCreateRecipe:               Tier2AlphaInstancePreprocessCreateRecipeToProto(resource.PreprocessCreateRecipe),
+		CreateRecipe:                         Tier2AlphaInstanceCreateRecipeToProto(resource.CreateRecipe),
+		DeleteRecipe:                         Tier2AlphaInstanceDeleteRecipeToProto(resource.DeleteRecipe),
+		UpdateRecipe:                         Tier2AlphaInstanceUpdateRecipeToProto(resource.UpdateRecipe),
+		PreprocessResetRecipe:                Tier2AlphaInstancePreprocessResetRecipeToProto(resource.PreprocessResetRecipe),
+		ResetRecipe:                          Tier2AlphaInstanceResetRecipeToProto(resource.ResetRecipe),
+		PreprocessRepairRecipe:               Tier2AlphaInstancePreprocessRepairRecipeToProto(resource.PreprocessRepairRecipe),
+		RepairRecipe:                         Tier2AlphaInstanceRepairRecipeToProto(resource.RepairRecipe),
+		PreprocessDeleteRecipe:               Tier2AlphaInstancePreprocessDeleteRecipeToProto(resource.PreprocessDeleteRecipe),
+		PreprocessUpdateRecipe:               Tier2AlphaInstancePreprocessUpdateRecipeToProto(resource.PreprocessUpdateRecipe),
+		PreprocessFreezeRecipe:               Tier2AlphaInstancePreprocessFreezeRecipeToProto(resource.PreprocessFreezeRecipe),
+		FreezeRecipe:                         Tier2AlphaInstanceFreezeRecipeToProto(resource.FreezeRecipe),
+		PreprocessUnfreezeRecipe:             Tier2AlphaInstancePreprocessUnfreezeRecipeToProto(resource.PreprocessUnfreezeRecipe),
+		UnfreezeRecipe:                       Tier2AlphaInstanceUnfreezeRecipeToProto(resource.UnfreezeRecipe),
+		PreprocessReportInstanceHealthRecipe: Tier2AlphaInstancePreprocessReportInstanceHealthRecipeToProto(resource.PreprocessReportInstanceHealthRecipe),
+		ReportInstanceHealthRecipe:           Tier2AlphaInstanceReportInstanceHealthRecipeToProto(resource.ReportInstanceHealthRecipe),
+		PreprocessGetRecipe:                  Tier2AlphaInstancePreprocessGetRecipeToProto(resource.PreprocessGetRecipe),
+		NotifyKeyAvailableRecipe:             Tier2AlphaInstanceNotifyKeyAvailableRecipeToProto(resource.NotifyKeyAvailableRecipe),
+		NotifyKeyUnavailableRecipe:           Tier2AlphaInstanceNotifyKeyUnavailableRecipeToProto(resource.NotifyKeyUnavailableRecipe),
+		ReadonlyRecipe:                       Tier2AlphaInstanceReadonlyRecipeToProto(resource.ReadonlyRecipe),
+		ReconcileRecipe:                      Tier2AlphaInstanceReconcileRecipeToProto(resource.ReconcileRecipe),
+		PreprocessPassthroughRecipe:          Tier2AlphaInstancePreprocessPassthroughRecipeToProto(resource.PreprocessPassthroughRecipe),
+		PreprocessReconcileRecipe:            Tier2AlphaInstancePreprocessReconcileRecipeToProto(resource.PreprocessReconcileRecipe),
+		EnableCallHistory:                    dcl.ValueOrEmptyBool(resource.EnableCallHistory),
+		PublicResourceViewOverride:           dcl.ValueOrEmptyString(resource.PublicResourceViewOverride),
+		ExtraInfo:                            dcl.ValueOrEmptyString(resource.ExtraInfo),
+		Uid:                                  dcl.ValueOrEmptyString(resource.Uid),
+		Etag:                                 dcl.ValueOrEmptyString(resource.Etag),
+		Project:                              dcl.ValueOrEmptyString(resource.Project),
+		Location:                             dcl.ValueOrEmptyString(resource.Location),
+	}
+	for _, r := range resource.References {
+		p.References = append(p.References, Tier2AlphaInstanceReferencesToProto(&r))
 	}
 	for _, r := range resource.History {
 		p.History = append(p.History, Tier2AlphaInstanceHistoryToProto(&r))

@@ -559,7 +559,7 @@ func canonicalizeNewTenantOAuthIdpConfigResponseTypeSet(c *Client, des, nw []Ten
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareTenantOAuthIdpConfigResponseType(c, &d, &n) {
+			if diffs, _ := compareTenantOAuthIdpConfigResponseTypeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -582,7 +582,7 @@ func canonicalizeNewTenantOAuthIdpConfigResponseTypeSlice(c *Client, des, nw []T
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []TenantOAuthIdpConfigResponseType
@@ -616,96 +616,124 @@ func diffTenantOAuthIdpConfig(c *Client, desired, actual *TenantOAuthIdpConfig, 
 	}
 
 	var diffs []tenantOAuthIdpConfigDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTenantOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantOAuthIdpConfigDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClientId, actual.ClientId, dcl.Info{}, fn.AddNest("ClientId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClientId, actual.ClientId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTenantOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("ClientId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
-			FieldName: "ClientId",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantOAuthIdpConfigDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Issuer, actual.Issuer, dcl.Info{}, fn.AddNest("Issuer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Issuer, actual.Issuer, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTenantOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("Issuer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
-			FieldName: "Issuer",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantOAuthIdpConfigDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTenantOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
-			FieldName: "DisplayName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantOAuthIdpConfigDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTenantOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
-			FieldName: "Enabled",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantOAuthIdpConfigDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClientSecret, actual.ClientSecret, dcl.Info{}, fn.AddNest("ClientSecret")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClientSecret, actual.ClientSecret, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTenantOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("ClientSecret")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
-			FieldName: "ClientSecret",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantOAuthIdpConfigDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResponseType, actual.ResponseType, dcl.Info{ObjectFunction: compareTenantOAuthIdpConfigResponseTypeNewStyle}, fn.AddNest("ResponseType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResponseType, actual.ResponseType, dcl.Info{ObjectFunction: compareTenantOAuthIdpConfigResponseTypeNewStyle, OperationSelector: dcl.TriggersOperation("updateTenantOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("ResponseType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{
-			UpdateOp: &updateTenantOAuthIdpConfigUpdateConfigOperation{}, Diffs: ds,
-			FieldName: "ResponseType",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantOAuthIdpConfigDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantOAuthIdpConfigDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Tenant, actual.Tenant, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Tenant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tenant, actual.Tenant, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tenant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantOAuthIdpConfigDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Tenant",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantOAuthIdpConfigDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -752,82 +780,27 @@ func compareTenantOAuthIdpConfigResponseTypeNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.IdToken, actual.IdToken, dcl.Info{}, fn.AddNest("IdToken")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IdToken, actual.IdToken, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IdToken")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Token, actual.Token, dcl.Info{}, fn.AddNest("Token")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Token, actual.Token, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Token")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareTenantOAuthIdpConfigResponseType(c *Client, desired, actual *TenantOAuthIdpConfigResponseType) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.IdToken, actual.IdToken) && !dcl.IsZeroValue(desired.IdToken) {
-		c.Config.Logger.Infof("Diff in IdToken.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IdToken), dcl.SprintResource(actual.IdToken))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Code, actual.Code) && !dcl.IsZeroValue(desired.Code) {
-		c.Config.Logger.Infof("Diff in Code.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Code), dcl.SprintResource(actual.Code))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Token, actual.Token) && !dcl.IsZeroValue(desired.Token) {
-		c.Config.Logger.Infof("Diff in Token.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Token), dcl.SprintResource(actual.Token))
-		return true
-	}
-	return false
-}
-
-func compareTenantOAuthIdpConfigResponseTypeSlice(c *Client, desired, actual []TenantOAuthIdpConfigResponseType) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TenantOAuthIdpConfigResponseType, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareTenantOAuthIdpConfigResponseType(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TenantOAuthIdpConfigResponseType, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareTenantOAuthIdpConfigResponseTypeMap(c *Client, desired, actual map[string]TenantOAuthIdpConfigResponseType) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TenantOAuthIdpConfigResponseType, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in TenantOAuthIdpConfigResponseType, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareTenantOAuthIdpConfigResponseType(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in TenantOAuthIdpConfigResponseType, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -956,18 +929,18 @@ func flattenTenantOAuthIdpConfig(c *Client, i interface{}) *TenantOAuthIdpConfig
 		return nil
 	}
 
-	r := &TenantOAuthIdpConfig{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.ClientId = dcl.FlattenString(m["clientId"])
-	r.Issuer = dcl.FlattenString(m["issuer"])
-	r.DisplayName = dcl.FlattenString(m["displayName"])
-	r.Enabled = dcl.FlattenBool(m["enabled"])
-	r.ClientSecret = dcl.FlattenString(m["clientSecret"])
-	r.ResponseType = flattenTenantOAuthIdpConfigResponseType(c, m["responseType"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Tenant = dcl.FlattenString(m["tenant"])
+	res := &TenantOAuthIdpConfig{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.ClientId = dcl.FlattenString(m["clientId"])
+	res.Issuer = dcl.FlattenString(m["issuer"])
+	res.DisplayName = dcl.FlattenString(m["displayName"])
+	res.Enabled = dcl.FlattenBool(m["enabled"])
+	res.ClientSecret = dcl.FlattenString(m["clientSecret"])
+	res.ResponseType = flattenTenantOAuthIdpConfigResponseType(c, m["responseType"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Tenant = dcl.FlattenString(m["tenant"])
 
-	return r
+	return res
 }
 
 // expandTenantOAuthIdpConfigResponseTypeMap expands the contents of TenantOAuthIdpConfigResponseType into a JSON
@@ -1054,10 +1027,11 @@ func flattenTenantOAuthIdpConfigResponseTypeSlice(c *Client, i interface{}) []Te
 // expandTenantOAuthIdpConfigResponseType expands an instance of TenantOAuthIdpConfigResponseType into a JSON
 // request object.
 func expandTenantOAuthIdpConfigResponseType(c *Client, f *TenantOAuthIdpConfigResponseType) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.IdToken; !dcl.IsEmptyValueIndirect(v) {
 		m["idToken"] = v
 	}
@@ -1126,5 +1100,36 @@ func (r *TenantOAuthIdpConfig) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToTenantOAuthIdpConfigDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]tenantOAuthIdpConfigDiff, error) {
+	var diffs []tenantOAuthIdpConfigDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := tenantOAuthIdpConfigDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTotenantOAuthIdpConfigApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTotenantOAuthIdpConfigApiOperation(op string, opts ...dcl.ApplyOption) (tenantOAuthIdpConfigApiOperation, error) {
+	switch op {
+
+	case "updateTenantOAuthIdpConfigUpdateConfigOperation":
+		return &updateTenantOAuthIdpConfigUpdateConfigOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -354,9 +353,6 @@ func canonicalizeDatabaseDesiredState(rawDesired, rawInitial *Database, opts ...
 	if dcl.NameToSelfLink(rawDesired.Instance, rawInitial.Instance) {
 		rawDesired.Instance = rawInitial.Instance
 	}
-	if dcl.IsZeroValue(rawDesired.State) {
-		rawDesired.State = rawInitial.State
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
@@ -407,53 +403,72 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 	}
 
 	var diffs []databaseDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToDatabaseDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Instance",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToDatabaseDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "State",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToDatabaseDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToDatabaseDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Ddl, actual.Ddl, dcl.Info{Ignore: true}, fn.AddNest("Ddl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Ddl, actual.Ddl, dcl.Info{Ignore: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ddl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, databaseDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Ddl",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToDatabaseDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -479,23 +494,6 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 	}
 
 	return deduped, nil
-}
-func compareDatabaseStateEnumSlice(c *Client, desired, actual []DatabaseStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in DatabaseStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareDatabaseStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in DatabaseStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareDatabaseStateEnum(c *Client, desired, actual *DatabaseStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -593,14 +591,14 @@ func flattenDatabase(c *Client, i interface{}) *Database {
 		return nil
 	}
 
-	r := &Database{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.Instance = dcl.FlattenString(m["instance"])
-	r.State = flattenDatabaseStateEnum(m["state"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Ddl = dcl.FlattenStringSlice(m["extraStatements"])
+	res := &Database{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.Instance = dcl.FlattenString(m["instance"])
+	res.State = flattenDatabaseStateEnum(m["state"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Ddl = dcl.FlattenStringSlice(m["extraStatements"])
 
-	return r
+	return res
 }
 
 // flattenDatabaseStateEnumSlice flattens the contents of DatabaseStateEnum from a JSON
@@ -673,5 +671,33 @@ func (r *Database) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToDatabaseDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]databaseDiff, error) {
+	var diffs []databaseDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := databaseDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTodatabaseApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTodatabaseApiOperation(op string, opts ...dcl.ApplyOption) (databaseApiOperation, error) {
+	switch op {
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

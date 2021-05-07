@@ -1,18 +1,20 @@
 {
   "name": "{{instance_name}}",
+  "project": "{{project}}",
+  "location": "{{zone}}",
   "description": "Test instance",
+  "tier": "PREMIUM",
   "fileShares": [
     {
-      "capacityGb": 1024,
+      "capacityGb": 2560,
       "name": "my_share"
     }
   ],
-  "location": "{{zone}}",
   "networks": [
     {
-      "network": "default"
+      "network": "default",
+      "modes": ["MODE_IPV4"],
+      "reservedIpRange": "10.0.0.0/29"
     }
-  ],
-  "project": "{{project}}",
-  "tier": "STANDARD"
+  ]
 }

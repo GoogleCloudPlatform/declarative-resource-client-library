@@ -141,29 +141,6 @@ class Reservation(object):
 
         return stub.ListComputeReservation(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = reservation_pb2.ComputeReservation()
-        any_proto.Unpack(res_proto)
-
-        res = Reservation()
-        res.id = Primitive.from_proto(res_proto.id)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.zone = Primitive.from_proto(res_proto.zone)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.specific_reservation = ReservationSpecificReservation.from_proto(
-            res_proto.specific_reservation
-        )
-        res.commitment = Primitive.from_proto(res_proto.commitment)
-        res.specific_reservation_required = Primitive.from_proto(
-            res_proto.specific_reservation_required
-        )
-        res.status = ReservationStatusEnum.from_proto(res_proto.status)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = reservation_pb2.ComputeReservation()
         if Primitive.to_proto(self.id):

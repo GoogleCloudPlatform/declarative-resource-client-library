@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -531,6 +530,9 @@ func canonicalizeNewUserSqlserverUserDetails(c *Client, des, nw *UserSqlserverUs
 	if dcl.BoolCanonicalize(des.Disabled, nw.Disabled) {
 		nw.Disabled = des.Disabled
 	}
+	if dcl.IsZeroValue(nw.ServerRoles) {
+		nw.ServerRoles = des.ServerRoles
+	}
 
 	return nw
 }
@@ -543,7 +545,7 @@ func canonicalizeNewUserSqlserverUserDetailsSet(c *Client, des, nw []UserSqlserv
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareUserSqlserverUserDetails(c, &d, &n) {
+			if diffs, _ := compareUserSqlserverUserDetailsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -566,7 +568,7 @@ func canonicalizeNewUserSqlserverUserDetailsSlice(c *Client, des, nw []UserSqlse
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []UserSqlserverUserDetails
@@ -600,83 +602,111 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]user
 	}
 
 	var diffs []userDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToUserDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Password, actual.Password, dcl.Info{Ignore: true}, fn.AddNest("Password")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Password, actual.Password, dcl.Info{Ignore: true, OperationSelector: dcl.TriggersOperation("updateUserUpdateOperation")}, fn.AddNest("Password")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{
-			UpdateOp: &updateUserUpdateOperation{}, Diffs: ds,
-			FieldName: "Password",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToUserDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToUserDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Instance",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToUserDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SqlserverUserDetails, actual.SqlserverUserDetails, dcl.Info{ObjectFunction: compareUserSqlserverUserDetailsNewStyle}, fn.AddNest("SqlserverUserDetails")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SqlserverUserDetails, actual.SqlserverUserDetails, dcl.Info{ObjectFunction: compareUserSqlserverUserDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateUserUpdateOperation")}, fn.AddNest("SqlserverUserDetails")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{
-			UpdateOp: &updateUserUpdateOperation{}, Diffs: ds,
-			FieldName: "SqlserverUserDetails",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToUserDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateUserUpdateOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{
-			UpdateOp: &updateUserUpdateOperation{}, Diffs: ds,
-			FieldName: "Type",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToUserDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Etag",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToUserDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, userDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Host",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToUserDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -723,89 +753,20 @@ func compareUserSqlserverUserDetailsNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServerRoles, actual.ServerRoles, dcl.Info{}, fn.AddNest("ServerRoles")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServerRoles, actual.ServerRoles, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServerRoles")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareUserSqlserverUserDetails(c *Client, desired, actual *UserSqlserverUserDetails) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Disabled, actual.Disabled) && !dcl.IsZeroValue(desired.Disabled) {
-		c.Config.Logger.Infof("Diff in Disabled.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Disabled), dcl.SprintResource(actual.Disabled))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.ServerRoles, actual.ServerRoles) && !dcl.IsZeroValue(desired.ServerRoles) {
-		c.Config.Logger.Infof("Diff in ServerRoles.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ServerRoles), dcl.SprintResource(actual.ServerRoles))
-		return true
-	}
-	return false
-}
-
-func compareUserSqlserverUserDetailsSlice(c *Client, desired, actual []UserSqlserverUserDetails) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in UserSqlserverUserDetails, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareUserSqlserverUserDetails(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UserSqlserverUserDetails, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareUserSqlserverUserDetailsMap(c *Client, desired, actual map[string]UserSqlserverUserDetails) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in UserSqlserverUserDetails, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in UserSqlserverUserDetails, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareUserSqlserverUserDetails(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in UserSqlserverUserDetails, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareUserTypeEnumSlice(c *Client, desired, actual []UserTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in UserTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareUserTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in UserTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareUserTypeEnum(c *Client, desired, actual *UserTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -926,17 +887,17 @@ func flattenUser(c *Client, i interface{}) *User {
 		return nil
 	}
 
-	r := &User{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.Password = dcl.FlattenSecretValue(m["password"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Instance = dcl.FlattenString(m["instance"])
-	r.SqlserverUserDetails = flattenUserSqlserverUserDetails(c, m["sqlserverUserDetails"])
-	r.Type = flattenUserTypeEnum(m["type"])
-	r.Etag = dcl.FlattenString(m["etag"])
-	r.Host = dcl.FlattenString(m["host"])
+	res := &User{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.Password = dcl.FlattenSecretValue(m["password"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Instance = dcl.FlattenString(m["instance"])
+	res.SqlserverUserDetails = flattenUserSqlserverUserDetails(c, m["sqlserverUserDetails"])
+	res.Type = flattenUserTypeEnum(m["type"])
+	res.Etag = dcl.FlattenString(m["etag"])
+	res.Host = dcl.FlattenString(m["host"])
 
-	return r
+	return res
 }
 
 // expandUserSqlserverUserDetailsMap expands the contents of UserSqlserverUserDetails into a JSON
@@ -1023,10 +984,11 @@ func flattenUserSqlserverUserDetailsSlice(c *Client, i interface{}) []UserSqlser
 // expandUserSqlserverUserDetails expands an instance of UserSqlserverUserDetails into a JSON
 // request object.
 func expandUserSqlserverUserDetails(c *Client, f *UserSqlserverUserDetails) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
 		m["disabled"] = v
 	}
@@ -1130,5 +1092,36 @@ func (r *User) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToUserDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]userDiff, error) {
+	var diffs []userDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := userDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTouserApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTouserApiOperation(op string, opts ...dcl.ApplyOption) (userApiOperation, error) {
+	switch op {
+
+	case "updateUserUpdateOperation":
+		return &updateUserUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

@@ -356,20 +356,8 @@ func canonicalizeSslCertDesiredState(rawDesired, rawInitial *SslCert, opts ...dc
 
 		return rawDesired, nil
 	}
-	if dcl.StringCanonicalize(rawDesired.CertSerialNumber, rawInitial.CertSerialNumber) {
-		rawDesired.CertSerialNumber = rawInitial.CertSerialNumber
-	}
-	if dcl.StringCanonicalize(rawDesired.Cert, rawInitial.Cert) {
-		rawDesired.Cert = rawInitial.Cert
-	}
-	if dcl.IsZeroValue(rawDesired.CreateTime) {
-		rawDesired.CreateTime = rawInitial.CreateTime
-	}
 	if dcl.StringCanonicalize(rawDesired.CommonName, rawInitial.CommonName) {
 		rawDesired.CommonName = rawInitial.CommonName
-	}
-	if dcl.IsZeroValue(rawDesired.ExpirationTime) {
-		rawDesired.ExpirationTime = rawInitial.ExpirationTime
 	}
 	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
@@ -460,80 +448,111 @@ func diffSslCert(c *Client, desired, actual *SslCert, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []sslCertDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.CertSerialNumber, actual.CertSerialNumber, dcl.Info{OutputOnly: true}, fn.AddNest("CertSerialNumber")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CertSerialNumber, actual.CertSerialNumber, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CertSerialNumber")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CertSerialNumber",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslCertDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Cert, actual.Cert, dcl.Info{OutputOnly: true}, fn.AddNest("Cert")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Cert, actual.Cert, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Cert")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Cert",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslCertDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreateTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslCertDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CommonName, actual.CommonName, dcl.Info{}, fn.AddNest("CommonName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CommonName, actual.CommonName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CommonName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CommonName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslCertDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExpirationTime, actual.ExpirationTime, dcl.Info{OutputOnly: true}, fn.AddNest("ExpirationTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExpirationTime, actual.ExpirationTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExpirationTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ExpirationTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslCertDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslCertDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Instance, actual.Instance, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Instance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Instance",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslCertDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, sslCertDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToSslCertDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -664,17 +683,17 @@ func flattenSslCert(c *Client, i interface{}) *SslCert {
 		return nil
 	}
 
-	r := &SslCert{}
-	r.CertSerialNumber = dcl.FlattenString(m["certSerialNumber"])
-	r.Cert = dcl.FlattenString(m["cert"])
-	r.CreateTime = dcl.FlattenString(m["createTime"])
-	r.CommonName = dcl.FlattenString(m["commonName"])
-	r.ExpirationTime = dcl.FlattenString(m["expirationTime"])
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["sha1Fingerprint"]))
-	r.Instance = dcl.FlattenString(m["instance"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &SslCert{}
+	res.CertSerialNumber = dcl.FlattenString(m["certSerialNumber"])
+	res.Cert = dcl.FlattenString(m["cert"])
+	res.CreateTime = dcl.FlattenString(m["createTime"])
+	res.CommonName = dcl.FlattenString(m["commonName"])
+	res.ExpirationTime = dcl.FlattenString(m["expirationTime"])
+	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["sha1Fingerprint"]))
+	res.Instance = dcl.FlattenString(m["instance"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -716,5 +735,33 @@ func (r *SslCert) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToSslCertDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]sslCertDiff, error) {
+	var diffs []sslCertDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := sslCertDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTosslCertApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTosslCertApiOperation(op string, opts ...dcl.ApplyOption) (sslCertApiOperation, error) {
+	switch op {
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

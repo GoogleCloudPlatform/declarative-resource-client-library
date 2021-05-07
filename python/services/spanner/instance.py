@@ -105,22 +105,6 @@ class Instance(object):
 
         return stub.ListSpannerInstance(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = instance_pb2.SpannerInstance()
-        any_proto.Unpack(res_proto)
-
-        res = Instance()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.config = Primitive.from_proto(res_proto.config)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.node_count = Primitive.from_proto(res_proto.node_count)
-        res.state = InstanceStateEnum.from_proto(res_proto.state)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        return res
-
     def to_proto(self):
         resource = instance_pb2.SpannerInstance()
         if Primitive.to_proto(self.name):

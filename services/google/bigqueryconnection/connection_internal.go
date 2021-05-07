@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -460,15 +459,6 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 		rawDesired.Description = rawInitial.Description
 	}
 	rawDesired.CloudSql = canonicalizeConnectionCloudSql(rawDesired.CloudSql, rawInitial.CloudSql, opts...)
-	if dcl.IsZeroValue(rawDesired.CreationTime) {
-		rawDesired.CreationTime = rawInitial.CreationTime
-	}
-	if dcl.IsZeroValue(rawDesired.LastModifiedTime) {
-		rawDesired.LastModifiedTime = rawInitial.LastModifiedTime
-	}
-	if dcl.BoolCanonicalize(rawDesired.HasCredential, rawInitial.HasCredential) {
-		rawDesired.HasCredential = rawInitial.HasCredential
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
@@ -551,7 +541,7 @@ func canonicalizeConnectionCloudSql(des, initial *ConnectionCloudSql, opts ...dc
 	if dcl.StringCanonicalize(des.InstanceId, initial.InstanceId) || dcl.IsZeroValue(des.InstanceId) {
 		des.InstanceId = initial.InstanceId
 	}
-	if dcl.StringCanonicalize(des.Database, initial.Database) || dcl.IsZeroValue(des.Database) {
+	if dcl.NameToSelfLink(des.Database, initial.Database) || dcl.IsZeroValue(des.Database) {
 		des.Database = initial.Database
 	}
 	if dcl.IsZeroValue(des.Type) {
@@ -570,8 +560,11 @@ func canonicalizeNewConnectionCloudSql(c *Client, des, nw *ConnectionCloudSql) *
 	if dcl.StringCanonicalize(des.InstanceId, nw.InstanceId) {
 		nw.InstanceId = des.InstanceId
 	}
-	if dcl.StringCanonicalize(des.Database, nw.Database) {
+	if dcl.NameToSelfLink(des.Database, nw.Database) {
 		nw.Database = des.Database
+	}
+	if dcl.IsZeroValue(nw.Type) {
+		nw.Type = des.Type
 	}
 	nw.Credential = canonicalizeNewConnectionCloudSqlCredential(c, des.Credential, nw.Credential)
 
@@ -586,7 +579,7 @@ func canonicalizeNewConnectionCloudSqlSet(c *Client, des, nw []ConnectionCloudSq
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareConnectionCloudSql(c, &d, &n) {
+			if diffs, _ := compareConnectionCloudSqlNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -609,7 +602,7 @@ func canonicalizeNewConnectionCloudSqlSlice(c *Client, des, nw []ConnectionCloud
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ConnectionCloudSql
@@ -666,7 +659,7 @@ func canonicalizeNewConnectionCloudSqlCredentialSet(c *Client, des, nw []Connect
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareConnectionCloudSqlCredential(c, &d, &n) {
+			if diffs, _ := compareConnectionCloudSqlCredentialNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -689,7 +682,7 @@ func canonicalizeNewConnectionCloudSqlCredentialSlice(c *Client, des, nw []Conne
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ConnectionCloudSqlCredential
@@ -723,93 +716,124 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []connectionDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{
-			UpdateOp: &updateConnectionUpdateConnectionOperation{}, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.FriendlyName, actual.FriendlyName, dcl.Info{}, fn.AddNest("FriendlyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FriendlyName, actual.FriendlyName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("FriendlyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{
-			UpdateOp: &updateConnectionUpdateConnectionOperation{}, Diffs: ds,
-			FieldName: "FriendlyName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{
-			UpdateOp: &updateConnectionUpdateConnectionOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudSql, actual.CloudSql, dcl.Info{ObjectFunction: compareConnectionCloudSqlNewStyle}, fn.AddNest("CloudSql")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudSql, actual.CloudSql, dcl.Info{ObjectFunction: compareConnectionCloudSqlNewStyle, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("CloudSql")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{
-			UpdateOp: &updateConnectionUpdateConnectionOperation{}, Diffs: ds,
-			FieldName: "CloudSql",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreationTime, actual.CreationTime, dcl.Info{OutputOnly: true}, fn.AddNest("CreationTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTime, actual.CreationTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreationTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.LastModifiedTime, actual.LastModifiedTime, dcl.Info{OutputOnly: true}, fn.AddNest("LastModifiedTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LastModifiedTime, actual.LastModifiedTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LastModifiedTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "LastModifiedTime",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.HasCredential, actual.HasCredential, dcl.Info{OutputOnly: true}, fn.AddNest("HasCredential")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HasCredential, actual.HasCredential, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HasCredential")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "HasCredential",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -856,89 +880,34 @@ func compareConnectionCloudSqlNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceId, actual.InstanceId, dcl.Info{}, fn.AddNest("InstanceId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceId, actual.InstanceId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Database, actual.Database, dcl.Info{}, fn.AddNest("Database")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Database, actual.Database, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Database")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Credential, actual.Credential, dcl.Info{Ignore: true, ObjectFunction: compareConnectionCloudSqlCredentialNewStyle}, fn.AddNest("Credential")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Credential, actual.Credential, dcl.Info{Ignore: true, ObjectFunction: compareConnectionCloudSqlCredentialNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Credential")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareConnectionCloudSql(c *Client, desired, actual *ConnectionCloudSql) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.InstanceId, actual.InstanceId) && !dcl.IsZeroValue(desired.InstanceId) {
-		c.Config.Logger.Infof("Diff in InstanceId.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InstanceId), dcl.SprintResource(actual.InstanceId))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Database, actual.Database) && !dcl.IsZeroValue(desired.Database) {
-		c.Config.Logger.Infof("Diff in Database.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Database), dcl.SprintResource(actual.Database))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	return false
-}
-
-func compareConnectionCloudSqlSlice(c *Client, desired, actual []ConnectionCloudSql) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ConnectionCloudSql, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareConnectionCloudSql(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ConnectionCloudSql, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareConnectionCloudSqlMap(c *Client, desired, actual map[string]ConnectionCloudSql) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ConnectionCloudSql, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ConnectionCloudSql, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareConnectionCloudSql(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ConnectionCloudSql, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareConnectionCloudSqlCredentialNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -961,89 +930,20 @@ func compareConnectionCloudSqlCredentialNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Username, actual.Username, dcl.Info{}, fn.AddNest("Username")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Username, actual.Username, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Username")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Password, actual.Password, dcl.Info{}, fn.AddNest("Password")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Password, actual.Password, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Password")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareConnectionCloudSqlCredential(c *Client, desired, actual *ConnectionCloudSqlCredential) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Username, actual.Username) && !dcl.IsZeroValue(desired.Username) {
-		c.Config.Logger.Infof("Diff in Username.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Username), dcl.SprintResource(actual.Username))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Password, actual.Password) && !dcl.IsZeroValue(desired.Password) {
-		c.Config.Logger.Infof("Diff in Password.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Password), dcl.SprintResource(actual.Password))
-		return true
-	}
-	return false
-}
-
-func compareConnectionCloudSqlCredentialSlice(c *Client, desired, actual []ConnectionCloudSqlCredential) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ConnectionCloudSqlCredential, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareConnectionCloudSqlCredential(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ConnectionCloudSqlCredential, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareConnectionCloudSqlCredentialMap(c *Client, desired, actual map[string]ConnectionCloudSqlCredential) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ConnectionCloudSqlCredential, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ConnectionCloudSqlCredential, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareConnectionCloudSqlCredential(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ConnectionCloudSqlCredential, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareConnectionCloudSqlTypeEnumSlice(c *Client, desired, actual []ConnectionCloudSqlTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ConnectionCloudSqlTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareConnectionCloudSqlTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ConnectionCloudSqlTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareConnectionCloudSqlTypeEnum(c *Client, desired, actual *ConnectionCloudSqlTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1167,18 +1067,18 @@ func flattenConnection(c *Client, i interface{}) *Connection {
 		return nil
 	}
 
-	r := &Connection{}
-	r.Name = dcl.FlattenString(m["name"])
-	r.FriendlyName = dcl.FlattenString(m["friendlyName"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.CloudSql = flattenConnectionCloudSql(c, m["cloudSql"])
-	r.CreationTime = dcl.FlattenInteger(m["creationTime"])
-	r.LastModifiedTime = dcl.FlattenInteger(m["lastModifiedTime"])
-	r.HasCredential = dcl.FlattenBool(m["hasCredential"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Location = dcl.FlattenString(m["location"])
+	res := &Connection{}
+	res.Name = dcl.FlattenString(m["name"])
+	res.FriendlyName = dcl.FlattenString(m["friendlyName"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.CloudSql = flattenConnectionCloudSql(c, m["cloudSql"])
+	res.CreationTime = dcl.FlattenInteger(m["creationTime"])
+	res.LastModifiedTime = dcl.FlattenInteger(m["lastModifiedTime"])
+	res.HasCredential = dcl.FlattenBool(m["hasCredential"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Location = dcl.FlattenString(m["location"])
 
-	return r
+	return res
 }
 
 // expandConnectionCloudSqlMap expands the contents of ConnectionCloudSql into a JSON
@@ -1265,10 +1165,11 @@ func flattenConnectionCloudSqlSlice(c *Client, i interface{}) []ConnectionCloudS
 // expandConnectionCloudSql expands an instance of ConnectionCloudSql into a JSON
 // request object.
 func expandConnectionCloudSql(c *Client, f *ConnectionCloudSql) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.InstanceId; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceId"] = v
 	}
@@ -1388,10 +1289,11 @@ func flattenConnectionCloudSqlCredentialSlice(c *Client, i interface{}) []Connec
 // expandConnectionCloudSqlCredential expands an instance of ConnectionCloudSqlCredential into a JSON
 // request object.
 func expandConnectionCloudSqlCredential(c *Client, f *ConnectionCloudSqlCredential) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Username; !dcl.IsEmptyValueIndirect(v) {
 		m["username"] = v
 	}
@@ -1487,5 +1389,36 @@ func (r *Connection) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToConnectionDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]connectionDiff, error) {
+	var diffs []connectionDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := connectionDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToconnectionApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToconnectionApiOperation(op string, opts ...dcl.ApplyOption) (connectionApiOperation, error) {
+	switch op {
+
+	case "updateConnectionUpdateConnectionOperation":
+		return &updateConnectionUpdateConnectionOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

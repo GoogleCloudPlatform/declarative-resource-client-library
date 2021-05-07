@@ -158,30 +158,6 @@ class Tenant(object):
 
         return stub.ListIdentitytoolkitTenant(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = tenant_pb2.IdentitytoolkitTenant()
-        any_proto.Unpack(res_proto)
-
-        res = Tenant()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.allow_password_signup = Primitive.from_proto(
-            res_proto.allow_password_signup
-        )
-        res.enable_email_link_signin = Primitive.from_proto(
-            res_proto.enable_email_link_signin
-        )
-        res.disable_auth = Primitive.from_proto(res_proto.disable_auth)
-        res.enable_anonymous_user = Primitive.from_proto(
-            res_proto.enable_anonymous_user
-        )
-        res.mfa_config = TenantMfaConfig.from_proto(res_proto.mfa_config)
-        res.test_phone_numbers = Primitive.from_proto(res_proto.test_phone_numbers)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = tenant_pb2.IdentitytoolkitTenant()
         if Primitive.to_proto(self.name):

@@ -18,14 +18,14 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum LoggingLogMetricMetricDescriptorLabelsValueTypeEnum {
-  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumSTRING = 1;
-  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumBOOL = 2;
-  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumINT64 = 3;
-  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumDOUBLE = 4;
-  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumDISTRIBUTION = 5;
-  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumMONEY = 6;
+enum LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum {
+  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumSTRING = 1;
+  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumBOOL = 2;
+  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumINT64 = 3;
+  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumDOUBLE = 4;
+  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumDISTRIBUTION = 5;
+  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumMONEY = 6;
 }
 
 enum LoggingLogMetricMetricDescriptorMetricKindEnum {
@@ -88,36 +88,27 @@ message LoggingLogMetric {
 message LoggingLogMetricMetricDescriptor {
   string name = 1;
   string type = 2;
-  repeated LoggingLogMetricMetricDescriptorLabels labels = 3;
+  repeated LoggingLogMetricMetricDescriptorDescriptorLabels descriptor_labels = 3;
   LoggingLogMetricMetricDescriptorMetricKindEnum metric_kind = 4;
   LoggingLogMetricMetricDescriptorValueTypeEnum value_type = 5;
   string unit = 6;
-  string display_name = 7;
-  LoggingLogMetricMetricDescriptorMetadata metadata = 8;
-  LoggingLogMetricMetricDescriptorLaunchStageEnum launch_stage = 9;
-  repeated string monitored_resource_types = 10;
+  string description = 7;
+  string display_name = 8;
+  LoggingLogMetricMetricDescriptorMetadata metadata = 9;
+  LoggingLogMetricMetricDescriptorLaunchStageEnum launch_stage = 10;
+  repeated string monitored_resource_types = 11;
 }
 
-message LoggingLogMetricMetricDescriptorLabels {
+message LoggingLogMetricMetricDescriptorDescriptorLabels {
   string key = 1;
-  LoggingLogMetricMetricDescriptorLabelsValueTypeEnum value_type = 2;
+  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum value_type = 2;
   string description = 3;
 }
 
 message LoggingLogMetricMetricDescriptorMetadata {
   LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum launch_stage = 1;
-  LoggingLogMetricMetricDescriptorMetadataSamplePeriod sample_period = 2;
-  LoggingLogMetricMetricDescriptorMetadataIngestDelay ingest_delay = 3;
-}
-
-message LoggingLogMetricMetricDescriptorMetadataSamplePeriod {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message LoggingLogMetricMetricDescriptorMetadataIngestDelay {
-  int64 seconds = 1;
-  int64 nanos = 2;
+  string sample_period = 2;
+  string ingest_delay = 3;
 }
 
 message LoggingLogMetricBucketOptions {

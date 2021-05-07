@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -399,15 +398,6 @@ func canonicalizeHmacKeyDesiredState(rawDesired, rawInitial *HmacKey, opts ...dc
 	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.StringCanonicalize(rawDesired.TimeCreated, rawInitial.TimeCreated) {
-		rawDesired.TimeCreated = rawInitial.TimeCreated
-	}
-	if dcl.StringCanonicalize(rawDesired.Updated, rawInitial.Updated) {
-		rawDesired.Updated = rawInitial.Updated
-	}
-	if dcl.StringCanonicalize(rawDesired.Secret, rawInitial.Secret) {
-		rawDesired.Secret = rawInitial.Secret
-	}
 	if dcl.IsZeroValue(rawDesired.State) {
 		rawDesired.State = rawInitial.State
 	}
@@ -492,72 +482,98 @@ func diffHmacKey(c *Client, desired, actual *HmacKey, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []hmacKeyDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHmacKeyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeCreated, actual.TimeCreated, dcl.Info{OutputOnly: true}, fn.AddNest("TimeCreated")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeCreated, actual.TimeCreated, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TimeCreated")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "TimeCreated",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHmacKeyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Updated, actual.Updated, dcl.Info{OutputOnly: true}, fn.AddNest("Updated")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Updated, actual.Updated, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Updated")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Updated",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHmacKeyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{OutputOnly: true}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Secret",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHmacKeyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateHmacKeyUpdateOperation")}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, hmacKeyDiff{
-			UpdateOp: &updateHmacKeyUpdateOperation{}, Diffs: ds,
-			FieldName: "State",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHmacKeyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHmacKeyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, dcl.Info{}, fn.AddNest("ServiceAccountEmail")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAccountEmail")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, hmacKeyDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ServiceAccountEmail",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToHmacKeyDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -583,23 +599,6 @@ func diffHmacKey(c *Client, desired, actual *HmacKey, opts ...dcl.ApplyOption) (
 	}
 
 	return deduped, nil
-}
-func compareHmacKeyStateEnumSlice(c *Client, desired, actual []HmacKeyStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in HmacKeyStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareHmacKeyStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in HmacKeyStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareHmacKeyStateEnum(c *Client, desired, actual *HmacKeyStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -712,20 +711,20 @@ func flattenHmacKey(c *Client, i interface{}) *HmacKey {
 		return nil
 	}
 
-	r := &HmacKey{}
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["accessId"]))
-	r.TimeCreated = dcl.FlattenString(m["timeCreated"])
-	r.Updated = dcl.FlattenString(m["updated"])
-	r.Secret = dcl.FlattenString(m["secret"])
-	r.State = flattenHmacKeyStateEnum(m["state"])
+	res := &HmacKey{}
+	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["accessId"]))
+	res.TimeCreated = dcl.FlattenString(m["timeCreated"])
+	res.Updated = dcl.FlattenString(m["updated"])
+	res.Secret = dcl.FlattenString(m["secret"])
+	res.State = flattenHmacKeyStateEnum(m["state"])
 	if _, ok := m["state"]; !ok {
 		c.Config.Logger.Info("Using default value for state")
-		r.State = HmacKeyStateEnumRef("ACTIVE")
+		res.State = HmacKeyStateEnumRef("ACTIVE")
 	}
-	r.Project = dcl.FlattenString(m["project"])
-	r.ServiceAccountEmail = dcl.FlattenString(m["serviceAccountEmail"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.ServiceAccountEmail = dcl.FlattenString(m["serviceAccountEmail"])
 
-	return r
+	return res
 }
 
 // flattenHmacKeyStateEnumSlice flattens the contents of HmacKeyStateEnum from a JSON
@@ -790,5 +789,36 @@ func (r *HmacKey) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToHmacKeyDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]hmacKeyDiff, error) {
+	var diffs []hmacKeyDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := hmacKeyDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTohmacKeyApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTohmacKeyApiOperation(op string, opts ...dcl.ApplyOption) (hmacKeyApiOperation, error) {
+	switch op {
+
+	case "updateHmacKeyUpdateOperation":
+		return &updateHmacKeyUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

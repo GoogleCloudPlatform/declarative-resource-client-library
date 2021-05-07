@@ -7,7 +7,7 @@
     "metricKind": "DELTA",
     "valueType": "DISTRIBUTION",
     "unit": "1",
-    "labels": [
+    "descriptorLabels": [
       {
         "key": "mass",
         "valueType": "STRING",

@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -541,6 +540,13 @@ func canonicalizeNewTenantMfaConfig(c *Client, des, nw *TenantMfaConfig) *Tenant
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.State) {
+		nw.State = des.State
+	}
+	if dcl.IsZeroValue(nw.EnabledProviders) {
+		nw.EnabledProviders = des.EnabledProviders
+	}
+
 	return nw
 }
 
@@ -552,7 +558,7 @@ func canonicalizeNewTenantMfaConfigSet(c *Client, des, nw []TenantMfaConfig) []T
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareTenantMfaConfig(c, &d, &n) {
+			if diffs, _ := compareTenantMfaConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -575,7 +581,7 @@ func canonicalizeNewTenantMfaConfigSlice(c *Client, des, nw []TenantMfaConfig) [
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []TenantMfaConfig
@@ -609,96 +615,124 @@ func diffTenant(c *Client, desired, actual *Tenant, opts ...dcl.ApplyOption) ([]
 	}
 
 	var diffs []tenantDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTenantUpdateTenantOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantDiff{
-			UpdateOp: &updateTenantUpdateTenantOperation{}, Diffs: ds,
-			FieldName: "DisplayName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowPasswordSignup, actual.AllowPasswordSignup, dcl.Info{}, fn.AddNest("AllowPasswordSignup")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowPasswordSignup, actual.AllowPasswordSignup, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTenantUpdateTenantOperation")}, fn.AddNest("AllowPasswordSignup")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantDiff{
-			UpdateOp: &updateTenantUpdateTenantOperation{}, Diffs: ds,
-			FieldName: "AllowPasswordSignup",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnableEmailLinkSignin, actual.EnableEmailLinkSignin, dcl.Info{}, fn.AddNest("EnableEmailLinkSignin")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableEmailLinkSignin, actual.EnableEmailLinkSignin, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTenantUpdateTenantOperation")}, fn.AddNest("EnableEmailLinkSignin")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantDiff{
-			UpdateOp: &updateTenantUpdateTenantOperation{}, Diffs: ds,
-			FieldName: "EnableEmailLinkSignin",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisableAuth, actual.DisableAuth, dcl.Info{}, fn.AddNest("DisableAuth")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisableAuth, actual.DisableAuth, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTenantUpdateTenantOperation")}, fn.AddNest("DisableAuth")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantDiff{
-			UpdateOp: &updateTenantUpdateTenantOperation{}, Diffs: ds,
-			FieldName: "DisableAuth",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnableAnonymousUser, actual.EnableAnonymousUser, dcl.Info{}, fn.AddNest("EnableAnonymousUser")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableAnonymousUser, actual.EnableAnonymousUser, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTenantUpdateTenantOperation")}, fn.AddNest("EnableAnonymousUser")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantDiff{
-			UpdateOp: &updateTenantUpdateTenantOperation{}, Diffs: ds,
-			FieldName: "EnableAnonymousUser",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.MfaConfig, actual.MfaConfig, dcl.Info{ObjectFunction: compareTenantMfaConfigNewStyle}, fn.AddNest("MfaConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MfaConfig, actual.MfaConfig, dcl.Info{ObjectFunction: compareTenantMfaConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateTenantUpdateTenantOperation")}, fn.AddNest("MfaConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantDiff{
-			UpdateOp: &updateTenantUpdateTenantOperation{}, Diffs: ds,
-			FieldName: "MfaConfig",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.TestPhoneNumbers, actual.TestPhoneNumbers, dcl.Info{}, fn.AddNest("TestPhoneNumbers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TestPhoneNumbers, actual.TestPhoneNumbers, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTenantUpdateTenantOperation")}, fn.AddNest("TestPhoneNumbers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantDiff{
-			UpdateOp: &updateTenantUpdateTenantOperation{}, Diffs: ds,
-			FieldName: "TestPhoneNumbers",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, tenantDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToTenantDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -745,107 +779,20 @@ func compareTenantMfaConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType"}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnabledProviders, actual.EnabledProviders, dcl.Info{Type: "EnumType"}, fn.AddNest("EnabledProviders")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnabledProviders, actual.EnabledProviders, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnabledProviders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareTenantMfaConfig(c *Client, desired, actual *TenantMfaConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.State, actual.State) && !dcl.IsZeroValue(desired.State) {
-		c.Config.Logger.Infof("Diff in State.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.State), dcl.SprintResource(actual.State))
-		return true
-	}
-	if compareTenantMfaConfigEnabledProvidersEnumSlice(c, desired.EnabledProviders, actual.EnabledProviders) && !dcl.IsZeroValue(desired.EnabledProviders) {
-		c.Config.Logger.Infof("Diff in EnabledProviders.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnabledProviders), dcl.SprintResource(actual.EnabledProviders))
-		return true
-	}
-	return false
-}
-
-func compareTenantMfaConfigSlice(c *Client, desired, actual []TenantMfaConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TenantMfaConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareTenantMfaConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TenantMfaConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareTenantMfaConfigMap(c *Client, desired, actual map[string]TenantMfaConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TenantMfaConfig, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in TenantMfaConfig, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareTenantMfaConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in TenantMfaConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareTenantMfaConfigStateEnumSlice(c *Client, desired, actual []TenantMfaConfigStateEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TenantMfaConfigStateEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareTenantMfaConfigStateEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TenantMfaConfigStateEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareTenantMfaConfigStateEnum(c *Client, desired, actual *TenantMfaConfigStateEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareTenantMfaConfigEnabledProvidersEnumSlice(c *Client, desired, actual []TenantMfaConfigEnabledProvidersEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in TenantMfaConfigEnabledProvidersEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareTenantMfaConfigEnabledProvidersEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in TenantMfaConfigEnabledProvidersEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareTenantMfaConfigEnabledProvidersEnum(c *Client, desired, actual *TenantMfaConfigEnabledProvidersEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -964,18 +911,18 @@ func flattenTenant(c *Client, i interface{}) *Tenant {
 		return nil
 	}
 
-	r := &Tenant{}
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	r.DisplayName = dcl.FlattenString(m["displayName"])
-	r.AllowPasswordSignup = dcl.FlattenBool(m["allowPasswordSignup"])
-	r.EnableEmailLinkSignin = dcl.FlattenBool(m["enableEmailLinkSignin"])
-	r.DisableAuth = dcl.FlattenBool(m["disableAuth"])
-	r.EnableAnonymousUser = dcl.FlattenBool(m["enableAnonymousUser"])
-	r.MfaConfig = flattenTenantMfaConfig(c, m["mfaConfig"])
-	r.TestPhoneNumbers = dcl.FlattenKeyValuePairs(m["testPhoneNumbers"])
-	r.Project = dcl.FlattenString(m["project"])
+	res := &Tenant{}
+	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	res.DisplayName = dcl.FlattenString(m["displayName"])
+	res.AllowPasswordSignup = dcl.FlattenBool(m["allowPasswordSignup"])
+	res.EnableEmailLinkSignin = dcl.FlattenBool(m["enableEmailLinkSignin"])
+	res.DisableAuth = dcl.FlattenBool(m["disableAuth"])
+	res.EnableAnonymousUser = dcl.FlattenBool(m["enableAnonymousUser"])
+	res.MfaConfig = flattenTenantMfaConfig(c, m["mfaConfig"])
+	res.TestPhoneNumbers = dcl.FlattenKeyValuePairs(m["testPhoneNumbers"])
+	res.Project = dcl.FlattenString(m["project"])
 
-	return r
+	return res
 }
 
 // expandTenantMfaConfigMap expands the contents of TenantMfaConfig into a JSON
@@ -1062,10 +1009,11 @@ func flattenTenantMfaConfigSlice(c *Client, i interface{}) []TenantMfaConfig {
 // expandTenantMfaConfig expands an instance of TenantMfaConfig into a JSON
 // request object.
 func expandTenantMfaConfig(c *Client, f *TenantMfaConfig) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
 		m["state"] = v
 	}
@@ -1184,5 +1132,36 @@ func (r *Tenant) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToTenantDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]tenantDiff, error) {
+	var diffs []tenantDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := tenantDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTotenantApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTotenantApiOperation(op string, opts ...dcl.ApplyOption) (tenantApiOperation, error) {
+	switch op {
+
+	case "updateTenantUpdateTenantOperation":
+		return &updateTenantUpdateTenantOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

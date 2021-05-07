@@ -403,9 +403,6 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
-	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
-	}
 	if dcl.IsZeroValue(rawDesired.ReservedPeeringRanges) {
 		rawDesired.ReservedPeeringRanges = rawInitial.ReservedPeeringRanges
 	}
@@ -471,56 +468,72 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []connectionDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateConnectionPatchOperation")}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{
-			UpdateOp: &updateConnectionPatchOperation{}, Diffs: ds,
-			FieldName: "Network",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType"}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReservedPeeringRanges, actual.ReservedPeeringRanges, dcl.Info{Type: "ReferenceType"}, fn.AddNest("ReservedPeeringRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReservedPeeringRanges, actual.ReservedPeeringRanges, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateConnectionPatchOperation")}, fn.AddNest("ReservedPeeringRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{
-			UpdateOp: &updateConnectionPatchOperation{}, Diffs: ds,
-			FieldName: "ReservedPeeringRanges",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConnectionPatchOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, connectionDiff{
-			UpdateOp: &updateConnectionPatchOperation{}, Diffs: ds,
-			FieldName: "Service",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectionDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -652,18 +665,18 @@ func flattenConnection(c *Client, i interface{}) *Connection {
 		return nil
 	}
 
-	r := &Connection{}
-	r.Network = dcl.FlattenString(m["network"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["peering"]))
-	r.ReservedPeeringRanges = dcl.FlattenStringSlice(m["reservedPeeringRanges"])
-	r.Service = dcl.FlattenString(m["service"])
+	res := &Connection{}
+	res.Network = dcl.FlattenString(m["network"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["peering"]))
+	res.ReservedPeeringRanges = dcl.FlattenStringSlice(m["reservedPeeringRanges"])
+	res.Service = dcl.FlattenString(m["service"])
 	if _, ok := m["service"]; !ok {
 		c.Config.Logger.Info("Using default value for service")
-		r.Service = dcl.String("services/servicenetworking.googleapis.com")
+		res.Service = dcl.String("services/servicenetworking.googleapis.com")
 	}
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -705,5 +718,36 @@ func (r *Connection) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToConnectionDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]connectionDiff, error) {
+	var diffs []connectionDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := connectionDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToconnectionApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToconnectionApiOperation(op string, opts ...dcl.ApplyOption) (connectionApiOperation, error) {
+	switch op {
+
+	case "updateConnectionPatchOperation":
+		return &updateConnectionPatchOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

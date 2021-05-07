@@ -431,9 +431,6 @@ func canonicalizeVpnGatewayDesiredState(rawDesired, rawInitial *VpnGateway, opts
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Id) {
-		rawDesired.Id = rawInitial.Id
-	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -446,17 +443,11 @@ func canonicalizeVpnGatewayDesiredState(rawDesired, rawInitial *VpnGateway, opts
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawInitial.Network) {
 		rawDesired.Network = rawInitial.Network
 	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
-	}
-	if dcl.IsZeroValue(rawDesired.VpnInterface) {
-		rawDesired.VpnInterface = rawInitial.VpnInterface
 	}
 
 	return rawDesired, nil
@@ -537,13 +528,6 @@ func canonicalizeVpnGatewayVpnInterface(des, initial *VpnGatewayVpnInterface, op
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Id) {
-		des.Id = initial.Id
-	}
-	if dcl.StringCanonicalize(des.IPAddress, initial.IPAddress) || dcl.IsZeroValue(des.IPAddress) {
-		des.IPAddress = initial.IPAddress
-	}
-
 	return des
 }
 
@@ -552,6 +536,9 @@ func canonicalizeNewVpnGatewayVpnInterface(c *Client, des, nw *VpnGatewayVpnInte
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Id) {
+		nw.Id = des.Id
+	}
 	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) {
 		nw.IPAddress = des.IPAddress
 	}
@@ -567,7 +554,7 @@ func canonicalizeNewVpnGatewayVpnInterfaceSet(c *Client, des, nw []VpnGatewayVpn
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareVpnGatewayVpnInterface(c, &d, &n) {
+			if diffs, _ := compareVpnGatewayVpnInterfaceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -590,7 +577,7 @@ func canonicalizeNewVpnGatewayVpnInterfaceSlice(c *Client, des, nw []VpnGatewayV
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []VpnGatewayVpnInterface
@@ -624,89 +611,124 @@ func diffVpnGateway(c *Client, desired, actual *VpnGateway, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []vpnGatewayDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Id",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Region",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Network",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Labels",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.VpnInterface, actual.VpnInterface, dcl.Info{OutputOnly: true, ObjectFunction: compareVpnGatewayVpnInterfaceNewStyle}, fn.AddNest("VpnInterface")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VpnInterface, actual.VpnInterface, dcl.Info{OutputOnly: true, ObjectFunction: compareVpnGatewayVpnInterfaceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VpnInterface")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, vpnGatewayDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "VpnInterface",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToVpnGatewayDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -753,63 +775,20 @@ func compareVpnGatewayVpnInterfaceNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OutputOnly: true}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareVpnGatewayVpnInterface(c *Client, desired, actual *VpnGatewayVpnInterface) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	return false
-}
-
-func compareVpnGatewayVpnInterfaceSlice(c *Client, desired, actual []VpnGatewayVpnInterface) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VpnGatewayVpnInterface, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareVpnGatewayVpnInterface(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in VpnGatewayVpnInterface, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareVpnGatewayVpnInterfaceMap(c *Client, desired, actual map[string]VpnGatewayVpnInterface) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in VpnGatewayVpnInterface, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in VpnGatewayVpnInterface, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareVpnGatewayVpnInterface(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in VpnGatewayVpnInterface, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -932,18 +911,18 @@ func flattenVpnGateway(c *Client, i interface{}) *VpnGateway {
 		return nil
 	}
 
-	r := &VpnGateway{}
-	r.Id = dcl.FlattenInteger(m["id"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.Region = dcl.FlattenString(m["region"])
-	r.Network = dcl.FlattenString(m["network"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
-	r.VpnInterface = flattenVpnGatewayVpnInterfaceSlice(c, m["vpnInterfaces"])
+	res := &VpnGateway{}
+	res.Id = dcl.FlattenInteger(m["id"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.Region = dcl.FlattenString(m["region"])
+	res.Network = dcl.FlattenString(m["network"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	res.VpnInterface = flattenVpnGatewayVpnInterfaceSlice(c, m["vpnInterfaces"])
 
-	return r
+	return res
 }
 
 // expandVpnGatewayVpnInterfaceMap expands the contents of VpnGatewayVpnInterface into a JSON
@@ -1030,10 +1009,11 @@ func flattenVpnGatewayVpnInterfaceSlice(c *Client, i interface{}) []VpnGatewayVp
 // expandVpnGatewayVpnInterface expands an instance of VpnGatewayVpnInterface into a JSON
 // request object.
 func expandVpnGatewayVpnInterface(c *Client, f *VpnGatewayVpnInterface) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
@@ -1098,5 +1078,36 @@ func (r *VpnGateway) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToVpnGatewayDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]vpnGatewayDiff, error) {
+	var diffs []vpnGatewayDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := vpnGatewayDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTovpnGatewayApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTovpnGatewayApiOperation(op string, opts ...dcl.ApplyOption) (vpnGatewayApiOperation, error) {
+	switch op {
+
+	case "updateVpnGatewaySetLabelsOperation":
+		return &updateVpnGatewaySetLabelsOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

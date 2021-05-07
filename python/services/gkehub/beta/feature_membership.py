@@ -114,22 +114,6 @@ class FeatureMembership(object):
 
         return stub.ListGkehubBetaFeatureMembership(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = feature_membership_pb2.GkehubBetaFeatureMembership()
-        any_proto.Unpack(res_proto)
-
-        res = FeatureMembership()
-        res.membership = Primitive.from_proto(res_proto.membership)
-        res.feature = Primitive.from_proto(res_proto.feature)
-        res.location = Primitive.from_proto(res_proto.location)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.configmanagement = FeatureMembershipConfigmanagement.from_proto(
-            res_proto.configmanagement
-        )
-        return res
-
     def to_proto(self):
         resource = feature_membership_pb2.GkehubBetaFeatureMembership()
         if Primitive.to_proto(self.membership):

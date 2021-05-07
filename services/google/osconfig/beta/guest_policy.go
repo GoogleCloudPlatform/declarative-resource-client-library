@@ -1111,6 +1111,7 @@ func (c *Client) ApplyGuestPolicy(ctx context.Context, rawDesired *GuestPolicy, 
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

@@ -137,15 +137,13 @@ components:
             the `metric_descriptor`, but existing labels cannot be modified except
             for their description. '
           properties:
-            displayName:
-              description: A concise name for the metric, which can be displayed in
-                user interfaces. Use sentence case without an ending period, for example
-                "Request count". This field is optional but it is recommended to be
-                set for any metrics associated with user-visible concepts, such as
-                Quota.
+            description:
+              description: A detailed description of the metric, which can be used
+                in documentation.
+              readOnly: true
               type: string
-              x-dcl-go-name: DisplayName
-            labels:
+              x-dcl-go-name: Description
+            descriptorLabels:
               description: The set of labels that can be used to describe a specific
                 instance of this metric type. For example, the `appengine.googleapis.com/http/server/response_latencies`
                 metric type has a label for the HTTP response code, `response_code`,
@@ -174,12 +172,20 @@ components:
                     - MONEY
                     type: string
                     x-dcl-go-name: ValueType
-                    x-dcl-go-type: LogMetricMetricDescriptorLabelsValueTypeEnum
+                    x-dcl-go-type: LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum
                 type: object
-                x-dcl-go-type: LogMetricMetricDescriptorLabels
+                x-dcl-go-type: LogMetricMetricDescriptorDescriptorLabels
               type: array
-              x-dcl-go-name: Labels
+              x-dcl-go-name: DescriptorLabels
               x-dcl-list-type: set
+            displayName:
+              description: A concise name for the metric, which can be displayed in
+                user interfaces. Use sentence case without an ending period, for example
+                "Request count". This field is optional but it is recommended to be
+                set for any metrics associated with user-visible concepts, such as
+                Quota.
+              type: string
+              x-dcl-go-name: DisplayName
             launchStage:
               description: 'Optional. The launch stage of the metric definition. Possible
                 values: LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS,
@@ -204,28 +210,8 @@ components:
                   description: The delay of data points caused by ingestion. Data
                     points older than this age are guaranteed to be ingested and available
                     to be read, excluding data loss due to errors.
-                  properties:
-                    nanos:
-                      description: Signed fractions of a second at nanosecond resolution
-                        of the span of time. Durations less than one second are represented
-                        with a 0 `seconds` field and a positive or negative `nanos`
-                        field. For durations of one second or more, a non-zero value
-                        for the `nanos` field must be of the same sign as the `seconds`
-                        field. Must be from -999,999,999 to +999,999,999 inclusive.
-                      format: int64
-                      type: integer
-                      x-dcl-go-name: Nanos
-                    seconds:
-                      description: 'Signed seconds of the span of time. Must be from
-                        -315,576,000,000 to +315,576,000,000 inclusive. Note: these
-                        bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day
-                        * 365.25 days/year * 10000 years'
-                      format: int64
-                      type: integer
-                      x-dcl-go-name: Seconds
-                  type: object
+                  type: string
                   x-dcl-go-name: IngestDelay
-                  x-dcl-go-type: LogMetricMetricDescriptorMetadataIngestDelay
                 launchStage:
                   description: 'Deprecated. Must use the instead. Possible values:
                     LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS,
@@ -247,28 +233,8 @@ components:
                     which are written periodically, consecutive data points are stored
                     at this time interval, excluding data loss due to errors. Metrics
                     with a higher granularity have a smaller sampling period.
-                  properties:
-                    nanos:
-                      description: Signed fractions of a second at nanosecond resolution
-                        of the span of time. Durations less than one second are represented
-                        with a 0 `seconds` field and a positive or negative `nanos`
-                        field. For durations of one second or more, a non-zero value
-                        for the `nanos` field must be of the same sign as the `seconds`
-                        field. Must be from -999,999,999 to +999,999,999 inclusive.
-                      format: int64
-                      type: integer
-                      x-dcl-go-name: Nanos
-                    seconds:
-                      description: 'Signed seconds of the span of time. Must be from
-                        -315,576,000,000 to +315,576,000,000 inclusive. Note: these
-                        bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day
-                        * 365.25 days/year * 10000 years'
-                      format: int64
-                      type: integer
-                      x-dcl-go-name: Seconds
-                  type: object
+                  type: string
                   x-dcl-go-name: SamplePeriod
-                  x-dcl-go-type: LogMetricMetricDescriptorMetadataSamplePeriod
               type: object
               x-dcl-go-name: Metadata
               x-dcl-go-type: LogMetricMetricDescriptorMetadata
@@ -416,7 +382,6 @@ components:
       title: LogMetric
       type: object
       x-dcl-id: projects/{{project}}/metrics/{{name}}
-      x-dcl-labels: metricdescriptor.labels
       x-dcl-locations: []
       x-dcl-parent-container: project
       x-dcl-uses-state-hint: false

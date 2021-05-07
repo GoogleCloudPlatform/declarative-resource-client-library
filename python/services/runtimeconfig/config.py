@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from connector import channel
-from google3.cloud.graphite.mmv2.services.google.runtimeconfig import config_pb2
-from google3.cloud.graphite.mmv2.services.google.runtimeconfig import config_pb2_grpc
+from google3.cloud.graphite.mmv2.services.google.runtime_config import config_pb2
+from google3.cloud.graphite.mmv2.services.google.runtime_config import config_pb2_grpc
 
 from typing import List
 
@@ -77,18 +77,6 @@ class Config(object):
         request.Name = name
 
         return stub.ListRuntimeconfigConfig(request).items
-
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = config_pb2.RuntimeconfigConfig()
-        any_proto.Unpack(res_proto)
-
-        res = Config()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
 
     def to_proto(self):
         resource = config_pb2.RuntimeconfigConfig()

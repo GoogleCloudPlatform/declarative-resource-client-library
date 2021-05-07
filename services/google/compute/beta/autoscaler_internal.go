@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -190,7 +189,7 @@ func newUpdateAutoscalerUpdateRequest(ctx context.Context, f *Autoscaler, c *Cli
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v, err := deriveAutoscalerTarget(f); err != nil {
+	if v, err := deriveAutoscalerTarget(f, f.Target); err != nil {
 		return nil, fmt.Errorf("error expanding Target into target: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["target"] = v
@@ -526,9 +525,6 @@ func canonicalizeAutoscalerDesiredState(rawDesired, rawInitial *Autoscaler, opts
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.Id) {
-		rawDesired.Id = rawInitial.Id
-	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -545,18 +541,6 @@ func canonicalizeAutoscalerDesiredState(rawDesired, rawInitial *Autoscaler, opts
 	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
 		rawDesired.Region = rawInitial.Region
 	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
-	}
-	if dcl.IsZeroValue(rawDesired.Status) {
-		rawDesired.Status = rawInitial.Status
-	}
-	if dcl.IsZeroValue(rawDesired.StatusDetails) {
-		rawDesired.StatusDetails = rawInitial.StatusDetails
-	}
-	if dcl.IsZeroValue(rawDesired.RecommendedSize) {
-		rawDesired.RecommendedSize = rawInitial.RecommendedSize
-	}
 	if dcl.StringCanonicalize(rawDesired.SelfLinkWithId, rawInitial.SelfLinkWithId) {
 		rawDesired.SelfLinkWithId = rawInitial.SelfLinkWithId
 	}
@@ -565,9 +549,6 @@ func canonicalizeAutoscalerDesiredState(rawDesired, rawInitial *Autoscaler, opts
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
-	}
-	if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawInitial.CreationTimestamp) {
-		rawDesired.CreationTimestamp = rawInitial.CreationTimestamp
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
 		rawDesired.Location = rawInitial.Location
@@ -736,10 +717,22 @@ func canonicalizeNewAutoscalerAutoscalingPolicy(c *Client, des, nw *AutoscalerAu
 		nw.Mode = AutoscalerAutoscalingPolicyModeEnumRef("ON")
 	}
 
+	if dcl.IsZeroValue(nw.MinNumReplicas) {
+		nw.MinNumReplicas = des.MinNumReplicas
+	}
+	if dcl.IsZeroValue(nw.MaxNumReplicas) {
+		nw.MaxNumReplicas = des.MaxNumReplicas
+	}
 	nw.ScaleInControl = canonicalizeNewAutoscalerAutoscalingPolicyScaleInControl(c, des.ScaleInControl, nw.ScaleInControl)
+	if dcl.IsZeroValue(nw.CoolDownPeriodSec) {
+		nw.CoolDownPeriodSec = des.CoolDownPeriodSec
+	}
 	nw.CpuUtilization = canonicalizeNewAutoscalerAutoscalingPolicyCpuUtilization(c, des.CpuUtilization, nw.CpuUtilization)
 	nw.CustomMetricUtilizations = canonicalizeNewAutoscalerAutoscalingPolicyCustomMetricUtilizationsSlice(c, des.CustomMetricUtilizations, nw.CustomMetricUtilizations)
 	nw.LoadBalancingUtilization = canonicalizeNewAutoscalerAutoscalingPolicyLoadBalancingUtilization(c, des.LoadBalancingUtilization, nw.LoadBalancingUtilization)
+	if dcl.IsZeroValue(nw.Mode) {
+		nw.Mode = des.Mode
+	}
 
 	return nw
 }
@@ -752,7 +745,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicySet(c *Client, des, nw []Autoscal
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAutoscalerAutoscalingPolicy(c, &d, &n) {
+			if diffs, _ := compareAutoscalerAutoscalingPolicyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -775,7 +768,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicySlice(c *Client, des, nw []Autosc
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AutoscalerAutoscalingPolicy
@@ -813,6 +806,9 @@ func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControl(c *Client, des, nw
 	}
 
 	nw.MaxScaledInReplicas = canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c, des.MaxScaledInReplicas, nw.MaxScaledInReplicas)
+	if dcl.IsZeroValue(nw.TimeWindowSec) {
+		nw.TimeWindowSec = des.TimeWindowSec
+	}
 
 	return nw
 }
@@ -825,7 +821,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlSet(c *Client, des,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAutoscalerAutoscalingPolicyScaleInControl(c, &d, &n) {
+			if diffs, _ := compareAutoscalerAutoscalingPolicyScaleInControlNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -848,7 +844,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlSlice(c *Client, de
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AutoscalerAutoscalingPolicyScaleInControl
@@ -878,9 +874,6 @@ func canonicalizeAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(de
 	if dcl.IsZeroValue(des.Percent) {
 		des.Percent = initial.Percent
 	}
-	if dcl.IsZeroValue(des.Calculated) {
-		des.Calculated = initial.Calculated
-	}
 
 	return des
 }
@@ -888,6 +881,16 @@ func canonicalizeAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(de
 func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c *Client, des, nw *AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas) *AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas {
 	if des == nil || nw == nil {
 		return nw
+	}
+
+	if dcl.IsZeroValue(nw.Fixed) {
+		nw.Fixed = des.Fixed
+	}
+	if dcl.IsZeroValue(nw.Percent) {
+		nw.Percent = des.Percent
+	}
+	if dcl.IsZeroValue(nw.Calculated) {
+		nw.Calculated = des.Calculated
 	}
 
 	return nw
@@ -901,7 +904,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c, &d, &n) {
+			if diffs, _ := compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -924,7 +927,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas
@@ -960,6 +963,10 @@ func canonicalizeNewAutoscalerAutoscalingPolicyCpuUtilization(c *Client, des, nw
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.UtilizationTarget) {
+		nw.UtilizationTarget = des.UtilizationTarget
+	}
+
 	return nw
 }
 
@@ -971,7 +978,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicyCpuUtilizationSet(c *Client, des,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAutoscalerAutoscalingPolicyCpuUtilization(c, &d, &n) {
+			if diffs, _ := compareAutoscalerAutoscalingPolicyCpuUtilizationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -994,7 +1001,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicyCpuUtilizationSlice(c *Client, de
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AutoscalerAutoscalingPolicyCpuUtilization
@@ -1045,8 +1052,17 @@ func canonicalizeNewAutoscalerAutoscalingPolicyCustomMetricUtilizations(c *Clien
 	if dcl.StringCanonicalize(des.Metric, nw.Metric) {
 		nw.Metric = des.Metric
 	}
+	if dcl.IsZeroValue(nw.UtilizationTarget) {
+		nw.UtilizationTarget = des.UtilizationTarget
+	}
+	if dcl.IsZeroValue(nw.UtilizationTargetType) {
+		nw.UtilizationTargetType = des.UtilizationTargetType
+	}
 	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
 		nw.Filter = des.Filter
+	}
+	if dcl.IsZeroValue(nw.SingleInstanceAssignment) {
+		nw.SingleInstanceAssignment = des.SingleInstanceAssignment
 	}
 
 	return nw
@@ -1060,7 +1076,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicyCustomMetricUtilizationsSet(c *Cl
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAutoscalerAutoscalingPolicyCustomMetricUtilizations(c, &d, &n) {
+			if diffs, _ := compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1083,7 +1099,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicyCustomMetricUtilizationsSlice(c *
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AutoscalerAutoscalingPolicyCustomMetricUtilizations
@@ -1119,6 +1135,10 @@ func canonicalizeNewAutoscalerAutoscalingPolicyLoadBalancingUtilization(c *Clien
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.UtilizationTarget) {
+		nw.UtilizationTarget = des.UtilizationTarget
+	}
+
 	return nw
 }
 
@@ -1130,7 +1150,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicyLoadBalancingUtilizationSet(c *Cl
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAutoscalerAutoscalingPolicyLoadBalancingUtilization(c, &d, &n) {
+			if diffs, _ := compareAutoscalerAutoscalingPolicyLoadBalancingUtilizationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1153,7 +1173,7 @@ func canonicalizeNewAutoscalerAutoscalingPolicyLoadBalancingUtilizationSlice(c *
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AutoscalerAutoscalingPolicyLoadBalancingUtilization
@@ -1195,6 +1215,9 @@ func canonicalizeNewAutoscalerStatusDetails(c *Client, des, nw *AutoscalerStatus
 	if dcl.StringCanonicalize(des.Message, nw.Message) {
 		nw.Message = des.Message
 	}
+	if dcl.IsZeroValue(nw.Type) {
+		nw.Type = des.Type
+	}
 
 	return nw
 }
@@ -1207,7 +1230,7 @@ func canonicalizeNewAutoscalerStatusDetailsSet(c *Client, des, nw []AutoscalerSt
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareAutoscalerStatusDetails(c, &d, &n) {
+			if diffs, _ := compareAutoscalerStatusDetailsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1230,7 +1253,7 @@ func canonicalizeNewAutoscalerStatusDetailsSlice(c *Client, des, nw []Autoscaler
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []AutoscalerStatusDetails
@@ -1264,155 +1287,215 @@ func diffAutoscaler(c *Client, desired, actual *Autoscaler, opts ...dcl.ApplyOpt
 	}
 
 	var diffs []autoscalerDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Id",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{
-			UpdateOp: &updateAutoscalerUpdateOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{
-			UpdateOp: &updateAutoscalerUpdateOperation{}, Diffs: ds,
-			FieldName: "Target",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutoscalingPolicy, actual.AutoscalingPolicy, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyNewStyle}, fn.AddNest("AutoscalingPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoscalingPolicy, actual.AutoscalingPolicy, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("AutoscalingPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{
-			UpdateOp: &updateAutoscalerUpdateOperation{}, Diffs: ds,
-			FieldName: "AutoscalingPolicy",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Zone",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Region",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Status",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.StatusDetails, actual.StatusDetails, dcl.Info{OutputOnly: true, ObjectFunction: compareAutoscalerStatusDetailsNewStyle}, fn.AddNest("StatusDetails")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StatusDetails, actual.StatusDetails, dcl.Info{OutputOnly: true, ObjectFunction: compareAutoscalerStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StatusDetails")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "StatusDetails",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.RecommendedSize, actual.RecommendedSize, dcl.Info{OutputOnly: true}, fn.AddNest("RecommendedSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RecommendedSize, actual.RecommendedSize, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RecommendedSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "RecommendedSize",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLinkWithId, actual.SelfLinkWithId, dcl.Info{}, fn.AddNest("SelfLinkWithId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLinkWithId, actual.SelfLinkWithId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLinkWithId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLinkWithId",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ScalingScheduleStatus, actual.ScalingScheduleStatus, dcl.Info{}, fn.AddNest("ScalingScheduleStatus")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScalingScheduleStatus, actual.ScalingScheduleStatus, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScalingScheduleStatus")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ScalingScheduleStatus",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreationTimestamp",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, autoscalerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToAutoscalerDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1459,137 +1542,62 @@ func compareAutoscalerAutoscalingPolicyNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MinNumReplicas, actual.MinNumReplicas, dcl.Info{}, fn.AddNest("MinNumReplicas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinNumReplicas, actual.MinNumReplicas, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("MinNumReplicas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxNumReplicas, actual.MaxNumReplicas, dcl.Info{}, fn.AddNest("MaxNumReplicas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxNumReplicas, actual.MaxNumReplicas, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("MaxNumReplicas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ScaleInControl, actual.ScaleInControl, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyScaleInControlNewStyle}, fn.AddNest("ScaleInControl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScaleInControl, actual.ScaleInControl, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyScaleInControlNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("ScaleInControl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CoolDownPeriodSec, actual.CoolDownPeriodSec, dcl.Info{}, fn.AddNest("CoolDownPeriodSec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CoolDownPeriodSec, actual.CoolDownPeriodSec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CoolDownPeriodSec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CpuUtilization, actual.CpuUtilization, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyCpuUtilizationNewStyle}, fn.AddNest("CpuUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CpuUtilization, actual.CpuUtilization, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyCpuUtilizationNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("CpuUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CustomMetricUtilizations, actual.CustomMetricUtilizations, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsNewStyle}, fn.AddNest("CustomMetricUtilizations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CustomMetricUtilizations, actual.CustomMetricUtilizations, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("CustomMetricUtilizations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoadBalancingUtilization, actual.LoadBalancingUtilization, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyLoadBalancingUtilizationNewStyle}, fn.AddNest("LoadBalancingUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoadBalancingUtilization, actual.LoadBalancingUtilization, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyLoadBalancingUtilizationNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("LoadBalancingUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{Type: "EnumType"}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAutoscalerAutoscalingPolicy(c *Client, desired, actual *AutoscalerAutoscalingPolicy) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.MinNumReplicas, actual.MinNumReplicas) && !dcl.IsZeroValue(desired.MinNumReplicas) {
-		c.Config.Logger.Infof("Diff in MinNumReplicas.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinNumReplicas), dcl.SprintResource(actual.MinNumReplicas))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MaxNumReplicas, actual.MaxNumReplicas) && !dcl.IsZeroValue(desired.MaxNumReplicas) {
-		c.Config.Logger.Infof("Diff in MaxNumReplicas.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxNumReplicas), dcl.SprintResource(actual.MaxNumReplicas))
-		return true
-	}
-	if compareAutoscalerAutoscalingPolicyScaleInControl(c, desired.ScaleInControl, actual.ScaleInControl) && !dcl.IsZeroValue(desired.ScaleInControl) {
-		c.Config.Logger.Infof("Diff in ScaleInControl.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ScaleInControl), dcl.SprintResource(actual.ScaleInControl))
-		return true
-	}
-	if !reflect.DeepEqual(desired.CoolDownPeriodSec, actual.CoolDownPeriodSec) && !dcl.IsZeroValue(desired.CoolDownPeriodSec) {
-		c.Config.Logger.Infof("Diff in CoolDownPeriodSec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CoolDownPeriodSec), dcl.SprintResource(actual.CoolDownPeriodSec))
-		return true
-	}
-	if compareAutoscalerAutoscalingPolicyCpuUtilization(c, desired.CpuUtilization, actual.CpuUtilization) && !dcl.IsZeroValue(desired.CpuUtilization) {
-		c.Config.Logger.Infof("Diff in CpuUtilization.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CpuUtilization), dcl.SprintResource(actual.CpuUtilization))
-		return true
-	}
-	if compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsSlice(c, desired.CustomMetricUtilizations, actual.CustomMetricUtilizations) && !dcl.IsZeroValue(desired.CustomMetricUtilizations) {
-		c.Config.Logger.Infof("Diff in CustomMetricUtilizations.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.CustomMetricUtilizations), dcl.SprintResource(actual.CustomMetricUtilizations))
-		return true
-	}
-	if compareAutoscalerAutoscalingPolicyLoadBalancingUtilization(c, desired.LoadBalancingUtilization, actual.LoadBalancingUtilization) && !dcl.IsZeroValue(desired.LoadBalancingUtilization) {
-		c.Config.Logger.Infof("Diff in LoadBalancingUtilization.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LoadBalancingUtilization), dcl.SprintResource(actual.LoadBalancingUtilization))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Mode, actual.Mode) && !dcl.IsZeroValue(desired.Mode) {
-		c.Config.Logger.Infof("Diff in Mode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Mode), dcl.SprintResource(actual.Mode))
-		return true
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicySlice(c *Client, desired, actual []AutoscalerAutoscalingPolicy) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicy, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAutoscalerAutoscalingPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyMap(c *Client, desired, actual map[string]AutoscalerAutoscalingPolicy) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicy, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicy, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAutoscalerAutoscalingPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAutoscalerAutoscalingPolicyScaleInControlNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1612,71 +1620,20 @@ func compareAutoscalerAutoscalingPolicyScaleInControlNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MaxScaledInReplicas, actual.MaxScaledInReplicas, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasNewStyle}, fn.AddNest("MaxScaledInReplicas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxScaledInReplicas, actual.MaxScaledInReplicas, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("MaxScaledInReplicas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeWindowSec, actual.TimeWindowSec, dcl.Info{}, fn.AddNest("TimeWindowSec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeWindowSec, actual.TimeWindowSec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("TimeWindowSec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAutoscalerAutoscalingPolicyScaleInControl(c *Client, desired, actual *AutoscalerAutoscalingPolicyScaleInControl) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c, desired.MaxScaledInReplicas, actual.MaxScaledInReplicas) && !dcl.IsZeroValue(desired.MaxScaledInReplicas) {
-		c.Config.Logger.Infof("Diff in MaxScaledInReplicas.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MaxScaledInReplicas), dcl.SprintResource(actual.MaxScaledInReplicas))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TimeWindowSec, actual.TimeWindowSec) && !dcl.IsZeroValue(desired.TimeWindowSec) {
-		c.Config.Logger.Infof("Diff in TimeWindowSec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TimeWindowSec), dcl.SprintResource(actual.TimeWindowSec))
-		return true
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyScaleInControlSlice(c *Client, desired, actual []AutoscalerAutoscalingPolicyScaleInControl) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicyScaleInControl, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAutoscalerAutoscalingPolicyScaleInControl(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyScaleInControl, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyScaleInControlMap(c *Client, desired, actual map[string]AutoscalerAutoscalingPolicyScaleInControl) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicyScaleInControl, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyScaleInControl, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAutoscalerAutoscalingPolicyScaleInControl(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyScaleInControl, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1699,78 +1656,27 @@ func compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c *Client, desired, actual *AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Fixed, actual.Fixed) && !dcl.IsZeroValue(desired.Fixed) {
-		c.Config.Logger.Infof("Diff in Fixed.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Fixed), dcl.SprintResource(actual.Fixed))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Percent, actual.Percent) && !dcl.IsZeroValue(desired.Percent) {
-		c.Config.Logger.Infof("Diff in Percent.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Percent), dcl.SprintResource(actual.Percent))
-		return true
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasSlice(c *Client, desired, actual []AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasMap(c *Client, desired, actual map[string]AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAutoscalerAutoscalingPolicyCpuUtilizationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1793,60 +1699,13 @@ func compareAutoscalerAutoscalingPolicyCpuUtilizationNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.UtilizationTarget, actual.UtilizationTarget, dcl.Info{}, fn.AddNest("UtilizationTarget")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UtilizationTarget, actual.UtilizationTarget, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("UtilizationTarget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAutoscalerAutoscalingPolicyCpuUtilization(c *Client, desired, actual *AutoscalerAutoscalingPolicyCpuUtilization) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.UtilizationTarget, actual.UtilizationTarget) && !dcl.IsZeroValue(desired.UtilizationTarget) {
-		c.Config.Logger.Infof("Diff in UtilizationTarget.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UtilizationTarget), dcl.SprintResource(actual.UtilizationTarget))
-		return true
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyCpuUtilizationSlice(c *Client, desired, actual []AutoscalerAutoscalingPolicyCpuUtilization) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicyCpuUtilization, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAutoscalerAutoscalingPolicyCpuUtilization(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyCpuUtilization, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyCpuUtilizationMap(c *Client, desired, actual map[string]AutoscalerAutoscalingPolicyCpuUtilization) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicyCpuUtilization, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyCpuUtilization, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAutoscalerAutoscalingPolicyCpuUtilization(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyCpuUtilization, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1869,104 +1728,41 @@ func compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Metric, actual.Metric, dcl.Info{}, fn.AddNest("Metric")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metric, actual.Metric, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("Metric")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UtilizationTarget, actual.UtilizationTarget, dcl.Info{}, fn.AddNest("UtilizationTarget")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UtilizationTarget, actual.UtilizationTarget, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("UtilizationTarget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UtilizationTargetType, actual.UtilizationTargetType, dcl.Info{Type: "EnumType"}, fn.AddNest("UtilizationTargetType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UtilizationTargetType, actual.UtilizationTargetType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("UtilizationTargetType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SingleInstanceAssignment, actual.SingleInstanceAssignment, dcl.Info{}, fn.AddNest("SingleInstanceAssignment")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SingleInstanceAssignment, actual.SingleInstanceAssignment, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("SingleInstanceAssignment")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAutoscalerAutoscalingPolicyCustomMetricUtilizations(c *Client, desired, actual *AutoscalerAutoscalingPolicyCustomMetricUtilizations) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Metric, actual.Metric) && !dcl.IsZeroValue(desired.Metric) {
-		c.Config.Logger.Infof("Diff in Metric.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Metric), dcl.SprintResource(actual.Metric))
-		return true
-	}
-	if !reflect.DeepEqual(desired.UtilizationTarget, actual.UtilizationTarget) && !dcl.IsZeroValue(desired.UtilizationTarget) {
-		c.Config.Logger.Infof("Diff in UtilizationTarget.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UtilizationTarget), dcl.SprintResource(actual.UtilizationTarget))
-		return true
-	}
-	if !reflect.DeepEqual(desired.UtilizationTargetType, actual.UtilizationTargetType) && !dcl.IsZeroValue(desired.UtilizationTargetType) {
-		c.Config.Logger.Infof("Diff in UtilizationTargetType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UtilizationTargetType), dcl.SprintResource(actual.UtilizationTargetType))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SingleInstanceAssignment, actual.SingleInstanceAssignment) && !dcl.IsZeroValue(desired.SingleInstanceAssignment) {
-		c.Config.Logger.Infof("Diff in SingleInstanceAssignment.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SingleInstanceAssignment), dcl.SprintResource(actual.SingleInstanceAssignment))
-		return true
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsSlice(c *Client, desired, actual []AutoscalerAutoscalingPolicyCustomMetricUtilizations) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicyCustomMetricUtilizations, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAutoscalerAutoscalingPolicyCustomMetricUtilizations(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyCustomMetricUtilizations, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsMap(c *Client, desired, actual map[string]AutoscalerAutoscalingPolicyCustomMetricUtilizations) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicyCustomMetricUtilizations, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyCustomMetricUtilizations, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAutoscalerAutoscalingPolicyCustomMetricUtilizations(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyCustomMetricUtilizations, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAutoscalerAutoscalingPolicyLoadBalancingUtilizationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1989,60 +1785,13 @@ func compareAutoscalerAutoscalingPolicyLoadBalancingUtilizationNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.UtilizationTarget, actual.UtilizationTarget, dcl.Info{}, fn.AddNest("UtilizationTarget")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UtilizationTarget, actual.UtilizationTarget, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("UtilizationTarget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAutoscalerAutoscalingPolicyLoadBalancingUtilization(c *Client, desired, actual *AutoscalerAutoscalingPolicyLoadBalancingUtilization) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.UtilizationTarget, actual.UtilizationTarget) && !dcl.IsZeroValue(desired.UtilizationTarget) {
-		c.Config.Logger.Infof("Diff in UtilizationTarget.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UtilizationTarget), dcl.SprintResource(actual.UtilizationTarget))
-		return true
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyLoadBalancingUtilizationSlice(c *Client, desired, actual []AutoscalerAutoscalingPolicyLoadBalancingUtilization) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicyLoadBalancingUtilization, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAutoscalerAutoscalingPolicyLoadBalancingUtilization(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyLoadBalancingUtilization, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyLoadBalancingUtilizationMap(c *Client, desired, actual map[string]AutoscalerAutoscalingPolicyLoadBalancingUtilization) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicyLoadBalancingUtilization, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyLoadBalancingUtilization, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAutoscalerAutoscalingPolicyLoadBalancingUtilization(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyLoadBalancingUtilization, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareAutoscalerStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2065,143 +1814,20 @@ func compareAutoscalerStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType"}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareAutoscalerStatusDetails(c *Client, desired, actual *AutoscalerStatusDetails) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Message, actual.Message) && !dcl.IsZeroValue(desired.Message) {
-		c.Config.Logger.Infof("Diff in Message.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Message), dcl.SprintResource(actual.Message))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Type, actual.Type) && !dcl.IsZeroValue(desired.Type) {
-		c.Config.Logger.Infof("Diff in Type.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Type), dcl.SprintResource(actual.Type))
-		return true
-	}
-	return false
-}
-
-func compareAutoscalerStatusDetailsSlice(c *Client, desired, actual []AutoscalerStatusDetails) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerStatusDetails, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAutoscalerStatusDetails(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalerStatusDetails, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAutoscalerStatusDetailsMap(c *Client, desired, actual map[string]AutoscalerStatusDetails) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerStatusDetails, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in AutoscalerStatusDetails, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareAutoscalerStatusDetails(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in AutoscalerStatusDetails, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnumSlice(c *Client, desired, actual []AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum(c *Client, desired, actual *AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAutoscalerAutoscalingPolicyModeEnumSlice(c *Client, desired, actual []AutoscalerAutoscalingPolicyModeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerAutoscalingPolicyModeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAutoscalerAutoscalingPolicyModeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalerAutoscalingPolicyModeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAutoscalerAutoscalingPolicyModeEnum(c *Client, desired, actual *AutoscalerAutoscalingPolicyModeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAutoscalerStatusEnumSlice(c *Client, desired, actual []AutoscalerStatusEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerStatusEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAutoscalerStatusEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalerStatusEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAutoscalerStatusEnum(c *Client, desired, actual *AutoscalerStatusEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareAutoscalerStatusDetailsTypeEnumSlice(c *Client, desired, actual []AutoscalerStatusDetailsTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in AutoscalerStatusDetailsTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareAutoscalerStatusDetailsTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in AutoscalerStatusDetailsTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareAutoscalerStatusDetailsTypeEnum(c *Client, desired, actual *AutoscalerStatusDetailsTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -2306,7 +1932,7 @@ func expandAutoscaler(c *Client, f *Autoscaler) (map[string]interface{}, error) 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v, err := deriveAutoscalerTarget(f); err != nil {
+	if v, err := deriveAutoscalerTarget(f, f.Target); err != nil {
 		return nil, fmt.Errorf("error expanding Target into target: %w", err)
 	} else if v != nil {
 		m["target"] = v
@@ -2372,25 +1998,25 @@ func flattenAutoscaler(c *Client, i interface{}) *Autoscaler {
 		return nil
 	}
 
-	r := &Autoscaler{}
-	r.Id = dcl.FlattenInteger(m["id"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.Target = dcl.FlattenString(m["target"])
-	r.AutoscalingPolicy = flattenAutoscalerAutoscalingPolicy(c, m["autoscalingPolicy"])
-	r.Zone = dcl.FlattenString(m["zone"])
-	r.Region = dcl.FlattenString(m["region"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
-	r.Status = flattenAutoscalerStatusEnum(m["status"])
-	r.StatusDetails = flattenAutoscalerStatusDetailsSlice(c, m["statusDetails"])
-	r.RecommendedSize = dcl.FlattenInteger(m["recommendedSize"])
-	r.SelfLinkWithId = dcl.FlattenString(m["selfLinkWithId"])
-	r.ScalingScheduleStatus = dcl.FlattenKeyValuePairs(m["scalingScheduleStatus"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
-	r.Location = dcl.FlattenString(m["location"])
+	res := &Autoscaler{}
+	res.Id = dcl.FlattenInteger(m["id"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.Target = dcl.FlattenString(m["target"])
+	res.AutoscalingPolicy = flattenAutoscalerAutoscalingPolicy(c, m["autoscalingPolicy"])
+	res.Zone = dcl.FlattenString(m["zone"])
+	res.Region = dcl.FlattenString(m["region"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.Status = flattenAutoscalerStatusEnum(m["status"])
+	res.StatusDetails = flattenAutoscalerStatusDetailsSlice(c, m["statusDetails"])
+	res.RecommendedSize = dcl.FlattenInteger(m["recommendedSize"])
+	res.SelfLinkWithId = dcl.FlattenString(m["selfLinkWithId"])
+	res.ScalingScheduleStatus = dcl.FlattenKeyValuePairs(m["scalingScheduleStatus"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
+	res.Location = dcl.FlattenString(m["location"])
 
-	return r
+	return res
 }
 
 // expandAutoscalerAutoscalingPolicyMap expands the contents of AutoscalerAutoscalingPolicy into a JSON
@@ -2477,10 +2103,11 @@ func flattenAutoscalerAutoscalingPolicySlice(c *Client, i interface{}) []Autosca
 // expandAutoscalerAutoscalingPolicy expands an instance of AutoscalerAutoscalingPolicy into a JSON
 // request object.
 func expandAutoscalerAutoscalingPolicy(c *Client, f *AutoscalerAutoscalingPolicy) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	m["minNumReplicas"] = f.MinNumReplicas
 	if v := f.MaxNumReplicas; !dcl.IsEmptyValueIndirect(v) {
 		m["maxNumReplicas"] = v
@@ -2628,10 +2255,11 @@ func flattenAutoscalerAutoscalingPolicyScaleInControlSlice(c *Client, i interfac
 // expandAutoscalerAutoscalingPolicyScaleInControl expands an instance of AutoscalerAutoscalingPolicyScaleInControl into a JSON
 // request object.
 func expandAutoscalerAutoscalingPolicyScaleInControl(c *Client, f *AutoscalerAutoscalingPolicyScaleInControl) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c, f.MaxScaledInReplicas); err != nil {
 		return nil, fmt.Errorf("error expanding MaxScaledInReplicas into maxScaledInReplicas: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2743,10 +2371,11 @@ func flattenAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasSlice(c 
 // expandAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas expands an instance of AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas into a JSON
 // request object.
 func expandAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c *Client, f *AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Fixed; !dcl.IsEmptyValueIndirect(v) {
 		m["fixed"] = v
 	}
@@ -2860,10 +2489,11 @@ func flattenAutoscalerAutoscalingPolicyCpuUtilizationSlice(c *Client, i interfac
 // expandAutoscalerAutoscalingPolicyCpuUtilization expands an instance of AutoscalerAutoscalingPolicyCpuUtilization into a JSON
 // request object.
 func expandAutoscalerAutoscalingPolicyCpuUtilization(c *Client, f *AutoscalerAutoscalingPolicyCpuUtilization) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.UtilizationTarget; !dcl.IsEmptyValueIndirect(v) {
 		m["utilizationTarget"] = v
 	}
@@ -2969,10 +2599,11 @@ func flattenAutoscalerAutoscalingPolicyCustomMetricUtilizationsSlice(c *Client, 
 // expandAutoscalerAutoscalingPolicyCustomMetricUtilizations expands an instance of AutoscalerAutoscalingPolicyCustomMetricUtilizations into a JSON
 // request object.
 func expandAutoscalerAutoscalingPolicyCustomMetricUtilizations(c *Client, f *AutoscalerAutoscalingPolicyCustomMetricUtilizations) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Metric; !dcl.IsEmptyValueIndirect(v) {
 		m["metric"] = v
 	}
@@ -3094,10 +2725,11 @@ func flattenAutoscalerAutoscalingPolicyLoadBalancingUtilizationSlice(c *Client, 
 // expandAutoscalerAutoscalingPolicyLoadBalancingUtilization expands an instance of AutoscalerAutoscalingPolicyLoadBalancingUtilization into a JSON
 // request object.
 func expandAutoscalerAutoscalingPolicyLoadBalancingUtilization(c *Client, f *AutoscalerAutoscalingPolicyLoadBalancingUtilization) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.UtilizationTarget; !dcl.IsEmptyValueIndirect(v) {
 		m["utilizationTarget"] = v
 	}
@@ -3203,10 +2835,11 @@ func flattenAutoscalerStatusDetailsSlice(c *Client, i interface{}) []AutoscalerS
 // expandAutoscalerStatusDetails expands an instance of AutoscalerStatusDetails into a JSON
 // request object.
 func expandAutoscalerStatusDetails(c *Client, f *AutoscalerStatusDetails) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Message; !dcl.IsEmptyValueIndirect(v) {
 		m["message"] = v
 	}
@@ -3395,5 +3028,36 @@ func (r *Autoscaler) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToAutoscalerDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]autoscalerDiff, error) {
+	var diffs []autoscalerDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := autoscalerDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToautoscalerApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToautoscalerApiOperation(op string, opts ...dcl.ApplyOption) (autoscalerApiOperation, error) {
+	switch op {
+
+	case "updateAutoscalerUpdateOperation":
+		return &updateAutoscalerUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

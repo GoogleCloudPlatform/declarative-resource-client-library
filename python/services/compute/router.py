@@ -140,26 +140,6 @@ class Router(object):
 
         return stub.ListComputeRouter(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = router_pb2.ComputeRouter()
-        any_proto.Unpack(res_proto)
-
-        res = Router()
-        res.creation_timestamp = Primitive.from_proto(res_proto.creation_timestamp)
-        res.nats = RouterNatsArray.from_proto(res_proto.nats)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.network = Primitive.from_proto(res_proto.network)
-        res.interfaces = RouterInterfacesArray.from_proto(res_proto.interfaces)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.bgp_peers = RouterBgpPeersArray.from_proto(res_proto.bgp_peers)
-        res.bgp = RouterBgp.from_proto(res_proto.bgp)
-        res.region = Primitive.from_proto(res_proto.region)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        return res
-
     def to_proto(self):
         resource = router_pb2.ComputeRouter()
         if RouterNatsArray.to_proto(self.nats):

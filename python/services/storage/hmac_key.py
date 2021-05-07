@@ -97,24 +97,6 @@ class HmacKey(object):
 
         return stub.ListStorageHmacKey(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = hmac_key_pb2.StorageHmacKey()
-        any_proto.Unpack(res_proto)
-
-        res = HmacKey()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.time_created = Primitive.from_proto(res_proto.time_created)
-        res.updated = Primitive.from_proto(res_proto.updated)
-        res.secret = Primitive.from_proto(res_proto.secret)
-        res.state = HmacKeyStateEnum.from_proto(res_proto.state)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.service_account_email = Primitive.from_proto(
-            res_proto.service_account_email
-        )
-        return res
-
     def to_proto(self):
         resource = hmac_key_pb2.StorageHmacKey()
         if Primitive.to_proto(self.name):

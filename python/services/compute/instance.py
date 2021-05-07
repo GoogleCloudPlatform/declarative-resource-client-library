@@ -262,47 +262,6 @@ class Instance(object):
 
         return stub.ListComputeInstance(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = instance_pb2.ComputeInstance()
-        any_proto.Unpack(res_proto)
-
-        res = Instance()
-        res.can_ip_forward = Primitive.from_proto(res_proto.can_ip_forward)
-        res.cpu_platform = Primitive.from_proto(res_proto.cpu_platform)
-        res.creation_timestamp = Primitive.from_proto(res_proto.creation_timestamp)
-        res.deletion_protection = Primitive.from_proto(res_proto.deletion_protection)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.disks = InstanceDisksArray.from_proto(res_proto.disks)
-        res.guest_accelerators = InstanceGuestAcceleratorsArray.from_proto(
-            res_proto.guest_accelerators
-        )
-        res.hostname = Primitive.from_proto(res_proto.hostname)
-        res.id = Primitive.from_proto(res_proto.id)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.metadata = Primitive.from_proto(res_proto.metadata)
-        res.machine_type = Primitive.from_proto(res_proto.machine_type)
-        res.min_cpu_platform = Primitive.from_proto(res_proto.min_cpu_platform)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.network_interfaces = InstanceNetworkInterfacesArray.from_proto(
-            res_proto.network_interfaces
-        )
-        res.scheduling = InstanceScheduling.from_proto(res_proto.scheduling)
-        res.service_accounts = InstanceServiceAccountsArray.from_proto(
-            res_proto.service_accounts
-        )
-        res.shielded_instance_config = InstanceShieldedInstanceConfig.from_proto(
-            res_proto.shielded_instance_config
-        )
-        res.status = InstanceStatusEnum.from_proto(res_proto.status)
-        res.status_message = Primitive.from_proto(res_proto.status_message)
-        res.tags = Primitive.from_proto(res_proto.tags)
-        res.zone = Primitive.from_proto(res_proto.zone)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        return res
-
     def to_proto(self):
         resource = instance_pb2.ComputeInstance()
         if Primitive.to_proto(self.can_ip_forward):

@@ -521,6 +521,7 @@ func (c *Client) ApplyJob(ctx context.Context, rawDesired *Job, opts ...dcl.Appl
 						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
 					}
 				}
+				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
 				recreate = true
 			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {

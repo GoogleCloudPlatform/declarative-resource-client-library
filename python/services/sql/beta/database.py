@@ -98,21 +98,6 @@ class Database(object):
 
         return stub.ListSqlBetaDatabase(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = database_pb2.SqlBetaDatabase()
-        any_proto.Unpack(res_proto)
-
-        res = Database()
-        res.charset = Primitive.from_proto(res_proto.charset)
-        res.collation = Primitive.from_proto(res_proto.collation)
-        res.instance = Primitive.from_proto(res_proto.instance)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        return res
-
     def to_proto(self):
         resource = database_pb2.SqlBetaDatabase()
         if Primitive.to_proto(self.charset):

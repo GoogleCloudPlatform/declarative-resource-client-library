@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -467,9 +466,6 @@ func canonicalizeRouterDesiredState(rawDesired, rawInitial *Router, opts ...dcl.
 
 		return rawDesired, nil
 	}
-	if dcl.IsZeroValue(rawDesired.CreationTimestamp) {
-		rawDesired.CreationTimestamp = rawInitial.CreationTimestamp
-	}
 	if dcl.IsZeroValue(rawDesired.Nats) {
 		rawDesired.Nats = rawInitial.Nats
 	}
@@ -494,9 +490,6 @@ func canonicalizeRouterDesiredState(rawDesired, rawInitial *Router, opts ...dcl.
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
-	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 
 	return rawDesired, nil
@@ -637,6 +630,33 @@ func canonicalizeNewRouterNats(c *Client, des, nw *RouterNats) *RouterNats {
 		nw.Name = des.Name
 	}
 	nw.LogConfig = canonicalizeNewRouterNatsLogConfig(c, des.LogConfig, nw.LogConfig)
+	if dcl.IsZeroValue(nw.SourceSubnetworkIPRangesToNat) {
+		nw.SourceSubnetworkIPRangesToNat = des.SourceSubnetworkIPRangesToNat
+	}
+	if dcl.IsZeroValue(nw.NatIps) {
+		nw.NatIps = des.NatIps
+	}
+	if dcl.IsZeroValue(nw.DrainNatIps) {
+		nw.DrainNatIps = des.DrainNatIps
+	}
+	if dcl.IsZeroValue(nw.NatIPAllocateOption) {
+		nw.NatIPAllocateOption = des.NatIPAllocateOption
+	}
+	if dcl.IsZeroValue(nw.MinPortsPerVm) {
+		nw.MinPortsPerVm = des.MinPortsPerVm
+	}
+	if dcl.IsZeroValue(nw.UdpIdleTimeoutSec) {
+		nw.UdpIdleTimeoutSec = des.UdpIdleTimeoutSec
+	}
+	if dcl.IsZeroValue(nw.IcmpIdleTimeoutSec) {
+		nw.IcmpIdleTimeoutSec = des.IcmpIdleTimeoutSec
+	}
+	if dcl.IsZeroValue(nw.TcpEstablishedIdleTimeoutSec) {
+		nw.TcpEstablishedIdleTimeoutSec = des.TcpEstablishedIdleTimeoutSec
+	}
+	if dcl.IsZeroValue(nw.TcpTransitoryIdleTimeoutSec) {
+		nw.TcpTransitoryIdleTimeoutSec = des.TcpTransitoryIdleTimeoutSec
+	}
 	nw.Subnetworks = canonicalizeNewRouterNatsSubnetworksSlice(c, des.Subnetworks, nw.Subnetworks)
 
 	return nw
@@ -650,7 +670,7 @@ func canonicalizeNewRouterNatsSet(c *Client, des, nw []RouterNats) []RouterNats 
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareRouterNats(c, &d, &n) {
+			if diffs, _ := compareRouterNatsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -673,7 +693,7 @@ func canonicalizeNewRouterNatsSlice(c *Client, des, nw []RouterNats) []RouterNat
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []RouterNats
@@ -715,6 +735,9 @@ func canonicalizeNewRouterNatsLogConfig(c *Client, des, nw *RouterNatsLogConfig)
 	if dcl.BoolCanonicalize(des.Enable, nw.Enable) {
 		nw.Enable = des.Enable
 	}
+	if dcl.IsZeroValue(nw.Filter) {
+		nw.Filter = des.Filter
+	}
 
 	return nw
 }
@@ -727,7 +750,7 @@ func canonicalizeNewRouterNatsLogConfigSet(c *Client, des, nw []RouterNatsLogCon
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareRouterNatsLogConfig(c, &d, &n) {
+			if diffs, _ := compareRouterNatsLogConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -750,7 +773,7 @@ func canonicalizeNewRouterNatsLogConfigSlice(c *Client, des, nw []RouterNatsLogC
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []RouterNatsLogConfig
@@ -813,7 +836,7 @@ func canonicalizeNewRouterNatsSubnetworksSet(c *Client, des, nw []RouterNatsSubn
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareRouterNatsSubnetworks(c, &d, &n) {
+			if diffs, _ := compareRouterNatsSubnetworksNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -836,7 +859,7 @@ func canonicalizeNewRouterNatsSubnetworksSlice(c *Client, des, nw []RouterNatsSu
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []RouterNatsSubnetworks
@@ -869,9 +892,6 @@ func canonicalizeRouterInterfaces(des, initial *RouterInterfaces, opts ...dcl.Ap
 	if dcl.StringCanonicalize(des.IPRange, initial.IPRange) || dcl.IsZeroValue(des.IPRange) {
 		des.IPRange = initial.IPRange
 	}
-	if dcl.IsZeroValue(des.ManagementType) {
-		des.ManagementType = initial.ManagementType
-	}
 
 	return des
 }
@@ -890,6 +910,9 @@ func canonicalizeNewRouterInterfaces(c *Client, des, nw *RouterInterfaces) *Rout
 	if dcl.StringCanonicalize(des.IPRange, nw.IPRange) {
 		nw.IPRange = des.IPRange
 	}
+	if dcl.IsZeroValue(nw.ManagementType) {
+		nw.ManagementType = des.ManagementType
+	}
 
 	return nw
 }
@@ -902,7 +925,7 @@ func canonicalizeNewRouterInterfacesSet(c *Client, des, nw []RouterInterfaces) [
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareRouterInterfaces(c, &d, &n) {
+			if diffs, _ := compareRouterInterfacesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -925,7 +948,7 @@ func canonicalizeNewRouterInterfacesSlice(c *Client, des, nw []RouterInterfaces)
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []RouterInterfaces
@@ -970,9 +993,6 @@ func canonicalizeRouterBgpPeers(des, initial *RouterBgpPeers, opts ...dcl.ApplyO
 	if dcl.StringCanonicalize(des.AdvertiseMode, initial.AdvertiseMode) || dcl.IsZeroValue(des.AdvertiseMode) {
 		des.AdvertiseMode = initial.AdvertiseMode
 	}
-	if dcl.StringCanonicalize(des.ManagementType, initial.ManagementType) || dcl.IsZeroValue(des.ManagementType) {
-		des.ManagementType = initial.ManagementType
-	}
 	if dcl.IsZeroValue(des.AdvertisedGroups) {
 		des.AdvertisedGroups = initial.AdvertisedGroups
 	}
@@ -1000,11 +1020,20 @@ func canonicalizeNewRouterBgpPeers(c *Client, des, nw *RouterBgpPeers) *RouterBg
 	if dcl.StringCanonicalize(des.PeerIPAddress, nw.PeerIPAddress) {
 		nw.PeerIPAddress = des.PeerIPAddress
 	}
+	if dcl.IsZeroValue(nw.PeerAsn) {
+		nw.PeerAsn = des.PeerAsn
+	}
+	if dcl.IsZeroValue(nw.AdvertisedRoutePriority) {
+		nw.AdvertisedRoutePriority = des.AdvertisedRoutePriority
+	}
 	if dcl.StringCanonicalize(des.AdvertiseMode, nw.AdvertiseMode) {
 		nw.AdvertiseMode = des.AdvertiseMode
 	}
 	if dcl.StringCanonicalize(des.ManagementType, nw.ManagementType) {
 		nw.ManagementType = des.ManagementType
+	}
+	if dcl.IsZeroValue(nw.AdvertisedGroups) {
+		nw.AdvertisedGroups = des.AdvertisedGroups
 	}
 	nw.AdvertisedIPRanges = canonicalizeNewRouterBgpPeersAdvertisedIPRangesSlice(c, des.AdvertisedIPRanges, nw.AdvertisedIPRanges)
 
@@ -1019,7 +1048,7 @@ func canonicalizeNewRouterBgpPeersSet(c *Client, des, nw []RouterBgpPeers) []Rou
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareRouterBgpPeers(c, &d, &n) {
+			if diffs, _ := compareRouterBgpPeersNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1042,7 +1071,7 @@ func canonicalizeNewRouterBgpPeersSlice(c *Client, des, nw []RouterBgpPeers) []R
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []RouterBgpPeers
@@ -1099,7 +1128,7 @@ func canonicalizeNewRouterBgpPeersAdvertisedIPRangesSet(c *Client, des, nw []Rou
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareRouterBgpPeersAdvertisedIPRanges(c, &d, &n) {
+			if diffs, _ := compareRouterBgpPeersAdvertisedIPRangesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1122,7 +1151,7 @@ func canonicalizeNewRouterBgpPeersAdvertisedIPRangesSlice(c *Client, des, nw []R
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []RouterBgpPeersAdvertisedIPRanges
@@ -1167,6 +1196,15 @@ func canonicalizeNewRouterBgp(c *Client, des, nw *RouterBgp) *RouterBgp {
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.Asn) {
+		nw.Asn = des.Asn
+	}
+	if dcl.IsZeroValue(nw.AdvertiseMode) {
+		nw.AdvertiseMode = des.AdvertiseMode
+	}
+	if dcl.IsZeroValue(nw.AdvertisedGroups) {
+		nw.AdvertisedGroups = des.AdvertisedGroups
+	}
 	nw.AdvertisedIPRanges = canonicalizeNewRouterBgpAdvertisedIPRangesSlice(c, des.AdvertisedIPRanges, nw.AdvertisedIPRanges)
 
 	return nw
@@ -1180,7 +1218,7 @@ func canonicalizeNewRouterBgpSet(c *Client, des, nw []RouterBgp) []RouterBgp {
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareRouterBgp(c, &d, &n) {
+			if diffs, _ := compareRouterBgpNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1203,7 +1241,7 @@ func canonicalizeNewRouterBgpSlice(c *Client, des, nw []RouterBgp) []RouterBgp {
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []RouterBgp
@@ -1260,7 +1298,7 @@ func canonicalizeNewRouterBgpAdvertisedIPRangesSet(c *Client, des, nw []RouterBg
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareRouterBgpAdvertisedIPRanges(c, &d, &n) {
+			if diffs, _ := compareRouterBgpAdvertisedIPRangesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1283,7 +1321,7 @@ func canonicalizeNewRouterBgpAdvertisedIPRangesSlice(c *Client, des, nw []Router
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []RouterBgpAdvertisedIPRanges
@@ -1317,114 +1355,150 @@ func diffRouter(c *Client, desired, actual *Router, opts ...dcl.ApplyOption) ([]
 	}
 
 	var diffs []routerDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreationTimestamp",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nats, actual.Nats, dcl.Info{ObjectFunction: compareRouterNatsNewStyle}, fn.AddNest("Nats")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nats, actual.Nats, dcl.Info{ObjectFunction: compareRouterNatsNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Nats")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerDiff{
-			UpdateOp: &updateRouterUpdateOperation{}, Diffs: ds,
-			FieldName: "Nats",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerDiff{
-			UpdateOp: &updateRouterUpdateOperation{}, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Network",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Interfaces, actual.Interfaces, dcl.Info{ObjectFunction: compareRouterInterfacesNewStyle}, fn.AddNest("Interfaces")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Interfaces, actual.Interfaces, dcl.Info{ObjectFunction: compareRouterInterfacesNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Interfaces")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerDiff{
-			UpdateOp: &updateRouterUpdateOperation{}, Diffs: ds,
-			FieldName: "Interfaces",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerDiff{
-			UpdateOp: &updateRouterUpdateOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.BgpPeers, actual.BgpPeers, dcl.Info{ObjectFunction: compareRouterBgpPeersNewStyle}, fn.AddNest("BgpPeers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BgpPeers, actual.BgpPeers, dcl.Info{ObjectFunction: compareRouterBgpPeersNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("BgpPeers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerDiff{
-			UpdateOp: &updateRouterUpdateOperation{}, Diffs: ds,
-			FieldName: "BgpPeers",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Bgp, actual.Bgp, dcl.Info{ObjectFunction: compareRouterBgpNewStyle}, fn.AddNest("Bgp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Bgp, actual.Bgp, dcl.Info{ObjectFunction: compareRouterBgpNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Bgp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerDiff{
-			UpdateOp: &updateRouterUpdateOperation{}, Diffs: ds,
-			FieldName: "Bgp",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerDiff{
-			UpdateOp: &updateRouterUpdateOperation{}, Diffs: ds,
-			FieldName: "Region",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, routerDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToRouterDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1471,181 +1545,90 @@ func compareRouterNatsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LogConfig, actual.LogConfig, dcl.Info{ObjectFunction: compareRouterNatsLogConfigNewStyle}, fn.AddNest("LogConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LogConfig, actual.LogConfig, dcl.Info{ObjectFunction: compareRouterNatsLogConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("LogConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceSubnetworkIPRangesToNat, actual.SourceSubnetworkIPRangesToNat, dcl.Info{Type: "EnumType"}, fn.AddNest("SourceSubnetworkIPRangesToNat")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceSubnetworkIPRangesToNat, actual.SourceSubnetworkIPRangesToNat, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("SourceSubnetworkIPRangesToNat")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NatIps, actual.NatIps, dcl.Info{}, fn.AddNest("NatIps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NatIps, actual.NatIps, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("NatIps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DrainNatIps, actual.DrainNatIps, dcl.Info{}, fn.AddNest("DrainNatIps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DrainNatIps, actual.DrainNatIps, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("DrainNatIps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NatIPAllocateOption, actual.NatIPAllocateOption, dcl.Info{Type: "EnumType"}, fn.AddNest("NatIPAllocateOption")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NatIPAllocateOption, actual.NatIPAllocateOption, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("NatIPAllocateOption")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinPortsPerVm, actual.MinPortsPerVm, dcl.Info{}, fn.AddNest("MinPortsPerVm")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinPortsPerVm, actual.MinPortsPerVm, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("MinPortsPerVm")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UdpIdleTimeoutSec, actual.UdpIdleTimeoutSec, dcl.Info{}, fn.AddNest("UdpIdleTimeoutSec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UdpIdleTimeoutSec, actual.UdpIdleTimeoutSec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("UdpIdleTimeoutSec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IcmpIdleTimeoutSec, actual.IcmpIdleTimeoutSec, dcl.Info{}, fn.AddNest("IcmpIdleTimeoutSec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IcmpIdleTimeoutSec, actual.IcmpIdleTimeoutSec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("IcmpIdleTimeoutSec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TcpEstablishedIdleTimeoutSec, actual.TcpEstablishedIdleTimeoutSec, dcl.Info{}, fn.AddNest("TcpEstablishedIdleTimeoutSec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TcpEstablishedIdleTimeoutSec, actual.TcpEstablishedIdleTimeoutSec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("TcpEstablishedIdleTimeoutSec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TcpTransitoryIdleTimeoutSec, actual.TcpTransitoryIdleTimeoutSec, dcl.Info{}, fn.AddNest("TcpTransitoryIdleTimeoutSec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TcpTransitoryIdleTimeoutSec, actual.TcpTransitoryIdleTimeoutSec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("TcpTransitoryIdleTimeoutSec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Subnetworks, actual.Subnetworks, dcl.Info{ObjectFunction: compareRouterNatsSubnetworksNewStyle}, fn.AddNest("Subnetworks")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Subnetworks, actual.Subnetworks, dcl.Info{ObjectFunction: compareRouterNatsSubnetworksNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Subnetworks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareRouterNats(c *Client, desired, actual *RouterNats) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if compareRouterNatsLogConfig(c, desired.LogConfig, actual.LogConfig) && !dcl.IsZeroValue(desired.LogConfig) {
-		c.Config.Logger.Infof("Diff in LogConfig.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogConfig), dcl.SprintResource(actual.LogConfig))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SourceSubnetworkIPRangesToNat, actual.SourceSubnetworkIPRangesToNat) && !dcl.IsZeroValue(desired.SourceSubnetworkIPRangesToNat) {
-		c.Config.Logger.Infof("Diff in SourceSubnetworkIPRangesToNat.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceSubnetworkIPRangesToNat), dcl.SprintResource(actual.SourceSubnetworkIPRangesToNat))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.NatIps, actual.NatIps) && !dcl.IsZeroValue(desired.NatIps) {
-		c.Config.Logger.Infof("Diff in NatIps.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NatIps), dcl.SprintResource(actual.NatIps))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.DrainNatIps, actual.DrainNatIps) && !dcl.IsZeroValue(desired.DrainNatIps) {
-		c.Config.Logger.Infof("Diff in DrainNatIps.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.DrainNatIps), dcl.SprintResource(actual.DrainNatIps))
-		return true
-	}
-	if compareRouterNatsNatIPAllocateOptionEnumSlice(c, desired.NatIPAllocateOption, actual.NatIPAllocateOption) && !dcl.IsZeroValue(desired.NatIPAllocateOption) {
-		c.Config.Logger.Infof("Diff in NatIPAllocateOption.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.NatIPAllocateOption), dcl.SprintResource(actual.NatIPAllocateOption))
-		return true
-	}
-	if !reflect.DeepEqual(desired.MinPortsPerVm, actual.MinPortsPerVm) && !dcl.IsZeroValue(desired.MinPortsPerVm) {
-		c.Config.Logger.Infof("Diff in MinPortsPerVm.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.MinPortsPerVm), dcl.SprintResource(actual.MinPortsPerVm))
-		return true
-	}
-	if !reflect.DeepEqual(desired.UdpIdleTimeoutSec, actual.UdpIdleTimeoutSec) && !dcl.IsZeroValue(desired.UdpIdleTimeoutSec) {
-		c.Config.Logger.Infof("Diff in UdpIdleTimeoutSec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.UdpIdleTimeoutSec), dcl.SprintResource(actual.UdpIdleTimeoutSec))
-		return true
-	}
-	if !reflect.DeepEqual(desired.IcmpIdleTimeoutSec, actual.IcmpIdleTimeoutSec) && !dcl.IsZeroValue(desired.IcmpIdleTimeoutSec) {
-		c.Config.Logger.Infof("Diff in IcmpIdleTimeoutSec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IcmpIdleTimeoutSec), dcl.SprintResource(actual.IcmpIdleTimeoutSec))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TcpEstablishedIdleTimeoutSec, actual.TcpEstablishedIdleTimeoutSec) && !dcl.IsZeroValue(desired.TcpEstablishedIdleTimeoutSec) {
-		c.Config.Logger.Infof("Diff in TcpEstablishedIdleTimeoutSec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TcpEstablishedIdleTimeoutSec), dcl.SprintResource(actual.TcpEstablishedIdleTimeoutSec))
-		return true
-	}
-	if !reflect.DeepEqual(desired.TcpTransitoryIdleTimeoutSec, actual.TcpTransitoryIdleTimeoutSec) && !dcl.IsZeroValue(desired.TcpTransitoryIdleTimeoutSec) {
-		c.Config.Logger.Infof("Diff in TcpTransitoryIdleTimeoutSec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TcpTransitoryIdleTimeoutSec), dcl.SprintResource(actual.TcpTransitoryIdleTimeoutSec))
-		return true
-	}
-	if compareRouterNatsSubnetworksSlice(c, desired.Subnetworks, actual.Subnetworks) && !dcl.IsZeroValue(desired.Subnetworks) {
-		c.Config.Logger.Infof("Diff in Subnetworks.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Subnetworks), dcl.SprintResource(actual.Subnetworks))
-		return true
-	}
-	return false
-}
-
-func compareRouterNatsSlice(c *Client, desired, actual []RouterNats) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterNats, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterNats(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterNats, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterNatsMap(c *Client, desired, actual map[string]RouterNats) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterNats, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in RouterNats, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareRouterNats(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RouterNats, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareRouterNatsLogConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1668,71 +1651,20 @@ func compareRouterNatsLogConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Enable, actual.Enable, dcl.Info{}, fn.AddNest("Enable")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Enable, actual.Enable, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Enable")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{Type: "EnumType"}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareRouterNatsLogConfig(c *Client, desired, actual *RouterNatsLogConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Enable, actual.Enable) && !dcl.IsZeroValue(desired.Enable) {
-		c.Config.Logger.Infof("Diff in Enable.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enable), dcl.SprintResource(actual.Enable))
-		return true
-	}
-	if !reflect.DeepEqual(desired.Filter, actual.Filter) && !dcl.IsZeroValue(desired.Filter) {
-		c.Config.Logger.Infof("Diff in Filter.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Filter), dcl.SprintResource(actual.Filter))
-		return true
-	}
-	return false
-}
-
-func compareRouterNatsLogConfigSlice(c *Client, desired, actual []RouterNatsLogConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterNatsLogConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterNatsLogConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterNatsLogConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterNatsLogConfigMap(c *Client, desired, actual map[string]RouterNatsLogConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterNatsLogConfig, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in RouterNatsLogConfig, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareRouterNatsLogConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RouterNatsLogConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareRouterNatsSubnetworksNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1755,82 +1687,27 @@ func compareRouterNatsSubnetworksNewStyle(d, a interface{}, fn dcl.FieldName) ([
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceIPRangesToNat, actual.SourceIPRangesToNat, dcl.Info{}, fn.AddNest("SourceIPRangesToNat")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceIPRangesToNat, actual.SourceIPRangesToNat, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("SourceIPRangesToNat")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryIPRangeNames, actual.SecondaryIPRangeNames, dcl.Info{}, fn.AddNest("SecondaryIPRangeNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryIPRangeNames, actual.SecondaryIPRangeNames, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("SecondaryIPRangeNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareRouterNatsSubnetworks(c *Client, desired, actual *RouterNatsSubnetworks) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SourceIPRangesToNat, actual.SourceIPRangesToNat) && !dcl.IsZeroValue(desired.SourceIPRangesToNat) {
-		c.Config.Logger.Infof("Diff in SourceIPRangesToNat.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceIPRangesToNat), dcl.SprintResource(actual.SourceIPRangesToNat))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SecondaryIPRangeNames, actual.SecondaryIPRangeNames) && !dcl.IsZeroValue(desired.SecondaryIPRangeNames) {
-		c.Config.Logger.Infof("Diff in SecondaryIPRangeNames.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecondaryIPRangeNames), dcl.SprintResource(actual.SecondaryIPRangeNames))
-		return true
-	}
-	return false
-}
-
-func compareRouterNatsSubnetworksSlice(c *Client, desired, actual []RouterNatsSubnetworks) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterNatsSubnetworks, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterNatsSubnetworks(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterNatsSubnetworks, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterNatsSubnetworksMap(c *Client, desired, actual map[string]RouterNatsSubnetworks) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterNatsSubnetworks, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in RouterNatsSubnetworks, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareRouterNatsSubnetworks(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RouterNatsSubnetworks, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareRouterInterfacesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1853,89 +1730,34 @@ func compareRouterInterfacesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LinkedVpnTunnel, actual.LinkedVpnTunnel, dcl.Info{Type: "ReferenceType"}, fn.AddNest("LinkedVpnTunnel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinkedVpnTunnel, actual.LinkedVpnTunnel, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("LinkedVpnTunnel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPRange, actual.IPRange, dcl.Info{}, fn.AddNest("IPRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPRange, actual.IPRange, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("IPRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ManagementType, actual.ManagementType, dcl.Info{OutputOnly: true, Type: "EnumType"}, fn.AddNest("ManagementType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManagementType, actual.ManagementType, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagementType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareRouterInterfaces(c *Client, desired, actual *RouterInterfaces) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.NameToSelfLink(desired.LinkedVpnTunnel, actual.LinkedVpnTunnel) && !dcl.IsZeroValue(desired.LinkedVpnTunnel) {
-		c.Config.Logger.Infof("Diff in LinkedVpnTunnel.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LinkedVpnTunnel), dcl.SprintResource(actual.LinkedVpnTunnel))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.IPRange, actual.IPRange) && !dcl.IsZeroValue(desired.IPRange) {
-		c.Config.Logger.Infof("Diff in IPRange.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPRange), dcl.SprintResource(actual.IPRange))
-		return true
-	}
-	return false
-}
-
-func compareRouterInterfacesSlice(c *Client, desired, actual []RouterInterfaces) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterInterfaces, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterInterfaces(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterInterfaces, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterInterfacesMap(c *Client, desired, actual map[string]RouterInterfaces) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterInterfaces, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in RouterInterfaces, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareRouterInterfaces(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RouterInterfaces, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareRouterBgpPeersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1958,151 +1780,76 @@ func compareRouterBgpPeersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InterfaceName, actual.InterfaceName, dcl.Info{}, fn.AddNest("InterfaceName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InterfaceName, actual.InterfaceName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("InterfaceName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{Ignore: true}, fn.AddNest("PeerIPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{Ignore: true, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("PeerIPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PeerAsn, actual.PeerAsn, dcl.Info{}, fn.AddNest("PeerAsn")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeerAsn, actual.PeerAsn, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("PeerAsn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority, dcl.Info{}, fn.AddNest("AdvertisedRoutePriority")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertisedRoutePriority")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertiseMode, actual.AdvertiseMode, dcl.Info{}, fn.AddNest("AdvertiseMode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertiseMode, actual.AdvertiseMode, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertiseMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ManagementType, actual.ManagementType, dcl.Info{OutputOnly: true}, fn.AddNest("ManagementType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManagementType, actual.ManagementType, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagementType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertisedGroups, actual.AdvertisedGroups, dcl.Info{Type: "EnumType"}, fn.AddNest("AdvertisedGroups")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedGroups, actual.AdvertisedGroups, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertisedGroups")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterBgpPeersAdvertisedIPRangesNewStyle}, fn.AddNest("AdvertisedIPRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterBgpPeersAdvertisedIPRangesNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertisedIPRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareRouterBgpPeers(c *Client, desired, actual *RouterBgpPeers) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.InterfaceName, actual.InterfaceName) && !dcl.IsZeroValue(desired.InterfaceName) {
-		c.Config.Logger.Infof("Diff in InterfaceName.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.InterfaceName), dcl.SprintResource(actual.InterfaceName))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.IPAddress, actual.IPAddress) && !dcl.IsZeroValue(desired.IPAddress) {
-		c.Config.Logger.Infof("Diff in IPAddress.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.IPAddress), dcl.SprintResource(actual.IPAddress))
-		return true
-	}
-	if !reflect.DeepEqual(desired.PeerAsn, actual.PeerAsn) && !dcl.IsZeroValue(desired.PeerAsn) {
-		c.Config.Logger.Infof("Diff in PeerAsn.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PeerAsn), dcl.SprintResource(actual.PeerAsn))
-		return true
-	}
-	if !reflect.DeepEqual(desired.AdvertisedRoutePriority, actual.AdvertisedRoutePriority) && !dcl.IsZeroValue(desired.AdvertisedRoutePriority) {
-		c.Config.Logger.Infof("Diff in AdvertisedRoutePriority.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AdvertisedRoutePriority), dcl.SprintResource(actual.AdvertisedRoutePriority))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.AdvertiseMode, actual.AdvertiseMode) && !dcl.IsZeroValue(desired.AdvertiseMode) {
-		c.Config.Logger.Infof("Diff in AdvertiseMode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AdvertiseMode), dcl.SprintResource(actual.AdvertiseMode))
-		return true
-	}
-	if compareRouterBgpPeersAdvertisedGroupsEnumSlice(c, desired.AdvertisedGroups, actual.AdvertisedGroups) && !dcl.IsZeroValue(desired.AdvertisedGroups) {
-		c.Config.Logger.Infof("Diff in AdvertisedGroups.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AdvertisedGroups), dcl.SprintResource(actual.AdvertisedGroups))
-		return true
-	}
-	if compareRouterBgpPeersAdvertisedIPRangesSlice(c, desired.AdvertisedIPRanges, actual.AdvertisedIPRanges) && !dcl.IsZeroValue(desired.AdvertisedIPRanges) {
-		c.Config.Logger.Infof("Diff in AdvertisedIPRanges.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AdvertisedIPRanges), dcl.SprintResource(actual.AdvertisedIPRanges))
-		return true
-	}
-	return false
-}
-
-func compareRouterBgpPeersSlice(c *Client, desired, actual []RouterBgpPeers) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterBgpPeers, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterBgpPeers(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterBgpPeers, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterBgpPeersMap(c *Client, desired, actual map[string]RouterBgpPeers) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterBgpPeers, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in RouterBgpPeers, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareRouterBgpPeers(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RouterBgpPeers, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareRouterBgpPeersAdvertisedIPRangesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2125,71 +1872,20 @@ func compareRouterBgpPeersAdvertisedIPRangesNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Range, actual.Range, dcl.Info{}, fn.AddNest("Range")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Range, actual.Range, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Range")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareRouterBgpPeersAdvertisedIPRanges(c *Client, desired, actual *RouterBgpPeersAdvertisedIPRanges) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Range, actual.Range) && !dcl.IsZeroValue(desired.Range) {
-		c.Config.Logger.Infof("Diff in Range.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Range), dcl.SprintResource(actual.Range))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
-		c.Config.Logger.Infof("Diff in Description.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
-		return true
-	}
-	return false
-}
-
-func compareRouterBgpPeersAdvertisedIPRangesSlice(c *Client, desired, actual []RouterBgpPeersAdvertisedIPRanges) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterBgpPeersAdvertisedIPRanges, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterBgpPeersAdvertisedIPRanges(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterBgpPeersAdvertisedIPRanges, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterBgpPeersAdvertisedIPRangesMap(c *Client, desired, actual map[string]RouterBgpPeersAdvertisedIPRanges) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterBgpPeersAdvertisedIPRanges, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in RouterBgpPeersAdvertisedIPRanges, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareRouterBgpPeersAdvertisedIPRanges(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RouterBgpPeersAdvertisedIPRanges, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareRouterBgpNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2212,93 +1908,34 @@ func compareRouterBgpNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldD
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Asn, actual.Asn, dcl.Info{}, fn.AddNest("Asn")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Asn, actual.Asn, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Asn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertiseMode, actual.AdvertiseMode, dcl.Info{Type: "EnumType"}, fn.AddNest("AdvertiseMode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertiseMode, actual.AdvertiseMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertiseMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertisedGroups, actual.AdvertisedGroups, dcl.Info{}, fn.AddNest("AdvertisedGroups")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedGroups, actual.AdvertisedGroups, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertisedGroups")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterBgpAdvertisedIPRangesNewStyle}, fn.AddNest("AdvertisedIPRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterBgpAdvertisedIPRangesNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertisedIPRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareRouterBgp(c *Client, desired, actual *RouterBgp) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.Asn, actual.Asn) && !dcl.IsZeroValue(desired.Asn) {
-		c.Config.Logger.Infof("Diff in Asn.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Asn), dcl.SprintResource(actual.Asn))
-		return true
-	}
-	if !reflect.DeepEqual(desired.AdvertiseMode, actual.AdvertiseMode) && !dcl.IsZeroValue(desired.AdvertiseMode) {
-		c.Config.Logger.Infof("Diff in AdvertiseMode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AdvertiseMode), dcl.SprintResource(actual.AdvertiseMode))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.AdvertisedGroups, actual.AdvertisedGroups) && !dcl.IsZeroValue(desired.AdvertisedGroups) {
-		c.Config.Logger.Infof("Diff in AdvertisedGroups.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AdvertisedGroups), dcl.SprintResource(actual.AdvertisedGroups))
-		return true
-	}
-	if compareRouterBgpAdvertisedIPRangesSlice(c, desired.AdvertisedIPRanges, actual.AdvertisedIPRanges) && !dcl.IsZeroValue(desired.AdvertisedIPRanges) {
-		c.Config.Logger.Infof("Diff in AdvertisedIPRanges.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AdvertisedIPRanges), dcl.SprintResource(actual.AdvertisedIPRanges))
-		return true
-	}
-	return false
-}
-
-func compareRouterBgpSlice(c *Client, desired, actual []RouterBgp) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterBgp, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterBgp(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterBgp, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterBgpMap(c *Client, desired, actual map[string]RouterBgp) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterBgp, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in RouterBgp, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareRouterBgp(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RouterBgp, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareRouterBgpAdvertisedIPRangesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -2321,179 +1958,20 @@ func compareRouterBgpAdvertisedIPRangesNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Range, actual.Range, dcl.Info{}, fn.AddNest("Range")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Range, actual.Range, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Range")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareRouterBgpAdvertisedIPRanges(c *Client, desired, actual *RouterBgpAdvertisedIPRanges) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Range, actual.Range) && !dcl.IsZeroValue(desired.Range) {
-		c.Config.Logger.Infof("Diff in Range.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Range), dcl.SprintResource(actual.Range))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Description, actual.Description) && !dcl.IsZeroValue(desired.Description) {
-		c.Config.Logger.Infof("Diff in Description.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Description), dcl.SprintResource(actual.Description))
-		return true
-	}
-	return false
-}
-
-func compareRouterBgpAdvertisedIPRangesSlice(c *Client, desired, actual []RouterBgpAdvertisedIPRanges) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterBgpAdvertisedIPRanges, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterBgpAdvertisedIPRanges(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterBgpAdvertisedIPRanges, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterBgpAdvertisedIPRangesMap(c *Client, desired, actual map[string]RouterBgpAdvertisedIPRanges) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterBgpAdvertisedIPRanges, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in RouterBgpAdvertisedIPRanges, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareRouterBgpAdvertisedIPRanges(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in RouterBgpAdvertisedIPRanges, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterNatsLogConfigFilterEnumSlice(c *Client, desired, actual []RouterNatsLogConfigFilterEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterNatsLogConfigFilterEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterNatsLogConfigFilterEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterNatsLogConfigFilterEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterNatsLogConfigFilterEnum(c *Client, desired, actual *RouterNatsLogConfigFilterEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareRouterNatsSourceSubnetworkIPRangesToNatEnumSlice(c *Client, desired, actual []RouterNatsSourceSubnetworkIPRangesToNatEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterNatsSourceSubnetworkIPRangesToNatEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterNatsSourceSubnetworkIPRangesToNatEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterNatsSourceSubnetworkIPRangesToNatEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterNatsSourceSubnetworkIPRangesToNatEnum(c *Client, desired, actual *RouterNatsSourceSubnetworkIPRangesToNatEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareRouterNatsNatIPAllocateOptionEnumSlice(c *Client, desired, actual []RouterNatsNatIPAllocateOptionEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterNatsNatIPAllocateOptionEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterNatsNatIPAllocateOptionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterNatsNatIPAllocateOptionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterNatsNatIPAllocateOptionEnum(c *Client, desired, actual *RouterNatsNatIPAllocateOptionEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareRouterInterfacesManagementTypeEnumSlice(c *Client, desired, actual []RouterInterfacesManagementTypeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterInterfacesManagementTypeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterInterfacesManagementTypeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterInterfacesManagementTypeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterInterfacesManagementTypeEnum(c *Client, desired, actual *RouterInterfacesManagementTypeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareRouterBgpPeersAdvertisedGroupsEnumSlice(c *Client, desired, actual []RouterBgpPeersAdvertisedGroupsEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterBgpPeersAdvertisedGroupsEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterBgpPeersAdvertisedGroupsEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterBgpPeersAdvertisedGroupsEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterBgpPeersAdvertisedGroupsEnum(c *Client, desired, actual *RouterBgpPeersAdvertisedGroupsEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareRouterBgpAdvertiseModeEnumSlice(c *Client, desired, actual []RouterBgpAdvertiseModeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in RouterBgpAdvertiseModeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareRouterBgpAdvertiseModeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in RouterBgpAdvertiseModeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareRouterBgpAdvertiseModeEnum(c *Client, desired, actual *RouterBgpAdvertiseModeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -2626,20 +2104,20 @@ func flattenRouter(c *Client, i interface{}) *Router {
 		return nil
 	}
 
-	r := &Router{}
-	r.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
-	r.Nats = flattenRouterNatsSlice(c, m["nats"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Network = dcl.FlattenString(m["network"])
-	r.Interfaces = flattenRouterInterfacesSlice(c, m["interfaces"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.BgpPeers = flattenRouterBgpPeersSlice(c, m["bgpPeers"])
-	r.Bgp = flattenRouterBgp(c, m["bgp"])
-	r.Region = dcl.FlattenString(m["region"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
+	res := &Router{}
+	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
+	res.Nats = flattenRouterNatsSlice(c, m["nats"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Network = dcl.FlattenString(m["network"])
+	res.Interfaces = flattenRouterInterfacesSlice(c, m["interfaces"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.BgpPeers = flattenRouterBgpPeersSlice(c, m["bgpPeers"])
+	res.Bgp = flattenRouterBgp(c, m["bgp"])
+	res.Region = dcl.FlattenString(m["region"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
 
-	return r
+	return res
 }
 
 // expandRouterNatsMap expands the contents of RouterNats into a JSON
@@ -2726,10 +2204,11 @@ func flattenRouterNatsSlice(c *Client, i interface{}) []RouterNats {
 // expandRouterNats expands an instance of RouterNats into a JSON
 // request object.
 func expandRouterNats(c *Client, f *RouterNats) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -2883,10 +2362,11 @@ func flattenRouterNatsLogConfigSlice(c *Client, i interface{}) []RouterNatsLogCo
 // expandRouterNatsLogConfig expands an instance of RouterNatsLogConfig into a JSON
 // request object.
 func expandRouterNatsLogConfig(c *Client, f *RouterNatsLogConfig) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Enable; !dcl.IsEmptyValueIndirect(v) {
 		m["enable"] = v
 	}
@@ -2996,10 +2476,11 @@ func flattenRouterNatsSubnetworksSlice(c *Client, i interface{}) []RouterNatsSub
 // expandRouterNatsSubnetworks expands an instance of RouterNatsSubnetworks into a JSON
 // request object.
 func expandRouterNatsSubnetworks(c *Client, f *RouterNatsSubnetworks) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -3113,10 +2594,11 @@ func flattenRouterInterfacesSlice(c *Client, i interface{}) []RouterInterfaces {
 // expandRouterInterfaces expands an instance of RouterInterfaces into a JSON
 // request object.
 func expandRouterInterfaces(c *Client, f *RouterInterfaces) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -3234,10 +2716,11 @@ func flattenRouterBgpPeersSlice(c *Client, i interface{}) []RouterBgpPeers {
 // expandRouterBgpPeers expands an instance of RouterBgpPeers into a JSON
 // request object.
 func expandRouterBgpPeers(c *Client, f *RouterBgpPeers) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -3381,10 +2864,11 @@ func flattenRouterBgpPeersAdvertisedIPRangesSlice(c *Client, i interface{}) []Ro
 // expandRouterBgpPeersAdvertisedIPRanges expands an instance of RouterBgpPeersAdvertisedIPRanges into a JSON
 // request object.
 func expandRouterBgpPeersAdvertisedIPRanges(c *Client, f *RouterBgpPeersAdvertisedIPRanges) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Range; !dcl.IsEmptyValueIndirect(v) {
 		m["range"] = v
 	}
@@ -3494,10 +2978,11 @@ func flattenRouterBgpSlice(c *Client, i interface{}) []RouterBgp {
 // expandRouterBgp expands an instance of RouterBgp into a JSON
 // request object.
 func expandRouterBgp(c *Client, f *RouterBgp) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Asn; !dcl.IsEmptyValueIndirect(v) {
 		m["asn"] = v
 	}
@@ -3617,10 +3102,11 @@ func flattenRouterBgpAdvertisedIPRangesSlice(c *Client, i interface{}) []RouterB
 // expandRouterBgpAdvertisedIPRanges expands an instance of RouterBgpAdvertisedIPRanges into a JSON
 // request object.
 func expandRouterBgpAdvertisedIPRanges(c *Client, f *RouterBgpAdvertisedIPRanges) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Range; !dcl.IsEmptyValueIndirect(v) {
 		m["range"] = v
 	}
@@ -3871,5 +3357,36 @@ func (r *Router) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToRouterDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]routerDiff, error) {
+	var diffs []routerDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := routerDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTorouterApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTorouterApiOperation(op string, opts ...dcl.ApplyOption) (routerApiOperation, error) {
+	switch op {
+
+	case "updateRouterUpdateOperation":
+		return &updateRouterUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

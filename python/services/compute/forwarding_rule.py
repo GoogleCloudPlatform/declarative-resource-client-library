@@ -309,47 +309,6 @@ class ForwardingRule(object):
 
         return stub.ListComputeForwardingRule(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = forwarding_rule_pb2.ComputeForwardingRule()
-        any_proto.Unpack(res_proto)
-
-        res = ForwardingRule()
-        res.all_ports = Primitive.from_proto(res_proto.all_ports)
-        res.allow_global_access = Primitive.from_proto(res_proto.allow_global_access)
-        res.backend_service = Primitive.from_proto(res_proto.backend_service)
-        res.creation_timestamp = Primitive.from_proto(res_proto.creation_timestamp)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.ip_address = Primitive.from_proto(res_proto.ip_address)
-        res.ip_protocol = ForwardingRuleIPProtocolEnum.from_proto(res_proto.ip_protocol)
-        res.ip_version = ForwardingRuleIPVersionEnum.from_proto(res_proto.ip_version)
-        res.is_mirroring_collector = Primitive.from_proto(
-            res_proto.is_mirroring_collector
-        )
-        res.load_balancing_scheme = ForwardingRuleLoadBalancingSchemeEnum.from_proto(
-            res_proto.load_balancing_scheme
-        )
-        res.metadata_filter = ForwardingRuleMetadataFilterArray.from_proto(
-            res_proto.metadata_filter
-        )
-        res.name = Primitive.from_proto(res_proto.name)
-        res.network = Primitive.from_proto(res_proto.network)
-        res.network_tier = ForwardingRuleNetworkTierEnum.from_proto(
-            res_proto.network_tier
-        )
-        res.port_range = Primitive.from_proto(res_proto.port_range)
-        res.ports = Primitive.from_proto(res_proto.ports)
-        res.region = Primitive.from_proto(res_proto.region)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.service_label = Primitive.from_proto(res_proto.service_label)
-        res.service_name = Primitive.from_proto(res_proto.service_name)
-        res.subnetwork = Primitive.from_proto(res_proto.subnetwork)
-        res.target = Primitive.from_proto(res_proto.target)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = forwarding_rule_pb2.ComputeForwardingRule()
         if Primitive.to_proto(self.all_ports):

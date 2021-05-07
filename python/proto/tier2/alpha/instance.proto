@@ -59,23 +59,6 @@ enum Tier2AlphaInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnu
   Tier2AlphaInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
-enum Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnum {
-  Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnumNO_ACTION = 1;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnumALLOW = 2;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnumALLOW_WITH_LOG = 3;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnumDENY = 4;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnumDENY_WITH_LOG = 5;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnumLOG = 6;
-}
-
-enum Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum {
-  Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnumNO_VALUE_DO_NOT_USE = 0;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
-}
-
 enum Tier2AlphaInstanceCreateRecipeStepsActionEnum {
   Tier2AlphaInstanceCreateRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstanceCreateRecipeStepsActionEnumNO_ACTION = 1;
@@ -144,23 +127,6 @@ enum Tier2AlphaInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum
   Tier2AlphaInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
-enum Tier2AlphaInstanceInitiateResetRecipeStepsActionEnum {
-  Tier2AlphaInstanceInitiateResetRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
-  Tier2AlphaInstanceInitiateResetRecipeStepsActionEnumNO_ACTION = 1;
-  Tier2AlphaInstanceInitiateResetRecipeStepsActionEnumALLOW = 2;
-  Tier2AlphaInstanceInitiateResetRecipeStepsActionEnumALLOW_WITH_LOG = 3;
-  Tier2AlphaInstanceInitiateResetRecipeStepsActionEnumDENY = 4;
-  Tier2AlphaInstanceInitiateResetRecipeStepsActionEnumDENY_WITH_LOG = 5;
-  Tier2AlphaInstanceInitiateResetRecipeStepsActionEnumLOG = 6;
-}
-
-enum Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum {
-  Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnumNO_VALUE_DO_NOT_USE = 0;
-  Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
-  Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
-  Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
-}
-
 enum Tier2AlphaInstanceResetRecipeStepsActionEnum {
   Tier2AlphaInstanceResetRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstanceResetRecipeStepsActionEnumNO_ACTION = 1;
@@ -193,23 +159,6 @@ enum Tier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnu
   Tier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
   Tier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
   Tier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
-}
-
-enum Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnum {
-  Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnumNO_ACTION = 1;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnumALLOW = 2;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnumALLOW_WITH_LOG = 3;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnumDENY = 4;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnumDENY_WITH_LOG = 5;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnumLOG = 6;
-}
-
-enum Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum {
-  Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnumNO_VALUE_DO_NOT_USE = 0;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
 enum Tier2AlphaInstanceRepairRecipeStepsActionEnum {
@@ -246,23 +195,6 @@ enum Tier2AlphaInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnu
   Tier2AlphaInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
-enum Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnum {
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnumNO_ACTION = 1;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnumALLOW = 2;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnumALLOW_WITH_LOG = 3;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnumDENY = 4;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnumDENY_WITH_LOG = 5;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnumLOG = 6;
-}
-
-enum Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum {
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnumNO_VALUE_DO_NOT_USE = 0;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
-}
-
 enum Tier2AlphaInstancePreprocessUpdateRecipeStepsActionEnum {
   Tier2AlphaInstancePreprocessUpdateRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstancePreprocessUpdateRecipeStepsActionEnumNO_ACTION = 1;
@@ -278,23 +210,6 @@ enum Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnu
   Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
   Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
   Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
-}
-
-enum Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnum {
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnumNO_ACTION = 1;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnumALLOW = 2;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnumALLOW_WITH_LOG = 3;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnumDENY = 4;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnumDENY_WITH_LOG = 5;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnumLOG = 6;
-}
-
-enum Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum {
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnumNO_VALUE_DO_NOT_USE = 0;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
 enum Tier2AlphaInstancePreprocessFreezeRecipeStepsActionEnum {
@@ -365,6 +280,91 @@ enum Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum {
   Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnum {
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnumNO_ACTION = 1;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnumALLOW = 2;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnumALLOW_WITH_LOG = 3;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnumDENY = 4;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnumDENY_WITH_LOG = 5;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnumLOG = 6;
+}
+
+enum Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum {
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum {
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnumNO_ACTION = 1;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnumALLOW = 2;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnumALLOW_WITH_LOG = 3;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnumDENY = 4;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnumDENY_WITH_LOG = 5;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnumLOG = 6;
+}
+
+enum Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum {
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstancePreprocessGetRecipeStepsActionEnum {
+  Tier2AlphaInstancePreprocessGetRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessGetRecipeStepsActionEnumNO_ACTION = 1;
+  Tier2AlphaInstancePreprocessGetRecipeStepsActionEnumALLOW = 2;
+  Tier2AlphaInstancePreprocessGetRecipeStepsActionEnumALLOW_WITH_LOG = 3;
+  Tier2AlphaInstancePreprocessGetRecipeStepsActionEnumDENY = 4;
+  Tier2AlphaInstancePreprocessGetRecipeStepsActionEnumDENY_WITH_LOG = 5;
+  Tier2AlphaInstancePreprocessGetRecipeStepsActionEnumLOG = 6;
+}
+
+enum Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum {
+  Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
+  Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
+  Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum {
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnumNO_ACTION = 1;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnumALLOW = 2;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnumALLOW_WITH_LOG = 3;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnumDENY = 4;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnumDENY_WITH_LOG = 5;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnumLOG = 6;
+}
+
+enum Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum {
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnum {
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnumNO_ACTION = 1;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnumALLOW = 2;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnumALLOW_WITH_LOG = 3;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnumDENY = 4;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnumDENY_WITH_LOG = 5;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnumLOG = 6;
+}
+
+enum Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum {
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
 enum Tier2AlphaInstanceReadonlyRecipeStepsActionEnum {
   Tier2AlphaInstanceReadonlyRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
   Tier2AlphaInstanceReadonlyRecipeStepsActionEnumNO_ACTION = 1;
@@ -382,51 +382,125 @@ enum Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum {
   Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
 }
 
+enum Tier2AlphaInstanceReconcileRecipeStepsActionEnum {
+  Tier2AlphaInstanceReconcileRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceReconcileRecipeStepsActionEnumNO_ACTION = 1;
+  Tier2AlphaInstanceReconcileRecipeStepsActionEnumALLOW = 2;
+  Tier2AlphaInstanceReconcileRecipeStepsActionEnumALLOW_WITH_LOG = 3;
+  Tier2AlphaInstanceReconcileRecipeStepsActionEnumDENY = 4;
+  Tier2AlphaInstanceReconcileRecipeStepsActionEnumDENY_WITH_LOG = 5;
+  Tier2AlphaInstanceReconcileRecipeStepsActionEnumLOG = 6;
+}
+
+enum Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum {
+  Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
+  Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
+  Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum {
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnumNO_ACTION = 1;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnumALLOW = 2;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnumALLOW_WITH_LOG = 3;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnumDENY = 4;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnumDENY_WITH_LOG = 5;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnumLOG = 6;
+}
+
+enum Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum {
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
+enum Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum {
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnumNO_ACTION = 1;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnumALLOW = 2;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnumALLOW_WITH_LOG = 3;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnumDENY = 4;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnumDENY_WITH_LOG = 5;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnumLOG = 6;
+}
+
+enum Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum {
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumNO_VALUE_DO_NOT_USE = 0;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumUNKNOWN_SCOPE = 1;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumPROJECT = 2;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumRESOURCE = 3;
+}
+
 message Tier2AlphaInstance {
   string name = 1;
   string display_name = 2;
   map<string, string> labels = 3;
   string zone = 4;
-  Tier2AlphaInstanceSku sku = 5;
-  string authorized_network_id = 6;
-  string reserved_ip_range = 7;
-  string host_name = 8;
-  int64 port_number = 9;
-  string current_zone = 10;
-  string creation_time = 11;
-  Tier2AlphaInstanceStateEnum state = 12;
-  string status_message = 13;
-  string extra_field = 14;
-  Tier2AlphaInstancePreprocessCreateRecipe preprocess_create_recipe = 15;
-  Tier2AlphaInstanceInitiateCreateRecipe initiate_create_recipe = 16;
-  Tier2AlphaInstanceCreateRecipe create_recipe = 17;
-  Tier2AlphaInstanceDeleteRecipe delete_recipe = 18;
-  Tier2AlphaInstanceUpdateRecipe update_recipe = 19;
-  Tier2AlphaInstancePreprocessResetRecipe preprocess_reset_recipe = 20;
-  Tier2AlphaInstanceInitiateResetRecipe initiate_reset_recipe = 21;
-  Tier2AlphaInstanceResetRecipe reset_recipe = 22;
-  Tier2AlphaInstancePreprocessRepairRecipe preprocess_repair_recipe = 23;
-  Tier2AlphaInstanceInitiateRepairRecipe initiate_repair_recipe = 24;
-  Tier2AlphaInstanceRepairRecipe repair_recipe = 25;
-  Tier2AlphaInstancePreprocessDeleteRecipe preprocess_delete_recipe = 26;
-  Tier2AlphaInstanceInitiateDeleteRecipe initiate_delete_recipe = 27;
+  string alternative_zone = 5;
+  Tier2AlphaInstanceSku sku = 6;
+  string authorized_network_id = 7;
+  string reserved_ip_range = 8;
+  string host = 9;
+  int64 port = 10;
+  string current_zone = 11;
+  string create_time = 12;
+  Tier2AlphaInstanceStateEnum state = 13;
+  string status_message = 14;
+  string update_time = 15;
+  int64 mutate_user_id = 16;
+  int64 read_user_id = 17;
+  repeated Tier2AlphaInstanceReferences references = 18;
+  Tier2AlphaInstancePreprocessCreateRecipe preprocess_create_recipe = 19;
+  Tier2AlphaInstanceCreateRecipe create_recipe = 20;
+  Tier2AlphaInstanceDeleteRecipe delete_recipe = 21;
+  Tier2AlphaInstanceUpdateRecipe update_recipe = 22;
+  Tier2AlphaInstancePreprocessResetRecipe preprocess_reset_recipe = 23;
+  Tier2AlphaInstanceResetRecipe reset_recipe = 24;
+  Tier2AlphaInstancePreprocessRepairRecipe preprocess_repair_recipe = 25;
+  Tier2AlphaInstanceRepairRecipe repair_recipe = 26;
+  Tier2AlphaInstancePreprocessDeleteRecipe preprocess_delete_recipe = 27;
   Tier2AlphaInstancePreprocessUpdateRecipe preprocess_update_recipe = 28;
-  Tier2AlphaInstanceInitiateUpdateRecipe initiate_update_recipe = 29;
-  Tier2AlphaInstancePreprocessFreezeRecipe preprocess_freeze_recipe = 30;
-  Tier2AlphaInstanceFreezeRecipe freeze_recipe = 31;
-  Tier2AlphaInstancePreprocessUnfreezeRecipe preprocess_unfreeze_recipe = 32;
-  Tier2AlphaInstanceUnfreezeRecipe unfreeze_recipe = 33;
-  Tier2AlphaInstanceReadonlyRecipe readonly_recipe = 34;
-  bool enable_call_history = 35;
-  repeated Tier2AlphaInstanceHistory history = 36;
-  string public_resource_view_override = 37;
-  string project = 38;
-  string location = 39;
+  Tier2AlphaInstancePreprocessFreezeRecipe preprocess_freeze_recipe = 29;
+  Tier2AlphaInstanceFreezeRecipe freeze_recipe = 30;
+  Tier2AlphaInstancePreprocessUnfreezeRecipe preprocess_unfreeze_recipe = 31;
+  Tier2AlphaInstanceUnfreezeRecipe unfreeze_recipe = 32;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipe preprocess_report_instance_health_recipe = 33;
+  Tier2AlphaInstanceReportInstanceHealthRecipe report_instance_health_recipe = 34;
+  Tier2AlphaInstancePreprocessGetRecipe preprocess_get_recipe = 35;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipe notify_key_available_recipe = 36;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipe notify_key_unavailable_recipe = 37;
+  Tier2AlphaInstanceReadonlyRecipe readonly_recipe = 38;
+  Tier2AlphaInstanceReconcileRecipe reconcile_recipe = 39;
+  Tier2AlphaInstancePreprocessPassthroughRecipe preprocess_passthrough_recipe = 40;
+  Tier2AlphaInstancePreprocessReconcileRecipe preprocess_reconcile_recipe = 41;
+  bool enable_call_history = 42;
+  repeated Tier2AlphaInstanceHistory history = 43;
+  string public_resource_view_override = 44;
+  string extra_info = 45;
+  string uid = 46;
+  string etag = 47;
+  string project = 48;
+  string location = 49;
 }
 
 message Tier2AlphaInstanceSku {
   Tier2AlphaInstanceSkuTierEnum tier = 1;
   Tier2AlphaInstanceSkuSizeEnum size = 2;
+}
+
+message Tier2AlphaInstanceReferences {
+  string name = 1;
+  string type = 2;
+  string source_resource = 3;
+  repeated Tier2AlphaInstanceReferencesDetails details = 4;
+  string create_time = 5;
+}
+
+message Tier2AlphaInstanceReferencesDetails {
+  string type_url = 1;
+  string value = 2;
 }
 
 message Tier2AlphaInstancePreprocessCreateRecipe {
@@ -490,7 +564,7 @@ message Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfo {
   Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName {
@@ -503,7 +577,7 @@ message Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissio
   string permission = 1;
 }
 
-message Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfoApiAttrs {
+message Tier2AlphaInstanceGoogleprotobufstruct {
 }
 
 message Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate {
@@ -514,6 +588,7 @@ message Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNo
   Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -522,101 +597,14 @@ message Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNo
 
 message Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
-message Tier2AlphaInstanceInitiateCreateRecipe {
-  repeated Tier2AlphaInstanceInitiateCreateRecipeSteps steps = 1;
-  bool honor_cancel_request = 2;
-  int64 ignore_recipe_after = 3;
-  double verify_deadline_seconds_below = 4;
-  bool populate_operation_result = 5;
-  string readonly_recipe_start_time = 6;
-  repeated string resource_names_stored_in_clh_with_delay = 7;
-  int64 delay_to_store_resources_in_clh_db_nanos = 8;
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeSteps {
-  int64 relative_time = 1;
-  int64 sleep_duration = 2;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsActionEnum action = 3;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsStatus status = 4;
-  string error_space = 5;
-  string p4_service_account = 6;
-  int64 resource_metadata_size = 7;
-  string description = 8;
-  double updated_repeat_operation_delay_sec = 9;
-  repeated Tier2AlphaInstanceInitiateCreateRecipeStepsQuotaRequestDeltas quota_request_deltas = 10;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsPreprocessUpdate preprocess_update = 11;
-  string public_operation_metadata = 12;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProject requested_tenant_project = 13;
-  repeated Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfo permissions_info = 14;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
-  string clh_data_update_time = 16;
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeStepsStatus {
-  int64 code = 1;
-  string message = 2;
-  repeated Tier2AlphaInstanceInitiateCreateRecipeStepsStatusDetails details = 3;
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeStepsStatusDetails {
-  string type_url = 1;
-  string value = 2;
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeStepsQuotaRequestDeltas {
-  string metric_name = 1;
-  int64 amount = 2;
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeStepsPreprocessUpdate {
-  string latency_slo_bucket_name = 1;
-  string public_operation_metadata = 2;
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProject {
-  string tag = 1;
-  string folder = 2;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsRequestedTenantProjectScopeEnum scope = 3;
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfo {
-  Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName policy_name = 1;
-  repeated Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
-  string resource_path = 3;
-  Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoPolicyName {
-  string type = 1;
-  string id = 2;
-  string region = 3;
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoIamPermissions {
-  string permission = 1;
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeStepsPermissionsInfoApiAttrs {
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdate {
-  Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceInitiateCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+message Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstanceCreateRecipe {
@@ -680,7 +668,7 @@ message Tier2AlphaInstanceCreateRecipeStepsPermissionsInfo {
   Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoPolicyName {
@@ -693,9 +681,6 @@ message Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
 }
 
-message Tier2AlphaInstanceCreateRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -704,6 +689,7 @@ message Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotification
   Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -712,6 +698,14 @@ message Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotification
 
 message Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstanceDeleteRecipe {
@@ -775,7 +769,7 @@ message Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfo {
   Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoPolicyName {
@@ -788,9 +782,6 @@ message Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
 }
 
-message Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -799,6 +790,7 @@ message Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotification
   Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -807,6 +799,14 @@ message Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotification
 
 message Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstanceUpdateRecipe {
@@ -870,7 +870,7 @@ message Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfo {
   Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoPolicyName {
@@ -883,9 +883,6 @@ message Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
 }
 
-message Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -894,6 +891,7 @@ message Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotification
   Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -902,6 +900,14 @@ message Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotification
 
 message Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstancePreprocessResetRecipe {
@@ -965,7 +971,7 @@ message Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfo {
   Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName {
@@ -978,9 +984,6 @@ message Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoIamPermission
   string permission = 1;
 }
 
-message Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -989,6 +992,7 @@ message Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNot
   Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -997,101 +1001,14 @@ message Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNot
 
 message Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
-message Tier2AlphaInstanceInitiateResetRecipe {
-  repeated Tier2AlphaInstanceInitiateResetRecipeSteps steps = 1;
-  bool honor_cancel_request = 2;
-  int64 ignore_recipe_after = 3;
-  double verify_deadline_seconds_below = 4;
-  bool populate_operation_result = 5;
-  string readonly_recipe_start_time = 6;
-  repeated string resource_names_stored_in_clh_with_delay = 7;
-  int64 delay_to_store_resources_in_clh_db_nanos = 8;
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeSteps {
-  int64 relative_time = 1;
-  int64 sleep_duration = 2;
-  Tier2AlphaInstanceInitiateResetRecipeStepsActionEnum action = 3;
-  Tier2AlphaInstanceInitiateResetRecipeStepsStatus status = 4;
-  string error_space = 5;
-  string p4_service_account = 6;
-  int64 resource_metadata_size = 7;
-  string description = 8;
-  double updated_repeat_operation_delay_sec = 9;
-  repeated Tier2AlphaInstanceInitiateResetRecipeStepsQuotaRequestDeltas quota_request_deltas = 10;
-  Tier2AlphaInstanceInitiateResetRecipeStepsPreprocessUpdate preprocess_update = 11;
-  string public_operation_metadata = 12;
-  Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProject requested_tenant_project = 13;
-  repeated Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfo permissions_info = 14;
-  Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
-  string clh_data_update_time = 16;
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeStepsStatus {
-  int64 code = 1;
-  string message = 2;
-  repeated Tier2AlphaInstanceInitiateResetRecipeStepsStatusDetails details = 3;
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeStepsStatusDetails {
-  string type_url = 1;
-  string value = 2;
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeStepsQuotaRequestDeltas {
-  string metric_name = 1;
-  int64 amount = 2;
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeStepsPreprocessUpdate {
-  string latency_slo_bucket_name = 1;
-  string public_operation_metadata = 2;
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProject {
-  string tag = 1;
-  string folder = 2;
-  Tier2AlphaInstanceInitiateResetRecipeStepsRequestedTenantProjectScopeEnum scope = 3;
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfo {
-  Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoPolicyName policy_name = 1;
-  repeated Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
-  string resource_path = 3;
-  Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoPolicyName {
-  string type = 1;
-  string id = 2;
-  string region = 3;
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoIamPermissions {
-  string permission = 1;
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeStepsPermissionsInfoApiAttrs {
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdate {
-  Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceInitiateResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+message Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstanceResetRecipe {
@@ -1155,7 +1072,7 @@ message Tier2AlphaInstanceResetRecipeStepsPermissionsInfo {
   Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstanceResetRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstanceResetRecipeStepsPermissionsInfoPolicyName {
@@ -1168,9 +1085,6 @@ message Tier2AlphaInstanceResetRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
 }
 
-message Tier2AlphaInstanceResetRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -1179,6 +1093,7 @@ message Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotifications
   Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -1187,6 +1102,14 @@ message Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotifications
 
 message Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstancePreprocessRepairRecipe {
@@ -1250,7 +1173,7 @@ message Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfo {
   Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName {
@@ -1263,9 +1186,6 @@ message Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissio
   string permission = 1;
 }
 
-message Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -1274,6 +1194,7 @@ message Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNo
   Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -1282,101 +1203,14 @@ message Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNo
 
 message Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
-message Tier2AlphaInstanceInitiateRepairRecipe {
-  repeated Tier2AlphaInstanceInitiateRepairRecipeSteps steps = 1;
-  bool honor_cancel_request = 2;
-  int64 ignore_recipe_after = 3;
-  double verify_deadline_seconds_below = 4;
-  bool populate_operation_result = 5;
-  string readonly_recipe_start_time = 6;
-  repeated string resource_names_stored_in_clh_with_delay = 7;
-  int64 delay_to_store_resources_in_clh_db_nanos = 8;
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeSteps {
-  int64 relative_time = 1;
-  int64 sleep_duration = 2;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsActionEnum action = 3;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsStatus status = 4;
-  string error_space = 5;
-  string p4_service_account = 6;
-  int64 resource_metadata_size = 7;
-  string description = 8;
-  double updated_repeat_operation_delay_sec = 9;
-  repeated Tier2AlphaInstanceInitiateRepairRecipeStepsQuotaRequestDeltas quota_request_deltas = 10;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsPreprocessUpdate preprocess_update = 11;
-  string public_operation_metadata = 12;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProject requested_tenant_project = 13;
-  repeated Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfo permissions_info = 14;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
-  string clh_data_update_time = 16;
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeStepsStatus {
-  int64 code = 1;
-  string message = 2;
-  repeated Tier2AlphaInstanceInitiateRepairRecipeStepsStatusDetails details = 3;
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeStepsStatusDetails {
-  string type_url = 1;
-  string value = 2;
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeStepsQuotaRequestDeltas {
-  string metric_name = 1;
-  int64 amount = 2;
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeStepsPreprocessUpdate {
-  string latency_slo_bucket_name = 1;
-  string public_operation_metadata = 2;
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProject {
-  string tag = 1;
-  string folder = 2;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsRequestedTenantProjectScopeEnum scope = 3;
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfo {
-  Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName policy_name = 1;
-  repeated Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
-  string resource_path = 3;
-  Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoPolicyName {
-  string type = 1;
-  string id = 2;
-  string region = 3;
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoIamPermissions {
-  string permission = 1;
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeStepsPermissionsInfoApiAttrs {
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdate {
-  Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceInitiateRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+message Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstanceRepairRecipe {
@@ -1440,7 +1274,7 @@ message Tier2AlphaInstanceRepairRecipeStepsPermissionsInfo {
   Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoPolicyName {
@@ -1453,9 +1287,6 @@ message Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
 }
 
-message Tier2AlphaInstanceRepairRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -1464,6 +1295,7 @@ message Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotification
   Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -1472,6 +1304,14 @@ message Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotification
 
 message Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstancePreprocessDeleteRecipe {
@@ -1535,7 +1375,7 @@ message Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfo {
   Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName {
@@ -1548,9 +1388,6 @@ message Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissio
   string permission = 1;
 }
 
-message Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -1559,6 +1396,7 @@ message Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNo
   Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -1567,101 +1405,14 @@ message Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNo
 
 message Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
-message Tier2AlphaInstanceInitiateDeleteRecipe {
-  repeated Tier2AlphaInstanceInitiateDeleteRecipeSteps steps = 1;
-  bool honor_cancel_request = 2;
-  int64 ignore_recipe_after = 3;
-  double verify_deadline_seconds_below = 4;
-  bool populate_operation_result = 5;
-  string readonly_recipe_start_time = 6;
-  repeated string resource_names_stored_in_clh_with_delay = 7;
-  int64 delay_to_store_resources_in_clh_db_nanos = 8;
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeSteps {
-  int64 relative_time = 1;
-  int64 sleep_duration = 2;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsActionEnum action = 3;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsStatus status = 4;
-  string error_space = 5;
-  string p4_service_account = 6;
-  int64 resource_metadata_size = 7;
-  string description = 8;
-  double updated_repeat_operation_delay_sec = 9;
-  repeated Tier2AlphaInstanceInitiateDeleteRecipeStepsQuotaRequestDeltas quota_request_deltas = 10;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsPreprocessUpdate preprocess_update = 11;
-  string public_operation_metadata = 12;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProject requested_tenant_project = 13;
-  repeated Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfo permissions_info = 14;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
-  string clh_data_update_time = 16;
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeStepsStatus {
-  int64 code = 1;
-  string message = 2;
-  repeated Tier2AlphaInstanceInitiateDeleteRecipeStepsStatusDetails details = 3;
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeStepsStatusDetails {
-  string type_url = 1;
-  string value = 2;
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeStepsQuotaRequestDeltas {
-  string metric_name = 1;
-  int64 amount = 2;
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeStepsPreprocessUpdate {
-  string latency_slo_bucket_name = 1;
-  string public_operation_metadata = 2;
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProject {
-  string tag = 1;
-  string folder = 2;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsRequestedTenantProjectScopeEnum scope = 3;
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfo {
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName policy_name = 1;
-  repeated Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
-  string resource_path = 3;
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoPolicyName {
-  string type = 1;
-  string id = 2;
-  string region = 3;
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoIamPermissions {
-  string permission = 1;
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeStepsPermissionsInfoApiAttrs {
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdate {
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceInitiateDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+message Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstancePreprocessUpdateRecipe {
@@ -1725,7 +1476,7 @@ message Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfo {
   Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName {
@@ -1738,9 +1489,6 @@ message Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissio
   string permission = 1;
 }
 
-message Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -1749,6 +1497,7 @@ message Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNo
   Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -1757,101 +1506,14 @@ message Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNo
 
 message Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
-message Tier2AlphaInstanceInitiateUpdateRecipe {
-  repeated Tier2AlphaInstanceInitiateUpdateRecipeSteps steps = 1;
-  bool honor_cancel_request = 2;
-  int64 ignore_recipe_after = 3;
-  double verify_deadline_seconds_below = 4;
-  bool populate_operation_result = 5;
-  string readonly_recipe_start_time = 6;
-  repeated string resource_names_stored_in_clh_with_delay = 7;
-  int64 delay_to_store_resources_in_clh_db_nanos = 8;
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeSteps {
-  int64 relative_time = 1;
-  int64 sleep_duration = 2;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsActionEnum action = 3;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsStatus status = 4;
-  string error_space = 5;
-  string p4_service_account = 6;
-  int64 resource_metadata_size = 7;
-  string description = 8;
-  double updated_repeat_operation_delay_sec = 9;
-  repeated Tier2AlphaInstanceInitiateUpdateRecipeStepsQuotaRequestDeltas quota_request_deltas = 10;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsPreprocessUpdate preprocess_update = 11;
-  string public_operation_metadata = 12;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProject requested_tenant_project = 13;
-  repeated Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfo permissions_info = 14;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
-  string clh_data_update_time = 16;
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeStepsStatus {
-  int64 code = 1;
-  string message = 2;
-  repeated Tier2AlphaInstanceInitiateUpdateRecipeStepsStatusDetails details = 3;
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeStepsStatusDetails {
-  string type_url = 1;
-  string value = 2;
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeStepsQuotaRequestDeltas {
-  string metric_name = 1;
-  int64 amount = 2;
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeStepsPreprocessUpdate {
-  string latency_slo_bucket_name = 1;
-  string public_operation_metadata = 2;
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProject {
-  string tag = 1;
-  string folder = 2;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsRequestedTenantProjectScopeEnum scope = 3;
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfo {
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName policy_name = 1;
-  repeated Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
-  string resource_path = 3;
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoPolicyName {
-  string type = 1;
-  string id = 2;
-  string region = 3;
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoIamPermissions {
-  string permission = 1;
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeStepsPermissionsInfoApiAttrs {
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdate {
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceInitiateUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+message Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstancePreprocessFreezeRecipe {
@@ -1915,7 +1577,7 @@ message Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfo {
   Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName {
@@ -1928,9 +1590,6 @@ message Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissio
   string permission = 1;
 }
 
-message Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -1939,6 +1598,7 @@ message Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNo
   Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -1947,6 +1607,14 @@ message Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNo
 
 message Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstanceFreezeRecipe {
@@ -2010,7 +1678,7 @@ message Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfo {
   Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoPolicyName {
@@ -2023,9 +1691,6 @@ message Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
 }
 
-message Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -2034,6 +1699,7 @@ message Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotification
   Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -2042,6 +1708,14 @@ message Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotification
 
 message Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstancePreprocessUnfreezeRecipe {
@@ -2105,7 +1779,7 @@ message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfo {
   Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName {
@@ -2118,9 +1792,6 @@ message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermiss
   string permission = 1;
 }
 
-message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -2129,6 +1800,7 @@ message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKey
   Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -2137,6 +1809,14 @@ message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKey
 
 message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstanceUnfreezeRecipe {
@@ -2200,7 +1880,7 @@ message Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfo {
   Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName {
@@ -2213,9 +1893,6 @@ message Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
 }
 
-message Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -2224,6 +1901,7 @@ message Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificati
   Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -2232,6 +1910,519 @@ message Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificati
 
 message Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipe {
+  repeated Tier2AlphaInstancePreprocessReportInstanceHealthRecipeSteps steps = 1;
+  bool honor_cancel_request = 2;
+  int64 ignore_recipe_after = 3;
+  double verify_deadline_seconds_below = 4;
+  bool populate_operation_result = 5;
+  string readonly_recipe_start_time = 6;
+  repeated string resource_names_stored_in_clh_with_delay = 7;
+  int64 delay_to_store_resources_in_clh_db_nanos = 8;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeSteps {
+  int64 relative_time = 1;
+  int64 sleep_duration = 2;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsActionEnum action = 3;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatus status = 4;
+  string error_space = 5;
+  string p4_service_account = 6;
+  int64 resource_metadata_size = 7;
+  string description = 8;
+  double updated_repeat_operation_delay_sec = 9;
+  repeated Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas quota_request_deltas = 10;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate preprocess_update = 11;
+  string public_operation_metadata = 12;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject requested_tenant_project = 13;
+  repeated Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo permissions_info = 14;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
+  string clh_data_update_time = 16;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatus {
+  int64 code = 1;
+  string message = 2;
+  repeated Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails details = 3;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails {
+  string type_url = 1;
+  string value = 2;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas {
+  string metric_name = 1;
+  int64 amount = 2;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate {
+  string latency_slo_bucket_name = 1;
+  string public_operation_metadata = 2;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject {
+  string tag = 1;
+  string folder = 2;
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum scope = 3;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo {
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName policy_name = 1;
+  repeated Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
+  string resource_path = 3;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
+  string type = 1;
+  string id = 2;
+  string region = 3;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
+  string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
+  int64 data_version = 2;
+  string delegate = 3;
+  repeated Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipe {
+  repeated Tier2AlphaInstanceReportInstanceHealthRecipeSteps steps = 1;
+  bool honor_cancel_request = 2;
+  int64 ignore_recipe_after = 3;
+  double verify_deadline_seconds_below = 4;
+  bool populate_operation_result = 5;
+  string readonly_recipe_start_time = 6;
+  repeated string resource_names_stored_in_clh_with_delay = 7;
+  int64 delay_to_store_resources_in_clh_db_nanos = 8;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeSteps {
+  int64 relative_time = 1;
+  int64 sleep_duration = 2;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsActionEnum action = 3;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatus status = 4;
+  string error_space = 5;
+  string p4_service_account = 6;
+  int64 resource_metadata_size = 7;
+  string description = 8;
+  double updated_repeat_operation_delay_sec = 9;
+  repeated Tier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas quota_request_deltas = 10;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsPreprocessUpdate preprocess_update = 11;
+  string public_operation_metadata = 12;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProject requested_tenant_project = 13;
+  repeated Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfo permissions_info = 14;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
+  string clh_data_update_time = 16;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatus {
+  int64 code = 1;
+  string message = 2;
+  repeated Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatusDetails details = 3;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatusDetails {
+  string type_url = 1;
+  string value = 2;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas {
+  string metric_name = 1;
+  int64 amount = 2;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsPreprocessUpdate {
+  string latency_slo_bucket_name = 1;
+  string public_operation_metadata = 2;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProject {
+  string tag = 1;
+  string folder = 2;
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum scope = 3;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfo {
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName policy_name = 1;
+  repeated Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
+  string resource_path = 3;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName {
+  string type = 1;
+  string id = 2;
+  string region = 3;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions {
+  string permission = 1;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate {
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
+  int64 data_version = 2;
+  string delegate = 3;
+  repeated Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+  Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipe {
+  repeated Tier2AlphaInstancePreprocessGetRecipeSteps steps = 1;
+  bool honor_cancel_request = 2;
+  int64 ignore_recipe_after = 3;
+  double verify_deadline_seconds_below = 4;
+  bool populate_operation_result = 5;
+  string readonly_recipe_start_time = 6;
+  repeated string resource_names_stored_in_clh_with_delay = 7;
+  int64 delay_to_store_resources_in_clh_db_nanos = 8;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeSteps {
+  int64 relative_time = 1;
+  int64 sleep_duration = 2;
+  Tier2AlphaInstancePreprocessGetRecipeStepsActionEnum action = 3;
+  Tier2AlphaInstancePreprocessGetRecipeStepsStatus status = 4;
+  string error_space = 5;
+  string p4_service_account = 6;
+  int64 resource_metadata_size = 7;
+  string description = 8;
+  double updated_repeat_operation_delay_sec = 9;
+  repeated Tier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltas quota_request_deltas = 10;
+  Tier2AlphaInstancePreprocessGetRecipeStepsPreprocessUpdate preprocess_update = 11;
+  string public_operation_metadata = 12;
+  Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProject requested_tenant_project = 13;
+  repeated Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfo permissions_info = 14;
+  Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
+  string clh_data_update_time = 16;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsStatus {
+  int64 code = 1;
+  string message = 2;
+  repeated Tier2AlphaInstancePreprocessGetRecipeStepsStatusDetails details = 3;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsStatusDetails {
+  string type_url = 1;
+  string value = 2;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltas {
+  string metric_name = 1;
+  int64 amount = 2;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsPreprocessUpdate {
+  string latency_slo_bucket_name = 1;
+  string public_operation_metadata = 2;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProject {
+  string tag = 1;
+  string folder = 2;
+  Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum scope = 3;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfo {
+  Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName policy_name = 1;
+  repeated Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
+  string resource_path = 3;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName {
+  string type = 1;
+  string id = 2;
+  string region = 3;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions {
+  string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdate {
+  Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+  Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
+  int64 data_version = 2;
+  string delegate = 3;
+  repeated Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+  Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipe {
+  repeated Tier2AlphaInstanceNotifyKeyAvailableRecipeSteps steps = 1;
+  bool honor_cancel_request = 2;
+  int64 ignore_recipe_after = 3;
+  double verify_deadline_seconds_below = 4;
+  bool populate_operation_result = 5;
+  string readonly_recipe_start_time = 6;
+  repeated string resource_names_stored_in_clh_with_delay = 7;
+  int64 delay_to_store_resources_in_clh_db_nanos = 8;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeSteps {
+  int64 relative_time = 1;
+  int64 sleep_duration = 2;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsActionEnum action = 3;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatus status = 4;
+  string error_space = 5;
+  string p4_service_account = 6;
+  int64 resource_metadata_size = 7;
+  string description = 8;
+  double updated_repeat_operation_delay_sec = 9;
+  repeated Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas quota_request_deltas = 10;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate preprocess_update = 11;
+  string public_operation_metadata = 12;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject requested_tenant_project = 13;
+  repeated Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo permissions_info = 14;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
+  string clh_data_update_time = 16;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatus {
+  int64 code = 1;
+  string message = 2;
+  repeated Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatusDetails details = 3;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatusDetails {
+  string type_url = 1;
+  string value = 2;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas {
+  string metric_name = 1;
+  int64 amount = 2;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate {
+  string latency_slo_bucket_name = 1;
+  string public_operation_metadata = 2;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject {
+  string tag = 1;
+  string folder = 2;
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum scope = 3;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo {
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName policy_name = 1;
+  repeated Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
+  string resource_path = 3;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName {
+  string type = 1;
+  string id = 2;
+  string region = 3;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions {
+  string permission = 1;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate {
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
+  int64 data_version = 2;
+  string delegate = 3;
+  repeated Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipe {
+  repeated Tier2AlphaInstanceNotifyKeyUnavailableRecipeSteps steps = 1;
+  bool honor_cancel_request = 2;
+  int64 ignore_recipe_after = 3;
+  double verify_deadline_seconds_below = 4;
+  bool populate_operation_result = 5;
+  string readonly_recipe_start_time = 6;
+  repeated string resource_names_stored_in_clh_with_delay = 7;
+  int64 delay_to_store_resources_in_clh_db_nanos = 8;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeSteps {
+  int64 relative_time = 1;
+  int64 sleep_duration = 2;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsActionEnum action = 3;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatus status = 4;
+  string error_space = 5;
+  string p4_service_account = 6;
+  int64 resource_metadata_size = 7;
+  string description = 8;
+  double updated_repeat_operation_delay_sec = 9;
+  repeated Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas quota_request_deltas = 10;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate preprocess_update = 11;
+  string public_operation_metadata = 12;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject requested_tenant_project = 13;
+  repeated Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo permissions_info = 14;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
+  string clh_data_update_time = 16;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatus {
+  int64 code = 1;
+  string message = 2;
+  repeated Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatusDetails details = 3;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatusDetails {
+  string type_url = 1;
+  string value = 2;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas {
+  string metric_name = 1;
+  int64 amount = 2;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate {
+  string latency_slo_bucket_name = 1;
+  string public_operation_metadata = 2;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject {
+  string tag = 1;
+  string folder = 2;
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum scope = 3;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo {
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName policy_name = 1;
+  repeated Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
+  string resource_path = 3;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName {
+  string type = 1;
+  string id = 2;
+  string region = 3;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions {
+  string permission = 1;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate {
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
+  int64 data_version = 2;
+  string delegate = 3;
+  repeated Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstanceReadonlyRecipe {
@@ -2295,7 +2486,7 @@ message Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfo {
   Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyName policy_name = 1;
   repeated Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
   string resource_path = 3;
-  Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoApiAttrs api_attrs = 4;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
 }
 
 message Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoPolicyName {
@@ -2308,9 +2499,6 @@ message Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions {
   string permission = 1;
 }
 
-message Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfoApiAttrs {
-}
-
 message Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdate {
   Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
 }
@@ -2319,6 +2507,7 @@ message Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificati
   Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
   int64 data_version = 2;
   string delegate = 3;
+  repeated Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
 }
 
 message Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
@@ -2327,6 +2516,317 @@ message Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificati
 
 message Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
   string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceReconcileRecipe {
+  repeated Tier2AlphaInstanceReconcileRecipeSteps steps = 1;
+  bool honor_cancel_request = 2;
+  int64 ignore_recipe_after = 3;
+  double verify_deadline_seconds_below = 4;
+  bool populate_operation_result = 5;
+  string readonly_recipe_start_time = 6;
+  repeated string resource_names_stored_in_clh_with_delay = 7;
+  int64 delay_to_store_resources_in_clh_db_nanos = 8;
+}
+
+message Tier2AlphaInstanceReconcileRecipeSteps {
+  int64 relative_time = 1;
+  int64 sleep_duration = 2;
+  Tier2AlphaInstanceReconcileRecipeStepsActionEnum action = 3;
+  Tier2AlphaInstanceReconcileRecipeStepsStatus status = 4;
+  string error_space = 5;
+  string p4_service_account = 6;
+  int64 resource_metadata_size = 7;
+  string description = 8;
+  double updated_repeat_operation_delay_sec = 9;
+  repeated Tier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltas quota_request_deltas = 10;
+  Tier2AlphaInstanceReconcileRecipeStepsPreprocessUpdate preprocess_update = 11;
+  string public_operation_metadata = 12;
+  Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProject requested_tenant_project = 13;
+  repeated Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfo permissions_info = 14;
+  Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
+  string clh_data_update_time = 16;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsStatus {
+  int64 code = 1;
+  string message = 2;
+  repeated Tier2AlphaInstanceReconcileRecipeStepsStatusDetails details = 3;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsStatusDetails {
+  string type_url = 1;
+  string value = 2;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltas {
+  string metric_name = 1;
+  int64 amount = 2;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsPreprocessUpdate {
+  string latency_slo_bucket_name = 1;
+  string public_operation_metadata = 2;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProject {
+  string tag = 1;
+  string folder = 2;
+  Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum scope = 3;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfo {
+  Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyName policy_name = 1;
+  repeated Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
+  string resource_path = 3;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoPolicyName {
+  string type = 1;
+  string id = 2;
+  string region = 3;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfoIamPermissions {
+  string permission = 1;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdate {
+  Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+  Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
+  int64 data_version = 2;
+  string delegate = 3;
+  repeated Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+  Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipe {
+  repeated Tier2AlphaInstancePreprocessPassthroughRecipeSteps steps = 1;
+  bool honor_cancel_request = 2;
+  int64 ignore_recipe_after = 3;
+  double verify_deadline_seconds_below = 4;
+  bool populate_operation_result = 5;
+  string readonly_recipe_start_time = 6;
+  repeated string resource_names_stored_in_clh_with_delay = 7;
+  int64 delay_to_store_resources_in_clh_db_nanos = 8;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeSteps {
+  int64 relative_time = 1;
+  int64 sleep_duration = 2;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsActionEnum action = 3;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatus status = 4;
+  string error_space = 5;
+  string p4_service_account = 6;
+  int64 resource_metadata_size = 7;
+  string description = 8;
+  double updated_repeat_operation_delay_sec = 9;
+  repeated Tier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas quota_request_deltas = 10;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsPreprocessUpdate preprocess_update = 11;
+  string public_operation_metadata = 12;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProject requested_tenant_project = 13;
+  repeated Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfo permissions_info = 14;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
+  string clh_data_update_time = 16;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatus {
+  int64 code = 1;
+  string message = 2;
+  repeated Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatusDetails details = 3;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatusDetails {
+  string type_url = 1;
+  string value = 2;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas {
+  string metric_name = 1;
+  int64 amount = 2;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsPreprocessUpdate {
+  string latency_slo_bucket_name = 1;
+  string public_operation_metadata = 2;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProject {
+  string tag = 1;
+  string folder = 2;
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum scope = 3;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfo {
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName policy_name = 1;
+  repeated Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
+  string resource_path = 3;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName {
+  string type = 1;
+  string id = 2;
+  string region = 3;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions {
+  string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate {
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
+  int64 data_version = 2;
+  string delegate = 3;
+  repeated Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+  Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipe {
+  repeated Tier2AlphaInstancePreprocessReconcileRecipeSteps steps = 1;
+  bool honor_cancel_request = 2;
+  int64 ignore_recipe_after = 3;
+  double verify_deadline_seconds_below = 4;
+  bool populate_operation_result = 5;
+  string readonly_recipe_start_time = 6;
+  repeated string resource_names_stored_in_clh_with_delay = 7;
+  int64 delay_to_store_resources_in_clh_db_nanos = 8;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeSteps {
+  int64 relative_time = 1;
+  int64 sleep_duration = 2;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsActionEnum action = 3;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsStatus status = 4;
+  string error_space = 5;
+  string p4_service_account = 6;
+  int64 resource_metadata_size = 7;
+  string description = 8;
+  double updated_repeat_operation_delay_sec = 9;
+  repeated Tier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas quota_request_deltas = 10;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsPreprocessUpdate preprocess_update = 11;
+  string public_operation_metadata = 12;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProject requested_tenant_project = 13;
+  repeated Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfo permissions_info = 14;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
+  string clh_data_update_time = 16;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsStatus {
+  int64 code = 1;
+  string message = 2;
+  repeated Tier2AlphaInstancePreprocessReconcileRecipeStepsStatusDetails details = 3;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsStatusDetails {
+  string type_url = 1;
+  string value = 2;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas {
+  string metric_name = 1;
+  int64 amount = 2;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsPreprocessUpdate {
+  string latency_slo_bucket_name = 1;
+  string public_operation_metadata = 2;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProject {
+  string tag = 1;
+  string folder = 2;
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum scope = 3;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfo {
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName policy_name = 1;
+  repeated Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions iam_permissions = 2;
+  string resource_path = 3;
+  Tier2AlphaInstanceGoogleprotobufstruct api_attrs = 4;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName {
+  string type = 1;
+  string id = 2;
+  string region = 3;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions {
+  string permission = 1;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate {
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo key_notifications_info = 1;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
+  int64 data_version = 2;
+  string delegate = 3;
+  repeated Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
+  Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
+}
+
+message Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
+  string key_or_version_name = 1;
+  string grant = 2;
+  int64 delegator_gaia_id = 3;
 }
 
 message Tier2AlphaInstanceHistory {

@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -428,12 +427,6 @@ func canonicalizeNetworkDesiredState(rawDesired, rawInitial *Network, opts ...dc
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.StringCanonicalize(rawDesired.GatewayIPv4, rawInitial.GatewayIPv4) {
-		rawDesired.GatewayIPv4 = rawInitial.GatewayIPv4
-	}
-	if dcl.StringCanonicalize(rawDesired.IPv4Range, rawInitial.IPv4Range) {
-		rawDesired.IPv4Range = rawInitial.IPv4Range
-	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -443,9 +436,6 @@ func canonicalizeNetworkDesiredState(rawDesired, rawInitial *Network, opts ...dc
 	rawDesired.RoutingConfig = canonicalizeNetworkRoutingConfig(rawDesired.RoutingConfig, rawInitial.RoutingConfig, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
-	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
 	}
 
 	return rawDesired, nil
@@ -536,6 +526,10 @@ func canonicalizeNewNetworkRoutingConfig(c *Client, des, nw *NetworkRoutingConfi
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.RoutingMode) {
+		nw.RoutingMode = des.RoutingMode
+	}
+
 	return nw
 }
 
@@ -547,7 +541,7 @@ func canonicalizeNewNetworkRoutingConfigSet(c *Client, des, nw []NetworkRoutingC
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareNetworkRoutingConfig(c, &d, &n) {
+			if diffs, _ := compareNetworkRoutingConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -570,7 +564,7 @@ func canonicalizeNewNetworkRoutingConfigSlice(c *Client, des, nw []NetworkRoutin
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []NetworkRoutingConfig
@@ -604,81 +598,111 @@ func diffNetwork(c *Client, desired, actual *Network, opts ...dcl.ApplyOption) (
 	}
 
 	var diffs []networkDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.GatewayIPv4, actual.GatewayIPv4, dcl.Info{OutputOnly: true}, fn.AddNest("GatewayIPv4")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GatewayIPv4, actual.GatewayIPv4, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GatewayIPv4")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "GatewayIPv4",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPv4Range, actual.IPv4Range, dcl.Info{OutputOnly: true}, fn.AddNest("IPv4Range")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPv4Range, actual.IPv4Range, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPv4Range")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "IPv4Range",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutoCreateSubnetworks, actual.AutoCreateSubnetworks, dcl.Info{}, fn.AddNest("AutoCreateSubnetworks")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoCreateSubnetworks, actual.AutoCreateSubnetworks, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoCreateSubnetworks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "AutoCreateSubnetworks",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.RoutingConfig, actual.RoutingConfig, dcl.Info{ObjectFunction: compareNetworkRoutingConfigNewStyle}, fn.AddNest("RoutingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RoutingConfig, actual.RoutingConfig, dcl.Info{ObjectFunction: compareNetworkRoutingConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateNetworkUpdateOperation")}, fn.AddNest("RoutingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{
-			UpdateOp: &updateNetworkUpdateOperation{}, Diffs: ds,
-			FieldName: "RoutingConfig",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, networkDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToNetworkDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -725,78 +749,13 @@ func compareNetworkRoutingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RoutingMode, actual.RoutingMode, dcl.Info{Type: "EnumType"}, fn.AddNest("RoutingMode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RoutingMode, actual.RoutingMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RoutingMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareNetworkRoutingConfig(c *Client, desired, actual *NetworkRoutingConfig) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.RoutingMode, actual.RoutingMode) && !dcl.IsZeroValue(desired.RoutingMode) {
-		c.Config.Logger.Infof("Diff in RoutingMode.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.RoutingMode), dcl.SprintResource(actual.RoutingMode))
-		return true
-	}
-	return false
-}
-
-func compareNetworkRoutingConfigSlice(c *Client, desired, actual []NetworkRoutingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NetworkRoutingConfig, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareNetworkRoutingConfig(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NetworkRoutingConfig, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareNetworkRoutingConfigMap(c *Client, desired, actual map[string]NetworkRoutingConfig) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NetworkRoutingConfig, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in NetworkRoutingConfig, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareNetworkRoutingConfig(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in NetworkRoutingConfig, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareNetworkRoutingConfigRoutingModeEnumSlice(c *Client, desired, actual []NetworkRoutingConfigRoutingModeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in NetworkRoutingConfigRoutingModeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareNetworkRoutingConfigRoutingModeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in NetworkRoutingConfigRoutingModeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareNetworkRoutingConfigRoutingModeEnum(c *Client, desired, actual *NetworkRoutingConfigRoutingModeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -911,21 +870,21 @@ func flattenNetwork(c *Client, i interface{}) *Network {
 		return nil
 	}
 
-	r := &Network{}
-	r.Description = dcl.FlattenString(m["description"])
-	r.GatewayIPv4 = dcl.FlattenString(m["gatewayIPv4"])
-	r.IPv4Range = dcl.FlattenString(m["ipv4Range"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.AutoCreateSubnetworks = dcl.FlattenBool(m["autoCreateSubnetworks"])
+	res := &Network{}
+	res.Description = dcl.FlattenString(m["description"])
+	res.GatewayIPv4 = dcl.FlattenString(m["gatewayIPv4"])
+	res.IPv4Range = dcl.FlattenString(m["ipv4Range"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.AutoCreateSubnetworks = dcl.FlattenBool(m["autoCreateSubnetworks"])
 	if _, ok := m["autoCreateSubnetworks"]; !ok {
 		c.Config.Logger.Info("Using default value for autoCreateSubnetworks")
-		r.AutoCreateSubnetworks = dcl.Bool(true)
+		res.AutoCreateSubnetworks = dcl.Bool(true)
 	}
-	r.RoutingConfig = flattenNetworkRoutingConfig(c, m["routingConfig"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.RoutingConfig = flattenNetworkRoutingConfig(c, m["routingConfig"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
 
-	return r
+	return res
 }
 
 // expandNetworkRoutingConfigMap expands the contents of NetworkRoutingConfig into a JSON
@@ -1012,10 +971,11 @@ func flattenNetworkRoutingConfigSlice(c *Client, i interface{}) []NetworkRouting
 // expandNetworkRoutingConfig expands an instance of NetworkRoutingConfig into a JSON
 // request object.
 func expandNetworkRoutingConfig(c *Client, f *NetworkRoutingConfig) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.RoutingMode; !dcl.IsEmptyValueIndirect(v) {
 		m["routingMode"] = v
 	}
@@ -1099,5 +1059,36 @@ func (r *Network) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToNetworkDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]networkDiff, error) {
+	var diffs []networkDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := networkDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTonetworkApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTonetworkApiOperation(op string, opts ...dcl.ApplyOption) (networkApiOperation, error) {
+	switch op {
+
+	case "updateNetworkUpdateOperation":
+		return &updateNetworkUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

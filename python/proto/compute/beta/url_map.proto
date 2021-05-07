@@ -66,13 +66,14 @@ message ComputeBetaUrlMap {
   string default_service = 2;
   ComputeBetaUrlMapDefaultUrlRedirect default_url_redirect = 3;
   string description = 4;
-  ComputeBetaUrlMapHeaderAction header_action = 5;
-  repeated ComputeBetaUrlMapHostRule host_rule = 6;
-  string name = 7;
-  repeated ComputeBetaUrlMapPathMatcher path_matcher = 8;
-  string region = 9;
-  repeated ComputeBetaUrlMapTest test = 10;
-  string project = 11;
+  string self_link = 5;
+  ComputeBetaUrlMapHeaderAction header_action = 6;
+  repeated ComputeBetaUrlMapHostRule host_rule = 7;
+  string name = 8;
+  repeated ComputeBetaUrlMapPathMatcher path_matcher = 9;
+  string region = 10;
+  repeated ComputeBetaUrlMapTest test = 11;
+  string project = 12;
 }
 
 message ComputeBetaUrlMapDefaultRouteAction {

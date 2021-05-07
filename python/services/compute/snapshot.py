@@ -151,32 +151,6 @@ class Snapshot(object):
 
         return stub.ListComputeSnapshot(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = snapshot_pb2.ComputeSnapshot()
-        any_proto.Unpack(res_proto)
-
-        res = Snapshot()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.source_disk = Primitive.from_proto(res_proto.source_disk)
-        res.disk_size_gb = Primitive.from_proto(res_proto.disk_size_gb)
-        res.storage_bytes = Primitive.from_proto(res_proto.storage_bytes)
-        res.license = Primitive.from_proto(res_proto.license)
-        res.snapshot_encryption_key = SnapshotSnapshotEncryptionKey.from_proto(
-            res_proto.snapshot_encryption_key
-        )
-        res.source_disk_encryption_key = SnapshotSourceDiskEncryptionKey.from_proto(
-            res_proto.source_disk_encryption_key
-        )
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.zone = Primitive.from_proto(res_proto.zone)
-        res.id = Primitive.from_proto(res_proto.id)
-        return res
-
     def to_proto(self):
         resource = snapshot_pb2.ComputeSnapshot()
         if Primitive.to_proto(self.name):

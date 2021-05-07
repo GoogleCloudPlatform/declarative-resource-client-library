@@ -83,20 +83,6 @@ class AccessPolicy(object):
 
         return stub.ListAccesscontextmanagerAccessPolicy(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = access_policy_pb2.AccesscontextmanagerAccessPolicy()
-        any_proto.Unpack(res_proto)
-
-        res = AccessPolicy()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.parent = Primitive.from_proto(res_proto.parent)
-        res.title = Primitive.from_proto(res_proto.title)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        return res
-
     def to_proto(self):
         resource = access_policy_pb2.AccesscontextmanagerAccessPolicy()
         if Primitive.to_proto(self.parent):

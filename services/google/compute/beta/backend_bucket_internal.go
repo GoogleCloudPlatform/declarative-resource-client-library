@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -440,9 +439,6 @@ func canonicalizeBackendBucketDesiredState(rawDesired, rawInitial *BackendBucket
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
-	}
 
 	return rawDesired, nil
 }
@@ -527,6 +523,13 @@ func canonicalizeNewBackendBucketCdnPolicy(c *Client, des, nw *BackendBucketCdnP
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.SignedUrlKeyNames) {
+		nw.SignedUrlKeyNames = des.SignedUrlKeyNames
+	}
+	if dcl.IsZeroValue(nw.SignedUrlCacheMaxAgeSec) {
+		nw.SignedUrlCacheMaxAgeSec = des.SignedUrlCacheMaxAgeSec
+	}
+
 	return nw
 }
 
@@ -538,7 +541,7 @@ func canonicalizeNewBackendBucketCdnPolicySet(c *Client, des, nw []BackendBucket
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareBackendBucketCdnPolicy(c, &d, &n) {
+			if diffs, _ := compareBackendBucketCdnPolicyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -561,7 +564,7 @@ func canonicalizeNewBackendBucketCdnPolicySlice(c *Client, des, nw []BackendBuck
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []BackendBucketCdnPolicy
@@ -595,76 +598,98 @@ func diffBackendBucket(c *Client, desired, actual *BackendBucket, opts ...dcl.Ap
 	}
 
 	var diffs []backendBucketDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.BucketName, actual.BucketName, dcl.Info{Type: "ReferenceType"}, fn.AddNest("BucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BucketName, actual.BucketName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateBackendBucketUpdateOperation")}, fn.AddNest("BucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, backendBucketDiff{
-			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
-			FieldName: "BucketName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBackendBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CdnPolicy, actual.CdnPolicy, dcl.Info{ObjectFunction: compareBackendBucketCdnPolicyNewStyle}, fn.AddNest("CdnPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CdnPolicy, actual.CdnPolicy, dcl.Info{ObjectFunction: compareBackendBucketCdnPolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendBucketUpdateOperation")}, fn.AddNest("CdnPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, backendBucketDiff{
-			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
-			FieldName: "CdnPolicy",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBackendBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendBucketUpdateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, backendBucketDiff{
-			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBackendBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnableCdn, actual.EnableCdn, dcl.Info{}, fn.AddNest("EnableCdn")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableCdn, actual.EnableCdn, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendBucketUpdateOperation")}, fn.AddNest("EnableCdn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, backendBucketDiff{
-			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
-			FieldName: "EnableCdn",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBackendBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendBucketUpdateOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, backendBucketDiff{
-			UpdateOp: &updateBackendBucketUpdateOperation{}, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBackendBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, backendBucketDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBackendBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, backendBucketDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToBackendBucketDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -711,71 +736,20 @@ func compareBackendBucketCdnPolicyNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SignedUrlKeyNames, actual.SignedUrlKeyNames, dcl.Info{}, fn.AddNest("SignedUrlKeyNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SignedUrlKeyNames, actual.SignedUrlKeyNames, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SignedUrlKeyNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SignedUrlCacheMaxAgeSec, actual.SignedUrlCacheMaxAgeSec, dcl.Info{}, fn.AddNest("SignedUrlCacheMaxAgeSec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SignedUrlCacheMaxAgeSec, actual.SignedUrlCacheMaxAgeSec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SignedUrlCacheMaxAgeSec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareBackendBucketCdnPolicy(c *Client, desired, actual *BackendBucketCdnPolicy) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.SignedUrlKeyNames, actual.SignedUrlKeyNames) && !dcl.IsZeroValue(desired.SignedUrlKeyNames) {
-		c.Config.Logger.Infof("Diff in SignedUrlKeyNames.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SignedUrlKeyNames), dcl.SprintResource(actual.SignedUrlKeyNames))
-		return true
-	}
-	if !reflect.DeepEqual(desired.SignedUrlCacheMaxAgeSec, actual.SignedUrlCacheMaxAgeSec) && !dcl.IsZeroValue(desired.SignedUrlCacheMaxAgeSec) {
-		c.Config.Logger.Infof("Diff in SignedUrlCacheMaxAgeSec.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SignedUrlCacheMaxAgeSec), dcl.SprintResource(actual.SignedUrlCacheMaxAgeSec))
-		return true
-	}
-	return false
-}
-
-func compareBackendBucketCdnPolicySlice(c *Client, desired, actual []BackendBucketCdnPolicy) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BackendBucketCdnPolicy, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareBackendBucketCdnPolicy(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in BackendBucketCdnPolicy, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareBackendBucketCdnPolicyMap(c *Client, desired, actual map[string]BackendBucketCdnPolicy) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in BackendBucketCdnPolicy, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in BackendBucketCdnPolicy, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareBackendBucketCdnPolicy(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in BackendBucketCdnPolicy, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -888,16 +862,16 @@ func flattenBackendBucket(c *Client, i interface{}) *BackendBucket {
 		return nil
 	}
 
-	r := &BackendBucket{}
-	r.BucketName = dcl.FlattenString(m["bucketName"])
-	r.CdnPolicy = flattenBackendBucketCdnPolicy(c, m["cdnPolicy"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.EnableCdn = dcl.FlattenBool(m["enableCdn"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
+	res := &BackendBucket{}
+	res.BucketName = dcl.FlattenString(m["bucketName"])
+	res.CdnPolicy = flattenBackendBucketCdnPolicy(c, m["cdnPolicy"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.EnableCdn = dcl.FlattenBool(m["enableCdn"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
 
-	return r
+	return res
 }
 
 // expandBackendBucketCdnPolicyMap expands the contents of BackendBucketCdnPolicy into a JSON
@@ -984,10 +958,11 @@ func flattenBackendBucketCdnPolicySlice(c *Client, i interface{}) []BackendBucke
 // expandBackendBucketCdnPolicy expands an instance of BackendBucketCdnPolicy into a JSON
 // request object.
 func expandBackendBucketCdnPolicy(c *Client, f *BackendBucketCdnPolicy) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.SignedUrlKeyNames; !dcl.IsEmptyValueIndirect(v) {
 		m["signedUrlKeyNames"] = v
 	}
@@ -1044,5 +1019,36 @@ func (r *BackendBucket) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToBackendBucketDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]backendBucketDiff, error) {
+	var diffs []backendBucketDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := backendBucketDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTobackendBucketApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTobackendBucketApiOperation(op string, opts ...dcl.ApplyOption) (backendBucketApiOperation, error) {
+	switch op {
+
+	case "updateBackendBucketUpdateOperation":
+		return &updateBackendBucketUpdateOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

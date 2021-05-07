@@ -1,0 +1,7 @@
+{
+  "name": "{{pool}}",
+  "project": "{{project}}",
+  "region": "{{region}}",
+  "description": "A test target pool",
+  "healthChecks": ["{{ref:basic.http_health_check.json:name}}"]
+}

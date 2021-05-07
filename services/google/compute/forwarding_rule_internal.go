@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 	"time"
 
@@ -639,6 +638,9 @@ func canonicalizeNewForwardingRuleMetadataFilter(c *Client, des, nw *ForwardingR
 		return nw
 	}
 
+	if dcl.IsZeroValue(nw.FilterMatchCriteria) {
+		nw.FilterMatchCriteria = des.FilterMatchCriteria
+	}
 	nw.FilterLabel = canonicalizeNewForwardingRuleMetadataFilterFilterLabelSlice(c, des.FilterLabel, nw.FilterLabel)
 
 	return nw
@@ -652,7 +654,7 @@ func canonicalizeNewForwardingRuleMetadataFilterSet(c *Client, des, nw []Forward
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareForwardingRuleMetadataFilter(c, &d, &n) {
+			if diffs, _ := compareForwardingRuleMetadataFilterNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -675,7 +677,7 @@ func canonicalizeNewForwardingRuleMetadataFilterSlice(c *Client, des, nw []Forwa
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ForwardingRuleMetadataFilter
@@ -732,7 +734,7 @@ func canonicalizeNewForwardingRuleMetadataFilterFilterLabelSet(c *Client, des, n
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareForwardingRuleMetadataFilterFilterLabel(c, &d, &n) {
+			if diffs, _ := compareForwardingRuleMetadataFilterFilterLabelNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -755,7 +757,7 @@ func canonicalizeNewForwardingRuleMetadataFilterFilterLabelSlice(c *Client, des,
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []ForwardingRuleMetadataFilterFilterLabel
@@ -789,224 +791,319 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 	}
 
 	var diffs []forwardingRuleDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.AllPorts, actual.AllPorts, dcl.Info{}, fn.AddNest("AllPorts")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllPorts, actual.AllPorts, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllPorts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "AllPorts",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowGlobalAccess, actual.AllowGlobalAccess, dcl.Info{}, fn.AddNest("AllowGlobalAccess")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowGlobalAccess, actual.AllowGlobalAccess, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowGlobalAccess")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "AllowGlobalAccess",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.BackendService, actual.BackendService, dcl.Info{}, fn.AddNest("BackendService")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BackendService, actual.BackendService, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BackendService")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "BackendService",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "CreationTimestamp",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Description",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "IPAddress",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPProtocol, actual.IPProtocol, dcl.Info{Type: "EnumType"}, fn.AddNest("IPProtocol")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPProtocol, actual.IPProtocol, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPProtocol")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "IPProtocol",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPVersion, actual.IPVersion, dcl.Info{Type: "EnumType"}, fn.AddNest("IPVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPVersion, actual.IPVersion, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "IPVersion",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.IsMirroringCollector, actual.IsMirroringCollector, dcl.Info{}, fn.AddNest("IsMirroringCollector")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IsMirroringCollector, actual.IsMirroringCollector, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsMirroringCollector")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "IsMirroringCollector",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoadBalancingScheme, actual.LoadBalancingScheme, dcl.Info{Type: "EnumType"}, fn.AddNest("LoadBalancingScheme")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoadBalancingScheme, actual.LoadBalancingScheme, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoadBalancingScheme")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "LoadBalancingScheme",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.MetadataFilter, actual.MetadataFilter, dcl.Info{ObjectFunction: compareForwardingRuleMetadataFilterNewStyle}, fn.AddNest("MetadataFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetadataFilter, actual.MetadataFilter, dcl.Info{ObjectFunction: compareForwardingRuleMetadataFilterNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetadataFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "MetadataFilter",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Network",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkTier, actual.NetworkTier, dcl.Info{Type: "EnumType"}, fn.AddNest("NetworkTier")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkTier, actual.NetworkTier, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkTier")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "NetworkTier",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.PortRange, actual.PortRange, dcl.Info{}, fn.AddNest("PortRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PortRange, actual.PortRange, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PortRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "PortRange",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Ports",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Region",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "SelfLink",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceLabel, actual.ServiceLabel, dcl.Info{}, fn.AddNest("ServiceLabel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceLabel, actual.ServiceLabel, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceLabel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ServiceLabel",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "ServiceName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Subnetwork",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Target",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, forwardingRuleDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToForwardingRuleDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -1053,71 +1150,20 @@ func compareForwardingRuleMetadataFilterNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.FilterMatchCriteria, actual.FilterMatchCriteria, dcl.Info{Type: "EnumType"}, fn.AddNest("FilterMatchCriteria")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FilterMatchCriteria, actual.FilterMatchCriteria, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FilterMatchCriteria")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FilterLabel, actual.FilterLabel, dcl.Info{ObjectFunction: compareForwardingRuleMetadataFilterFilterLabelNewStyle}, fn.AddNest("FilterLabel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FilterLabel, actual.FilterLabel, dcl.Info{ObjectFunction: compareForwardingRuleMetadataFilterFilterLabelNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FilterLabel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareForwardingRuleMetadataFilter(c *Client, desired, actual *ForwardingRuleMetadataFilter) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !reflect.DeepEqual(desired.FilterMatchCriteria, actual.FilterMatchCriteria) && !dcl.IsZeroValue(desired.FilterMatchCriteria) {
-		c.Config.Logger.Infof("Diff in FilterMatchCriteria.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterMatchCriteria), dcl.SprintResource(actual.FilterMatchCriteria))
-		return true
-	}
-	if compareForwardingRuleMetadataFilterFilterLabelSlice(c, desired.FilterLabel, actual.FilterLabel) && !dcl.IsZeroValue(desired.FilterLabel) {
-		c.Config.Logger.Infof("Diff in FilterLabel.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.FilterLabel), dcl.SprintResource(actual.FilterLabel))
-		return true
-	}
-	return false
-}
-
-func compareForwardingRuleMetadataFilterSlice(c *Client, desired, actual []ForwardingRuleMetadataFilter) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ForwardingRuleMetadataFilter, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareForwardingRuleMetadataFilter(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ForwardingRuleMetadataFilter, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareForwardingRuleMetadataFilterMap(c *Client, desired, actual map[string]ForwardingRuleMetadataFilter) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ForwardingRuleMetadataFilter, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ForwardingRuleMetadataFilter, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareForwardingRuleMetadataFilter(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ForwardingRuleMetadataFilter, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareForwardingRuleMetadataFilterFilterLabelNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1140,161 +1186,20 @@ func compareForwardingRuleMetadataFilterFilterLabelNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareForwardingRuleMetadataFilterFilterLabel(c *Client, desired, actual *ForwardingRuleMetadataFilterFilterLabel) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Name, actual.Name) && !dcl.IsZeroValue(desired.Name) {
-		c.Config.Logger.Infof("Diff in Name.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Name), dcl.SprintResource(actual.Name))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Value, actual.Value) && !dcl.IsZeroValue(desired.Value) {
-		c.Config.Logger.Infof("Diff in Value.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Value), dcl.SprintResource(actual.Value))
-		return true
-	}
-	return false
-}
-
-func compareForwardingRuleMetadataFilterFilterLabelSlice(c *Client, desired, actual []ForwardingRuleMetadataFilterFilterLabel) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ForwardingRuleMetadataFilterFilterLabel, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareForwardingRuleMetadataFilterFilterLabel(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ForwardingRuleMetadataFilterFilterLabel, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareForwardingRuleMetadataFilterFilterLabelMap(c *Client, desired, actual map[string]ForwardingRuleMetadataFilterFilterLabel) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ForwardingRuleMetadataFilterFilterLabel, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in ForwardingRuleMetadataFilterFilterLabel, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareForwardingRuleMetadataFilterFilterLabel(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in ForwardingRuleMetadataFilterFilterLabel, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
-}
-
-func compareForwardingRuleIPProtocolEnumSlice(c *Client, desired, actual []ForwardingRuleIPProtocolEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ForwardingRuleIPProtocolEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareForwardingRuleIPProtocolEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ForwardingRuleIPProtocolEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareForwardingRuleIPProtocolEnum(c *Client, desired, actual *ForwardingRuleIPProtocolEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareForwardingRuleIPVersionEnumSlice(c *Client, desired, actual []ForwardingRuleIPVersionEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ForwardingRuleIPVersionEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareForwardingRuleIPVersionEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ForwardingRuleIPVersionEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareForwardingRuleIPVersionEnum(c *Client, desired, actual *ForwardingRuleIPVersionEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareForwardingRuleLoadBalancingSchemeEnumSlice(c *Client, desired, actual []ForwardingRuleLoadBalancingSchemeEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ForwardingRuleLoadBalancingSchemeEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareForwardingRuleLoadBalancingSchemeEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ForwardingRuleLoadBalancingSchemeEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareForwardingRuleLoadBalancingSchemeEnum(c *Client, desired, actual *ForwardingRuleLoadBalancingSchemeEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareForwardingRuleMetadataFilterFilterMatchCriteriaEnumSlice(c *Client, desired, actual []ForwardingRuleMetadataFilterFilterMatchCriteriaEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ForwardingRuleMetadataFilterFilterMatchCriteriaEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareForwardingRuleMetadataFilterFilterMatchCriteriaEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ForwardingRuleMetadataFilterFilterMatchCriteriaEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareForwardingRuleMetadataFilterFilterMatchCriteriaEnum(c *Client, desired, actual *ForwardingRuleMetadataFilterFilterMatchCriteriaEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
-}
-
-func compareForwardingRuleNetworkTierEnumSlice(c *Client, desired, actual []ForwardingRuleNetworkTierEnum) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in ForwardingRuleNetworkTierEnum, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareForwardingRuleNetworkTierEnum(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in ForwardingRuleNetworkTierEnum, element %d.\nOLD: %s\nNEW: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareForwardingRuleNetworkTierEnum(c *Client, desired, actual *ForwardingRuleNetworkTierEnum) bool {
-	return !reflect.DeepEqual(desired, actual)
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1459,33 +1364,33 @@ func flattenForwardingRule(c *Client, i interface{}) *ForwardingRule {
 		return nil
 	}
 
-	r := &ForwardingRule{}
-	r.AllPorts = dcl.FlattenBool(m["allPorts"])
-	r.AllowGlobalAccess = dcl.FlattenBool(m["allowGlobalAccess"])
-	r.BackendService = dcl.FlattenString(m["backendService"])
-	r.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
-	r.Description = dcl.FlattenString(m["description"])
-	r.IPAddress = dcl.FlattenString(m["IPAddress"])
-	r.IPProtocol = flattenForwardingRuleIPProtocolEnum(m["IPProtocol"])
-	r.IPVersion = flattenForwardingRuleIPVersionEnum(m["ipVersion"])
-	r.IsMirroringCollector = dcl.FlattenBool(m["isMirroringCollector"])
-	r.LoadBalancingScheme = flattenForwardingRuleLoadBalancingSchemeEnum(m["loadBalancingScheme"])
-	r.MetadataFilter = flattenForwardingRuleMetadataFilterSlice(c, m["metadataFilters"])
-	r.Name = dcl.FlattenString(m["name"])
-	r.Network = dcl.FlattenString(m["network"])
-	r.NetworkTier = flattenForwardingRuleNetworkTierEnum(m["networkTier"])
-	r.PortRange = dcl.FlattenString(m["portRange"])
-	r.Ports = dcl.FlattenStringSlice(m["ports"])
-	r.Region = dcl.FlattenString(m["region"])
-	r.SelfLink = dcl.FlattenString(m["selfLink"])
-	r.ServiceLabel = dcl.FlattenString(m["serviceLabel"])
-	r.ServiceName = dcl.FlattenString(m["serviceName"])
-	r.Subnetwork = dcl.FlattenString(m["subnetwork"])
-	r.Target = dcl.FlattenString(m["target"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Location = dcl.FlattenString(m["location"])
+	res := &ForwardingRule{}
+	res.AllPorts = dcl.FlattenBool(m["allPorts"])
+	res.AllowGlobalAccess = dcl.FlattenBool(m["allowGlobalAccess"])
+	res.BackendService = dcl.FlattenString(m["backendService"])
+	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
+	res.Description = dcl.FlattenString(m["description"])
+	res.IPAddress = dcl.FlattenString(m["IPAddress"])
+	res.IPProtocol = flattenForwardingRuleIPProtocolEnum(m["IPProtocol"])
+	res.IPVersion = flattenForwardingRuleIPVersionEnum(m["ipVersion"])
+	res.IsMirroringCollector = dcl.FlattenBool(m["isMirroringCollector"])
+	res.LoadBalancingScheme = flattenForwardingRuleLoadBalancingSchemeEnum(m["loadBalancingScheme"])
+	res.MetadataFilter = flattenForwardingRuleMetadataFilterSlice(c, m["metadataFilters"])
+	res.Name = dcl.FlattenString(m["name"])
+	res.Network = dcl.FlattenString(m["network"])
+	res.NetworkTier = flattenForwardingRuleNetworkTierEnum(m["networkTier"])
+	res.PortRange = dcl.FlattenString(m["portRange"])
+	res.Ports = dcl.FlattenStringSlice(m["ports"])
+	res.Region = dcl.FlattenString(m["region"])
+	res.SelfLink = dcl.FlattenString(m["selfLink"])
+	res.ServiceLabel = dcl.FlattenString(m["serviceLabel"])
+	res.ServiceName = dcl.FlattenString(m["serviceName"])
+	res.Subnetwork = dcl.FlattenString(m["subnetwork"])
+	res.Target = dcl.FlattenString(m["target"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Location = dcl.FlattenString(m["location"])
 
-	return r
+	return res
 }
 
 // expandForwardingRuleMetadataFilterMap expands the contents of ForwardingRuleMetadataFilter into a JSON
@@ -1572,10 +1477,11 @@ func flattenForwardingRuleMetadataFilterSlice(c *Client, i interface{}) []Forwar
 // expandForwardingRuleMetadataFilter expands an instance of ForwardingRuleMetadataFilter into a JSON
 // request object.
 func expandForwardingRuleMetadataFilter(c *Client, f *ForwardingRuleMetadataFilter) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.FilterMatchCriteria; !dcl.IsEmptyValueIndirect(v) {
 		m["filterMatchCriteria"] = v
 	}
@@ -1687,10 +1593,11 @@ func flattenForwardingRuleMetadataFilterFilterLabelSlice(c *Client, i interface{
 // expandForwardingRuleMetadataFilterFilterLabel expands an instance of ForwardingRuleMetadataFilterFilterLabel into a JSON
 // request object.
 func expandForwardingRuleMetadataFilterFilterLabel(c *Client, f *ForwardingRuleMetadataFilterFilterLabel) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
@@ -1910,5 +1817,33 @@ func (r *ForwardingRule) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToForwardingRuleDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]forwardingRuleDiff, error) {
+	var diffs []forwardingRuleDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := forwardingRuleDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToforwardingRuleApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToforwardingRuleApiOperation(op string, opts ...dcl.ApplyOption) (forwardingRuleApiOperation, error) {
+	switch op {
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

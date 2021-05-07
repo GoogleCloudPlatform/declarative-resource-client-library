@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from connector import channel
-from google3.cloud.graphite.mmv2.services.google.pubsublite import topic_pb2
-from google3.cloud.graphite.mmv2.services.google.pubsublite import topic_pb2_grpc
+from google3.cloud.graphite.mmv2.services.google.pubsub_lite import topic_pb2
+from google3.cloud.graphite.mmv2.services.google.pubsub_lite import topic_pb2_grpc
 
 from typing import List
 
@@ -111,24 +111,6 @@ class Topic(object):
         request.Location = location
 
         return stub.ListPubsubliteTopic(request).items
-
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = topic_pb2.PubsubliteTopic()
-        any_proto.Unpack(res_proto)
-
-        res = Topic()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.partition_config = TopicPartitionConfig.from_proto(
-            res_proto.partition_config
-        )
-        res.retention_config = TopicRetentionConfig.from_proto(
-            res_proto.retention_config
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
 
     def to_proto(self):
         resource = topic_pb2.PubsubliteTopic()

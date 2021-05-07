@@ -48,6 +48,9 @@ type StandardGCPOperationError struct {
 
 // String formats the StandardGCPOperationError as an error string.
 func (e *StandardGCPOperationError) String() string {
+	if e == nil {
+		return "nil"
+	}
 	var b strings.Builder
 	for _, err := range e.Errors {
 		fmt.Fprintf(&b, "error code %q, message: %s\n", err.Code, err.Message)

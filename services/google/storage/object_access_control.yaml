@@ -82,6 +82,9 @@ components:
               description: The project number.
               type: string
               x-dcl-go-name: ProjectNumber
+              x-dcl-references:
+              - field: projectNumber
+                resource: Cloudresourcemanager/Project
               x-kubernetes-immutable: true
             team:
               description: 'The team. Possible values: editors, owners, viewers'

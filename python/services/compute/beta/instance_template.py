@@ -112,22 +112,6 @@ class InstanceTemplate(object):
 
         return stub.ListComputeBetaInstanceTemplate(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = instance_template_pb2.ComputeBetaInstanceTemplate()
-        any_proto.Unpack(res_proto)
-
-        res = InstanceTemplate()
-        res.creation_timestamp = Primitive.from_proto(res_proto.creation_timestamp)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.id = Primitive.from_proto(res_proto.id)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.properties = InstanceTemplateProperties.from_proto(res_proto.properties)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = instance_template_pb2.ComputeBetaInstanceTemplate()
         if Primitive.to_proto(self.description):

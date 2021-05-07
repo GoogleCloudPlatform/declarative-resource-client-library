@@ -330,9 +330,6 @@ func canonicalizeProjectBillingInfoDesiredState(rawDesired, rawInitial *ProjectB
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.BillingAccountName, rawInitial.BillingAccountName) {
 		rawDesired.BillingAccountName = rawInitial.BillingAccountName
 	}
-	if dcl.StringCanonicalize(rawDesired.BillingEnabled, rawInitial.BillingEnabled) {
-		rawDesired.BillingEnabled = rawInitial.BillingEnabled
-	}
 
 	return rawDesired, nil
 }
@@ -382,36 +379,46 @@ func diffProjectBillingInfo(c *Client, desired, actual *ProjectBillingInfo, opts
 	}
 
 	var diffs []projectBillingInfoDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, projectBillingInfoDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Name",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToProjectBillingInfoDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.BillingAccountName, actual.BillingAccountName, dcl.Info{}, fn.AddNest("BillingAccountName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BillingAccountName, actual.BillingAccountName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateProjectBillingInfoUpdateProjectBillingInfoOperation")}, fn.AddNest("BillingAccountName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, projectBillingInfoDiff{
-			UpdateOp: &updateProjectBillingInfoUpdateProjectBillingInfoOperation{}, Diffs: ds,
-			FieldName: "BillingAccountName",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToProjectBillingInfoDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.BillingEnabled, actual.BillingEnabled, dcl.Info{OutputOnly: true}, fn.AddNest("BillingEnabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BillingEnabled, actual.BillingEnabled, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BillingEnabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, projectBillingInfoDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "BillingEnabled",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToProjectBillingInfoDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -534,12 +541,12 @@ func flattenProjectBillingInfo(c *Client, i interface{}) *ProjectBillingInfo {
 		return nil
 	}
 
-	r := &ProjectBillingInfo{}
-	r.Name = dcl.FlattenString(m["projectId"])
-	r.BillingAccountName = dcl.FlattenString(m["billingAccountName"])
-	r.BillingEnabled = dcl.FlattenString(m["billingEnabled"])
+	res := &ProjectBillingInfo{}
+	res.Name = dcl.FlattenString(m["projectId"])
+	res.BillingAccountName = dcl.FlattenString(m["billingAccountName"])
+	res.BillingEnabled = dcl.FlattenString(m["billingEnabled"])
 
-	return r
+	return res
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -565,5 +572,36 @@ func (r *ProjectBillingInfo) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToProjectBillingInfoDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]projectBillingInfoDiff, error) {
+	var diffs []projectBillingInfoDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := projectBillingInfoDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameToprojectBillingInfoApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameToprojectBillingInfoApiOperation(op string, opts ...dcl.ApplyOption) (projectBillingInfoApiOperation, error) {
+	switch op {
+
+	case "updateProjectBillingInfoUpdateProjectBillingInfoOperation":
+		return &updateProjectBillingInfoUpdateProjectBillingInfoOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

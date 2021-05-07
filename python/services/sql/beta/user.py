@@ -131,25 +131,6 @@ class User(object):
 
         return stub.ListSqlBetaUser(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = user_pb2.SqlBetaUser()
-        any_proto.Unpack(res_proto)
-
-        res = User()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.password = Primitive.from_proto(res_proto.password)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.instance = Primitive.from_proto(res_proto.instance)
-        res.sqlserver_user_details = UserSqlserverUserDetails.from_proto(
-            res_proto.sqlserver_user_details
-        )
-        res.type = UserTypeEnum.from_proto(res_proto.type)
-        res.etag = Primitive.from_proto(res_proto.etag)
-        res.host = Primitive.from_proto(res_proto.host)
-        return res
-
     def to_proto(self):
         resource = user_pb2.SqlBetaUser()
         if Primitive.to_proto(self.name):

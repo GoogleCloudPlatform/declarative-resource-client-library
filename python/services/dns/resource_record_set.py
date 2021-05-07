@@ -109,21 +109,6 @@ class ResourceRecordSet(object):
 
         return stub.ListDnsResourceRecordSet(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = resource_record_set_pb2.DnsResourceRecordSet()
-        any_proto.Unpack(res_proto)
-
-        res = ResourceRecordSet()
-        res.dns_name = Primitive.from_proto(res_proto.dns_name)
-        res.dns_type = Primitive.from_proto(res_proto.dns_type)
-        res.ttl = Primitive.from_proto(res_proto.ttl)
-        res.target = Primitive.from_proto(res_proto.target)
-        res.managed_zone = Primitive.from_proto(res_proto.managed_zone)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = resource_record_set_pb2.DnsResourceRecordSet()
         if Primitive.to_proto(self.dns_name):

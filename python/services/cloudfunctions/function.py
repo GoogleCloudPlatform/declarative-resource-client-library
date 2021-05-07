@@ -293,48 +293,6 @@ class Function(object):
 
         return stub.ListCloudfunctionsFunction(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = function_pb2.CloudfunctionsFunction()
-        any_proto.Unpack(res_proto)
-
-        res = Function()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.source_archive_url = Primitive.from_proto(res_proto.source_archive_url)
-        res.source_repository = FunctionSourceRepository.from_proto(
-            res_proto.source_repository
-        )
-        res.https_trigger = FunctionHttpsTrigger.from_proto(res_proto.https_trigger)
-        res.event_trigger = FunctionEventTrigger.from_proto(res_proto.event_trigger)
-        res.status = FunctionStatusEnum.from_proto(res_proto.status)
-        res.entry_point = Primitive.from_proto(res_proto.entry_point)
-        res.runtime = Primitive.from_proto(res_proto.runtime)
-        res.timeout = Primitive.from_proto(res_proto.timeout)
-        res.available_memory_mb = Primitive.from_proto(res_proto.available_memory_mb)
-        res.service_account_email = Primitive.from_proto(
-            res_proto.service_account_email
-        )
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.version_id = Primitive.from_proto(res_proto.version_id)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.environment_variables = Primitive.from_proto(
-            res_proto.environment_variables
-        )
-        res.network = Primitive.from_proto(res_proto.network)
-        res.max_instances = Primitive.from_proto(res_proto.max_instances)
-        res.vpc_connector = Primitive.from_proto(res_proto.vpc_connector)
-        res.vpc_connector_egress_settings = FunctionVPCConnectorEgressSettingsEnum.from_proto(
-            res_proto.vpc_connector_egress_settings
-        )
-        res.ingress_settings = FunctionIngressSettingsEnum.from_proto(
-            res_proto.ingress_settings
-        )
-        res.region = Primitive.from_proto(res_proto.region)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = function_pb2.CloudfunctionsFunction()
         if Primitive.to_proto(self.name):

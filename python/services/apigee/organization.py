@@ -177,41 +177,6 @@ class Organization(object):
 
         return stub.ListApigeeOrganization(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = organization_pb2.ApigeeOrganization()
-        any_proto.Unpack(res_proto)
-
-        res = Organization()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.display_name = Primitive.from_proto(res_proto.display_name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.created_at = Primitive.from_proto(res_proto.created_at)
-        res.last_modified_at = Primitive.from_proto(res_proto.last_modified_at)
-        res.expires_at = Primitive.from_proto(res_proto.expires_at)
-        res.environments = Primitive.from_proto(res_proto.environments)
-        res.properties = OrganizationProperties.from_proto(res_proto.properties)
-        res.analytics_region = Primitive.from_proto(res_proto.analytics_region)
-        res.authorized_network = Primitive.from_proto(res_proto.authorized_network)
-        res.runtime_type = OrganizationRuntimeTypeEnum.from_proto(
-            res_proto.runtime_type
-        )
-        res.subscription_type = OrganizationSubscriptionTypeEnum.from_proto(
-            res_proto.subscription_type
-        )
-        res.billing_type = OrganizationBillingTypeEnum.from_proto(
-            res_proto.billing_type
-        )
-        res.ca_certificate = Primitive.from_proto(res_proto.ca_certificate)
-        res.runtime_database_encryption_key_name = Primitive.from_proto(
-            res_proto.runtime_database_encryption_key_name
-        )
-        res.project_id = Primitive.from_proto(res_proto.project_id)
-        res.state = OrganizationStateEnum.from_proto(res_proto.state)
-        res.parent = Primitive.from_proto(res_proto.parent)
-        return res
-
     def to_proto(self):
         resource = organization_pb2.ApigeeOrganization()
         if Primitive.to_proto(self.name):

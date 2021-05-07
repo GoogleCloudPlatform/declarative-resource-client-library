@@ -178,30 +178,6 @@ class Role(object):
 
         return stub.ListIamRole(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = role_pb2.IamRole()
-        any_proto.Unpack(res_proto)
-
-        res = Role()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.title = Primitive.from_proto(res_proto.title)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.localized_values = RoleLocalizedValues.from_proto(
-            res_proto.localized_values
-        )
-        res.lifecycle_phase = Primitive.from_proto(res_proto.lifecycle_phase)
-        res.group_name = Primitive.from_proto(res_proto.group_name)
-        res.group_title = Primitive.from_proto(res_proto.group_title)
-        res.included_permissions = Primitive.from_proto(res_proto.included_permissions)
-        res.stage = RoleStageEnum.from_proto(res_proto.stage)
-        res.etag = Primitive.from_proto(res_proto.etag)
-        res.deleted = Primitive.from_proto(res_proto.deleted)
-        res.included_roles = Primitive.from_proto(res_proto.included_roles)
-        res.parent = Primitive.from_proto(res_proto.parent)
-        return res
-
     def to_proto(self):
         resource = role_pb2.IamRole()
         if Primitive.to_proto(self.name):

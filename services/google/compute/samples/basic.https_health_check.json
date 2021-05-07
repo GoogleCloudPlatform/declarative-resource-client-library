@@ -1,0 +1,8 @@
+{
+  "project": "{{project}}",
+  "name": "{{health_check}}",
+  "port": 80,
+  "healthyThreshold": 10,
+  "timeoutSec": 2,
+  "unhealthyThreshold": 5
+}

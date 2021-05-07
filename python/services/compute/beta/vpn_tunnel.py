@@ -248,47 +248,6 @@ class VpnTunnel(object):
 
         return stub.ListComputeBetaVpnTunnel(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = vpn_tunnel_pb2.ComputeBetaVpnTunnel()
-        any_proto.Unpack(res_proto)
-
-        res = VpnTunnel()
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.id = Primitive.from_proto(res_proto.id)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.region = Primitive.from_proto(res_proto.region)
-        res.target_vpn_gateway = Primitive.from_proto(res_proto.target_vpn_gateway)
-        res.vpn_gateway = Primitive.from_proto(res_proto.vpn_gateway)
-        res.vpn_gateway_interface = Primitive.from_proto(
-            res_proto.vpn_gateway_interface
-        )
-        res.peer_external_gateway = Primitive.from_proto(
-            res_proto.peer_external_gateway
-        )
-        res.peer_external_gateway_interface = Primitive.from_proto(
-            res_proto.peer_external_gateway_interface
-        )
-        res.peer_gcp_gateway = Primitive.from_proto(res_proto.peer_gcp_gateway)
-        res.router = Primitive.from_proto(res_proto.router)
-        res.peer_ip = Primitive.from_proto(res_proto.peer_ip)
-        res.shared_secret = Primitive.from_proto(res_proto.shared_secret)
-        res.shared_secret_hash = Primitive.from_proto(res_proto.shared_secret_hash)
-        res.status = VpnTunnelStatusEnum.from_proto(res_proto.status)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.ike_version = Primitive.from_proto(res_proto.ike_version)
-        res.detailed_status = Primitive.from_proto(res_proto.detailed_status)
-        res.local_traffic_selector = Primitive.from_proto(
-            res_proto.local_traffic_selector
-        )
-        res.remote_traffic_selector = Primitive.from_proto(
-            res_proto.remote_traffic_selector
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = vpn_tunnel_pb2.ComputeBetaVpnTunnel()
         if Primitive.to_proto(self.labels):

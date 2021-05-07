@@ -82,20 +82,6 @@ class Repo(object):
 
         return stub.ListSourcerepoRepo(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = repo_pb2.SourcerepoRepo()
-        any_proto.Unpack(res_proto)
-
-        res = Repo()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.size = Primitive.from_proto(res_proto.size)
-        res.url = Primitive.from_proto(res_proto.url)
-        res.pubsub_configs = RepoPubsubConfigsArray.from_proto(res_proto.pubsub_configs)
-        res.project = Primitive.from_proto(res_proto.project)
-        return res
-
     def to_proto(self):
         resource = repo_pb2.SourcerepoRepo()
         if Primitive.to_proto(self.name):

@@ -143,27 +143,6 @@ class WorkflowTemplate(object):
 
         return stub.ListDataprocWorkflowTemplate(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = workflow_template_pb2.DataprocWorkflowTemplate()
-        any_proto.Unpack(res_proto)
-
-        res = WorkflowTemplate()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.version = Primitive.from_proto(res_proto.version)
-        res.create_time = Primitive.from_proto(res_proto.create_time)
-        res.update_time = Primitive.from_proto(res_proto.update_time)
-        res.labels = Primitive.from_proto(res_proto.labels)
-        res.placement = WorkflowTemplatePlacement.from_proto(res_proto.placement)
-        res.jobs = WorkflowTemplateJobsArray.from_proto(res_proto.jobs)
-        res.parameters = WorkflowTemplateParametersArray.from_proto(
-            res_proto.parameters
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = workflow_template_pb2.DataprocWorkflowTemplate()
         if Primitive.to_proto(self.name):

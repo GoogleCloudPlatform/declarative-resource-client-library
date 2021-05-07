@@ -87,20 +87,6 @@ class Database(object):
 
         return stub.ListSpannerDatabase(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = database_pb2.SpannerDatabase()
-        any_proto.Unpack(res_proto)
-
-        res = Database()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.instance = Primitive.from_proto(res_proto.instance)
-        res.state = DatabaseStateEnum.from_proto(res_proto.state)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.ddl = Primitive.from_proto(res_proto.ddl)
-        return res
-
     def to_proto(self):
         resource = database_pb2.SpannerDatabase()
         if Primitive.to_proto(self.name):

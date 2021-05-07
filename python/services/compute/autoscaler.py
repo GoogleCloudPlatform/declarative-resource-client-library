@@ -173,37 +173,6 @@ class Autoscaler(object):
 
         return stub.ListComputeAutoscaler(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = autoscaler_pb2.ComputeAutoscaler()
-        any_proto.Unpack(res_proto)
-
-        res = Autoscaler()
-        res.id = Primitive.from_proto(res_proto.id)
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.target = Primitive.from_proto(res_proto.target)
-        res.autoscaling_policy = AutoscalerAutoscalingPolicy.from_proto(
-            res_proto.autoscaling_policy
-        )
-        res.zone = Primitive.from_proto(res_proto.zone)
-        res.region = Primitive.from_proto(res_proto.region)
-        res.self_link = Primitive.from_proto(res_proto.self_link)
-        res.status = AutoscalerStatusEnum.from_proto(res_proto.status)
-        res.status_details = AutoscalerStatusDetailsArray.from_proto(
-            res_proto.status_details
-        )
-        res.recommended_size = Primitive.from_proto(res_proto.recommended_size)
-        res.self_link_with_id = Primitive.from_proto(res_proto.self_link_with_id)
-        res.scaling_schedule_status = Primitive.from_proto(
-            res_proto.scaling_schedule_status
-        )
-        res.project = Primitive.from_proto(res_proto.project)
-        res.creation_timestamp = Primitive.from_proto(res_proto.creation_timestamp)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = autoscaler_pb2.ComputeAutoscaler()
         if Primitive.to_proto(self.name):

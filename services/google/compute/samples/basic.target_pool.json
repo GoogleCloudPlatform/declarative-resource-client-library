@@ -1,0 +1,6 @@
+{
+  "name": "{{pool}}",
+  "project": "{{project}}",
+  "region": "{{region}}",
+  "description": "A test target pool"
+}

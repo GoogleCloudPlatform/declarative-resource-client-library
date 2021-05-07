@@ -357,7 +357,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementSet(c *Client, des, nw []Fe
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareFeatureMembershipConfigmanagement(c, &d, &n) {
+			if diffs, _ := compareFeatureMembershipConfigmanagementNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -380,7 +380,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementSlice(c *Client, des, nw []
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []FeatureMembershipConfigmanagement
@@ -433,7 +433,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncSet(c *Client, de
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareFeatureMembershipConfigmanagementConfigSync(c, &d, &n) {
+			if diffs, _ := compareFeatureMembershipConfigmanagementConfigSyncNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -456,7 +456,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncSlice(c *Client, 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []FeatureMembershipConfigmanagementConfigSync
@@ -549,7 +549,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncGitSet(c *Client,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareFeatureMembershipConfigmanagementConfigSyncGit(c, &d, &n) {
+			if diffs, _ := compareFeatureMembershipConfigmanagementConfigSyncGitNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -572,7 +572,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncGitSlice(c *Clien
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []FeatureMembershipConfigmanagementConfigSyncGit
@@ -626,6 +626,9 @@ func canonicalizeNewFeatureMembershipConfigmanagementPolicyController(c *Client,
 	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) {
 		nw.Enabled = des.Enabled
 	}
+	if dcl.IsZeroValue(nw.ExemptableNamespaces) {
+		nw.ExemptableNamespaces = des.ExemptableNamespaces
+	}
 	if dcl.BoolCanonicalize(des.ReferentialRulesEnabled, nw.ReferentialRulesEnabled) {
 		nw.ReferentialRulesEnabled = des.ReferentialRulesEnabled
 	}
@@ -650,7 +653,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementPolicyControllerSet(c *Clie
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareFeatureMembershipConfigmanagementPolicyController(c, &d, &n) {
+			if diffs, _ := compareFeatureMembershipConfigmanagementPolicyControllerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -673,7 +676,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementPolicyControllerSlice(c *Cl
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []FeatureMembershipConfigmanagementPolicyController
@@ -724,7 +727,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementBinauthzSet(c *Client, des,
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareFeatureMembershipConfigmanagementBinauthz(c, &d, &n) {
+			if diffs, _ := compareFeatureMembershipConfigmanagementBinauthzNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -747,7 +750,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementBinauthzSlice(c *Client, de
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []FeatureMembershipConfigmanagementBinauthz
@@ -810,7 +813,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementHierarchyControllerSet(c *C
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if !compareFeatureMembershipConfigmanagementHierarchyController(c, &d, &n) {
+			if diffs, _ := compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -833,7 +836,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementHierarchyControllerSlice(c 
 	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
 	// Return the original array.
 	if len(des) != len(nw) {
-		return des
+		return nw
 	}
 
 	var items []FeatureMembershipConfigmanagementHierarchyController
@@ -867,54 +870,72 @@ func diffFeatureMembership(c *Client, desired, actual *FeatureMembership, opts .
 	}
 
 	var diffs []featureMembershipDiff
-
 	var fn dcl.FieldName
-
+	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Membership, actual.Membership, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Membership")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Membership, actual.Membership, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Membership")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureMembershipDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Membership",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFeatureMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Feature, actual.Feature, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Feature")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Feature, actual.Feature, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Feature")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureMembershipDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Feature",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFeatureMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureMembershipDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Location",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFeatureMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType"}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureMembershipDiff{RequiresRecreate: true, Diffs: ds,
-			FieldName: "Project",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFeatureMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Configmanagement, actual.Configmanagement, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementNewStyle}, fn.AddNest("Configmanagement")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Configmanagement, actual.Configmanagement, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementNewStyle, OperationSelector: dcl.TriggersOperation("updateFeatureMembershipUpdateFeatureMembershipOperation")}, fn.AddNest("Configmanagement")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, featureMembershipDiff{
-			UpdateOp: &updateFeatureMembershipUpdateFeatureMembershipOperation{}, Diffs: ds,
-			FieldName: "Configmanagement",
-		})
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToFeatureMembershipDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
 	}
 
 	// We need to ensure that this list does not contain identical operations *most of the time*.
@@ -961,104 +982,41 @@ func compareFeatureMembershipConfigmanagementNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigSync, actual.ConfigSync, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncNewStyle}, fn.AddNest("ConfigSync")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigSync, actual.ConfigSync, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigSync")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyController, actual.PolicyController, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementPolicyControllerNewStyle}, fn.AddNest("PolicyController")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyController, actual.PolicyController, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementPolicyControllerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyController")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Binauthz, actual.Binauthz, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementBinauthzNewStyle}, fn.AddNest("Binauthz")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Binauthz, actual.Binauthz, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementBinauthzNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Binauthz")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HierarchyController, actual.HierarchyController, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle}, fn.AddNest("HierarchyController")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HierarchyController, actual.HierarchyController, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HierarchyController")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareFeatureMembershipConfigmanagement(c *Client, desired, actual *FeatureMembershipConfigmanagement) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareFeatureMembershipConfigmanagementConfigSync(c, desired.ConfigSync, actual.ConfigSync) && !dcl.IsZeroValue(desired.ConfigSync) {
-		c.Config.Logger.Infof("Diff in ConfigSync.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ConfigSync), dcl.SprintResource(actual.ConfigSync))
-		return true
-	}
-	if compareFeatureMembershipConfigmanagementPolicyController(c, desired.PolicyController, actual.PolicyController) && !dcl.IsZeroValue(desired.PolicyController) {
-		c.Config.Logger.Infof("Diff in PolicyController.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PolicyController), dcl.SprintResource(actual.PolicyController))
-		return true
-	}
-	if compareFeatureMembershipConfigmanagementBinauthz(c, desired.Binauthz, actual.Binauthz) && !dcl.IsZeroValue(desired.Binauthz) {
-		c.Config.Logger.Infof("Diff in Binauthz.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Binauthz), dcl.SprintResource(actual.Binauthz))
-		return true
-	}
-	if compareFeatureMembershipConfigmanagementHierarchyController(c, desired.HierarchyController, actual.HierarchyController) && !dcl.IsZeroValue(desired.HierarchyController) {
-		c.Config.Logger.Infof("Diff in HierarchyController.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HierarchyController), dcl.SprintResource(actual.HierarchyController))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.Version, actual.Version) && !dcl.IsZeroValue(desired.Version) {
-		c.Config.Logger.Infof("Diff in Version.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Version), dcl.SprintResource(actual.Version))
-		return true
-	}
-	return false
-}
-
-func compareFeatureMembershipConfigmanagementSlice(c *Client, desired, actual []FeatureMembershipConfigmanagement) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureMembershipConfigmanagement, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareFeatureMembershipConfigmanagement(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagement, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFeatureMembershipConfigmanagementMap(c *Client, desired, actual map[string]FeatureMembershipConfigmanagement) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureMembershipConfigmanagement, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagement, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareFeatureMembershipConfigmanagement(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagement, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareFeatureMembershipConfigmanagementConfigSyncNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1081,71 +1039,20 @@ func compareFeatureMembershipConfigmanagementConfigSyncNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Git, actual.Git, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncGitNewStyle}, fn.AddNest("Git")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Git, actual.Git, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncGitNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Git")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceFormat, actual.SourceFormat, dcl.Info{}, fn.AddNest("SourceFormat")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceFormat, actual.SourceFormat, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceFormat")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareFeatureMembershipConfigmanagementConfigSync(c *Client, desired, actual *FeatureMembershipConfigmanagementConfigSync) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if compareFeatureMembershipConfigmanagementConfigSyncGit(c, desired.Git, actual.Git) && !dcl.IsZeroValue(desired.Git) {
-		c.Config.Logger.Infof("Diff in Git.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Git), dcl.SprintResource(actual.Git))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SourceFormat, actual.SourceFormat) && !dcl.IsZeroValue(desired.SourceFormat) {
-		c.Config.Logger.Infof("Diff in SourceFormat.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SourceFormat), dcl.SprintResource(actual.SourceFormat))
-		return true
-	}
-	return false
-}
-
-func compareFeatureMembershipConfigmanagementConfigSyncSlice(c *Client, desired, actual []FeatureMembershipConfigmanagementConfigSync) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureMembershipConfigmanagementConfigSync, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareFeatureMembershipConfigmanagementConfigSync(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementConfigSync, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFeatureMembershipConfigmanagementConfigSyncMap(c *Client, desired, actual map[string]FeatureMembershipConfigmanagementConfigSync) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureMembershipConfigmanagementConfigSync, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementConfigSync, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareFeatureMembershipConfigmanagementConfigSync(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementConfigSync, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareFeatureMembershipConfigmanagementConfigSyncGitNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1168,137 +1075,62 @@ func compareFeatureMembershipConfigmanagementConfigSyncGitNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SyncRepo, actual.SyncRepo, dcl.Info{}, fn.AddNest("SyncRepo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SyncRepo, actual.SyncRepo, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SyncRepo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SyncBranch, actual.SyncBranch, dcl.Info{}, fn.AddNest("SyncBranch")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SyncBranch, actual.SyncBranch, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SyncBranch")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyDir, actual.PolicyDir, dcl.Info{}, fn.AddNest("PolicyDir")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyDir, actual.PolicyDir, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyDir")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SyncWaitSecs, actual.SyncWaitSecs, dcl.Info{}, fn.AddNest("SyncWaitSecs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SyncWaitSecs, actual.SyncWaitSecs, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SyncWaitSecs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SyncRev, actual.SyncRev, dcl.Info{}, fn.AddNest("SyncRev")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SyncRev, actual.SyncRev, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SyncRev")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecretType, actual.SecretType, dcl.Info{}, fn.AddNest("SecretType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecretType, actual.SecretType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecretType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpsProxy, actual.HttpsProxy, dcl.Info{}, fn.AddNest("HttpsProxy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpsProxy, actual.HttpsProxy, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HttpsProxy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GcpServiceAccountEmail, actual.GcpServiceAccountEmail, dcl.Info{Type: "ReferenceType"}, fn.AddNest("GcpServiceAccountEmail")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GcpServiceAccountEmail, actual.GcpServiceAccountEmail, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GcpServiceAccountEmail")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareFeatureMembershipConfigmanagementConfigSyncGit(c *Client, desired, actual *FeatureMembershipConfigmanagementConfigSyncGit) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SyncRepo, actual.SyncRepo) && !dcl.IsZeroValue(desired.SyncRepo) {
-		c.Config.Logger.Infof("Diff in SyncRepo.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SyncRepo), dcl.SprintResource(actual.SyncRepo))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SyncBranch, actual.SyncBranch) && !dcl.IsZeroValue(desired.SyncBranch) {
-		c.Config.Logger.Infof("Diff in SyncBranch.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SyncBranch), dcl.SprintResource(actual.SyncBranch))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.PolicyDir, actual.PolicyDir) && !dcl.IsZeroValue(desired.PolicyDir) {
-		c.Config.Logger.Infof("Diff in PolicyDir.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.PolicyDir), dcl.SprintResource(actual.PolicyDir))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SyncWaitSecs, actual.SyncWaitSecs) && !dcl.IsZeroValue(desired.SyncWaitSecs) {
-		c.Config.Logger.Infof("Diff in SyncWaitSecs.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SyncWaitSecs), dcl.SprintResource(actual.SyncWaitSecs))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SyncRev, actual.SyncRev) && !dcl.IsZeroValue(desired.SyncRev) {
-		c.Config.Logger.Infof("Diff in SyncRev.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SyncRev), dcl.SprintResource(actual.SyncRev))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.SecretType, actual.SecretType) && !dcl.IsZeroValue(desired.SecretType) {
-		c.Config.Logger.Infof("Diff in SecretType.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.SecretType), dcl.SprintResource(actual.SecretType))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.HttpsProxy, actual.HttpsProxy) && !dcl.IsZeroValue(desired.HttpsProxy) {
-		c.Config.Logger.Infof("Diff in HttpsProxy.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.HttpsProxy), dcl.SprintResource(actual.HttpsProxy))
-		return true
-	}
-	if !dcl.NameToSelfLink(desired.GcpServiceAccountEmail, actual.GcpServiceAccountEmail) && !dcl.IsZeroValue(desired.GcpServiceAccountEmail) {
-		c.Config.Logger.Infof("Diff in GcpServiceAccountEmail.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.GcpServiceAccountEmail), dcl.SprintResource(actual.GcpServiceAccountEmail))
-		return true
-	}
-	return false
-}
-
-func compareFeatureMembershipConfigmanagementConfigSyncGitSlice(c *Client, desired, actual []FeatureMembershipConfigmanagementConfigSyncGit) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureMembershipConfigmanagementConfigSyncGit, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareFeatureMembershipConfigmanagementConfigSyncGit(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementConfigSyncGit, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFeatureMembershipConfigmanagementConfigSyncGitMap(c *Client, desired, actual map[string]FeatureMembershipConfigmanagementConfigSyncGit) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureMembershipConfigmanagementConfigSyncGit, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementConfigSyncGit, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareFeatureMembershipConfigmanagementConfigSyncGit(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementConfigSyncGit, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareFeatureMembershipConfigmanagementPolicyControllerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1321,115 +1153,48 @@ func compareFeatureMembershipConfigmanagementPolicyControllerNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExemptableNamespaces, actual.ExemptableNamespaces, dcl.Info{}, fn.AddNest("ExemptableNamespaces")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExemptableNamespaces, actual.ExemptableNamespaces, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExemptableNamespaces")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReferentialRulesEnabled, actual.ReferentialRulesEnabled, dcl.Info{}, fn.AddNest("ReferentialRulesEnabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReferentialRulesEnabled, actual.ReferentialRulesEnabled, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReferentialRulesEnabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LogDeniesEnabled, actual.LogDeniesEnabled, dcl.Info{}, fn.AddNest("LogDeniesEnabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LogDeniesEnabled, actual.LogDeniesEnabled, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LogDeniesEnabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TemplateLibraryInstalled, actual.TemplateLibraryInstalled, dcl.Info{}, fn.AddNest("TemplateLibraryInstalled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TemplateLibraryInstalled, actual.TemplateLibraryInstalled, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TemplateLibraryInstalled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AuditIntervalSeconds, actual.AuditIntervalSeconds, dcl.Info{}, fn.AddNest("AuditIntervalSeconds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AuditIntervalSeconds, actual.AuditIntervalSeconds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuditIntervalSeconds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareFeatureMembershipConfigmanagementPolicyController(c *Client, desired, actual *FeatureMembershipConfigmanagementPolicyController) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
-		c.Config.Logger.Infof("Diff in Enabled.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enabled), dcl.SprintResource(actual.Enabled))
-		return true
-	}
-	if !dcl.StringSliceEquals(desired.ExemptableNamespaces, actual.ExemptableNamespaces) && !dcl.IsZeroValue(desired.ExemptableNamespaces) {
-		c.Config.Logger.Infof("Diff in ExemptableNamespaces.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ExemptableNamespaces), dcl.SprintResource(actual.ExemptableNamespaces))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.ReferentialRulesEnabled, actual.ReferentialRulesEnabled) && !dcl.IsZeroValue(desired.ReferentialRulesEnabled) {
-		c.Config.Logger.Infof("Diff in ReferentialRulesEnabled.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.ReferentialRulesEnabled), dcl.SprintResource(actual.ReferentialRulesEnabled))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.LogDeniesEnabled, actual.LogDeniesEnabled) && !dcl.IsZeroValue(desired.LogDeniesEnabled) {
-		c.Config.Logger.Infof("Diff in LogDeniesEnabled.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.LogDeniesEnabled), dcl.SprintResource(actual.LogDeniesEnabled))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.TemplateLibraryInstalled, actual.TemplateLibraryInstalled) && !dcl.IsZeroValue(desired.TemplateLibraryInstalled) {
-		c.Config.Logger.Infof("Diff in TemplateLibraryInstalled.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.TemplateLibraryInstalled), dcl.SprintResource(actual.TemplateLibraryInstalled))
-		return true
-	}
-	if !dcl.StringCanonicalize(desired.AuditIntervalSeconds, actual.AuditIntervalSeconds) && !dcl.IsZeroValue(desired.AuditIntervalSeconds) {
-		c.Config.Logger.Infof("Diff in AuditIntervalSeconds.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.AuditIntervalSeconds), dcl.SprintResource(actual.AuditIntervalSeconds))
-		return true
-	}
-	return false
-}
-
-func compareFeatureMembershipConfigmanagementPolicyControllerSlice(c *Client, desired, actual []FeatureMembershipConfigmanagementPolicyController) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureMembershipConfigmanagementPolicyController, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareFeatureMembershipConfigmanagementPolicyController(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementPolicyController, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFeatureMembershipConfigmanagementPolicyControllerMap(c *Client, desired, actual map[string]FeatureMembershipConfigmanagementPolicyController) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureMembershipConfigmanagementPolicyController, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementPolicyController, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareFeatureMembershipConfigmanagementPolicyController(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementPolicyController, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareFeatureMembershipConfigmanagementBinauthzNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1452,60 +1217,13 @@ func compareFeatureMembershipConfigmanagementBinauthzNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareFeatureMembershipConfigmanagementBinauthz(c *Client, desired, actual *FeatureMembershipConfigmanagementBinauthz) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
-		c.Config.Logger.Infof("Diff in Enabled.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enabled), dcl.SprintResource(actual.Enabled))
-		return true
-	}
-	return false
-}
-
-func compareFeatureMembershipConfigmanagementBinauthzSlice(c *Client, desired, actual []FeatureMembershipConfigmanagementBinauthz) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureMembershipConfigmanagementBinauthz, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareFeatureMembershipConfigmanagementBinauthz(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementBinauthz, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFeatureMembershipConfigmanagementBinauthzMap(c *Client, desired, actual map[string]FeatureMembershipConfigmanagementBinauthz) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureMembershipConfigmanagementBinauthz, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementBinauthz, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareFeatureMembershipConfigmanagementBinauthz(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementBinauthz, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 func compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1528,82 +1246,27 @@ func compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnablePodTreeLabels, actual.EnablePodTreeLabels, dcl.Info{}, fn.AddNest("EnablePodTreeLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnablePodTreeLabels, actual.EnablePodTreeLabels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnablePodTreeLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnableHierarchicalResourceQuota, actual.EnableHierarchicalResourceQuota, dcl.Info{}, fn.AddNest("EnableHierarchicalResourceQuota")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableHierarchicalResourceQuota, actual.EnableHierarchicalResourceQuota, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableHierarchicalResourceQuota")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-func compareFeatureMembershipConfigmanagementHierarchyController(c *Client, desired, actual *FeatureMembershipConfigmanagementHierarchyController) bool {
-	if desired == nil {
-		return false
-	}
-	if actual == nil {
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.Enabled, actual.Enabled) && !dcl.IsZeroValue(desired.Enabled) {
-		c.Config.Logger.Infof("Diff in Enabled.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.Enabled), dcl.SprintResource(actual.Enabled))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.EnablePodTreeLabels, actual.EnablePodTreeLabels) && !dcl.IsZeroValue(desired.EnablePodTreeLabels) {
-		c.Config.Logger.Infof("Diff in EnablePodTreeLabels.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnablePodTreeLabels), dcl.SprintResource(actual.EnablePodTreeLabels))
-		return true
-	}
-	if !dcl.BoolCanonicalize(desired.EnableHierarchicalResourceQuota, actual.EnableHierarchicalResourceQuota) && !dcl.IsZeroValue(desired.EnableHierarchicalResourceQuota) {
-		c.Config.Logger.Infof("Diff in EnableHierarchicalResourceQuota.\nDESIRED: %s\nACTUAL: %s\n", dcl.SprintResource(desired.EnableHierarchicalResourceQuota), dcl.SprintResource(actual.EnableHierarchicalResourceQuota))
-		return true
-	}
-	return false
-}
-
-func compareFeatureMembershipConfigmanagementHierarchyControllerSlice(c *Client, desired, actual []FeatureMembershipConfigmanagementHierarchyController) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureMembershipConfigmanagementHierarchyController, lengths unequal.")
-		return true
-	}
-	for i := 0; i < len(desired); i++ {
-		if compareFeatureMembershipConfigmanagementHierarchyController(c, &desired[i], &actual[i]) {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementHierarchyController, element %d.\nDESIRED: %s\nACTUAL: %s\n", i, dcl.SprintResource(desired[i]), dcl.SprintResource(actual[i]))
-			return true
-		}
-	}
-	return false
-}
-
-func compareFeatureMembershipConfigmanagementHierarchyControllerMap(c *Client, desired, actual map[string]FeatureMembershipConfigmanagementHierarchyController) bool {
-	if len(desired) != len(actual) {
-		c.Config.Logger.Info("Diff in FeatureMembershipConfigmanagementHierarchyController, lengths unequal.")
-		return true
-	}
-	for k, desiredValue := range desired {
-		actualValue, ok := actual[k]
-		if !ok {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementHierarchyController, key %s not found in ACTUAL.\n", k)
-			return true
-		}
-		if compareFeatureMembershipConfigmanagementHierarchyController(c, &desiredValue, &actualValue) {
-			c.Config.Logger.Infof("Diff in FeatureMembershipConfigmanagementHierarchyController, key %s.\nDESIRED: %s\nACTUAL: %s\n", k, dcl.SprintResource(desiredValue), dcl.SprintResource(actualValue))
-			return true
-		}
-	}
-	return false
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1716,14 +1379,14 @@ func flattenFeatureMembership(c *Client, i interface{}) *FeatureMembership {
 		return nil
 	}
 
-	r := &FeatureMembership{}
-	r.Membership = dcl.FlattenString(m["membership"])
-	r.Feature = dcl.FlattenString(m["feature"])
-	r.Location = dcl.FlattenString(m["location"])
-	r.Project = dcl.FlattenString(m["project"])
-	r.Configmanagement = flattenFeatureMembershipConfigmanagement(c, m["configmanagement"])
+	res := &FeatureMembership{}
+	res.Membership = dcl.FlattenString(m["membership"])
+	res.Feature = dcl.FlattenString(m["feature"])
+	res.Location = dcl.FlattenString(m["location"])
+	res.Project = dcl.FlattenString(m["project"])
+	res.Configmanagement = flattenFeatureMembershipConfigmanagement(c, m["configmanagement"])
 
-	return r
+	return res
 }
 
 // expandFeatureMembershipConfigmanagementMap expands the contents of FeatureMembershipConfigmanagement into a JSON
@@ -1810,10 +1473,11 @@ func flattenFeatureMembershipConfigmanagementSlice(c *Client, i interface{}) []F
 // expandFeatureMembershipConfigmanagement expands an instance of FeatureMembershipConfigmanagement into a JSON
 // request object.
 func expandFeatureMembershipConfigmanagement(c *Client, f *FeatureMembershipConfigmanagement) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandFeatureMembershipConfigmanagementConfigSync(c, f.ConfigSync); err != nil {
 		return nil, fmt.Errorf("error expanding ConfigSync into configSync: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1943,10 +1607,11 @@ func flattenFeatureMembershipConfigmanagementConfigSyncSlice(c *Client, i interf
 // expandFeatureMembershipConfigmanagementConfigSync expands an instance of FeatureMembershipConfigmanagementConfigSync into a JSON
 // request object.
 func expandFeatureMembershipConfigmanagementConfigSync(c *Client, f *FeatureMembershipConfigmanagementConfigSync) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v, err := expandFeatureMembershipConfigmanagementConfigSyncGit(c, f.Git); err != nil {
 		return nil, fmt.Errorf("error expanding Git into git: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2058,10 +1723,11 @@ func flattenFeatureMembershipConfigmanagementConfigSyncGitSlice(c *Client, i int
 // expandFeatureMembershipConfigmanagementConfigSyncGit expands an instance of FeatureMembershipConfigmanagementConfigSyncGit into a JSON
 // request object.
 func expandFeatureMembershipConfigmanagementConfigSyncGit(c *Client, f *FeatureMembershipConfigmanagementConfigSyncGit) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.SyncRepo; !dcl.IsEmptyValueIndirect(v) {
 		m["syncRepo"] = v
 	}
@@ -2195,10 +1861,11 @@ func flattenFeatureMembershipConfigmanagementPolicyControllerSlice(c *Client, i 
 // expandFeatureMembershipConfigmanagementPolicyController expands an instance of FeatureMembershipConfigmanagementPolicyController into a JSON
 // request object.
 func expandFeatureMembershipConfigmanagementPolicyController(c *Client, f *FeatureMembershipConfigmanagementPolicyController) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Enabled; !dcl.IsEmptyValueIndirect(v) {
 		m["enabled"] = v
 	}
@@ -2324,10 +1991,11 @@ func flattenFeatureMembershipConfigmanagementBinauthzSlice(c *Client, i interfac
 // expandFeatureMembershipConfigmanagementBinauthz expands an instance of FeatureMembershipConfigmanagementBinauthz into a JSON
 // request object.
 func expandFeatureMembershipConfigmanagementBinauthz(c *Client, f *FeatureMembershipConfigmanagementBinauthz) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Enabled; !dcl.IsEmptyValueIndirect(v) {
 		m["enabled"] = v
 	}
@@ -2433,10 +2101,11 @@ func flattenFeatureMembershipConfigmanagementHierarchyControllerSlice(c *Client,
 // expandFeatureMembershipConfigmanagementHierarchyController expands an instance of FeatureMembershipConfigmanagementHierarchyController into a JSON
 // request object.
 func expandFeatureMembershipConfigmanagementHierarchyController(c *Client, f *FeatureMembershipConfigmanagementHierarchyController) (map[string]interface{}, error) {
-	m := make(map[string]interface{})
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
+
+	m := make(map[string]interface{})
 	if v := f.Enabled; !dcl.IsEmptyValueIndirect(v) {
 		m["enabled"] = v
 	}
@@ -2505,5 +2174,36 @@ func (r *FeatureMembership) matcher(c *Client) func([]byte) bool {
 			return false
 		}
 		return true
+	}
+}
+
+func convertFieldDiffToFeatureMembershipDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]featureMembershipDiff, error) {
+	var diffs []featureMembershipDiff
+	for _, fd := range fds {
+		for _, op := range fd.ResultingOperation {
+			diff := featureMembershipDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
+			if op == "Recreate" {
+				diff.RequiresRecreate = true
+			} else {
+				op, err := convertOpNameTofeatureMembershipApiOperation(op, opts...)
+				if err != nil {
+					return nil, err
+				}
+				diff.UpdateOp = op
+			}
+			diffs = append(diffs, diff)
+		}
+	}
+	return diffs, nil
+}
+
+func convertOpNameTofeatureMembershipApiOperation(op string, opts ...dcl.ApplyOption) (featureMembershipApiOperation, error) {
+	switch op {
+
+	case "updateFeatureMembershipUpdateFeatureMembershipOperation":
+		return &updateFeatureMembershipUpdateFeatureMembershipOperation{}, nil
+
+	default:
+		return nil, fmt.Errorf("no such operation with name: %v", op)
 	}
 }

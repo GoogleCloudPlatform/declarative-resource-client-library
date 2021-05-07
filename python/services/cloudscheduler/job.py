@@ -190,33 +190,6 @@ class Job(object):
 
         return stub.ListCloudschedulerJob(request).items
 
-    @classmethod
-    def from_any(self, any_proto):
-        # Marshal any proto to regular proto.
-        res_proto = job_pb2.CloudschedulerJob()
-        any_proto.Unpack(res_proto)
-
-        res = Job()
-        res.name = Primitive.from_proto(res_proto.name)
-        res.description = Primitive.from_proto(res_proto.description)
-        res.pubsub_target = JobPubsubTarget.from_proto(res_proto.pubsub_target)
-        res.app_engine_http_target = JobAppEngineHttpTarget.from_proto(
-            res_proto.app_engine_http_target
-        )
-        res.http_target = JobHttpTarget.from_proto(res_proto.http_target)
-        res.schedule = Primitive.from_proto(res_proto.schedule)
-        res.time_zone = Primitive.from_proto(res_proto.time_zone)
-        res.user_update_time = Primitive.from_proto(res_proto.user_update_time)
-        res.state = JobStateEnum.from_proto(res_proto.state)
-        res.status = JobStatus.from_proto(res_proto.status)
-        res.schedule_time = Primitive.from_proto(res_proto.schedule_time)
-        res.last_attempt_time = Primitive.from_proto(res_proto.last_attempt_time)
-        res.retry_config = JobRetryConfig.from_proto(res_proto.retry_config)
-        res.attempt_deadline = Primitive.from_proto(res_proto.attempt_deadline)
-        res.project = Primitive.from_proto(res_proto.project)
-        res.location = Primitive.from_proto(res_proto.location)
-        return res
-
     def to_proto(self):
         resource = job_pb2.CloudschedulerJob()
         if Primitive.to_proto(self.name):
