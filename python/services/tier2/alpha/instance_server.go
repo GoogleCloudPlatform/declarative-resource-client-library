@@ -836,36 +836,11 @@ func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateK
 		return nil
 	}
 	obj := &alpha.InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -1056,36 +1031,11 @@ func ProtoToTier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		return nil
 	}
 	obj := &alpha.InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -1276,36 +1226,11 @@ func ProtoToTier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 		return nil
 	}
 	obj := &alpha.InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -1496,36 +1421,11 @@ func ProtoToTier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		return nil
 	}
 	obj := &alpha.InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -1716,36 +1616,11 @@ func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKe
 		return nil
 	}
 	obj := &alpha.InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -1936,36 +1811,11 @@ func ProtoToTier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 		return nil
 	}
 	obj := &alpha.InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -2156,36 +2006,11 @@ func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateK
 		return nil
 	}
 	obj := &alpha.InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -2376,36 +2201,11 @@ func ProtoToTier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 		return nil
 	}
 	obj := &alpha.InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -2596,36 +2396,11 @@ func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateK
 		return nil
 	}
 	obj := &alpha.InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -2816,36 +2591,11 @@ func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateK
 		return nil
 	}
 	obj := &alpha.InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -3036,36 +2786,11 @@ func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateK
 		return nil
 	}
 	obj := &alpha.InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -3256,36 +2981,11 @@ func ProtoToTier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 		return nil
 	}
 	obj := &alpha.InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -3476,36 +3176,11 @@ func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdat
 		return nil
 	}
 	obj := &alpha.InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -3696,36 +3371,11 @@ func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 		return nil
 	}
 	obj := &alpha.InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -3916,36 +3566,11 @@ func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotifi
 		return nil
 	}
 	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -4136,36 +3761,11 @@ func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpd
 		return nil
 	}
 	obj := &alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -4356,36 +3956,11 @@ func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyN
 		return nil
 	}
 	obj := &alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -4576,36 +4151,11 @@ func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdat
 		return nil
 	}
 	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -4796,36 +4346,11 @@ func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpd
 		return nil
 	}
 	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -5016,36 +4541,11 @@ func ProtoToTier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotifi
 		return nil
 	}
 	obj := &alpha.InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -5236,36 +4736,11 @@ func ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotif
 		return nil
 	}
 	obj := &alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -5456,36 +4931,11 @@ func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUp
 		return nil
 	}
 	obj := &alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -5676,36 +5126,11 @@ func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpda
 		return nil
 	}
 	obj := &alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p.GetKeyConfigs()),
 		DataVersion: dcl.Int64OrNil(p.DataVersion),
 		Delegate:    dcl.StringOrNil(p.Delegate),
 	}
 	for _, r := range p.GetKeyNotificationConfigs() {
 		obj.KeyNotificationConfigs = append(obj.KeyNotificationConfigs, *ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(r))
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p.GetKeyConfig()),
-	}
-	return obj
-}
-
-// ProtoToInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource from its proto representation.
-func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(p *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.StringOrNil(p.KeyOrVersionName),
-		Grant:            dcl.StringOrNil(p.Grant),
-		DelegatorGaiaId:  dcl.Int64OrNil(p.DelegatorGaiaId),
 	}
 	return obj
 }
@@ -6561,36 +5986,11 @@ func Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotif
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -6781,36 +6181,11 @@ func Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -7001,36 +6376,11 @@ func Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -7221,36 +6571,11 @@ func Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -7441,36 +6766,11 @@ func Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotifi
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -7661,36 +6961,11 @@ func Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -7881,36 +7156,11 @@ func Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotif
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -8101,36 +7351,11 @@ func Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -8321,36 +7546,11 @@ func Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotif
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -8541,36 +7741,11 @@ func Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotif
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -8761,36 +7936,11 @@ func Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotif
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -8981,36 +8131,11 @@ func Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -9201,36 +8326,11 @@ func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNot
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -9421,36 +8521,11 @@ func Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -9641,36 +8716,11 @@ func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotifications
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -9861,36 +8911,11 @@ func Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyN
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -10081,36 +9106,11 @@ func Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotifica
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -10301,36 +9301,11 @@ func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNot
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -10521,36 +9496,11 @@ func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyN
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -10741,36 +9691,11 @@ func Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -10961,36 +9886,11 @@ func Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotification
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -11181,36 +10081,11 @@ func Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKey
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }
@@ -11401,36 +10276,11 @@ func Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNo
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{
-		KeyConfigs:  Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o.KeyConfigs),
 		DataVersion: dcl.ValueOrEmptyInt64(o.DataVersion),
 		Delegate:    dcl.ValueOrEmptyString(o.Delegate),
 	}
 	for _, r := range o.KeyNotificationConfigs {
 		p.KeyNotificationConfigs = append(p.KeyNotificationConfigs, Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsToProto(&r))
-	}
-	return p
-}
-
-// InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs resource to its proto representation.
-func Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsToProto(o *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{
-		KeyConfig: Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o.KeyConfig),
-	}
-	return p
-}
-
-// InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto converts a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig resource to its proto representation.
-func Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigToProto(o *alpha.InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{
-		KeyOrVersionName: dcl.ValueOrEmptyString(o.KeyOrVersionName),
-		Grant:            dcl.ValueOrEmptyString(o.Grant),
-		DelegatorGaiaId:  dcl.ValueOrEmptyInt64(o.DelegatorGaiaId),
 	}
 	return p
 }

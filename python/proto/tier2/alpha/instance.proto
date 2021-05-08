@@ -585,20 +585,9 @@ message Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -686,20 +675,9 @@ message Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -787,20 +765,9 @@ message Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -888,20 +855,9 @@ message Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -989,20 +945,9 @@ message Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -1090,20 +1035,9 @@ message Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -1191,20 +1125,9 @@ message Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -1292,20 +1215,9 @@ message Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -1393,20 +1305,9 @@ message Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -1494,20 +1395,9 @@ message Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -1595,20 +1485,9 @@ message Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -1696,20 +1575,9 @@ message Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -1797,20 +1665,9 @@ message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -1898,20 +1755,9 @@ message Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -1999,20 +1845,9 @@ message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificati
 }
 
 message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -2100,20 +1935,9 @@ message Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate 
 }
 
 message Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -2201,20 +2025,9 @@ message Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -2302,20 +2115,9 @@ message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -2403,20 +2205,9 @@ message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate 
 }
 
 message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -2504,20 +2295,9 @@ message Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -2605,20 +2385,9 @@ message Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -2706,20 +2475,9 @@ message Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate
 }
 
 message Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {
@@ -2807,20 +2565,9 @@ message Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate {
 }
 
 message Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo {
-  Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs key_configs = 1;
-  int64 data_version = 2;
-  string delegate = 3;
-  repeated Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 4;
-}
-
-message Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-  Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig key_config = 1;
-}
-
-message Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-  string key_or_version_name = 1;
-  string grant = 2;
-  int64 delegator_gaia_id = 3;
+  int64 data_version = 1;
+  string delegate = 2;
+  repeated Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs key_notification_configs = 3;
 }
 
 message Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs {

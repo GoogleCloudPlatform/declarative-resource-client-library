@@ -186,12 +186,8 @@ class ClientTlsPolicy(object):
 
 class ClientTlsPolicyClientCertificate(object):
     def __init__(
-        self,
-        local_filepath: dict = None,
-        grpc_endpoint: dict = None,
-        certificate_provider_instance: dict = None,
+        self, grpc_endpoint: dict = None, certificate_provider_instance: dict = None
     ):
-        self.local_filepath = local_filepath
         self.grpc_endpoint = grpc_endpoint
         self.certificate_provider_instance = certificate_provider_instance
 
@@ -203,16 +199,6 @@ class ClientTlsPolicyClientCertificate(object):
         res = (
             client_tls_policy_pb2.NetworksecurityBetaClientTlsPolicyClientCertificate()
         )
-        if ClientTlsPolicyClientCertificateLocalFilepath.to_proto(
-            resource.local_filepath
-        ):
-            res.local_filepath.CopyFrom(
-                ClientTlsPolicyClientCertificateLocalFilepath.to_proto(
-                    resource.local_filepath
-                )
-            )
-        else:
-            res.ClearField("local_filepath")
         if ClientTlsPolicyClientCertificateGrpcEndpoint.to_proto(
             resource.grpc_endpoint
         ):
@@ -241,7 +227,6 @@ class ClientTlsPolicyClientCertificate(object):
             return None
 
         return ClientTlsPolicyClientCertificate(
-            local_filepath=resource.local_filepath,
             grpc_endpoint=resource.grpc_endpoint,
             certificate_provider_instance=resource.certificate_provider_instance,
         )
@@ -257,53 +242,6 @@ class ClientTlsPolicyClientCertificateArray(object):
     @classmethod
     def from_proto(self, resources):
         return [ClientTlsPolicyClientCertificate.from_proto(i) for i in resources]
-
-
-class ClientTlsPolicyClientCertificateLocalFilepath(object):
-    def __init__(self, certificate_path: str = None, private_key_path: str = None):
-        self.certificate_path = certificate_path
-        self.private_key_path = private_key_path
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            client_tls_policy_pb2.NetworksecurityBetaClientTlsPolicyClientCertificateLocalFilepath()
-        )
-        if Primitive.to_proto(resource.certificate_path):
-            res.certificate_path = Primitive.to_proto(resource.certificate_path)
-        if Primitive.to_proto(resource.private_key_path):
-            res.private_key_path = Primitive.to_proto(resource.private_key_path)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return ClientTlsPolicyClientCertificateLocalFilepath(
-            certificate_path=resource.certificate_path,
-            private_key_path=resource.private_key_path,
-        )
-
-
-class ClientTlsPolicyClientCertificateLocalFilepathArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            ClientTlsPolicyClientCertificateLocalFilepath.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            ClientTlsPolicyClientCertificateLocalFilepath.from_proto(i)
-            for i in resources
-        ]
 
 
 class ClientTlsPolicyClientCertificateGrpcEndpoint(object):
@@ -395,12 +333,8 @@ class ClientTlsPolicyClientCertificateCertificateProviderInstanceArray(object):
 
 class ClientTlsPolicyServerValidationCa(object):
     def __init__(
-        self,
-        ca_cert_path: str = None,
-        grpc_endpoint: dict = None,
-        certificate_provider_instance: dict = None,
+        self, grpc_endpoint: dict = None, certificate_provider_instance: dict = None
     ):
-        self.ca_cert_path = ca_cert_path
         self.grpc_endpoint = grpc_endpoint
         self.certificate_provider_instance = certificate_provider_instance
 
@@ -412,8 +346,6 @@ class ClientTlsPolicyServerValidationCa(object):
         res = (
             client_tls_policy_pb2.NetworksecurityBetaClientTlsPolicyServerValidationCa()
         )
-        if Primitive.to_proto(resource.ca_cert_path):
-            res.ca_cert_path = Primitive.to_proto(resource.ca_cert_path)
         if ClientTlsPolicyServerValidationCaGrpcEndpoint.to_proto(
             resource.grpc_endpoint
         ):
@@ -442,7 +374,6 @@ class ClientTlsPolicyServerValidationCa(object):
             return None
 
         return ClientTlsPolicyServerValidationCa(
-            ca_cert_path=resource.ca_cert_path,
             grpc_endpoint=resource.grpc_endpoint,
             certificate_provider_instance=resource.certificate_provider_instance,
         )

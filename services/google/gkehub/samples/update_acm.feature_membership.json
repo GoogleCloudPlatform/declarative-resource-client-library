@@ -28,7 +28,8 @@
     },
     "hierarchyController": {
       "enabled": true,
-      "enablePodTreeLabels": true
+      "enablePodTreeLabels": true,
+      "enableHierarchicalResourceQuota": true
     }
   }
 }

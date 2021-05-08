@@ -32,12 +32,21 @@ message VpcaccessConnector {
   string name = 1;
   string network = 2;
   string ip_cidr_range = 3;
-  int64 min_throughput = 4;
-  int64 max_throughput = 5;
-  string project = 6;
-  string location = 7;
-  VpcaccessConnectorStateEnum state = 8;
-  string self_link = 9;
+  VpcaccessConnectorStateEnum state = 4;
+  int64 min_throughput = 5;
+  int64 max_throughput = 6;
+  repeated string connected_projects = 7;
+  VpcaccessConnectorSubnet subnet = 8;
+  string machine_type = 9;
+  int64 min_instances = 10;
+  int64 max_instances = 11;
+  string project = 12;
+  string location = 13;
+}
+
+message VpcaccessConnectorSubnet {
+  string name = 1;
+  string project_id = 2;
 }
 
 message ApplyVpcaccessConnectorRequest {

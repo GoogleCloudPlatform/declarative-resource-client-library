@@ -87,9 +87,12 @@ func (d *FieldDiff) String() string {
 }
 
 func stringValue(i interface{}) string {
-	if reflect.ValueOf(i).Kind() == reflect.Ptr {
-		ptrV := reflect.Indirect(reflect.ValueOf(i))
-		return ptrV.String()
+	v := reflect.ValueOf(i)
+	if v.Kind() == reflect.Ptr {
+		if v.IsNil() {
+			return "nil"
+		}
+		return fmt.Sprintf("%v", reflect.Indirect(v))
 	}
 	return fmt.Sprintf("%v", i)
 }

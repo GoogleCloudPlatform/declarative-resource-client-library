@@ -58,11 +58,6 @@ components:
                 Authority certificate to validate the client certificate.
               items:
                 properties:
-                  caCertPath:
-                    description: The path to the file holding the CA certificate to
-                      validate the client or server certificate.
-                    type: string
-                    x-dcl-go-name: CaCertPath
                   certificateProviderInstance:
                     description: The certificate provider instance specification that
                       will be passed to the data plane, which will be used to load
@@ -153,26 +148,6 @@ components:
               type: object
               x-dcl-go-name: GrpcEndpoint
               x-dcl-go-type: ServerTlsPolicyServerCertificateGrpcEndpoint
-            localFilepath:
-              description: Obtain certificates and private key from a locally mounted
-                filesystem path.
-              properties:
-                certificatePath:
-                  description: Required. The path to the file that has the certificate
-                    containing public key.
-                  type: string
-                  x-dcl-go-name: CertificatePath
-                privateKeyPath:
-                  description: Required. The path to the file that has the private
-                    key.
-                  type: string
-                  x-dcl-go-name: PrivateKeyPath
-              required:
-              - certificatePath
-              - privateKeyPath
-              type: object
-              x-dcl-go-name: LocalFilepath
-              x-dcl-go-type: ServerTlsPolicyServerCertificateLocalFilepath
           type: object
           x-dcl-go-name: ServerCertificate
           x-dcl-go-type: ServerTlsPolicyServerCertificate

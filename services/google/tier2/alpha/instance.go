@@ -1757,7 +1757,6 @@ func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate) HashCode() s
 
 type InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                                  `json:"-"`
-	KeyConfigs             *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                                `json:"dataVersion"`
 	Delegate               *string                                                                                               `json:"delegate"`
 	KeyNotificationConfigs []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -1773,50 +1772,6 @@ func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificatio
 }
 
 func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                              `json:"-"`
-	KeyConfig *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -2113,7 +2068,6 @@ func (r *InstanceCreateRecipeStepsKeyNotificationsUpdate) HashCode() string {
 
 type InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                        `json:"-"`
-	KeyConfigs             *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                      `json:"dataVersion"`
 	Delegate               *string                                                                                     `json:"delegate"`
 	KeyNotificationConfigs []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -2129,50 +2083,6 @@ func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) St
 }
 
 func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                    `json:"-"`
-	KeyConfig *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -2469,7 +2379,6 @@ func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdate) HashCode() string {
 
 type InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                        `json:"-"`
-	KeyConfigs             *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                      `json:"dataVersion"`
 	Delegate               *string                                                                                     `json:"delegate"`
 	KeyNotificationConfigs []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -2485,50 +2394,6 @@ func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) St
 }
 
 func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                    `json:"-"`
-	KeyConfig *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -2825,7 +2690,6 @@ func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdate) HashCode() string {
 
 type InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                        `json:"-"`
-	KeyConfigs             *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                      `json:"dataVersion"`
 	Delegate               *string                                                                                     `json:"delegate"`
 	KeyNotificationConfigs []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -2841,50 +2705,6 @@ func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) St
 }
 
 func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                    `json:"-"`
-	KeyConfig *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -3181,7 +3001,6 @@ func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate) HashCode() st
 
 type InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                                 `json:"-"`
-	KeyConfigs             *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                               `json:"dataVersion"`
 	Delegate               *string                                                                                              `json:"delegate"`
 	KeyNotificationConfigs []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -3197,50 +3016,6 @@ func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotification
 }
 
 func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                             `json:"-"`
-	KeyConfig *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -3537,7 +3312,6 @@ func (r *InstanceResetRecipeStepsKeyNotificationsUpdate) HashCode() string {
 
 type InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                       `json:"-"`
-	KeyConfigs             *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                     `json:"dataVersion"`
 	Delegate               *string                                                                                    `json:"delegate"`
 	KeyNotificationConfigs []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -3553,50 +3327,6 @@ func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Str
 }
 
 func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                   `json:"-"`
-	KeyConfig *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -3893,7 +3623,6 @@ func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate) HashCode() s
 
 type InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                                  `json:"-"`
-	KeyConfigs             *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                                `json:"dataVersion"`
 	Delegate               *string                                                                                               `json:"delegate"`
 	KeyNotificationConfigs []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -3909,50 +3638,6 @@ func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificatio
 }
 
 func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                              `json:"-"`
-	KeyConfig *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -4249,7 +3934,6 @@ func (r *InstanceRepairRecipeStepsKeyNotificationsUpdate) HashCode() string {
 
 type InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                        `json:"-"`
-	KeyConfigs             *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                      `json:"dataVersion"`
 	Delegate               *string                                                                                     `json:"delegate"`
 	KeyNotificationConfigs []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -4265,50 +3949,6 @@ func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) St
 }
 
 func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                    `json:"-"`
-	KeyConfig *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -4605,7 +4245,6 @@ func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate) HashCode() s
 
 type InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                                  `json:"-"`
-	KeyConfigs             *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                                `json:"dataVersion"`
 	Delegate               *string                                                                                               `json:"delegate"`
 	KeyNotificationConfigs []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -4621,50 +4260,6 @@ func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificatio
 }
 
 func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                              `json:"-"`
-	KeyConfig *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -4961,7 +4556,6 @@ func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate) HashCode() s
 
 type InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                                  `json:"-"`
-	KeyConfigs             *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                                `json:"dataVersion"`
 	Delegate               *string                                                                                               `json:"delegate"`
 	KeyNotificationConfigs []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -4977,50 +4571,6 @@ func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificatio
 }
 
 func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                              `json:"-"`
-	KeyConfig *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -5317,7 +4867,6 @@ func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate) HashCode() s
 
 type InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                                  `json:"-"`
-	KeyConfigs             *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                                `json:"dataVersion"`
 	Delegate               *string                                                                                               `json:"delegate"`
 	KeyNotificationConfigs []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -5333,50 +4882,6 @@ func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificatio
 }
 
 func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                              `json:"-"`
-	KeyConfig *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -5673,7 +5178,6 @@ func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdate) HashCode() string {
 
 type InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                        `json:"-"`
-	KeyConfigs             *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                      `json:"dataVersion"`
 	Delegate               *string                                                                                     `json:"delegate"`
 	KeyNotificationConfigs []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -5689,50 +5193,6 @@ func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) St
 }
 
 func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                    `json:"-"`
-	KeyConfig *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -6029,7 +5489,6 @@ func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate) HashCode()
 
 type InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                                    `json:"-"`
-	KeyConfigs             *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                                  `json:"dataVersion"`
 	Delegate               *string                                                                                                 `json:"delegate"`
 	KeyNotificationConfigs []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -6045,50 +5504,6 @@ func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificat
 }
 
 func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                                `json:"-"`
-	KeyConfig *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -6385,7 +5800,6 @@ func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate) HashCode() string {
 
 type InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                          `json:"-"`
-	KeyConfigs             *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                        `json:"dataVersion"`
 	Delegate               *string                                                                                       `json:"delegate"`
 	KeyNotificationConfigs []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -6401,50 +5815,6 @@ func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) 
 }
 
 func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                      `json:"-"`
-	KeyConfig *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -6741,7 +6111,6 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate
 
 type InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                                                `json:"-"`
-	KeyConfigs             *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                                              `json:"dataVersion"`
 	Delegate               *string                                                                                                             `json:"delegate"`
 	KeyNotificationConfigs []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -6757,50 +6126,6 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate
 }
 
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                                            `json:"-"`
-	KeyConfig *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -7097,7 +6422,6 @@ func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate) HashCode
 
 type InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                                      `json:"-"`
-	KeyConfigs             *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                                    `json:"dataVersion"`
 	Delegate               *string                                                                                                   `json:"delegate"`
 	KeyNotificationConfigs []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -7113,50 +6437,6 @@ func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotific
 }
 
 func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                                  `json:"-"`
-	KeyConfig *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -7453,7 +6733,6 @@ func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate) HashCode() stri
 
 type InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                               `json:"-"`
-	KeyConfigs             *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                             `json:"dataVersion"`
 	Delegate               *string                                                                                            `json:"delegate"`
 	KeyNotificationConfigs []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -7469,50 +6748,6 @@ func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 }
 
 func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                           `json:"-"`
-	KeyConfig *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -7809,7 +7044,6 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate) HashCode()
 
 type InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                                    `json:"-"`
-	KeyConfigs             *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                                  `json:"dataVersion"`
 	Delegate               *string                                                                                                 `json:"delegate"`
 	KeyNotificationConfigs []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -7825,50 +7059,6 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificat
 }
 
 func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                                `json:"-"`
-	KeyConfig *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -8165,7 +7355,6 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate) HashCode
 
 type InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                                      `json:"-"`
-	KeyConfigs             *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                                    `json:"dataVersion"`
 	Delegate               *string                                                                                                   `json:"delegate"`
 	KeyNotificationConfigs []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -8181,50 +7370,6 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotific
 }
 
 func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                                  `json:"-"`
-	KeyConfig *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -8521,7 +7666,6 @@ func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdate) HashCode() string {
 
 type InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                          `json:"-"`
-	KeyConfigs             *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                        `json:"dataVersion"`
 	Delegate               *string                                                                                       `json:"delegate"`
 	KeyNotificationConfigs []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -8537,50 +7681,6 @@ func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) 
 }
 
 func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                      `json:"-"`
-	KeyConfig *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -8877,7 +7977,6 @@ func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdate) HashCode() string {
 
 type InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                           `json:"-"`
-	KeyConfigs             *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                         `json:"dataVersion"`
 	Delegate               *string                                                                                        `json:"delegate"`
 	KeyNotificationConfigs []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -8893,50 +7992,6 @@ func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
 }
 
 func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                       `json:"-"`
-	KeyConfig *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -9233,7 +8288,6 @@ func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate) HashCod
 
 type InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                                       `json:"-"`
-	KeyConfigs             *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                                     `json:"dataVersion"`
 	Delegate               *string                                                                                                    `json:"delegate"`
 	KeyNotificationConfigs []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -9249,50 +8303,6 @@ func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotifi
 }
 
 func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                                   `json:"-"`
-	KeyConfig *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -9589,7 +8599,6 @@ func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate) HashCode(
 
 type InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	empty                  bool                                                                                                     `json:"-"`
-	KeyConfigs             *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs              `json:"keyConfigs"`
 	DataVersion            *int64                                                                                                   `json:"dataVersion"`
 	Delegate               *string                                                                                                  `json:"delegate"`
 	KeyNotificationConfigs []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
@@ -9605,50 +8614,6 @@ func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotifica
 }
 
 func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs struct {
-	empty     bool                                                                                                 `json:"-"`
-	KeyConfig *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig `json:"keyConfig"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs = &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{empty: true}
-
-func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig struct {
-	empty            bool    `json:"-"`
-	KeyOrVersionName *string `json:"keyOrVersionName"`
-	Grant            *string `json:"grant"`
-	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
-}
-
-// This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig = &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{empty: true}
-
-func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

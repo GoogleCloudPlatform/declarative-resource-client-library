@@ -32,14 +32,8 @@ message NetworksecurityBetaServerTlsPolicy {
 }
 
 message NetworksecurityBetaServerTlsPolicyServerCertificate {
-  NetworksecurityBetaServerTlsPolicyServerCertificateLocalFilepath local_filepath = 1;
-  NetworksecurityBetaServerTlsPolicyServerCertificateGrpcEndpoint grpc_endpoint = 2;
-  NetworksecurityBetaServerTlsPolicyServerCertificateCertificateProviderInstance certificate_provider_instance = 3;
-}
-
-message NetworksecurityBetaServerTlsPolicyServerCertificateLocalFilepath {
-  string certificate_path = 1;
-  string private_key_path = 2;
+  NetworksecurityBetaServerTlsPolicyServerCertificateGrpcEndpoint grpc_endpoint = 1;
+  NetworksecurityBetaServerTlsPolicyServerCertificateCertificateProviderInstance certificate_provider_instance = 2;
 }
 
 message NetworksecurityBetaServerTlsPolicyServerCertificateGrpcEndpoint {
@@ -55,9 +49,8 @@ message NetworksecurityBetaServerTlsPolicyMtlsPolicy {
 }
 
 message NetworksecurityBetaServerTlsPolicyMtlsPolicyClientValidationCa {
-  string ca_cert_path = 1;
-  NetworksecurityBetaServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint grpc_endpoint = 2;
-  NetworksecurityBetaServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance certificate_provider_instance = 3;
+  NetworksecurityBetaServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint grpc_endpoint = 1;
+  NetworksecurityBetaServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance certificate_provider_instance = 2;
 }
 
 message NetworksecurityBetaServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint {

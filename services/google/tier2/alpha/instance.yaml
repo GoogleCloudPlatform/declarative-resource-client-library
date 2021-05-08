@@ -140,42 +140,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -586,42 +550,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -1042,42 +970,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -1536,42 +1428,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -1969,42 +1825,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -2409,42 +2229,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -2842,42 +2626,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -3275,42 +3023,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -3708,42 +3420,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -4141,42 +3817,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -4574,42 +4214,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -5007,42 +4611,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -5440,42 +5008,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -5873,42 +5405,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -6306,42 +5802,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -6739,42 +6199,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -7191,42 +6615,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -7624,42 +7012,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -8135,42 +7487,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -8568,42 +7884,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -9007,42 +8287,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -9490,42 +8734,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options
@@ -9923,42 +9131,6 @@ components:
                               the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
                             type: string
                             x-dcl-go-name: Delegate
-                          keyConfigs:
-                            description: 'The keys to send notifications about. If
-                              absent, all the watched keys are unregistered. TODO(b/185241040):
-                              remove once we stop using this in the binary'
-                            properties:
-                              keyConfig:
-                                description: The key, if any, about which notifications
-                                  should be sent, along with any configuration options
-                                  controlling notification behavior. This field may
-                                  be changed to repeated in the future, if we develop
-                                  a requirement to support multiple keys
-                                properties:
-                                  delegatorGaiaId:
-                                    description: The gaia id of the p4sa used as the
-                                      delegator in the call to DelegateGrant.
-                                    format: int64
-                                    type: integer
-                                    x-dcl-go-name: DelegatorGaiaId
-                                  grant:
-                                    description: The grant that gives CCFE access
-                                      to check key state. This should be a grant that
-                                      gives the user specified in KeyNotificationsInfo.delegate
-                                      access to the key (see go/grants-mvp-1pager).
-                                    type: string
-                                    x-dcl-go-name: Grant
-                                  keyOrVersionName:
-                                    description: The key or version name to watch.
-                                      This should not be a grant.
-                                    type: string
-                                    x-dcl-go-name: KeyOrVersionName
-                                type: object
-                                x-dcl-go-name: KeyConfig
-                                x-dcl-go-type: InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-                            type: object
-                            x-dcl-go-name: KeyConfigs
-                            x-dcl-go-type: InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
                           keyNotificationConfigs:
                             description: The keys, if any, about which notifications
                               should be sent, along with any configuration options

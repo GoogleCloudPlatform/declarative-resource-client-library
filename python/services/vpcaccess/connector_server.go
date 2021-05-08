@@ -37,18 +37,36 @@ func ProtoToVpcaccessConnectorStateEnum(e vpcaccesspb.VpcaccessConnectorStateEnu
 	return nil
 }
 
+// ProtoToConnectorSubnet converts a ConnectorSubnet resource from its proto representation.
+func ProtoToVpcaccessConnectorSubnet(p *vpcaccesspb.VpcaccessConnectorSubnet) *vpcaccess.ConnectorSubnet {
+	if p == nil {
+		return nil
+	}
+	obj := &vpcaccess.ConnectorSubnet{
+		Name:      dcl.StringOrNil(p.Name),
+		ProjectId: dcl.StringOrNil(p.ProjectId),
+	}
+	return obj
+}
+
 // ProtoToConnector converts a Connector resource from its proto representation.
 func ProtoToConnector(p *vpcaccesspb.VpcaccessConnector) *vpcaccess.Connector {
 	obj := &vpcaccess.Connector{
 		Name:          dcl.StringOrNil(p.Name),
 		Network:       dcl.StringOrNil(p.Network),
 		IPCidrRange:   dcl.StringOrNil(p.IpCidrRange),
+		State:         ProtoToVpcaccessConnectorStateEnum(p.GetState()),
 		MinThroughput: dcl.Int64OrNil(p.MinThroughput),
 		MaxThroughput: dcl.Int64OrNil(p.MaxThroughput),
+		Subnet:        ProtoToVpcaccessConnectorSubnet(p.GetSubnet()),
+		MachineType:   dcl.StringOrNil(p.MachineType),
+		MinInstances:  dcl.Int64OrNil(p.MinInstances),
+		MaxInstances:  dcl.Int64OrNil(p.MaxInstances),
 		Project:       dcl.StringOrNil(p.Project),
 		Location:      dcl.StringOrNil(p.Location),
-		State:         ProtoToVpcaccessConnectorStateEnum(p.GetState()),
-		SelfLink:      dcl.StringOrNil(p.SelfLink),
+	}
+	for _, r := range p.GetConnectedProjects() {
+		obj.ConnectedProjects = append(obj.ConnectedProjects, r)
 	}
 	return obj
 }
@@ -64,18 +82,36 @@ func VpcaccessConnectorStateEnumToProto(e *vpcaccess.ConnectorStateEnum) vpcacce
 	return vpcaccesspb.VpcaccessConnectorStateEnum(0)
 }
 
+// ConnectorSubnetToProto converts a ConnectorSubnet resource to its proto representation.
+func VpcaccessConnectorSubnetToProto(o *vpcaccess.ConnectorSubnet) *vpcaccesspb.VpcaccessConnectorSubnet {
+	if o == nil {
+		return nil
+	}
+	p := &vpcaccesspb.VpcaccessConnectorSubnet{
+		Name:      dcl.ValueOrEmptyString(o.Name),
+		ProjectId: dcl.ValueOrEmptyString(o.ProjectId),
+	}
+	return p
+}
+
 // ConnectorToProto converts a Connector resource to its proto representation.
 func ConnectorToProto(resource *vpcaccess.Connector) *vpcaccesspb.VpcaccessConnector {
 	p := &vpcaccesspb.VpcaccessConnector{
 		Name:          dcl.ValueOrEmptyString(resource.Name),
 		Network:       dcl.ValueOrEmptyString(resource.Network),
 		IpCidrRange:   dcl.ValueOrEmptyString(resource.IPCidrRange),
+		State:         VpcaccessConnectorStateEnumToProto(resource.State),
 		MinThroughput: dcl.ValueOrEmptyInt64(resource.MinThroughput),
 		MaxThroughput: dcl.ValueOrEmptyInt64(resource.MaxThroughput),
+		Subnet:        VpcaccessConnectorSubnetToProto(resource.Subnet),
+		MachineType:   dcl.ValueOrEmptyString(resource.MachineType),
+		MinInstances:  dcl.ValueOrEmptyInt64(resource.MinInstances),
+		MaxInstances:  dcl.ValueOrEmptyInt64(resource.MaxInstances),
 		Project:       dcl.ValueOrEmptyString(resource.Project),
 		Location:      dcl.ValueOrEmptyString(resource.Location),
-		State:         VpcaccessConnectorStateEnumToProto(resource.State),
-		SelfLink:      dcl.ValueOrEmptyString(resource.SelfLink),
+	}
+	for _, r := range resource.ConnectedProjects {
+		p.ConnectedProjects = append(p.ConnectedProjects, r)
 	}
 
 	return p

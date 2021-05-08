@@ -1765,12 +1765,10 @@ class InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -1783,16 +1781,6 @@ class InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsI
         res = (
             instance_pb2.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -1813,7 +1801,6 @@ class InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -1838,131 +1825,6 @@ class InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsI
     def from_proto(self, resources):
         return [
             InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -2731,12 +2593,10 @@ class InstanceCreateRecipeStepsKeyNotificationsUpdateArray(object):
 class InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -2749,16 +2609,6 @@ class InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
         res = (
             instance_pb2.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -2779,7 +2629,6 @@ class InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
             return None
 
         return InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -2802,131 +2651,6 @@ class InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoArray(o
     def from_proto(self, resources):
         return [
             InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -3695,12 +3419,10 @@ class InstanceDeleteRecipeStepsKeyNotificationsUpdateArray(object):
 class InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -3713,16 +3435,6 @@ class InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
         res = (
             instance_pb2.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -3743,7 +3455,6 @@ class InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
             return None
 
         return InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -3766,131 +3477,6 @@ class InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoArray(o
     def from_proto(self, resources):
         return [
             InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -4659,12 +4245,10 @@ class InstanceUpdateRecipeStepsKeyNotificationsUpdateArray(object):
 class InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -4677,16 +4261,6 @@ class InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
         res = (
             instance_pb2.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -4707,7 +4281,6 @@ class InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
             return None
 
         return InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -4730,131 +4303,6 @@ class InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoArray(o
     def from_proto(self, resources):
         return [
             InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -5659,12 +5107,10 @@ class InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -5677,16 +5123,6 @@ class InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
         res = (
             instance_pb2.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -5707,7 +5143,6 @@ class InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
             return None
 
         return InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -5732,131 +5167,6 @@ class InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
     def from_proto(self, resources):
         return [
             InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -6621,12 +5931,10 @@ class InstanceResetRecipeStepsKeyNotificationsUpdateArray(object):
 class InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -6639,16 +5947,6 @@ class InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object)
         res = (
             instance_pb2.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -6669,7 +5967,6 @@ class InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object)
             return None
 
         return InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -6692,131 +5989,6 @@ class InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoArray(ob
     def from_proto(self, resources):
         return [
             InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -7625,12 +6797,10 @@ class InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -7643,16 +6813,6 @@ class InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsI
         res = (
             instance_pb2.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -7673,7 +6833,6 @@ class InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -7698,131 +6857,6 @@ class InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsI
     def from_proto(self, resources):
         return [
             InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -8591,12 +7625,10 @@ class InstanceRepairRecipeStepsKeyNotificationsUpdateArray(object):
 class InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -8609,16 +7641,6 @@ class InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
         res = (
             instance_pb2.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -8639,7 +7661,6 @@ class InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
             return None
 
         return InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -8662,131 +7683,6 @@ class InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoArray(o
     def from_proto(self, resources):
         return [
             InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -9595,12 +8491,10 @@ class InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -9613,16 +8507,6 @@ class InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsI
         res = (
             instance_pb2.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -9643,7 +8527,6 @@ class InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -9668,131 +8551,6 @@ class InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsI
     def from_proto(self, resources):
         return [
             InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -10601,12 +9359,10 @@ class InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -10619,16 +9375,6 @@ class InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsI
         res = (
             instance_pb2.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -10649,7 +9395,6 @@ class InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -10674,131 +9419,6 @@ class InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsI
     def from_proto(self, resources):
         return [
             InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -11607,12 +10227,10 @@ class InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -11625,16 +10243,6 @@ class InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsI
         res = (
             instance_pb2.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -11655,7 +10263,6 @@ class InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -11680,131 +10287,6 @@ class InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsI
     def from_proto(self, resources):
         return [
             InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -12573,12 +11055,10 @@ class InstanceFreezeRecipeStepsKeyNotificationsUpdateArray(object):
 class InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -12591,16 +11071,6 @@ class InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
         res = (
             instance_pb2.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -12621,7 +11091,6 @@ class InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
             return None
 
         return InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -12644,131 +11113,6 @@ class InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoArray(o
     def from_proto(self, resources):
         return [
             InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -13581,12 +11925,10 @@ class InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotification
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -13599,16 +11941,6 @@ class InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotification
         res = (
             instance_pb2.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -13629,7 +11961,6 @@ class InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotification
             return None
 
         return InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -13654,131 +11985,6 @@ class InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotification
     def from_proto(self, resources):
         return [
             InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -14552,12 +12758,10 @@ class InstanceUnfreezeRecipeStepsKeyNotificationsUpdateArray(object):
 class InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -14570,16 +12774,6 @@ class InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(obje
         res = (
             instance_pb2.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -14600,7 +12794,6 @@ class InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(obje
             return None
 
         return InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -14625,131 +12818,6 @@ class InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoArray
     def from_proto(self, resources):
         return [
             InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -15621,12 +13689,10 @@ class InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKey
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -15639,16 +13705,6 @@ class InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKey
         res = (
             instance_pb2.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -15669,7 +13725,6 @@ class InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKey
             return None
 
         return InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -15694,131 +13749,6 @@ class InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKey
     def from_proto(self, resources):
         return [
             InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -16636,12 +14566,10 @@ class InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificati
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -16654,16 +14582,6 @@ class InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificati
         res = (
             instance_pb2.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -16684,7 +14602,6 @@ class InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificati
             return None
 
         return InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -16709,131 +14626,6 @@ class InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificati
     def from_proto(self, resources):
         return [
             InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -17631,12 +15423,10 @@ class InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -17649,16 +15439,6 @@ class InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
         res = (
             instance_pb2.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -17679,7 +15459,6 @@ class InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
             return None
 
         return InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -17704,131 +15483,6 @@ class InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
     def from_proto(self, resources):
         return [
             InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -18641,12 +16295,10 @@ class InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotification
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -18659,16 +16311,6 @@ class InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotification
         res = (
             instance_pb2.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -18689,7 +16331,6 @@ class InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotification
             return None
 
         return InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -18714,131 +16355,6 @@ class InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotification
     def from_proto(self, resources):
         return [
             InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -19656,12 +17172,10 @@ class InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificati
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -19674,16 +17188,6 @@ class InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificati
         res = (
             instance_pb2.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -19704,7 +17208,6 @@ class InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificati
             return None
 
         return InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -19729,131 +17232,6 @@ class InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificati
     def from_proto(self, resources):
         return [
             InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -20627,12 +18005,10 @@ class InstanceReadonlyRecipeStepsKeyNotificationsUpdateArray(object):
 class InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -20645,16 +18021,6 @@ class InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(obje
         res = (
             instance_pb2.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -20675,7 +18041,6 @@ class InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(obje
             return None
 
         return InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -20700,131 +18065,6 @@ class InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoArray
     def from_proto(self, resources):
         return [
             InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -21610,12 +18850,10 @@ class InstanceReconcileRecipeStepsKeyNotificationsUpdateArray(object):
 class InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -21628,16 +18866,6 @@ class InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(obj
         res = (
             instance_pb2.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -21658,7 +18886,6 @@ class InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(obj
             return None
 
         return InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -21683,131 +18910,6 @@ class InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoArra
     def from_proto(self, resources):
         return [
             InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -22630,12 +19732,10 @@ class InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificat
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -22648,16 +19748,6 @@ class InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificat
         res = (
             instance_pb2.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -22678,7 +19768,6 @@ class InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificat
             return None
 
         return InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -22703,131 +19792,6 @@ class InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificat
     def from_proto(self, resources):
         return [
             InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources
@@ -23643,12 +20607,10 @@ class InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificatio
 ):
     def __init__(
         self,
-        key_configs: dict = None,
         data_version: int = None,
         delegate: str = None,
         key_notification_configs: list = None,
     ):
-        self.key_configs = key_configs
         self.data_version = data_version
         self.delegate = delegate
         self.key_notification_configs = key_notification_configs
@@ -23661,16 +20623,6 @@ class InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificatio
         res = (
             instance_pb2.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo()
         )
-        if InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-            resource.key_configs
-        ):
-            res.key_configs.CopyFrom(
-                InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                    resource.key_configs
-                )
-            )
-        else:
-            res.ClearField("key_configs")
         if Primitive.to_proto(resource.data_version):
             res.data_version = Primitive.to_proto(resource.data_version)
         if Primitive.to_proto(resource.delegate):
@@ -23691,7 +20643,6 @@ class InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificatio
             return None
 
         return InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            key_configs=resource.key_configs,
             data_version=resource.data_version,
             delegate=resource.delegate,
             key_notification_configs=resource.key_notification_configs,
@@ -23716,131 +20667,6 @@ class InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificatio
     def from_proto(self, resources):
         return [
             InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-    object
-):
-    def __init__(self, key_config: dict = None):
-        self.key_config = key_config
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs()
-        )
-        if InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-            resource.key_config
-        ):
-            res.key_config.CopyFrom(
-                InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                    resource.key_config
-                )
-            )
-        else:
-            res.ClearField("key_config")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(
-            key_config=resource.key_config,
-        )
-
-
-class InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs.from_proto(
-                i
-            )
-            for i in resources
-        ]
-
-
-class InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-    object
-):
-    def __init__(
-        self,
-        key_or_version_name: str = None,
-        grant: str = None,
-        delegator_gaia_id: int = None,
-    ):
-        self.key_or_version_name = key_or_version_name
-        self.grant = grant
-        self.delegator_gaia_id = delegator_gaia_id
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            instance_pb2.Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig()
-        )
-        if Primitive.to_proto(resource.key_or_version_name):
-            res.key_or_version_name = Primitive.to_proto(resource.key_or_version_name)
-        if Primitive.to_proto(resource.grant):
-            res.grant = Primitive.to_proto(resource.grant)
-        if Primitive.to_proto(resource.delegator_gaia_id):
-            res.delegator_gaia_id = Primitive.to_proto(resource.delegator_gaia_id)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
-        )
-
-
-class InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigArray(
-    object
-):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.to_proto(
-                i
-            )
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig.from_proto(
                 i
             )
             for i in resources

@@ -31,18 +31,20 @@ func (r *Connector) validate() error {
 	if err := dcl.RequiredParameter(r.Name, "Name"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "network"); err != nil {
-		return err
-	}
-	if err := dcl.Required(r, "ipCidrRange"); err != nil {
-		return err
-	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
 		return err
 	}
 	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
 		return err
 	}
+	if !dcl.IsEmptyValueIndirect(r.Subnet) {
+		if err := r.Subnet.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ConnectorSubnet) validate() error {
 	return nil
 }
 
@@ -264,12 +266,6 @@ func (op *createConnectorOperation) do(ctx context.Context, r *Connector, c *Cli
 }
 
 func (c *Client) getConnectorRaw(ctx context.Context, r *Connector) ([]byte, error) {
-	if dcl.IsZeroValue(r.MinThroughput) {
-		r.MinThroughput = dcl.Int64(200)
-	}
-	if dcl.IsZeroValue(r.MaxThroughput) {
-		r.MaxThroughput = dcl.Int64(1000)
-	}
 
 	u, err := connectorGetURL(c.Config.BasePath, r.urlNormalized())
 	if err != nil {
@@ -352,24 +348,17 @@ func canonicalizeConnectorInitialState(rawInitial, rawDesired *Connector) (*Conn
 
 func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts ...dcl.ApplyOption) (*Connector, error) {
 
-	if dcl.IsZeroValue(rawDesired.MinThroughput) {
-		rawDesired.MinThroughput = dcl.Int64(200)
-	}
-
-	if dcl.IsZeroValue(rawDesired.MaxThroughput) {
-		rawDesired.MaxThroughput = dcl.Int64(1000)
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
+		rawDesired.Subnet = canonicalizeConnectorSubnet(rawDesired.Subnet, nil, opts...)
 
 		return rawDesired, nil
 	}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.StringCanonicalize(rawDesired.Network, rawInitial.Network) {
+	if dcl.NameToSelfLink(rawDesired.Network, rawInitial.Network) {
 		rawDesired.Network = rawInitial.Network
 	}
 	if dcl.StringCanonicalize(rawDesired.IPCidrRange, rawInitial.IPCidrRange) {
@@ -380,6 +369,16 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 	}
 	if dcl.IsZeroValue(rawDesired.MaxThroughput) {
 		rawDesired.MaxThroughput = rawInitial.MaxThroughput
+	}
+	rawDesired.Subnet = canonicalizeConnectorSubnet(rawDesired.Subnet, rawInitial.Subnet, opts...)
+	if dcl.StringCanonicalize(rawDesired.MachineType, rawInitial.MachineType) {
+		rawDesired.MachineType = rawInitial.MachineType
+	}
+	if dcl.IsZeroValue(rawDesired.MinInstances) {
+		rawDesired.MinInstances = rawInitial.MinInstances
+	}
+	if dcl.IsZeroValue(rawDesired.MaxInstances) {
+		rawDesired.MaxInstances = rawInitial.MaxInstances
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
@@ -398,7 +397,7 @@ func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*C
 	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
 		rawNew.Network = rawDesired.Network
 	} else {
-		if dcl.StringCanonicalize(rawDesired.Network, rawNew.Network) {
+		if dcl.NameToSelfLink(rawDesired.Network, rawNew.Network) {
 			rawNew.Network = rawDesired.Network
 		}
 	}
@@ -411,6 +410,11 @@ func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*C
 		}
 	}
 
+	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
+		rawNew.State = rawDesired.State
+	} else {
+	}
+
 	if dcl.IsEmptyValueIndirect(rawNew.MinThroughput) && dcl.IsEmptyValueIndirect(rawDesired.MinThroughput) {
 		rawNew.MinThroughput = rawDesired.MinThroughput
 	} else {
@@ -421,24 +425,120 @@ func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*C
 	} else {
 	}
 
+	if dcl.IsEmptyValueIndirect(rawNew.ConnectedProjects) && dcl.IsEmptyValueIndirect(rawDesired.ConnectedProjects) {
+		rawNew.ConnectedProjects = rawDesired.ConnectedProjects
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Subnet) && dcl.IsEmptyValueIndirect(rawDesired.Subnet) {
+		rawNew.Subnet = rawDesired.Subnet
+	} else {
+		rawNew.Subnet = canonicalizeNewConnectorSubnet(c, rawDesired.Subnet, rawNew.Subnet)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.MachineType) && dcl.IsEmptyValueIndirect(rawDesired.MachineType) {
+		rawNew.MachineType = rawDesired.MachineType
+	} else {
+		if dcl.StringCanonicalize(rawDesired.MachineType, rawNew.MachineType) {
+			rawNew.MachineType = rawDesired.MachineType
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.MinInstances) && dcl.IsEmptyValueIndirect(rawDesired.MinInstances) {
+		rawNew.MinInstances = rawDesired.MinInstances
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.MaxInstances) && dcl.IsEmptyValueIndirect(rawDesired.MaxInstances) {
+		rawNew.MaxInstances = rawDesired.MaxInstances
+	} else {
+	}
+
 	rawNew.Project = rawDesired.Project
 
 	rawNew.Location = rawDesired.Location
 
-	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
-		rawNew.State = rawDesired.State
-	} else {
+	return rawNew, nil
+}
+
+func canonicalizeConnectorSubnet(des, initial *ConnectorSubnet, opts ...dcl.ApplyOption) *ConnectorSubnet {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
-		rawNew.SelfLink = rawDesired.SelfLink
-	} else {
-		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
-			rawNew.SelfLink = rawDesired.SelfLink
+	if initial == nil {
+		return des
+	}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		des.Name = initial.Name
+	}
+	if dcl.StringCanonicalize(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
+		des.ProjectId = initial.ProjectId
+	}
+
+	return des
+}
+
+func canonicalizeNewConnectorSubnet(c *Client, des, nw *ConnectorSubnet) *ConnectorSubnet {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.ProjectId, nw.ProjectId) {
+		nw.ProjectId = des.ProjectId
+	}
+
+	return nw
+}
+
+func canonicalizeNewConnectorSubnetSet(c *Client, des, nw []ConnectorSubnet) []ConnectorSubnet {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ConnectorSubnet
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareConnectorSubnetNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
 		}
 	}
+	reorderedNew = append(reorderedNew, nw...)
 
-	return rawNew, nil
+	return reorderedNew
+}
+
+func canonicalizeNewConnectorSubnetSlice(c *Client, des, nw []ConnectorSubnet) []ConnectorSubnet {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ConnectorSubnet
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConnectorSubnet(c, &d, &n))
+	}
+
+	return items
 }
 
 type connectorDiff struct {
@@ -479,7 +579,7 @@ func diffConnector(c *Client, desired, actual *Connector, opts ...dcl.ApplyOptio
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -493,6 +593,19 @@ func diffConnector(c *Client, desired, actual *Connector, opts ...dcl.ApplyOptio
 	}
 
 	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPCidrRange")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -531,7 +644,72 @@ func diffConnector(c *Client, desired, actual *Connector, opts ...dcl.ApplyOptio
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConnectedProjects, actual.ConnectedProjects, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConnectedProjects")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
+	}
+
+	if ds, err := dcl.Diff(desired.Subnet, actual.Subnet, dcl.Info{ObjectFunction: compareConnectorSubnetNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subnet")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
+	}
+
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
+	}
+
+	if ds, err := dcl.Diff(desired.MinInstances, actual.MinInstances, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinInstances")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
+	}
+
+	if ds, err := dcl.Diff(desired.MaxInstances, actual.MaxInstances, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxInstances")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+
+		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, dsOld...)
+	}
+
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -545,32 +723,6 @@ func diffConnector(c *Client, desired, actual *Connector, opts ...dcl.ApplyOptio
 	}
 
 	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
-	}
-
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToConnectorDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
-	}
-
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -607,6 +759,41 @@ func diffConnector(c *Client, desired, actual *Connector, opts ...dcl.ApplyOptio
 
 	return deduped, nil
 }
+func compareConnectorSubnetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ConnectorSubnet)
+	if !ok {
+		desiredNotPointer, ok := d.(ConnectorSubnet)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectorSubnet or *ConnectorSubnet", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ConnectorSubnet)
+	if !ok {
+		actualNotPointer, ok := a.(ConnectorSubnet)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectorSubnet", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
 
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
@@ -616,9 +803,9 @@ func (r *Connector) urlNormalized() *Connector {
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Network = dcl.SelfLinkToName(r.Network)
 	normalized.IPCidrRange = dcl.SelfLinkToName(r.IPCidrRange)
+	normalized.MachineType = dcl.SelfLinkToName(r.MachineType)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
 
@@ -681,11 +868,31 @@ func expandConnector(c *Client, f *Connector) (map[string]interface{}, error) {
 	if v := f.IPCidrRange; !dcl.IsEmptyValueIndirect(v) {
 		m["ipCidrRange"] = v
 	}
+	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
+		m["state"] = v
+	}
 	if v := f.MinThroughput; !dcl.IsEmptyValueIndirect(v) {
 		m["minThroughput"] = v
 	}
 	if v := f.MaxThroughput; !dcl.IsEmptyValueIndirect(v) {
 		m["maxThroughput"] = v
+	}
+	if v := f.ConnectedProjects; !dcl.IsEmptyValueIndirect(v) {
+		m["connectedProjects"] = v
+	}
+	if v, err := expandConnectorSubnet(c, f.Subnet); err != nil {
+		return nil, fmt.Errorf("error expanding Subnet into subnet: %w", err)
+	} else if v != nil {
+		m["subnet"] = v
+	}
+	if v := f.MachineType; !dcl.IsEmptyValueIndirect(v) {
+		m["machineType"] = v
+	}
+	if v := f.MinInstances; !dcl.IsEmptyValueIndirect(v) {
+		m["minInstances"] = v
+	}
+	if v := f.MaxInstances; !dcl.IsEmptyValueIndirect(v) {
+		m["maxInstances"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
@@ -696,12 +903,6 @@ func expandConnector(c *Client, f *Connector) (map[string]interface{}, error) {
 		return nil, fmt.Errorf("error expanding Location into location: %w", err)
 	} else if v != nil {
 		m["location"] = v
-	}
-	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
-		m["state"] = v
-	}
-	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {
-		m["selfLink"] = v
 	}
 
 	return m, nil
@@ -722,22 +923,132 @@ func flattenConnector(c *Client, i interface{}) *Connector {
 	res.Name = dcl.FlattenString(m["name"])
 	res.Network = dcl.FlattenString(m["network"])
 	res.IPCidrRange = dcl.FlattenString(m["ipCidrRange"])
+	res.State = flattenConnectorStateEnum(m["state"])
 	res.MinThroughput = dcl.FlattenInteger(m["minThroughput"])
-	if _, ok := m["minThroughput"]; !ok {
-		c.Config.Logger.Info("Using default value for minThroughput")
-		res.MinThroughput = dcl.Int64(200)
-	}
 	res.MaxThroughput = dcl.FlattenInteger(m["maxThroughput"])
-	if _, ok := m["maxThroughput"]; !ok {
-		c.Config.Logger.Info("Using default value for maxThroughput")
-		res.MaxThroughput = dcl.Int64(1000)
-	}
+	res.ConnectedProjects = dcl.FlattenStringSlice(m["connectedProjects"])
+	res.Subnet = flattenConnectorSubnet(c, m["subnet"])
+	res.MachineType = dcl.FlattenString(m["machineType"])
+	res.MinInstances = dcl.FlattenInteger(m["minInstances"])
+	res.MaxInstances = dcl.FlattenInteger(m["maxInstances"])
 	res.Project = dcl.FlattenString(m["project"])
 	res.Location = dcl.FlattenString(m["location"])
-	res.State = flattenConnectorStateEnum(m["state"])
-	res.SelfLink = dcl.FlattenString(m["selfLink"])
 
 	return res
+}
+
+// expandConnectorSubnetMap expands the contents of ConnectorSubnet into a JSON
+// request object.
+func expandConnectorSubnetMap(c *Client, f map[string]ConnectorSubnet) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandConnectorSubnet(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandConnectorSubnetSlice expands the contents of ConnectorSubnet into a JSON
+// request object.
+func expandConnectorSubnetSlice(c *Client, f []ConnectorSubnet) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandConnectorSubnet(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenConnectorSubnetMap flattens the contents of ConnectorSubnet from a JSON
+// response object.
+func flattenConnectorSubnetMap(c *Client, i interface{}) map[string]ConnectorSubnet {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConnectorSubnet{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConnectorSubnet{}
+	}
+
+	items := make(map[string]ConnectorSubnet)
+	for k, item := range a {
+		items[k] = *flattenConnectorSubnet(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenConnectorSubnetSlice flattens the contents of ConnectorSubnet from a JSON
+// response object.
+func flattenConnectorSubnetSlice(c *Client, i interface{}) []ConnectorSubnet {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConnectorSubnet{}
+	}
+
+	if len(a) == 0 {
+		return []ConnectorSubnet{}
+	}
+
+	items := make([]ConnectorSubnet, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConnectorSubnet(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandConnectorSubnet expands an instance of ConnectorSubnet into a JSON
+// request object.
+func expandConnectorSubnet(c *Client, f *ConnectorSubnet) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.ProjectId; !dcl.IsEmptyValueIndirect(v) {
+		m["projectId"] = v
+	}
+
+	return m, nil
+}
+
+// flattenConnectorSubnet flattens an instance of ConnectorSubnet from a JSON
+// response object.
+func flattenConnectorSubnet(c *Client, i interface{}) *ConnectorSubnet {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ConnectorSubnet{}
+	r.Name = dcl.FlattenString(m["name"])
+	r.ProjectId = dcl.FlattenString(m["projectId"])
+
+	return r
 }
 
 // flattenConnectorStateEnumSlice flattens the contents of ConnectorStateEnum from a JSON

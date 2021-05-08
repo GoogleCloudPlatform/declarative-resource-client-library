@@ -48,11 +48,6 @@ func (r *ClientTlsPolicy) validate() error {
 	return nil
 }
 func (r *ClientTlsPolicyClientCertificate) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.LocalFilepath) {
-		if err := r.LocalFilepath.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.GrpcEndpoint) {
 		if err := r.GrpcEndpoint.validate(); err != nil {
 			return err
@@ -62,15 +57,6 @@ func (r *ClientTlsPolicyClientCertificate) validate() error {
 		if err := r.CertificateProviderInstance.validate(); err != nil {
 			return err
 		}
-	}
-	return nil
-}
-func (r *ClientTlsPolicyClientCertificateLocalFilepath) validate() error {
-	if err := dcl.Required(r, "certificatePath"); err != nil {
-		return err
-	}
-	if err := dcl.Required(r, "privateKeyPath"); err != nil {
-		return err
 	}
 	return nil
 }
@@ -626,7 +612,6 @@ func canonicalizeClientTlsPolicyClientCertificate(des, initial *ClientTlsPolicyC
 		return des
 	}
 
-	des.LocalFilepath = canonicalizeClientTlsPolicyClientCertificateLocalFilepath(des.LocalFilepath, initial.LocalFilepath, opts...)
 	des.GrpcEndpoint = canonicalizeClientTlsPolicyClientCertificateGrpcEndpoint(des.GrpcEndpoint, initial.GrpcEndpoint, opts...)
 	des.CertificateProviderInstance = canonicalizeClientTlsPolicyClientCertificateCertificateProviderInstance(des.CertificateProviderInstance, initial.CertificateProviderInstance, opts...)
 
@@ -638,7 +623,6 @@ func canonicalizeNewClientTlsPolicyClientCertificate(c *Client, des, nw *ClientT
 		return nw
 	}
 
-	nw.LocalFilepath = canonicalizeNewClientTlsPolicyClientCertificateLocalFilepath(c, des.LocalFilepath, nw.LocalFilepath)
 	nw.GrpcEndpoint = canonicalizeNewClientTlsPolicyClientCertificateGrpcEndpoint(c, des.GrpcEndpoint, nw.GrpcEndpoint)
 	nw.CertificateProviderInstance = canonicalizeNewClientTlsPolicyClientCertificateCertificateProviderInstance(c, des.CertificateProviderInstance, nw.CertificateProviderInstance)
 
@@ -683,86 +667,6 @@ func canonicalizeNewClientTlsPolicyClientCertificateSlice(c *Client, des, nw []C
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewClientTlsPolicyClientCertificate(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeClientTlsPolicyClientCertificateLocalFilepath(des, initial *ClientTlsPolicyClientCertificateLocalFilepath, opts ...dcl.ApplyOption) *ClientTlsPolicyClientCertificateLocalFilepath {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.CertificatePath, initial.CertificatePath) || dcl.IsZeroValue(des.CertificatePath) {
-		des.CertificatePath = initial.CertificatePath
-	}
-	if dcl.StringCanonicalize(des.PrivateKeyPath, initial.PrivateKeyPath) || dcl.IsZeroValue(des.PrivateKeyPath) {
-		des.PrivateKeyPath = initial.PrivateKeyPath
-	}
-
-	return des
-}
-
-func canonicalizeNewClientTlsPolicyClientCertificateLocalFilepath(c *Client, des, nw *ClientTlsPolicyClientCertificateLocalFilepath) *ClientTlsPolicyClientCertificateLocalFilepath {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.CertificatePath, nw.CertificatePath) {
-		nw.CertificatePath = des.CertificatePath
-	}
-	if dcl.StringCanonicalize(des.PrivateKeyPath, nw.PrivateKeyPath) {
-		nw.PrivateKeyPath = des.PrivateKeyPath
-	}
-
-	return nw
-}
-
-func canonicalizeNewClientTlsPolicyClientCertificateLocalFilepathSet(c *Client, des, nw []ClientTlsPolicyClientCertificateLocalFilepath) []ClientTlsPolicyClientCertificateLocalFilepath {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ClientTlsPolicyClientCertificateLocalFilepath
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareClientTlsPolicyClientCertificateLocalFilepathNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewClientTlsPolicyClientCertificateLocalFilepathSlice(c *Client, des, nw []ClientTlsPolicyClientCertificateLocalFilepath) []ClientTlsPolicyClientCertificateLocalFilepath {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []ClientTlsPolicyClientCertificateLocalFilepath
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewClientTlsPolicyClientCertificateLocalFilepath(c, &d, &n))
 	}
 
 	return items
@@ -928,9 +832,6 @@ func canonicalizeClientTlsPolicyServerValidationCa(des, initial *ClientTlsPolicy
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.CaCertPath, initial.CaCertPath) || dcl.IsZeroValue(des.CaCertPath) {
-		des.CaCertPath = initial.CaCertPath
-	}
 	des.GrpcEndpoint = canonicalizeClientTlsPolicyServerValidationCaGrpcEndpoint(des.GrpcEndpoint, initial.GrpcEndpoint, opts...)
 	des.CertificateProviderInstance = canonicalizeClientTlsPolicyServerValidationCaCertificateProviderInstance(des.CertificateProviderInstance, initial.CertificateProviderInstance, opts...)
 
@@ -942,9 +843,6 @@ func canonicalizeNewClientTlsPolicyServerValidationCa(c *Client, des, nw *Client
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.CaCertPath, nw.CaCertPath) {
-		nw.CaCertPath = des.CaCertPath
-	}
 	nw.GrpcEndpoint = canonicalizeNewClientTlsPolicyServerValidationCaGrpcEndpoint(c, des.GrpcEndpoint, nw.GrpcEndpoint)
 	nw.CertificateProviderInstance = canonicalizeNewClientTlsPolicyServerValidationCaCertificateProviderInstance(c, des.CertificateProviderInstance, nw.CertificateProviderInstance)
 
@@ -1341,13 +1239,6 @@ func compareClientTlsPolicyClientCertificateNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LocalFilepath, actual.LocalFilepath, dcl.Info{ObjectFunction: compareClientTlsPolicyClientCertificateLocalFilepathNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalFilepath")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.GrpcEndpoint, actual.GrpcEndpoint, dcl.Info{ObjectFunction: compareClientTlsPolicyClientCertificateGrpcEndpointNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GrpcEndpoint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1356,42 +1247,6 @@ func compareClientTlsPolicyClientCertificateNewStyle(d, a interface{}, fn dcl.Fi
 	}
 
 	if ds, err := dcl.Diff(desired.CertificateProviderInstance, actual.CertificateProviderInstance, dcl.Info{ObjectFunction: compareClientTlsPolicyClientCertificateCertificateProviderInstanceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CertificateProviderInstance")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareClientTlsPolicyClientCertificateLocalFilepathNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*ClientTlsPolicyClientCertificateLocalFilepath)
-	if !ok {
-		desiredNotPointer, ok := d.(ClientTlsPolicyClientCertificateLocalFilepath)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ClientTlsPolicyClientCertificateLocalFilepath or *ClientTlsPolicyClientCertificateLocalFilepath", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*ClientTlsPolicyClientCertificateLocalFilepath)
-	if !ok {
-		actualNotPointer, ok := a.(ClientTlsPolicyClientCertificateLocalFilepath)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ClientTlsPolicyClientCertificateLocalFilepath", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.CertificatePath, actual.CertificatePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CertificatePath")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.PrivateKeyPath, actual.PrivateKeyPath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateKeyPath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1476,13 +1331,6 @@ func compareClientTlsPolicyServerValidationCaNewStyle(d, a interface{}, fn dcl.F
 			return nil, fmt.Errorf("obj %v is not a ClientTlsPolicyServerValidationCa", a)
 		}
 		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.CaCertPath, actual.CaCertPath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CaCertPath")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
 	}
 
 	if ds, err := dcl.Diff(desired.GrpcEndpoint, actual.GrpcEndpoint, dcl.Info{ObjectFunction: compareClientTlsPolicyServerValidationCaGrpcEndpointNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GrpcEndpoint")); len(ds) != 0 || err != nil {
@@ -1789,11 +1637,6 @@ func expandClientTlsPolicyClientCertificate(c *Client, f *ClientTlsPolicyClientC
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandClientTlsPolicyClientCertificateLocalFilepath(c, f.LocalFilepath); err != nil {
-		return nil, fmt.Errorf("error expanding LocalFilepath into localFilepath: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["localFilepath"] = v
-	}
 	if v, err := expandClientTlsPolicyClientCertificateGrpcEndpoint(c, f.GrpcEndpoint); err != nil {
 		return nil, fmt.Errorf("error expanding GrpcEndpoint into grpcEndpoint: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1817,123 +1660,8 @@ func flattenClientTlsPolicyClientCertificate(c *Client, i interface{}) *ClientTl
 	}
 
 	r := &ClientTlsPolicyClientCertificate{}
-	r.LocalFilepath = flattenClientTlsPolicyClientCertificateLocalFilepath(c, m["localFilepath"])
 	r.GrpcEndpoint = flattenClientTlsPolicyClientCertificateGrpcEndpoint(c, m["grpcEndpoint"])
 	r.CertificateProviderInstance = flattenClientTlsPolicyClientCertificateCertificateProviderInstance(c, m["certificateProviderInstance"])
-
-	return r
-}
-
-// expandClientTlsPolicyClientCertificateLocalFilepathMap expands the contents of ClientTlsPolicyClientCertificateLocalFilepath into a JSON
-// request object.
-func expandClientTlsPolicyClientCertificateLocalFilepathMap(c *Client, f map[string]ClientTlsPolicyClientCertificateLocalFilepath) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandClientTlsPolicyClientCertificateLocalFilepath(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandClientTlsPolicyClientCertificateLocalFilepathSlice expands the contents of ClientTlsPolicyClientCertificateLocalFilepath into a JSON
-// request object.
-func expandClientTlsPolicyClientCertificateLocalFilepathSlice(c *Client, f []ClientTlsPolicyClientCertificateLocalFilepath) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandClientTlsPolicyClientCertificateLocalFilepath(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenClientTlsPolicyClientCertificateLocalFilepathMap flattens the contents of ClientTlsPolicyClientCertificateLocalFilepath from a JSON
-// response object.
-func flattenClientTlsPolicyClientCertificateLocalFilepathMap(c *Client, i interface{}) map[string]ClientTlsPolicyClientCertificateLocalFilepath {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ClientTlsPolicyClientCertificateLocalFilepath{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ClientTlsPolicyClientCertificateLocalFilepath{}
-	}
-
-	items := make(map[string]ClientTlsPolicyClientCertificateLocalFilepath)
-	for k, item := range a {
-		items[k] = *flattenClientTlsPolicyClientCertificateLocalFilepath(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenClientTlsPolicyClientCertificateLocalFilepathSlice flattens the contents of ClientTlsPolicyClientCertificateLocalFilepath from a JSON
-// response object.
-func flattenClientTlsPolicyClientCertificateLocalFilepathSlice(c *Client, i interface{}) []ClientTlsPolicyClientCertificateLocalFilepath {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ClientTlsPolicyClientCertificateLocalFilepath{}
-	}
-
-	if len(a) == 0 {
-		return []ClientTlsPolicyClientCertificateLocalFilepath{}
-	}
-
-	items := make([]ClientTlsPolicyClientCertificateLocalFilepath, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenClientTlsPolicyClientCertificateLocalFilepath(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandClientTlsPolicyClientCertificateLocalFilepath expands an instance of ClientTlsPolicyClientCertificateLocalFilepath into a JSON
-// request object.
-func expandClientTlsPolicyClientCertificateLocalFilepath(c *Client, f *ClientTlsPolicyClientCertificateLocalFilepath) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.CertificatePath; !dcl.IsEmptyValueIndirect(v) {
-		m["certificatePath"] = v
-	}
-	if v := f.PrivateKeyPath; !dcl.IsEmptyValueIndirect(v) {
-		m["privateKeyPath"] = v
-	}
-
-	return m, nil
-}
-
-// flattenClientTlsPolicyClientCertificateLocalFilepath flattens an instance of ClientTlsPolicyClientCertificateLocalFilepath from a JSON
-// response object.
-func flattenClientTlsPolicyClientCertificateLocalFilepath(c *Client, i interface{}) *ClientTlsPolicyClientCertificateLocalFilepath {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ClientTlsPolicyClientCertificateLocalFilepath{}
-	r.CertificatePath = dcl.FlattenString(m["certificatePath"])
-	r.PrivateKeyPath = dcl.FlattenString(m["privateKeyPath"])
 
 	return r
 }
@@ -2247,9 +1975,6 @@ func expandClientTlsPolicyServerValidationCa(c *Client, f *ClientTlsPolicyServer
 	}
 
 	m := make(map[string]interface{})
-	if v := f.CaCertPath; !dcl.IsEmptyValueIndirect(v) {
-		m["caCertPath"] = v
-	}
 	if v, err := expandClientTlsPolicyServerValidationCaGrpcEndpoint(c, f.GrpcEndpoint); err != nil {
 		return nil, fmt.Errorf("error expanding GrpcEndpoint into grpcEndpoint: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2273,7 +1998,6 @@ func flattenClientTlsPolicyServerValidationCa(c *Client, i interface{}) *ClientT
 	}
 
 	r := &ClientTlsPolicyServerValidationCa{}
-	r.CaCertPath = dcl.FlattenString(m["caCertPath"])
 	r.GrpcEndpoint = flattenClientTlsPolicyServerValidationCaGrpcEndpoint(c, m["grpcEndpoint"])
 	r.CertificateProviderInstance = flattenClientTlsPolicyServerValidationCaCertificateProviderInstance(c, m["certificateProviderInstance"])
 

@@ -15,6 +15,7 @@ package vpcaccess
 
 import (
 	"context"
+	"crypto/sha256"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -22,15 +23,19 @@ import (
 )
 
 type Connector struct {
-	Name          *string             `json:"name"`
-	Network       *string             `json:"network"`
-	IPCidrRange   *string             `json:"ipCidrRange"`
-	MinThroughput *int64              `json:"minThroughput"`
-	MaxThroughput *int64              `json:"maxThroughput"`
-	Project       *string             `json:"project"`
-	Location      *string             `json:"location"`
-	State         *ConnectorStateEnum `json:"state"`
-	SelfLink      *string             `json:"selfLink"`
+	Name              *string             `json:"name"`
+	Network           *string             `json:"network"`
+	IPCidrRange       *string             `json:"ipCidrRange"`
+	State             *ConnectorStateEnum `json:"state"`
+	MinThroughput     *int64              `json:"minThroughput"`
+	MaxThroughput     *int64              `json:"maxThroughput"`
+	ConnectedProjects []string            `json:"connectedProjects"`
+	Subnet            *ConnectorSubnet    `json:"subnet"`
+	MachineType       *string             `json:"machineType"`
+	MinInstances      *int64              `json:"minInstances"`
+	MaxInstances      *int64              `json:"maxInstances"`
+	Project           *string             `json:"project"`
+	Location          *string             `json:"location"`
 }
 
 func (r *Connector) String() string {
@@ -62,6 +67,28 @@ func (v ConnectorStateEnum) Validate() error {
 		Value: string(v),
 		Valid: []string{},
 	}
+}
+
+type ConnectorSubnet struct {
+	empty     bool    `json:"-"`
+	Name      *string `json:"name"`
+	ProjectId *string `json:"projectId"`
+}
+
+// This object is used to assert a desired state where this ConnectorSubnet is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyConnectorSubnet *ConnectorSubnet = &ConnectorSubnet{empty: true}
+
+func (r *ConnectorSubnet) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConnectorSubnet) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
 }
 
 // Describe returns a simple description of this resource to ensure that automated tools
@@ -156,12 +183,6 @@ func (c *Client) GetConnector(ctx context.Context, r *Connector) (*Connector, er
 	result.Project = r.Project
 	result.Location = r.Location
 	result.Name = r.Name
-	if dcl.IsZeroValue(result.MinThroughput) {
-		result.MinThroughput = dcl.Int64(200)
-	}
-	if dcl.IsZeroValue(result.MaxThroughput) {
-		result.MaxThroughput = dcl.Int64(1000)
-	}
 
 	c.Config.Logger.Infof("Retrieved raw result state: %v", result)
 	c.Config.Logger.Infof("Canonicalizing with specified state: %v", r)

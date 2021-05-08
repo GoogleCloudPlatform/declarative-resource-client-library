@@ -15,6 +15,16 @@ components:
   schemas:
     Connector:
       properties:
+        connectedProjects:
+          description: Output only. List of projects using the connector.
+          items:
+            type: string
+            x-dcl-go-type: string
+          readOnly: true
+          type: array
+          x-dcl-go-name: ConnectedProjects
+          x-dcl-list-type: list
+          x-kubernetes-immutable: true
         ipCidrRange:
           description: 'The range of internal addresses that follows RFC 4632 notation.
             Example: `10.132.0.0/28`.'
@@ -22,20 +32,38 @@ components:
           x-dcl-go-name: IPCidrRange
           x-kubernetes-immutable: true
         location:
-          description: The location for the resource - use GCP regions.
+          description: The location for the resource
           type: string
           x-dcl-go-name: Location
           x-kubernetes-immutable: true
+        machineType:
+          description: Machine type of VM Instance underlying connector. Default is
+            e2-micro
+          type: string
+          x-dcl-go-name: MachineType
+          x-kubernetes-immutable: true
+        maxInstances:
+          description: Maximum value of instances in autoscaling group underlying
+            the connector.
+          format: int64
+          type: integer
+          x-dcl-go-name: MaxInstances
+          x-kubernetes-immutable: true
         maxThroughput:
-          default: 1000
           description: Maximum throughput of the connector in Mbps. Default is 200,
             max is 1000.
           format: int64
           type: integer
           x-dcl-go-name: MaxThroughput
           x-kubernetes-immutable: true
+        minInstances:
+          description: Minimum value of instances in autoscaling group underlying
+            the connector.
+          format: int64
+          type: integer
+          x-dcl-go-name: MinInstances
+          x-kubernetes-immutable: true
         minThroughput:
-          default: 200
           description: Minimum throughput of the connector in Mbps. Default and min
             is 200.
           format: int64
@@ -51,6 +79,9 @@ components:
           description: Name of a VPC network.
           type: string
           x-dcl-go-name: Network
+          x-dcl-references:
+          - field: name
+            resource: Compute/Network
           x-kubernetes-immutable: true
         project:
           description: The project for the resource
@@ -60,13 +91,6 @@ components:
           - field: name
             parent: true
             resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        selfLink:
-          description: '[Output Only] Server-defined fully-qualified URL for this
-            resource.'
-          readOnly: true
-          type: string
-          x-dcl-go-name: SelfLink
           x-kubernetes-immutable: true
         state:
           description: 'Output only. State of the VPC access connector. Possible values:
@@ -83,10 +107,29 @@ components:
           x-dcl-go-name: State
           x-dcl-go-type: ConnectorStateEnum
           x-kubernetes-immutable: true
+        subnet:
+          description: The subnet in which to house the VPC Access Connector.
+          properties:
+            name:
+              description: Subnet name (relative, not fully qualified). E.g. if the
+                full subnet selfLink is https://compute.googleapis.com/compute/v1/projects/{project}/regions/{region}/subnetworks/{subnetName}
+                the correct input for this field would be {subnetName}
+              type: string
+              x-dcl-go-name: Name
+              x-kubernetes-immutable: true
+            projectId:
+              description: Project in which the subnet exists. If not set, this project
+                is assumed to be the project for which the connector create request
+                was issued.
+              type: string
+              x-dcl-go-name: ProjectId
+              x-kubernetes-immutable: true
+          type: object
+          x-dcl-go-name: Subnet
+          x-dcl-go-type: ConnectorSubnet
+          x-kubernetes-immutable: true
       required:
       - name
-      - network
-      - ipCidrRange
       - project
       - location
       title: Connector

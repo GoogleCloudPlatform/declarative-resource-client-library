@@ -31,21 +31,8 @@ func ProtoToNetworksecurityBetaServerTlsPolicyServerCertificate(p *betapb.Networ
 		return nil
 	}
 	obj := &beta.ServerTlsPolicyServerCertificate{
-		LocalFilepath:               ProtoToNetworksecurityBetaServerTlsPolicyServerCertificateLocalFilepath(p.GetLocalFilepath()),
 		GrpcEndpoint:                ProtoToNetworksecurityBetaServerTlsPolicyServerCertificateGrpcEndpoint(p.GetGrpcEndpoint()),
 		CertificateProviderInstance: ProtoToNetworksecurityBetaServerTlsPolicyServerCertificateCertificateProviderInstance(p.GetCertificateProviderInstance()),
-	}
-	return obj
-}
-
-// ProtoToServerTlsPolicyServerCertificateLocalFilepath converts a ServerTlsPolicyServerCertificateLocalFilepath resource from its proto representation.
-func ProtoToNetworksecurityBetaServerTlsPolicyServerCertificateLocalFilepath(p *betapb.NetworksecurityBetaServerTlsPolicyServerCertificateLocalFilepath) *beta.ServerTlsPolicyServerCertificateLocalFilepath {
-	if p == nil {
-		return nil
-	}
-	obj := &beta.ServerTlsPolicyServerCertificateLocalFilepath{
-		CertificatePath: dcl.StringOrNil(p.CertificatePath),
-		PrivateKeyPath:  dcl.StringOrNil(p.PrivateKeyPath),
 	}
 	return obj
 }
@@ -90,7 +77,6 @@ func ProtoToNetworksecurityBetaServerTlsPolicyMtlsPolicyClientValidationCa(p *be
 		return nil
 	}
 	obj := &beta.ServerTlsPolicyMtlsPolicyClientValidationCa{
-		CaCertPath:                  dcl.StringOrNil(p.CaCertPath),
 		GrpcEndpoint:                ProtoToNetworksecurityBetaServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(p.GetGrpcEndpoint()),
 		CertificateProviderInstance: ProtoToNetworksecurityBetaServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(p.GetCertificateProviderInstance()),
 	}
@@ -141,21 +127,8 @@ func NetworksecurityBetaServerTlsPolicyServerCertificateToProto(o *beta.ServerTl
 		return nil
 	}
 	p := &betapb.NetworksecurityBetaServerTlsPolicyServerCertificate{
-		LocalFilepath:               NetworksecurityBetaServerTlsPolicyServerCertificateLocalFilepathToProto(o.LocalFilepath),
 		GrpcEndpoint:                NetworksecurityBetaServerTlsPolicyServerCertificateGrpcEndpointToProto(o.GrpcEndpoint),
 		CertificateProviderInstance: NetworksecurityBetaServerTlsPolicyServerCertificateCertificateProviderInstanceToProto(o.CertificateProviderInstance),
-	}
-	return p
-}
-
-// ServerTlsPolicyServerCertificateLocalFilepathToProto converts a ServerTlsPolicyServerCertificateLocalFilepath resource to its proto representation.
-func NetworksecurityBetaServerTlsPolicyServerCertificateLocalFilepathToProto(o *beta.ServerTlsPolicyServerCertificateLocalFilepath) *betapb.NetworksecurityBetaServerTlsPolicyServerCertificateLocalFilepath {
-	if o == nil {
-		return nil
-	}
-	p := &betapb.NetworksecurityBetaServerTlsPolicyServerCertificateLocalFilepath{
-		CertificatePath: dcl.ValueOrEmptyString(o.CertificatePath),
-		PrivateKeyPath:  dcl.ValueOrEmptyString(o.PrivateKeyPath),
 	}
 	return p
 }
@@ -200,7 +173,6 @@ func NetworksecurityBetaServerTlsPolicyMtlsPolicyClientValidationCaToProto(o *be
 		return nil
 	}
 	p := &betapb.NetworksecurityBetaServerTlsPolicyMtlsPolicyClientValidationCa{
-		CaCertPath:                  dcl.ValueOrEmptyString(o.CaCertPath),
 		GrpcEndpoint:                NetworksecurityBetaServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpointToProto(o.GrpcEndpoint),
 		CertificateProviderInstance: NetworksecurityBetaServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstanceToProto(o.CertificateProviderInstance),
 	}

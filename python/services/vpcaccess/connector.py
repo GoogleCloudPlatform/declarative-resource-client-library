@@ -24,12 +24,16 @@ class Connector(object):
         name: str = None,
         network: str = None,
         ip_cidr_range: str = None,
+        state: str = None,
         min_throughput: int = None,
         max_throughput: int = None,
+        connected_projects: list = None,
+        subnet: dict = None,
+        machine_type: str = None,
+        min_instances: int = None,
+        max_instances: int = None,
         project: str = None,
         location: str = None,
-        state: str = None,
-        self_link: str = None,
         service_account_file: str = "",
     ):
 
@@ -39,6 +43,10 @@ class Connector(object):
         self.ip_cidr_range = ip_cidr_range
         self.min_throughput = min_throughput
         self.max_throughput = max_throughput
+        self.subnet = subnet
+        self.machine_type = machine_type
+        self.min_instances = min_instances
+        self.max_instances = max_instances
         self.project = project
         self.location = location
         self.service_account_file = service_account_file
@@ -61,6 +69,19 @@ class Connector(object):
         if Primitive.to_proto(self.max_throughput):
             request.resource.max_throughput = Primitive.to_proto(self.max_throughput)
 
+        if ConnectorSubnet.to_proto(self.subnet):
+            request.resource.subnet.CopyFrom(ConnectorSubnet.to_proto(self.subnet))
+        else:
+            request.resource.ClearField("subnet")
+        if Primitive.to_proto(self.machine_type):
+            request.resource.machine_type = Primitive.to_proto(self.machine_type)
+
+        if Primitive.to_proto(self.min_instances):
+            request.resource.min_instances = Primitive.to_proto(self.min_instances)
+
+        if Primitive.to_proto(self.max_instances):
+            request.resource.max_instances = Primitive.to_proto(self.max_instances)
+
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -73,12 +94,16 @@ class Connector(object):
         self.name = Primitive.from_proto(response.name)
         self.network = Primitive.from_proto(response.network)
         self.ip_cidr_range = Primitive.from_proto(response.ip_cidr_range)
+        self.state = ConnectorStateEnum.from_proto(response.state)
         self.min_throughput = Primitive.from_proto(response.min_throughput)
         self.max_throughput = Primitive.from_proto(response.max_throughput)
+        self.connected_projects = Primitive.from_proto(response.connected_projects)
+        self.subnet = ConnectorSubnet.from_proto(response.subnet)
+        self.machine_type = Primitive.from_proto(response.machine_type)
+        self.min_instances = Primitive.from_proto(response.min_instances)
+        self.max_instances = Primitive.from_proto(response.max_instances)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
-        self.state = ConnectorStateEnum.from_proto(response.state)
-        self.self_link = Primitive.from_proto(response.self_link)
 
     def delete(self):
         stub = connector_pb2_grpc.VpcaccessConnectorServiceStub(channel.Channel())
@@ -98,6 +123,19 @@ class Connector(object):
 
         if Primitive.to_proto(self.max_throughput):
             request.resource.max_throughput = Primitive.to_proto(self.max_throughput)
+
+        if ConnectorSubnet.to_proto(self.subnet):
+            request.resource.subnet.CopyFrom(ConnectorSubnet.to_proto(self.subnet))
+        else:
+            request.resource.ClearField("subnet")
+        if Primitive.to_proto(self.machine_type):
+            request.resource.machine_type = Primitive.to_proto(self.machine_type)
+
+        if Primitive.to_proto(self.min_instances):
+            request.resource.min_instances = Primitive.to_proto(self.min_instances)
+
+        if Primitive.to_proto(self.max_instances):
+            request.resource.max_instances = Primitive.to_proto(self.max_instances)
 
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
@@ -130,11 +168,58 @@ class Connector(object):
             resource.min_throughput = Primitive.to_proto(self.min_throughput)
         if Primitive.to_proto(self.max_throughput):
             resource.max_throughput = Primitive.to_proto(self.max_throughput)
+        if ConnectorSubnet.to_proto(self.subnet):
+            resource.subnet.CopyFrom(ConnectorSubnet.to_proto(self.subnet))
+        else:
+            resource.ClearField("subnet")
+        if Primitive.to_proto(self.machine_type):
+            resource.machine_type = Primitive.to_proto(self.machine_type)
+        if Primitive.to_proto(self.min_instances):
+            resource.min_instances = Primitive.to_proto(self.min_instances)
+        if Primitive.to_proto(self.max_instances):
+            resource.max_instances = Primitive.to_proto(self.max_instances)
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
         return resource
+
+
+class ConnectorSubnet(object):
+    def __init__(self, name: str = None, project_id: str = None):
+        self.name = name
+        self.project_id = project_id
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = connector_pb2.VpcaccessConnectorSubnet()
+        if Primitive.to_proto(resource.name):
+            res.name = Primitive.to_proto(resource.name)
+        if Primitive.to_proto(resource.project_id):
+            res.project_id = Primitive.to_proto(resource.project_id)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ConnectorSubnet(name=resource.name, project_id=resource.project_id,)
+
+
+class ConnectorSubnetArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ConnectorSubnet.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ConnectorSubnet.from_proto(i) for i in resources]
 
 
 class ConnectorStateEnum(object):

@@ -42,7 +42,6 @@ func (r *ClientTlsPolicy) String() string {
 
 type ClientTlsPolicyClientCertificate struct {
 	empty                       bool                                                         `json:"-"`
-	LocalFilepath               *ClientTlsPolicyClientCertificateLocalFilepath               `json:"localFilepath"`
 	GrpcEndpoint                *ClientTlsPolicyClientCertificateGrpcEndpoint                `json:"grpcEndpoint"`
 	CertificateProviderInstance *ClientTlsPolicyClientCertificateCertificateProviderInstance `json:"certificateProviderInstance"`
 }
@@ -57,28 +56,6 @@ func (r *ClientTlsPolicyClientCertificate) String() string {
 }
 
 func (r *ClientTlsPolicyClientCertificate) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type ClientTlsPolicyClientCertificateLocalFilepath struct {
-	empty           bool    `json:"-"`
-	CertificatePath *string `json:"certificatePath"`
-	PrivateKeyPath  *string `json:"privateKeyPath"`
-}
-
-// This object is used to assert a desired state where this ClientTlsPolicyClientCertificateLocalFilepath is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyClientTlsPolicyClientCertificateLocalFilepath *ClientTlsPolicyClientCertificateLocalFilepath = &ClientTlsPolicyClientCertificateLocalFilepath{empty: true}
-
-func (r *ClientTlsPolicyClientCertificateLocalFilepath) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ClientTlsPolicyClientCertificateLocalFilepath) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -129,7 +106,6 @@ func (r *ClientTlsPolicyClientCertificateCertificateProviderInstance) HashCode()
 
 type ClientTlsPolicyServerValidationCa struct {
 	empty                       bool                                                          `json:"-"`
-	CaCertPath                  *string                                                       `json:"caCertPath"`
 	GrpcEndpoint                *ClientTlsPolicyServerValidationCaGrpcEndpoint                `json:"grpcEndpoint"`
 	CertificateProviderInstance *ClientTlsPolicyServerValidationCaCertificateProviderInstance `json:"certificateProviderInstance"`
 }

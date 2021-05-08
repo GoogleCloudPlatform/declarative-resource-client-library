@@ -246,22 +246,6 @@ func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate) validate() e
 	return nil
 }
 func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -336,22 +320,6 @@ func (r *InstanceCreateRecipeStepsKeyNotificationsUpdate) validate() error {
 	return nil
 }
 func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -426,22 +394,6 @@ func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdate) validate() error {
 	return nil
 }
 func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -516,22 +468,6 @@ func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdate) validate() error {
 	return nil
 }
 func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -606,22 +542,6 @@ func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate) validate() er
 	return nil
 }
 func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -696,22 +616,6 @@ func (r *InstanceResetRecipeStepsKeyNotificationsUpdate) validate() error {
 	return nil
 }
 func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -786,22 +690,6 @@ func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate) validate() e
 	return nil
 }
 func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -876,22 +764,6 @@ func (r *InstanceRepairRecipeStepsKeyNotificationsUpdate) validate() error {
 	return nil
 }
 func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -966,22 +838,6 @@ func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate) validate() e
 	return nil
 }
 func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -1056,22 +912,6 @@ func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate) validate() e
 	return nil
 }
 func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -1146,22 +986,6 @@ func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate) validate() e
 	return nil
 }
 func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -1236,22 +1060,6 @@ func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdate) validate() error {
 	return nil
 }
 func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -1326,22 +1134,6 @@ func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate) validate()
 	return nil
 }
 func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -1416,22 +1208,6 @@ func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate) validate() error {
 	return nil
 }
 func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -1506,22 +1282,6 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate
 	return nil
 }
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -1596,22 +1356,6 @@ func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate) validate
 	return nil
 }
 func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -1686,22 +1430,6 @@ func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate) validate() erro
 	return nil
 }
 func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -1776,22 +1504,6 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate) validate()
 	return nil
 }
 func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -1866,22 +1578,6 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate) validate
 	return nil
 }
 func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -1956,22 +1652,6 @@ func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdate) validate() error {
 	return nil
 }
 func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -2046,22 +1726,6 @@ func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdate) validate() error {
 	return nil
 }
 func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -2136,22 +1800,6 @@ func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate) validat
 	return nil
 }
 func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -2226,22 +1874,6 @@ func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate) validate(
 	return nil
 }
 func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfigs) {
-		if err := r.KeyConfigs.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.KeyConfig) {
-		if err := r.KeyConfig.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) validate() error {
 	return nil
 }
 func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) validate() error {
@@ -4523,7 +4155,6 @@ func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -4542,7 +4173,6 @@ func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKey
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -4592,162 +4222,6 @@ func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKey
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -5831,7 +5305,6 @@ func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -5850,7 +5323,6 @@ func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificati
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -5900,162 +5372,6 @@ func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificati
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -7139,7 +6455,6 @@ func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -7158,7 +6473,6 @@ func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificati
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -7208,162 +6522,6 @@ func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificati
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -8447,7 +7605,6 @@ func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -8466,7 +7623,6 @@ func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificati
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -8516,162 +7672,6 @@ func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificati
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -9755,7 +8755,6 @@ func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNoti
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -9774,7 +8773,6 @@ func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyN
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -9824,162 +8822,6 @@ func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyN
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -11063,7 +9905,6 @@ func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -11082,7 +9923,6 @@ func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -11132,162 +9972,6 @@ func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -12371,7 +11055,6 @@ func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -12390,7 +11073,6 @@ func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKey
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -12440,162 +11122,6 @@ func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKey
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -13679,7 +12205,6 @@ func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -13698,7 +12223,6 @@ func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificati
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -13748,162 +12272,6 @@ func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificati
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -14987,7 +13355,6 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -15006,7 +13373,6 @@ func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKey
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -15056,162 +13422,6 @@ func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKey
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -16295,7 +14505,6 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -16314,7 +14523,6 @@ func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKey
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -16364,162 +14572,6 @@ func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKey
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -17603,7 +15655,6 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNot
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -17622,7 +15673,6 @@ func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKey
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -17672,162 +15722,6 @@ func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKey
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -18911,7 +16805,6 @@ func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotifications
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -18930,7 +16823,6 @@ func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificati
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -18980,162 +16872,6 @@ func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificati
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -20219,7 +17955,6 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyN
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -20238,7 +17973,6 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateK
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -20288,162 +18022,6 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateK
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -21527,7 +19105,6 @@ func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificatio
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -21546,7 +19123,6 @@ func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -21596,162 +19172,6 @@ func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -22835,7 +20255,6 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificatio
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -22854,7 +20273,6 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotifica
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -22904,162 +20322,6 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotifica
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -24143,7 +21405,6 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKe
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -24162,7 +21423,6 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdat
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -24212,162 +21472,6 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdat
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -25451,7 +22555,6 @@ func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotifi
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -25470,7 +22573,6 @@ func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNot
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -25520,162 +22622,6 @@ func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNot
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -26759,7 +23705,6 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyN
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -26778,7 +23723,6 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateK
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -26828,162 +23772,6 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateK
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -28067,7 +24855,6 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKe
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -28086,7 +24873,6 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdat
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -28136,162 +24922,6 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdat
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -29375,7 +26005,6 @@ func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificatio
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -29394,7 +26023,6 @@ func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotifica
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -29444,162 +26072,6 @@ func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotifica
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -30683,7 +27155,6 @@ func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificati
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -30702,7 +27173,6 @@ func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotific
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -30752,162 +27222,6 @@ func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotific
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -31991,7 +28305,6 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateK
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -32010,7 +28323,6 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpda
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -32060,162 +28372,6 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpda
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -33299,7 +29455,6 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKey
 		return des
 	}
 
-	des.KeyConfigs = canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des.KeyConfigs, initial.KeyConfigs, opts...)
 	if dcl.IsZeroValue(des.DataVersion) {
 		des.DataVersion = initial.DataVersion
 	}
@@ -33318,7 +29473,6 @@ func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate
 		return nw
 	}
 
-	nw.KeyConfigs = canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, des.KeyConfigs, nw.KeyConfigs)
 	if dcl.IsZeroValue(nw.DataVersion) {
 		nw.DataVersion = des.DataVersion
 	}
@@ -33368,162 +29522,6 @@ func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(des, initial *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, opts ...dcl.ApplyOption) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.KeyConfig = canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des.KeyConfig, initial.KeyConfig, opts...)
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.KeyConfig = canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, des.KeyConfig, nw.KeyConfig)
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSet(c *Client, des, nw []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, des, nw []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(des, initial *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, opts ...dcl.ApplyOption) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, initial.KeyOrVersionName) || dcl.IsZeroValue(des.KeyOrVersionName) {
-		des.KeyOrVersionName = initial.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, initial.Grant) || dcl.IsZeroValue(des.Grant) {
-		des.Grant = initial.Grant
-	}
-	if dcl.IsZeroValue(des.DelegatorGaiaId) {
-		des.DelegatorGaiaId = initial.DelegatorGaiaId
-	}
-
-	return des
-}
-
-func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, des, nw *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.KeyOrVersionName, nw.KeyOrVersionName) {
-		nw.KeyOrVersionName = des.KeyOrVersionName
-	}
-	if dcl.StringCanonicalize(des.Grant, nw.Grant) {
-		nw.Grant = des.Grant
-	}
-	if dcl.IsZeroValue(nw.DelegatorGaiaId) {
-		nw.DelegatorGaiaId = des.DelegatorGaiaId
-	}
-
-	return nw
-}
-
-func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSet(c *Client, des, nw []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, des, nw []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &d, &n))
 	}
 
 	return items
@@ -35123,13 +31121,6 @@ func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -35145,78 +31136,6 @@ func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35845,13 +31764,6 @@ func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -35867,78 +31779,6 @@ func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36567,13 +32407,6 @@ func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -36589,78 +32422,6 @@ func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37289,13 +33050,6 @@ func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -37311,78 +33065,6 @@ func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38011,13 +33693,6 @@ func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -38033,78 +33708,6 @@ func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38733,13 +34336,6 @@ func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -38755,78 +34351,6 @@ func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNe
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39455,13 +34979,6 @@ func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -39477,78 +34994,6 @@ func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40177,13 +35622,6 @@ func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -40199,78 +35637,6 @@ func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40899,13 +36265,6 @@ func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -40921,78 +36280,6 @@ func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41621,13 +36908,6 @@ func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -41643,78 +36923,6 @@ func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42343,13 +37551,6 @@ func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -42365,78 +37566,6 @@ func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43065,13 +38194,6 @@ func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -43087,78 +38209,6 @@ func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43787,13 +38837,6 @@ func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -43809,78 +38852,6 @@ func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44509,13 +39480,6 @@ func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -44531,78 +39495,6 @@ func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45231,13 +40123,6 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpd
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -45253,78 +40138,6 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpd
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45953,13 +40766,6 @@ func compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNoti
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -45975,78 +40781,6 @@ func compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNoti
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -46675,13 +41409,6 @@ func compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -46697,78 +41424,6 @@ func compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -47397,13 +42052,6 @@ func compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotifi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -47419,78 +42067,6 @@ func compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotifi
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -48119,13 +42695,6 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNoti
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -48141,78 +42710,6 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNoti
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -48841,13 +43338,6 @@ func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -48863,78 +43353,6 @@ func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -49563,13 +43981,6 @@ func compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -49585,78 +43996,6 @@ func compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -50285,13 +44624,6 @@ func compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNot
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -50307,78 +44639,6 @@ func compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNot
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -51007,13 +45267,6 @@ func compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotif
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyConfigs, actual.KeyConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -51029,78 +45282,6 @@ func compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotif
 	}
 
 	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs or *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyConfig, actual.KeyConfig, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyConfig")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		desiredNotPointer, ok := d.(InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig or *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	if !ok {
-		actualNotPointer, ok := a.(InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -53499,11 +47680,6 @@ func expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificat
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -53528,240 +47704,9 @@ func flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -55343,11 +49288,6 @@ func expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -55372,240 +49312,9 @@ func flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
 	}
 
 	r := &InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -57187,11 +50896,6 @@ func expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -57216,240 +50920,9 @@ func flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
 	}
 
 	r := &InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -59031,11 +52504,6 @@ func expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -59060,240 +52528,9 @@ func flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
 	}
 
 	r := &InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -60875,11 +54112,6 @@ func expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificati
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -60904,240 +54136,9 @@ func flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 	}
 
 	r := &InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -62719,11 +55720,6 @@ func expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c 
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -62748,240 +55744,9 @@ func flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c
 	}
 
 	r := &InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -64563,11 +57328,6 @@ func expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificat
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -64592,240 +57352,9 @@ func flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -66407,11 +58936,6 @@ func expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -66436,240 +58960,9 @@ func flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
 	}
 
 	r := &InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -68251,11 +60544,6 @@ func expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificat
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -68280,240 +60568,9 @@ func flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -70095,11 +62152,6 @@ func expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificat
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -70124,240 +62176,9 @@ func flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -71939,11 +63760,6 @@ func expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificat
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -71968,240 +63784,9 @@ func flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -73783,11 +65368,6 @@ func expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -73812,240 +65392,9 @@ func flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
 	}
 
 	r := &InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -75627,11 +66976,6 @@ func expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotific
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -75656,240 +67000,9 @@ func flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 	}
 
 	r := &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -77471,11 +68584,6 @@ func expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -77500,240 +68608,9 @@ func flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	}
 
 	r := &InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -79315,11 +70192,6 @@ func expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpda
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -79344,240 +70216,9 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpd
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -81159,11 +71800,6 @@ func expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotif
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -81188,240 +71824,9 @@ func flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNoti
 	}
 
 	r := &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -83003,11 +73408,6 @@ func expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotification
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -83032,240 +73432,9 @@ func flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	}
 
 	r := &InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -84847,11 +75016,6 @@ func expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotific
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -84876,240 +75040,9 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotifi
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -86691,11 +76624,6 @@ func expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotif
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -86720,240 +76648,9 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNoti
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -88535,11 +78232,6 @@ func expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -88564,240 +78256,9 @@ func flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	}
 
 	r := &InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -90379,11 +79840,6 @@ func expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -90408,240 +79864,9 @@ func flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	}
 
 	r := &InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -92223,11 +81448,6 @@ func expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNoti
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -92252,240 +81472,9 @@ func flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNot
 	}
 
 	r := &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
@@ -94067,11 +83056,6 @@ func expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotifi
 	}
 
 	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, f.KeyConfigs); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfigs into keyConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfigs"] = v
-	}
 	if v := f.DataVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["dataVersion"] = v
 	}
@@ -94096,240 +83080,9 @@ func flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotif
 	}
 
 	r := &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
-	r.KeyConfigs = flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, m["keyConfigs"])
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
-
-	return r
-}
-
-// expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap expands the contents of InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, f map[string]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice expands the contents of InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, f []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap flattens the contents of InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsMap(c *Client, i interface{}) map[string]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make(map[string]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice flattens the contents of InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsSlice(c *Client, i interface{}) []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	}
-
-	items := make([]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs expands an instance of InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs into a JSON
-// request object.
-func expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, f *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, f.KeyConfig); err != nil {
-		return nil, fmt.Errorf("error expanding KeyConfig into keyConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["keyConfig"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs flattens an instance of InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs from a JSON
-// response object.
-func flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs(c *Client, i interface{}) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigs{}
-	r.KeyConfig = flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, m["keyConfig"])
-
-	return r
-}
-
-// expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap expands the contents of InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, f map[string]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice expands the contents of InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, f []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap flattens the contents of InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigMap(c *Client, i interface{}) map[string]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return map[string]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make(map[string]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig)
-	for k, item := range a {
-		items[k] = *flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice flattens the contents of InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfigSlice(c *Client, i interface{}) []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	if len(a) == 0 {
-		return []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	}
-
-	items := make([]InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig expands an instance of InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig into a JSON
-// request object.
-func expandInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, f *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.KeyOrVersionName; !dcl.IsEmptyValueIndirect(v) {
-		m["keyOrVersionName"] = v
-	}
-	if v := f.Grant; !dcl.IsEmptyValueIndirect(v) {
-		m["grant"] = v
-	}
-	if v := f.DelegatorGaiaId; !dcl.IsEmptyValueIndirect(v) {
-		m["delegatorGaiaId"] = v
-	}
-
-	return m, nil
-}
-
-// flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig flattens an instance of InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig from a JSON
-// response object.
-func flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig(c *Client, i interface{}) *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyConfigsKeyConfig{}
-	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
-	r.Grant = dcl.FlattenString(m["grant"])
-	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
 
 	return r
 }
